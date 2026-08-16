@@ -1,0 +1,4 @@
+# Local planning and agent-operating documentation.
+# These files are intentionally available only in this checkout.
+/AGENTS.md
+/.agent-docs/
