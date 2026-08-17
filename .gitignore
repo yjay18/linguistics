@@ -2,3 +2,17 @@
 # These files are intentionally available only in this checkout.
 /AGENTS.md
 /.agent-docs/
+
+# Repository-local .NET SDK and generated build output.
+/.dotnet/
+/.dotnet-home/
+/.nuget/
+**/bin/
+**/obj/
+
+# Local application data and IDE state.
+/.app-data/
+/.idea/
+/.vs/
+*.user
+*.suo
