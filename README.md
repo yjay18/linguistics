@@ -23,3 +23,6 @@ The app requires no account, backend, analytics service, or network connection a
 - `src/Linguistics.App`: Avalonia desktop application and platform integration.
 - `src/Linguistics.Core`: UI-independent deterministic domain code.
 - `tests/Linguistics.Core.Tests`: core unit tests.
+- `tests/Linguistics.App.Tests`: persistence and application-boundary tests.
+
+Learner-profile storage locations, schema behavior, and deletion scope are documented in [`docs/storage.md`](docs/storage.md).
