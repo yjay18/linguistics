@@ -12,86 +12,38 @@
         MinWidth="840"
         MinHeight="560"
         WindowStartupLocation="CenterScreen">
-    <Grid ColumnDefinitions="240,*">
-        <Border Grid.Column="0"
-                Padding="20,24"
+    <Grid>
+        <ContentControl x:Name="RootContent"
+                        AutomationProperties.AutomationId="RootContent" />
+
+        <Border x:Name="StartupStatus"
                 Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                AutomationProperties.LandmarkType="Navigation">
-            <Grid RowDefinitions="Auto,Auto,*">
-                <TextBlock Grid.Row="0"
-                           Text="Linguistics"
+                AutomationProperties.LandmarkType="Main">
+            <StackPanel Width="420"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="14">
+                <ProgressBar x:Name="StartupProgress"
+                             IsIndeterminate="True"
+                             AutomationProperties.Name="Opening Linguistics" />
+                <TextBlock x:Name="StartupTitle"
+                           Text="Opening Linguistics"
                            FontSize="26"
                            FontWeight="SemiBold"
+                           TextAlignment="Center"
                            AutomationProperties.HeadingLevel="1" />
-                <TextBlock Grid.Row="1"
-                           Margin="0,4,0,20"
-                           Text="Local-first language learning"
+                <TextBlock x:Name="StartupMessage"
+                           Text="Loading your local learning profile."
+                           TextAlignment="Center"
                            TextWrapping="Wrap"
-                           Opacity="0.72" />
-                <ListBox x:Name="NavigationList"
-                         Grid.Row="2"
-                         SelectionMode="Single"
-                         AutomationProperties.Name="Main navigation"
-                         AutomationProperties.AutomationId="MainNavigation">
-                    <ListBoxItem Content="Today"
-                                 Tag="Your daily learning plan will appear after the curriculum is implemented."
-                                 AutomationProperties.AutomationId="NavToday" />
-                    <ListBoxItem Content="Learn"
-                                 Tag="Structured lessons arrive with the deterministic curriculum."
-                                 AutomationProperties.AutomationId="NavLearn" />
-                    <ListBoxItem Content="Scenarios"
-                                 Tag="Communicative scenarios are planned for a later milestone."
-                                 AutomationProperties.AutomationId="NavScenarios" />
-                    <ListBoxItem Content="Pronunciation"
-                                 Tag="Local speech and pronunciation practice are not installed yet."
-                                 AutomationProperties.AutomationId="NavPronunciation" />
-                    <ListBoxItem Content="Review"
-                                 Tag="Review becomes available after there is learning progress to schedule."
-                                 AutomationProperties.AutomationId="NavReview" />
-                    <ListBoxItem Content="Progress"
-                                 Tag="Capability-based progress appears after the first learning task."
-                                 AutomationProperties.AutomationId="NavProgress" />
-                    <ListBoxItem Content="Languages"
-                                 Tag="Your target and known languages will be editable after onboarding."
-                                 AutomationProperties.AutomationId="NavLanguages" />
-                    <ListBoxItem Content="Settings"
-                                 Tag="Language and privacy preferences will be available in this foundation milestone."
-                                 AutomationProperties.AutomationId="NavSettings" />
-                </ListBox>
-            </Grid>
-        </Border>
-
-        <ScrollViewer Grid.Column="1"
-                      HorizontalScrollBarVisibility="Disabled"
-                      AutomationProperties.LandmarkType="Main">
-            <StackPanel Margin="48"
-                        MaxWidth="720"
-                        HorizontalAlignment="Left"
-                        Spacing="20">
-                <TextBlock x:Name="PageTitle"
-                           FontSize="32"
-                           FontWeight="SemiBold"
-                           AutomationProperties.HeadingLevel="1"
-                           AutomationProperties.AutomationId="PageTitle" />
-                <Border Padding="24"
-                        CornerRadius="12"
-                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
-                    <StackPanel Spacing="10">
-                        <TextBlock Text="Not available yet"
-                                   FontSize="18"
-                                   FontWeight="SemiBold"
-                                   AutomationProperties.HeadingLevel="2" />
-                        <TextBlock x:Name="PageDescription"
-                                   TextWrapping="Wrap"
-                                   LineHeight="22"
-                                   AutomationProperties.AutomationId="PageDescription" />
-                        <TextBlock Text="The core app remains usable without an account, backend, model, microphone, or network connection."
-                                   Margin="0,8,0,0"
-                                   TextWrapping="Wrap"
-                                   Opacity="0.72" />
-                    </StackPanel>
-                </Border>
+                           AutomationProperties.LiveSetting="Polite" />
+                <Button x:Name="RetryButton"
+                        Content="Try again"
+                        HorizontalAlignment="Center"
+                        IsVisible="False"
+                        Click="OnRetryClicked"
+                        AutomationProperties.AutomationId="RetryStartup" />
             </StackPanel>
-        </ScrollViewer>
+        </Border>
     </Grid>
 </Window>

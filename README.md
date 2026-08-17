@@ -18,6 +18,8 @@ dotnet run --project src/Linguistics.App --no-build
 
 The app requires no account, backend, analytics service, or network connection at runtime.
 
+Milestone 1 currently provides the cross-platform desktop shell and a seven-step local onboarding flow for German with optional English and Hindi support. Learning, scenarios, pronunciation, review, and progress remain honest unavailable states until their later milestones.
+
 ## Project layout
 
 - `src/Linguistics.App`: Avalonia desktop application and platform integration.

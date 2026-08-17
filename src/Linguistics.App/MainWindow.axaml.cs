@@ -1,24 +1,94 @@
 using Avalonia.Controls;
+using Linguistics.App.Features.Onboarding;
+using Linguistics.App.Features.Shell;
+using Linguistics.Core.Profiles;
 
 namespace Linguistics.App;
 
 public partial class MainWindow : Window
 {
+    private LearnerProfileOwner? _profileOwner;
+    private CancellationTokenSource? _loadCancellation;
+
     public MainWindow()
     {
         InitializeComponent();
-        NavigationList.SelectionChanged += OnNavigationChanged;
-        NavigationList.SelectedIndex = 0;
     }
 
-    private void OnNavigationChanged(object? sender, SelectionChangedEventArgs args)
+    public MainWindow(LearnerProfileOwner profileOwner)
+        : this()
     {
-        if (NavigationList.SelectedItem is not ListBoxItem item)
+        _profileOwner = profileOwner;
+        Opened += OnOpened;
+        Closed += OnClosed;
+    }
+
+    private async void OnOpened(object? sender, EventArgs args)
+    {
+        Opened -= OnOpened;
+        await LoadProfileAsync();
+    }
+
+    private async void OnRetryClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args) =>
+        await LoadProfileAsync();
+
+    private async Task LoadProfileAsync()
+    {
+        if (_profileOwner is null)
         {
             return;
         }
 
-        PageTitle.Text = item.Content?.ToString() ?? "Linguistics";
-        PageDescription.Text = item.Tag?.ToString() ?? "This area is not available yet.";
+        _loadCancellation?.Cancel();
+        _loadCancellation?.Dispose();
+        _loadCancellation = new CancellationTokenSource();
+
+        ShowLoadingState();
+        try
+        {
+            var profile = await _profileOwner.RestoreAsync(_loadCancellation.Token);
+            if (profile is null)
+            {
+                RootContent.Content = new OnboardingView(_profileOwner, ShowShell);
+            }
+            else
+            {
+                ShowShell(profile);
+            }
+
+            StartupStatus.IsVisible = false;
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        catch (Exception exception) when (
+            exception is LearnerStoreException or LearnerProfileValidationException)
+        {
+            StartupProgress.IsVisible = false;
+            StartupTitle.Text = "Your learning data could not be opened";
+            StartupMessage.Text = exception.Message;
+            RetryButton.IsVisible = true;
+        }
+    }
+
+    private void ShowLoadingState()
+    {
+        StartupStatus.IsVisible = true;
+        StartupProgress.IsVisible = true;
+        StartupTitle.Text = "Opening Linguistics";
+        StartupMessage.Text = "Loading your local learning profile.";
+        RetryButton.IsVisible = false;
+    }
+
+    private void ShowShell(LearnerProfile profile)
+    {
+        RootContent.Content = new ShellView();
+        StartupStatus.IsVisible = false;
+    }
+
+    private void OnClosed(object? sender, EventArgs args)
+    {
+        _loadCancellation?.Cancel();
+        _loadCancellation?.Dispose();
     }
 }

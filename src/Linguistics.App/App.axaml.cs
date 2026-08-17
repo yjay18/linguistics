@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Linguistics.App.Persistence;
+using Linguistics.Core.Profiles;
 
 namespace Linguistics.App;
 
@@ -15,7 +17,9 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow();
+            var paths = AppDataPaths.CreateDefault();
+            var repository = new JsonLearnerRepository(paths.LearnerProfileFile);
+            desktop.MainWindow = new MainWindow(new LearnerProfileOwner(repository));
         }
 
         base.OnFrameworkInitializationCompleted();

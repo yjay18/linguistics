@@ -1,0 +1,245 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="1100"
+             d:DesignHeight="720"
+             x:Class="Linguistics.App.Features.Onboarding.OnboardingView">
+    <Grid Margin="48,32"
+          RowDefinitions="Auto,*,Auto"
+          AutomationProperties.LandmarkType="Main">
+        <StackPanel Grid.Row="0" Spacing="8">
+            <TextBlock Text="Set up your learning profile"
+                       FontSize="18"
+                       FontWeight="SemiBold" />
+            <TextBlock x:Name="StepText"
+                       AutomationProperties.LiveSetting="Polite"
+                       AutomationProperties.AutomationId="OnboardingStep" />
+            <ProgressBar x:Name="StepProgress"
+                         Minimum="1"
+                         Maximum="7"
+                         AutomationProperties.Name="Onboarding progress" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1"
+                      Margin="0,28,0,20"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel MaxWidth="720"
+                        HorizontalAlignment="Center"
+                        Spacing="20">
+                <TextBlock x:Name="QuestionTitle"
+                           FontSize="32"
+                           FontWeight="SemiBold"
+                           TextWrapping="Wrap"
+                           AutomationProperties.HeadingLevel="1"
+                           AutomationProperties.AutomationId="OnboardingTitle" />
+                <TextBlock x:Name="QuestionBody"
+                           FontSize="16"
+                           LineHeight="24"
+                           TextWrapping="Wrap"
+                           Opacity="0.78" />
+
+                <StackPanel x:Name="TargetStep" Spacing="12">
+                    <RadioButton x:Name="GermanTarget"
+                                 Content="German"
+                                 IsChecked="True"
+                                 GroupName="TargetLanguage"
+                                 AutomationProperties.AutomationId="TargetGerman" />
+                    <TextBlock Text="German is the first small, reviewed content configuration. More target languages can be added through future content packs."
+                               TextWrapping="Wrap"
+                               Opacity="0.72" />
+                </StackPanel>
+
+                <StackPanel x:Name="KnownLanguagesStep"
+                            IsVisible="False"
+                            Spacing="12">
+                    <CheckBox x:Name="EnglishSelected"
+                              Content="English"
+                              AutomationProperties.AutomationId="KnownEnglish" />
+                    <CheckBox x:Name="HindiSelected"
+                              Content="Hindi"
+                              AutomationProperties.AutomationId="KnownHindi" />
+                    <TextBlock Text="Choose any that apply. You may continue without selecting another language."
+                               TextWrapping="Wrap"
+                               Opacity="0.72" />
+                </StackPanel>
+
+                <StackPanel x:Name="LanguageDetailsStep"
+                            IsVisible="False"
+                            Spacing="18">
+                    <TextBlock x:Name="NoKnownLanguagesMessage"
+                               Text="You chose not to use another language. You can change this later in Languages."
+                               TextWrapping="Wrap"
+                               IsVisible="False" />
+
+                    <Border x:Name="EnglishDetails"
+                            Padding="20"
+                            CornerRadius="10"
+                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="English"
+                                       FontSize="20"
+                                       FontWeight="SemiBold"
+                                       AutomationProperties.HeadingLevel="2" />
+                            <TextBlock Text="Approximate proficiency" />
+                            <ComboBox x:Name="EnglishProficiency"
+                                      SelectedIndex="2"
+                                      AutomationProperties.Name="English proficiency"
+                                      AutomationProperties.AutomationId="EnglishProficiency">
+                                <ComboBoxItem Content="Beginner" Tag="Beginner" />
+                                <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
+                                <ComboBoxItem Content="Advanced" Tag="Advanced" />
+                                <ComboBoxItem Content="Native or near-native" Tag="NativeOrNearNative" />
+                            </ComboBox>
+                            <CheckBox x:Name="EnglishReading"
+                                      Content="I am comfortable reading English"
+                                      IsChecked="True" />
+                            <CheckBox x:Name="EnglishListening"
+                                      Content="I am comfortable hearing English"
+                                      IsChecked="True" />
+                            <CheckBox x:Name="EnglishExplanations"
+                                      Content="English may be used for explanations"
+                                      IsChecked="True" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="HindiDetails"
+                            Padding="20"
+                            CornerRadius="10"
+                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Hindi"
+                                       FontSize="20"
+                                       FontWeight="SemiBold"
+                                       AutomationProperties.HeadingLevel="2" />
+                            <TextBlock Text="Approximate proficiency" />
+                            <ComboBox x:Name="HindiProficiency"
+                                      SelectedIndex="2"
+                                      AutomationProperties.Name="Hindi proficiency"
+                                      AutomationProperties.AutomationId="HindiProficiency">
+                                <ComboBoxItem Content="Beginner" Tag="Beginner" />
+                                <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
+                                <ComboBoxItem Content="Advanced" Tag="Advanced" />
+                                <ComboBoxItem Content="Native or near-native" Tag="NativeOrNearNative" />
+                            </ComboBox>
+                            <CheckBox x:Name="HindiReading"
+                                      Content="I am comfortable reading Hindi"
+                                      IsChecked="True" />
+                            <CheckBox x:Name="HindiListening"
+                                      Content="I am comfortable hearing Hindi"
+                                      IsChecked="True" />
+                            <CheckBox x:Name="HindiExplanations"
+                                      Content="Hindi may be used for explanations"
+                                      IsChecked="True" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel x:Name="ShortcutStep"
+                            IsVisible="False"
+                            Spacing="12">
+                    <RadioButton x:Name="ShortcutAutomatic"
+                                 Content="Automatic — show a reviewed comparison when it is useful"
+                                 GroupName="ShortcutMode"
+                                 IsCheckedChanged="OnShortcutChoiceChanged" />
+                    <RadioButton x:Name="ShortcutAskFirst"
+                                 Content="Ask first — let me approve each language switch"
+                                 GroupName="ShortcutMode"
+                                 IsChecked="True"
+                                 IsCheckedChanged="OnShortcutChoiceChanged" />
+                    <RadioButton x:Name="ShortcutPreferred"
+                                 Content="Use one preferred explanation language"
+                                 GroupName="ShortcutMode"
+                                 IsCheckedChanged="OnShortcutChoiceChanged" />
+                    <RadioButton x:Name="ShortcutNever"
+                                 Content="Never — keep explanations in the target-language experience"
+                                 GroupName="ShortcutMode"
+                                 IsCheckedChanged="OnShortcutChoiceChanged" />
+                    <StackPanel x:Name="PreferredLanguagePanel"
+                                IsVisible="False"
+                                Margin="24,4,0,0"
+                                Spacing="8">
+                        <TextBlock Text="Preferred explanation language" />
+                        <ComboBox x:Name="PreferredLanguage"
+                                  AutomationProperties.Name="Preferred explanation language"
+                                  AutomationProperties.AutomationId="PreferredLanguage">
+                            <ComboBoxItem x:Name="PreferredEnglish" Content="English" Tag="en" />
+                            <ComboBoxItem x:Name="PreferredHindi" Content="Hindi" Tag="hi" />
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel x:Name="MicrophoneStep"
+                            IsVisible="False"
+                            Spacing="12">
+                    <RadioButton x:Name="MicrophoneNow"
+                                 Content="Use the microphone when speech practice becomes available"
+                                 GroupName="MicrophonePreference" />
+                    <RadioButton x:Name="MicrophoneLater"
+                                 Content="Decide later"
+                                 GroupName="MicrophonePreference"
+                                 IsChecked="True" />
+                    <RadioButton x:Name="MicrophoneNever"
+                                 Content="Never use the microphone"
+                                 GroupName="MicrophonePreference" />
+                    <TextBlock Text="Setup does not request microphone permission. If you opt in, the app will ask only when you start a speech action. Text-only learning remains available."
+                               TextWrapping="Wrap"
+                               Opacity="0.72" />
+                </StackPanel>
+
+                <StackPanel x:Name="RetentionStep"
+                            IsVisible="False"
+                            Spacing="12">
+                    <CheckBox x:Name="RetainRecordings"
+                              Content="Keep speech recordings for later review"
+                              IsChecked="False"
+                              AutomationProperties.AutomationId="RetainRecordings" />
+                    <TextBlock Text="Off by default. Speech is not implemented yet; when it is, temporary audio will be processed locally and deleted unless you explicitly enable retention."
+                               TextWrapping="Wrap"
+                               Opacity="0.72" />
+                </StackPanel>
+
+                <StackPanel x:Name="ReviewStep"
+                            IsVisible="False"
+                            Spacing="12">
+                    <Border Padding="20"
+                            CornerRadius="10"
+                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                        <TextBlock x:Name="ReviewSummary"
+                                   TextWrapping="Wrap"
+                                   LineHeight="24"
+                                   AutomationProperties.AutomationId="OnboardingSummary" />
+                    </Border>
+                    <TextBlock Text="Your profile stays on this device. No account, analytics, backend, model, microphone, or network connection is required."
+                               TextWrapping="Wrap"
+                               Opacity="0.72" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto">
+            <TextBlock x:Name="ErrorText"
+                       Grid.Column="0"
+                       Margin="0,0,16,0"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                       IsVisible="False"
+                       AutomationProperties.LiveSetting="Assertive"
+                       AutomationProperties.AutomationId="OnboardingError" />
+            <Button x:Name="BackButton"
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
+                    Content="Back"
+                    IsEnabled="False"
+                    Click="OnBackClicked"
+                    AutomationProperties.AutomationId="OnboardingBack" />
+            <Button x:Name="ContinueButton"
+                    Grid.Column="2"
+                    Content="Continue"
+                    Click="OnContinueClicked"
+                    AutomationProperties.AutomationId="OnboardingContinue" />
+        </Grid>
+    </Grid>
+</UserControl>
