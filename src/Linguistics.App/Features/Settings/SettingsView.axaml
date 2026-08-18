@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="720"
+             d:DesignHeight="900"
+             x:Class="Linguistics.App.Features.Settings.SettingsView">
+    <StackPanel Spacing="24">
+        <StackPanel Spacing="12">
+            <TextBlock Text="Multilingual shortcuts"
+                       FontSize="22"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <TextBlock Text="Choose whether reviewed cross-language comparisons may appear. Every switch remains visible and attributable."
+                       TextWrapping="Wrap"
+                       Opacity="0.78" />
+            <RadioButton x:Name="ShortcutAutomatic"
+                         Content="Automatic — show a reviewed comparison when it is useful"
+                         GroupName="SettingsShortcutMode"
+                         IsCheckedChanged="OnShortcutChoiceChanged" />
+            <RadioButton x:Name="ShortcutAskFirst"
+                         Content="Ask first — let me approve each language switch"
+                         GroupName="SettingsShortcutMode"
+                         IsCheckedChanged="OnShortcutChoiceChanged" />
+            <RadioButton x:Name="ShortcutPreferred"
+                         Content="Use one preferred explanation language"
+                         GroupName="SettingsShortcutMode"
+                         IsCheckedChanged="OnShortcutChoiceChanged" />
+            <RadioButton x:Name="ShortcutNever"
+                         Content="Never — keep explanations in the target-language experience"
+                         GroupName="SettingsShortcutMode"
+                         IsCheckedChanged="OnShortcutChoiceChanged" />
+            <StackPanel x:Name="PreferredLanguagePanel"
+                        Margin="24,4,0,0"
+                        Spacing="8"
+                        IsVisible="False">
+                <TextBlock Text="Preferred explanation language" />
+                <ComboBox x:Name="PreferredLanguage"
+                          AutomationProperties.Name="Preferred explanation language"
+                          AutomationProperties.AutomationId="SettingsPreferredLanguage">
+                    <ComboBoxItem x:Name="PreferredEnglish" Content="English" Tag="en" />
+                    <ComboBoxItem x:Name="PreferredHindi" Content="Hindi" Tag="hi" />
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Spacing="12">
+            <TextBlock Text="Microphone"
+                       FontSize="22"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <RadioButton x:Name="MicrophoneNow"
+                         Content="Use the microphone when speech practice becomes available"
+                         GroupName="SettingsMicrophonePreference" />
+            <RadioButton x:Name="MicrophoneLater"
+                         Content="Decide later"
+                         GroupName="SettingsMicrophonePreference" />
+            <RadioButton x:Name="MicrophoneNever"
+                         Content="Never use the microphone"
+                         GroupName="SettingsMicrophonePreference" />
+            <TextBlock Text="Changing this preference does not request system permission. Permission will be requested only from a future speech action."
+                       TextWrapping="Wrap"
+                       Opacity="0.72" />
+        </StackPanel>
+
+        <StackPanel Spacing="12">
+            <TextBlock Text="Speech recording retention"
+                       FontSize="22"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <CheckBox x:Name="RetainRecordings"
+                      Content="Keep speech recordings for later review"
+                      AutomationProperties.AutomationId="SettingsRetainRecordings" />
+            <TextBlock Text="Off by default. Speech is not implemented yet; this stores only your preference."
+                       TextWrapping="Wrap"
+                       Opacity="0.72" />
+        </StackPanel>
+
+        <TextBlock x:Name="ErrorText"
+                   IsVisible="False"
+                   TextWrapping="Wrap"
+                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   AutomationProperties.LiveSetting="Assertive"
+                   AutomationProperties.AutomationId="SettingsError" />
+        <TextBlock x:Name="StatusText"
+                   IsVisible="False"
+                   TextWrapping="Wrap"
+                   AutomationProperties.LiveSetting="Polite"
+                   AutomationProperties.AutomationId="SettingsStatus" />
+        <Button x:Name="SaveButton"
+                Content="Save settings"
+                HorizontalAlignment="Left"
+                Click="OnSaveClicked"
+                AutomationProperties.AutomationId="SaveSettings" />
+
+        <Border Padding="20"
+                BorderBrush="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                BorderThickness="1"
+                CornerRadius="10">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Delete local learning data"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="This milestone stores one learner profile: its identifier, target and known languages, and the preferences above. Deletion removes that profile from this device. It does not remove unrelated files, installed models, or content packs."
+                           TextWrapping="Wrap" />
+                <Button x:Name="ShowDeleteConfirmationButton"
+                        Content="Delete all learning data"
+                        HorizontalAlignment="Left"
+                        Click="OnShowDeleteConfirmationClicked"
+                        AutomationProperties.AutomationId="ShowDeleteConfirmation" />
+                <StackPanel x:Name="DeleteConfirmation"
+                            IsVisible="False"
+                            Spacing="10"
+                            AutomationProperties.AutomationId="DeleteConfirmation">
+                    <TextBlock Text="Delete the local learner profile now? This cannot be undone. Linguistics will return to setup."
+                               FontWeight="SemiBold"
+                               TextWrapping="Wrap"
+                               AutomationProperties.LiveSetting="Assertive" />
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button x:Name="ConfirmDeleteButton"
+                                Content="Delete profile now"
+                                Click="OnConfirmDeleteClicked"
+                                AutomationProperties.AutomationId="ConfirmDeleteProfile" />
+                        <Button x:Name="CancelDeleteButton"
+                                Content="Cancel"
+                                Click="OnCancelDeleteClicked"
+                                AutomationProperties.AutomationId="CancelDeleteProfile" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

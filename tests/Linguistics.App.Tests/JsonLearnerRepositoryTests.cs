@@ -44,6 +44,22 @@ public sealed class JsonLearnerRepositoryTests
     }
 
     [TestMethod]
+    public async Task MalformedStoreFailsWithoutChangingTheFile()
+    {
+        await WithStoreAsync(async (repository, filePath) =>
+        {
+            const string malformed = "{not-json";
+            await File.WriteAllTextAsync(filePath, malformed);
+
+            var exception = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
+                () => repository.LoadAsync());
+
+            StringAssert.Contains(exception.Message, "could not be read");
+            Assert.AreEqual(malformed, await File.ReadAllTextAsync(filePath));
+        });
+    }
+
+    [TestMethod]
     public async Task DeleteRemovesOnlyTheLearnerStoreFiles()
     {
         await WithStoreAsync(async (repository, filePath) =>

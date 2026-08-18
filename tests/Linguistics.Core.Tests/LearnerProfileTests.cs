@@ -90,7 +90,37 @@ public sealed class LearnerProfileTests
         Assert.AreNotEqual(Guid.Empty, created.Id);
         Assert.AreEqual(created, await owner.RestoreAsync());
 
+        var updated = created with
+        {
+            Settings = created.Settings with { Microphone = MicrophonePreference.Never },
+        };
+        Assert.AreEqual(updated, await owner.UpdateAsync(updated));
+        Assert.AreEqual(updated, await owner.RestoreAsync());
+
         await owner.DeleteAllAsync();
+        Assert.IsNull(await owner.RestoreAsync());
+    }
+
+    [TestMethod]
+    public async Task OwnerRejectsAStaleUpdateAfterDeletion()
+    {
+        var repository = new InMemoryLearnerRepository();
+        var owner = new LearnerProfileOwner(repository);
+        var created = await owner.CompleteOnboardingAsync(new NewLearnerProfile(
+            new LanguageCode("de"),
+            [Known("en", true)],
+            new LearnerSettings(
+                MultilingualShortcutMode.AskFirst,
+                null,
+                MicrophonePreference.Later,
+                false)));
+
+        await owner.DeleteAllAsync();
+
+        var exception = await Assert.ThrowsExactlyAsync<LearnerProfileValidationException>(
+            () => owner.UpdateAsync(created));
+
+        StringAssert.Contains(exception.Message, "no longer active");
         Assert.IsNull(await owner.RestoreAsync());
     }
 

@@ -49,7 +49,7 @@ public partial class MainWindow : Window
             var profile = await _profileOwner.RestoreAsync(_loadCancellation.Token);
             if (profile is null)
             {
-                RootContent.Content = new OnboardingView(_profileOwner, ShowShell);
+                ShowOnboarding();
             }
             else
             {
@@ -82,7 +82,23 @@ public partial class MainWindow : Window
 
     private void ShowShell(LearnerProfile profile)
     {
-        RootContent.Content = new ShellView();
+        if (_profileOwner is null)
+        {
+            return;
+        }
+
+        RootContent.Content = new ShellView(profile, _profileOwner, ShowOnboarding);
+        StartupStatus.IsVisible = false;
+    }
+
+    private void ShowOnboarding()
+    {
+        if (_profileOwner is null)
+        {
+            return;
+        }
+
+        RootContent.Content = new OnboardingView(_profileOwner, ShowShell);
         StartupStatus.IsVisible = false;
     }
 

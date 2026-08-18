@@ -10,3 +10,5 @@ Milestone 1 stores one schema-versioned JSON learner profile in the current user
 The current envelope schema is version 1. Writes go to `learner-profile.json.tmp` and move into place only after serialization and flushing succeed. An unsupported schema or corrupt document fails with an attributable error and is not silently rewritten or deleted.
 
 At this stage, deleting all learning data removes only `learner-profile.json` and its temporary sibling. It does not recursively delete the containing directory or touch unrelated files. Models and future content packs are separate data classes.
+
+The profile owner serializes restore, create, update, and delete intents. After deletion it rejects updates carrying the deleted profile identifier, so an obsolete asynchronous view cannot recreate the profile with a late write.

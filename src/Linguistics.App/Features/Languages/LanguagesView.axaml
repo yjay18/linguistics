@@ -1,0 +1,113 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="720"
+             d:DesignHeight="760"
+             x:Class="Linguistics.App.Features.Languages.LanguagesView">
+    <StackPanel Spacing="20">
+        <Border Padding="20"
+                CornerRadius="10"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <StackPanel Spacing="8">
+                <TextBlock Text="Target language"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="German" FontSize="16" />
+                <TextBlock Text="German is fixed while the first reviewed content pack is being built."
+                           TextWrapping="Wrap"
+                           Opacity="0.72" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Spacing="12">
+            <TextBlock Text="Known languages"
+                       FontSize="22"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <TextBlock Text="Choose any that may support learning. Each language has its own proficiency and explanation preferences."
+                       TextWrapping="Wrap"
+                       Opacity="0.78" />
+            <CheckBox x:Name="EnglishSelected"
+                      Content="English"
+                      IsCheckedChanged="OnLanguageSelectionChanged"
+                      AutomationProperties.AutomationId="LanguagesEnglish" />
+            <Border x:Name="EnglishDetails"
+                    Margin="24,0,0,0"
+                    Padding="18"
+                    CornerRadius="10"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="English preferences"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="3" />
+                    <TextBlock Text="Approximate proficiency" />
+                    <ComboBox x:Name="EnglishProficiency"
+                              AutomationProperties.Name="English proficiency">
+                        <ComboBoxItem Content="Beginner" Tag="Beginner" />
+                        <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
+                        <ComboBoxItem Content="Advanced" Tag="Advanced" />
+                        <ComboBoxItem Content="Native or near-native" Tag="NativeOrNearNative" />
+                    </ComboBox>
+                    <CheckBox x:Name="EnglishReading"
+                              Content="I am comfortable reading English" />
+                    <CheckBox x:Name="EnglishListening"
+                              Content="I am comfortable hearing English" />
+                    <CheckBox x:Name="EnglishExplanations"
+                              Content="English may be used for explanations" />
+                </StackPanel>
+            </Border>
+
+            <CheckBox x:Name="HindiSelected"
+                      Content="Hindi"
+                      IsCheckedChanged="OnLanguageSelectionChanged"
+                      AutomationProperties.AutomationId="LanguagesHindi" />
+            <Border x:Name="HindiDetails"
+                    Margin="24,0,0,0"
+                    Padding="18"
+                    CornerRadius="10"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Hindi preferences"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="3" />
+                    <TextBlock Text="Approximate proficiency" />
+                    <ComboBox x:Name="HindiProficiency"
+                              AutomationProperties.Name="Hindi proficiency">
+                        <ComboBoxItem Content="Beginner" Tag="Beginner" />
+                        <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
+                        <ComboBoxItem Content="Advanced" Tag="Advanced" />
+                        <ComboBoxItem Content="Native or near-native" Tag="NativeOrNearNative" />
+                    </ComboBox>
+                    <CheckBox x:Name="HindiReading"
+                              Content="I am comfortable reading Hindi" />
+                    <CheckBox x:Name="HindiListening"
+                              Content="I am comfortable hearing Hindi" />
+                    <CheckBox x:Name="HindiExplanations"
+                              Content="Hindi may be used for explanations" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <TextBlock x:Name="ErrorText"
+                   IsVisible="False"
+                   TextWrapping="Wrap"
+                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   AutomationProperties.LiveSetting="Assertive"
+                   AutomationProperties.AutomationId="LanguagesError" />
+        <TextBlock x:Name="StatusText"
+                   IsVisible="False"
+                   TextWrapping="Wrap"
+                   AutomationProperties.LiveSetting="Polite"
+                   AutomationProperties.AutomationId="LanguagesStatus" />
+        <Button x:Name="SaveButton"
+                Content="Save language preferences"
+                HorizontalAlignment="Left"
+                Click="OnSaveClicked"
+                AutomationProperties.AutomationId="SaveLanguages" />
+    </StackPanel>
+</UserControl>

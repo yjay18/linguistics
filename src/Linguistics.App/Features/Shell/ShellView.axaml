@@ -46,10 +46,10 @@
                                  Tag="Capability-based progress appears after the first learning task."
                                  AutomationProperties.AutomationId="NavProgress" />
                     <ListBoxItem Content="Languages"
-                                 Tag="Your target and known languages are stored locally. Editing arrives in the next foundation slice."
+                                 Tag="Review and edit the languages in your local learner profile."
                                  AutomationProperties.AutomationId="NavLanguages" />
                     <ListBoxItem Content="Settings"
-                                 Tag="Your language and privacy preferences are stored locally. Editing arrives in the next foundation slice."
+                                 Tag="Review privacy and multilingual preferences or delete your local learner profile."
                                  AutomationProperties.AutomationId="NavSettings" />
                 </ListBox>
             </Grid>
@@ -67,7 +67,11 @@
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="1"
                            AutomationProperties.AutomationId="PageTitle" />
-                <Border Padding="24"
+                <ContentControl x:Name="PageContent"
+                                IsVisible="False"
+                                AutomationProperties.AutomationId="PageContent" />
+                <Border x:Name="UnavailableState"
+                        Padding="24"
                         CornerRadius="12"
                         Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
                     <StackPanel Spacing="10">
