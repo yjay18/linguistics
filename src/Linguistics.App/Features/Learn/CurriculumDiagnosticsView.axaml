@@ -1,0 +1,128 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="720"
+             d:DesignHeight="720"
+             x:Class="Linguistics.App.Features.Learn.CurriculumDiagnosticsView">
+    <StackPanel Spacing="20">
+        <Border Padding="18"
+                CornerRadius="10"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <StackPanel Spacing="8">
+                <TextBlock Text="Developer content preview — review required"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="These German, English-transfer, and Hindi-transfer drafts passed machine validation. They are not linguistically approved, learner-ready, or cleared for redistribution."
+                           TextWrapping="Wrap"
+                           AutomationProperties.AutomationId="ContentPreviewNotice" />
+                <TextBlock x:Name="ContentStatusText"
+                           TextWrapping="Wrap"
+                           AutomationProperties.LiveSetting="Polite"
+                           AutomationProperties.AutomationId="ContentPreviewStatus" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel x:Name="ContentBrowserPanel"
+                    Spacing="20">
+            <StackPanel Spacing="8">
+                <TextBlock Text="German concepts"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <ListBox x:Name="ConceptList"
+                         MaxHeight="220"
+                         AutomationProperties.Name="Machine-validated German concept drafts"
+                         AutomationProperties.AutomationId="ContentConceptList" />
+                <TextBlock x:Name="ConceptDetailText"
+                           TextWrapping="Wrap"
+                           LineHeight="22"
+                           AutomationProperties.AutomationId="ContentConceptDetail" />
+            </StackPanel>
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="Transfer notes"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <ListBox x:Name="TransferList"
+                         MaxHeight="180"
+                         AutomationProperties.Name="Machine-validated transfer-note drafts"
+                         AutomationProperties.AutomationId="ContentTransferList" />
+                <TextBlock x:Name="TransferDetailText"
+                           TextWrapping="Wrap"
+                           LineHeight="22"
+                           AutomationProperties.AutomationId="ContentTransferDetail" />
+            </StackPanel>
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="Deterministic task contracts"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock x:Name="TaskSummaryText"
+                           TextWrapping="Wrap"
+                           LineHeight="22"
+                           AutomationProperties.AutomationId="ContentTaskSummary" />
+            </StackPanel>
+        </StackPanel>
+
+        <Border Height="1"
+                Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+
+        <Border Padding="18"
+                CornerRadius="10"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <StackPanel Spacing="8">
+                <TextBlock Text="Synthetic deterministic-engine fixture"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="This separate fixture verifies selection and routing. It is not German content or learner progress."
+                           TextWrapping="Wrap"
+                           AutomationProperties.AutomationId="CurriculumFixtureNotice" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Spacing="8">
+            <TextBlock Text="Selected concept"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <TextBlock x:Name="SelectedConceptText"
+                       TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="SelectedConceptDiagnostic" />
+            <TextBlock x:Name="SelectionReasonText"
+                       TextWrapping="Wrap"
+                       Opacity="0.76"
+                       AutomationProperties.AutomationId="SelectionReasonDiagnostic" />
+        </StackPanel>
+
+        <StackPanel Spacing="8">
+            <TextBlock Text="Transfer routing"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <TextBlock x:Name="BridgeText"
+                       TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="BridgeDiagnostic" />
+        </StackPanel>
+
+        <StackPanel Spacing="8">
+            <TextBlock Text="Lesson composition"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <TextBlock x:Name="LessonText"
+                       TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="LessonDiagnostic" />
+        </StackPanel>
+
+        <TextBlock x:Name="ConfigurationText"
+                   TextWrapping="Wrap"
+                   Opacity="0.68"
+                   AutomationProperties.AutomationId="CurriculumConfigurationDiagnostic" />
+    </StackPanel>
+</UserControl>

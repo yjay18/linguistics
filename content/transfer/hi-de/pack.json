@@ -1,0 +1,121 @@
+{
+  "manifest": {
+    "id": "transfer.hi-de.core",
+    "version": 1,
+    "schemaVersion": 1,
+    "kind": "transfer",
+    "languages": ["hi", "de"],
+    "dependencies": [{ "packId": "language.de.core", "minimumVersion": 1, "maximumVersion": 1 }],
+    "license": {
+      "identifier": "LicenseRef-Linguistics-Internal-Draft",
+      "copyrightHolder": "Linguistics project contributors",
+      "licenseTextLocation": "Content/content-license.md",
+      "intendedUse": "Local development and competent linguistic review only.",
+      "modificationReviewed": false,
+      "redistributionReviewed": false,
+      "requiredAttribution": "See the claim-level source records in this pack.",
+      "reviewStatus": "pending"
+    },
+    "review": {
+      "status": "machineValidated",
+      "reviewer": null,
+      "reviewedOn": null,
+      "notes": "Structurally validated AI-authored draft; competent Hindi-German transfer review is required."
+    }
+  },
+  "sources": [
+    {
+      "id": "source.hi-de.basic-hindi-2021",
+      "title": "Basic Hindi",
+      "citation": "Ranjan, Rajiv (2021), Basic Hindi, Michigan State University Open Textbook Publishing.",
+      "url": "https://openbooks.lib.msu.edu/basichindi/",
+      "claim": "Supports the Hindi formal-address and grammatical-gender facts used to draft the Hindi-to-German bridges.",
+      "license": {
+        "identifier": "CC-BY-NC-4.0",
+        "copyrightHolder": "Rajiv Ranjan",
+        "licenseTextLocation": "https://openbooks.lib.msu.edu/basichindi/front-matter/introduction/",
+        "intendedUse": "Non-commercial local reference for original transfer wording with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Basic Hindi by Rajiv Ranjan, CC BY-NC 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source images, audio, exercises, or extended passages are bundled."
+    },
+    {
+      "id": "source.hi-de.dib-2017",
+      "title": "Deutsch im Blick, second edition",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin (2017).",
+      "url": "https://coerll.utexas.edu/dib/voc.php?k=1&s=8",
+      "claim": "Supports the German formal-address examples paired with the Hindi formal-address reference.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://www.coerll.utexas.edu/dib/pdfs/DeutschImBlick-textbook.pdf",
+        "intendedUse": "Reference for original compact transfer wording with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Deutsch im Blick, COERLL, University of Texas at Austin, CC BY 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source media or extended passages are bundled."
+    },
+    {
+      "id": "source.hi-de.grimm-grammar",
+      "title": "Grimm Grammar: nouns overview",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin.",
+      "url": "https://coerll.utexas.edu/gg/pd/no_01.html",
+      "claim": "Supports the German three-gender noun-system side of the bounded Hindi-German gender comparison.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://coerll.utexas.edu/gg/",
+        "intendedUse": "Reference for original compact transfer wording with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Grimm Grammar, COERLL, University of Texas at Austin.",
+        "reviewStatus": "pending"
+      },
+      "notes": "The transfer note explicitly warns that noun genders do not map item by item."
+    }
+  ],
+  "concepts": [],
+  "lexicon": [],
+  "tasks": [],
+  "errorRules": [],
+  "feedbackTemplates": [],
+  "rubrics": [],
+  "pronunciationUtterances": [],
+  "transferMappings": [
+    {
+      "id": "hi-de.de.pronoun.sie-formal.respect-bridge",
+      "sourceLanguage": "hi",
+      "targetLanguage": "de",
+      "targetConceptId": "de.pronoun.sie-formal",
+      "relation": "facilitative",
+      "strength": 0.85,
+      "bridgeConcepts": ["Hindi आप and German Sie both provide a respectful address choice in the cited beginner contexts."],
+      "learnerExplanation": "Hindi आप can remind you to make a respectful address choice. German uses capitalized Sie; learn its German verb form with it rather than copying Hindi agreement.",
+      "teacherNotes": "Use only as a pragmatic memory bridge. The forms, social distributions, and agreement systems are not identical.",
+      "positiveExamples": [{ "text": "आप ... हैं → Sie ...", "meaning": "respectful address cue", "note": "Conceptual cue only, not a word-for-word grammar mapping." }],
+      "negativeTransferRisks": ["Do not map Hindi verb agreement or every social context directly onto German Sie."],
+      "sourceIds": ["source.hi-de.basic-hindi-2021", "source.hi-de.dib-2017"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Social range, agreement caveat, Hindi script, and usefulness need competent bilingual review." }
+    },
+    {
+      "id": "hi-de.de.noun.gender-basic.category-bridge",
+      "sourceLanguage": "hi",
+      "targetLanguage": "de",
+      "targetConceptId": "de.noun.gender-basic",
+      "relation": "partiallyFacilitative",
+      "strength": 0.65,
+      "bridgeConcepts": ["Both Hindi and German organize nouns with grammatical gender, but the systems differ."],
+      "learnerExplanation": "Hindi experience with grammatical gender can make the idea familiar. German has three noun genders in this reference, so learn each German noun with its article; do not transfer a Hindi noun's gender.",
+      "teacherNotes": "The bridge is category-level only. Hindi is described by the cited beginner source as gendered; German distinguishes masculine, feminine, and neuter. Item-level gender correspondence is not claimed.",
+      "positiveExamples": [{ "text": "gendered noun category → der / die / das entry", "meaning": "category-level bridge", "note": "Use the prior concept, not a direct gender assignment." }],
+      "negativeTransferRisks": ["Specific Hindi and German noun genders need not match; never infer a German article from the Hindi translation."],
+      "sourceIds": ["source.hi-de.basic-hindi-2021", "source.hi-de.grimm-grammar"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Category comparison and counterexample boundary need competent bilingual review." }
+    }
+  ]
+}

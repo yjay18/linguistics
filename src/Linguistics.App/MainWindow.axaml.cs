@@ -1,6 +1,8 @@
 using Avalonia.Controls;
 using Linguistics.App.Features.Onboarding;
 using Linguistics.App.Features.Shell;
+using Linguistics.Core.Content;
+using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App;
@@ -8,6 +10,8 @@ namespace Linguistics.App;
 public partial class MainWindow : Window
 {
     private LearnerProfileOwner? _profileOwner;
+    private ValidatedContentCatalog? _contentCatalog;
+    private string? _contentError;
     private CancellationTokenSource? _loadCancellation;
 
     public MainWindow()
@@ -15,10 +19,15 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    public MainWindow(LearnerProfileOwner profileOwner)
+    public MainWindow(
+        LearnerProfileOwner profileOwner,
+        ValidatedContentCatalog? contentCatalog = null,
+        string? contentError = null)
         : this()
     {
         _profileOwner = profileOwner;
+        _contentCatalog = contentCatalog;
+        _contentError = contentError;
         Opened += OnOpened;
         Closed += OnClosed;
     }
@@ -62,7 +71,9 @@ public partial class MainWindow : Window
         {
         }
         catch (Exception exception) when (
-            exception is LearnerStoreException or LearnerProfileValidationException)
+            exception is LearnerStoreException or
+            LearnerProfileValidationException or
+            CurriculumValidationException)
         {
             StartupProgress.IsVisible = false;
             StartupTitle.Text = "Your learning data could not be opened";
@@ -87,7 +98,12 @@ public partial class MainWindow : Window
             return;
         }
 
-        RootContent.Content = new ShellView(profile, _profileOwner, ShowOnboarding);
+        RootContent.Content = new ShellView(
+            profile,
+            _profileOwner,
+            ShowOnboarding,
+            _contentCatalog,
+            _contentError);
         StartupStatus.IsVisible = false;
     }
 

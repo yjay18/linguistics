@@ -1,6 +1,8 @@
 using Avalonia.Controls;
 using Linguistics.App.Features.Languages;
+using Linguistics.App.Features.Learn;
 using Linguistics.App.Features.Settings;
+using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App.Features.Shell;
@@ -10,6 +12,8 @@ public partial class ShellView : UserControl
     private LearnerProfile? _profile;
     private LearnerProfileOwner? _profileOwner;
     private Action? _profileDeleted;
+    private ValidatedContentCatalog? _contentCatalog;
+    private string? _contentError;
 
     public ShellView()
     {
@@ -21,12 +25,16 @@ public partial class ShellView : UserControl
     public ShellView(
         LearnerProfile profile,
         LearnerProfileOwner profileOwner,
-        Action profileDeleted)
+        Action profileDeleted,
+        ValidatedContentCatalog? contentCatalog = null,
+        string? contentError = null)
         : this()
     {
         _profile = profile;
         _profileOwner = profileOwner;
         _profileDeleted = profileDeleted;
+        _contentCatalog = contentCatalog;
+        _contentError = contentError;
         ShowSelectedPage();
     }
 
@@ -53,6 +61,9 @@ public partial class ShellView : UserControl
         {
             case "Languages":
                 ShowPage(new LanguagesView(_profile, SaveProfileAsync));
+                break;
+            case "Learn" when DeveloperModeEnabled():
+                ShowPage(new CurriculumDiagnosticsView(_profile, _contentCatalog, _contentError));
                 break;
             case "Settings":
                 ShowPage(new SettingsView(_profile, SaveProfileAsync, DeleteProfileAsync));
@@ -89,4 +100,10 @@ public partial class ShellView : UserControl
         PageContent.IsVisible = false;
         UnavailableState.IsVisible = true;
     }
+
+    private static bool DeveloperModeEnabled() =>
+        string.Equals(
+            Environment.GetEnvironmentVariable("LINGUISTICS_DEVELOPER_MODE"),
+            "1",
+            StringComparison.Ordinal);
 }

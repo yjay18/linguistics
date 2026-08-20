@@ -31,7 +31,7 @@
                                  Tag="Your local profile is ready. Daily learning arrives with the deterministic curriculum."
                                  AutomationProperties.AutomationId="NavToday" />
                     <ListBoxItem Content="Learn"
-                                 Tag="Structured lessons arrive with the deterministic curriculum."
+                                 Tag="The deterministic curriculum engine is ready. The first content packs remain unavailable to learners until review approval."
                                  AutomationProperties.AutomationId="NavLearn" />
                     <ListBoxItem Content="Scenarios"
                                  Tag="Communicative scenarios are planned for a later milestone."

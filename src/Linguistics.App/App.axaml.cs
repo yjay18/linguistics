@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Linguistics.App.Persistence;
+using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App;
@@ -19,9 +20,34 @@ public partial class App : Application
         {
             var paths = AppDataPaths.CreateDefault();
             var repository = new JsonLearnerRepository(paths.LearnerProfileFile);
-            desktop.MainWindow = new MainWindow(new LearnerProfileOwner(repository));
+            ValidatedContentCatalog? contentCatalog = null;
+            string? contentError = null;
+            if (DeveloperModeEnabled())
+            {
+                try
+                {
+                    contentCatalog = ContentPackLoader.LoadDirectory(
+                        Path.Combine(AppContext.BaseDirectory, "Content"),
+                        ContentLoadPolicy.AuthoringPreview);
+                }
+                catch (ContentValidationException exception)
+                {
+                    contentError = exception.Message;
+                }
+            }
+
+            desktop.MainWindow = new MainWindow(
+                new LearnerProfileOwner(repository),
+                contentCatalog,
+                contentError);
         }
 
         base.OnFrameworkInitializationCompleted();
     }
+
+    private static bool DeveloperModeEnabled() =>
+        string.Equals(
+            Environment.GetEnvironmentVariable("LINGUISTICS_DEVELOPER_MODE"),
+            "1",
+            StringComparison.Ordinal);
 }

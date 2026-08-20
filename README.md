@@ -18,13 +18,17 @@ dotnet run --project src/Linguistics.App --no-build
 
 The app requires no account, backend, analytics service, or network connection at runtime.
 
-Milestone 1 currently provides the cross-platform desktop shell, a seven-step local onboarding flow for German with optional English and Hindi support, editable local profile settings, and exact-scope profile deletion. Learning, scenarios, pronunciation, review, and progress remain honest unavailable states until their later milestones.
+Milestones 1–3 provide the cross-platform desktop shell, a seven-step local onboarding flow for German with optional English and Hindi support, editable local profile settings, exact-scope learner-data deletion, a deterministic curriculum core, and strictly validated versioned content packs. The first compact German pack and separate English-to-German and Hindi-to-German transfer packs are machine-validated review drafts. Runtime teaching rejects them until named linguistic and license reviewers approve them; the application does not silently treat generated content as learner-ready.
+
+Set `LINGUISTICS_DEVELOPER_MODE=1` when running locally to make the Learn destination show the approval-gated content browser plus a synthetic selection, routing, and composition explanation. Neither developer surface changes learner progress.
 
 ## Project layout
 
 - `src/Linguistics.App`: Avalonia desktop application and platform integration.
 - `src/Linguistics.Core`: UI-independent deterministic domain code.
-- `tests/Linguistics.Core.Tests`: core unit tests.
+- `content`: versioned target-language and per-source-language transfer packs.
+- `tests/Linguistics.Core.Tests`: profile, curriculum, content-decoding, and validator unit tests.
 - `tests/Linguistics.App.Tests`: persistence and application-boundary tests.
 
 Learner-profile storage locations, schema behavior, and deletion scope are documented in [`docs/storage.md`](docs/storage.md).
+Content provenance and current redistribution gates are documented in [`docs/content-license.md`](docs/content-license.md).

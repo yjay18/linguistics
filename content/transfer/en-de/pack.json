@@ -1,0 +1,136 @@
+{
+  "manifest": {
+    "id": "transfer.en-de.core",
+    "version": 1,
+    "schemaVersion": 1,
+    "kind": "transfer",
+    "languages": ["en", "de"],
+    "dependencies": [{ "packId": "language.de.core", "minimumVersion": 1, "maximumVersion": 1 }],
+    "license": {
+      "identifier": "LicenseRef-Linguistics-Internal-Draft",
+      "copyrightHolder": "Linguistics project contributors",
+      "licenseTextLocation": "Content/content-license.md",
+      "intendedUse": "Local development and competent linguistic review only.",
+      "modificationReviewed": false,
+      "redistributionReviewed": false,
+      "requiredAttribution": "See the claim-level source records in this pack.",
+      "reviewStatus": "pending"
+    },
+    "review": {
+      "status": "machineValidated",
+      "reviewer": null,
+      "reviewedOn": null,
+      "notes": "Structurally validated AI-authored draft; competent English-German transfer review is required."
+    }
+  },
+  "sources": [
+    {
+      "id": "source.en-de.dib-2017",
+      "title": "Deutsch im Blick, second edition",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin (2017).",
+      "url": "https://coerll.utexas.edu/dib/voc.php?k=1&s=8",
+      "claim": "Supports the paired English and German beginner name and formal-address examples used to draft bounded transfer notes.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://www.coerll.utexas.edu/dib/pdfs/DeutschImBlick-textbook.pdf",
+        "intendedUse": "Reference for original compact transfer wording with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Deutsch im Blick, COERLL, University of Texas at Austin, CC BY 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source media or extended passages are bundled."
+    },
+    {
+      "id": "source.en-de.grimm-grammar",
+      "title": "Grimm Grammar: nouns overview",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin.",
+      "url": "https://coerll.utexas.edu/gg/pd/no_01.html",
+      "claim": "Supports the German side of the contrast: German nouns are capitalized and have grammatical gender.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://coerll.utexas.edu/gg/",
+        "intendedUse": "Reference for original compact transfer wording with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Grimm Grammar, COERLL, University of Texas at Austin.",
+        "reviewStatus": "pending"
+      },
+      "notes": "The transfer note is narrower than the source grammar."
+    },
+    {
+      "id": "source.en-de.english-capitalization",
+      "title": "Australian Government Style Manual: nouns",
+      "citation": "Australian Government Style Manual, Nouns.",
+      "url": "https://www.stylemanual.gov.au/grammar-punctuation-and-conventions/types-words/nouns",
+      "claim": "Supports the English side of the contrast: common nouns normally remain lowercase unless sentence position or another rule requires a capital.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Commonwealth of Australia",
+        "licenseTextLocation": "https://www.stylemanual.gov.au/about-style-manual/disclaimer-and-copyright",
+        "intendedUse": "Citation and factual reference only; source wording is not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Australian Government Style Manual.",
+        "reviewStatus": "pending"
+      },
+      "notes": "The pack makes a narrow orthographic contrast, not a claim about every English variety or learner."
+    }
+  ],
+  "concepts": [],
+  "lexicon": [],
+  "tasks": [],
+  "errorRules": [],
+  "feedbackTemplates": [],
+  "rubrics": [],
+  "pronunciationUtterances": [],
+  "transferMappings": [
+    {
+      "id": "en-de.de.function.state-name.surface-bridge",
+      "sourceLanguage": "en",
+      "targetLanguage": "de",
+      "targetConceptId": "de.function.state-name",
+      "relation": "facilitative",
+      "strength": 0.75,
+      "bridgeConcepts": ["English name and German Name provide a visible memory cue."],
+      "learnerExplanation": "English name can help you remember German Name. Keep the German capital letter and learn the full frame Ich heiße ...",
+      "teacherNotes": "Treat this only as a surface-form memory cue; do not imply identical pronunciation or complete phrase structure.",
+      "positiveExamples": [{ "text": "name → Name", "meaning": "name", "note": "Written-form cue; German noun capitalization still applies." }],
+      "negativeTransferRisks": [],
+      "sourceIds": ["source.en-de.dib-2017", "source.en-de.grimm-grammar"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Cognate status, pronunciation caveat, and usefulness need competent bilingual review." }
+    },
+    {
+      "id": "en-de.de.orthography.noun-capitalization.warning",
+      "sourceLanguage": "en",
+      "targetLanguage": "de",
+      "targetConceptId": "de.orthography.noun-capitalization",
+      "relation": "interfering",
+      "strength": 0.9,
+      "bridgeConcepts": ["English and German use different default capitalization for common nouns."],
+      "learnerExplanation": "Watch the capital letter: English normally writes common nouns such as coffee in lowercase, while German writes Kaffee with a capital K.",
+      "teacherNotes": "Present as a written-language contrast, not as a prediction that every English-speaking learner will make this error.",
+      "positiveExamples": [{ "text": "coffee → Kaffee", "meaning": "coffee", "note": "The German noun begins with a capital." }],
+      "negativeTransferRisks": ["An English lowercase habit may produce kaffee in German writing; do not generalize this to proper nouns or sentence-initial words."],
+      "sourceIds": ["source.en-de.english-capitalization", "source.en-de.grimm-grammar"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Contrast and non-universal learner framing need competent bilingual review." }
+    },
+    {
+      "id": "en-de.de.pronoun.sie-formal.no-direct-bridge",
+      "sourceLanguage": "en",
+      "targetLanguage": "de",
+      "targetConceptId": "de.pronoun.sie-formal",
+      "relation": "neutral",
+      "strength": 0,
+      "bridgeConcepts": [],
+      "learnerExplanation": "No English shortcut is shown here. In the cited beginner examples, both German du and Sie translate as you, so the German relationship choice must be learned directly.",
+      "teacherNotes": "This is an intentional no-bridge record. It must never be promoted into a displayable similarity by the router.",
+      "positiveExamples": [],
+      "negativeTransferRisks": ["Do not use English you alone to choose between German du and Sie."],
+      "sourceIds": ["source.en-de.dib-2017"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Scope and sociolinguistic framing need competent bilingual review." }
+    }
+  ]
+}
