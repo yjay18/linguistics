@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Linguistics.App.LocalAI;
 using Linguistics.App.Persistence;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
@@ -20,6 +21,7 @@ public partial class App : Application
         {
             var paths = AppDataPaths.CreateDefault();
             var repository = new JsonLearnerRepository(paths.LearnerProfileFile);
+            var languageModelProvider = OllamaProvider.CreateDefault();
             ValidatedContentCatalog? contentCatalog = null;
             string? contentError = null;
             if (DeveloperModeEnabled())
@@ -39,7 +41,9 @@ public partial class App : Application
             desktop.MainWindow = new MainWindow(
                 new LearnerProfileOwner(repository),
                 contentCatalog,
-                contentError);
+                contentError,
+                languageModelProvider);
+            desktop.Exit += (_, _) => languageModelProvider.Dispose();
         }
 
         base.OnFrameworkInitializationCompleted();

@@ -3,6 +3,7 @@ using Linguistics.App.Features.Languages;
 using Linguistics.App.Features.Learn;
 using Linguistics.App.Features.Settings;
 using Linguistics.Core.Content;
+using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App.Features.Shell;
@@ -14,6 +15,7 @@ public partial class ShellView : UserControl
     private Action? _profileDeleted;
     private ValidatedContentCatalog? _contentCatalog;
     private string? _contentError;
+    private ILanguageModelProvider? _languageModelProvider;
 
     public ShellView()
     {
@@ -27,7 +29,8 @@ public partial class ShellView : UserControl
         LearnerProfileOwner profileOwner,
         Action profileDeleted,
         ValidatedContentCatalog? contentCatalog = null,
-        string? contentError = null)
+        string? contentError = null,
+        ILanguageModelProvider? languageModelProvider = null)
         : this()
     {
         _profile = profile;
@@ -35,6 +38,7 @@ public partial class ShellView : UserControl
         _profileDeleted = profileDeleted;
         _contentCatalog = contentCatalog;
         _contentError = contentError;
+        _languageModelProvider = languageModelProvider;
         ShowSelectedPage();
     }
 
@@ -66,7 +70,11 @@ public partial class ShellView : UserControl
                 ShowPage(new CurriculumDiagnosticsView(_profile, _contentCatalog, _contentError));
                 break;
             case "Settings":
-                ShowPage(new SettingsView(_profile, SaveProfileAsync, DeleteProfileAsync));
+                ShowPage(new SettingsView(
+                    _profile,
+                    SaveProfileAsync,
+                    DeleteProfileAsync,
+                    _languageModelProvider));
                 break;
             default:
                 ShowUnavailable();

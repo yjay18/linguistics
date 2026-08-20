@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App.Features.Settings;
@@ -9,7 +10,10 @@ public partial class SettingsView : UserControl
     private LearnerProfile? _profile;
     private Func<LearnerProfile, Task<LearnerProfile>>? _saveProfile;
     private Func<Task>? _deleteProfile;
+    private ILanguageModelProvider? _languageModelProvider;
+    private CancellationTokenSource? _modelInspectionCancellation;
     private bool _busy;
+    private bool _modelBusy;
 
     public SettingsView()
     {
@@ -19,12 +23,14 @@ public partial class SettingsView : UserControl
     public SettingsView(
         LearnerProfile profile,
         Func<LearnerProfile, Task<LearnerProfile>> saveProfile,
-        Func<Task> deleteProfile)
+        Func<Task> deleteProfile,
+        ILanguageModelProvider? languageModelProvider = null)
         : this()
     {
         _profile = profile;
         _saveProfile = saveProfile;
         _deleteProfile = deleteProfile;
+        _languageModelProvider = languageModelProvider;
         LoadProfile(profile);
     }
 
@@ -49,6 +55,78 @@ public partial class SettingsView : UserControl
             ? PreferredItem(preferred.Value)
             : FirstVisiblePreferredItem();
         PreferredLanguagePanel.IsVisible = ShortcutPreferred.IsChecked == true;
+        SetModelChoices([], profile.Settings.SelectedLocalModel);
+        ModelServiceStatus.Text = profile.Settings.SelectedLocalModel is null
+            ? "Scripted practice is active. Checking Ollama is optional."
+            : $"Saved local model: {profile.Settings.SelectedLocalModel}. Check Ollama to verify current availability.";
+    }
+
+    private async void OnCheckOllamaClicked(object? sender, RoutedEventArgs args)
+    {
+        if (_modelBusy || _languageModelProvider is null)
+        {
+            ModelServiceStatus.Text = "The local model provider is not available in this build.";
+            return;
+        }
+
+        SetModelBusy(true);
+        ModelDetailsText.Text = string.Empty;
+        try
+        {
+            var snapshot = await _languageModelProvider.InspectServiceAsync();
+            ModelServiceStatus.Text = snapshot.Message;
+            SetModelChoices(
+                snapshot.Status == LocalModelServiceStatus.Available
+                    ? snapshot.Models.Where(model => !model.IsCloudAlias).ToArray()
+                    : [],
+                _profile?.Settings.SelectedLocalModel);
+        }
+        catch (OperationCanceledException)
+        {
+            ModelServiceStatus.Text = "The local Ollama check was cancelled.";
+        }
+        finally
+        {
+            SetModelBusy(false);
+        }
+    }
+
+    private async void OnModelSelectionChanged(object? sender, SelectionChangedEventArgs args)
+    {
+        _modelInspectionCancellation?.Cancel();
+        _modelInspectionCancellation?.Dispose();
+        _modelInspectionCancellation = null;
+        ModelDetailsText.Text = string.Empty;
+
+        var model = SelectedModelName();
+        if (model is null || _languageModelProvider is null)
+        {
+            return;
+        }
+
+        var cancellation = new CancellationTokenSource();
+        _modelInspectionCancellation = cancellation;
+        try
+        {
+            var details = await _languageModelProvider.InspectModelAsync(model, cancellation.Token);
+            if (cancellation.IsCancellationRequested)
+            {
+                return;
+            }
+
+            var capabilities = details.Capabilities.Count == 0
+                ? "not reported"
+                : string.Join(", ", details.Capabilities);
+            var license = string.IsNullOrWhiteSpace(details.LicenseText)
+                ? "License text not reported."
+                : $"Reported license excerpt: {Excerpt(details.LicenseText)}";
+            ModelDetailsText.Text =
+                $"{details.Message}\nCapabilities: {capabilities}.\n{license}\n" +
+                "Source and storage: your local Ollama installation. Linguistics never downloads the model.";
+        }
+        catch (OperationCanceledException)
+        {
+        }
     }
 
     private void OnShortcutChoiceChanged(object? sender, RoutedEventArgs args)
@@ -85,7 +163,8 @@ public partial class SettingsView : UserControl
                 SelectedShortcutMode(),
                 preferred,
                 SelectedMicrophonePreference(),
-                RetainRecordings.IsChecked == true);
+                RetainRecordings.IsChecked == true,
+                SelectedModelName());
             _profile = await _saveProfile(_profile with { Settings = settings });
             StatusText.Text = "Settings saved locally.";
             StatusText.IsVisible = true;
@@ -207,6 +286,51 @@ public partial class SettingsView : UserControl
         CancelDeleteButton.IsEnabled = !busy;
     }
 
+    private void SetModelBusy(bool busy)
+    {
+        _modelBusy = busy;
+        CheckOllamaButton.IsEnabled = !busy;
+        ModelSelection.IsEnabled = !busy;
+    }
+
+    private void SetModelChoices(
+        IReadOnlyList<LocalModelSummary> models,
+        string? selectedModel)
+    {
+        var choices = new List<ModelChoice>
+        {
+            new(null, "Scripted only — no model selected"),
+        };
+        choices.AddRange(models.Select(model => new ModelChoice(
+            model.Name,
+            $"{model.Name} — {FormatBytes(model.SizeBytes)}; {TextOrUnknown(model.ParameterSize)}; {TextOrUnknown(model.Quantization)}")));
+
+        if (selectedModel is not null && choices.All(choice => choice.Name != selectedModel))
+        {
+            choices.Add(new ModelChoice(selectedModel, $"{selectedModel} — saved, currently unavailable"));
+        }
+
+        ModelSelection.ItemsSource = choices;
+        ModelSelection.SelectedItem = choices.First(choice => choice.Name == selectedModel);
+    }
+
+    private string? SelectedModelName() =>
+        ModelSelection.SelectedItem is ModelChoice choice ? choice.Name : null;
+
+    private static string FormatBytes(long bytes) =>
+        bytes >= 1_073_741_824
+            ? $"{bytes / 1_073_741_824d:0.0} GiB"
+            : $"{bytes / 1_048_576d:0} MiB";
+
+    private static string TextOrUnknown(string value) =>
+        string.IsNullOrWhiteSpace(value) ? "not reported" : value;
+
+    private static string Excerpt(string value)
+    {
+        var compact = string.Join(' ', value.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));
+        return compact.Length <= 480 ? compact : compact[..480] + "…";
+    }
+
     private void ShowError(string message)
     {
         ErrorText.Text = message;
@@ -217,5 +341,10 @@ public partial class SettingsView : UserControl
     {
         ErrorText.IsVisible = false;
         StatusText.IsVisible = false;
+    }
+
+    private sealed record ModelChoice(string? Name, string Label)
+    {
+        public override string ToString() => Label;
     }
 }

@@ -73,6 +73,24 @@ public sealed class LearnerProfileTests
     }
 
     [TestMethod]
+    public void ValidationRejectsUnsafeLocalModelIdentifiers()
+    {
+        var profile = Profile(
+            [Known("en", allowExplanations: true)],
+            new LearnerSettings(
+                MultilingualShortcutMode.AskFirst,
+                null,
+                MicrophonePreference.Later,
+                false,
+                "model\nlog-injection"));
+
+        var exception = Assert.ThrowsExactly<LearnerProfileValidationException>(() =>
+            LearnerProfileValidator.Validate(profile));
+
+        StringAssert.Contains(exception.Message, "selected local model identifier is invalid");
+    }
+
+    [TestMethod]
     public async Task OwnerCreatesRestoresAndDeletesAValidatedProfile()
     {
         var repository = new InMemoryLearnerRepository();

@@ -18,7 +18,7 @@ dotnet run --project src/Linguistics.App --no-build
 
 The app requires no account, backend, analytics service, or network connection at runtime.
 
-Milestones 1–3 provide the cross-platform desktop shell, a seven-step local onboarding flow for German with optional English and Hindi support, editable local profile settings, exact-scope learner-data deletion, a deterministic curriculum core, and strictly validated versioned content packs. The first compact German pack and separate English-to-German and Hindi-to-German transfer packs are machine-validated review drafts. Runtime teaching rejects them until named linguistic and license reviewers approve them; the application does not silently treat generated content as learner-ready.
+Milestones 1–4 provide the cross-platform desktop shell, local learner data, a deterministic curriculum core, strictly validated versioned content packs, and an optional local-only Ollama adapter. The adapter accepts only loopback HTTP, blocks cloud aliases, uses an exact response schema and scenario allow-lists, and falls back to scripted behavior for absence, timeout, cancellation, stale work, or invalid output. It never downloads a model. The first compact German and transfer packs remain machine-validated review drafts, so runtime teaching continues to reject them until named linguistic and license reviewers approve them.
 
 Set `LINGUISTICS_DEVELOPER_MODE=1` when running locally to make the Learn destination show the approval-gated content browser plus a synthetic selection, routing, and composition explanation. Neither developer surface changes learner progress.
 
@@ -32,3 +32,4 @@ Set `LINGUISTICS_DEVELOPER_MODE=1` when running locally to make the Learn destin
 
 Learner-profile storage locations, schema behavior, and deletion scope are documented in [`docs/storage.md`](docs/storage.md).
 Content provenance and current redistribution gates are documented in [`docs/content-license.md`](docs/content-license.md).
+Local model setup, privacy, and current compatibility limits are documented in [`docs/local-models.md`](docs/local-models.md).

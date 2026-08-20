@@ -3,6 +3,7 @@ using Linguistics.App.Features.Onboarding;
 using Linguistics.App.Features.Shell;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
+using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App;
@@ -12,6 +13,7 @@ public partial class MainWindow : Window
     private LearnerProfileOwner? _profileOwner;
     private ValidatedContentCatalog? _contentCatalog;
     private string? _contentError;
+    private ILanguageModelProvider? _languageModelProvider;
     private CancellationTokenSource? _loadCancellation;
 
     public MainWindow()
@@ -22,12 +24,14 @@ public partial class MainWindow : Window
     public MainWindow(
         LearnerProfileOwner profileOwner,
         ValidatedContentCatalog? contentCatalog = null,
-        string? contentError = null)
+        string? contentError = null,
+        ILanguageModelProvider? languageModelProvider = null)
         : this()
     {
         _profileOwner = profileOwner;
         _contentCatalog = contentCatalog;
         _contentError = contentError;
+        _languageModelProvider = languageModelProvider;
         Opened += OnOpened;
         Closed += OnClosed;
     }
@@ -103,7 +107,8 @@ public partial class MainWindow : Window
             _profileOwner,
             ShowOnboarding,
             _contentCatalog,
-            _contentError);
+            _contentError,
+            _languageModelProvider);
         StartupStatus.IsVisible = false;
     }
 

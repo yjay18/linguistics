@@ -84,6 +84,24 @@ public sealed class JsonLearnerRepositoryTests
     }
 
     [TestMethod]
+    public async Task SelectedLocalModelRoundTripsAsAnOptionalProfileSetting()
+    {
+        await WithStoreAsync(async (repository, _) =>
+        {
+            var profile = CreateProfile();
+            var configured = profile with
+            {
+                Settings = profile.Settings with { SelectedLocalModel = "fixture:local" },
+            };
+
+            await repository.SaveAsync(configured);
+            var restored = await repository.LoadAsync();
+
+            Assert.AreEqual("fixture:local", restored?.Settings.SelectedLocalModel);
+        });
+    }
+
+    [TestMethod]
     public async Task UnsupportedSchemaFailsWithoutChangingTheFile()
     {
         await WithStoreAsync(async (repository, filePath) =>

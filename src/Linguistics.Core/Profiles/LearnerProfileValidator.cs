@@ -70,6 +70,12 @@ public static class LearnerProfileValidator
                 errors.Add("The microphone preference is invalid.");
             }
 
+            if (profile.Settings.SelectedLocalModel is { } model &&
+                (string.IsNullOrWhiteSpace(model) || model.Length > 200 || model.Any(char.IsControl)))
+            {
+                errors.Add("The selected local model identifier is invalid.");
+            }
+
             ValidatePreferredLanguage(profile, errors);
         }
 

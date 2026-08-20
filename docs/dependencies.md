@@ -15,4 +15,6 @@ Avalonia brings its rendering and text stack transitively, including SkiaSharp 3
 | --- | --- | --- | --- |
 | MSTest | 4.0.2 | Unit-test discovery, assertions, and execution | MIT |
 
-The application itself has no analytics, account, backend, database, model, or speech dependency through Milestone 3. The deterministic curriculum and content-pack validator use only the .NET base class library.
+The application itself has no analytics, account, backend, database, bundled model, or speech dependency through Milestone 4. The deterministic curriculum, content validator, and Ollama HTTP adapter use only the .NET base class library.
+
+Ollama is an optional, separately installed local runtime and is not linked, bundled, started, signed into, or downloaded by Linguistics. Ollama's application code is MIT-licensed; every installed model has separate capability, storage, license, and redistribution terms that must be inspected and reviewed before the app recommends it. No model configuration is currently claimed as supported.

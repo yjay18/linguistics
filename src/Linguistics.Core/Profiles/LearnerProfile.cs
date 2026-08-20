@@ -80,7 +80,8 @@ public sealed record LearnerSettings(
     MultilingualShortcutMode ShortcutMode,
     LanguageCode? PreferredExplanationLanguage,
     MicrophonePreference Microphone,
-    bool RetainSpeechRecordings);
+    bool RetainSpeechRecordings,
+    string? SelectedLocalModel = null);
 
 public sealed record LearnerProfile(
     Guid Id,
