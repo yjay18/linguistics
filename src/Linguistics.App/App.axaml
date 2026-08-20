@@ -127,6 +127,12 @@
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="LineHeight" Value="29" />
         </Style>
+        <Style Selector="TextBlock.on-accent">
+            <Setter Property="Foreground" Value="{DynamicResource AppOnAccentBrush}" />
+        </Style>
+        <Style Selector="TextBlock.lesson-label">
+            <Setter Property="Foreground" Value="{DynamicResource AppAccentTextBrush}" />
+        </Style>
 
         <Style Selector="Button">
             <Setter Property="MinHeight" Value="42" />
@@ -164,6 +170,19 @@
         </Style>
         <Style Selector="Button.quiet">
             <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="Button.lesson-tile">
+            <Setter Property="MinHeight" Value="102" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="Background" Value="{DynamicResource AppSurfaceAltBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="Button.lesson-tile:pointerover">
+            <Setter Property="Background" Value="{DynamicResource AppAccentSoftBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
         </Style>
         <Style Selector="Button.danger">
             <Setter Property="Background" Value="{DynamicResource AppDangerBrush}" />
@@ -273,6 +292,13 @@
             <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
+        </Style>
+        <Style Selector="Border.lesson-unit-number, Border.lesson-symbol">
+            <Setter Property="Background" Value="{DynamicResource AppAccentBrush}" />
+        </Style>
+        <Style Selector="Border.lesson-supporting">
+            <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
         </Style>
         <Style Selector="Border.divider">
             <Setter Property="Height" Value="1" />

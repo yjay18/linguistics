@@ -144,8 +144,6 @@ internal static class CourseCatalogBuilder
 
         var ordered = entries
             .OrderBy(Depth)
-            .ThenBy(entry => entry.Concept.Type)
-            .ThenBy(entry => entry.Concept.Id, StringComparer.Ordinal)
             .ToArray();
         var tasks = packs
             .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)

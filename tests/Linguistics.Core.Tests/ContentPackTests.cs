@@ -174,6 +174,7 @@ public sealed class ContentPackTests
         Assert.AreEqual(450, catalog.TargetLessonCount);
         Assert.AreEqual(13, catalog.AuthoredLessonCount);
         Assert.AreEqual(437, catalog.RemainingLessonCount);
+        Assert.AreEqual("Greet someone", catalog.Units[0].Lessons[0].Title);
         Assert.IsTrue(catalog.Units.SelectMany(unit => unit.Lessons).All(lesson => lesson.Slides.Count >= 5));
         CollectionAssert.AreEqual(
             catalog.Units.SelectMany(unit => unit.Lessons).Select(lesson => lesson.Id).ToArray(),

@@ -39,7 +39,7 @@ public partial class ShellView : UserControl
         InitializeComponent();
         NavigationList.SelectionChanged += OnNavigationChanged;
         AttachedToVisualTree += (_, _) => ApplyMotionPreference();
-        NavigationList.SelectedIndex = 0;
+        NavigationList.SelectedIndex = DeveloperModeEnabled() ? 1 : 0;
     }
 
     public ShellView(
@@ -107,12 +107,20 @@ public partial class ShellView : UserControl
             case "Languages":
                 ShowPage(new LanguagesView(_profile, SaveProfileAsync));
                 break;
+            case "Learn" when _runtimeContentCatalog is not null:
+                ShowPage(new LearnView(
+                    _profile,
+                    _runtimeContentCatalog,
+                    _runtimeContentError,
+                    _profileOwner));
+                break;
             case "Learn" when DeveloperModeEnabled():
-                ShowPage(new CurriculumDiagnosticsView(
+                ShowPage(new LearnView(
                     _profile,
                     _authoringContentCatalog,
                     _authoringContentError,
-                    _profileOwner));
+                    _profileOwner,
+                    showDeveloperDetails: true));
                 break;
             case "Scenarios":
                 ShowPage(new CafeOrderView(

@@ -1,0 +1,194 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="860"
+             d:DesignHeight="760"
+             x:Class="Linguistics.App.Features.Learn.LearnView">
+    <Grid>
+        <StackPanel x:Name="CoursePanel"
+                    Spacing="22">
+            <Border x:Name="PreviewNotice"
+                    Classes="warning-card"
+                    IsVisible="False">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                    <Border Width="42"
+                            Height="42"
+                            CornerRadius="21"
+                            Background="{DynamicResource AppAmberBrush}">
+                        <TextBlock Text="P"
+                                   FontSize="17"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource AppNavBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Spacing="4">
+                        <TextBlock Text="Course preview"
+                                   FontWeight="SemiBold"
+                                   FontSize="17"
+                                   AutomationProperties.HeadingLevel="2" />
+                        <TextBlock Text="This content passed structural checks and still needs competent linguistic and license approval before release. Preview visits do not change mastery."
+                                   TextWrapping="Wrap"
+                                   Opacity="0.82" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Classes="hero-card">
+                <Grid ColumnDefinitions="*,Auto"
+                      ColumnSpacing="28">
+                    <StackPanel Grid.Column="0" Spacing="13">
+                        <TextBlock Text="YOUR COURSE"
+                                   Classes="eyebrow" />
+                        <TextBlock x:Name="CourseTitleText"
+                                   Text="German foundations"
+                                   FontSize="32"
+                                   FontWeight="SemiBold"
+                                   LineHeight="39"
+                                   AutomationProperties.HeadingLevel="2"
+                                   AutomationProperties.AutomationId="CourseTitle" />
+                        <TextBlock x:Name="CourseAvailabilityText"
+                                   TextWrapping="Wrap"
+                                   FontSize="16"
+                                   Opacity="0.78"
+                                   AutomationProperties.AutomationId="CourseAvailability" />
+                        <ProgressBar x:Name="CatalogProgress"
+                                     MaxWidth="520"
+                                     HorizontalAlignment="Stretch"
+                                     AutomationProperties.Name="Authored course capacity" />
+                        <TextBlock x:Name="PlannedContentText"
+                                   Classes="muted"
+                                   TextWrapping="Wrap"
+                                   FontSize="13" />
+                        <Button x:Name="StartCourseButton"
+                                Classes="primary lift"
+                                Content="Start first lesson"
+                                HorizontalAlignment="Left"
+                                Click="OnStartCourseClicked"
+                                AutomationProperties.AutomationId="StartCourse" />
+                        <TextBlock x:Name="SessionStatusText"
+                                   IsVisible="False"
+                                   Foreground="{DynamicResource AppAccentTextBrush}"
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.LiveSetting="Polite"
+                                   AutomationProperties.AutomationId="LessonSessionStatus" />
+                    </StackPanel>
+                    <Border Grid.Column="1"
+                            Width="132"
+                            Height="132"
+                            CornerRadius="66"
+                            Background="{DynamicResource AppAccentBrush}"
+                            VerticalAlignment="Center">
+                        <StackPanel VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Spacing="1">
+                            <TextBlock x:Name="AuthoredCountText"
+                                       FontSize="38"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource AppOnAccentBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="LESSONS"
+                                       FontSize="10"
+                                       FontWeight="Bold"
+                                       LetterSpacing="1.2"
+                                       Foreground="{DynamicResource AppOnAccentBrush}"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <StackPanel Spacing="12">
+                <TextBlock Text="Course path"
+                           Classes="section-title"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="Choose any available lesson. The path follows reviewed prerequisites and keeps each session short."
+                           Classes="muted"
+                           TextWrapping="Wrap" />
+                <StackPanel x:Name="UnitsPanel"
+                            Spacing="16"
+                            AutomationProperties.AutomationId="CourseUnits" />
+            </StackPanel>
+
+            <Expander x:Name="DeveloperDetails"
+                      Header="Developer details"
+                      IsVisible="False"
+                      AutomationProperties.AutomationId="DeveloperCourseDetails">
+                <Border Padding="18">
+                    <ContentControl x:Name="DeveloperDetailsContent" />
+                </Border>
+            </Expander>
+        </StackPanel>
+
+        <StackPanel x:Name="LessonPanel"
+                    IsVisible="False"
+                    Spacing="18"
+                    AutomationProperties.AutomationId="LessonPlayer">
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  ColumnSpacing="14">
+                <Button Grid.Column="0"
+                        Classes="quiet"
+                        Content="Course map"
+                        Click="OnCloseLessonClicked"
+                        AutomationProperties.AutomationId="CloseLesson" />
+                <TextBlock x:Name="LessonPositionText"
+                           Grid.Column="1"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Classes="muted"
+                           AutomationProperties.Name="Lesson position" />
+                <Border Grid.Column="2"
+                        Classes="status-pill">
+                    <TextBlock x:Name="LessonLevelText"
+                               FontSize="12"
+                               FontWeight="SemiBold" />
+                </Border>
+            </Grid>
+
+            <ProgressBar x:Name="LessonProgress"
+                         AutomationProperties.Name="Lesson card progress" />
+
+            <TransitioningContentControl x:Name="SlideHost"
+                                         MinHeight="390"
+                                         AutomationProperties.AutomationId="LessonSlide" />
+
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  ColumnSpacing="16">
+                <Button x:Name="BackButton"
+                        Grid.Column="0"
+                        MinWidth="126"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Classes="quiet"
+                        Content="Back"
+                        Click="OnBackClicked"
+                        AutomationProperties.AutomationId="LessonBack" />
+                <Button x:Name="ContinueButton"
+                        Grid.Column="2"
+                        MinWidth="126"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Classes="primary lift"
+                        Content="Continue"
+                        Click="OnContinueClicked"
+                        AutomationProperties.AutomationId="LessonContinue" />
+            </Grid>
+        </StackPanel>
+
+        <Border x:Name="ErrorPanel"
+                Classes="warning-card"
+                IsVisible="False">
+            <StackPanel Spacing="8">
+                <TextBlock Text="Course unavailable"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock x:Name="ErrorText"
+                           TextWrapping="Wrap"
+                           AutomationProperties.LiveSetting="Assertive" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

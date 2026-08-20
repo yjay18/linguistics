@@ -110,6 +110,32 @@ public sealed class DesignSystemTests
         }
     }
 
+    [TestMethod]
+    public void DynamicCourseCopyRemovesDashCharacters()
+    {
+        Assert.AreEqual(
+            "first person singular",
+            global::Linguistics.App.Features.Learn.LearnView.Clean("first-person singular"));
+        Assert.AreEqual(
+            "one two three",
+            global::Linguistics.App.Features.Learn.LearnView.Clean("one–two—three"));
+    }
+
+    [TestMethod]
+    public void LearnCardsDoNotResolveThemeResourcesBeforeVisualAttachment()
+    {
+        var code = File.ReadAllText(Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Linguistics.App",
+            "Features",
+            "Learn",
+            "LearnView.axaml.cs"));
+
+        Assert.IsFalse(code.Contains(".FindResource(", StringComparison.Ordinal));
+        Assert.IsFalse(code.Contains(".TryFindResource(", StringComparison.Ordinal));
+    }
+
     private static IReadOnlyDictionary<string, string> LoadThemeBrushes(string themeName)
     {
         XNamespace presentation = "https://github.com/avaloniaui";

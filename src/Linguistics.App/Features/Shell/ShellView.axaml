@@ -52,7 +52,7 @@
                                  Tag="Choose one calm next step from your local learning evidence."
                                  AutomationProperties.AutomationId="NavToday" />
                     <ListBoxItem Content="Learn"
-                                 Tag="The deterministic curriculum engine is ready. The first content packs remain unavailable to learners until review approval."
+                                 Tag="Explore a course path built from short goals, examples, activities, and recaps."
                                  AutomationProperties.AutomationId="NavLearn" />
                     <ListBoxItem Content="Scenarios"
                                  Tag="Practice one complete café exchange with deterministic feedback and local progress."
