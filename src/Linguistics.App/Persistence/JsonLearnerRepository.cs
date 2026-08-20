@@ -25,6 +25,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
     private readonly string _directory;
     private readonly string _filePath;
     private readonly string _temporaryFilePath;
+    private readonly string _recoveryDirectory;
     private readonly SemaphoreSlim _gate = new(1, 1);
 
     public JsonLearnerRepository(string filePath)
@@ -35,6 +36,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         _directory = Path.GetDirectoryName(_filePath)
             ?? throw new ArgumentException("The learner store must have a parent directory.", nameof(filePath));
         _temporaryFilePath = _filePath + ".tmp";
+        _recoveryDirectory = Path.Combine(_directory, "Recovery");
     }
 
     public async Task<LearnerProfile?> LoadAsync(CancellationToken cancellationToken = default)
@@ -203,6 +205,15 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
+            EnsureRegularFileOrMissing(_filePath);
+            EnsureRegularFileOrMissing(_temporaryFilePath);
+            var recoveryFiles = FindRecoveryFiles();
+            foreach (var recoveryFile in recoveryFiles)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                File.Delete(recoveryFile);
+            }
+
             File.Delete(_filePath);
             File.Delete(_temporaryFilePath);
         }
@@ -213,6 +224,65 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
             throw new LearnerStoreException("The learner data could not be deleted.", exception);
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
+    public async Task<LearnerStoreRecoveryResult> PreserveForRecoveryAsync(
+        CancellationToken cancellationToken = default)
+    {
+        await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            EnsureRegularFileOrMissing(_filePath);
+            EnsureRegularFileOrMissing(_temporaryFilePath);
+            if (!File.Exists(_filePath) && !File.Exists(_temporaryFilePath))
+            {
+                throw new LearnerStoreException("There is no learner-data file to preserve for recovery.");
+            }
+
+            Directory.CreateDirectory(_recoveryDirectory);
+            EnsureDirectoryIsNotLink(_recoveryDirectory);
+            var recoveryName =
+                $"learner-data-{DateTimeOffset.UtcNow:yyyyMMdd-HHmmss}-{Guid.NewGuid():N}.json";
+            var recoveryPath = Path.Combine(_recoveryDirectory, recoveryName);
+            var preservedFiles = 0;
+            var preservedMainFile = false;
+            if (File.Exists(_filePath))
+            {
+                File.Move(_filePath, recoveryPath);
+                preservedFiles++;
+                preservedMainFile = true;
+            }
+
+            if (File.Exists(_temporaryFilePath))
+            {
+                var temporaryRecoveryPath = preservedMainFile
+                    ? recoveryPath + ".unfinished"
+                    : recoveryPath;
+                File.Move(_temporaryFilePath, temporaryRecoveryPath);
+                preservedFiles++;
+            }
+
+            return new LearnerStoreRecoveryResult(recoveryName, preservedFiles);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (LearnerStoreException)
+        {
+            throw;
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            throw new LearnerStoreException(
+                "The unreadable learner data could not be preserved for recovery.",
+                exception);
         }
         finally
         {
@@ -240,8 +310,17 @@ public sealed class JsonLearnerRepository : ILearnerRepository
     {
         if (!File.Exists(_filePath))
         {
+            EnsureRegularFileOrMissing(_temporaryFilePath);
+            if (File.Exists(_temporaryFilePath))
+            {
+                throw new LearnerStoreException(
+                    "An unfinished learner-data write was found. Preserve it for recovery before starting again.");
+            }
+
             return null;
         }
+
+        EnsureRegularFileOrMissing(_filePath);
 
         if (new FileInfo(_filePath).Length > MaximumStoreBytes)
         {
@@ -410,6 +489,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         try
         {
             Directory.CreateDirectory(_directory);
+            EnsureRegularFileOrMissing(_filePath);
+            EnsureRegularFileOrMissing(_temporaryFilePath);
             await using (var stream = new FileStream(
                 _temporaryFilePath,
                 FileMode.Create,
@@ -452,6 +533,92 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         }
     }
 
+    private static void EnsureRegularFileOrMissing(string path)
+    {
+        var info = new FileInfo(path);
+        if (info.LinkTarget is not null ||
+            info.Exists && (info.Attributes & FileAttributes.ReparsePoint) != 0)
+        {
+            throw new LearnerStoreException(
+                "The learner-data path is a filesystem link and was not accessed.");
+        }
+
+        if (Directory.Exists(path))
+        {
+            throw new LearnerStoreException(
+                "The learner-data path is a directory and was not accessed.");
+        }
+    }
+
+    private IReadOnlyList<string> FindRecoveryFiles()
+    {
+        var directory = new DirectoryInfo(_recoveryDirectory);
+        if (directory.LinkTarget is not null ||
+            directory.Exists && (directory.Attributes & FileAttributes.ReparsePoint) != 0)
+        {
+            throw new LearnerStoreException(
+                "The learner-data recovery directory is a filesystem link and was not accessed.");
+        }
+
+        if (!directory.Exists)
+        {
+            return [];
+        }
+
+        var files = new List<string>();
+        foreach (var path in Directory.EnumerateFileSystemEntries(
+                     _recoveryDirectory,
+                     "*",
+                     SearchOption.TopDirectoryOnly))
+        {
+            if (!IsRecoveryFileName(Path.GetFileName(path)))
+            {
+                continue;
+            }
+
+            EnsureRegularFileOrMissing(path);
+            files.Add(path);
+        }
+
+        return files;
+    }
+
+    private static bool IsRecoveryFileName(string fileName)
+    {
+        const string prefix = "learner-data-";
+        const string suffix = ".json";
+        const string unfinishedSuffix = ".unfinished";
+
+        var completeName = fileName.EndsWith(unfinishedSuffix, StringComparison.Ordinal)
+            ? fileName[..^unfinishedSuffix.Length]
+            : fileName;
+        if (!completeName.StartsWith(prefix, StringComparison.Ordinal) ||
+            !completeName.EndsWith(suffix, StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        var identifier = completeName[prefix.Length..^suffix.Length];
+        var parts = identifier.Split('-');
+        return parts.Length == 3 &&
+               parts[0].Length == 8 &&
+               parts[0].All(char.IsAsciiDigit) &&
+               parts[1].Length == 6 &&
+               parts[1].All(char.IsAsciiDigit) &&
+               Guid.TryParseExact(parts[2], "N", out _);
+    }
+
+    private static void EnsureDirectoryIsNotLink(string path)
+    {
+        var info = new DirectoryInfo(path);
+        if (info.LinkTarget is not null ||
+            (info.Attributes & FileAttributes.ReparsePoint) != 0)
+        {
+            throw new LearnerStoreException(
+                "The learner-data recovery directory is a filesystem link and was not used.");
+        }
+    }
+
     private sealed record SchemaOneEnvelope(int SchemaVersion, LearnerProfile? Profile);
 
     private sealed record SchemaTwoEnvelope(
@@ -480,3 +647,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         PronunciationHistory Pronunciation,
         ReviewHistory Review);
 }
+
+public sealed record LearnerStoreRecoveryResult(
+    string RecoveryFileName,
+    int PreservedFileCount);

@@ -257,6 +257,87 @@ public sealed class JsonLearnerRepositoryTests
     }
 
     [TestMethod]
+    public async Task MalformedStoreCanBePreservedBeforeStartingAgain()
+    {
+        await WithStoreAsync(async (repository, filePath) =>
+        {
+            const string malformed = "{not-json-with-history";
+            await File.WriteAllTextAsync(filePath, malformed);
+            var siblingPath = Path.Combine(Path.GetDirectoryName(filePath)!, "keep.txt");
+            await File.WriteAllTextAsync(siblingPath, "unrelated");
+
+            var result = await repository.PreserveForRecoveryAsync();
+
+            var recoveryPath = Path.Combine(
+                Path.GetDirectoryName(filePath)!,
+                "Recovery",
+                result.RecoveryFileName);
+            Assert.AreEqual(1, result.PreservedFileCount);
+            Assert.IsFalse(File.Exists(filePath));
+            Assert.IsTrue(File.Exists(recoveryPath));
+            Assert.AreEqual(malformed, await File.ReadAllTextAsync(recoveryPath));
+            Assert.AreEqual("unrelated", await File.ReadAllTextAsync(siblingPath));
+            Assert.IsNull(await repository.LoadAsync());
+        });
+    }
+
+    [TestMethod]
+    public async Task UnfinishedWriteRequiresExplicitRecoveryAndIsPreserved()
+    {
+        await WithStoreAsync(async (repository, filePath) =>
+        {
+            const string unfinished = "{partial";
+            await File.WriteAllTextAsync(filePath + ".tmp", unfinished);
+
+            var exception = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
+                () => repository.LoadAsync());
+            StringAssert.Contains(exception.Message, "unfinished learner-data write");
+
+            var result = await repository.PreserveForRecoveryAsync();
+            var recoveryPath = Path.Combine(
+                Path.GetDirectoryName(filePath)!,
+                "Recovery",
+                result.RecoveryFileName);
+            Assert.AreEqual(1, result.PreservedFileCount);
+            Assert.AreEqual(unfinished, await File.ReadAllTextAsync(recoveryPath));
+            Assert.IsFalse(File.Exists(filePath + ".tmp"));
+        });
+    }
+
+    [TestMethod]
+    public async Task LearnerStoreLinksAreRejectedForReadAndDelete()
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            return;
+        }
+
+        var targetPath = Path.Combine(
+            Path.GetTempPath(),
+            $"linguistics-link-target-{Guid.NewGuid():N}.json");
+        try
+        {
+            await WithStoreAsync(async (repository, filePath) =>
+            {
+                await File.WriteAllTextAsync(targetPath, "outside");
+                File.CreateSymbolicLink(filePath, targetPath);
+
+                var read = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
+                    () => repository.LoadAsync());
+                StringAssert.Contains(read.Message, "filesystem link");
+                var delete = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
+                    () => repository.DeleteAsync());
+                StringAssert.Contains(delete.Message, "filesystem link");
+                Assert.AreEqual("outside", await File.ReadAllTextAsync(targetPath));
+            });
+        }
+        finally
+        {
+            File.Delete(targetPath);
+        }
+    }
+
+    [TestMethod]
     public async Task InvalidCurrentSchemaCurriculumFailsWithoutChangingTheFile()
     {
         await WithStoreAsync(async (repository, filePath) =>

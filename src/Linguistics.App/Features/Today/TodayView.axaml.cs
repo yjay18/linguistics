@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Linguistics.App.Diagnostics;
 using Linguistics.App.Features.Review;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
@@ -24,11 +25,12 @@ public partial class TodayView : UserControl
         LearnerProfile profile,
         LearnerProfileOwner profileOwner,
         ValidatedContentCatalog? contentCatalog,
-        Action<string> navigate)
+        Action<string> navigate,
+        LocalDiagnosticLog? diagnosticLog = null)
         : this()
     {
         var graph = contentCatalog?.CreateRuntimeConceptGraph(profile.TargetLanguage);
-        _controller = new ReviewController(profileOwner, graph);
+        _controller = new ReviewController(profileOwner, graph, diagnosticLog: diagnosticLog);
         _navigate = navigate;
     }
 

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Providers;
 
 namespace Linguistics.App.Features.Learn;
 
@@ -9,21 +10,26 @@ public partial class CurriculumDiagnosticsView : UserControl
 {
     private TargetConceptContent[] _concepts = [];
     private TransferMappingContent[] _mappings = [];
+    private LearnerProfileOwner? _profileOwner;
+    private bool _historyLoaded;
 
     public CurriculumDiagnosticsView()
     {
         InitializeComponent();
         ConceptList.SelectionChanged += OnConceptSelectionChanged;
         TransferList.SelectionChanged += OnTransferSelectionChanged;
+        AttachedToVisualTree += async (_, _) => await LoadStoredInspectionAsync();
     }
 
     public CurriculumDiagnosticsView(
         LearnerProfile profile,
         ValidatedContentCatalog? contentCatalog,
-        string? contentError)
+        string? contentError,
+        LearnerProfileOwner? profileOwner = null)
         : this()
     {
         ArgumentNullException.ThrowIfNull(profile);
+        _profileOwner = profileOwner;
         ShowContentPreview(contentCatalog, contentError);
         ShowDiagnostics(BuildDiagnostics(profile, DateTimeOffset.UtcNow));
     }
@@ -55,6 +61,14 @@ public partial class CurriculumDiagnosticsView : UserControl
             .ToArray();
         var pendingLicenses = catalog.Packs.Count(pack =>
             pack.Manifest.License.ReviewStatus != LicenseReviewStatus.Reviewed);
+        var errorRules = catalog.Packs
+            .SelectMany(pack => pack.ErrorRules)
+            .OrderBy(rule => rule.Id, StringComparer.Ordinal)
+            .ToArray();
+        var utterances = catalog.Packs
+            .SelectMany(pack => pack.PronunciationUtterances)
+            .OrderBy(utterance => utterance.Id, StringComparer.Ordinal)
+            .ToArray();
 
         ContentStatusText.Text =
             $"Validated {catalog.Packs.Count} packs, {_concepts.Length} concepts, " +
@@ -69,6 +83,22 @@ public partial class CurriculumDiagnosticsView : UserControl
             tasks.Select(task =>
                 $"• {task.Goal} ({task.Domain}; {task.States.Count} states, " +
                 $"{task.Transitions.Count} transitions, {task.SuccessConditions.Count} success contract)"));
+        ContractInspectionText.Text = string.Join(
+            Environment.NewLine,
+            tasks.Select(task =>
+                $"Task {task.Id}: {string.Join("; ", task.Transitions.Select(transition =>
+                    $"{transition.FromStateId} → {transition.ToStateId} via {transition.EvaluatorId}"))}\n" +
+                $"Evaluators: {string.Join(", ", task.Evaluators.Select(evaluator =>
+                    $"{evaluator.Id} ({evaluator.Kind})"))}")) +
+            Environment.NewLine +
+            string.Join(
+                Environment.NewLine,
+                errorRules.Select(rule =>
+                    $"Error {rule.Id}: {rule.Severity}; {rule.Pattern.Kind}; target {rule.TargetConceptId}.")) +
+            Environment.NewLine +
+            $"Pronunciation contracts: {utterances.Length}; assessment mode is content-declared.\n" +
+            $"Dialogue schema {DialogueProposalValidator.SchemaVersion}: exact serverLineId, intent, nextStateId, and usedVocabularyIds only.\n" +
+            $"Review schema {ReviewConfiguration.Default.Version}: Again, Hard, Good, or Easy; model authority is absent.";
 
         if (_concepts.Length > 0)
         {
@@ -80,6 +110,59 @@ public partial class CurriculumDiagnosticsView : UserControl
             TransferList.SelectedIndex = 0;
         }
     }
+
+    private async Task LoadStoredInspectionAsync()
+    {
+        if (_historyLoaded)
+        {
+            return;
+        }
+
+        _historyLoaded = true;
+        if (_profileOwner is null)
+        {
+            StoredInspectionText.Text = "The learner-state service was not supplied to this diagnostic view.";
+            return;
+        }
+
+        try
+        {
+            var state = await _profileOwner.LoadLearningStateAsync();
+            var progress = state.Curriculum.Progress.Count == 0
+                ? "none"
+                : string.Join(", ", state.Curriculum.Progress.Select(item =>
+                    $"{item.ConceptId}={item.State} (attempts {item.AttemptCount}, errors {item.RecurringErrorCount})"));
+            var evidence = state.Curriculum.Attempts.Count == 0
+                ? "none"
+                : string.Join(" | ", state.Curriculum.Attempts.TakeLast(5).Select(item =>
+                    $"{item.ConceptId}: communication {Value(item.Evidence.CommunicativeSuccess)}, " +
+                    $"target {Value(item.Evidence.TargetConceptPerformance)}, delayed {Value(item.Evidence.DelayedRecall)}"));
+            var tasks = state.Tasks.Attempts.Count == 0
+                ? "none"
+                : string.Join(" | ", state.Tasks.Attempts.TakeLast(5).Select(item =>
+                    $"{item.TaskId}: {item.DialogueMode}, schema {item.DialogueSchemaVersion}, " +
+                    $"errors {item.EncounteredErrorRuleIds.Count}"));
+            var review = state.Review.Schedules.Count == 0
+                ? "none"
+                : string.Join(" | ", state.Review.Schedules.Take(10).Select(item =>
+                    $"{item.Kind}/{item.TargetId}: due {item.DueAt:u}, streak {item.SuccessStreak}, failures {item.FailureCount}"));
+            StoredInspectionText.Text =
+                $"Concept transitions: {progress}\n" +
+                $"Recent mastery evidence: {evidence}\n" +
+                $"Task transitions: {tasks}\n" +
+                $"Review history: {review}\n" +
+                $"Pronunciation metadata records: {state.Pronunciation.Attempts.Count}.";
+        }
+        catch (Exception exception) when (
+            exception is LearnerStoreException or CurriculumValidationException or ArgumentException)
+        {
+            StoredInspectionText.Text = $"Stored aggregate history could not be inspected: {exception.Message}";
+        }
+    }
+
+    private static string Value(bool? value) => value is null ? "not measured" : value.Value ? "yes" : "no";
+
+    private static string Value(double? value) => value is null ? "not measured" : value.Value.ToString("0.##");
 
     private void OnConceptSelectionChanged(object? sender, SelectionChangedEventArgs args)
     {

@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Linguistics.App.Diagnostics;
 using Linguistics.App.LocalAI;
 using Linguistics.App.Persistence;
 using Linguistics.App.Speech;
@@ -23,6 +24,7 @@ public partial class App : Application
         {
             var paths = AppDataPaths.CreateDefault();
             var repository = new JsonLearnerRepository(paths.LearnerProfileFile);
+            var diagnosticLog = new LocalDiagnosticLog(paths.DiagnosticLogFile);
             var languageModelProvider = OllamaProvider.CreateDefault();
             var speechSynthesisProvider = SystemSpeechSynthesisProvider.CreateDefault();
             var speechRecognitionProvider = WhisperStreamRecognitionProvider.CreateDefault();
@@ -68,7 +70,9 @@ public partial class App : Application
                 speechSynthesisProvider,
                 speechRecognitionProvider,
                 pronunciationAssessmentProvider,
-                speechRecordingStore);
+                speechRecordingStore,
+                repository.PreserveForRecoveryAsync,
+                diagnosticLog);
             desktop.Exit += (_, _) =>
             {
                 languageModelProvider.Dispose();

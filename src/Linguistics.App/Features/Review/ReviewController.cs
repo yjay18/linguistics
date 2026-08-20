@@ -1,5 +1,6 @@
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
+using Linguistics.App.Diagnostics;
 
 namespace Linguistics.App.Features.Review;
 
@@ -25,6 +26,7 @@ public sealed class ReviewController
     private readonly ConceptGraph? _graph;
     private readonly Func<DateTimeOffset> _clock;
     private readonly ReviewConfiguration _configuration;
+    private readonly LocalDiagnosticLog? _diagnosticLog;
     private readonly SemaphoreSlim _gate = new(1, 1);
     private LearnerLearningState? _state;
 
@@ -32,12 +34,14 @@ public sealed class ReviewController
         LearnerProfileOwner profileOwner,
         ConceptGraph? graph,
         Func<DateTimeOffset>? clock = null,
-        ReviewConfiguration? configuration = null)
+        ReviewConfiguration? configuration = null,
+        LocalDiagnosticLog? diagnosticLog = null)
     {
         _profileOwner = profileOwner ?? throw new ArgumentNullException(nameof(profileOwner));
         _graph = graph;
         _clock = clock ?? (() => DateTimeOffset.UtcNow);
         _configuration = configuration ?? ReviewConfiguration.Default;
+        _diagnosticLog = diagnosticLog;
         _configuration.Validate();
     }
 
@@ -60,6 +64,10 @@ public sealed class ReviewController
                 await _profileOwner
                     .SaveLearningStateAsync(synchronized, cancellationToken)
                     .ConfigureAwait(false);
+                await TryLogAsync(
+                    DiagnosticEventCode.ReviewSynchronized,
+                    _configuration.Version.Value,
+                    cancellationToken).ConfigureAwait(false);
                 state = synchronized;
             }
 
@@ -118,6 +126,10 @@ public sealed class ReviewController
             await _profileOwner
                 .SaveLearningStateAsync(updated, cancellationToken)
                 .ConfigureAwait(false);
+            await TryLogAsync(
+                DiagnosticEventCode.ReviewRecorded,
+                _configuration.Version.Value,
+                cancellationToken).ConfigureAwait(false);
             _state = updated;
             return new ReviewSubmission(decision, BuildSnapshot(updated, now));
         }
@@ -140,5 +152,33 @@ public sealed class ReviewController
             queue,
             now);
         return new LearningSnapshot(state, queue, progress, TodayPlanner.Build(progress));
+    }
+
+    private async Task TryLogAsync(
+        DiagnosticEventCode eventCode,
+        string configurationVersion,
+        CancellationToken cancellationToken)
+    {
+        if (_diagnosticLog is null)
+        {
+            return;
+        }
+
+        try
+        {
+            await _diagnosticLog.WriteAsync(
+                DiagnosticCategory.Review,
+                eventCode,
+                DiagnosticOutcome.Succeeded,
+                configurationVersion: configurationVersion,
+                cancellationToken: cancellationToken).ConfigureAwait(false);
+        }
+        catch (DiagnosticLogException)
+        {
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            // The learning-state save has already succeeded; optional logging cannot turn it into a retry.
+        }
     }
 }

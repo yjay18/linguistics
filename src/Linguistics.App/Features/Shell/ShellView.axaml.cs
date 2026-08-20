@@ -1,4 +1,6 @@
 using Avalonia.Controls;
+using Linguistics.App.Diagnostics;
+using Linguistics.App.Persistence;
 using Linguistics.App.Features.Languages;
 using Linguistics.App.Features.Learn;
 using Linguistics.App.Features.Pronunciation;
@@ -29,6 +31,7 @@ public partial class ShellView : UserControl
     private ISpeechRecognitionProvider? _speechRecognitionProvider;
     private IPronunciationAssessmentProvider? _pronunciationAssessmentProvider;
     private SpeechRecordingStore? _speechRecordingStore;
+    private LocalDiagnosticLog? _diagnosticLog;
 
     public ShellView()
     {
@@ -49,7 +52,8 @@ public partial class ShellView : UserControl
         ISpeechSynthesisProvider? speechSynthesisProvider = null,
         ISpeechRecognitionProvider? speechRecognitionProvider = null,
         IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null,
-        SpeechRecordingStore? speechRecordingStore = null)
+        SpeechRecordingStore? speechRecordingStore = null,
+        LocalDiagnosticLog? diagnosticLog = null)
         : this()
     {
         _profile = profile;
@@ -64,6 +68,7 @@ public partial class ShellView : UserControl
         _speechRecognitionProvider = speechRecognitionProvider;
         _pronunciationAssessmentProvider = pronunciationAssessmentProvider;
         _speechRecordingStore = speechRecordingStore;
+        _diagnosticLog = diagnosticLog;
         ShowSelectedPage();
     }
 
@@ -93,7 +98,8 @@ public partial class ShellView : UserControl
                     _profile,
                     _profileOwner,
                     _runtimeContentCatalog,
-                    NavigateTo));
+                    NavigateTo,
+                    _diagnosticLog));
                 break;
             case "Languages":
                 ShowPage(new LanguagesView(_profile, SaveProfileAsync));
@@ -102,7 +108,8 @@ public partial class ShellView : UserControl
                 ShowPage(new CurriculumDiagnosticsView(
                     _profile,
                     _authoringContentCatalog,
-                    _authoringContentError));
+                    _authoringContentError,
+                    _profileOwner));
                 break;
             case "Scenarios":
                 ShowPage(new CafeOrderView(
@@ -132,13 +139,15 @@ public partial class ShellView : UserControl
                     _profile,
                     _profileOwner,
                     _runtimeContentCatalog,
-                    _runtimeContentError));
+                    _runtimeContentError,
+                    _diagnosticLog));
                 break;
             case "Progress":
                 ShowPage(new ProgressView(
                     _profile,
                     _profileOwner,
-                    _runtimeContentCatalog));
+                    _runtimeContentCatalog,
+                    _diagnosticLog));
                 break;
             case "Settings":
                 ShowPage(new SettingsView(
@@ -164,17 +173,10 @@ public partial class ShellView : UserControl
 
     private async Task DeleteProfileAsync()
     {
-        if (_speechRecordingStore is not null)
-        {
-            var deletion = await _speechRecordingStore.DeleteAllAsync();
-            if (deletion.FailedFileCount > 0)
-            {
-                throw new LearnerStoreException(
-                    "Some app-owned speech recordings could not be deleted; learning data was kept so you can retry.");
-            }
-        }
-
-        await _profileOwner!.DeleteAllAsync();
+        await LocalLearningDataDeletion.DeleteAllAsync(
+            _profileOwner!,
+            _speechRecordingStore,
+            _diagnosticLog);
         _profile = null;
         _profileDeleted?.Invoke();
     }

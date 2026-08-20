@@ -169,7 +169,7 @@
                            FontSize="20"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="Linguistics stores your learner profile and any concept progress, attempts, configuration versions, and selected transfer bridges in one local learner-data file. Deletion removes that file from this device. It does not remove unrelated files, installed models, or content packs."
+                <TextBlock Text="Linguistics stores your profile and learning history locally, with app-owned recovery copies, a redacted diagnostic log, and any speech recordings. Deletion removes all of those learner-data classes from this device. It preserves unrelated files, installed models, and content packs."
                            TextWrapping="Wrap" />
                 <Button x:Name="ShowDeleteConfirmationButton"
                         Content="Delete all learning data"
@@ -180,7 +180,7 @@
                             IsVisible="False"
                             Spacing="10"
                             AutomationProperties.AutomationId="DeleteConfirmation">
-                    <TextBlock Text="Delete the local learner profile now? This cannot be undone. Linguistics will return to setup."
+                    <TextBlock Text="Delete all local learner history, recovery copies, diagnostics, and recordings now? This cannot be undone. Linguistics will return to setup."
                                FontWeight="SemiBold"
                                TextWrapping="Wrap"
                                AutomationProperties.LiveSetting="Assertive" />

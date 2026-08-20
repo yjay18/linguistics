@@ -67,6 +67,17 @@
                            LineHeight="22"
                            AutomationProperties.AutomationId="ContentTaskSummary" />
             </StackPanel>
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="Errors, transitions, and provider schemas"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock x:Name="ContractInspectionText"
+                           TextWrapping="Wrap"
+                           LineHeight="22"
+                           AutomationProperties.AutomationId="ContentContractInspection" />
+            </StackPanel>
         </StackPanel>
 
         <Border Height="1"
@@ -124,5 +135,24 @@
                    TextWrapping="Wrap"
                    Opacity="0.68"
                    AutomationProperties.AutomationId="CurriculumConfigurationDiagnostic" />
+
+        <Border Height="1"
+                Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+
+        <StackPanel Spacing="8">
+            <TextBlock Text="Stored transition and review inspection"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <TextBlock Text="This aggregate view intentionally excludes learner utterances, transcripts, audio, prompt bodies, and file paths."
+                       TextWrapping="Wrap"
+                       Opacity="0.72" />
+            <TextBlock x:Name="StoredInspectionText"
+                       Text="Loading local aggregate history…"
+                       TextWrapping="Wrap"
+                       LineHeight="22"
+                       AutomationProperties.LiveSetting="Polite"
+                       AutomationProperties.AutomationId="StoredLearningInspection" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

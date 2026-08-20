@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Linguistics.App.Diagnostics;
 using Linguistics.App.Features.Review;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
@@ -20,11 +21,12 @@ public partial class ProgressView : UserControl
     public ProgressView(
         LearnerProfile profile,
         LearnerProfileOwner profileOwner,
-        ValidatedContentCatalog? contentCatalog)
+        ValidatedContentCatalog? contentCatalog,
+        LocalDiagnosticLog? diagnosticLog = null)
         : this()
     {
         var graph = contentCatalog?.CreateRuntimeConceptGraph(profile.TargetLanguage);
-        _controller = new ReviewController(profileOwner, graph);
+        _controller = new ReviewController(profileOwner, graph, diagnosticLog: diagnosticLog);
     }
 
     private async Task InitializeAsync()

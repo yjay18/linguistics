@@ -43,6 +43,12 @@
                         IsVisible="False"
                         Click="OnRetryClicked"
                         AutomationProperties.AutomationId="RetryStartup" />
+                <Button x:Name="RecoveryButton"
+                        Content="Preserve unreadable data and start fresh"
+                        HorizontalAlignment="Center"
+                        IsVisible="False"
+                        Click="OnRecoveryClicked"
+                        AutomationProperties.AutomationId="RecoverLearnerStore" />
             </StackPanel>
         </Border>
     </Grid>

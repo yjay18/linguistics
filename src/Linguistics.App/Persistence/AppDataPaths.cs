@@ -3,7 +3,9 @@ namespace Linguistics.App.Persistence;
 public sealed record AppDataPaths(
     string Directory,
     string LearnerProfileFile,
-    string SpeechRecordingsDirectory)
+    string SpeechRecordingsDirectory,
+    string RecoveryDirectory,
+    string DiagnosticLogFile)
 {
     public static AppDataPaths CreateDefault()
     {
@@ -15,7 +17,9 @@ public sealed record AppDataPaths(
         return new AppDataPaths(
             directory,
             Path.Combine(directory, "learner-profile.json"),
-            Path.Combine(directory, "Speech Recordings"));
+            Path.Combine(directory, "Speech Recordings"),
+            Path.Combine(directory, "Recovery"),
+            Path.Combine(directory, "diagnostics.jsonl"));
     }
 
     private static string GetPlatformDataDirectory()

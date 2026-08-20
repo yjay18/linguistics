@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Linguistics.App.Diagnostics;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
@@ -31,7 +32,8 @@ public partial class ReviewView : UserControl
         LearnerProfile profile,
         LearnerProfileOwner profileOwner,
         ValidatedContentCatalog? contentCatalog,
-        string? contentError)
+        string? contentError,
+        LocalDiagnosticLog? diagnosticLog = null)
         : this()
     {
         ArgumentNullException.ThrowIfNull(profile);
@@ -45,7 +47,7 @@ public partial class ReviewView : UserControl
                 .ToDictionary(item => item.Id, StringComparer.Ordinal);
         }
 
-        _controller = new ReviewController(profileOwner, _graph);
+        _controller = new ReviewController(profileOwner, _graph, diagnosticLog: diagnosticLog);
     }
 
     private async Task InitializeAsync()
