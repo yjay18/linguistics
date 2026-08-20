@@ -151,7 +151,7 @@ public sealed class OllamaProvider : ILanguageModelProvider, IDisposable
                 model,
                 string.Empty,
                 [],
-                "Cloud model aliases are blocked in local-only mode.");
+                "Cloud model aliases are blocked in local mode.");
         }
 
         using var timeout = CreateTimeout(cancellationToken);
@@ -269,7 +269,7 @@ public sealed class OllamaProvider : ILanguageModelProvider, IDisposable
                     LanguageModelResultStatus.Stale,
                     null,
                     "stale",
-                    "An obsolete local-model response was discarded.",
+                    "An obsolete local model response was discarded.",
                     stopwatch.Elapsed);
             }
 
@@ -293,7 +293,7 @@ public sealed class OllamaProvider : ILanguageModelProvider, IDisposable
                     LanguageModelResultStatus.Stale,
                     null,
                     "stale",
-                    "An obsolete local-model response was discarded.",
+                    "An obsolete local model response was discarded.",
                     stopwatch.Elapsed);
             }
 
@@ -303,14 +303,14 @@ public sealed class OllamaProvider : ILanguageModelProvider, IDisposable
                     LanguageModelResultStatus.Accepted,
                     validation.Proposal,
                     validation.Code,
-                    "The bounded local-model proposal passed schema and allow-list validation.",
+                    "The bounded local model proposal passed schema and allowed value validation.",
                     stopwatch.Elapsed)
                 : Result(
                     request,
                     LanguageModelResultStatus.InvalidResponse,
                     null,
                     validation.Code,
-                    "The local-model proposal was rejected; using the scripted response.",
+                    "The local model proposal was rejected; using the scripted response.",
                     stopwatch.Elapsed);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -320,7 +320,7 @@ public sealed class OllamaProvider : ILanguageModelProvider, IDisposable
                 LanguageModelResultStatus.Cancelled,
                 null,
                 "cancelled",
-                "The local-model request was cancelled; no proposal was applied.",
+                "The local model request was cancelled; no proposal was applied.",
                 stopwatch.Elapsed);
         }
         catch (OperationCanceledException)
@@ -330,7 +330,7 @@ public sealed class OllamaProvider : ILanguageModelProvider, IDisposable
                 LanguageModelResultStatus.TimedOut,
                 null,
                 "timeout",
-                "The local-model request timed out; using the scripted response.",
+                "The local model request timed out; using the scripted response.",
                 stopwatch.Elapsed);
         }
         catch (HttpRequestException)
@@ -350,7 +350,7 @@ public sealed class OllamaProvider : ILanguageModelProvider, IDisposable
                 LanguageModelResultStatus.InvalidResponse,
                 null,
                 "envelope.invalid",
-                "The local-model response envelope was invalid; using the scripted response.",
+                "The local model response envelope was invalid; using the scripted response.",
                 stopwatch.Elapsed);
         }
     }

@@ -185,7 +185,7 @@ public sealed class CafeScenarioController
             _targetProgress.State != ConceptProgressState.Locked,
             _targetProgress.State == ConceptProgressState.Locked
                 ? "Build the prerequisite capabilities first; the scenario will unlock deterministically."
-                : "Ready for a short, text-first café exchange. Scripted dialogue is always available.",
+                : "Ready for a short café exchange using text. Scripted dialogue is always available.",
             _targetProgress.State,
             missing,
             _bridge,
@@ -507,7 +507,7 @@ public sealed class CafeScenarioController
                 fallback,
                 DialogueRealizationMode.Scripted,
                 Model: null,
-                "The local-model request was cancelled; the validated scripted response was used.",
+                "The local model request was cancelled; the validated scripted response was used.",
                 Diagnostic: null);
         }
     }

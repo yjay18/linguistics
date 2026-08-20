@@ -9,7 +9,7 @@ public sealed partial class WhisperStreamRecognitionProvider : ISpeechRecognitio
 {
     public const string ProviderVersion = "whisper.cpp-stream-v1";
     public const string ModelSource = "https://huggingface.co/ggerganov/whisper.cpp";
-    public const string License = "MIT model-conversion repository; verify the selected model's source terms";
+    public const string License = "MIT model conversion repository; verify the selected model's source terms";
 
     private readonly string? _executable;
     private readonly string? _modelPath;
@@ -49,7 +49,7 @@ public sealed partial class WhisperStreamRecognitionProvider : ISpeechRecognitio
             return Task.FromResult(new SpeechRecognitionSnapshot(
                 SpeechCapabilityStatus.Unavailable,
                 null,
-                "Local microphone transcription needs an installed whisper-stream executable. Text practice remains available."));
+                "Local microphone transcription needs an installed Whisper stream executable. Text practice remains available."));
         }
 
         if (string.IsNullOrWhiteSpace(_modelPath) || !File.Exists(_modelPath))
@@ -57,7 +57,7 @@ public sealed partial class WhisperStreamRecognitionProvider : ISpeechRecognitio
             return Task.FromResult(new SpeechRecognitionSnapshot(
                 SpeechCapabilityStatus.Misconfigured,
                 null,
-                "whisper-stream is installed, but no speech model is configured. Linguistics never downloads one silently; set LINGUISTICS_WHISPER_MODEL to a model you reviewed."));
+                "Whisper stream is installed, but no speech model is configured. Linguistics never downloads one silently; set LINGUISTICS_WHISPER_MODEL to a model you reviewed."));
         }
 
         var info = new FileInfo(_modelPath);
@@ -394,12 +394,12 @@ public sealed partial class WhisperStreamRecognitionProvider : ISpeechRecognitio
             request.MaximumDuration < TimeSpan.FromSeconds(3) ||
             request.MaximumDuration > TimeSpan.FromSeconds(30))
         {
-            return "The local speech-recognition request is invalid.";
+            return "The local speech recognition request is invalid.";
         }
 
         if (request.RetainAudio)
         {
-            return "This whisper-stream adapter does not retain recordings. Turn retention off or continue with text.";
+            return "This Whisper stream adapter does not retain recordings. Turn retention off or continue with text.";
         }
 
         return null;

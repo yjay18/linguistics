@@ -23,7 +23,7 @@ public partial class OnboardingView : UserControl
         "The first content configuration is intentionally small.",
         "Your repertoire can include more than one language, with different preferences for each.",
         "These preferences decide whether a language may support explanations; they do not infer identity or background.",
-        "A language switch will always be visible and explained. Reviewed data—not a model—decides when a comparison is valid.",
+        "A language switch will always be visible and explained. Reviewed data, not a model, decides when a comparison is valid.",
         "Local speech is optional. Setup never requests microphone permission.",
         "Choose data retention and motion preferences. Both can be changed later.",
         "Nothing is written until you finish this step.",

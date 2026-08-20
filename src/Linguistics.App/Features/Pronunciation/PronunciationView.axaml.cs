@@ -92,7 +92,7 @@ public partial class PronunciationView : UserControl
         ContentGatePanel.IsVisible = true;
         ContentGateTechnicalText.IsVisible = DeveloperModeEnabled();
         ContentGateTechnicalText.Text = string.IsNullOrWhiteSpace(_runtimeContentError)
-            ? "No runtime-approved content catalog was loaded."
+            ? "No approved runtime content catalog was loaded."
             : _runtimeContentError;
     }
 

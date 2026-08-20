@@ -73,6 +73,43 @@ public sealed class DesignSystemTests
         }
     }
 
+    [TestMethod]
+    public void KeyFrameAnimationsDoNotTargetUnsupportedRenderTransform()
+    {
+        XNamespace presentation = "https://github.com/avaloniaui";
+        var appXaml = Path.Combine(RepositoryRoot, "src", "Linguistics.App", "App.axaml");
+        var unsupportedSetters = XDocument
+            .Load(appXaml)
+            .Descendants(presentation + "Animation")
+            .Descendants(presentation + "Setter")
+            .Where(element => (string?)element.Attribute("Property") == "RenderTransform")
+            .ToArray();
+
+        Assert.IsEmpty(unsupportedSetters);
+    }
+
+    [TestMethod]
+    public void StaticUserFacingCopyDoesNotUseDashes()
+    {
+        var visibleAttributes = new HashSet<string>(
+            ["Text", "Content", "Tag", "AutomationProperties.Name"],
+            StringComparer.Ordinal);
+        var values = Directory
+            .EnumerateFiles(
+                Path.Combine(RepositoryRoot, "src", "Linguistics.App"),
+                "*.axaml",
+                SearchOption.AllDirectories)
+            .SelectMany(path => XDocument.Load(path).Descendants())
+            .SelectMany(element => element.Attributes())
+            .Where(attribute => visibleAttributes.Contains(attribute.Name.LocalName))
+            .Select(attribute => attribute.Value);
+
+        foreach (var value in values)
+        {
+            Assert.IsFalse(value.Contains('-') || value.Contains('–') || value.Contains('—'), value);
+        }
+    }
+
     private static IReadOnlyDictionary<string, string> LoadThemeBrushes(string themeName)
     {
         XNamespace presentation = "https://github.com/avaloniaui";

@@ -23,7 +23,7 @@
                            FontSize="21"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="The local speech tools are separate from teaching content. This practice phrase must be approved before it can become learner-facing."
+                <TextBlock Text="The local speech tools are separate from teaching content. This practice phrase must be approved before learners can use it."
                            TextWrapping="Wrap"
                            LineHeight="22" />
                 <TextBlock x:Name="ContentGateTechnicalText"
@@ -38,13 +38,13 @@
                     Spacing="18">
             <Border Classes="hero-card">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="UNDERSTOOD, NOT ‘ACCENT-FREE’"
+                    <TextBlock Text="UNDERSTOOD, NOT ACCENT FREE"
                                Classes="eyebrow" />
                     <TextBlock Text="Speak to be understood"
                                FontSize="26"
                                FontWeight="SemiBold"
                                AutomationProperties.HeadingLevel="2" />
-                    <TextBlock Text="The app compares the recognizer’s words with this phrase. It does not score phonemes, accent, tongue position, or native-likeness."
+                    <TextBlock Text="The app compares the recognizer’s words with this phrase. It does not score phonemes, accent, tongue position, or similarity to a native speaker."
                                TextWrapping="Wrap"
                                LineHeight="22" />
                 </StackPanel>
@@ -162,7 +162,7 @@
                                AutomationProperties.AutomationId="PronunciationRecognizedPhrase" />
                     <TextBlock x:Name="WordComparisonText"
                                TextWrapping="Wrap" />
-                    <TextBlock Text="This is a word-recognition proxy under one local recording condition—not a phoneme or accent score."
+                    <TextBlock Text="This is a word recognition proxy under one local recording condition, not a phoneme or accent score."
                                TextWrapping="Wrap"
                                FontSize="13"
                                Opacity="0.72" />

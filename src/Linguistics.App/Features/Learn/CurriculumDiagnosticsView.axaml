@@ -9,11 +9,11 @@
     <StackPanel Spacing="20">
         <Border Classes="warning-card">
             <StackPanel Spacing="8">
-                <TextBlock Text="Developer content preview — review required"
+                <TextBlock Text="Developer content preview. Review required"
                            FontSize="18"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="These German, English-transfer, and Hindi-transfer drafts passed machine validation. They are not linguistically approved, learner-ready, or cleared for redistribution."
+                <TextBlock Text="These German, English transfer, and Hindi transfer drafts passed machine validation. They are not linguistically approved, ready for learners, or cleared for redistribution."
                            TextWrapping="Wrap"
                            AutomationProperties.AutomationId="ContentPreviewNotice" />
                 <TextBlock x:Name="ContentStatusText"
@@ -33,7 +33,7 @@
                 <ListBox x:Name="ConceptList"
                          Classes="content-list"
                          MaxHeight="220"
-                         AutomationProperties.Name="Machine-validated German concept drafts"
+                         AutomationProperties.Name="Machine validated German concept drafts"
                          AutomationProperties.AutomationId="ContentConceptList" />
                 <TextBlock x:Name="ConceptDetailText"
                            TextWrapping="Wrap"
@@ -49,7 +49,7 @@
                 <ListBox x:Name="TransferList"
                          Classes="content-list"
                          MaxHeight="180"
-                         AutomationProperties.Name="Machine-validated transfer-note drafts"
+                         AutomationProperties.Name="Machine validated transfer note drafts"
                          AutomationProperties.AutomationId="ContentTransferList" />
                 <TextBlock x:Name="TransferDetailText"
                            TextWrapping="Wrap"
@@ -84,7 +84,7 @@
 
         <Border Classes="soft-card">
             <StackPanel Spacing="8">
-                <TextBlock Text="Synthetic deterministic-engine fixture"
+                <TextBlock Text="Synthetic deterministic engine fixture"
                            FontSize="18"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />

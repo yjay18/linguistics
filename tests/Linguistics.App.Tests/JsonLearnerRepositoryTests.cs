@@ -316,7 +316,7 @@ public sealed class JsonLearnerRepositoryTests
 
             var exception = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
                 () => repository.LoadAsync());
-            StringAssert.Contains(exception.Message, "unfinished learner-data write");
+            StringAssert.Contains(exception.Message, "unfinished learner data write");
 
             var result = await repository.PreserveForRecoveryAsync();
             var recoveryPath = Path.Combine(

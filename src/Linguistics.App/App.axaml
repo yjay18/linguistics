@@ -291,11 +291,9 @@
                            Easing="CubicEaseOut">
                     <KeyFrame Cue="0%">
                         <Setter Property="Opacity" Value="0.35" />
-                        <Setter Property="RenderTransform" Value="translateY(8px)" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="Opacity" Value="1" />
-                        <Setter Property="RenderTransform" Value="translateY(0px)" />
                     </KeyFrame>
                 </Animation>
             </Style.Animations>

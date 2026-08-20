@@ -24,7 +24,7 @@
                            FontSize="21"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="The café engine is installed, but learner-facing language and licenses must be approved before this content can teach. Nothing unreviewed has been promoted into your learning history."
+                <TextBlock Text="The café engine is installed, but its language and licenses must be approved before learners can use this content. Nothing unreviewed has been promoted into your learning history."
                            TextWrapping="Wrap"
                            LineHeight="22" />
                 <TextBlock x:Name="ContentGateTechnicalText"

@@ -242,7 +242,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             EnsureRegularFileOrMissing(_temporaryFilePath);
             if (!File.Exists(_filePath) && !File.Exists(_temporaryFilePath))
             {
-                throw new LearnerStoreException("There is no learner-data file to preserve for recovery.");
+                throw new LearnerStoreException("There is no learner data file to preserve for recovery.");
             }
 
             Directory.CreateDirectory(_recoveryDirectory);
@@ -314,7 +314,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             if (File.Exists(_temporaryFilePath))
             {
                 throw new LearnerStoreException(
-                    "An unfinished learner-data write was found. Preserve it for recovery before starting again.");
+                    "An unfinished learner data write was found. Preserve it for recovery before starting again.");
             }
 
             return null;
@@ -540,13 +540,13 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             info.Exists && (info.Attributes & FileAttributes.ReparsePoint) != 0)
         {
             throw new LearnerStoreException(
-                "The learner-data path is a filesystem link and was not accessed.");
+                "The learner data path is a filesystem link and was not accessed.");
         }
 
         if (Directory.Exists(path))
         {
             throw new LearnerStoreException(
-                "The learner-data path is a directory and was not accessed.");
+                "The learner data path is a directory and was not accessed.");
         }
     }
 
@@ -557,7 +557,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             directory.Exists && (directory.Attributes & FileAttributes.ReparsePoint) != 0)
         {
             throw new LearnerStoreException(
-                "The learner-data recovery directory is a filesystem link and was not accessed.");
+                "The learner data recovery directory is a filesystem link and was not accessed.");
         }
 
         if (!directory.Exists)
@@ -615,7 +615,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             (info.Attributes & FileAttributes.ReparsePoint) != 0)
         {
             throw new LearnerStoreException(
-                "The learner-data recovery directory is a filesystem link and was not used.");
+                "The learner data recovery directory is a filesystem link and was not used.");
         }
     }
 

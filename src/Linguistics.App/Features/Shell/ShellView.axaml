@@ -58,13 +58,13 @@
                                  Tag="Practice one complete café exchange with deterministic feedback and local progress."
                                  AutomationProperties.AutomationId="NavScenarios" />
                     <ListBoxItem Content="Pronunciation"
-                                 Tag="Practice one approved phrase with system playback and honest local word-recognition evidence."
+                                 Tag="Practice one approved phrase with system playback and honest local word recognition evidence."
                                  AutomationProperties.AutomationId="NavPronunciation" />
                     <ListBoxItem Content="Review"
                                  Tag="Retrieve due phrases, concepts, pronunciation targets, and recurring forms."
                                  AutomationProperties.AutomationId="NavReview" />
                     <ListBoxItem Content="Progress"
-                                 Tag="See real-world capabilities first, with concept evidence as supporting detail."
+                                 Tag="See practical capabilities first, with concept evidence as supporting detail."
                                  AutomationProperties.AutomationId="NavProgress" />
                     <ListBoxItem Content="Languages"
                                  Tag="Review and edit the languages in your local learner profile."

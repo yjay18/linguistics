@@ -140,7 +140,7 @@ public partial class ReviewView : UserControl
             EmptyState.IsVisible = false;
             ContentGateState.IsVisible = true;
             ContentGateMessage.Text = string.IsNullOrWhiteSpace(_contentError)
-                ? "The installed content is not approved for learner-facing review."
+                ? "The installed content is not approved for learner review."
                 : "The installed content did not pass the runtime review gate.";
             return;
         }
@@ -153,7 +153,7 @@ public partial class ReviewView : UserControl
             EmptyState.IsVisible = true;
             EmptyMessage.Text = _snapshot.Queue.Upcoming.FirstOrDefault() is { } upcoming
                 ? $"Your next local review is due {FormatDue(upcoming.DueAt.ToLocalTime())}."
-                : "Complete a learning task or pronunciation attempt and the deterministic queue will prepare the follow-up.";
+                : "Complete a learning task or pronunciation attempt and the deterministic queue will prepare the next review.";
             return;
         }
 

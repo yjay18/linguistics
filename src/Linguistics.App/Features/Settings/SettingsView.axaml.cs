@@ -184,7 +184,7 @@ public partial class SettingsView : UserControl
             SpeechModelDetailsText.Text = recognition.Model is { } model
                 ? $"Configured model: {model.Name} • {FormatBytes(model.SizeBytes)} • {model.ProviderVersion}\n" +
                   $"Source: {model.Source}\nLicense: {model.License}\n" +
-                  "The current stream adapter does not retain microphone audio, even if the saved future-retention preference is on."
+                  "The current stream adapter does not retain microphone audio, even if the saved future retention preference is on."
                 : "To enable transcription, explicitly install whisper.cpp and set LINGUISTICS_WHISPER_MODEL to a model whose size, source, and terms you reviewed. Linguistics does not download or redistribute it.";
         }
         finally
@@ -380,15 +380,15 @@ public partial class SettingsView : UserControl
     {
         var choices = new List<ModelChoice>
         {
-            new(null, "Scripted only — no model selected"),
+            new(null, "Scripted only. No model selected"),
         };
         choices.AddRange(models.Select(model => new ModelChoice(
             model.Name,
-            $"{model.Name} — {FormatBytes(model.SizeBytes)}; {TextOrUnknown(model.ParameterSize)}; {TextOrUnknown(model.Quantization)}")));
+            $"{model.Name}: {FormatBytes(model.SizeBytes)}; {TextOrUnknown(model.ParameterSize)}; {TextOrUnknown(model.Quantization)}")));
 
         if (selectedModel is not null && choices.All(choice => choice.Name != selectedModel))
         {
-            choices.Add(new ModelChoice(selectedModel, $"{selectedModel} — saved, currently unavailable"));
+            choices.Add(new ModelChoice(selectedModel, $"{selectedModel}: saved, currently unavailable"));
         }
 
         ModelSelection.ItemsSource = choices;

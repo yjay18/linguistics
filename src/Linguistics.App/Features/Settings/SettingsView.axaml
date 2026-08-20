@@ -13,15 +13,15 @@
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
-            <TextBlock Text="Choose whether reviewed cross-language comparisons may appear. Every switch remains visible and attributable."
+            <TextBlock Text="Choose whether reviewed language comparisons may appear. Every switch remains visible and attributable."
                        TextWrapping="Wrap"
                        Opacity="0.78" />
             <RadioButton x:Name="ShortcutAutomatic"
-                         Content="Automatic — show a reviewed comparison when it is useful"
+                         Content="Automatic. Show a reviewed comparison when it is useful"
                          GroupName="SettingsShortcutMode"
                          IsCheckedChanged="OnShortcutChoiceChanged" />
             <RadioButton x:Name="ShortcutAskFirst"
-                         Content="Ask first — let me approve each language switch"
+                         Content="Ask first. Let me approve each language switch"
                          GroupName="SettingsShortcutMode"
                          IsCheckedChanged="OnShortcutChoiceChanged" />
             <RadioButton x:Name="ShortcutPreferred"
@@ -29,7 +29,7 @@
                          GroupName="SettingsShortcutMode"
                          IsCheckedChanged="OnShortcutChoiceChanged" />
             <RadioButton x:Name="ShortcutNever"
-                         Content="Never — keep explanations in the target-language experience"
+                         Content="Never. Keep explanations in the target language experience"
                          GroupName="SettingsShortcutMode"
                          IsCheckedChanged="OnShortcutChoiceChanged" />
             <StackPanel x:Name="PreferredLanguagePanel"
@@ -124,7 +124,7 @@
             <RadioButton x:Name="MicrophoneNever"
                          Content="Never use the microphone"
                          GroupName="SettingsMicrophonePreference" />
-            <TextBlock Text="Changing this preference does not request system permission. Permission is requested only after you choose a speech action and confirm its local-processing disclosure."
+            <TextBlock Text="Changing this preference does not request system permission. Permission is requested only after you choose a speech action and confirm its local processing disclosure."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             </StackPanel>
@@ -139,7 +139,7 @@
             <CheckBox x:Name="RetainRecordings"
                       Content="Keep speech recordings for later review"
                       AutomationProperties.AutomationId="SettingsRetainRecordings" />
-            <TextBlock Text="Off by default. The current whisper-stream adapter never saves microphone audio, so this remains a future-retention preference and is not acted on."
+            <TextBlock Text="Off by default. The current Whisper stream adapter never saves microphone audio, so this remains a future preference and is not acted on."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             <Button x:Name="DeleteSpeechRecordingsButton"
@@ -195,7 +195,7 @@
                            FontSize="20"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="Linguistics stores your profile and learning history locally, with app-owned recovery copies, a redacted diagnostic log, and any speech recordings. Deletion removes all of those learner-data classes from this device. It preserves unrelated files, installed models, and content packs."
+                <TextBlock Text="Linguistics stores your profile and learning history locally, with recovery copies owned by the app, a redacted diagnostic log, and any speech recordings. Deletion removes all of those learner data classes from this device. It preserves unrelated files, installed models, and content packs."
                            TextWrapping="Wrap" />
                 <Button x:Name="ShowDeleteConfirmationButton"
                         Content="Delete all learning data"

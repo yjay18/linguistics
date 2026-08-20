@@ -14,7 +14,7 @@
                                FontSize="18"
                                FontWeight="SemiBold"
                                AutomationProperties.HeadingLevel="2" />
-                    <TextBlock Text="Review timing is calculated locally from your outcomes, response time, and the versioned review-v1 rules. There is no punitive streak."
+                    <TextBlock Text="Review timing is calculated locally from your outcomes, response time, and versioned review rules. There is no punitive streak."
                                TextWrapping="Wrap"
                                Opacity="0.76" />
                 </StackPanel>
@@ -22,7 +22,7 @@
                         Margin="20,0,0,0"
                         Classes="status-pill">
                     <TextBlock x:Name="QueueCountText"
-                               Text="— due"
+                               Text="due"
                                FontWeight="SemiBold"
                                AutomationProperties.AutomationId="ReviewQueueCount" />
                 </Border>
@@ -116,24 +116,24 @@
                                FontWeight="SemiBold" />
                     <WrapPanel ItemSpacing="8"
                                LineSpacing="8">
-                        <Button Content="Again — not yet"
+                        <Button Content="Again. Not yet"
                                 Tag="Again"
                                 Click="OnRatingClicked"
                                 AutomationProperties.AutomationId="ReviewAgain" />
-                        <Button Content="Hard — with effort"
+                        <Button Content="Hard. With effort"
                                 Tag="Hard"
                                 Click="OnRatingClicked"
                                 AutomationProperties.AutomationId="ReviewHard" />
-                        <Button Content="Good — recalled"
+                        <Button Content="Good. Recalled"
                                 Tag="Good"
                                 Click="OnRatingClicked"
                                 AutomationProperties.AutomationId="ReviewGood" />
-                        <Button Content="Easy — immediate"
+                        <Button Content="Easy. Immediate"
                                 Tag="Easy"
                                 Click="OnRatingClicked"
                                 AutomationProperties.AutomationId="ReviewEasy" />
                     </WrapPanel>
-                    <TextBlock Text="Your choice is evidence. Deterministic code—not a model—sets the next due time."
+                    <TextBlock Text="Your choice is evidence. Deterministic code, not a model, sets the next due time."
                                TextWrapping="Wrap"
                                Opacity="0.68" />
                 </StackPanel>

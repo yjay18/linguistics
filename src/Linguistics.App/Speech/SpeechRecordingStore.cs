@@ -36,7 +36,7 @@ public sealed class SpeechRecordingStore
 
         if (IsReparsePoint(_rootDirectory))
         {
-            throw new IOException("The speech-recording directory is an unsupported link.");
+            throw new IOException("The speech recording directory is an unsupported link.");
         }
 
         var files = Directory
@@ -65,7 +65,7 @@ public sealed class SpeechRecordingStore
             return Task.FromResult(new SpeechRecordingDeletionResult(
                 0,
                 1,
-                "The speech-recording directory is an unsupported link and was not changed."));
+                "The speech recording directory is an unsupported link and was not changed."));
         }
 
         var deleted = 0;

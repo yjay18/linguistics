@@ -52,7 +52,7 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center" />
                     </Border>
-                    <TextBlock Text="LOCAL-FIRST GERMAN"
+                    <TextBlock Text="LOCAL FIRST GERMAN"
                                Classes="eyebrow"
                                TextAlignment="Center" />
                     <TextBlock x:Name="StartupTitle"

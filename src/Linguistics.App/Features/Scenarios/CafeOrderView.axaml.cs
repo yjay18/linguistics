@@ -101,7 +101,7 @@ public partial class CafeOrderView : UserControl
         ContentGatePanel.IsVisible = true;
         ContentGateTechnicalText.IsVisible = DeveloperModeEnabled();
         ContentGateTechnicalText.Text = string.IsNullOrWhiteSpace(_runtimeContentError)
-            ? "No runtime-approved content catalog was loaded."
+            ? "No approved runtime content catalog was loaded."
             : _runtimeContentError;
     }
 
@@ -475,7 +475,7 @@ public partial class CafeOrderView : UserControl
                 LearnerInput.Text = result.Transcript;
                 _settingTranscript = false;
                 SpeechStatusText.Text = result.Message +
-                    " Sending it unchanged keeps transcript-based intelligibility evidence; editing treats it as text.";
+                    " Sending it unchanged keeps intelligibility evidence based on the transcript; editing treats it as text.";
                 RecordReplyButton.IsVisible = true;
                 LearnerInput.Focus();
             }

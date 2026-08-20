@@ -221,7 +221,7 @@ public sealed class LocalDiagnosticLog
             info.Exists && (info.Attributes & FileAttributes.ReparsePoint) != 0)
         {
             throw new DiagnosticLogException(
-                "The diagnostic-log path is a filesystem link and was not accessed.");
+                "The diagnostic log path is a filesystem link and was not accessed.");
         }
     }
 }

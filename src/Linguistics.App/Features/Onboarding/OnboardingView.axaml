@@ -13,7 +13,7 @@
                     MaxWidth="800"
                     HorizontalAlignment="Stretch"
                     Spacing="7">
-            <TextBlock Text="PRIVATE, ON-DEVICE SETUP"
+            <TextBlock Text="PRIVATE, ON DEVICE SETUP"
                        Classes="eyebrow" />
             <TextBlock Text="Shape your learning path"
                        FontSize="25"
@@ -95,7 +95,7 @@
                                 <ComboBoxItem Content="Beginner" Tag="Beginner" />
                                 <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
                                 <ComboBoxItem Content="Advanced" Tag="Advanced" />
-                                <ComboBoxItem Content="Native or near-native" Tag="NativeOrNearNative" />
+                                <ComboBoxItem Content="Native or nearly native" Tag="NativeOrNearNative" />
                             </ComboBox>
                             <CheckBox x:Name="EnglishReading"
                                       Content="I am comfortable reading English"
@@ -124,7 +124,7 @@
                                 <ComboBoxItem Content="Beginner" Tag="Beginner" />
                                 <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
                                 <ComboBoxItem Content="Advanced" Tag="Advanced" />
-                                <ComboBoxItem Content="Native or near-native" Tag="NativeOrNearNative" />
+                                <ComboBoxItem Content="Native or nearly native" Tag="NativeOrNearNative" />
                             </ComboBox>
                             <CheckBox x:Name="HindiReading"
                                       Content="I am comfortable reading Hindi"
@@ -143,11 +143,11 @@
                             IsVisible="False"
                             Spacing="12">
                     <RadioButton x:Name="ShortcutAutomatic"
-                                 Content="Automatic — show a reviewed comparison when it is useful"
+                                 Content="Automatic. Show a reviewed comparison when it is useful"
                                  GroupName="ShortcutMode"
                                  IsCheckedChanged="OnShortcutChoiceChanged" />
                     <RadioButton x:Name="ShortcutAskFirst"
-                                 Content="Ask first — let me approve each language switch"
+                                 Content="Ask first. Let me approve each language switch"
                                  GroupName="ShortcutMode"
                                  IsChecked="True"
                                  IsCheckedChanged="OnShortcutChoiceChanged" />
@@ -156,7 +156,7 @@
                                  GroupName="ShortcutMode"
                                  IsCheckedChanged="OnShortcutChoiceChanged" />
                     <RadioButton x:Name="ShortcutNever"
-                                 Content="Never — keep explanations in the target-language experience"
+                                 Content="Never. Keep explanations in the target language experience"
                                  GroupName="ShortcutMode"
                                  IsCheckedChanged="OnShortcutChoiceChanged" />
                     <StackPanel x:Name="PreferredLanguagePanel"
@@ -186,7 +186,7 @@
                     <RadioButton x:Name="MicrophoneNever"
                                  Content="Never use the microphone"
                                  GroupName="MicrophonePreference" />
-                    <TextBlock Text="Setup does not request microphone permission. If you opt in, the app will ask only when you start a speech action. Text-only learning remains available."
+                    <TextBlock Text="Setup does not request microphone permission. If you opt in, the app will ask only when you start a speech action. Text practice remains available."
                                TextWrapping="Wrap"
                                Opacity="0.72" />
                 </StackPanel>
@@ -254,7 +254,7 @@
                     AutomationProperties.AutomationId="OnboardingBack" />
             <Button x:Name="ContinueButton"
                     Grid.Column="2"
-                    Classes="primary lift"
+                    Classes="primary"
                     Content="Continue"
                     Click="OnContinueClicked"
                     AutomationProperties.AutomationId="OnboardingContinue" />

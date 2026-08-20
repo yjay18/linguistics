@@ -106,7 +106,7 @@
                            FontSize="18"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="A capability becomes demonstrated only after a stored task attempt says the real-world goal succeeded. Accuracy, fluency, pronunciation, and target-concept evidence remain separate. Review can strengthen or return a concept to practice through versioned deterministic rules."
+                <TextBlock Text="A capability becomes demonstrated only after a stored task attempt says the practical goal succeeded. Accuracy, fluency, pronunciation, and target concept evidence remain separate. Review can strengthen or return a concept to practice through versioned deterministic rules."
                            TextWrapping="Wrap"
                            Opacity="0.74" />
             </StackPanel>

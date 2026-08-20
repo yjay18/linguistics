@@ -73,10 +73,10 @@ public partial class CurriculumDiagnosticsView : UserControl
         ContentStatusText.Text =
             $"Validated {catalog.Packs.Count} packs, {_concepts.Length} concepts, " +
             $"{tasks.Length} tasks, and {_mappings.Length} transfer records. " +
-            $"{pendingLicenses} pack licenses and all linguistic claims remain approval-gated.";
-        ConceptList.ItemsSource = _concepts.Select(concept => $"{concept.Id} — {concept.Title}").ToArray();
+            $"{pendingLicenses} pack licenses and all linguistic claims remain pending approval.";
+        ConceptList.ItemsSource = _concepts.Select(concept => $"{concept.Id}: {concept.Title}").ToArray();
         TransferList.ItemsSource = _mappings
-            .Select(mapping => $"{mapping.SourceLanguage} → {mapping.TargetLanguage}: {mapping.Relation} — {mapping.TargetConceptId}")
+            .Select(mapping => $"{mapping.SourceLanguage} → {mapping.TargetLanguage}: {mapping.Relation}, {mapping.TargetConceptId}")
             .ToArray();
         TaskSummaryText.Text = string.Join(
             Environment.NewLine,
@@ -96,7 +96,7 @@ public partial class CurriculumDiagnosticsView : UserControl
                 errorRules.Select(rule =>
                     $"Error {rule.Id}: {rule.Severity}; {rule.Pattern.Kind}; target {rule.TargetConceptId}.")) +
             Environment.NewLine +
-            $"Pronunciation contracts: {utterances.Length}; assessment mode is content-declared.\n" +
+            $"Pronunciation contracts: {utterances.Length}; assessment mode is declared by content.\n" +
             $"Dialogue schema {DialogueProposalValidator.SchemaVersion}: exact serverLineId, intent, nextStateId, and usedVocabularyIds only.\n" +
             $"Review schema {ReviewConfiguration.Default.Version}: Again, Hard, Good, or Easy; model authority is absent.";
 
@@ -121,7 +121,7 @@ public partial class CurriculumDiagnosticsView : UserControl
         _historyLoaded = true;
         if (_profileOwner is null)
         {
-            StoredInspectionText.Text = "The learner-state service was not supplied to this diagnostic view.";
+            StoredInspectionText.Text = "The learner state service was not supplied to this diagnostic view.";
             return;
         }
 
@@ -177,7 +177,7 @@ public partial class CurriculumDiagnosticsView : UserControl
             $"{concept.Title} ({concept.CefrApproximation}, {concept.Type})\n" +
             $"{concept.Description}\n" +
             $"Prerequisites: {(concept.PrerequisiteIds.Count == 0 ? "none" : string.Join(", ", concept.PrerequisiteIds))}\n" +
-            $"Examples: {string.Join(" | ", concept.Examples.Select(example => $"{example.Text} — {example.Meaning}"))}\n" +
+            $"Examples: {string.Join(" | ", concept.Examples.Select(example => $"{example.Text}: {example.Meaning}"))}\n" +
             $"Review: {concept.Review.Status}; human reviewer not recorded.";
     }
 
@@ -269,7 +269,7 @@ public partial class CurriculumDiagnosticsView : UserControl
             $"{selectedScore.Factors.PrerequisiteReadiness:0.###}, recurring error " +
             $"{selectedScore.Factors.RecurringError:0.###}, task relevance " +
             $"{selectedScore.Factors.TaskRelevance:0.###}, transfer opportunity " +
-            $"{selectedScore.Factors.TransferOpportunity:0.###}, cognitive-load penalty " +
+            $"{selectedScore.Factors.TransferOpportunity:0.###}, cognitive load penalty " +
             $"{selectedScore.Factors.CognitiveLoadPenalty:0.###}.",
             routing.Selection is { } bridge
                 ? $"{bridge.Mapping.Id} selected at {bridge.Score:0.###}. " +

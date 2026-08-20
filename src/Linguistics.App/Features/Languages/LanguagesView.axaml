@@ -46,7 +46,7 @@
                         <ComboBoxItem Content="Beginner" Tag="Beginner" />
                         <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
                         <ComboBoxItem Content="Advanced" Tag="Advanced" />
-                        <ComboBoxItem Content="Native or near-native" Tag="NativeOrNearNative" />
+                        <ComboBoxItem Content="Native or nearly native" Tag="NativeOrNearNative" />
                     </ComboBox>
                     <CheckBox x:Name="EnglishReading"
                               Content="I am comfortable reading English" />
@@ -75,7 +75,7 @@
                         <ComboBoxItem Content="Beginner" Tag="Beginner" />
                         <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
                         <ComboBoxItem Content="Advanced" Tag="Advanced" />
-                        <ComboBoxItem Content="Native or near-native" Tag="NativeOrNearNative" />
+                        <ComboBoxItem Content="Native or nearly native" Tag="NativeOrNearNative" />
                     </ComboBox>
                     <CheckBox x:Name="HindiReading"
                               Content="I am comfortable reading Hindi" />
