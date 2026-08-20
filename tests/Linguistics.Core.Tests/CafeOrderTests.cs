@@ -217,7 +217,8 @@ public sealed class CafeOrderTests
                 "Bitte makes the request warmer.",
                 "Optional polish."),
             "Begin with Ich möchte.",
-            "Now name the item.");
+            "Now name the item.",
+            "Ich möchte einen Kaffee, bitte.");
 
     private static TaskAttempt CreateAttempt() =>
         new(

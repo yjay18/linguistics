@@ -1,10 +1,12 @@
 using Avalonia.Controls;
 using Linguistics.App.Features.Onboarding;
 using Linguistics.App.Features.Shell;
+using Linguistics.App.Speech;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App;
 
@@ -16,6 +18,10 @@ public partial class MainWindow : Window
     private ValidatedContentCatalog? _authoringContentCatalog;
     private string? _authoringContentError;
     private ILanguageModelProvider? _languageModelProvider;
+    private ISpeechSynthesisProvider? _speechSynthesisProvider;
+    private ISpeechRecognitionProvider? _speechRecognitionProvider;
+    private IPronunciationAssessmentProvider? _pronunciationAssessmentProvider;
+    private SpeechRecordingStore? _speechRecordingStore;
     private CancellationTokenSource? _loadCancellation;
 
     public MainWindow()
@@ -29,7 +35,11 @@ public partial class MainWindow : Window
         string? runtimeContentError = null,
         ValidatedContentCatalog? authoringContentCatalog = null,
         string? authoringContentError = null,
-        ILanguageModelProvider? languageModelProvider = null)
+        ILanguageModelProvider? languageModelProvider = null,
+        ISpeechSynthesisProvider? speechSynthesisProvider = null,
+        ISpeechRecognitionProvider? speechRecognitionProvider = null,
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null,
+        SpeechRecordingStore? speechRecordingStore = null)
         : this()
     {
         _profileOwner = profileOwner;
@@ -38,6 +48,10 @@ public partial class MainWindow : Window
         _authoringContentCatalog = authoringContentCatalog;
         _authoringContentError = authoringContentError;
         _languageModelProvider = languageModelProvider;
+        _speechSynthesisProvider = speechSynthesisProvider;
+        _speechRecognitionProvider = speechRecognitionProvider;
+        _pronunciationAssessmentProvider = pronunciationAssessmentProvider;
+        _speechRecordingStore = speechRecordingStore;
         Opened += OnOpened;
         Closed += OnClosed;
     }
@@ -116,7 +130,11 @@ public partial class MainWindow : Window
             _runtimeContentError,
             _authoringContentCatalog,
             _authoringContentError,
-            _languageModelProvider);
+            _languageModelProvider,
+            _speechSynthesisProvider,
+            _speechRecognitionProvider,
+            _pronunciationAssessmentProvider,
+            _speechRecordingStore);
         StartupStatus.IsVisible = false;
     }
 

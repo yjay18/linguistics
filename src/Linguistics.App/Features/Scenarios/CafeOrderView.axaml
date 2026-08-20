@@ -45,7 +45,7 @@
                     CornerRadius="14"
                     Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="CAFÉ • TEXT FIRST"
+                    <TextBlock Text="CAFÉ • TEXT + LOCAL SPEECH"
                                FontSize="12"
                                FontWeight="Bold"
                                Opacity="0.7" />
@@ -142,9 +142,18 @@
                             <Button Content="Hint"
                                     Click="OnHintClicked"
                                     AutomationProperties.AutomationId="CafeHint" />
-                            <Button Content="Repeat"
+                            <Button x:Name="RepeatButton"
+                                    Content="Play caption"
                                     Click="OnRepeatClicked"
                                     AutomationProperties.AutomationId="CafeRepeat" />
+                            <Button x:Name="SlowerButton"
+                                    Content="Slower"
+                                    Click="OnSlowerClicked"
+                                    AutomationProperties.AutomationId="CafeRepeatSlower" />
+                            <Button x:Name="StopPlaybackButton"
+                                    Content="Stop"
+                                    Click="OnStopPlaybackClicked"
+                                    AutomationProperties.AutomationId="CafeStopPlayback" />
                         </StackPanel>
                         <TextBlock x:Name="SupportText"
                                    IsVisible="False"
@@ -190,7 +199,52 @@
                              PlaceholderText="Type in German…"
                              MaxLength="500"
                              KeyDown="OnLearnerInputKeyDown"
+                             TextChanged="OnLearnerInputChanged"
                              AutomationProperties.AutomationId="CafeLearnerInput" />
+                    <TextBlock x:Name="SpeechStatusText"
+                               TextWrapping="Wrap"
+                               Opacity="0.72"
+                               AutomationProperties.LiveSetting="Polite"
+                               AutomationProperties.AutomationId="CafeSpeechStatus" />
+                    <Button x:Name="RecordReplyButton"
+                            Content="Record reply locally"
+                            HorizontalAlignment="Left"
+                            Click="OnRecordClicked"
+                            AutomationProperties.AutomationId="CafeRecordReply" />
+                    <Border x:Name="SpeechDisclosurePanel"
+                            IsVisible="False"
+                            Padding="16"
+                            CornerRadius="10"
+                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Before the microphone opens"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="A separate local whisper.cpp process will access the microphone for up to 15 seconds. Audio is processed on this device and this adapter does not retain it. You can cancel or keep typing."
+                                       TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal" Spacing="9">
+                                <Button x:Name="ConfirmRecordButton"
+                                        Content="Start recording"
+                                        Click="OnConfirmRecordClicked"
+                                        AutomationProperties.AutomationId="CafeConfirmRecord" />
+                                <Button Content="Not now"
+                                        Click="OnDismissRecordClicked"
+                                        AutomationProperties.AutomationId="CafeDismissRecord" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <StackPanel x:Name="RecordingPanel"
+                                IsVisible="False"
+                                Spacing="9">
+                        <ProgressBar IsIndeterminate="True"
+                                     AutomationProperties.Name="Café microphone recording active" />
+                        <TextBlock Text="Recording is active. Speak once; the first complete local transcript will appear in the reply box for review."
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.LiveSetting="Assertive" />
+                        <Button Content="Cancel recording"
+                                HorizontalAlignment="Left"
+                                Click="OnCancelRecordingClicked"
+                                AutomationProperties.AutomationId="CafeCancelRecording" />
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="9">
                         <Button x:Name="SendButton"
                                 Content="Send reply"

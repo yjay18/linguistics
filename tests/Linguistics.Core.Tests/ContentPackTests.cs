@@ -115,6 +115,8 @@ public sealed class ContentPackTests
                 new LanguageCode("hi"),
                 new LanguageCode("de"));
             var cafe = runtime.CreateRuntimeCafeOrderDefinition();
+            var pronunciation = runtime.CreateRuntimePronunciationUtterances(
+                new LanguageCode("de"));
 
             Assert.HasCount(13, graph.Nodes);
             Assert.HasCount(3, english);
@@ -124,6 +126,10 @@ public sealed class ContentPackTests
             Assert.AreEqual("de.task.cafe.order-one-item", cafe.TaskId);
             Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
             Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
+            Assert.AreEqual("Ich möchte einen Kaffee, bitte.", cafe.PronunciationTargetText);
+            Assert.HasCount(4, pronunciation);
+            Assert.IsTrue(pronunciation.All(utterance =>
+                utterance.ContentVersion == new VersionId("language.de.core.v1")));
         }
         finally
         {

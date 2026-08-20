@@ -1,4 +1,5 @@
 using Linguistics.Core.Curriculum;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.Core.Profiles;
 
@@ -104,6 +105,7 @@ public sealed class LearnerProfileOwner(ILearnerRepository repository)
         ArgumentNullException.ThrowIfNull(state);
         CurriculumHistoryValidator.Validate(state.Curriculum);
         TaskHistoryValidator.Validate(state.Tasks);
+        PronunciationHistoryValidator.Validate(state.Pronunciation);
 
         await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try

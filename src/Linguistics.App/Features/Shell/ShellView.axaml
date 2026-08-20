@@ -37,7 +37,7 @@
                                  Tag="Practice one complete café exchange with deterministic feedback and local progress."
                                  AutomationProperties.AutomationId="NavScenarios" />
                     <ListBoxItem Content="Pronunciation"
-                                 Tag="Local speech and pronunciation practice are not installed yet."
+                                 Tag="Practice one approved phrase with system playback and honest local word-recognition evidence."
                                  AutomationProperties.AutomationId="NavPronunciation" />
                     <ListBoxItem Content="Review"
                                  Tag="Review becomes available after there is learning progress to schedule."

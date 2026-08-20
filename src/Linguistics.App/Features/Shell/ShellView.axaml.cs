@@ -1,11 +1,14 @@
 using Avalonia.Controls;
 using Linguistics.App.Features.Languages;
 using Linguistics.App.Features.Learn;
+using Linguistics.App.Features.Pronunciation;
 using Linguistics.App.Features.Scenarios;
 using Linguistics.App.Features.Settings;
+using Linguistics.App.Speech;
 using Linguistics.Core.Content;
 using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Shell;
 
@@ -19,6 +22,10 @@ public partial class ShellView : UserControl
     private ValidatedContentCatalog? _authoringContentCatalog;
     private string? _authoringContentError;
     private ILanguageModelProvider? _languageModelProvider;
+    private ISpeechSynthesisProvider? _speechSynthesisProvider;
+    private ISpeechRecognitionProvider? _speechRecognitionProvider;
+    private IPronunciationAssessmentProvider? _pronunciationAssessmentProvider;
+    private SpeechRecordingStore? _speechRecordingStore;
 
     public ShellView()
     {
@@ -35,7 +42,11 @@ public partial class ShellView : UserControl
         string? runtimeContentError = null,
         ValidatedContentCatalog? authoringContentCatalog = null,
         string? authoringContentError = null,
-        ILanguageModelProvider? languageModelProvider = null)
+        ILanguageModelProvider? languageModelProvider = null,
+        ISpeechSynthesisProvider? speechSynthesisProvider = null,
+        ISpeechRecognitionProvider? speechRecognitionProvider = null,
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null,
+        SpeechRecordingStore? speechRecordingStore = null)
         : this()
     {
         _profile = profile;
@@ -46,6 +57,10 @@ public partial class ShellView : UserControl
         _authoringContentCatalog = authoringContentCatalog;
         _authoringContentError = authoringContentError;
         _languageModelProvider = languageModelProvider;
+        _speechSynthesisProvider = speechSynthesisProvider;
+        _speechRecognitionProvider = speechRecognitionProvider;
+        _pronunciationAssessmentProvider = pronunciationAssessmentProvider;
+        _speechRecordingStore = speechRecordingStore;
         ShowSelectedPage();
     }
 
@@ -85,14 +100,32 @@ public partial class ShellView : UserControl
                     _profileOwner,
                     _runtimeContentCatalog,
                     _runtimeContentError,
-                    _languageModelProvider));
+                    _languageModelProvider,
+                    _speechSynthesisProvider,
+                    _speechRecognitionProvider));
+                break;
+            case "Pronunciation" when
+                _speechSynthesisProvider is not null &&
+                _speechRecognitionProvider is not null &&
+                _pronunciationAssessmentProvider is not null:
+                ShowPage(new PronunciationView(
+                    _profile,
+                    _profileOwner,
+                    _runtimeContentCatalog,
+                    _runtimeContentError,
+                    _speechSynthesisProvider,
+                    _speechRecognitionProvider,
+                    _pronunciationAssessmentProvider));
                 break;
             case "Settings":
                 ShowPage(new SettingsView(
                     _profile,
                     SaveProfileAsync,
                     DeleteProfileAsync,
-                    _languageModelProvider));
+                    _languageModelProvider,
+                    _speechSynthesisProvider,
+                    _speechRecognitionProvider,
+                    _speechRecordingStore));
                 break;
             default:
                 ShowUnavailable();
@@ -108,6 +141,16 @@ public partial class ShellView : UserControl
 
     private async Task DeleteProfileAsync()
     {
+        if (_speechRecordingStore is not null)
+        {
+            var deletion = await _speechRecordingStore.DeleteAllAsync();
+            if (deletion.FailedFileCount > 0)
+            {
+                throw new LearnerStoreException(
+                    "Some app-owned speech recordings could not be deleted; learning data was kept so you can retry.");
+            }
+        }
+
         await _profileOwner!.DeleteAllAsync();
         _profile = null;
         _profileDeleted?.Invoke();

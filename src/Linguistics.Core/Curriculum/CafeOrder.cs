@@ -1,4 +1,5 @@
 using System.Text;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.Core.Curriculum;
 
@@ -42,7 +43,8 @@ public sealed record CafeOrderDefinition(
     FocusIntervention CapitalizationIntervention,
     FocusIntervention PolitenessIntervention,
     string FrameHint,
-    string ItemHint);
+    string ItemHint,
+    string PronunciationTargetText);
 
 public sealed record CafeOrderSession(
     Guid Id,
@@ -308,6 +310,7 @@ public static class CafeOrderEngine
             definition.CompleteStateId,
             definition.FrameHint,
             definition.ItemHint,
+            definition.PronunciationTargetText,
         };
         if (required.Any(string.IsNullOrWhiteSpace) ||
             definition.ScriptedResponses is null ||
@@ -342,7 +345,9 @@ public sealed record TaskAttempt(
     DialogueRealizationMode DialogueMode,
     string? LocalModel,
     string DialogueSchemaVersion,
-    SelectedBridgeReference? SelectedBridge);
+    SelectedBridgeReference? SelectedBridge,
+    LearnerInputMode InputMode = LearnerInputMode.Text,
+    PronunciationEvidence? SpeechEvidence = null);
 
 public sealed record ReviewHandoff(
     Guid Id,
@@ -399,7 +404,23 @@ public static class TaskHistoryValidator
                 string.IsNullOrWhiteSpace(attempt.DialogueSchemaVersion) ||
                 !Enum.IsDefined(attempt.DialogueMode) ||
                 (attempt.DialogueMode == DialogueRealizationMode.Scripted && attempt.LocalModel is not null) ||
-                (attempt.DialogueMode == DialogueRealizationMode.LocalModel && string.IsNullOrWhiteSpace(attempt.LocalModel)))
+                (attempt.DialogueMode == DialogueRealizationMode.LocalModel && string.IsNullOrWhiteSpace(attempt.LocalModel)) ||
+                !Enum.IsDefined(attempt.InputMode) ||
+                (attempt.InputMode == LearnerInputMode.Text && attempt.SpeechEvidence is not null) ||
+                (attempt.InputMode == LearnerInputMode.Speech && attempt.SpeechEvidence is null) ||
+                (attempt.SpeechEvidence is { } speech &&
+                 (speech.Intelligibility != attempt.Evidence.Pronunciation ||
+                  speech.Intelligibility is null or < 0 or > 1 ||
+                  speech.Outcome == PronunciationAssessmentOutcome.NoSpeech ||
+                  !Enum.IsDefined(speech.Outcome) ||
+                  speech.ExpectedWordCount <= 0 ||
+                  speech.RecognizedWordCount <= 0 ||
+                  speech.MatchedWordCount < 0 ||
+                  speech.MatchedWordCount > speech.ExpectedWordCount ||
+                  speech.MatchedWordCount > speech.RecognizedWordCount ||
+                  speech.Duration < TimeSpan.Zero ||
+                  string.IsNullOrWhiteSpace(speech.RecognitionProviderVersion) ||
+                  string.IsNullOrWhiteSpace(speech.AssessmentVersion))))
             {
                 errors.Add($"Task attempt '{attempt?.Id}' is invalid.");
                 continue;

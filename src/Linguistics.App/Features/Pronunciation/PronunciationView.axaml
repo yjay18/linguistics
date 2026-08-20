@@ -1,0 +1,201 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="760"
+             d:DesignHeight="900"
+             x:Class="Linguistics.App.Features.Pronunciation.PronunciationView">
+    <StackPanel Spacing="18">
+        <StackPanel x:Name="LoadingPanel" Spacing="10">
+            <ProgressBar IsIndeterminate="True"
+                         AutomationProperties.Name="Loading local speech" />
+            <TextBlock Text="Checking local speech and approved practice content…"
+                       AutomationProperties.LiveSetting="Polite" />
+        </StackPanel>
+
+        <Border x:Name="ContentGatePanel"
+                IsVisible="False"
+                Padding="22"
+                CornerRadius="14"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                AutomationProperties.AutomationId="PronunciationContentGate">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Pronunciation content is safely paused"
+                           FontSize="21"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="The local speech tools are separate from teaching content. This practice phrase must be approved before it can become learner-facing."
+                           TextWrapping="Wrap"
+                           LineHeight="22" />
+                <TextBlock x:Name="ContentGateTechnicalText"
+                           IsVisible="False"
+                           TextWrapping="Wrap"
+                           Opacity="0.68" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel x:Name="PracticePanel"
+                    IsVisible="False"
+                    Spacing="18">
+            <Border Padding="24"
+                    CornerRadius="16"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="UNDERSTOOD, NOT ‘ACCENT-FREE’"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Opacity="0.72" />
+                    <TextBlock Text="Speak to be understood"
+                               FontSize="26"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="2" />
+                    <TextBlock Text="The app compares the recognizer’s words with this phrase. It does not score phonemes, accent, tongue position, or native-likeness."
+                               TextWrapping="Wrap"
+                               LineHeight="22" />
+                </StackPanel>
+            </Border>
+
+            <Border Padding="22"
+                    CornerRadius="14"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Practice phrase"
+                               FontWeight="SemiBold" />
+                    <TextBlock x:Name="ExpectedPhraseText"
+                               FontSize="28"
+                               FontWeight="SemiBold"
+                               TextWrapping="Wrap"
+                               AutomationProperties.AutomationId="PronunciationExpectedPhrase" />
+                    <StackPanel Orientation="Horizontal" Spacing="9">
+                        <Button x:Name="ListenButton"
+                                Content="Listen"
+                                Click="OnListenClicked"
+                                AutomationProperties.AutomationId="PronunciationListen" />
+                        <Button x:Name="SlowerButton"
+                                Content="Slower"
+                                Click="OnSlowerClicked"
+                                AutomationProperties.AutomationId="PronunciationListenSlower" />
+                        <Button x:Name="StopPlaybackButton"
+                                Content="Stop playback"
+                                Click="OnStopPlaybackClicked"
+                                AutomationProperties.AutomationId="PronunciationStopPlayback" />
+                    </StackPanel>
+                    <TextBlock x:Name="PlaybackStatusText"
+                               TextWrapping="Wrap"
+                               Opacity="0.72"
+                               AutomationProperties.LiveSetting="Polite" />
+                </StackPanel>
+            </Border>
+
+            <Border Padding="22"
+                    CornerRadius="14"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource SystemAccentColor}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Your turn"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="2" />
+                    <TextBlock x:Name="RecognitionStatusText"
+                               TextWrapping="Wrap"
+                               AutomationProperties.LiveSetting="Polite"
+                               AutomationProperties.AutomationId="PronunciationRecognitionStatus" />
+                    <TextBlock x:Name="SpeechModelDetailsText"
+                               TextWrapping="Wrap"
+                               FontSize="13"
+                               Opacity="0.72" />
+                    <Button x:Name="RecordButton"
+                            Content="Record locally"
+                            HorizontalAlignment="Left"
+                            Click="OnRecordClicked"
+                            AutomationProperties.AutomationId="PronunciationRecord" />
+
+                    <Border x:Name="DisclosurePanel"
+                            IsVisible="False"
+                            Padding="16"
+                            CornerRadius="10"
+                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Before the microphone opens"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="A separate local whisper.cpp process will access the microphone for up to 15 seconds. Audio is processed on this device and this adapter does not retain it. You can cancel or continue with captions and text."
+                                       TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal" Spacing="9">
+                                <Button x:Name="StartRecordingButton"
+                                        Content="Start recording"
+                                        Click="OnStartRecordingClicked"
+                                        AutomationProperties.AutomationId="PronunciationConfirmRecord" />
+                                <Button Content="Not now"
+                                        Click="OnDismissDisclosureClicked"
+                                        AutomationProperties.AutomationId="PronunciationDismissRecord" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel x:Name="RecordingPanel"
+                                IsVisible="False"
+                                Spacing="10">
+                        <ProgressBar IsIndeterminate="True"
+                                     AutomationProperties.Name="Microphone recording active" />
+                        <TextBlock Text="Recording is active. Speak once; local recognition stops after the first complete speech segment or the time limit."
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.LiveSetting="Assertive" />
+                        <Button Content="Cancel recording"
+                                HorizontalAlignment="Left"
+                                Click="OnCancelRecordingClicked"
+                                AutomationProperties.AutomationId="PronunciationCancelRecording" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="ResultPanel"
+                    IsVisible="False"
+                    Padding="22"
+                    CornerRadius="14"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    AutomationProperties.AutomationId="PronunciationResult">
+                <StackPanel Spacing="10">
+                    <TextBlock x:Name="OutcomeTitleText"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="2" />
+                    <TextBlock x:Name="OutcomeMessageText"
+                               TextWrapping="Wrap"
+                               LineHeight="22"
+                               AutomationProperties.LiveSetting="Assertive" />
+                    <TextBlock Text="Recognizer heard"
+                               FontWeight="SemiBold" />
+                    <TextBlock x:Name="RecognizedPhraseText"
+                               TextWrapping="Wrap"
+                               AutomationProperties.AutomationId="PronunciationRecognizedPhrase" />
+                    <TextBlock x:Name="WordComparisonText"
+                               TextWrapping="Wrap" />
+                    <TextBlock Text="This is a word-recognition proxy under one local recording condition—not a phoneme or accent score."
+                               TextWrapping="Wrap"
+                               FontSize="13"
+                               Opacity="0.72" />
+                    <TextBlock x:Name="PersistenceStatusText"
+                               TextWrapping="Wrap"
+                               AutomationProperties.LiveSetting="Polite" />
+                    <StackPanel Orientation="Horizontal" Spacing="9">
+                        <Button Content="Try again"
+                                Click="OnTryAgainClicked"
+                                AutomationProperties.AutomationId="PronunciationTryAgain" />
+                        <Button x:Name="RetrySaveButton"
+                                Content="Retry local save"
+                                IsVisible="False"
+                                Click="OnRetrySaveClicked"
+                                AutomationProperties.AutomationId="PronunciationRetrySave" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <TextBlock x:Name="PreviousAttemptsText"
+                       FontSize="13"
+                       Opacity="0.72" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

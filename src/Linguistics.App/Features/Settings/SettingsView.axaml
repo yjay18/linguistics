@@ -78,6 +78,30 @@
         </StackPanel>
 
         <StackPanel Spacing="12">
+            <TextBlock Text="Local speech"
+                       FontSize="22"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <TextBlock Text="Playback uses installed system voices. Microphone transcription uses an explicitly configured local whisper.cpp process and model. Neither is required for text practice."
+                       TextWrapping="Wrap"
+                       Opacity="0.78" />
+            <Button x:Name="CheckSpeechButton"
+                    Content="Check local speech"
+                    HorizontalAlignment="Left"
+                    Click="OnCheckSpeechClicked"
+                    AutomationProperties.AutomationId="CheckLocalSpeech" />
+            <TextBlock x:Name="SpeechServiceStatus"
+                       TextWrapping="Wrap"
+                       AutomationProperties.LiveSetting="Polite"
+                       AutomationProperties.AutomationId="LocalSpeechStatus" />
+            <TextBlock x:Name="SpeechModelDetailsText"
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       Opacity="0.72"
+                       AutomationProperties.AutomationId="LocalSpeechModelDetails" />
+        </StackPanel>
+
+        <StackPanel Spacing="12">
             <TextBlock Text="Microphone"
                        FontSize="22"
                        FontWeight="SemiBold"
@@ -91,7 +115,7 @@
             <RadioButton x:Name="MicrophoneNever"
                          Content="Never use the microphone"
                          GroupName="SettingsMicrophonePreference" />
-            <TextBlock Text="Changing this preference does not request system permission. Permission will be requested only from a future speech action."
+            <TextBlock Text="Changing this preference does not request system permission. Permission is requested only after you choose a speech action and confirm its local-processing disclosure."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
         </StackPanel>
@@ -104,9 +128,19 @@
             <CheckBox x:Name="RetainRecordings"
                       Content="Keep speech recordings for later review"
                       AutomationProperties.AutomationId="SettingsRetainRecordings" />
-            <TextBlock Text="Off by default. Speech is not implemented yet; this stores only your preference."
+            <TextBlock Text="Off by default. The current whisper-stream adapter never saves microphone audio, so this remains a future-retention preference and is not acted on."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
+            <Button x:Name="DeleteSpeechRecordingsButton"
+                    Content="Delete speech recordings"
+                    HorizontalAlignment="Left"
+                    Click="OnDeleteSpeechRecordingsClicked"
+                    AutomationProperties.AutomationId="DeleteSpeechRecordings" />
+            <TextBlock x:Name="SpeechDeletionStatusText"
+                       IsVisible="False"
+                       TextWrapping="Wrap"
+                       AutomationProperties.LiveSetting="Assertive"
+                       AutomationProperties.AutomationId="SpeechDeletionStatus" />
         </StackPanel>
 
         <TextBlock x:Name="ErrorText"

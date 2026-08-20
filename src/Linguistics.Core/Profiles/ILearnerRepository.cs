@@ -1,4 +1,5 @@
 using Linguistics.Core.Curriculum;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.Core.Profiles;
 
@@ -31,7 +32,8 @@ public interface ILearnerRepository
 
 public sealed record LearnerLearningState(
     CurriculumHistory Curriculum,
-    TaskHistory Tasks);
+    TaskHistory Tasks,
+    PronunciationHistory Pronunciation);
 
 public sealed class LearnerStoreException : Exception
 {

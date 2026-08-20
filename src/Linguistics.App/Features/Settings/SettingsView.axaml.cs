@@ -2,6 +2,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
+using Linguistics.App.Speech;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Settings;
 
@@ -11,9 +13,13 @@ public partial class SettingsView : UserControl
     private Func<LearnerProfile, Task<LearnerProfile>>? _saveProfile;
     private Func<Task>? _deleteProfile;
     private ILanguageModelProvider? _languageModelProvider;
+    private ISpeechSynthesisProvider? _speechSynthesisProvider;
+    private ISpeechRecognitionProvider? _speechRecognitionProvider;
+    private SpeechRecordingStore? _speechRecordingStore;
     private CancellationTokenSource? _modelInspectionCancellation;
     private bool _busy;
     private bool _modelBusy;
+    private bool _speechBusy;
 
     public SettingsView()
     {
@@ -24,13 +30,19 @@ public partial class SettingsView : UserControl
         LearnerProfile profile,
         Func<LearnerProfile, Task<LearnerProfile>> saveProfile,
         Func<Task> deleteProfile,
-        ILanguageModelProvider? languageModelProvider = null)
+        ILanguageModelProvider? languageModelProvider = null,
+        ISpeechSynthesisProvider? speechSynthesisProvider = null,
+        ISpeechRecognitionProvider? speechRecognitionProvider = null,
+        SpeechRecordingStore? speechRecordingStore = null)
         : this()
     {
         _profile = profile;
         _saveProfile = saveProfile;
         _deleteProfile = deleteProfile;
         _languageModelProvider = languageModelProvider;
+        _speechSynthesisProvider = speechSynthesisProvider;
+        _speechRecognitionProvider = speechRecognitionProvider;
+        _speechRecordingStore = speechRecordingStore;
         LoadProfile(profile);
     }
 
@@ -59,6 +71,8 @@ public partial class SettingsView : UserControl
         ModelServiceStatus.Text = profile.Settings.SelectedLocalModel is null
             ? "Scripted practice is active. Checking Ollama is optional."
             : $"Saved local model: {profile.Settings.SelectedLocalModel}. Check Ollama to verify current availability.";
+        SpeechServiceStatus.Text =
+            "System playback and local microphone transcription are checked only when you ask. No speech model is downloaded automatically.";
     }
 
     private async void OnCheckOllamaClicked(object? sender, RoutedEventArgs args)
@@ -138,6 +152,64 @@ public partial class SettingsView : UserControl
 
         PreferredLanguagePanel.IsVisible = ShortcutPreferred.IsChecked == true;
         ClearMessages();
+    }
+
+    private async void OnCheckSpeechClicked(object? sender, RoutedEventArgs args)
+    {
+        if (_speechBusy ||
+            _speechSynthesisProvider is null ||
+            _speechRecognitionProvider is null)
+        {
+            SpeechServiceStatus.Text = "Local speech providers are unavailable in this build.";
+            return;
+        }
+
+        SetSpeechBusy(true);
+        try
+        {
+            var synthesisTask = _speechSynthesisProvider.InspectAsync();
+            var recognitionTask = _speechRecognitionProvider.InspectAsync();
+            var recordingsTask = _speechRecordingStore?.InspectAsync() ??
+                                 Task.FromResult(new SpeechRecordingSnapshot(0, 0));
+            await Task.WhenAll(synthesisTask, recognitionTask, recordingsTask);
+            var synthesis = await synthesisTask;
+            var recognition = await recognitionTask;
+            var recordings = await recordingsTask;
+            var germanVoices = synthesis.Voices.Count(voice => voice.Language == new LanguageCode("de"));
+            SpeechServiceStatus.Text =
+                $"Playback: {germanVoices} installed German voice(s).\n" +
+                $"Recognition: {recognition.Message}\n" +
+                $"Retained recordings: {recordings.FileCount} file(s), {FormatBytes(recordings.TotalBytes)}.";
+            SpeechModelDetailsText.Text = recognition.Model is { } model
+                ? $"Configured model: {model.Name} • {FormatBytes(model.SizeBytes)} • {model.ProviderVersion}\n" +
+                  $"Source: {model.Source}\nLicense: {model.License}\n" +
+                  "The current stream adapter does not retain microphone audio, even if the saved future-retention preference is on."
+                : "To enable transcription, explicitly install whisper.cpp and set LINGUISTICS_WHISPER_MODEL to a model whose size, source, and terms you reviewed. Linguistics does not download or redistribute it.";
+        }
+        finally
+        {
+            SetSpeechBusy(false);
+        }
+    }
+
+    private async void OnDeleteSpeechRecordingsClicked(object? sender, RoutedEventArgs args)
+    {
+        if (_speechBusy || _speechRecordingStore is null)
+        {
+            return;
+        }
+
+        SetSpeechBusy(true);
+        try
+        {
+            var result = await _speechRecordingStore.DeleteAllAsync();
+            SpeechDeletionStatusText.Text = result.Message;
+            SpeechDeletionStatusText.IsVisible = true;
+        }
+        finally
+        {
+            SetSpeechBusy(false);
+        }
     }
 
     private async void OnSaveClicked(object? sender, RoutedEventArgs args)
@@ -291,6 +363,13 @@ public partial class SettingsView : UserControl
         _modelBusy = busy;
         CheckOllamaButton.IsEnabled = !busy;
         ModelSelection.IsEnabled = !busy;
+    }
+
+    private void SetSpeechBusy(bool busy)
+    {
+        _speechBusy = busy;
+        CheckSpeechButton.IsEnabled = !busy;
+        DeleteSpeechRecordingsButton.IsEnabled = !busy;
     }
 
     private void SetModelChoices(

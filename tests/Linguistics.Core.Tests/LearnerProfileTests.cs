@@ -190,7 +190,10 @@ public sealed class LearnerProfileTests
         public Task<LearnerLearningState> LoadLearningStateAsync(
             Guid profileId,
             CancellationToken cancellationToken = default) =>
-            Task.FromResult(new LearnerLearningState(_curriculum, _tasks));
+            Task.FromResult(new LearnerLearningState(
+                _curriculum,
+                _tasks,
+                Linguistics.Core.Speech.PronunciationHistory.Empty));
 
         public Task SaveLearningStateAsync(
             Guid profileId,

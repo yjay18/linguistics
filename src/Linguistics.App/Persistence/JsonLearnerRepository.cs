@@ -2,13 +2,15 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Persistence;
 
 public sealed class JsonLearnerRepository : ILearnerRepository
 {
-    public const int CurrentSchemaVersion = 3;
-    private const int PreviousSchemaVersion = 2;
+    public const int CurrentSchemaVersion = 4;
+    private const int TaskHistorySchemaVersion = 3;
+    private const int CurriculumSchemaVersion = 2;
     private const int LegacyProfileSchemaVersion = 1;
     private const long MaximumStoreBytes = 1_048_576;
 
@@ -69,7 +71,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
                     CurrentSchemaVersion,
                     profile,
                     existing?.Curriculum ?? CurriculumHistory.Empty,
-                    existing?.Tasks ?? TaskHistory.Empty),
+                    existing?.Tasks ?? TaskHistory.Empty,
+                    existing?.Pronunciation ?? PronunciationHistory.Empty),
                 cancellationToken).ConfigureAwait(false);
         }
         finally
@@ -141,7 +144,11 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             var envelope = await RequireProfileAsync(profileId, cancellationToken).ConfigureAwait(false);
             CurriculumHistoryValidator.Validate(envelope.Curriculum);
             TaskHistoryValidator.Validate(envelope.Tasks);
-            return new LearnerLearningState(envelope.Curriculum, envelope.Tasks);
+            PronunciationHistoryValidator.Validate(envelope.Pronunciation);
+            return new LearnerLearningState(
+                envelope.Curriculum,
+                envelope.Tasks,
+                envelope.Pronunciation);
         }
         finally
         {
@@ -162,6 +169,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         ArgumentNullException.ThrowIfNull(state);
         CurriculumHistoryValidator.Validate(state.Curriculum);
         TaskHistoryValidator.Validate(state.Tasks);
+        PronunciationHistoryValidator.Validate(state.Pronunciation);
 
         await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
@@ -173,6 +181,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
                     SchemaVersion = CurrentSchemaVersion,
                     Curriculum = state.Curriculum,
                     Tasks = state.Tasks,
+                    Pronunciation = state.Pronunciation,
                 },
                 cancellationToken).ConfigureAwait(false);
         }
@@ -255,8 +264,9 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             return schemaVersion switch
             {
                 LegacyProfileSchemaVersion => MigrateSchemaOne(document.RootElement),
-                PreviousSchemaVersion => MigrateSchemaTwo(document.RootElement),
-                CurrentSchemaVersion => ReadSchemaThree(document.RootElement),
+                CurriculumSchemaVersion => MigrateSchemaTwo(document.RootElement),
+                TaskHistorySchemaVersion => MigrateSchemaThree(document.RootElement),
+                CurrentSchemaVersion => ReadSchemaFour(document.RootElement),
                 _ => throw new LearnerStoreException(
                     $"Learner store schema {schemaVersion} is unsupported; expected {CurrentSchemaVersion}."),
             };
@@ -287,7 +297,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             CurrentSchemaVersion,
             profile,
             CurriculumHistory.Empty,
-            TaskHistory.Empty);
+            TaskHistory.Empty,
+            PronunciationHistory.Empty);
     }
 
     private static LearnerStoreEnvelope MigrateSchemaTwo(JsonElement root)
@@ -310,12 +321,13 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             CurrentSchemaVersion,
             envelope.Profile,
             envelope.Curriculum,
-            TaskHistory.Empty);
+            TaskHistory.Empty,
+            PronunciationHistory.Empty);
     }
 
-    private static LearnerStoreEnvelope ReadSchemaThree(JsonElement root)
+    private static LearnerStoreEnvelope MigrateSchemaThree(JsonElement root)
     {
-        var envelope = root.Deserialize<LearnerStoreEnvelope>(JsonOptions)
+        var envelope = root.Deserialize<SchemaThreeEnvelope>(JsonOptions)
             ?? throw new LearnerStoreException("The learner store is empty or invalid.");
         if (envelope.Profile is null || envelope.Curriculum is null || envelope.Tasks is null)
         {
@@ -325,6 +337,31 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         LearnerProfileValidator.Validate(envelope.Profile);
         CurriculumHistoryValidator.Validate(envelope.Curriculum);
         TaskHistoryValidator.Validate(envelope.Tasks);
+        return new LearnerStoreEnvelope(
+            CurrentSchemaVersion,
+            envelope.Profile,
+            envelope.Curriculum,
+            envelope.Tasks,
+            PronunciationHistory.Empty);
+    }
+
+    private static LearnerStoreEnvelope ReadSchemaFour(JsonElement root)
+    {
+        var envelope = root.Deserialize<LearnerStoreEnvelope>(JsonOptions)
+            ?? throw new LearnerStoreException("The learner store is empty or invalid.");
+        if (envelope.Profile is null ||
+            envelope.Curriculum is null ||
+            envelope.Tasks is null ||
+            envelope.Pronunciation is null)
+        {
+            throw new LearnerStoreException(
+                "The learner store is missing profile, curriculum, task, or pronunciation history.");
+        }
+
+        LearnerProfileValidator.Validate(envelope.Profile);
+        CurriculumHistoryValidator.Validate(envelope.Curriculum);
+        TaskHistoryValidator.Validate(envelope.Tasks);
+        PronunciationHistoryValidator.Validate(envelope.Pronunciation);
         return envelope;
     }
 
@@ -384,9 +421,16 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         LearnerProfile Profile,
         CurriculumHistory Curriculum);
 
-    private sealed record LearnerStoreEnvelope(
+    private sealed record SchemaThreeEnvelope(
         int SchemaVersion,
         LearnerProfile Profile,
         CurriculumHistory Curriculum,
         TaskHistory Tasks);
+
+    private sealed record LearnerStoreEnvelope(
+        int SchemaVersion,
+        LearnerProfile Profile,
+        CurriculumHistory Curriculum,
+        TaskHistory Tasks,
+        PronunciationHistory Pronunciation);
 }

@@ -3,6 +3,7 @@ using Linguistics.App.Persistence;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Tests;
 
@@ -75,6 +76,58 @@ public sealed class CafeScenarioControllerTests
     }
 
     [TestMethod]
+    public async Task AcceptedSpeechUsesTheSameTaskPathAndPersistsOnlyBoundedEvidence()
+    {
+        var setup = await CreateSetupAsync(prerequisiteReady: true, provider: null);
+        await setup.Controller.InitializeAsync();
+        setup.Controller.Start(useConfirmedBridge: false);
+        var requestId = setup.Controller.BeginSpeechInput();
+
+        var completion = await setup.Controller.SubmitSpeechAsync(new SpeechRecognitionResult(
+            requestId,
+            SpeechRecognitionResultStatus.Accepted,
+            "Ich möchte einen Kaffee, bitte.",
+            new LanguageCode("de"),
+            TimeSpan.FromSeconds(4),
+            "fixture-recognizer-v1",
+            "fixture-model",
+            "accepted"));
+
+        Assert.IsTrue(completion.Persisted);
+        Assert.IsNotNull(completion.PronunciationAssessment);
+        var attempt = setup.Repository.State.Tasks.Attempts.Single();
+        Assert.AreEqual(LearnerInputMode.Speech, attempt.InputMode);
+        Assert.AreEqual(5, attempt.SpeechEvidence?.MatchedWordCount);
+        Assert.AreEqual(1, attempt.Evidence.Pronunciation);
+        Assert.IsFalse(attempt.ToString().Contains("Ich möchte", StringComparison.Ordinal));
+    }
+
+    [TestMethod]
+    public async Task CancelledSpeechRequestCannotMutateTheCurrentCafeSession()
+    {
+        var setup = await CreateSetupAsync(prerequisiteReady: true, provider: null);
+        await setup.Controller.InitializeAsync();
+        setup.Controller.Start(useConfirmedBridge: false);
+        var requestId = setup.Controller.BeginSpeechInput();
+        setup.Controller.CancelSpeechInput(requestId);
+
+        var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(() =>
+            setup.Controller.SubmitSpeechAsync(new SpeechRecognitionResult(
+                requestId,
+                SpeechRecognitionResultStatus.Accepted,
+                "Ich möchte einen Kaffee, bitte.",
+                new LanguageCode("de"),
+                TimeSpan.FromSeconds(4),
+                "fixture-recognizer-v1",
+                "fixture-model",
+                "accepted")));
+
+        StringAssert.Contains(exception.Message, "expired");
+        Assert.AreEqual(0, setup.Controller.Session?.TurnCount);
+        Assert.IsEmpty(setup.Repository.State.Tasks.Attempts);
+    }
+
+    [TestMethod]
     public async Task LockedPrerequisitesBlockTheScenarioWithoutWriting()
     {
         var setup = await CreateSetupAsync(prerequisiteReady: false, provider: null);
@@ -142,7 +195,8 @@ public sealed class CafeScenarioControllerTests
                             1),
                     ],
                 },
-                TaskHistory.Empty);
+                TaskHistory.Empty,
+                Linguistics.Core.Speech.PronunciationHistory.Empty);
             var repository = new JsonLearnerRepository(path);
             await repository.SaveAsync(profile);
             await repository.SaveLearningStateAsync(profile.Id, initial);
@@ -157,7 +211,7 @@ public sealed class CafeScenarioControllerTests
 
             Assert.IsTrue(completion.Persisted);
             var storedJson = await File.ReadAllTextAsync(path);
-            StringAssert.Contains(storedJson, "\"schemaVersion\": 3");
+            StringAssert.Contains(storedJson, "\"schemaVersion\": 4");
             Assert.IsFalse(storedJson.Contains("raw-secret-marker", StringComparison.Ordinal));
 
             var relaunchedOwner = new LearnerProfileOwner(new JsonLearnerRepository(path));
@@ -208,7 +262,8 @@ public sealed class CafeScenarioControllerTests
             profile,
             new LearnerLearningState(
                 CurriculumHistory.Empty with { Progress = progress },
-                TaskHistory.Empty));
+                TaskHistory.Empty,
+                Linguistics.Core.Speech.PronunciationHistory.Empty));
         var owner = new LearnerProfileOwner(repository);
         await owner.RestoreAsync();
         var controller = CreateController(profile, owner, graph, targetId, bridgeId, provider);
@@ -322,7 +377,8 @@ public sealed class CafeScenarioControllerTests
                 "Bitte makes the request warmer.",
                 "Optional polish."),
             "Begin with Ich möchte.",
-            "Now name the item.");
+            "Now name the item.",
+            "Ich möchte einen Kaffee, bitte.");
 
     private sealed record Setup(
         CafeScenarioController Controller,

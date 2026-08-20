@@ -2,6 +2,7 @@ using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Scenarios;
 
@@ -29,7 +30,8 @@ public sealed record CafeScenarioTurnOutcome(
     LanguageModelDiagnostic? ModelDiagnostic,
     bool Persisted,
     string? PersistenceError,
-    ConceptProgressState? UpdatedProgressState);
+    ConceptProgressState? UpdatedProgressState,
+    PronunciationAssessmentResult? PronunciationAssessment);
 
 public sealed record CafePersistenceResult(
     bool Persisted,
@@ -44,8 +46,10 @@ public sealed class CafeScenarioController
     private readonly CafeOrderDefinition _definition;
     private readonly IReadOnlyList<TransferNote> _transferNotes;
     private readonly ILanguageModelProvider? _languageModelProvider;
+    private readonly IPronunciationAssessmentProvider _pronunciationAssessmentProvider;
     private readonly Func<DateTimeOffset> _clock;
     private readonly SemaphoreSlim _turnGate = new(1, 1);
+    private readonly object _speechRequestGate = new();
 
     private LearnerLearningState? _learningState;
     private ConceptProgress? _targetProgress;
@@ -54,6 +58,7 @@ public sealed class CafeScenarioController
     private CafeOrderSession? _session;
     private LearnerLearningState? _pendingLearningState;
     private ConceptProgressState? _pendingProgressState;
+    private Guid? _activeSpeechRequestId;
 
     private CafeScenarioController(
         LearnerProfile profile,
@@ -62,7 +67,8 @@ public sealed class CafeScenarioController
         CafeOrderDefinition definition,
         IReadOnlyList<TransferNote> transferNotes,
         ILanguageModelProvider? languageModelProvider,
-        Func<DateTimeOffset>? clock)
+        Func<DateTimeOffset>? clock,
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider)
     {
         _profile = profile;
         _profileOwner = profileOwner;
@@ -70,6 +76,8 @@ public sealed class CafeScenarioController
         _definition = definition;
         _transferNotes = transferNotes;
         _languageModelProvider = languageModelProvider;
+        _pronunciationAssessmentProvider = pronunciationAssessmentProvider ??
+            new TranscriptPronunciationAssessmentProvider();
         _clock = clock ?? (() => DateTimeOffset.UtcNow);
     }
 
@@ -82,7 +90,8 @@ public sealed class CafeScenarioController
         LearnerProfileOwner profileOwner,
         ValidatedContentCatalog runtimeCatalog,
         ILanguageModelProvider? languageModelProvider = null,
-        Func<DateTimeOffset>? clock = null)
+        Func<DateTimeOffset>? clock = null,
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null)
     {
         ArgumentNullException.ThrowIfNull(profile);
         ArgumentNullException.ThrowIfNull(profileOwner);
@@ -102,7 +111,8 @@ public sealed class CafeScenarioController
             runtimeCatalog.CreateRuntimeCafeOrderDefinition(),
             transferNotes,
             languageModelProvider,
-            clock);
+            clock,
+            pronunciationAssessmentProvider);
     }
 
     internal static CafeScenarioController CreateFromResources(
@@ -112,7 +122,8 @@ public sealed class CafeScenarioController
         CafeOrderDefinition definition,
         IReadOnlyList<TransferNote> transferNotes,
         ILanguageModelProvider? languageModelProvider = null,
-        Func<DateTimeOffset>? clock = null) =>
+        Func<DateTimeOffset>? clock = null,
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null) =>
         new(
             profile,
             profileOwner,
@@ -120,7 +131,8 @@ public sealed class CafeScenarioController
             definition,
             transferNotes,
             languageModelProvider,
-            clock);
+            clock,
+            pronunciationAssessmentProvider);
 
     public async Task<CafeScenarioInitialization> InitializeAsync(
         CancellationToken cancellationToken = default)
@@ -202,12 +214,86 @@ public sealed class CafeScenarioController
             ? null
             : _bridge.Reference;
         _session = CafeOrderSession.Start(_definition, _clock());
+        lock (_speechRequestGate)
+        {
+            _activeSpeechRequestId = null;
+        }
         return _definition.ScriptedResponses[_definition.WaitingStateId][0];
+    }
+
+    public Guid BeginSpeechInput()
+    {
+        if (_session is null)
+        {
+            throw new InvalidOperationException("Start the café scenario before recording speech.");
+        }
+
+        lock (_speechRequestGate)
+        {
+            if (_activeSpeechRequestId is not null)
+            {
+                throw new InvalidOperationException("A café speech request is already active.");
+            }
+
+            _activeSpeechRequestId = Guid.NewGuid();
+            return _activeSpeechRequestId.Value;
+        }
+    }
+
+    public void CancelSpeechInput(Guid requestId)
+    {
+        lock (_speechRequestGate)
+        {
+            if (_activeSpeechRequestId == requestId)
+            {
+                _activeSpeechRequestId = null;
+            }
+        }
     }
 
     public async Task<CafeScenarioTurnOutcome> SubmitAsync(
         string learnerText,
+        CancellationToken cancellationToken = default) =>
+        await SubmitCoreAsync(
+            learnerText,
+            LearnerInputMode.Text,
+            pronunciationAssessment: null,
+            speechRequestId: null,
+            cancellationToken).ConfigureAwait(false);
+
+    public async Task<CafeScenarioTurnOutcome> SubmitSpeechAsync(
+        SpeechRecognitionResult recognition,
         CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(recognition);
+        if (recognition.Status != SpeechRecognitionResultStatus.Accepted ||
+            string.IsNullOrWhiteSpace(recognition.Transcript))
+        {
+            throw new ArgumentException(
+                "Only an accepted local transcript can enter the café task.",
+                nameof(recognition));
+        }
+
+        var assessment = _pronunciationAssessmentProvider.Assess(
+            new PronunciationAssessmentRequest(
+                _definition.PronunciationTargetText,
+                recognition.Transcript,
+                recognition.Duration),
+            recognition.ProviderVersion);
+        return await SubmitCoreAsync(
+            recognition.Transcript,
+            LearnerInputMode.Speech,
+            assessment,
+            recognition.RequestId,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<CafeScenarioTurnOutcome> SubmitCoreAsync(
+        string learnerText,
+        LearnerInputMode inputMode,
+        PronunciationAssessmentResult? pronunciationAssessment,
+        Guid? speechRequestId,
+        CancellationToken cancellationToken)
     {
         await _turnGate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
@@ -222,7 +308,33 @@ public sealed class CafeScenarioController
                 throw new InvalidOperationException("Retry the pending local save before continuing.");
             }
 
+            if (speechRequestId is { } requestId)
+            {
+                lock (_speechRequestGate)
+                {
+                    if (_activeSpeechRequestId != requestId)
+                    {
+                        throw new InvalidOperationException(
+                            "This speech result belongs to an expired café request and was ignored.");
+                    }
+
+                    _activeSpeechRequestId = null;
+                }
+            }
+
             var evaluation = CafeOrderEngine.Evaluate(_definition, _session, learnerText);
+            if (evaluation.Completed &&
+                evaluation.Evidence is { } evidence &&
+                pronunciationAssessment is { } assessment)
+            {
+                evaluation = evaluation with
+                {
+                    Evidence = evidence with
+                    {
+                        Pronunciation = assessment.Evidence.Intelligibility,
+                    },
+                };
+            }
             _session = evaluation.Session;
             var realization = await RealizeNpcResponseAsync(
                 evaluation,
@@ -234,7 +346,12 @@ public sealed class CafeScenarioController
             ConceptProgressState? progressState = null;
             if (evaluation.Completed)
             {
-                BuildPendingCompletion(evaluation, realization.Mode, realization.Model);
+                BuildPendingCompletion(
+                    evaluation,
+                    realization.Mode,
+                    realization.Model,
+                    inputMode,
+                    pronunciationAssessment?.Evidence);
                 var persistence = await SavePendingAsync().ConfigureAwait(false);
                 persisted = persistence.Persisted;
                 persistenceError = persistence.Persisted ? null : persistence.Message;
@@ -249,7 +366,8 @@ public sealed class CafeScenarioController
                 realization.Diagnostic,
                 persisted,
                 persistenceError,
-                progressState);
+                progressState,
+                pronunciationAssessment);
         }
         finally
         {
@@ -280,6 +398,11 @@ public sealed class CafeScenarioController
 
     public void Exit()
     {
+        lock (_speechRequestGate)
+        {
+            _activeSpeechRequestId = null;
+        }
+
         if (_pendingLearningState is null)
         {
             _session = null;
@@ -392,7 +515,9 @@ public sealed class CafeScenarioController
     private void BuildPendingCompletion(
         CafeOrderTurnResult evaluation,
         DialogueRealizationMode dialogueMode,
-        string? model)
+        string? model,
+        LearnerInputMode inputMode,
+        PronunciationEvidence? speechEvidence)
     {
         if (_learningState is null || _targetProgress is null || evaluation.Evidence is null)
         {
@@ -421,7 +546,9 @@ public sealed class CafeScenarioController
             dialogueMode,
             model,
             DialogueProposalValidator.SchemaVersion,
-            _selectedBridge);
+            _selectedBridge,
+            inputMode,
+            speechEvidence);
         var conceptAttempt = new ConceptAttempt(
             Guid.NewGuid(),
             _definition.TargetConceptId,
@@ -458,7 +585,10 @@ public sealed class CafeScenarioController
                 evaluation.Session.EncounteredErrorRuleIds)).ToArray(),
         };
 
-        _pendingLearningState = new LearnerLearningState(curriculum, tasks);
+        _pendingLearningState = new LearnerLearningState(
+            curriculum,
+            tasks,
+            _learningState.Pronunciation);
         _pendingProgressState = progression.Current.State;
     }
 

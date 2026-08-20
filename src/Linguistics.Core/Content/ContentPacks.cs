@@ -237,6 +237,15 @@ public sealed record PronunciationUtteranceContent(
     IReadOnlyList<string> SourceIds,
     ContentReview Review);
 
+public sealed record RuntimePronunciationUtterance(
+    string Id,
+    LanguageCode Language,
+    string Locale,
+    string Text,
+    PronunciationPurpose Purpose,
+    IReadOnlyList<ConceptId> ConceptIds,
+    VersionId ContentVersion);
+
 public sealed record TransferMappingContent(
     string Id,
     string SourceLanguage,
@@ -337,6 +346,8 @@ public sealed class ValidatedContentCatalog
         var vocabulary = pack.Lexicon
             .Where(entry => entry.Id is "de.lexeme.kaffee" or "de.lexeme.bitte")
             .ToDictionary(entry => entry.Id, entry => entry.Lemma, StringComparer.Ordinal);
+        var pronunciationTarget = pack.PronunciationUtterances.Single(utterance =>
+            utterance.Id == "de.utterance.order");
 
         FocusIntervention Intervention(
             string errorRuleId,
@@ -382,7 +393,29 @@ public sealed class ValidatedContentCatalog
                 "de.feedback.order-bitte",
                 FeedbackPriority.Minor),
             states[task.InitialStateId].ScriptedFallback.Last(),
-            states["de.state.order.frame"].ScriptedFallback.Last());
+            states["de.state.order.frame"].ScriptedFallback.Last(),
+            pronunciationTarget.Text);
+    }
+
+    public IReadOnlyList<RuntimePronunciationUtterance> CreateRuntimePronunciationUtterances(
+        LanguageCode targetLanguage)
+    {
+        EnsureRuntimePolicy();
+
+        return Packs
+            .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)
+            .SelectMany(pack => pack.PronunciationUtterances.Select(utterance =>
+                new RuntimePronunciationUtterance(
+                    utterance.Id,
+                    new LanguageCode(utterance.Language),
+                    utterance.Locale,
+                    utterance.Text,
+                    utterance.Purpose,
+                    utterance.ConceptIds.Select(id => new ConceptId(id)).ToArray(),
+                    PackVersion(pack.Manifest))))
+            .Where(utterance => utterance.Language == targetLanguage)
+            .OrderBy(utterance => utterance.Id, StringComparer.Ordinal)
+            .ToArray();
     }
 
     private static ConceptNode ToConceptNode(

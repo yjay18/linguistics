@@ -3,8 +3,10 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Linguistics.App.LocalAI;
 using Linguistics.App.Persistence;
+using Linguistics.App.Speech;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App;
 
@@ -22,6 +24,10 @@ public partial class App : Application
             var paths = AppDataPaths.CreateDefault();
             var repository = new JsonLearnerRepository(paths.LearnerProfileFile);
             var languageModelProvider = OllamaProvider.CreateDefault();
+            var speechSynthesisProvider = SystemSpeechSynthesisProvider.CreateDefault();
+            var speechRecognitionProvider = WhisperStreamRecognitionProvider.CreateDefault();
+            var pronunciationAssessmentProvider = new TranscriptPronunciationAssessmentProvider();
+            var speechRecordingStore = new SpeechRecordingStore(paths.SpeechRecordingsDirectory);
             var contentDirectory = Path.Combine(AppContext.BaseDirectory, "Content");
             ValidatedContentCatalog? runtimeContentCatalog = null;
             string? runtimeContentError = null;
@@ -58,8 +64,17 @@ public partial class App : Application
                 runtimeContentError,
                 authoringContentCatalog,
                 authoringContentError,
-                languageModelProvider);
-            desktop.Exit += (_, _) => languageModelProvider.Dispose();
+                languageModelProvider,
+                speechSynthesisProvider,
+                speechRecognitionProvider,
+                pronunciationAssessmentProvider,
+                speechRecordingStore);
+            desktop.Exit += (_, _) =>
+            {
+                languageModelProvider.Dispose();
+                speechSynthesisProvider.Dispose();
+                speechRecognitionProvider.Dispose();
+            };
         }
 
         base.OnFrameworkInitializationCompleted();

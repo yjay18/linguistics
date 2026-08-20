@@ -7,14 +7,24 @@ using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Scenarios;
 
 public partial class CafeOrderView : UserControl
 {
     private CafeScenarioController? _controller;
+    private readonly ISpeechSynthesisProvider? _speechSynthesisProvider;
+    private readonly ISpeechRecognitionProvider? _speechRecognitionProvider;
+    private readonly bool _microphoneAllowed;
     private readonly string? _runtimeContentError;
     private CancellationTokenSource? _turnCancellation;
+    private CancellationTokenSource? _recognitionCancellation;
+    private CancellationTokenSource? _playbackCancellation;
+    private SpeechRecognitionResult? _pendingSpeechResult;
+    private Guid? _activeSpeechRequestId;
+    private bool _settingTranscript;
+    private bool _recognitionAvailable;
     private bool _initialized;
     private bool _busy;
     private string? _lastNpcResponse;
@@ -31,10 +41,15 @@ public partial class CafeOrderView : UserControl
         LearnerProfileOwner profileOwner,
         ValidatedContentCatalog? runtimeCatalog,
         string? runtimeContentError,
-        ILanguageModelProvider? languageModelProvider = null)
+        ILanguageModelProvider? languageModelProvider = null,
+        ISpeechSynthesisProvider? speechSynthesisProvider = null,
+        ISpeechRecognitionProvider? speechRecognitionProvider = null)
         : this()
     {
         _runtimeContentError = runtimeContentError;
+        _speechSynthesisProvider = speechSynthesisProvider;
+        _speechRecognitionProvider = speechRecognitionProvider;
+        _microphoneAllowed = profile.Settings.Microphone != MicrophonePreference.Never;
         if (runtimeCatalog is not null)
         {
             _controller = CafeScenarioController.Create(
@@ -63,6 +78,7 @@ public partial class CafeOrderView : UserControl
         {
             var state = await _controller.InitializeAsync();
             ShowReadyState(state);
+            await RefreshSpeechCapabilitiesAsync();
         }
         catch (Exception exception) when (
             exception is LearnerStoreException or
@@ -154,7 +170,7 @@ public partial class CafeOrderView : UserControl
             ReadyPanel.IsVisible = false;
             ActiveScenarioPanel.IsVisible = true;
             AddConversationMessage("Server", opening, isLearner: false);
-            TurnStatusText.Text = "Scripted dialogue is ready. A selected local model may vary only an allowed server line.";
+            TurnStatusText.Text = "Scripted dialogue is ready. Type or use configured local speech; a selected local model may vary only an allowed server line.";
             LearnerInput.Focus();
         }
         catch (InvalidOperationException exception)
@@ -190,8 +206,14 @@ public partial class CafeOrderView : UserControl
             return;
         }
 
+        var speechResult = _pendingSpeechResult is { } pending &&
+                           string.Equals(pending.Transcript?.Trim(), learnerText, StringComparison.Ordinal)
+            ? pending
+            : null;
         AddConversationMessage("You", learnerText, isLearner: true);
+        _settingTranscript = true;
         LearnerInput.Text = string.Empty;
+        _settingTranscript = false;
         FeedbackPanel.IsVisible = false;
         SupportText.IsVisible = false;
         SetBusy(true);
@@ -200,7 +222,11 @@ public partial class CafeOrderView : UserControl
         _turnCancellation = new CancellationTokenSource();
         try
         {
-            var outcome = await _controller.SubmitAsync(learnerText, _turnCancellation.Token);
+            var outcome = speechResult is null
+                ? await _controller.SubmitAsync(learnerText, _turnCancellation.Token)
+                : await _controller.SubmitSpeechAsync(speechResult, _turnCancellation.Token);
+            _pendingSpeechResult = null;
+            _activeSpeechRequestId = null;
             ShowTurnOutcome(outcome);
         }
         catch (OperationCanceledException)
@@ -239,6 +265,11 @@ public partial class CafeOrderView : UserControl
             Environment.NewLine,
             outcome.Evaluation.OtherObservations.Select(observation => $"• {observation.Message}"));
         TurnStatusText.Text = outcome.ModelMessage;
+        if (outcome.PronunciationAssessment is { } pronunciation)
+        {
+            TurnStatusText.Text +=
+                $" Local word evidence: {pronunciation.Evidence.MatchedWordCount} of {pronunciation.Evidence.ExpectedWordCount} expected words matched in order; this is not a phoneme or accent score.";
+        }
 
         var diagnostic = outcome.ModelDiagnostic;
         DeveloperTraceText.Text =
@@ -266,12 +297,15 @@ public partial class CafeOrderView : UserControl
         InputPanel.IsVisible = false;
         CompletionPanel.IsVisible = true;
         var evidence = outcome.Evaluation.Evidence!;
+        var pronunciationText = outcome.PronunciationAssessment is { } pronunciation
+            ? $"Recognizer intelligibility proxy: {pronunciation.Evidence.MatchedWordCount} of {pronunciation.Evidence.ExpectedWordCount} expected words matched"
+            : "Pronunciation: not measured from text";
         EvidenceText.Text =
             $"Communicative goal: achieved\n" +
             $"Linguistic accuracy: {Percent(evidence.LinguisticAccuracy)}\n" +
             $"Fluency: {Percent(evidence.Fluency)}\n" +
             $"Target concept: {Percent(evidence.TargetConceptPerformance)}\n" +
-            "Pronunciation: not measured from text";
+            pronunciationText;
         PersistenceStatusText.Text = outcome.Persisted
             ? $"Saved locally. Concept state: {outcome.UpdatedProgressState}. A deterministic review handoff was created."
             : outcome.PersistenceError;
@@ -315,6 +349,7 @@ public partial class CafeOrderView : UserControl
             return;
         }
 
+        CancelActiveSpeechRequest();
         _controller.Exit();
         ActiveScenarioPanel.IsVisible = false;
         ReadyPanel.IsVisible = true;
@@ -346,12 +381,181 @@ public partial class CafeOrderView : UserControl
         SupportText.IsVisible = true;
     }
 
-    private void OnRepeatClicked(object? sender, RoutedEventArgs args)
+    private async void OnRepeatClicked(object? sender, RoutedEventArgs args)
     {
-        if (_lastNpcResponse is not null)
+        await SpeakLastNpcAsync(rate: 1);
+    }
+
+    private async void OnSlowerClicked(object? sender, RoutedEventArgs args) =>
+        await SpeakLastNpcAsync(rate: 0.72);
+
+    private async void OnStopPlaybackClicked(object? sender, RoutedEventArgs args)
+    {
+        _playbackCancellation?.Cancel();
+        if (_speechSynthesisProvider is not null)
         {
-            AddConversationMessage("Server • repeated", _lastNpcResponse, isLearner: false);
+            await _speechSynthesisProvider.StopAsync();
         }
+
+        SpeechStatusText.Text = "Speech playback stopped. The caption remains in the conversation.";
+    }
+
+    private async Task SpeakLastNpcAsync(double rate)
+    {
+        if (_lastNpcResponse is null ||
+            _speechSynthesisProvider is null ||
+            _controller?.Session is not { } session)
+        {
+            SpeechStatusText.Text = "No server caption is ready to play.";
+            return;
+        }
+
+        _playbackCancellation?.Cancel();
+        _playbackCancellation?.Dispose();
+        _playbackCancellation = new CancellationTokenSource();
+        SpeechStatusText.Text = rate < 1 ? "Playing the server caption more slowly…" : "Playing the server caption…";
+        var result = await _speechSynthesisProvider.SpeakAsync(
+            new SpeechSynthesisRequest(
+                Guid.NewGuid(),
+                _lastNpcResponse,
+                new LanguageCode("de"),
+                session.Id.ToString("N"),
+                Rate: rate),
+            _playbackCancellation.Token);
+        SpeechStatusText.Text = result.Message;
+    }
+
+    private void OnRecordClicked(object? sender, RoutedEventArgs args)
+    {
+        SpeechDisclosurePanel.IsVisible = true;
+        RecordReplyButton.IsVisible = false;
+        ConfirmRecordButton.Focus();
+    }
+
+    private void OnDismissRecordClicked(object? sender, RoutedEventArgs args)
+    {
+        SpeechDisclosurePanel.IsVisible = false;
+        RecordReplyButton.IsVisible = true;
+        RecordReplyButton.Focus();
+    }
+
+    private async void OnConfirmRecordClicked(object? sender, RoutedEventArgs args)
+    {
+        if (_controller is null || _speechRecognitionProvider is null || _busy)
+        {
+            return;
+        }
+
+        CancelActiveSpeechRequest();
+        SpeechDisclosurePanel.IsVisible = false;
+        RecordingPanel.IsVisible = true;
+        RecordReplyButton.IsVisible = false;
+        SpeechStatusText.Text = "Microphone active. Speak one short café reply; processing stays local.";
+        _recognitionCancellation?.Dispose();
+        _recognitionCancellation = new CancellationTokenSource();
+        try
+        {
+            _activeSpeechRequestId = _controller.BeginSpeechInput();
+            var request = new SpeechRecognitionRequest(
+                _activeSpeechRequestId.Value,
+                new LanguageCode("de"),
+                TimeSpan.FromSeconds(15),
+                RetainAudio: false);
+            var result = await _speechRecognitionProvider.RecognizeAsync(
+                request,
+                _recognitionCancellation.Token);
+            RecordingPanel.IsVisible = false;
+            if (result.Status == SpeechRecognitionResultStatus.Accepted &&
+                !string.IsNullOrWhiteSpace(result.Transcript))
+            {
+                _pendingSpeechResult = result;
+                _recognitionCancellation?.Dispose();
+                _recognitionCancellation = null;
+                _settingTranscript = true;
+                LearnerInput.Text = result.Transcript;
+                _settingTranscript = false;
+                SpeechStatusText.Text = result.Message +
+                    " Sending it unchanged keeps transcript-based intelligibility evidence; editing treats it as text.";
+                RecordReplyButton.IsVisible = true;
+                LearnerInput.Focus();
+            }
+            else
+            {
+                _controller.CancelSpeechInput(result.RequestId);
+                _activeSpeechRequestId = null;
+                _recognitionCancellation?.Dispose();
+                _recognitionCancellation = null;
+                SpeechStatusText.Text = result.Message;
+                RecordReplyButton.IsVisible = true;
+            }
+        }
+        catch (Exception exception) when (
+            exception is InvalidOperationException or ArgumentException)
+        {
+            RecordingPanel.IsVisible = false;
+            _recognitionCancellation?.Dispose();
+            _recognitionCancellation = null;
+            SpeechStatusText.Text = exception.Message;
+            RecordReplyButton.IsVisible = true;
+        }
+    }
+
+    private void OnCancelRecordingClicked(object? sender, RoutedEventArgs args)
+    {
+        _recognitionCancellation?.Cancel();
+        CancelActiveSpeechRequest();
+        RecordingPanel.IsVisible = false;
+        RecordReplyButton.IsVisible = true;
+        SpeechStatusText.Text = "Recording cancelled. The café task did not change; text remains available.";
+        LearnerInput.Focus();
+    }
+
+    private void OnLearnerInputChanged(object? sender, TextChangedEventArgs args)
+    {
+        if (_settingTranscript || _pendingSpeechResult is null)
+        {
+            return;
+        }
+
+        if (!string.Equals(
+                LearnerInput.Text?.Trim(),
+                _pendingSpeechResult.Transcript?.Trim(),
+                StringComparison.Ordinal))
+        {
+            CancelActiveSpeechRequest();
+            SpeechStatusText.Text =
+                "Transcript edited. This reply will be evaluated as text, so no pronunciation evidence will be attached.";
+        }
+    }
+
+    private async Task RefreshSpeechCapabilitiesAsync()
+    {
+        if (_speechSynthesisProvider is null || _speechRecognitionProvider is null)
+        {
+            SpeechStatusText.Text = "Local speech providers are unavailable. Text and captions remain complete.";
+            RecordReplyButton.IsEnabled = false;
+            _recognitionAvailable = false;
+            RepeatButton.IsEnabled = false;
+            SlowerButton.IsEnabled = false;
+            StopPlaybackButton.IsEnabled = false;
+            return;
+        }
+
+        var synthesisTask = _speechSynthesisProvider.InspectAsync();
+        var recognitionTask = _speechRecognitionProvider.InspectAsync();
+        await Task.WhenAll(synthesisTask, recognitionTask);
+        var synthesis = await synthesisTask;
+        var recognition = await recognitionTask;
+        var hasGermanVoice = synthesis.Status == SpeechCapabilityStatus.Available &&
+                             synthesis.Voices.Any(voice => voice.Language == new LanguageCode("de"));
+        RepeatButton.IsEnabled = hasGermanVoice;
+        SlowerButton.IsEnabled = hasGermanVoice;
+        StopPlaybackButton.IsEnabled = hasGermanVoice;
+        _recognitionAvailable = recognition.Status == SpeechCapabilityStatus.Available;
+        RecordReplyButton.IsEnabled = _microphoneAllowed && _recognitionAvailable;
+        SpeechStatusText.Text =
+            $"Playback: {(hasGermanVoice ? "German system voice ready" : "no German system voice")}. " +
+            $"Microphone transcription: {recognition.Message}";
     }
 
     private void ResetTaskSurface()
@@ -365,6 +569,10 @@ public partial class CafeOrderView : UserControl
         PracticeAgainButton.IsVisible = false;
         SupportText.IsVisible = false;
         TurnStatusText.Text = string.Empty;
+        SpeechDisclosurePanel.IsVisible = false;
+        RecordingPanel.IsVisible = false;
+        RecordReplyButton.IsVisible = true;
+        CancelActiveSpeechRequest();
         _lastNpcResponse = null;
     }
 
@@ -416,16 +624,40 @@ public partial class CafeOrderView : UserControl
         CancelResponseButton.IsVisible = busy;
         RetrySaveButton.IsEnabled = !busy;
         PracticeAgainButton.IsEnabled = !busy;
+        RecordReplyButton.IsEnabled = !busy && _microphoneAllowed && _recognitionAvailable;
         TurnStatusText.Text = busy
             ? "Checking the deterministic task, then asking the optional local renderer…"
             : TurnStatusText.Text;
     }
 
-    private void OnUnloaded(object? sender, RoutedEventArgs args)
+    private async void OnUnloaded(object? sender, RoutedEventArgs args)
     {
         _turnCancellation?.Cancel();
         _turnCancellation?.Dispose();
         _turnCancellation = null;
+        _recognitionCancellation?.Cancel();
+        _recognitionCancellation?.Dispose();
+        _recognitionCancellation = null;
+        _playbackCancellation?.Cancel();
+        _playbackCancellation?.Dispose();
+        _playbackCancellation = null;
+        CancelActiveSpeechRequest();
+        if (_speechSynthesisProvider is not null)
+        {
+            await _speechSynthesisProvider.StopAsync();
+        }
+    }
+
+    private void CancelActiveSpeechRequest()
+    {
+        _recognitionCancellation?.Cancel();
+        if (_activeSpeechRequestId is { } requestId && _controller is not null)
+        {
+            _controller.CancelSpeechInput(requestId);
+        }
+
+        _activeSpeechRequestId = null;
+        _pendingSpeechResult = null;
     }
 
     private static string Percent(double? value) =>
