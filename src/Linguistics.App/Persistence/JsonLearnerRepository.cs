@@ -7,8 +7,9 @@ namespace Linguistics.App.Persistence;
 
 public sealed class JsonLearnerRepository : ILearnerRepository
 {
-    public const int CurrentSchemaVersion = 2;
-    private const int PreviousSchemaVersion = 1;
+    public const int CurrentSchemaVersion = 3;
+    private const int PreviousSchemaVersion = 2;
+    private const int LegacyProfileSchemaVersion = 1;
     private const long MaximumStoreBytes = 1_048_576;
 
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -67,7 +68,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
                 new LearnerStoreEnvelope(
                     CurrentSchemaVersion,
                     profile,
-                    existing?.Curriculum ?? CurriculumHistory.Empty),
+                    existing?.Curriculum ?? CurriculumHistory.Empty,
+                    existing?.Tasks ?? TaskHistory.Empty),
                 cancellationToken).ConfigureAwait(false);
         }
         finally
@@ -116,6 +118,62 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             var envelope = await RequireProfileAsync(profileId, cancellationToken).ConfigureAwait(false);
             await WriteEnvelopeAsync(
                 envelope with { SchemaVersion = CurrentSchemaVersion, Curriculum = history },
+                cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
+    public async Task<LearnerLearningState> LoadLearningStateAsync(
+        Guid profileId,
+        CancellationToken cancellationToken = default)
+    {
+        if (profileId == Guid.Empty)
+        {
+            throw new ArgumentException("The profile ID is required.", nameof(profileId));
+        }
+
+        await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            var envelope = await RequireProfileAsync(profileId, cancellationToken).ConfigureAwait(false);
+            CurriculumHistoryValidator.Validate(envelope.Curriculum);
+            TaskHistoryValidator.Validate(envelope.Tasks);
+            return new LearnerLearningState(envelope.Curriculum, envelope.Tasks);
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
+    public async Task SaveLearningStateAsync(
+        Guid profileId,
+        LearnerLearningState state,
+        CancellationToken cancellationToken = default)
+    {
+        if (profileId == Guid.Empty)
+        {
+            throw new ArgumentException("The profile ID is required.", nameof(profileId));
+        }
+
+        ArgumentNullException.ThrowIfNull(state);
+        CurriculumHistoryValidator.Validate(state.Curriculum);
+        TaskHistoryValidator.Validate(state.Tasks);
+
+        await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            var envelope = await RequireProfileAsync(profileId, cancellationToken).ConfigureAwait(false);
+            await WriteEnvelopeAsync(
+                envelope with
+                {
+                    SchemaVersion = CurrentSchemaVersion,
+                    Curriculum = state.Curriculum,
+                    Tasks = state.Tasks,
+                },
                 cancellationToken).ConfigureAwait(false);
         }
         finally
@@ -196,8 +254,9 @@ public sealed class JsonLearnerRepository : ILearnerRepository
 
             return schemaVersion switch
             {
-                PreviousSchemaVersion => MigrateSchemaOne(document.RootElement),
-                CurrentSchemaVersion => ReadSchemaTwo(document.RootElement),
+                LegacyProfileSchemaVersion => MigrateSchemaOne(document.RootElement),
+                PreviousSchemaVersion => MigrateSchemaTwo(document.RootElement),
+                CurrentSchemaVersion => ReadSchemaThree(document.RootElement),
                 _ => throw new LearnerStoreException(
                     $"Learner store schema {schemaVersion} is unsupported; expected {CurrentSchemaVersion}."),
             };
@@ -224,12 +283,16 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         var profile = legacy.Profile
             ?? throw new LearnerStoreException("The learner store does not contain a profile.");
         LearnerProfileValidator.Validate(profile);
-        return new LearnerStoreEnvelope(CurrentSchemaVersion, profile, CurriculumHistory.Empty);
+        return new LearnerStoreEnvelope(
+            CurrentSchemaVersion,
+            profile,
+            CurriculumHistory.Empty,
+            TaskHistory.Empty);
     }
 
-    private static LearnerStoreEnvelope ReadSchemaTwo(JsonElement root)
+    private static LearnerStoreEnvelope MigrateSchemaTwo(JsonElement root)
     {
-        var envelope = root.Deserialize<LearnerStoreEnvelope>(JsonOptions)
+        var envelope = root.Deserialize<SchemaTwoEnvelope>(JsonOptions)
             ?? throw new LearnerStoreException("The learner store is empty or invalid.");
         if (envelope.Profile is null)
         {
@@ -243,6 +306,25 @@ public sealed class JsonLearnerRepository : ILearnerRepository
 
         LearnerProfileValidator.Validate(envelope.Profile);
         CurriculumHistoryValidator.Validate(envelope.Curriculum);
+        return new LearnerStoreEnvelope(
+            CurrentSchemaVersion,
+            envelope.Profile,
+            envelope.Curriculum,
+            TaskHistory.Empty);
+    }
+
+    private static LearnerStoreEnvelope ReadSchemaThree(JsonElement root)
+    {
+        var envelope = root.Deserialize<LearnerStoreEnvelope>(JsonOptions)
+            ?? throw new LearnerStoreException("The learner store is empty or invalid.");
+        if (envelope.Profile is null || envelope.Curriculum is null || envelope.Tasks is null)
+        {
+            throw new LearnerStoreException("The learner store is missing profile, curriculum, or task history.");
+        }
+
+        LearnerProfileValidator.Validate(envelope.Profile);
+        CurriculumHistoryValidator.Validate(envelope.Curriculum);
+        TaskHistoryValidator.Validate(envelope.Tasks);
         return envelope;
     }
 
@@ -297,8 +379,14 @@ public sealed class JsonLearnerRepository : ILearnerRepository
 
     private sealed record SchemaOneEnvelope(int SchemaVersion, LearnerProfile? Profile);
 
-    private sealed record LearnerStoreEnvelope(
+    private sealed record SchemaTwoEnvelope(
         int SchemaVersion,
         LearnerProfile Profile,
         CurriculumHistory Curriculum);
+
+    private sealed record LearnerStoreEnvelope(
+        int SchemaVersion,
+        LearnerProfile Profile,
+        CurriculumHistory Curriculum,
+        TaskHistory Tasks);
 }

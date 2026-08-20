@@ -22,26 +22,42 @@ public partial class App : Application
             var paths = AppDataPaths.CreateDefault();
             var repository = new JsonLearnerRepository(paths.LearnerProfileFile);
             var languageModelProvider = OllamaProvider.CreateDefault();
-            ValidatedContentCatalog? contentCatalog = null;
-            string? contentError = null;
+            var contentDirectory = Path.Combine(AppContext.BaseDirectory, "Content");
+            ValidatedContentCatalog? runtimeContentCatalog = null;
+            string? runtimeContentError = null;
+            try
+            {
+                runtimeContentCatalog = ContentPackLoader.LoadDirectory(
+                    contentDirectory,
+                    ContentLoadPolicy.Runtime);
+            }
+            catch (ContentValidationException exception)
+            {
+                runtimeContentError = exception.Message;
+            }
+
+            ValidatedContentCatalog? authoringContentCatalog = null;
+            string? authoringContentError = null;
             if (DeveloperModeEnabled())
             {
                 try
                 {
-                    contentCatalog = ContentPackLoader.LoadDirectory(
-                        Path.Combine(AppContext.BaseDirectory, "Content"),
+                    authoringContentCatalog = ContentPackLoader.LoadDirectory(
+                        contentDirectory,
                         ContentLoadPolicy.AuthoringPreview);
                 }
                 catch (ContentValidationException exception)
                 {
-                    contentError = exception.Message;
+                    authoringContentError = exception.Message;
                 }
             }
 
             desktop.MainWindow = new MainWindow(
                 new LearnerProfileOwner(repository),
-                contentCatalog,
-                contentError,
+                runtimeContentCatalog,
+                runtimeContentError,
+                authoringContentCatalog,
+                authoringContentError,
                 languageModelProvider);
             desktop.Exit += (_, _) => languageModelProvider.Dispose();
         }

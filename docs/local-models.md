@@ -16,6 +16,8 @@ Settings can check the already-running local service, list installed local model
 
 The model may select one supplied NPC response and propose one supplied intent/state. Exact JSON, field, identifier, response, length, vocabulary, and currently allowed-transition checks run before the proposal is returned. A timeout, cancellation, obsolete request, transport failure, malformed envelope, malformed proposal, extra field, unknown ID, cloud alias, or forbidden transition returns the scripted fallback without a state mutation. Short structured requests are deliberately non-streaming.
 
+The café scenario now consumes this contract only after its deterministic reducer has evaluated the learner turn. The request receives exactly one already-accepted intent and next state plus the state-specific response allow-list. A model response therefore cannot complete the task early, change evidence, choose feedback, or write progress. Only an accepted proposal is recorded as `localModel`; every other path is recorded as `scripted`.
+
 ## Current evidence and limits
 
 Official Ollama API, structured-output, authentication, macOS, Windows, model-detail, streaming, and MIT-license documentation was rechecked on 2026-08-20. This Mac first proved the stopped-service fallback, then a later native check found Ollama `0.32.14` running with four already-installed local models. One exact-schema smoke request through the production adapter and `llama3.2:latest` (reported 3.2B, Q4_K_M) was accepted in 12.5 seconds. Nothing was downloaded, signed into, or saved as the learner's selection. This is evidence for one local run, not a general hardware recommendation; the reported Llama 3.2 community license still needs authorized review before recommendation or redistribution.

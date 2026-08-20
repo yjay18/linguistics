@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Linguistics.App.Features.Languages;
 using Linguistics.App.Features.Learn;
+using Linguistics.App.Features.Scenarios;
 using Linguistics.App.Features.Settings;
 using Linguistics.Core.Content;
 using Linguistics.Core.Providers;
@@ -13,8 +14,10 @@ public partial class ShellView : UserControl
     private LearnerProfile? _profile;
     private LearnerProfileOwner? _profileOwner;
     private Action? _profileDeleted;
-    private ValidatedContentCatalog? _contentCatalog;
-    private string? _contentError;
+    private ValidatedContentCatalog? _runtimeContentCatalog;
+    private string? _runtimeContentError;
+    private ValidatedContentCatalog? _authoringContentCatalog;
+    private string? _authoringContentError;
     private ILanguageModelProvider? _languageModelProvider;
 
     public ShellView()
@@ -28,16 +31,20 @@ public partial class ShellView : UserControl
         LearnerProfile profile,
         LearnerProfileOwner profileOwner,
         Action profileDeleted,
-        ValidatedContentCatalog? contentCatalog = null,
-        string? contentError = null,
+        ValidatedContentCatalog? runtimeContentCatalog = null,
+        string? runtimeContentError = null,
+        ValidatedContentCatalog? authoringContentCatalog = null,
+        string? authoringContentError = null,
         ILanguageModelProvider? languageModelProvider = null)
         : this()
     {
         _profile = profile;
         _profileOwner = profileOwner;
         _profileDeleted = profileDeleted;
-        _contentCatalog = contentCatalog;
-        _contentError = contentError;
+        _runtimeContentCatalog = runtimeContentCatalog;
+        _runtimeContentError = runtimeContentError;
+        _authoringContentCatalog = authoringContentCatalog;
+        _authoringContentError = authoringContentError;
         _languageModelProvider = languageModelProvider;
         ShowSelectedPage();
     }
@@ -67,7 +74,18 @@ public partial class ShellView : UserControl
                 ShowPage(new LanguagesView(_profile, SaveProfileAsync));
                 break;
             case "Learn" when DeveloperModeEnabled():
-                ShowPage(new CurriculumDiagnosticsView(_profile, _contentCatalog, _contentError));
+                ShowPage(new CurriculumDiagnosticsView(
+                    _profile,
+                    _authoringContentCatalog,
+                    _authoringContentError));
+                break;
+            case "Scenarios":
+                ShowPage(new CafeOrderView(
+                    _profile,
+                    _profileOwner,
+                    _runtimeContentCatalog,
+                    _runtimeContentError,
+                    _languageModelProvider));
                 break;
             case "Settings":
                 ShowPage(new SettingsView(

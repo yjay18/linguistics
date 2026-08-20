@@ -34,6 +34,11 @@ public sealed record TransferMapping(
     double Strength,
     TransferReviewStatus ReviewStatus);
 
+public sealed record TransferNote(
+    TransferMapping Mapping,
+    string LearnerExplanation,
+    IReadOnlyList<string> NegativeTransferRisks);
+
 public sealed record TransferRoutingConfiguration(
     VersionId Version,
     double MinimumScore,

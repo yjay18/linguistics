@@ -1,0 +1,265 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="760"
+             d:DesignHeight="920"
+             x:Class="Linguistics.App.Features.Scenarios.CafeOrderView">
+    <StackPanel Spacing="18">
+        <StackPanel x:Name="LoadingPanel"
+                    Spacing="10">
+            <ProgressBar IsIndeterminate="True"
+                         AutomationProperties.Name="Loading café scenario" />
+            <TextBlock Text="Checking local learning readiness…"
+                       AutomationProperties.LiveSetting="Polite" />
+        </StackPanel>
+
+        <Border x:Name="ContentGatePanel"
+                IsVisible="False"
+                Padding="22"
+                CornerRadius="14"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                AutomationProperties.AutomationId="CafeContentGate">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Scenario content is safely paused"
+                           FontSize="21"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="The café engine is installed, but learner-facing language and licenses must be approved before this content can teach. Nothing unreviewed has been promoted into your learning history."
+                           TextWrapping="Wrap"
+                           LineHeight="22" />
+                <TextBlock x:Name="ContentGateTechnicalText"
+                           IsVisible="False"
+                           TextWrapping="Wrap"
+                           Opacity="0.68"
+                           AutomationProperties.AutomationId="CafeContentGateTechnical" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel x:Name="ScenarioPanel"
+                    IsVisible="False"
+                    Spacing="18">
+            <Border Padding="22"
+                    CornerRadius="14"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="CAFÉ • TEXT FIRST"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Opacity="0.7" />
+                    <TextBlock x:Name="GoalText"
+                               FontSize="25"
+                               FontWeight="SemiBold"
+                               TextWrapping="Wrap"
+                               AutomationProperties.HeadingLevel="2"
+                               AutomationProperties.AutomationId="CafeGoal" />
+                    <TextBlock x:Name="ContextText"
+                               TextWrapping="Wrap"
+                               LineHeight="22" />
+                    <TextBlock Text="Success looks like"
+                               Margin="0,5,0,0"
+                               FontWeight="SemiBold" />
+                    <ItemsControl x:Name="SuccessCriteriaList"
+                                  AutomationProperties.AutomationId="CafeSuccessCriteria" />
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="BridgeCard"
+                    IsVisible="False"
+                    Padding="20"
+                    CornerRadius="14"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource SystemAccentColor}">
+                <StackPanel Spacing="9">
+                    <TextBlock x:Name="BridgeLabelText"
+                               FontSize="12"
+                               FontWeight="Bold" />
+                    <TextBlock x:Name="BridgeExplanationText"
+                               TextWrapping="Wrap"
+                               LineHeight="22"
+                               AutomationProperties.AutomationId="CafeTransferExplanation" />
+                    <TextBlock x:Name="BridgeRiskText"
+                               TextWrapping="Wrap"
+                               FontSize="13"
+                               Opacity="0.72" />
+                    <CheckBox x:Name="UseBridgeCheckBox"
+                              Content="Use this language bridge for this task"
+                              AutomationProperties.AutomationId="ConfirmCafeBridge" />
+                    <TextBlock x:Name="BridgeModeText"
+                               IsVisible="False"
+                               FontSize="13"
+                               Opacity="0.72" />
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="ReadyPanel"
+                    Padding="18"
+                    CornerRadius="12"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                <StackPanel Spacing="10">
+                    <TextBlock x:Name="ReadyStatusText"
+                               TextWrapping="Wrap"
+                               AutomationProperties.LiveSetting="Polite"
+                               AutomationProperties.AutomationId="CafeReadyStatus" />
+                    <TextBlock x:Name="MissingPrerequisitesText"
+                               IsVisible="False"
+                               TextWrapping="Wrap"
+                               Opacity="0.72" />
+                    <TextBlock x:Name="PreviousAttemptsText"
+                               FontSize="13"
+                               Opacity="0.72" />
+                    <Button x:Name="StartButton"
+                            Content="Enter the café"
+                            HorizontalAlignment="Left"
+                            Click="OnStartClicked"
+                            AutomationProperties.AutomationId="StartCafeScenario" />
+                </StackPanel>
+            </Border>
+
+            <StackPanel x:Name="ActiveScenarioPanel"
+                        IsVisible="False"
+                        Spacing="16">
+                <Border Padding="18"
+                        CornerRadius="14"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                    <StackPanel Spacing="14">
+                        <TextBlock Text="At the counter"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   AutomationProperties.HeadingLevel="2" />
+                        <StackPanel x:Name="ConversationPanel"
+                                    Spacing="10"
+                                    AutomationProperties.AutomationId="CafeConversation" />
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8">
+                            <Button Content="Translation"
+                                    Click="OnTranslationClicked"
+                                    AutomationProperties.AutomationId="CafeTranslation" />
+                            <Button Content="Hint"
+                                    Click="OnHintClicked"
+                                    AutomationProperties.AutomationId="CafeHint" />
+                            <Button Content="Repeat"
+                                    Click="OnRepeatClicked"
+                                    AutomationProperties.AutomationId="CafeRepeat" />
+                        </StackPanel>
+                        <TextBlock x:Name="SupportText"
+                                   IsVisible="False"
+                                   TextWrapping="Wrap"
+                                   Opacity="0.78"
+                                   AutomationProperties.LiveSetting="Polite"
+                                   AutomationProperties.AutomationId="CafeSupportText" />
+                    </StackPanel>
+                </Border>
+
+                <Border x:Name="FeedbackPanel"
+                        IsVisible="False"
+                        Padding="18"
+                        CornerRadius="12"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource SystemAccentColor}">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="One useful adjustment"
+                                   FontSize="13"
+                                   FontWeight="Bold" />
+                        <TextBlock x:Name="FeedbackMessageText"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.LiveSetting="Assertive"
+                                   AutomationProperties.AutomationId="CafePrimaryFeedback" />
+                        <TextBlock x:Name="RetryPromptText"
+                                   TextWrapping="Wrap" />
+                        <Expander x:Name="OtherObservationsExpander"
+                                  IsVisible="False"
+                                  Header="Smaller observations">
+                            <TextBlock x:Name="OtherObservationsText"
+                                       Margin="0,8,0,0"
+                                       TextWrapping="Wrap" />
+                        </Expander>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel x:Name="InputPanel"
+                            Spacing="10">
+                    <TextBlock Text="Your reply" FontWeight="SemiBold" />
+                    <TextBox x:Name="LearnerInput"
+                             PlaceholderText="Type in German…"
+                             MaxLength="500"
+                             KeyDown="OnLearnerInputKeyDown"
+                             AutomationProperties.AutomationId="CafeLearnerInput" />
+                    <StackPanel Orientation="Horizontal" Spacing="9">
+                        <Button x:Name="SendButton"
+                                Content="Send reply"
+                                Click="OnSendClicked"
+                                AutomationProperties.AutomationId="SendCafeReply" />
+                        <Button x:Name="CancelResponseButton"
+                                Content="Cancel local response"
+                                IsVisible="False"
+                                Click="OnCancelResponseClicked"
+                                AutomationProperties.AutomationId="CancelCafeResponse" />
+                        <Button x:Name="ExitButton"
+                                Content="Exit scenario"
+                                Click="OnExitClicked"
+                                AutomationProperties.AutomationId="ExitCafeScenario" />
+                    </StackPanel>
+                    <TextBlock x:Name="TurnStatusText"
+                               TextWrapping="Wrap"
+                               Opacity="0.72"
+                               AutomationProperties.LiveSetting="Polite"
+                               AutomationProperties.AutomationId="CafeTurnStatus" />
+                </StackPanel>
+
+                <Border x:Name="CompletionPanel"
+                        IsVisible="False"
+                        Padding="22"
+                        CornerRadius="14"
+                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                        AutomationProperties.AutomationId="CafeCompletion">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Order understood"
+                                   FontSize="24"
+                                   FontWeight="SemiBold"
+                                   AutomationProperties.HeadingLevel="2" />
+                        <TextBlock Text="You accomplished the café goal. Accuracy and fluency stay separate from that communicative success. No pronunciation score was created from typed text."
+                                   TextWrapping="Wrap"
+                                   LineHeight="22" />
+                        <TextBlock x:Name="EvidenceText"
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.AutomationId="CafeEvidence" />
+                        <TextBlock x:Name="PersistenceStatusText"
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.LiveSetting="Assertive"
+                                   AutomationProperties.AutomationId="CafePersistenceStatus" />
+                        <StackPanel Orientation="Horizontal" Spacing="9">
+                            <Button x:Name="RetrySaveButton"
+                                    Content="Retry local save"
+                                    IsVisible="False"
+                                    Click="OnRetrySaveClicked"
+                                    AutomationProperties.AutomationId="RetryCafeSave" />
+                            <Button x:Name="PracticeAgainButton"
+                                    Content="Practice again"
+                                    IsVisible="False"
+                                    Click="OnPracticeAgainClicked"
+                                    AutomationProperties.AutomationId="PracticeCafeAgain" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Expander x:Name="DeveloperPanel"
+                          IsVisible="False"
+                          Header="Developer trace">
+                    <TextBlock x:Name="DeveloperTraceText"
+                               Margin="0,10,0,0"
+                               TextWrapping="Wrap"
+                               FontFamily="monospace"
+                               FontSize="12"
+                               AutomationProperties.AutomationId="CafeDeveloperTrace" />
+                </Expander>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

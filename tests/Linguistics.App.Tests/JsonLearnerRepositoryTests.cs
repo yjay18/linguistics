@@ -13,17 +13,20 @@ public sealed class JsonLearnerRepositoryTests
         new(2026, 8, 19, 12, 0, 0, TimeSpan.Zero);
 
     [TestMethod]
-    public async Task ProfileAndCurriculumRoundTripThroughSchemaTwoStore()
+    public async Task ProfileCurriculumAndTaskHistoryRoundTripThroughSchemaThreeStore()
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
             var profile = CreateProfile();
             var curriculum = CreateCurriculum();
+            var tasks = CreateTaskHistory();
 
             await repository.SaveAsync(profile);
-            await repository.SaveCurriculumAsync(profile.Id, curriculum);
+            await repository.SaveLearningStateAsync(
+                profile.Id,
+                new LearnerLearningState(curriculum, tasks));
             var restoredProfile = await repository.LoadAsync();
-            var restoredCurriculum = await repository.LoadCurriculumAsync(profile.Id);
+            var restoredState = await repository.LoadLearningStateAsync(profile.Id);
 
             Assert.IsNotNull(restoredProfile);
             Assert.AreEqual(profile.Id, restoredProfile.Id);
@@ -32,8 +35,9 @@ public sealed class JsonLearnerRepositoryTests
             CollectionAssert.AreEqual(
                 profile.KnownLanguages.ToArray(),
                 restoredProfile.KnownLanguages.ToArray());
-            AssertCurriculumEqual(curriculum, restoredCurriculum);
-            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 2");
+            AssertCurriculumEqual(curriculum, restoredState.Curriculum);
+            AssertTaskHistoryEqual(tasks, restoredState.Tasks);
+            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 3");
         });
     }
 
@@ -58,28 +62,64 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveCurriculumAsync(profile.Id, curriculum);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 2");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 3");
             Assert.AreEqual(profile.Id, (await repository.LoadAsync())?.Id);
             AssertCurriculumEqual(curriculum, await repository.LoadCurriculumAsync(profile.Id));
+            AssertTaskHistoryEqual(
+                TaskHistory.Empty,
+                (await repository.LoadLearningStateAsync(profile.Id)).Tasks);
         });
     }
 
     [TestMethod]
-    public async Task ProfileUpdatePreservesCurriculumHistory()
+    public async Task SchemaTwoLoadsWithoutRewriteAndUpgradesOnSuccessfulLearningStateSave()
+    {
+        await WithStoreAsync(async (repository, filePath) =>
+        {
+            var profile = CreateProfile();
+            var curriculum = CreateCurriculum();
+            var schemaTwo = SerializeSchemaTwo(profile, curriculum);
+            await File.WriteAllTextAsync(filePath, schemaTwo);
+
+            var restored = await repository.LoadLearningStateAsync(profile.Id);
+
+            AssertCurriculumEqual(curriculum, restored.Curriculum);
+            AssertTaskHistoryEqual(TaskHistory.Empty, restored.Tasks);
+            Assert.AreEqual(schemaTwo, await File.ReadAllTextAsync(filePath));
+
+            var tasks = CreateTaskHistory();
+            await repository.SaveLearningStateAsync(
+                profile.Id,
+                new LearnerLearningState(curriculum, tasks));
+
+            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 3");
+            AssertTaskHistoryEqual(
+                tasks,
+                (await repository.LoadLearningStateAsync(profile.Id)).Tasks);
+        });
+    }
+
+    [TestMethod]
+    public async Task ProfileUpdatePreservesLearningHistory()
     {
         await WithStoreAsync(async (repository, _) =>
         {
             var profile = CreateProfile();
             var curriculum = CreateCurriculum();
+            var tasks = CreateTaskHistory();
             await repository.SaveAsync(profile);
-            await repository.SaveCurriculumAsync(profile.Id, curriculum);
+            await repository.SaveLearningStateAsync(
+                profile.Id,
+                new LearnerLearningState(curriculum, tasks));
 
             await repository.SaveAsync(profile with
             {
                 Settings = profile.Settings with { Microphone = MicrophonePreference.Never },
             });
 
-            AssertCurriculumEqual(curriculum, await repository.LoadCurriculumAsync(profile.Id));
+            var restored = await repository.LoadLearningStateAsync(profile.Id);
+            AssertCurriculumEqual(curriculum, restored.Curriculum);
+            AssertTaskHistoryEqual(tasks, restored.Tasks);
         });
     }
 
@@ -106,13 +146,13 @@ public sealed class JsonLearnerRepositoryTests
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
-            const string unsupported = "{\"schemaVersion\":3,\"profile\":null}";
+            const string unsupported = "{\"schemaVersion\":4,\"profile\":null}";
             await File.WriteAllTextAsync(filePath, unsupported);
 
             var exception = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
                 () => repository.LoadAsync());
 
-            StringAssert.Contains(exception.Message, "schema 3 is unsupported");
+            StringAssert.Contains(exception.Message, "schema 4 is unsupported");
             Assert.AreEqual(unsupported, await File.ReadAllTextAsync(filePath));
         });
     }
@@ -134,7 +174,7 @@ public sealed class JsonLearnerRepositoryTests
     }
 
     [TestMethod]
-    public async Task InvalidSchemaTwoCurriculumFailsWithoutChangingTheFile()
+    public async Task InvalidSchemaThreeCurriculumFailsWithoutChangingTheFile()
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
@@ -261,6 +301,42 @@ public sealed class JsonLearnerRepositoryTests
                 MicrophonePreference.Later,
                 RetainSpeechRecordings: false));
 
+    private static TaskHistory CreateTaskHistory()
+    {
+        var attemptId = Guid.NewGuid();
+        var attempt = new TaskAttempt(
+            attemptId,
+            Guid.NewGuid(),
+            "de.task.cafe.order-one-item",
+            AttemptTime.AddMinutes(-2),
+            AttemptTime,
+            TurnCount: 2,
+            RetryCount: 1,
+            new LearningEvidence(
+                CommunicativeSuccess: true,
+                LinguisticAccuracy: 1,
+                Fluency: 0.8,
+                Pronunciation: null,
+                TargetConceptPerformance: 1,
+                Comprehension: null,
+                DelayedRecall: null),
+            ["de.error.accusative-masculine"],
+            new VersionId("language.de.core.v1"),
+            new VersionId("cafe-order-evaluator-v1"),
+            DialogueRealizationMode.Scripted,
+            LocalModel: null,
+            DialogueSchemaVersion: "cafe-order-dialogue-v1",
+            SelectedBridge: null);
+        return new TaskHistory(
+            [attempt],
+            [new ReviewHandoff(
+                Guid.NewGuid(),
+                attemptId,
+                new ConceptId("de.function.order-polite"),
+                AttemptTime,
+                attempt.EncounteredErrorRuleIds)]);
+    }
+
     private static string SerializeSchemaOne(LearnerProfile profile)
     {
         var options = new JsonSerializerOptions
@@ -272,6 +348,21 @@ public sealed class JsonLearnerRepositoryTests
         return JsonSerializer.Serialize(new { SchemaVersion = 1, Profile = profile }, options);
     }
 
+    private static string SerializeSchemaTwo(
+        LearnerProfile profile,
+        CurriculumHistory curriculum)
+    {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true,
+            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) },
+        };
+        return JsonSerializer.Serialize(
+            new { SchemaVersion = 2, Profile = profile, Curriculum = curriculum },
+            options);
+    }
+
     private static void AssertCurriculumEqual(
         CurriculumHistory expected,
         CurriculumHistory actual)
@@ -280,6 +371,47 @@ public sealed class JsonLearnerRepositoryTests
         Assert.AreEqual(expected.SelectionConfigurationVersion, actual.SelectionConfigurationVersion);
         CollectionAssert.AreEqual(expected.Progress.ToArray(), actual.Progress.ToArray());
         CollectionAssert.AreEqual(expected.Attempts.ToArray(), actual.Attempts.ToArray());
+    }
+
+    private static void AssertTaskHistoryEqual(TaskHistory expected, TaskHistory actual)
+    {
+        Assert.HasCount(expected.Attempts.Count, actual.Attempts);
+        for (var index = 0; index < expected.Attempts.Count; index++)
+        {
+            var expectedAttempt = expected.Attempts[index];
+            var actualAttempt = actual.Attempts[index];
+            Assert.AreEqual(expectedAttempt.Id, actualAttempt.Id);
+            Assert.AreEqual(expectedAttempt.SessionId, actualAttempt.SessionId);
+            Assert.AreEqual(expectedAttempt.TaskId, actualAttempt.TaskId);
+            Assert.AreEqual(expectedAttempt.StartedAt, actualAttempt.StartedAt);
+            Assert.AreEqual(expectedAttempt.CompletedAt, actualAttempt.CompletedAt);
+            Assert.AreEqual(expectedAttempt.TurnCount, actualAttempt.TurnCount);
+            Assert.AreEqual(expectedAttempt.RetryCount, actualAttempt.RetryCount);
+            Assert.AreEqual(expectedAttempt.Evidence, actualAttempt.Evidence);
+            Assert.AreEqual(expectedAttempt.ContentVersion, actualAttempt.ContentVersion);
+            Assert.AreEqual(expectedAttempt.EvaluationVersion, actualAttempt.EvaluationVersion);
+            Assert.AreEqual(expectedAttempt.DialogueMode, actualAttempt.DialogueMode);
+            Assert.AreEqual(expectedAttempt.LocalModel, actualAttempt.LocalModel);
+            Assert.AreEqual(expectedAttempt.DialogueSchemaVersion, actualAttempt.DialogueSchemaVersion);
+            Assert.AreEqual(expectedAttempt.SelectedBridge, actualAttempt.SelectedBridge);
+            CollectionAssert.AreEqual(
+                expectedAttempt.EncounteredErrorRuleIds.ToArray(),
+                actualAttempt.EncounteredErrorRuleIds.ToArray());
+        }
+
+        Assert.HasCount(expected.ReviewHandoffs.Count, actual.ReviewHandoffs);
+        for (var index = 0; index < expected.ReviewHandoffs.Count; index++)
+        {
+            var expectedHandoff = expected.ReviewHandoffs[index];
+            var actualHandoff = actual.ReviewHandoffs[index];
+            Assert.AreEqual(expectedHandoff.Id, actualHandoff.Id);
+            Assert.AreEqual(expectedHandoff.TaskAttemptId, actualHandoff.TaskAttemptId);
+            Assert.AreEqual(expectedHandoff.ConceptId, actualHandoff.ConceptId);
+            Assert.AreEqual(expectedHandoff.CreatedAt, actualHandoff.CreatedAt);
+            CollectionAssert.AreEqual(
+                expectedHandoff.ErrorRuleIds.ToArray(),
+                actualHandoff.ErrorRuleIds.ToArray());
+        }
     }
 
     private static async Task WithStoreAsync(

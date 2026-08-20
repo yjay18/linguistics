@@ -307,6 +307,84 @@ public sealed class ValidatedContentCatalog
             .ToArray();
     }
 
+    public IReadOnlyList<TransferNote> CreateRuntimeTransferNotes(
+        LanguageCode sourceLanguage,
+        LanguageCode targetLanguage)
+    {
+        EnsureRuntimePolicy();
+
+        return Packs
+            .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
+            .SelectMany(pack => pack.TransferMappings.Select(mapping => new TransferNote(
+                ToTransferMapping(pack.Manifest, mapping),
+                mapping.LearnerExplanation,
+                mapping.NegativeTransferRisks)))
+            .Where(note =>
+                note.Mapping.SourceLanguage == sourceLanguage &&
+                note.Mapping.TargetLanguage == targetLanguage)
+            .OrderBy(note => note.Mapping.Id.Value, StringComparer.Ordinal)
+            .ToArray();
+    }
+
+    public CafeOrderDefinition CreateRuntimeCafeOrderDefinition()
+    {
+        EnsureRuntimePolicy();
+
+        var pack = Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        var task = pack.Tasks.Single(task => task.Id == "de.task.cafe.order-one-item");
+        var states = task.States.ToDictionary(state => state.Id, StringComparer.Ordinal);
+        var feedback = pack.FeedbackTemplates.ToDictionary(template => template.Id, StringComparer.Ordinal);
+        var vocabulary = pack.Lexicon
+            .Where(entry => entry.Id is "de.lexeme.kaffee" or "de.lexeme.bitte")
+            .ToDictionary(entry => entry.Id, entry => entry.Lemma, StringComparer.Ordinal);
+
+        FocusIntervention Intervention(
+            string errorRuleId,
+            string feedbackId,
+            FeedbackPriority priority)
+        {
+            var template = feedback[feedbackId];
+            return new FocusIntervention(
+                errorRuleId,
+                priority,
+                template.Message,
+                template.RetryPrompt);
+        }
+
+        return new CafeOrderDefinition(
+            task.Id,
+            PackVersion(pack.Manifest),
+            new VersionId("cafe-order-evaluator-v1"),
+            new ConceptId("de.function.order-polite"),
+            new ConceptId("de.noun.gender-basic"),
+            task.Goal,
+            task.Context,
+            task.NpcRole,
+            task.SuccessConditions.Select(condition => condition.Description).ToArray(),
+            task.InitialStateId,
+            "de.state.order.frame",
+            task.SuccessStateIds.Single(),
+            states.ToDictionary(
+                pair => pair.Key,
+                pair => pair.Value.ScriptedFallback,
+                StringComparer.Ordinal),
+            vocabulary,
+            Intervention(
+                "de.error.accusative-masculine",
+                "de.feedback.accusative-masculine",
+                FeedbackPriority.TargetConcept),
+            Intervention(
+                "de.error.noun-capitalization",
+                "de.feedback.noun-capitalization",
+                FeedbackPriority.TargetConcept),
+            Intervention(
+                "de.error.order-bitte",
+                "de.feedback.order-bitte",
+                FeedbackPriority.Minor),
+            states[task.InitialStateId].ScriptedFallback.Last(),
+            states["de.state.order.frame"].ScriptedFallback.Last());
+    }
+
     private static ConceptNode ToConceptNode(
         ContentPackManifest manifest,
         TargetConceptContent concept) =>

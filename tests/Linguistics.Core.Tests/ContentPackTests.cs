@@ -80,6 +80,11 @@ public sealed class ContentPackTests
         Assert.IsTrue(tasks.All(task => task.States.All(state => state.ScriptedFallback.Count > 0)));
         Assert.IsTrue(tasks.All(task => task.Evaluators.All(evaluator =>
             Enum.IsDefined(evaluator.Kind))));
+        var cafe = tasks.Single(task => task.Id == "de.task.cafe.order-one-item");
+        Assert.IsTrue(cafe.Transitions.Any(transition =>
+            transition.FromStateId == cafe.InitialStateId &&
+            cafe.SuccessStateIds.Contains(transition.ToStateId, StringComparer.Ordinal) &&
+            transition.EvaluatorId == "de.eval.order-full-request"));
     }
 
     [TestMethod]
@@ -106,10 +111,19 @@ public sealed class ContentPackTests
             var english = runtime.CreateRuntimeTransferMappings(
                 new LanguageCode("en"),
                 new LanguageCode("de"));
+            var hindiNotes = runtime.CreateRuntimeTransferNotes(
+                new LanguageCode("hi"),
+                new LanguageCode("de"));
+            var cafe = runtime.CreateRuntimeCafeOrderDefinition();
 
             Assert.HasCount(13, graph.Nodes);
             Assert.HasCount(3, english);
             Assert.IsTrue(english.All(mapping => mapping.ReviewStatus == TransferReviewStatus.Approved));
+            Assert.IsTrue(hindiNotes.Any(note =>
+                note.Mapping.TargetConceptId == new ConceptId("de.noun.gender-basic")));
+            Assert.AreEqual("de.task.cafe.order-one-item", cafe.TaskId);
+            Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
+            Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
         }
         finally
         {

@@ -160,6 +160,7 @@ public sealed class LearnerProfileTests
     {
         private LearnerProfile? _profile;
         private CurriculumHistory _curriculum = CurriculumHistory.Empty;
+        private TaskHistory _tasks = TaskHistory.Empty;
 
         public Task<LearnerProfile?> LoadAsync(CancellationToken cancellationToken = default) =>
             Task.FromResult(_profile);
@@ -186,10 +187,26 @@ public sealed class LearnerProfileTests
             return Task.CompletedTask;
         }
 
+        public Task<LearnerLearningState> LoadLearningStateAsync(
+            Guid profileId,
+            CancellationToken cancellationToken = default) =>
+            Task.FromResult(new LearnerLearningState(_curriculum, _tasks));
+
+        public Task SaveLearningStateAsync(
+            Guid profileId,
+            LearnerLearningState state,
+            CancellationToken cancellationToken = default)
+        {
+            _curriculum = state.Curriculum;
+            _tasks = state.Tasks;
+            return Task.CompletedTask;
+        }
+
         public Task DeleteAsync(CancellationToken cancellationToken = default)
         {
             _profile = null;
             _curriculum = CurriculumHistory.Empty;
+            _tasks = TaskHistory.Empty;
             return Task.CompletedTask;
         }
     }

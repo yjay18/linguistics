@@ -430,10 +430,12 @@
       ],
       "transitions": [
         { "fromStateId": "de.state.order.waiting", "toStateId": "de.state.order.frame", "evaluatorId": "de.eval.order-frame" },
+        { "fromStateId": "de.state.order.waiting", "toStateId": "de.state.order.complete", "evaluatorId": "de.eval.order-full-request" },
         { "fromStateId": "de.state.order.frame", "toStateId": "de.state.order.complete", "evaluatorId": "de.eval.order-item" }
       ],
       "evaluators": [
         { "id": "de.eval.order-frame", "kind": "requiredTokenSequence", "expectedValues": ["ich", "möchte"] },
+        { "id": "de.eval.order-full-request", "kind": "requiredTokenSequence", "expectedValues": ["ich", "möchte", "einen", "kaffee"] },
         { "id": "de.eval.order-item", "kind": "anyAllowedToken", "expectedValues": ["kaffee", "tee", "wasser"] },
         { "id": "de.eval.order-complete", "kind": "stateReached", "expectedValues": ["de.state.order.complete"] }
       ],

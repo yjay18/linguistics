@@ -17,8 +17,21 @@ public interface ILearnerRepository
         CurriculumHistory history,
         CancellationToken cancellationToken = default);
 
+    Task<LearnerLearningState> LoadLearningStateAsync(
+        Guid profileId,
+        CancellationToken cancellationToken = default);
+
+    Task SaveLearningStateAsync(
+        Guid profileId,
+        LearnerLearningState state,
+        CancellationToken cancellationToken = default);
+
     Task DeleteAsync(CancellationToken cancellationToken = default);
 }
+
+public sealed record LearnerLearningState(
+    CurriculumHistory Curriculum,
+    TaskHistory Tasks);
 
 public sealed class LearnerStoreException : Exception
 {

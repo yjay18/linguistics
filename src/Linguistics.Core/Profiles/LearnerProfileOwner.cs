@@ -1,3 +1,5 @@
+using Linguistics.Core.Curriculum;
+
 namespace Linguistics.Core.Profiles;
 
 public sealed class LearnerProfileOwner(ILearnerRepository repository)
@@ -78,6 +80,45 @@ public sealed class LearnerProfileOwner(ILearnerRepository repository)
         }
     }
 
+    public async Task<LearnerLearningState> LoadLearningStateAsync(
+        CancellationToken cancellationToken = default)
+    {
+        await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            var profileId = RequireActiveProfile();
+            return await repository
+                .LoadLearningStateAsync(profileId, cancellationToken)
+                .ConfigureAwait(false);
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
+    public async Task SaveLearningStateAsync(
+        LearnerLearningState state,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(state);
+        CurriculumHistoryValidator.Validate(state.Curriculum);
+        TaskHistoryValidator.Validate(state.Tasks);
+
+        await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            var profileId = RequireActiveProfile();
+            await repository
+                .SaveLearningStateAsync(profileId, state, cancellationToken)
+                .ConfigureAwait(false);
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
     public async Task DeleteAllAsync(CancellationToken cancellationToken = default)
     {
         await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
@@ -99,6 +140,10 @@ public sealed class LearnerProfileOwner(ILearnerRepository repository)
         LearnerProfileValidator.Validate(profile);
         await repository.SaveAsync(profile, cancellationToken).ConfigureAwait(false);
     }
+
+    private Guid RequireActiveProfile() =>
+        _activeProfileId ?? throw StateError(
+            "The learner profile is no longer active. Reload or complete setup before accessing learning data.");
 
     private static LearnerProfileValidationException StateError(string message) =>
         new([message]);

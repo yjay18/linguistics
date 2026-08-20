@@ -11,8 +11,10 @@ namespace Linguistics.App;
 public partial class MainWindow : Window
 {
     private LearnerProfileOwner? _profileOwner;
-    private ValidatedContentCatalog? _contentCatalog;
-    private string? _contentError;
+    private ValidatedContentCatalog? _runtimeContentCatalog;
+    private string? _runtimeContentError;
+    private ValidatedContentCatalog? _authoringContentCatalog;
+    private string? _authoringContentError;
     private ILanguageModelProvider? _languageModelProvider;
     private CancellationTokenSource? _loadCancellation;
 
@@ -23,14 +25,18 @@ public partial class MainWindow : Window
 
     public MainWindow(
         LearnerProfileOwner profileOwner,
-        ValidatedContentCatalog? contentCatalog = null,
-        string? contentError = null,
+        ValidatedContentCatalog? runtimeContentCatalog = null,
+        string? runtimeContentError = null,
+        ValidatedContentCatalog? authoringContentCatalog = null,
+        string? authoringContentError = null,
         ILanguageModelProvider? languageModelProvider = null)
         : this()
     {
         _profileOwner = profileOwner;
-        _contentCatalog = contentCatalog;
-        _contentError = contentError;
+        _runtimeContentCatalog = runtimeContentCatalog;
+        _runtimeContentError = runtimeContentError;
+        _authoringContentCatalog = authoringContentCatalog;
+        _authoringContentError = authoringContentError;
         _languageModelProvider = languageModelProvider;
         Opened += OnOpened;
         Closed += OnClosed;
@@ -106,8 +112,10 @@ public partial class MainWindow : Window
             profile,
             _profileOwner,
             ShowOnboarding,
-            _contentCatalog,
-            _contentError,
+            _runtimeContentCatalog,
+            _runtimeContentError,
+            _authoringContentCatalog,
+            _authoringContentError,
             _languageModelProvider);
         StartupStatus.IsVisible = false;
     }
