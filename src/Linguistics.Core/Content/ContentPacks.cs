@@ -287,6 +287,15 @@ public sealed class ValidatedContentCatalog
 
     public ContentLoadPolicy Policy { get; }
 
+    public CourseCatalog CreateCourseCatalog(
+        LanguageCode targetLanguage,
+        CourseCatalogConfiguration? configuration = null) =>
+        CourseCatalogBuilder.Build(
+            Packs,
+            Policy,
+            targetLanguage,
+            configuration ?? CourseCatalogConfiguration.Default);
+
     public ConceptGraph CreateRuntimeConceptGraph(LanguageCode targetLanguage)
     {
         EnsureRuntimePolicy();

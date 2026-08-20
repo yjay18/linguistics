@@ -28,7 +28,7 @@ public sealed class ContentValidationException : Exception
 public static class ContentPackLoader
 {
     private const int MaximumPackCount = 64;
-    private const long MaximumPackBytes = 1_048_576;
+    private const long MaximumPackBytes = 16_777_216;
 
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
@@ -211,6 +211,7 @@ public static class ContentPackValidator
 
         var validPacks = packs.Where(pack => pack?.Manifest is not null).ToArray();
         ValidateGlobalIds(validPacks, errors);
+        ValidateCourseCapacity(validPacks, errors);
 
         var packGroups = validPacks
             .Where(pack => IsCanonicalIdentifier(pack.Manifest.Id))
@@ -246,6 +247,26 @@ public static class ContentPackValidator
 
         ValidateConceptCycles(concepts, errors);
         return Order(errors);
+    }
+
+    private static void ValidateCourseCapacity(
+        IReadOnlyList<ContentPackDocument> packs,
+        ICollection<ContentValidationError> errors)
+    {
+        foreach (var language in packs
+                     .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)
+                     .SelectMany(pack => Items(pack.Concepts))
+                     .Where(concept => concept is not null && !string.IsNullOrWhiteSpace(concept.Language))
+                     .GroupBy(concept => concept.Language, StringComparer.Ordinal)
+                     .Where(group => group.Count() > CourseCatalogConfiguration.MaximumLessonCount))
+        {
+            Add(
+                errors,
+                "catalog.limit",
+                "catalog",
+                $"languages.{language.Key}.concepts",
+                $"Language '{language.Key}' contains {language.Count()} concepts; the limit is {CourseCatalogConfiguration.MaximumLessonCount}.");
+        }
     }
 
     private static void ValidatePackShape(

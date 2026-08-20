@@ -163,6 +163,77 @@ public sealed class ContentPackTests
     }
 
     [TestMethod]
+    public void AuthoringContentBecomesDeterministicPreviewLessons()
+    {
+        var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .CreateCourseCatalog(new LanguageCode("de"));
+        var repeated = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .CreateCourseCatalog(new LanguageCode("de"));
+
+        Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
+        Assert.AreEqual(450, catalog.TargetLessonCount);
+        Assert.AreEqual(13, catalog.AuthoredLessonCount);
+        Assert.AreEqual(437, catalog.RemainingLessonCount);
+        Assert.IsTrue(catalog.Units.SelectMany(unit => unit.Lessons).All(lesson => lesson.Slides.Count >= 5));
+        CollectionAssert.AreEqual(
+            catalog.Units.SelectMany(unit => unit.Lessons).Select(lesson => lesson.Id).ToArray(),
+            repeated.Units.SelectMany(unit => unit.Lessons).Select(lesson => lesson.Id).ToArray());
+        CollectionAssert.AreEqual(
+            catalog.Units.SelectMany(unit => unit.Lessons).SelectMany(lesson => lesson.Slides).Select(slide => slide.Id).ToArray(),
+            repeated.Units.SelectMany(unit => unit.Lessons).SelectMany(lesson => lesson.Slides).Select(slide => slide.Id).ToArray());
+    }
+
+    [TestMethod]
+    public void RuntimeApprovedContentBecomesReadyLessons()
+    {
+        var approved = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Select(ApproveForTestOnly)
+            .ToArray();
+        var directory = WritePacks(approved);
+        try
+        {
+            var course = ContentPackLoader
+                .LoadDirectory(directory, ContentLoadPolicy.Runtime)
+                .CreateCourseCatalog(new LanguageCode("de"));
+
+            Assert.AreEqual(CoursePublicationState.Ready, course.PublicationState);
+            Assert.IsTrue(course.Units.SelectMany(unit => unit.Lessons).All(lesson =>
+                lesson.ReviewStatus == ContentReviewStatus.Approved));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [TestMethod]
+    public void CatalogAcceptsFiveHundredLessonsAndRejectsMore()
+    {
+        var source = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        var fiveHundred = CreateLargeTargetPack(source, 500);
+        var tooManyErrors = ContentPackValidator.Validate(
+            [CreateLargeTargetPack(source, 501)],
+            ContentLoadPolicy.AuthoringPreview);
+        var directory = WritePacks([fiveHundred]);
+        try
+        {
+            var course = ContentPackLoader
+                .LoadDirectory(directory, ContentLoadPolicy.AuthoringPreview)
+                .CreateCourseCatalog(new LanguageCode("de"));
+
+            Assert.AreEqual(500, course.AuthoredLessonCount);
+            Assert.HasCount(25, course.Units);
+            Assert.IsTrue(course.Units.All(unit => unit.Lessons.Count == 20));
+            Assert.IsTrue(tooManyErrors.Any(error => error.Code == "catalog.limit"));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [TestMethod]
     [DataRow("invalid-id", "id.invalid")]
     [DataRow("duplicate-id", "id.duplicate")]
     [DataRow("cycle", "graph.cycle")]
@@ -389,6 +460,34 @@ public sealed class ContentPackTests
                 .Select(item => item with { Review = review })
                 .ToArray(),
             TransferMappings = pack.TransferMappings.Select(item => item with { Review = review }).ToArray(),
+        };
+    }
+
+    private static ContentPackDocument CreateLargeTargetPack(
+        ContentPackDocument source,
+        int lessonCount)
+    {
+        var seed = source.Concepts[0];
+        var concepts = Enumerable.Range(1, lessonCount)
+            .Select(index => seed with
+            {
+                Id = $"de.synthetic.lesson{index:000}",
+                Title = $"Synthetic lesson {index}",
+                PrerequisiteIds = [],
+                SuccessCriteria = seed.SuccessCriteria with { RequiredEvaluatorIds = [] },
+                ErrorRuleIds = [],
+            })
+            .ToArray();
+
+        return source with
+        {
+            Concepts = concepts,
+            Lexicon = [],
+            Tasks = [],
+            ErrorRules = [],
+            FeedbackTemplates = [],
+            Rubrics = [],
+            PronunciationUtterances = [],
         };
     }
 
