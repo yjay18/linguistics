@@ -15,7 +15,7 @@ public sealed class JsonLearnerRepositoryTests
         new(2026, 8, 19, 12, 0, 0, TimeSpan.Zero);
 
     [TestMethod]
-    public async Task CompleteLearningStateRoundTripsThroughSchemaFiveStore()
+    public async Task CompleteLearningStateRoundTripsThroughSchemaSixStore()
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
@@ -24,6 +24,7 @@ public sealed class JsonLearnerRepositoryTests
             var tasks = CreateTaskHistory();
             var pronunciation = CreatePronunciationHistory();
             var review = CreateReviewHistory();
+            var lessons = CreateLessonHistory();
 
             await repository.SaveAsync(profile);
             await repository.SaveLearningStateAsync(
@@ -32,7 +33,8 @@ public sealed class JsonLearnerRepositoryTests
                     curriculum,
                     tasks,
                     pronunciation,
-                    review));
+                    review,
+                    lessons));
             var restoredProfile = await repository.LoadAsync();
             var restoredState = await repository.LoadLearningStateAsync(profile.Id);
 
@@ -50,7 +52,8 @@ public sealed class JsonLearnerRepositoryTests
                 restoredState.Pronunciation.Attempts.ToArray());
             CollectionAssert.AreEqual(review.Schedules.ToArray(), restoredState.Review.Schedules.ToArray());
             CollectionAssert.AreEqual(review.Attempts.ToArray(), restoredState.Review.Attempts.ToArray());
-            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 5");
+            CollectionAssert.AreEqual(lessons.Lessons.ToArray(), restoredState.Lessons.Lessons.ToArray());
+            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 6");
         });
     }
 
@@ -75,7 +78,7 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveCurriculumAsync(profile.Id, curriculum);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 5");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 6");
             Assert.AreEqual(profile.Id, (await repository.LoadAsync())?.Id);
             AssertCurriculumEqual(curriculum, await repository.LoadCurriculumAsync(profile.Id));
             AssertTaskHistoryEqual(
@@ -108,7 +111,7 @@ public sealed class JsonLearnerRepositoryTests
                     tasks,
                     Linguistics.Core.Speech.PronunciationHistory.Empty));
 
-            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 5");
+            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 6");
             AssertTaskHistoryEqual(
                 tasks,
                 (await repository.LoadLearningStateAsync(profile.Id)).Tasks);
@@ -136,7 +139,7 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveLearningStateAsync(profile.Id, restored);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 5");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 6");
             StringAssert.Contains(upgraded, "\"pronunciation\"");
             StringAssert.Contains(upgraded, "\"review\"");
         });
@@ -166,8 +169,34 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveLearningStateAsync(profile.Id, restored);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 5");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 6");
             StringAssert.Contains(upgraded, "\"review\"");
+        });
+    }
+
+    [TestMethod]
+    public async Task SchemaFiveLoadsWithoutRewriteAndAddsEmptyLessonHistoryOnNextSave()
+    {
+        await WithStoreAsync(async (repository, filePath) =>
+        {
+            var profile = CreateProfile();
+            var curriculum = CreateCurriculum();
+            var tasks = CreateTaskHistory();
+            var pronunciation = CreatePronunciationHistory();
+            var review = CreateReviewHistory();
+            var schemaFive = SerializeSchemaFive(profile, curriculum, tasks, pronunciation, review);
+            await File.WriteAllTextAsync(filePath, schemaFive);
+
+            var restored = await repository.LoadLearningStateAsync(profile.Id);
+
+            Assert.IsEmpty(restored.Lessons.Lessons);
+            Assert.AreEqual(schemaFive, await File.ReadAllTextAsync(filePath));
+
+            await repository.SaveLearningStateAsync(profile.Id, restored);
+
+            var upgraded = await File.ReadAllTextAsync(filePath);
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 6");
+            StringAssert.Contains(upgraded, "\"lessons\"");
         });
     }
 
@@ -181,6 +210,7 @@ public sealed class JsonLearnerRepositoryTests
             var tasks = CreateTaskHistory();
             var pronunciation = CreatePronunciationHistory();
             var review = CreateReviewHistory();
+            var lessons = CreateLessonHistory();
             await repository.SaveAsync(profile);
             await repository.SaveLearningStateAsync(
                 profile.Id,
@@ -188,7 +218,8 @@ public sealed class JsonLearnerRepositoryTests
                     curriculum,
                     tasks,
                     pronunciation,
-                    review));
+                    review,
+                    lessons));
 
             await repository.SaveAsync(profile with
             {
@@ -203,6 +234,7 @@ public sealed class JsonLearnerRepositoryTests
                 restored.Pronunciation.Attempts.ToArray());
             CollectionAssert.AreEqual(review.Schedules.ToArray(), restored.Review.Schedules.ToArray());
             CollectionAssert.AreEqual(review.Attempts.ToArray(), restored.Review.Attempts.ToArray());
+            CollectionAssert.AreEqual(lessons.Lessons.ToArray(), restored.Lessons.Lessons.ToArray());
         });
     }
 
@@ -225,20 +257,20 @@ public sealed class JsonLearnerRepositoryTests
     }
 
     [TestMethod]
-    public async Task ReducedMotionRoundTripsAndMissingSchemaFiveSettingDefaultsOffWithoutRewrite()
+    public async Task ReducedMotionRoundTripsAndMissingSchemaSixSettingDefaultsOffWithoutRewrite()
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
             var profile = CreateProfile();
             await repository.SaveAsync(profile);
-            var previousSchemaFive = (await File.ReadAllTextAsync(filePath))
+            var previousSchemaSix = (await File.ReadAllTextAsync(filePath))
                 .Replace(",\n    \"reduceMotion\": false", string.Empty, StringComparison.Ordinal);
-            await File.WriteAllTextAsync(filePath, previousSchemaFive);
+            await File.WriteAllTextAsync(filePath, previousSchemaSix);
 
             var restored = await repository.LoadAsync();
 
             Assert.IsFalse(restored?.Settings.ReduceMotion);
-            Assert.AreEqual(previousSchemaFive, await File.ReadAllTextAsync(filePath));
+            Assert.AreEqual(previousSchemaSix, await File.ReadAllTextAsync(filePath));
 
             await repository.SaveAsync(restored! with
             {
@@ -254,13 +286,13 @@ public sealed class JsonLearnerRepositoryTests
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
-            const string unsupported = "{\"schemaVersion\":6,\"profile\":null}";
+            const string unsupported = "{\"schemaVersion\":7,\"profile\":null}";
             await File.WriteAllTextAsync(filePath, unsupported);
 
             var exception = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
                 () => repository.LoadAsync());
 
-            StringAssert.Contains(exception.Message, "schema 6 is unsupported");
+            StringAssert.Contains(exception.Message, "schema 7 is unsupported");
             Assert.AreEqual(unsupported, await File.ReadAllTextAsync(filePath));
         });
     }
@@ -571,6 +603,23 @@ public sealed class JsonLearnerRepositoryTests
                 ReviewConfiguration.Default.Version)]);
     }
 
+    private static LessonHistory CreateLessonHistory() =>
+        new(
+        [
+            new LessonProgress(
+                "lesson.de.greeting",
+                new ConceptId("de.greeting"),
+                VisitCount: 2,
+                CompletedCount: 1,
+                AttemptTime.AddDays(-1),
+                AttemptTime,
+                CurrentStartedAt: AttemptTime,
+                LastCompletedAt: AttemptTime.AddDays(-1).AddMinutes(5),
+                LastSlideIndex: 2,
+                SlideCount: 5,
+                new VersionId("language.de.core.v1")),
+        ]);
+
     private static string SerializeSchemaOne(LearnerProfile profile)
     {
         var options = new JsonSerializerOptions
@@ -640,6 +689,32 @@ public sealed class JsonLearnerRepositoryTests
                 Curriculum = curriculum,
                 Tasks = tasks,
                 Pronunciation = pronunciation,
+            },
+            options);
+    }
+
+    private static string SerializeSchemaFive(
+        LearnerProfile profile,
+        CurriculumHistory curriculum,
+        TaskHistory tasks,
+        PronunciationHistory pronunciation,
+        ReviewHistory review)
+    {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true,
+            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) },
+        };
+        return JsonSerializer.Serialize(
+            new
+            {
+                SchemaVersion = 5,
+                Profile = profile,
+                Curriculum = curriculum,
+                Tasks = tasks,
+                Pronunciation = pronunciation,
+                Review = review,
             },
             options);
     }

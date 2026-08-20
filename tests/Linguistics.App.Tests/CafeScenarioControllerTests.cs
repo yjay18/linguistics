@@ -213,7 +213,7 @@ public sealed class CafeScenarioControllerTests
 
             Assert.IsTrue(completion.Persisted);
             var storedJson = await File.ReadAllTextAsync(path);
-            StringAssert.Contains(storedJson, "\"schemaVersion\": 5");
+            StringAssert.Contains(storedJson, "\"schemaVersion\": 6");
             Assert.IsFalse(storedJson.Contains("raw-secret-marker", StringComparison.Ordinal));
 
             var relaunchedOwner = new LearnerProfileOwner(new JsonLearnerRepository(path));

@@ -34,13 +34,23 @@ public sealed record LearnerLearningState(
     CurriculumHistory Curriculum,
     TaskHistory Tasks,
     PronunciationHistory Pronunciation,
-    ReviewHistory Review)
+    ReviewHistory Review,
+    LessonHistory Lessons)
 {
     public LearnerLearningState(
         CurriculumHistory curriculum,
         TaskHistory tasks,
+        PronunciationHistory pronunciation,
+        ReviewHistory review)
+        : this(curriculum, tasks, pronunciation, review, LessonHistory.Empty)
+    {
+    }
+
+    public LearnerLearningState(
+        CurriculumHistory curriculum,
+        TaskHistory tasks,
         PronunciationHistory pronunciation)
-        : this(curriculum, tasks, pronunciation, ReviewHistory.Empty)
+        : this(curriculum, tasks, pronunciation, ReviewHistory.Empty, LessonHistory.Empty)
     {
     }
 }

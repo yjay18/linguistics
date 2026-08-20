@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Linguistics.Core.Content;
+using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App.Features.Learn;
@@ -12,9 +13,14 @@ namespace Linguistics.App.Features.Learn;
 public partial class LearnView : UserControl
 {
     private readonly Dictionary<Button, CourseLesson> _lessonsByButton = [];
+    private readonly LearnerProfileOwner? _profileOwner;
     private CourseCatalog? _course;
     private CourseLesson? _activeLesson;
+    private LearnerLearningState? _learningState;
+    private CourseLesson? _resumeLesson;
     private int _slideIndex;
+    private bool _canPersistLessonProgress;
+    private bool _historyLoadStarted;
 
     public LearnView()
     {
@@ -30,6 +36,7 @@ public partial class LearnView : UserControl
         : this()
     {
         ArgumentNullException.ThrowIfNull(profile);
+        _profileOwner = profileOwner;
         SlideHost.PageTransition = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion)
             ? null
             : new CrossFade(TimeSpan.FromMilliseconds(220));
@@ -54,7 +61,16 @@ public partial class LearnView : UserControl
 
         try
         {
-            RenderCourse(contentCatalog.CreateCourseCatalog(profile.TargetLanguage));
+            var course = contentCatalog.CreateCourseCatalog(profile.TargetLanguage);
+            RenderCourse(course);
+            _canPersistLessonProgress =
+                course.PublicationState == CoursePublicationState.Ready && profileOwner is not null;
+            if (_canPersistLessonProgress)
+            {
+                StartCourseButton.IsEnabled = false;
+                UnitsPanel.IsEnabled = false;
+                AttachedToVisualTree += async (_, _) => await LoadLessonProgressAsync();
+            }
         }
         catch (Exception exception) when (
             exception is InvalidOperationException or ArgumentException)
@@ -198,35 +214,50 @@ public partial class LearnView : UserControl
         return button;
     }
 
-    private void OnStartCourseClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
+    private async void OnStartCourseClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
     {
-        var first = _course?.Units.SelectMany(unit => unit.Lessons).FirstOrDefault();
-        if (first is not null)
+        var lesson = _resumeLesson ??
+            _course?.Units.SelectMany(unit => unit.Lessons).FirstOrDefault();
+        if (lesson is not null)
         {
-            OpenLesson(first);
+            await OpenLessonAsync(lesson);
         }
     }
 
-    private void OnLessonClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
+    private async void OnLessonClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
     {
         if (sender is Button button && _lessonsByButton.TryGetValue(button, out var lesson))
         {
-            OpenLesson(lesson);
+            await OpenLessonAsync(lesson);
         }
     }
 
-    private void OpenLesson(CourseLesson lesson)
+    private async Task OpenLessonAsync(CourseLesson lesson)
     {
         _activeLesson = lesson;
-        _slideIndex = 0;
+        var stored = FindStoredProgress(lesson);
+        _slideIndex = stored?.IsInProgress == true
+            ? Math.Clamp(stored.LastSlideIndex, 0, lesson.Slides.Count - 1)
+            : 0;
         CoursePanel.IsVisible = false;
         ErrorPanel.IsVisible = false;
         LessonPanel.IsVisible = true;
         RenderSlide();
         SlideHost.Focus();
+
+        if (_canPersistLessonProgress && stored?.IsInProgress != true)
+        {
+            await SaveLessonHistoryAsync(history => LessonProgressTracker.Begin(
+                history,
+                lesson.Id,
+                lesson.ConceptId,
+                lesson.Slides.Count,
+                lesson.ContentVersion,
+                DateTimeOffset.UtcNow));
+        }
     }
 
-    private void OnBackClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
+    private async void OnBackClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
     {
         if (_slideIndex == 0)
         {
@@ -236,9 +267,10 @@ public partial class LearnView : UserControl
 
         _slideIndex--;
         RenderSlide();
+        await SaveCurrentPositionAsync();
     }
 
-    private void OnContinueClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
+    private async void OnContinueClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
     {
         if (_activeLesson is null)
         {
@@ -249,11 +281,23 @@ public partial class LearnView : UserControl
         {
             _slideIndex++;
             RenderSlide();
+            await SaveCurrentPositionAsync();
             return;
         }
 
-        SessionStatusText.Text = $"You explored {Clean(_activeLesson.Title)}. This preview did not change mastery.";
+        var completedLesson = _activeLesson;
+        var saved = await SaveLessonHistoryAsync(history => LessonProgressTracker.Complete(
+            history,
+            completedLesson.Id,
+            DateTimeOffset.UtcNow));
+        SessionStatusText.Text = _canPersistLessonProgress
+            ? saved
+                ? $"Your visit to {Clean(completedLesson.Title)} was saved locally. Mastery changes only through assessed practice."
+                : $"You explored {Clean(completedLesson.Title)}, but this visit could not be saved. Mastery was not changed."
+            : $"You explored {Clean(completedLesson.Title)}. This preview did not change mastery.";
         SessionStatusText.IsVisible = true;
+        _resumeLesson = null;
+        StartCourseButton.Content = "Start first lesson";
         CloseLesson();
     }
 
@@ -399,5 +443,110 @@ public partial class LearnView : UserControl
         LessonPanel.IsVisible = false;
         ErrorText.Text = Clean(message);
         ErrorPanel.IsVisible = true;
+    }
+
+    private async Task LoadLessonProgressAsync()
+    {
+        if (_historyLoadStarted || _profileOwner is null)
+        {
+            return;
+        }
+
+        _historyLoadStarted = true;
+        try
+        {
+            _learningState = await _profileOwner.LoadLearningStateAsync();
+            var lessons = _course?.Units.SelectMany(unit => unit.Lessons).ToArray() ?? [];
+            var resume = _learningState.Lessons.Lessons
+                .Where(progress => progress.IsInProgress)
+                .OrderByDescending(progress => progress.LastVisitedAt)
+                .Select(progress => new
+                {
+                    Progress = progress,
+                    Lesson = lessons.FirstOrDefault(lesson =>
+                        string.Equals(lesson.Id, progress.LessonId, StringComparison.Ordinal) &&
+                        lesson.ContentVersion == progress.ContentVersion &&
+                        lesson.Slides.Count == progress.SlideCount),
+                })
+                .FirstOrDefault(item => item.Lesson is not null);
+            if (resume?.Lesson is { } lesson)
+            {
+                _resumeLesson = lesson;
+                var resumeSlideIndex = resume.Progress.LastSlideIndex;
+                StartCourseButton.Content = "Resume lesson";
+                SessionStatusText.Text = $"Ready to resume {Clean(lesson.Title)} at card {resumeSlideIndex + 1}.";
+                SessionStatusText.IsVisible = true;
+            }
+        }
+        catch (Exception exception) when (
+            exception is LearnerStoreException or CurriculumValidationException or
+                InvalidOperationException or ArgumentException)
+        {
+            _canPersistLessonProgress = false;
+            SessionStatusText.Text = "Local lesson progress is unavailable. Lessons remain usable in this session.";
+            SessionStatusText.IsVisible = true;
+        }
+        finally
+        {
+            StartCourseButton.IsEnabled = _course?.AuthoredLessonCount > 0;
+            UnitsPanel.IsEnabled = true;
+        }
+    }
+
+    private LessonProgress? FindStoredProgress(CourseLesson lesson) =>
+        _learningState?.Lessons.Lessons.FirstOrDefault(progress =>
+            progress.IsInProgress &&
+            string.Equals(progress.LessonId, lesson.Id, StringComparison.Ordinal) &&
+            progress.ContentVersion == lesson.ContentVersion &&
+            progress.SlideCount == lesson.Slides.Count);
+
+    private Task<bool> SaveCurrentPositionAsync()
+    {
+        if (_activeLesson is null)
+        {
+            return Task.FromResult(false);
+        }
+
+        var lessonId = _activeLesson.Id;
+        var slideIndex = _slideIndex;
+        return SaveLessonHistoryAsync(history => LessonProgressTracker.Move(
+            history,
+            lessonId,
+            slideIndex,
+            DateTimeOffset.UtcNow));
+    }
+
+    private async Task<bool> SaveLessonHistoryAsync(
+        Func<LessonHistory, LessonHistory> update)
+    {
+        if (!_canPersistLessonProgress || _profileOwner is null || _learningState is null)
+        {
+            return false;
+        }
+
+        ContinueButton.IsEnabled = false;
+        BackButton.IsEnabled = false;
+        try
+        {
+            _learningState = _learningState with
+            {
+                Lessons = update(_learningState.Lessons),
+            };
+            await _profileOwner.SaveLearningStateAsync(_learningState);
+            return true;
+        }
+        catch (Exception exception) when (
+            exception is LearnerStoreException or CurriculumValidationException or
+                InvalidOperationException or ArgumentException)
+        {
+            SessionStatusText.Text = "This lesson remains open, but local progress could not be saved.";
+            SessionStatusText.IsVisible = true;
+            return false;
+        }
+        finally
+        {
+            ContinueButton.IsEnabled = true;
+            BackButton.IsEnabled = true;
+        }
     }
 }
