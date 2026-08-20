@@ -7,15 +7,8 @@
              d:DesignHeight="700"
              x:Class="Linguistics.App.Features.Today.TodayView">
     <StackPanel Spacing="22">
-        <TextBlock Text="A calm next step, chosen from your local evidence. No streak pressure and no engagement algorithm."
-                   FontSize="17"
-                   TextWrapping="Wrap"
-                   Opacity="0.76" />
-
         <Border x:Name="LoadingState"
-                Padding="24"
-                CornerRadius="12"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                Classes="soft-card">
             <StackPanel Spacing="12">
                 <ProgressBar IsIndeterminate="True"
                              AutomationProperties.Name="Preparing today's plan" />
@@ -26,16 +19,11 @@
 
         <Border x:Name="PlanCard"
                 IsVisible="False"
-                Padding="30"
-                CornerRadius="16"
-                BorderThickness="1"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                Classes="hero-card">
             <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
                 <StackPanel Grid.Row="0" Grid.Column="0" Spacing="8">
                     <TextBlock Text="YOUR NEXT MOVE"
-                               FontSize="12"
-                               FontWeight="SemiBold"
-                               Opacity="0.68" />
+                               Classes="eyebrow" />
                     <TextBlock x:Name="HeadlineText"
                                FontSize="30"
                                FontWeight="SemiBold"
@@ -54,10 +42,11 @@
                         Width="82"
                         Height="82"
                         CornerRadius="41"
-                        Background="{DynamicResource SystemAccentColorLight2}">
+                        Background="{DynamicResource AppAccentBrush}">
                     <TextBlock x:Name="ActionGlyph"
                                Text="→"
                                FontSize="34"
+                               Foreground="{DynamicResource AppOnAccentBrush}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                AutomationProperties.IsOffscreenBehavior="Onscreen" />
@@ -66,6 +55,7 @@
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
                         Margin="0,24,0,0"
+                        Classes="primary lift"
                         HorizontalAlignment="Left"
                         Click="OnPrimaryActionClicked"
                         AutomationProperties.AutomationId="TodayPrimaryAction" />
@@ -77,9 +67,8 @@
               ColumnDefinitions="*,*,*"
               ColumnSpacing="12">
             <Border Grid.Column="0"
-                    Padding="18"
-                    CornerRadius="12"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    Classes="metric-card"
+                    Background="{DynamicResource AppBlueSoftBrush}">
                 <StackPanel Spacing="4">
                     <TextBlock x:Name="DueCountText"
                                FontSize="28"
@@ -90,9 +79,8 @@
                 </StackPanel>
             </Border>
             <Border Grid.Column="1"
-                    Padding="18"
-                    CornerRadius="12"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    Classes="metric-card"
+                    Background="{DynamicResource AppAccentSoftBrush}">
                 <StackPanel Spacing="4">
                     <TextBlock x:Name="StrongCountText"
                                FontSize="28"
@@ -103,9 +91,8 @@
                 </StackPanel>
             </Border>
             <Border Grid.Column="2"
-                    Padding="18"
-                    CornerRadius="12"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    Classes="metric-card"
+                    Background="{DynamicResource AppAmberSoftBrush}">
                 <StackPanel Spacing="4">
                     <TextBlock x:Name="SpeechCountText"
                                FontSize="28"
@@ -117,9 +104,7 @@
             </Border>
         </Grid>
 
-        <Border Padding="18"
-                CornerRadius="12"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+        <Border Classes="soft-card">
             <TextBlock Text="Everything here comes from the learner file on this device. Today makes no network request and stores no analytics."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
@@ -128,7 +113,7 @@
         <TextBlock x:Name="ErrorText"
                    IsVisible="False"
                    TextWrapping="Wrap"
-                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   Foreground="{DynamicResource AppDangerBrush}"
                    AutomationProperties.LiveSetting="Assertive"
                    AutomationProperties.AutomationId="TodayError" />
     </StackPanel>

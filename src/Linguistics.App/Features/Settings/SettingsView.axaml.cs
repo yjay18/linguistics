@@ -61,6 +61,7 @@ public partial class SettingsView : UserControl
         MicrophoneLater.IsChecked = profile.Settings.Microphone == MicrophonePreference.Later;
         MicrophoneNever.IsChecked = profile.Settings.Microphone == MicrophonePreference.Never;
         RetainRecordings.IsChecked = profile.Settings.RetainSpeechRecordings;
+        ReduceMotion.IsChecked = profile.Settings.ReduceMotion;
 
         RefreshPreferredLanguageOptions();
         PreferredLanguage.SelectedItem = profile.Settings.PreferredExplanationLanguage is { } preferred
@@ -236,7 +237,8 @@ public partial class SettingsView : UserControl
                 preferred,
                 SelectedMicrophonePreference(),
                 RetainRecordings.IsChecked == true,
-                SelectedModelName());
+                SelectedModelName(),
+                ReduceMotion.IsChecked == true);
             _profile = await _saveProfile(_profile with { Settings = settings });
             StatusText.Text = "Settings saved locally.";
             StatusText.IsVisible = true;

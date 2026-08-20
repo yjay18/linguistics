@@ -34,7 +34,7 @@ For Windows, choose either Microsoft Store MSIX distribution, where Microsoft si
 | Windows | CI definition builds/tests/publishes on Windows; no native final-candidate interaction evidence | Choose packaging, sign, install on clean supported Windows devices, test Narrator, microphone denial, speech, and deletion |
 | Models | Ollama and whisper.cpp remain external; no model weights bundled | Review each recommended model's source, exact hash, size, license, hardware profile, and redistribution status |
 | Privacy | Local-only boundaries, redacted logs, scoped deletion, recovery, and migrations have automated evidence | Inspect storage before/after real UI deletion and permission-denial flows on both platforms |
-| Accessibility | Controls carry names, headings, live regions, captions, and text-only alternatives | Complete keyboard, scalable-text, contrast, VoiceOver, and Narrator journeys on the frozen artifact |
+| Accessibility | Controls carry names, headings, live regions, captions, text-only alternatives, and a saved reduced-motion path; semantic palette pairs have automated contrast checks | Complete keyboard, scalable-text, focus visibility, light/dark theme, reduced-motion, VoiceOver, and Narrator journeys on the frozen artifact |
 | Authorization | Local commits and pushes are authorized | Obtain separate explicit authorization for any release, upload, Store submission, or deployment |
 
 ## Clean-machine acceptance journey

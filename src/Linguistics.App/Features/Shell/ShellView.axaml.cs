@@ -1,3 +1,4 @@
+using Avalonia.Animation;
 using Avalonia.Controls;
 using Linguistics.App.Diagnostics;
 using Linguistics.App.Persistence;
@@ -37,6 +38,7 @@ public partial class ShellView : UserControl
     {
         InitializeComponent();
         NavigationList.SelectionChanged += OnNavigationChanged;
+        AttachedToVisualTree += (_, _) => ApplyMotionPreference();
         NavigationList.SelectedIndex = 0;
     }
 
@@ -69,6 +71,7 @@ public partial class ShellView : UserControl
         _pronunciationAssessmentProvider = pronunciationAssessmentProvider;
         _speechRecordingStore = speechRecordingStore;
         _diagnosticLog = diagnosticLog;
+        ApplyMotionPreference();
         ShowSelectedPage();
     }
 
@@ -168,6 +171,7 @@ public partial class ShellView : UserControl
     private async Task<LearnerProfile> SaveProfileAsync(LearnerProfile profile)
     {
         _profile = await _profileOwner!.UpdateAsync(profile);
+        ApplyMotionPreference();
         return _profile;
     }
 
@@ -205,6 +209,15 @@ public partial class ShellView : UserControl
         {
             NavigationList.SelectedItem = item;
         }
+    }
+
+    private void ApplyMotionPreference()
+    {
+        var reduceMotion = MotionPreferences.ShouldReduce(_profile?.Settings.ReduceMotion == true);
+        PageContent.PageTransition = reduceMotion
+            ? null
+            : new CrossFade(TimeSpan.FromMilliseconds(180));
+        TopLevel.GetTopLevel(this)?.Classes.Set("motion-enabled", !reduceMotion);
     }
 
     private static bool DeveloperModeEnabled() =>

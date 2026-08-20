@@ -32,6 +32,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        ApplyMotionPreference(savedPreference: false);
     }
 
     public MainWindow(
@@ -156,10 +157,12 @@ public partial class MainWindow : Window
                 DiagnosticOutcome.Succeeded);
             if (profile is null)
             {
+                ApplyMotionPreference(savedPreference: false);
                 ShowOnboarding();
             }
             else
             {
+                ApplyMotionPreference(profile.Settings.ReduceMotion);
                 ShowShell(profile);
             }
 
@@ -207,6 +210,7 @@ public partial class MainWindow : Window
             return;
         }
 
+        ApplyMotionPreference(profile.Settings.ReduceMotion);
         RootContent.Content = new ShellView(
             profile,
             _profileOwner,
@@ -240,6 +244,9 @@ public partial class MainWindow : Window
         _loadCancellation?.Cancel();
         _loadCancellation?.Dispose();
     }
+
+    private void ApplyMotionPreference(bool savedPreference) =>
+        Classes.Set("motion-enabled", !MotionPreferences.ShouldReduce(savedPreference));
 
     private async Task TryLogAsync(
         DiagnosticCategory category,

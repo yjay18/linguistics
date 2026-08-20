@@ -16,10 +16,7 @@
 
         <Border x:Name="ContentGatePanel"
                 IsVisible="False"
-                Padding="22"
-                CornerRadius="14"
-                BorderThickness="1"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                Classes="warning-card"
                 AutomationProperties.AutomationId="PronunciationContentGate">
             <StackPanel Spacing="10">
                 <TextBlock Text="Pronunciation content is safely paused"
@@ -39,14 +36,10 @@
         <StackPanel x:Name="PracticePanel"
                     IsVisible="False"
                     Spacing="18">
-            <Border Padding="24"
-                    CornerRadius="16"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <Border Classes="hero-card">
                 <StackPanel Spacing="12">
                     <TextBlock Text="UNDERSTOOD, NOT ‘ACCENT-FREE’"
-                               FontSize="12"
-                               FontWeight="Bold"
-                               Opacity="0.72" />
+                               Classes="eyebrow" />
                     <TextBlock Text="Speak to be understood"
                                FontSize="26"
                                FontWeight="SemiBold"
@@ -57,10 +50,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Padding="22"
-                    CornerRadius="14"
-                    BorderThickness="1"
-                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <Border Classes="card">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Practice phrase"
                                FontWeight="SemiBold" />
@@ -72,14 +62,17 @@
                     <StackPanel Orientation="Horizontal" Spacing="9">
                         <Button x:Name="ListenButton"
                                 Content="Listen"
+                                Classes="primary lift"
                                 Click="OnListenClicked"
                                 AutomationProperties.AutomationId="PronunciationListen" />
                         <Button x:Name="SlowerButton"
                                 Content="Slower"
+                                Classes="quiet"
                                 Click="OnSlowerClicked"
                                 AutomationProperties.AutomationId="PronunciationListenSlower" />
                         <Button x:Name="StopPlaybackButton"
                                 Content="Stop playback"
+                                Classes="quiet"
                                 Click="OnStopPlaybackClicked"
                                 AutomationProperties.AutomationId="PronunciationStopPlayback" />
                     </StackPanel>
@@ -90,10 +83,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Padding="22"
-                    CornerRadius="14"
-                    BorderThickness="1"
-                    BorderBrush="{DynamicResource SystemAccentColor}">
+            <Border Classes="accent-card">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Your turn"
                                FontSize="20"
@@ -109,15 +99,14 @@
                                Opacity="0.72" />
                     <Button x:Name="RecordButton"
                             Content="Record locally"
+                            Classes="primary lift"
                             HorizontalAlignment="Left"
                             Click="OnRecordClicked"
                             AutomationProperties.AutomationId="PronunciationRecord" />
 
                     <Border x:Name="DisclosurePanel"
                             IsVisible="False"
-                            Padding="16"
-                            CornerRadius="10"
-                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                            Classes="warning-card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="Before the microphone opens"
                                        FontWeight="SemiBold" />
@@ -126,9 +115,11 @@
                             <StackPanel Orientation="Horizontal" Spacing="9">
                                 <Button x:Name="StartRecordingButton"
                                         Content="Start recording"
+                                        Classes="primary lift"
                                         Click="OnStartRecordingClicked"
                                         AutomationProperties.AutomationId="PronunciationConfirmRecord" />
                                 <Button Content="Not now"
+                                        Classes="quiet"
                                         Click="OnDismissDisclosureClicked"
                                         AutomationProperties.AutomationId="PronunciationDismissRecord" />
                             </StackPanel>
@@ -153,9 +144,7 @@
 
             <Border x:Name="ResultPanel"
                     IsVisible="False"
-                    Padding="22"
-                    CornerRadius="14"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    Classes="hero-card"
                     AutomationProperties.AutomationId="PronunciationResult">
                 <StackPanel Spacing="10">
                     <TextBlock x:Name="OutcomeTitleText"
@@ -182,6 +171,7 @@
                                AutomationProperties.LiveSetting="Polite" />
                     <StackPanel Orientation="Horizontal" Spacing="9">
                         <Button Content="Try again"
+                                Classes="primary lift"
                                 Click="OnTryAgainClicked"
                                 AutomationProperties.AutomationId="PronunciationTryAgain" />
                         <Button x:Name="RetrySaveButton"

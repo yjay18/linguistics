@@ -81,7 +81,8 @@ public sealed record LearnerSettings(
     LanguageCode? PreferredExplanationLanguage,
     MicrophonePreference Microphone,
     bool RetainSpeechRecordings,
-    string? SelectedLocalModel = null);
+    string? SelectedLocalModel = null,
+    bool ReduceMotion = false);
 
 public sealed record LearnerProfile(
     Guid Id,

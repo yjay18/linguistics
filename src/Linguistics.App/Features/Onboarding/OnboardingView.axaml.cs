@@ -24,8 +24,8 @@ public partial class OnboardingView : UserControl
         "Your repertoire can include more than one language, with different preferences for each.",
         "These preferences decide whether a language may support explanations; they do not infer identity or background.",
         "A language switch will always be visible and explained. Reviewed data—not a model—decides when a comparison is valid.",
-        "Speech will be optional when it is implemented.",
-        "Recording retention is separate from microphone access and remains off unless you opt in.",
+        "Local speech is optional. Setup never requests microphone permission.",
+        "Choose data retention and motion preferences. Both can be changed later.",
         "Nothing is written until you finish this step.",
     ];
 
@@ -215,7 +215,8 @@ public partial class OnboardingView : UserControl
                 SelectedShortcutMode(),
                 SelectedPreferredLanguage(),
                 SelectedMicrophonePreference(),
-                RetainRecordings.IsChecked == true));
+                RetainRecordings.IsChecked == true,
+                ReduceMotion: ReduceMotion.IsChecked == true));
 
     private IReadOnlyList<KnownLanguage> BuildKnownLanguages()
     {
@@ -305,7 +306,8 @@ public partial class OnboardingView : UserControl
             .AppendLine($"Known languages: {knownNames}")
             .AppendLine($"Multilingual shortcuts: {ShortcutLabel(SelectedShortcutMode())}")
             .AppendLine($"Microphone: {MicrophoneLabel(SelectedMicrophonePreference())}")
-            .Append($"Retain speech recordings: {(RetainRecordings.IsChecked == true ? "Yes" : "No")}");
+            .AppendLine($"Retain speech recordings: {(RetainRecordings.IsChecked == true ? "Yes" : "No")}")
+            .Append($"Reduce interface motion: {(ReduceMotion.IsChecked == true ? "Yes" : "No")}");
 
         return summary.ToString();
     }

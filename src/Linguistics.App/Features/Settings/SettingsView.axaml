@@ -7,7 +7,8 @@
              d:DesignHeight="900"
              x:Class="Linguistics.App.Features.Settings.SettingsView">
     <StackPanel Spacing="24">
-        <StackPanel Spacing="12">
+        <Border Classes="card">
+            <StackPanel Spacing="12">
             <TextBlock Text="Multilingual shortcuts"
                        FontSize="22"
                        FontWeight="SemiBold"
@@ -43,9 +44,11 @@
                     <ComboBoxItem x:Name="PreferredHindi" Content="Hindi" Tag="hi" />
                 </ComboBox>
             </StackPanel>
-        </StackPanel>
+            </StackPanel>
+        </Border>
 
-        <StackPanel Spacing="12">
+        <Border Classes="card">
+            <StackPanel Spacing="12">
             <TextBlock Text="Local conversation model"
                        FontSize="22"
                        FontWeight="SemiBold"
@@ -55,6 +58,7 @@
                        Opacity="0.78" />
             <Button x:Name="CheckOllamaButton"
                     Content="Check local Ollama"
+                    Classes="quiet"
                     HorizontalAlignment="Left"
                     Click="OnCheckOllamaClicked"
                     AutomationProperties.AutomationId="CheckLocalOllama" />
@@ -75,9 +79,11 @@
             <TextBlock Text="Selecting a model is not a compatibility or license recommendation. Model suitability, performance, and redistribution remain unverified until tested and reviewed."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
-        </StackPanel>
+            </StackPanel>
+        </Border>
 
-        <StackPanel Spacing="12">
+        <Border Classes="card">
+            <StackPanel Spacing="12">
             <TextBlock Text="Local speech"
                        FontSize="22"
                        FontWeight="SemiBold"
@@ -87,6 +93,7 @@
                        Opacity="0.78" />
             <Button x:Name="CheckSpeechButton"
                     Content="Check local speech"
+                    Classes="quiet"
                     HorizontalAlignment="Left"
                     Click="OnCheckSpeechClicked"
                     AutomationProperties.AutomationId="CheckLocalSpeech" />
@@ -99,15 +106,17 @@
                        FontSize="13"
                        Opacity="0.72"
                        AutomationProperties.AutomationId="LocalSpeechModelDetails" />
-        </StackPanel>
+            </StackPanel>
+        </Border>
 
-        <StackPanel Spacing="12">
+        <Border Classes="card">
+            <StackPanel Spacing="12">
             <TextBlock Text="Microphone"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
             <RadioButton x:Name="MicrophoneNow"
-                         Content="Use the microphone when speech practice becomes available"
+                         Content="Use the microphone for local speech practice"
                          GroupName="SettingsMicrophonePreference" />
             <RadioButton x:Name="MicrophoneLater"
                          Content="Decide later"
@@ -118,9 +127,11 @@
             <TextBlock Text="Changing this preference does not request system permission. Permission is requested only after you choose a speech action and confirm its local-processing disclosure."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
-        </StackPanel>
+            </StackPanel>
+        </Border>
 
-        <StackPanel Spacing="12">
+        <Border Classes="card">
+            <StackPanel Spacing="12">
             <TextBlock Text="Speech recording retention"
                        FontSize="22"
                        FontWeight="SemiBold"
@@ -133,6 +144,7 @@
                        Opacity="0.72" />
             <Button x:Name="DeleteSpeechRecordingsButton"
                     Content="Delete speech recordings"
+                    Classes="quiet"
                     HorizontalAlignment="Left"
                     Click="OnDeleteSpeechRecordingsClicked"
                     AutomationProperties.AutomationId="DeleteSpeechRecordings" />
@@ -141,12 +153,28 @@
                        TextWrapping="Wrap"
                        AutomationProperties.LiveSetting="Assertive"
                        AutomationProperties.AutomationId="SpeechDeletionStatus" />
-        </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Classes="card">
+            <StackPanel Spacing="12">
+            <TextBlock Text="Motion and focus"
+                       FontSize="22"
+                       FontWeight="SemiBold"
+                       AutomationProperties.HeadingLevel="2" />
+            <CheckBox x:Name="ReduceMotion"
+                      Content="Reduce interface motion"
+                      AutomationProperties.AutomationId="SettingsReduceMotion" />
+            <TextBlock Text="Removes page fades, lifts, and animated state changes. Color, focus, text, and live status cues remain available. Set LINGUISTICS_REDUCED_MOTION=1 to reduce motion before a profile exists."
+                       TextWrapping="Wrap"
+                       Opacity="0.72" />
+            </StackPanel>
+        </Border>
 
         <TextBlock x:Name="ErrorText"
                    IsVisible="False"
                    TextWrapping="Wrap"
-                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   Foreground="{DynamicResource AppDangerBrush}"
                    AutomationProperties.LiveSetting="Assertive"
                    AutomationProperties.AutomationId="SettingsError" />
         <TextBlock x:Name="StatusText"
@@ -156,14 +184,12 @@
                    AutomationProperties.AutomationId="SettingsStatus" />
         <Button x:Name="SaveButton"
                 Content="Save settings"
+                Classes="primary lift"
                 HorizontalAlignment="Left"
                 Click="OnSaveClicked"
                 AutomationProperties.AutomationId="SaveSettings" />
 
-        <Border Padding="20"
-                BorderBrush="{DynamicResource SystemControlErrorTextForegroundBrush}"
-                BorderThickness="1"
-                CornerRadius="10">
+        <Border Classes="danger-card">
             <StackPanel Spacing="12">
                 <TextBlock Text="Delete local learning data"
                            FontSize="20"
@@ -173,6 +199,7 @@
                            TextWrapping="Wrap" />
                 <Button x:Name="ShowDeleteConfirmationButton"
                         Content="Delete all learning data"
+                        Classes="danger"
                         HorizontalAlignment="Left"
                         Click="OnShowDeleteConfirmationClicked"
                         AutomationProperties.AutomationId="ShowDeleteConfirmation" />
@@ -187,10 +214,12 @@
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <Button x:Name="ConfirmDeleteButton"
                                 Content="Delete profile now"
+                                Classes="danger"
                                 Click="OnConfirmDeleteClicked"
                                 AutomationProperties.AutomationId="ConfirmDeleteProfile" />
                         <Button x:Name="CancelDeleteButton"
                                 Content="Cancel"
+                                Classes="quiet"
                                 Click="OnCancelDeleteClicked"
                                 AutomationProperties.AutomationId="CancelDeleteProfile" />
                     </StackPanel>

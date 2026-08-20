@@ -6,14 +6,20 @@
              d:DesignWidth="1100"
              d:DesignHeight="720"
              x:Class="Linguistics.App.Features.Onboarding.OnboardingView">
-    <Grid Margin="48,32"
+    <Grid Margin="48,36"
           RowDefinitions="Auto,*,Auto"
           AutomationProperties.LandmarkType="Main">
-        <StackPanel Grid.Row="0" Spacing="8">
-            <TextBlock Text="Set up your learning profile"
-                       FontSize="18"
+        <StackPanel Grid.Row="0"
+                    MaxWidth="800"
+                    HorizontalAlignment="Stretch"
+                    Spacing="7">
+            <TextBlock Text="PRIVATE, ON-DEVICE SETUP"
+                       Classes="eyebrow" />
+            <TextBlock Text="Shape your learning path"
+                       FontSize="25"
                        FontWeight="SemiBold" />
             <TextBlock x:Name="StepText"
+                       Classes="muted"
                        AutomationProperties.LiveSetting="Polite"
                        AutomationProperties.AutomationId="OnboardingStep" />
             <ProgressBar x:Name="StepProgress"
@@ -25,12 +31,13 @@
         <ScrollViewer Grid.Row="1"
                       Margin="0,28,0,20"
                       HorizontalScrollBarVisibility="Disabled">
-            <StackPanel MaxWidth="720"
-                        HorizontalAlignment="Center"
-                        Spacing="20">
+            <Border MaxWidth="800"
+                    HorizontalAlignment="Stretch"
+                    Classes="card"
+                    Padding="38">
+                <StackPanel Spacing="20">
                 <TextBlock x:Name="QuestionTitle"
-                           FontSize="32"
-                           FontWeight="SemiBold"
+                           Classes="display"
                            TextWrapping="Wrap"
                            AutomationProperties.HeadingLevel="1"
                            AutomationProperties.AutomationId="OnboardingTitle" />
@@ -46,7 +53,7 @@
                                  IsChecked="True"
                                  GroupName="TargetLanguage"
                                  AutomationProperties.AutomationId="TargetGerman" />
-                    <TextBlock Text="German is the first small, reviewed content configuration. More target languages can be added through future content packs."
+                    <TextBlock Text="German is the first target configuration. Bundled draft lessons remain gated until linguistic and license review; more languages can arrive through reviewed content packs."
                                TextWrapping="Wrap"
                                Opacity="0.72" />
                 </StackPanel>
@@ -74,9 +81,7 @@
                                IsVisible="False" />
 
                     <Border x:Name="EnglishDetails"
-                            Padding="20"
-                            CornerRadius="10"
-                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                            Classes="soft-card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="English"
                                        FontSize="20"
@@ -105,9 +110,7 @@
                     </Border>
 
                     <Border x:Name="HindiDetails"
-                            Padding="20"
-                            CornerRadius="10"
-                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                            Classes="soft-card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="Hindi"
                                        FontSize="20"
@@ -174,7 +177,7 @@
                             IsVisible="False"
                             Spacing="12">
                     <RadioButton x:Name="MicrophoneNow"
-                                 Content="Use the microphone when speech practice becomes available"
+                                 Content="Use the microphone for local speech practice"
                                  GroupName="MicrophonePreference" />
                     <RadioButton x:Name="MicrophoneLater"
                                  Content="Decide later"
@@ -190,22 +193,31 @@
 
                 <StackPanel x:Name="RetentionStep"
                             IsVisible="False"
-                            Spacing="12">
-                    <CheckBox x:Name="RetainRecordings"
-                              Content="Keep speech recordings for later review"
-                              IsChecked="False"
-                              AutomationProperties.AutomationId="RetainRecordings" />
-                    <TextBlock Text="Off by default. Speech is not implemented yet; when it is, temporary audio will be processed locally and deleted unless you explicitly enable retention."
-                               TextWrapping="Wrap"
-                               Opacity="0.72" />
+                            Spacing="18">
+                    <StackPanel Spacing="10">
+                        <CheckBox x:Name="RetainRecordings"
+                                  Content="Keep speech recordings for later review"
+                                  IsChecked="False"
+                                  AutomationProperties.AutomationId="RetainRecordings" />
+                        <TextBlock Text="Off by default. The current local transcription adapter does not save microphone audio; retained recording support remains a future explicit capability."
+                                   TextWrapping="Wrap"
+                                   Opacity="0.72" />
+                    </StackPanel>
+                    <StackPanel Spacing="10">
+                        <CheckBox x:Name="ReduceMotion"
+                                  Content="Reduce interface motion"
+                                  IsChecked="False"
+                                  AutomationProperties.AutomationId="OnboardingReduceMotion" />
+                        <TextBlock Text="Removes page fades, lifts, and animated state changes while preserving every interaction and status cue."
+                                   TextWrapping="Wrap"
+                                   Opacity="0.72" />
+                    </StackPanel>
                 </StackPanel>
 
                 <StackPanel x:Name="ReviewStep"
                             IsVisible="False"
                             Spacing="12">
-                    <Border Padding="20"
-                            CornerRadius="10"
-                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    <Border Classes="hero-card">
                         <TextBlock x:Name="ReviewSummary"
                                    TextWrapping="Wrap"
                                    LineHeight="24"
@@ -215,28 +227,34 @@
                                TextWrapping="Wrap"
                                Opacity="0.72" />
                 </StackPanel>
-            </StackPanel>
+                </StackPanel>
+            </Border>
         </ScrollViewer>
 
-        <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto">
+        <Grid Grid.Row="2"
+              MaxWidth="800"
+              HorizontalAlignment="Stretch"
+              ColumnDefinitions="*,Auto,Auto">
             <TextBlock x:Name="ErrorText"
                        Grid.Column="0"
                        Margin="0,0,16,0"
                        VerticalAlignment="Center"
                        TextWrapping="Wrap"
-                       Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                       Foreground="{DynamicResource AppDangerBrush}"
                        IsVisible="False"
                        AutomationProperties.LiveSetting="Assertive"
                        AutomationProperties.AutomationId="OnboardingError" />
             <Button x:Name="BackButton"
                     Grid.Column="1"
                     Margin="0,0,10,0"
+                    Classes="quiet"
                     Content="Back"
                     IsEnabled="False"
                     Click="OnBackClicked"
                     AutomationProperties.AutomationId="OnboardingBack" />
             <Button x:Name="ContinueButton"
                     Grid.Column="2"
+                    Classes="primary lift"
                     Content="Continue"
                     Click="OnContinueClicked"
                     AutomationProperties.AutomationId="OnboardingContinue" />

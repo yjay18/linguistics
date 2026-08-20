@@ -604,9 +604,10 @@ public partial class CafeOrderView : UserControl
             HorizontalAlignment = isLearner
                 ? Avalonia.Layout.HorizontalAlignment.Right
                 : Avalonia.Layout.HorizontalAlignment.Left,
-            Background = new SolidColorBrush(Color.Parse(isLearner ? "#253B67" : "#24342F")),
             Child = stack,
         };
+        bubble.Classes.Add("conversation-bubble");
+        bubble.Classes.Add(isLearner ? "learner-bubble" : "guide-bubble");
         ConversationPanel.Children.Add(bubble);
 
         if (!isLearner)

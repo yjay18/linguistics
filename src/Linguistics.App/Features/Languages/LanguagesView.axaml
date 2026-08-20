@@ -7,9 +7,7 @@
              d:DesignHeight="760"
              x:Class="Linguistics.App.Features.Languages.LanguagesView">
     <StackPanel Spacing="20">
-        <Border Padding="20"
-                CornerRadius="10"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+        <Border Classes="hero-card">
             <StackPanel Spacing="8">
                 <TextBlock Text="Target language"
                            FontSize="18"
@@ -36,9 +34,7 @@
                       AutomationProperties.AutomationId="LanguagesEnglish" />
             <Border x:Name="EnglishDetails"
                     Margin="24,0,0,0"
-                    Padding="18"
-                    CornerRadius="10"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    Classes="soft-card">
                 <StackPanel Spacing="10">
                     <TextBlock Text="English preferences"
                                FontSize="18"
@@ -67,9 +63,7 @@
                       AutomationProperties.AutomationId="LanguagesHindi" />
             <Border x:Name="HindiDetails"
                     Margin="24,0,0,0"
-                    Padding="18"
-                    CornerRadius="10"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    Classes="soft-card">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Hindi preferences"
                                FontSize="18"
@@ -96,7 +90,7 @@
         <TextBlock x:Name="ErrorText"
                    IsVisible="False"
                    TextWrapping="Wrap"
-                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   Foreground="{DynamicResource AppDangerBrush}"
                    AutomationProperties.LiveSetting="Assertive"
                    AutomationProperties.AutomationId="LanguagesError" />
         <TextBlock x:Name="StatusText"
@@ -106,6 +100,7 @@
                    AutomationProperties.AutomationId="LanguagesStatus" />
         <Button x:Name="SaveButton"
                 Content="Save language preferences"
+                Classes="primary lift"
                 HorizontalAlignment="Left"
                 Click="OnSaveClicked"
                 AutomationProperties.AutomationId="SaveLanguages" />

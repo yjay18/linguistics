@@ -225,6 +225,31 @@ public sealed class JsonLearnerRepositoryTests
     }
 
     [TestMethod]
+    public async Task ReducedMotionRoundTripsAndMissingSchemaFiveSettingDefaultsOffWithoutRewrite()
+    {
+        await WithStoreAsync(async (repository, filePath) =>
+        {
+            var profile = CreateProfile();
+            await repository.SaveAsync(profile);
+            var previousSchemaFive = (await File.ReadAllTextAsync(filePath))
+                .Replace(",\n    \"reduceMotion\": false", string.Empty, StringComparison.Ordinal);
+            await File.WriteAllTextAsync(filePath, previousSchemaFive);
+
+            var restored = await repository.LoadAsync();
+
+            Assert.IsFalse(restored?.Settings.ReduceMotion);
+            Assert.AreEqual(previousSchemaFive, await File.ReadAllTextAsync(filePath));
+
+            await repository.SaveAsync(restored! with
+            {
+                Settings = restored.Settings with { ReduceMotion = true },
+            });
+
+            Assert.IsTrue((await repository.LoadAsync())?.Settings.ReduceMotion);
+        });
+    }
+
+    [TestMethod]
     public async Task UnsupportedSchemaFailsWithoutChangingTheFile()
     {
         await WithStoreAsync(async (repository, filePath) =>

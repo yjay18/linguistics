@@ -7,15 +7,8 @@
              d:DesignHeight="780"
              x:Class="Linguistics.App.Features.Progress.ProgressView">
     <StackPanel Spacing="22">
-        <TextBlock Text="Progress leads with situations you can handle. Concept counts are supporting evidence—not a score, rank, or promise of fluency."
-                   FontSize="17"
-                   TextWrapping="Wrap"
-                   Opacity="0.76" />
-
         <Border x:Name="LoadingState"
-                Padding="24"
-                CornerRadius="12"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                Classes="soft-card">
             <StackPanel Spacing="12">
                 <ProgressBar IsIndeterminate="True"
                              AutomationProperties.Name="Loading local progress" />
@@ -26,26 +19,22 @@
 
         <Border x:Name="CapabilityCard"
                 IsVisible="False"
-                Padding="28"
-                CornerRadius="16"
-                BorderThickness="1"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                Classes="hero-card">
             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="20">
                 <Border Width="72"
                         Height="72"
                         CornerRadius="36"
-                        Background="{DynamicResource SystemAccentColorLight2}">
+                        Background="{DynamicResource AppAccentBrush}">
                     <TextBlock x:Name="CapabilityGlyph"
                                Text="○"
                                FontSize="31"
+                               Foreground="{DynamicResource AppOnAccentBrush}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
                 </Border>
                 <StackPanel Grid.Column="1" Spacing="7">
                     <TextBlock Text="COMMUNICATIVE CAPABILITY"
-                               FontSize="12"
-                               FontWeight="SemiBold"
-                               Opacity="0.66" />
+                               Classes="eyebrow" />
                     <TextBlock x:Name="CapabilityTitle"
                                FontSize="26"
                                FontWeight="SemiBold"
@@ -75,9 +64,8 @@
               ColumnDefinitions="*,*,*"
               ColumnSpacing="12">
             <Border Grid.Column="0"
-                    Padding="18"
-                    CornerRadius="12"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    Classes="metric-card"
+                    Background="{DynamicResource AppBlueSoftBrush}">
                 <StackPanel Spacing="4">
                     <TextBlock x:Name="PracticingCount"
                                FontSize="28"
@@ -87,9 +75,8 @@
                 </StackPanel>
             </Border>
             <Border Grid.Column="1"
-                    Padding="18"
-                    CornerRadius="12"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    Classes="metric-card"
+                    Background="{DynamicResource AppAccentSoftBrush}">
                 <StackPanel Spacing="4">
                     <TextBlock x:Name="StrongCount"
                                FontSize="28"
@@ -99,9 +86,8 @@
                 </StackPanel>
             </Border>
             <Border Grid.Column="2"
-                    Padding="18"
-                    CornerRadius="12"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    Classes="metric-card"
+                    Background="{DynamicResource AppAmberSoftBrush}">
                 <StackPanel Spacing="4">
                     <TextBlock x:Name="DueCount"
                                FontSize="28"
@@ -114,9 +100,7 @@
 
         <Border x:Name="MethodCard"
                 IsVisible="False"
-                Padding="20"
-                CornerRadius="12"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                Classes="soft-card">
             <StackPanel Spacing="7">
                 <TextBlock Text="How this is calculated"
                            FontSize="18"
@@ -131,7 +115,7 @@
         <TextBlock x:Name="ErrorText"
                    IsVisible="False"
                    TextWrapping="Wrap"
-                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   Foreground="{DynamicResource AppDangerBrush}"
                    AutomationProperties.LiveSetting="Assertive"
                    AutomationProperties.AutomationId="ProgressError" />
     </StackPanel>

@@ -17,10 +17,7 @@
 
         <Border x:Name="ContentGatePanel"
                 IsVisible="False"
-                Padding="22"
-                CornerRadius="14"
-                BorderThickness="1"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                Classes="warning-card"
                 AutomationProperties.AutomationId="CafeContentGate">
             <StackPanel Spacing="10">
                 <TextBlock Text="Scenario content is safely paused"
@@ -41,14 +38,10 @@
         <StackPanel x:Name="ScenarioPanel"
                     IsVisible="False"
                     Spacing="18">
-            <Border Padding="22"
-                    CornerRadius="14"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <Border Classes="hero-card">
                 <StackPanel Spacing="12">
                     <TextBlock Text="CAFÉ • TEXT + LOCAL SPEECH"
-                               FontSize="12"
-                               FontWeight="Bold"
-                               Opacity="0.7" />
+                               Classes="eyebrow" />
                     <TextBlock x:Name="GoalText"
                                FontSize="25"
                                FontWeight="SemiBold"
@@ -68,10 +61,7 @@
 
             <Border x:Name="BridgeCard"
                     IsVisible="False"
-                    Padding="20"
-                    CornerRadius="14"
-                    BorderThickness="1"
-                    BorderBrush="{DynamicResource SystemAccentColor}">
+                    Classes="accent-card">
                 <StackPanel Spacing="9">
                     <TextBlock x:Name="BridgeLabelText"
                                FontSize="12"
@@ -95,10 +85,7 @@
             </Border>
 
             <Border x:Name="ReadyPanel"
-                    Padding="18"
-                    CornerRadius="12"
-                    BorderThickness="1"
-                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                    Classes="card">
                 <StackPanel Spacing="10">
                     <TextBlock x:Name="ReadyStatusText"
                                TextWrapping="Wrap"
@@ -113,6 +100,7 @@
                                Opacity="0.72" />
                     <Button x:Name="StartButton"
                             Content="Enter the café"
+                            Classes="primary lift"
                             HorizontalAlignment="Left"
                             Click="OnStartClicked"
                             AutomationProperties.AutomationId="StartCafeScenario" />
@@ -122,10 +110,7 @@
             <StackPanel x:Name="ActiveScenarioPanel"
                         IsVisible="False"
                         Spacing="16">
-                <Border Padding="18"
-                        CornerRadius="14"
-                        BorderThickness="1"
-                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                <Border Classes="card">
                     <StackPanel Spacing="14">
                         <TextBlock Text="At the counter"
                                    FontSize="20"
@@ -137,21 +122,26 @@
                         <StackPanel Orientation="Horizontal"
                                     Spacing="8">
                             <Button Content="Translation"
+                                    Classes="quiet"
                                     Click="OnTranslationClicked"
                                     AutomationProperties.AutomationId="CafeTranslation" />
                             <Button Content="Hint"
+                                    Classes="quiet"
                                     Click="OnHintClicked"
                                     AutomationProperties.AutomationId="CafeHint" />
                             <Button x:Name="RepeatButton"
                                     Content="Play caption"
+                                    Classes="quiet"
                                     Click="OnRepeatClicked"
                                     AutomationProperties.AutomationId="CafeRepeat" />
                             <Button x:Name="SlowerButton"
                                     Content="Slower"
+                                    Classes="quiet"
                                     Click="OnSlowerClicked"
                                     AutomationProperties.AutomationId="CafeRepeatSlower" />
                             <Button x:Name="StopPlaybackButton"
                                     Content="Stop"
+                                    Classes="quiet"
                                     Click="OnStopPlaybackClicked"
                                     AutomationProperties.AutomationId="CafeStopPlayback" />
                         </StackPanel>
@@ -166,10 +156,7 @@
 
                 <Border x:Name="FeedbackPanel"
                         IsVisible="False"
-                        Padding="18"
-                        CornerRadius="12"
-                        BorderThickness="1"
-                        BorderBrush="{DynamicResource SystemAccentColor}">
+                        Classes="accent-card">
                     <StackPanel Spacing="8">
                         <TextBlock Text="One useful adjustment"
                                    FontSize="13"
@@ -208,14 +195,13 @@
                                AutomationProperties.AutomationId="CafeSpeechStatus" />
                     <Button x:Name="RecordReplyButton"
                             Content="Record reply locally"
+                            Classes="quiet"
                             HorizontalAlignment="Left"
                             Click="OnRecordClicked"
                             AutomationProperties.AutomationId="CafeRecordReply" />
                     <Border x:Name="SpeechDisclosurePanel"
                             IsVisible="False"
-                            Padding="16"
-                            CornerRadius="10"
-                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                            Classes="warning-card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="Before the microphone opens"
                                        FontWeight="SemiBold" />
@@ -224,9 +210,11 @@
                             <StackPanel Orientation="Horizontal" Spacing="9">
                                 <Button x:Name="ConfirmRecordButton"
                                         Content="Start recording"
+                                        Classes="primary lift"
                                         Click="OnConfirmRecordClicked"
                                         AutomationProperties.AutomationId="CafeConfirmRecord" />
                                 <Button Content="Not now"
+                                        Classes="quiet"
                                         Click="OnDismissRecordClicked"
                                         AutomationProperties.AutomationId="CafeDismissRecord" />
                             </StackPanel>
@@ -248,6 +236,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="9">
                         <Button x:Name="SendButton"
                                 Content="Send reply"
+                                Classes="primary lift"
                                 Click="OnSendClicked"
                                 AutomationProperties.AutomationId="SendCafeReply" />
                         <Button x:Name="CancelResponseButton"
@@ -257,6 +246,7 @@
                                 AutomationProperties.AutomationId="CancelCafeResponse" />
                         <Button x:Name="ExitButton"
                                 Content="Exit scenario"
+                                Classes="quiet"
                                 Click="OnExitClicked"
                                 AutomationProperties.AutomationId="ExitCafeScenario" />
                     </StackPanel>
@@ -269,9 +259,7 @@
 
                 <Border x:Name="CompletionPanel"
                         IsVisible="False"
-                        Padding="22"
-                        CornerRadius="14"
-                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                        Classes="hero-card"
                         AutomationProperties.AutomationId="CafeCompletion">
                     <StackPanel Spacing="10">
                         <TextBlock Text="Order understood"
@@ -296,6 +284,7 @@
                                     AutomationProperties.AutomationId="RetryCafeSave" />
                             <Button x:Name="PracticeAgainButton"
                                     Content="Practice again"
+                                    Classes="primary lift"
                                     IsVisible="False"
                                     Click="OnPracticeAgainClicked"
                                     AutomationProperties.AutomationId="PracticeCafeAgain" />
