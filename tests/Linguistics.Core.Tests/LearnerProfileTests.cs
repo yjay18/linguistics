@@ -1,3 +1,4 @@
+using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.Core.Tests;
@@ -140,6 +141,7 @@ public sealed class LearnerProfileTests
     private sealed class InMemoryLearnerRepository : ILearnerRepository
     {
         private LearnerProfile? _profile;
+        private CurriculumHistory _curriculum = CurriculumHistory.Empty;
 
         public Task<LearnerProfile?> LoadAsync(CancellationToken cancellationToken = default) =>
             Task.FromResult(_profile);
@@ -152,9 +154,24 @@ public sealed class LearnerProfileTests
             return Task.CompletedTask;
         }
 
+        public Task<CurriculumHistory> LoadCurriculumAsync(
+            Guid profileId,
+            CancellationToken cancellationToken = default) =>
+            Task.FromResult(_curriculum);
+
+        public Task SaveCurriculumAsync(
+            Guid profileId,
+            CurriculumHistory history,
+            CancellationToken cancellationToken = default)
+        {
+            _curriculum = history;
+            return Task.CompletedTask;
+        }
+
         public Task DeleteAsync(CancellationToken cancellationToken = default)
         {
             _profile = null;
+            _curriculum = CurriculumHistory.Empty;
             return Task.CompletedTask;
         }
     }

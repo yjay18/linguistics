@@ -103,7 +103,7 @@
                            FontSize="20"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="This milestone stores one learner profile: its identifier, target and known languages, and the preferences above. Deletion removes that profile from this device. It does not remove unrelated files, installed models, or content packs."
+                <TextBlock Text="Linguistics stores your learner profile and any concept progress, attempts, configuration versions, and selected transfer bridges in one local learner-data file. Deletion removes that file from this device. It does not remove unrelated files, installed models, or content packs."
                            TextWrapping="Wrap" />
                 <Button x:Name="ShowDeleteConfirmationButton"
                         Content="Delete all learning data"
