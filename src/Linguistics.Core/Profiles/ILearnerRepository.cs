@@ -33,7 +33,17 @@ public interface ILearnerRepository
 public sealed record LearnerLearningState(
     CurriculumHistory Curriculum,
     TaskHistory Tasks,
-    PronunciationHistory Pronunciation);
+    PronunciationHistory Pronunciation,
+    ReviewHistory Review)
+{
+    public LearnerLearningState(
+        CurriculumHistory curriculum,
+        TaskHistory tasks,
+        PronunciationHistory pronunciation)
+        : this(curriculum, tasks, pronunciation, ReviewHistory.Empty)
+    {
+    }
+}
 
 public sealed class LearnerStoreException : Exception
 {

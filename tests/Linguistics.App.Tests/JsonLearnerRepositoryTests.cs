@@ -15,7 +15,7 @@ public sealed class JsonLearnerRepositoryTests
         new(2026, 8, 19, 12, 0, 0, TimeSpan.Zero);
 
     [TestMethod]
-    public async Task ProfileCurriculumAndTaskHistoryRoundTripThroughSchemaFourStore()
+    public async Task CompleteLearningStateRoundTripsThroughSchemaFiveStore()
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
@@ -23,6 +23,7 @@ public sealed class JsonLearnerRepositoryTests
             var curriculum = CreateCurriculum();
             var tasks = CreateTaskHistory();
             var pronunciation = CreatePronunciationHistory();
+            var review = CreateReviewHistory();
 
             await repository.SaveAsync(profile);
             await repository.SaveLearningStateAsync(
@@ -30,7 +31,8 @@ public sealed class JsonLearnerRepositoryTests
                 new LearnerLearningState(
                     curriculum,
                     tasks,
-                    pronunciation));
+                    pronunciation,
+                    review));
             var restoredProfile = await repository.LoadAsync();
             var restoredState = await repository.LoadLearningStateAsync(profile.Id);
 
@@ -46,7 +48,9 @@ public sealed class JsonLearnerRepositoryTests
             CollectionAssert.AreEqual(
                 pronunciation.Attempts.ToArray(),
                 restoredState.Pronunciation.Attempts.ToArray());
-            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 4");
+            CollectionAssert.AreEqual(review.Schedules.ToArray(), restoredState.Review.Schedules.ToArray());
+            CollectionAssert.AreEqual(review.Attempts.ToArray(), restoredState.Review.Attempts.ToArray());
+            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 5");
         });
     }
 
@@ -71,7 +75,7 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveCurriculumAsync(profile.Id, curriculum);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 4");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 5");
             Assert.AreEqual(profile.Id, (await repository.LoadAsync())?.Id);
             AssertCurriculumEqual(curriculum, await repository.LoadCurriculumAsync(profile.Id));
             AssertTaskHistoryEqual(
@@ -104,7 +108,7 @@ public sealed class JsonLearnerRepositoryTests
                     tasks,
                     Linguistics.Core.Speech.PronunciationHistory.Empty));
 
-            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 4");
+            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 5");
             AssertTaskHistoryEqual(
                 tasks,
                 (await repository.LoadLearningStateAsync(profile.Id)).Tasks);
@@ -132,8 +136,38 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveLearningStateAsync(profile.Id, restored);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 4");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 5");
             StringAssert.Contains(upgraded, "\"pronunciation\"");
+            StringAssert.Contains(upgraded, "\"review\"");
+        });
+    }
+
+    [TestMethod]
+    public async Task SchemaFourLoadsWithoutRewriteAndAddsEmptyReviewOnNextSave()
+    {
+        await WithStoreAsync(async (repository, filePath) =>
+        {
+            var profile = CreateProfile();
+            var curriculum = CreateCurriculum();
+            var tasks = CreateTaskHistory();
+            var pronunciation = CreatePronunciationHistory();
+            var schemaFour = SerializeSchemaFour(profile, curriculum, tasks, pronunciation);
+            await File.WriteAllTextAsync(filePath, schemaFour);
+
+            var restored = await repository.LoadLearningStateAsync(profile.Id);
+
+            AssertCurriculumEqual(curriculum, restored.Curriculum);
+            AssertTaskHistoryEqual(tasks, restored.Tasks);
+            CollectionAssert.AreEqual(pronunciation.Attempts.ToArray(), restored.Pronunciation.Attempts.ToArray());
+            Assert.IsEmpty(restored.Review.Schedules);
+            Assert.IsEmpty(restored.Review.Attempts);
+            Assert.AreEqual(schemaFour, await File.ReadAllTextAsync(filePath));
+
+            await repository.SaveLearningStateAsync(profile.Id, restored);
+
+            var upgraded = await File.ReadAllTextAsync(filePath);
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 5");
+            StringAssert.Contains(upgraded, "\"review\"");
         });
     }
 
@@ -146,13 +180,15 @@ public sealed class JsonLearnerRepositoryTests
             var curriculum = CreateCurriculum();
             var tasks = CreateTaskHistory();
             var pronunciation = CreatePronunciationHistory();
+            var review = CreateReviewHistory();
             await repository.SaveAsync(profile);
             await repository.SaveLearningStateAsync(
                 profile.Id,
                 new LearnerLearningState(
                     curriculum,
                     tasks,
-                    pronunciation));
+                    pronunciation,
+                    review));
 
             await repository.SaveAsync(profile with
             {
@@ -165,6 +201,8 @@ public sealed class JsonLearnerRepositoryTests
             CollectionAssert.AreEqual(
                 pronunciation.Attempts.ToArray(),
                 restored.Pronunciation.Attempts.ToArray());
+            CollectionAssert.AreEqual(review.Schedules.ToArray(), restored.Review.Schedules.ToArray());
+            CollectionAssert.AreEqual(review.Attempts.ToArray(), restored.Review.Attempts.ToArray());
         });
     }
 
@@ -191,13 +229,13 @@ public sealed class JsonLearnerRepositoryTests
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
-            const string unsupported = "{\"schemaVersion\":5,\"profile\":null}";
+            const string unsupported = "{\"schemaVersion\":6,\"profile\":null}";
             await File.WriteAllTextAsync(filePath, unsupported);
 
             var exception = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
                 () => repository.LoadAsync());
 
-            StringAssert.Contains(exception.Message, "schema 5 is unsupported");
+            StringAssert.Contains(exception.Message, "schema 6 is unsupported");
             Assert.AreEqual(unsupported, await File.ReadAllTextAsync(filePath));
         });
     }
@@ -401,6 +439,32 @@ public sealed class JsonLearnerRepositoryTests
                 "language.de.core.v1"),
         ]);
 
+    private static ReviewHistory CreateReviewHistory()
+    {
+        var itemId = ReviewItemId.Create(ReviewItemKind.Concept, "fixture.concept");
+        return new ReviewHistory(
+            [new ReviewSchedule(
+                itemId,
+                ReviewItemKind.Concept,
+                "fixture.concept",
+                new VersionId("fixture-content-v1"),
+                AttemptTime.AddDays(-2),
+                AttemptTime,
+                AttemptTime.AddDays(3),
+                SuccessStreak: 1,
+                FailureCount: 0,
+                Difficulty: 0.45,
+                TimeSpan.FromSeconds(3),
+                ReviewConfiguration.Default.Version)],
+            [new ReviewAttempt(
+                Guid.NewGuid(),
+                itemId,
+                AttemptTime,
+                ReviewRating.Good,
+                TimeSpan.FromSeconds(3),
+                ReviewConfiguration.Default.Version)]);
+    }
+
     private static string SerializeSchemaOne(LearnerProfile profile)
     {
         var options = new JsonSerializerOptions
@@ -448,6 +512,30 @@ public sealed class JsonLearnerRepositoryTests
         }
 
         return root.ToJsonString(options);
+    }
+
+    private static string SerializeSchemaFour(
+        LearnerProfile profile,
+        CurriculumHistory curriculum,
+        TaskHistory tasks,
+        PronunciationHistory pronunciation)
+    {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true,
+            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) },
+        };
+        return JsonSerializer.Serialize(
+            new
+            {
+                SchemaVersion = 4,
+                Profile = profile,
+                Curriculum = curriculum,
+                Tasks = tasks,
+                Pronunciation = pronunciation,
+            },
+            options);
     }
 
     private static void AssertCurriculumEqual(

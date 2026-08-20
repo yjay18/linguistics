@@ -10,7 +10,7 @@ The optional local model receives only the deterministic turn result and may cho
 
 ## Learning history
 
-On success, schema 4 atomically stores a concept attempt, task attempt, target-concept progression decision, and review handoff. The record includes content/evaluation/schema versions, input mode, bounded speech evidence when present, model realization mode, encountered error-rule IDs, and any confirmed multilingual bridge reference. It excludes raw learner and server messages, transcripts, and audio.
+On success, schema 5 atomically stores a concept attempt, task attempt, target-concept progression decision, and review handoff. The record includes content/evaluation/schema versions, input mode, bounded speech evidence when present, model realization mode, encountered error-rule IDs, a deterministic recurring-error count, and any confirmed multilingual bridge reference. It excludes raw learner and server messages, transcripts, and audio. The review queue later turns the handoff into stable phrase, concept, and recurring-form items without copying the learner's reply.
 
 System playback is optional and the visible NPC caption remains authoritative. Missing providers, microphone denial, cancellation, silence, model failure, or a stale transcript cannot advance the task; typing remains available.
 

@@ -18,7 +18,7 @@ The adapter does not pass `--save-audio`; therefore it creates no temporary or r
 
 The current assessment compares normalized expected words with the local recognizer transcript using an ordered word match. It reports a categorical outcome, expected/recognized/matched word counts, and missing or unexpected words. It does not produce phoneme scores, articulator diagnoses, confidence values, accent percentages, or native-likeness ratings.
 
-The transcript is visible long enough to review but is not persisted. Schema 4 stores only the utterance ID, time, duration, categorical outcome, counts, transcript-match ratio, and content/provider/assessment versions. Editing a café transcript before sending converts it to text input and removes pronunciation evidence.
+The transcript is visible long enough to review but is not persisted. Schema 5 stores only the utterance ID, time, duration, categorical outcome, counts, transcript-match ratio, and content/provider/assessment versions. Editing a café transcript before sending converts it to text input and removes pronunciation evidence.
 
 ## Current distribution boundary
 

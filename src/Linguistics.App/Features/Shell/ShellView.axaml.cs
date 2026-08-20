@@ -2,8 +2,11 @@ using Avalonia.Controls;
 using Linguistics.App.Features.Languages;
 using Linguistics.App.Features.Learn;
 using Linguistics.App.Features.Pronunciation;
+using Linguistics.App.Features.Progress;
+using Linguistics.App.Features.Review;
 using Linguistics.App.Features.Scenarios;
 using Linguistics.App.Features.Settings;
+using Linguistics.App.Features.Today;
 using Linguistics.App.Speech;
 using Linguistics.Core.Content;
 using Linguistics.Core.Providers;
@@ -85,6 +88,13 @@ public partial class ShellView : UserControl
 
         switch (item.Content?.ToString())
         {
+            case "Today":
+                ShowPage(new TodayView(
+                    _profile,
+                    _profileOwner,
+                    _runtimeContentCatalog,
+                    NavigateTo));
+                break;
             case "Languages":
                 ShowPage(new LanguagesView(_profile, SaveProfileAsync));
                 break;
@@ -116,6 +126,19 @@ public partial class ShellView : UserControl
                     _speechSynthesisProvider,
                     _speechRecognitionProvider,
                     _pronunciationAssessmentProvider));
+                break;
+            case "Review":
+                ShowPage(new ReviewView(
+                    _profile,
+                    _profileOwner,
+                    _runtimeContentCatalog,
+                    _runtimeContentError));
+                break;
+            case "Progress":
+                ShowPage(new ProgressView(
+                    _profile,
+                    _profileOwner,
+                    _runtimeContentCatalog));
                 break;
             case "Settings":
                 ShowPage(new SettingsView(
@@ -168,6 +191,18 @@ public partial class ShellView : UserControl
         PageContent.Content = null;
         PageContent.IsVisible = false;
         UnavailableState.IsVisible = true;
+    }
+
+    private void NavigateTo(string destination)
+    {
+        var item = NavigationList.Items
+            .OfType<ListBoxItem>()
+            .SingleOrDefault(candidate =>
+                string.Equals(candidate.Content?.ToString(), destination, StringComparison.Ordinal));
+        if (item is not null)
+        {
+            NavigationList.SelectedItem = item;
+        }
     }
 
     private static bool DeveloperModeEnabled() =>

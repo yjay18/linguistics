@@ -1,0 +1,138 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="760"
+             d:DesignHeight="780"
+             x:Class="Linguistics.App.Features.Progress.ProgressView">
+    <StackPanel Spacing="22">
+        <TextBlock Text="Progress leads with situations you can handle. Concept counts are supporting evidence—not a score, rank, or promise of fluency."
+                   FontSize="17"
+                   TextWrapping="Wrap"
+                   Opacity="0.76" />
+
+        <Border x:Name="LoadingState"
+                Padding="24"
+                CornerRadius="12"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <StackPanel Spacing="12">
+                <ProgressBar IsIndeterminate="True"
+                             AutomationProperties.Name="Loading local progress" />
+                <TextBlock Text="Reading capability evidence…"
+                           AutomationProperties.LiveSetting="Polite" />
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="CapabilityCard"
+                IsVisible="False"
+                Padding="28"
+                CornerRadius="16"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="20">
+                <Border Width="72"
+                        Height="72"
+                        CornerRadius="36"
+                        Background="{DynamicResource SystemAccentColorLight2}">
+                    <TextBlock x:Name="CapabilityGlyph"
+                               Text="○"
+                               FontSize="31"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                </Border>
+                <StackPanel Grid.Column="1" Spacing="7">
+                    <TextBlock Text="COMMUNICATIVE CAPABILITY"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Opacity="0.66" />
+                    <TextBlock x:Name="CapabilityTitle"
+                               FontSize="26"
+                               FontWeight="SemiBold"
+                               TextWrapping="Wrap"
+                               AutomationProperties.HeadingLevel="2"
+                               AutomationProperties.AutomationId="CapabilityTitle" />
+                    <TextBlock x:Name="CapabilityDescription"
+                               TextWrapping="Wrap"
+                               Opacity="0.78" />
+                    <TextBlock x:Name="CapabilityEvidence"
+                               Margin="0,4,0,0"
+                               FontWeight="SemiBold"
+                               TextWrapping="Wrap"
+                               AutomationProperties.AutomationId="CapabilityEvidence" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TextBlock x:Name="ConceptHeading"
+                   Text="Concept evidence"
+                   FontSize="22"
+                   FontWeight="SemiBold"
+                   IsVisible="False"
+                   AutomationProperties.HeadingLevel="2" />
+        <Grid x:Name="ConceptGrid"
+              IsVisible="False"
+              ColumnDefinitions="*,*,*"
+              ColumnSpacing="12">
+            <Border Grid.Column="0"
+                    Padding="18"
+                    CornerRadius="12"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="4">
+                    <TextBlock x:Name="PracticingCount"
+                               FontSize="28"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="practicing"
+                               Opacity="0.7" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1"
+                    Padding="18"
+                    CornerRadius="12"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="4">
+                    <TextBlock x:Name="StrongCount"
+                               FontSize="28"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="strong"
+                               Opacity="0.7" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="2"
+                    Padding="18"
+                    CornerRadius="12"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="4">
+                    <TextBlock x:Name="DueCount"
+                               FontSize="28"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="due"
+                               Opacity="0.7" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border x:Name="MethodCard"
+                IsVisible="False"
+                Padding="20"
+                CornerRadius="12"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <StackPanel Spacing="7">
+                <TextBlock Text="How this is calculated"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="A capability becomes demonstrated only after a stored task attempt says the real-world goal succeeded. Accuracy, fluency, pronunciation, and target-concept evidence remain separate. Review can strengthen or return a concept to practice through versioned deterministic rules."
+                           TextWrapping="Wrap"
+                           Opacity="0.74" />
+            </StackPanel>
+        </Border>
+
+        <TextBlock x:Name="ErrorText"
+                   IsVisible="False"
+                   TextWrapping="Wrap"
+                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   AutomationProperties.LiveSetting="Assertive"
+                   AutomationProperties.AutomationId="ProgressError" />
+    </StackPanel>
+</UserControl>

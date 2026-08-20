@@ -28,7 +28,7 @@
                          AutomationProperties.Name="Main navigation"
                          AutomationProperties.AutomationId="MainNavigation">
                     <ListBoxItem Content="Today"
-                                 Tag="Your local profile is ready. Daily learning arrives with the deterministic curriculum."
+                                 Tag="Choose one calm next step from your local learning evidence."
                                  AutomationProperties.AutomationId="NavToday" />
                     <ListBoxItem Content="Learn"
                                  Tag="The deterministic curriculum engine is ready. The first content packs remain unavailable to learners until review approval."
@@ -40,10 +40,10 @@
                                  Tag="Practice one approved phrase with system playback and honest local word-recognition evidence."
                                  AutomationProperties.AutomationId="NavPronunciation" />
                     <ListBoxItem Content="Review"
-                                 Tag="Review becomes available after there is learning progress to schedule."
+                                 Tag="Retrieve due phrases, concepts, pronunciation targets, and recurring forms."
                                  AutomationProperties.AutomationId="NavReview" />
                     <ListBoxItem Content="Progress"
-                                 Tag="Capability-based progress appears after the first learning task."
+                                 Tag="See real-world capabilities first, with concept evidence as supporting detail."
                                  AutomationProperties.AutomationId="NavProgress" />
                     <ListBoxItem Content="Languages"
                                  Tag="Review and edit the languages in your local learner profile."

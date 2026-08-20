@@ -106,6 +106,7 @@ public sealed class LearnerProfileOwner(ILearnerRepository repository)
         CurriculumHistoryValidator.Validate(state.Curriculum);
         TaskHistoryValidator.Validate(state.Tasks);
         PronunciationHistoryValidator.Validate(state.Pronunciation);
+        ReviewHistoryValidator.Validate(state.Review);
 
         await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try

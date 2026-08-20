@@ -1,0 +1,170 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="760"
+             d:DesignHeight="780"
+             x:Class="Linguistics.App.Features.Review.ReviewView">
+    <StackPanel Spacing="20">
+        <Border Padding="20"
+                CornerRadius="12"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Retrieval, not pressure"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="2" />
+                    <TextBlock Text="Review timing is calculated locally from your outcomes, response time, and the versioned review-v1 rules. There is no punitive streak."
+                               TextWrapping="Wrap"
+                               Opacity="0.76" />
+                </StackPanel>
+                <Border Grid.Column="1"
+                        Margin="20,0,0,0"
+                        Padding="12,7"
+                        CornerRadius="999"
+                        Background="{DynamicResource SystemAccentColorLight2}">
+                    <TextBlock x:Name="QueueCountText"
+                               Text="— due"
+                               FontWeight="SemiBold"
+                               AutomationProperties.AutomationId="ReviewQueueCount" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border x:Name="LoadingState"
+                Padding="24"
+                CornerRadius="12"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <StackPanel Spacing="12">
+                <ProgressBar IsIndeterminate="True"
+                             AutomationProperties.Name="Loading local review queue" />
+                <TextBlock Text="Building your local review queue…"
+                           AutomationProperties.LiveSetting="Polite" />
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="ContentGateState"
+                IsVisible="False"
+                Padding="24"
+                CornerRadius="12"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <StackPanel Spacing="9">
+                <TextBlock Text="Reviewed learning content is required"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock x:Name="ContentGateMessage"
+                           TextWrapping="Wrap"
+                           AutomationProperties.AutomationId="ReviewContentGate" />
+                <TextBlock Text="Your saved evidence remains untouched. The queue will open when the installed pack passes linguistic and license review."
+                           TextWrapping="Wrap"
+                           Opacity="0.74" />
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="EmptyState"
+                IsVisible="False"
+                Padding="28"
+                CornerRadius="12"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <StackPanel Spacing="8">
+                <TextBlock Text="Nothing is due"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock x:Name="EmptyMessage"
+                           TextWrapping="Wrap"
+                           AutomationProperties.AutomationId="ReviewEmptyMessage" />
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="ReviewCard"
+                IsVisible="False"
+                Padding="28"
+                CornerRadius="16"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <StackPanel Spacing="18">
+                <TextBlock x:Name="KindText"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Opacity="0.7"
+                           AutomationProperties.AutomationId="ReviewKind" />
+                <TextBlock x:Name="PromptText"
+                           FontSize="26"
+                           FontWeight="SemiBold"
+                           TextWrapping="Wrap"
+                           LineHeight="34"
+                           AutomationProperties.HeadingLevel="2"
+                           AutomationProperties.AutomationId="ReviewPrompt" />
+                <TextBlock x:Name="SupportText"
+                           TextWrapping="Wrap"
+                           Opacity="0.74" />
+                <Button x:Name="RevealButton"
+                        Content="Reveal the answer"
+                        HorizontalAlignment="Left"
+                        Click="OnRevealClicked"
+                        AutomationProperties.AutomationId="RevealReviewAnswer" />
+                <Border x:Name="AnswerPanel"
+                        IsVisible="False"
+                        Padding="18"
+                        CornerRadius="10"
+                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Answer"
+                                   FontSize="13"
+                                   FontWeight="SemiBold"
+                                   Opacity="0.7" />
+                        <TextBlock x:Name="AnswerText"
+                                   FontSize="20"
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.AutomationId="ReviewAnswer" />
+                    </StackPanel>
+                </Border>
+                <StackPanel x:Name="RatingPanel"
+                            IsVisible="False"
+                            Spacing="10">
+                    <TextBlock Text="How did retrieval feel?"
+                               FontWeight="SemiBold" />
+                    <WrapPanel ItemSpacing="8"
+                               LineSpacing="8">
+                        <Button Content="Again — not yet"
+                                Tag="Again"
+                                Click="OnRatingClicked"
+                                AutomationProperties.AutomationId="ReviewAgain" />
+                        <Button Content="Hard — with effort"
+                                Tag="Hard"
+                                Click="OnRatingClicked"
+                                AutomationProperties.AutomationId="ReviewHard" />
+                        <Button Content="Good — recalled"
+                                Tag="Good"
+                                Click="OnRatingClicked"
+                                AutomationProperties.AutomationId="ReviewGood" />
+                        <Button Content="Easy — immediate"
+                                Tag="Easy"
+                                Click="OnRatingClicked"
+                                AutomationProperties.AutomationId="ReviewEasy" />
+                    </WrapPanel>
+                    <TextBlock Text="Your choice is evidence. Deterministic code—not a model—sets the next due time."
+                               TextWrapping="Wrap"
+                               Opacity="0.68" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <TextBlock x:Name="StatusText"
+                   IsVisible="False"
+                   TextWrapping="Wrap"
+                   AutomationProperties.LiveSetting="Polite"
+                   AutomationProperties.AutomationId="ReviewStatus" />
+        <TextBlock x:Name="ErrorText"
+                   IsVisible="False"
+                   TextWrapping="Wrap"
+                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   AutomationProperties.LiveSetting="Assertive"
+                   AutomationProperties.AutomationId="ReviewError" />
+    </StackPanel>
+</UserControl>

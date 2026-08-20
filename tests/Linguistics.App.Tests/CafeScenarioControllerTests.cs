@@ -46,6 +46,8 @@ public sealed class CafeScenarioControllerTests
         Assert.HasCount(1, saved.Tasks.Attempts);
         Assert.HasCount(1, saved.Tasks.ReviewHandoffs);
         Assert.HasCount(1, saved.Curriculum.Attempts);
+        Assert.AreEqual(1, saved.Curriculum.Progress.Single(item =>
+            item.ConceptId.Value == "de.function.order-polite").RecurringErrorCount);
         var taskAttempt = saved.Tasks.Attempts.Single();
         Assert.IsTrue(taskAttempt.Evidence.CommunicativeSuccess);
         Assert.AreEqual(1, taskAttempt.Evidence.LinguisticAccuracy);
@@ -211,7 +213,7 @@ public sealed class CafeScenarioControllerTests
 
             Assert.IsTrue(completion.Persisted);
             var storedJson = await File.ReadAllTextAsync(path);
-            StringAssert.Contains(storedJson, "\"schemaVersion\": 4");
+            StringAssert.Contains(storedJson, "\"schemaVersion\": 5");
             Assert.IsFalse(storedJson.Contains("raw-secret-marker", StringComparison.Ordinal));
 
             var relaunchedOwner = new LearnerProfileOwner(new JsonLearnerRepository(path));

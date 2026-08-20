@@ -8,7 +8,8 @@ namespace Linguistics.App.Persistence;
 
 public sealed class JsonLearnerRepository : ILearnerRepository
 {
-    public const int CurrentSchemaVersion = 4;
+    public const int CurrentSchemaVersion = 5;
+    private const int PronunciationSchemaVersion = 4;
     private const int TaskHistorySchemaVersion = 3;
     private const int CurriculumSchemaVersion = 2;
     private const int LegacyProfileSchemaVersion = 1;
@@ -72,7 +73,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
                     profile,
                     existing?.Curriculum ?? CurriculumHistory.Empty,
                     existing?.Tasks ?? TaskHistory.Empty,
-                    existing?.Pronunciation ?? PronunciationHistory.Empty),
+                    existing?.Pronunciation ?? PronunciationHistory.Empty,
+                    existing?.Review ?? ReviewHistory.Empty),
                 cancellationToken).ConfigureAwait(false);
         }
         finally
@@ -145,10 +147,12 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             CurriculumHistoryValidator.Validate(envelope.Curriculum);
             TaskHistoryValidator.Validate(envelope.Tasks);
             PronunciationHistoryValidator.Validate(envelope.Pronunciation);
+            ReviewHistoryValidator.Validate(envelope.Review);
             return new LearnerLearningState(
                 envelope.Curriculum,
                 envelope.Tasks,
-                envelope.Pronunciation);
+                envelope.Pronunciation,
+                envelope.Review);
         }
         finally
         {
@@ -170,6 +174,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         CurriculumHistoryValidator.Validate(state.Curriculum);
         TaskHistoryValidator.Validate(state.Tasks);
         PronunciationHistoryValidator.Validate(state.Pronunciation);
+        ReviewHistoryValidator.Validate(state.Review);
 
         await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
@@ -182,6 +187,7 @@ public sealed class JsonLearnerRepository : ILearnerRepository
                     Curriculum = state.Curriculum,
                     Tasks = state.Tasks,
                     Pronunciation = state.Pronunciation,
+                    Review = state.Review,
                 },
                 cancellationToken).ConfigureAwait(false);
         }
@@ -266,7 +272,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
                 LegacyProfileSchemaVersion => MigrateSchemaOne(document.RootElement),
                 CurriculumSchemaVersion => MigrateSchemaTwo(document.RootElement),
                 TaskHistorySchemaVersion => MigrateSchemaThree(document.RootElement),
-                CurrentSchemaVersion => ReadSchemaFour(document.RootElement),
+                PronunciationSchemaVersion => MigrateSchemaFour(document.RootElement),
+                CurrentSchemaVersion => ReadSchemaFive(document.RootElement),
                 _ => throw new LearnerStoreException(
                     $"Learner store schema {schemaVersion} is unsupported; expected {CurrentSchemaVersion}."),
             };
@@ -298,7 +305,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             profile,
             CurriculumHistory.Empty,
             TaskHistory.Empty,
-            PronunciationHistory.Empty);
+            PronunciationHistory.Empty,
+            ReviewHistory.Empty);
     }
 
     private static LearnerStoreEnvelope MigrateSchemaTwo(JsonElement root)
@@ -322,7 +330,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             envelope.Profile,
             envelope.Curriculum,
             TaskHistory.Empty,
-            PronunciationHistory.Empty);
+            PronunciationHistory.Empty,
+            ReviewHistory.Empty);
     }
 
     private static LearnerStoreEnvelope MigrateSchemaThree(JsonElement root)
@@ -342,12 +351,13 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             envelope.Profile,
             envelope.Curriculum,
             envelope.Tasks,
-            PronunciationHistory.Empty);
+            PronunciationHistory.Empty,
+            ReviewHistory.Empty);
     }
 
-    private static LearnerStoreEnvelope ReadSchemaFour(JsonElement root)
+    private static LearnerStoreEnvelope MigrateSchemaFour(JsonElement root)
     {
-        var envelope = root.Deserialize<LearnerStoreEnvelope>(JsonOptions)
+        var envelope = root.Deserialize<SchemaFourEnvelope>(JsonOptions)
             ?? throw new LearnerStoreException("The learner store is empty or invalid.");
         if (envelope.Profile is null ||
             envelope.Curriculum is null ||
@@ -362,6 +372,34 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         CurriculumHistoryValidator.Validate(envelope.Curriculum);
         TaskHistoryValidator.Validate(envelope.Tasks);
         PronunciationHistoryValidator.Validate(envelope.Pronunciation);
+        return new LearnerStoreEnvelope(
+            CurrentSchemaVersion,
+            envelope.Profile,
+            envelope.Curriculum,
+            envelope.Tasks,
+            envelope.Pronunciation,
+            ReviewHistory.Empty);
+    }
+
+    private static LearnerStoreEnvelope ReadSchemaFive(JsonElement root)
+    {
+        var envelope = root.Deserialize<LearnerStoreEnvelope>(JsonOptions)
+            ?? throw new LearnerStoreException("The learner store is empty or invalid.");
+        if (envelope.Profile is null ||
+            envelope.Curriculum is null ||
+            envelope.Tasks is null ||
+            envelope.Pronunciation is null ||
+            envelope.Review is null)
+        {
+            throw new LearnerStoreException(
+                "The learner store is missing profile, curriculum, task, pronunciation, or review history.");
+        }
+
+        LearnerProfileValidator.Validate(envelope.Profile);
+        CurriculumHistoryValidator.Validate(envelope.Curriculum);
+        TaskHistoryValidator.Validate(envelope.Tasks);
+        PronunciationHistoryValidator.Validate(envelope.Pronunciation);
+        ReviewHistoryValidator.Validate(envelope.Review);
         return envelope;
     }
 
@@ -427,10 +465,18 @@ public sealed class JsonLearnerRepository : ILearnerRepository
         CurriculumHistory Curriculum,
         TaskHistory Tasks);
 
-    private sealed record LearnerStoreEnvelope(
+    private sealed record SchemaFourEnvelope(
         int SchemaVersion,
         LearnerProfile Profile,
         CurriculumHistory Curriculum,
         TaskHistory Tasks,
         PronunciationHistory Pronunciation);
+
+    private sealed record LearnerStoreEnvelope(
+        int SchemaVersion,
+        LearnerProfile Profile,
+        CurriculumHistory Curriculum,
+        TaskHistory Tasks,
+        PronunciationHistory Pronunciation,
+        ReviewHistory Review);
 }

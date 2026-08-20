@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="760"
+             d:DesignHeight="700"
+             x:Class="Linguistics.App.Features.Today.TodayView">
+    <StackPanel Spacing="22">
+        <TextBlock Text="A calm next step, chosen from your local evidence. No streak pressure and no engagement algorithm."
+                   FontSize="17"
+                   TextWrapping="Wrap"
+                   Opacity="0.76" />
+
+        <Border x:Name="LoadingState"
+                Padding="24"
+                CornerRadius="12"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <StackPanel Spacing="12">
+                <ProgressBar IsIndeterminate="True"
+                             AutomationProperties.Name="Preparing today's plan" />
+                <TextBlock Text="Reading your local learning state…"
+                           AutomationProperties.LiveSetting="Polite" />
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="PlanCard"
+                IsVisible="False"
+                Padding="30"
+                CornerRadius="16"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Row="0" Grid.Column="0" Spacing="8">
+                    <TextBlock Text="YOUR NEXT MOVE"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Opacity="0.68" />
+                    <TextBlock x:Name="HeadlineText"
+                               FontSize="30"
+                               FontWeight="SemiBold"
+                               TextWrapping="Wrap"
+                               LineHeight="38"
+                               AutomationProperties.HeadingLevel="2"
+                               AutomationProperties.AutomationId="TodayHeadline" />
+                    <TextBlock x:Name="ExplanationText"
+                               FontSize="16"
+                               TextWrapping="Wrap"
+                               Opacity="0.78" />
+                </StackPanel>
+                <Border Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="24,0,0,0"
+                        Width="82"
+                        Height="82"
+                        CornerRadius="41"
+                        Background="{DynamicResource SystemAccentColorLight2}">
+                    <TextBlock x:Name="ActionGlyph"
+                               Text="→"
+                               FontSize="34"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               AutomationProperties.IsOffscreenBehavior="Onscreen" />
+                </Border>
+                <Button x:Name="PrimaryActionButton"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        Margin="0,24,0,0"
+                        HorizontalAlignment="Left"
+                        Click="OnPrimaryActionClicked"
+                        AutomationProperties.AutomationId="TodayPrimaryAction" />
+            </Grid>
+        </Border>
+
+        <Grid x:Name="EvidenceGrid"
+              IsVisible="False"
+              ColumnDefinitions="*,*,*"
+              ColumnSpacing="12">
+            <Border Grid.Column="0"
+                    Padding="18"
+                    CornerRadius="12"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="4">
+                    <TextBlock x:Name="DueCountText"
+                               FontSize="28"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="review items due"
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1"
+                    Padding="18"
+                    CornerRadius="12"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="4">
+                    <TextBlock x:Name="StrongCountText"
+                               FontSize="28"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="concepts strong"
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="2"
+                    Padding="18"
+                    CornerRadius="12"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="4">
+                    <TextBlock x:Name="SpeechCountText"
+                               FontSize="28"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="pronunciation tries"
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border Padding="18"
+                CornerRadius="12"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <TextBlock Text="Everything here comes from the learner file on this device. Today makes no network request and stores no analytics."
+                       TextWrapping="Wrap"
+                       Opacity="0.72" />
+        </Border>
+
+        <TextBlock x:Name="ErrorText"
+                   IsVisible="False"
+                   TextWrapping="Wrap"
+                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   AutomationProperties.LiveSetting="Assertive"
+                   AutomationProperties.AutomationId="TodayError" />
+    </StackPanel>
+</UserControl>

@@ -564,12 +564,17 @@ public sealed class CafeScenarioController
             conceptAttempt,
             completedAt,
             ProgressionConfiguration.Default);
+        var updatedProgress = progression.Current with
+        {
+            RecurringErrorCount = progression.Current.RecurringErrorCount +
+                evaluation.Session.EncounteredErrorRuleIds.Count,
+        };
 
         var curriculum = _learningState.Curriculum with
         {
             Progress = _learningState.Curriculum.Progress
                 .Where(progress => progress.ConceptId != _definition.TargetConceptId)
-                .Append(progression.Current)
+                .Append(updatedProgress)
                 .OrderBy(progress => progress.ConceptId.Value, StringComparer.Ordinal)
                 .ToArray(),
             Attempts = _learningState.Curriculum.Attempts.Append(conceptAttempt).ToArray(),
@@ -588,8 +593,9 @@ public sealed class CafeScenarioController
         _pendingLearningState = new LearnerLearningState(
             curriculum,
             tasks,
-            _learningState.Pronunciation);
-        _pendingProgressState = progression.Current.State;
+            _learningState.Pronunciation,
+            _learningState.Review);
+        _pendingProgressState = updatedProgress.State;
     }
 
     private async Task<CafePersistenceResult> SavePendingAsync()
