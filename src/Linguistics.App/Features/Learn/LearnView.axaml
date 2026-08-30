@@ -154,6 +154,14 @@
                                          MinHeight="390"
                                          AutomationProperties.AutomationId="LessonSlide" />
 
+            <TextBlock x:Name="LessonTemplateOutcomeText"
+                       IsVisible="False"
+                       Foreground="{DynamicResource AppAccentTextBrush}"
+                       FontWeight="SemiBold"
+                       TextWrapping="Wrap"
+                       AutomationProperties.LiveSetting="Polite"
+                       AutomationProperties.AutomationId="LessonTemplateOutcome" />
+
             <Grid ColumnDefinitions="Auto,*,Auto"
                   ColumnSpacing="16">
                 <Button x:Name="BackButton"

@@ -17,6 +17,7 @@
                     <SolidColorBrush x:Key="AppPaperEdgeBrush" Color="#C8D3CB" />
                     <SolidColorBrush x:Key="AppCutoutMarginBrush" Color="#FFFEFA" />
                     <SolidColorBrush x:Key="AppCutoutEdgeBrush" Color="#D8D2C5" />
+                    <SolidColorBrush x:Key="AppCutoutInkBrush" Color="#19312A" />
                     <SolidColorBrush x:Key="AppTapeBrush" Color="#E1C77B" />
                     <SolidColorBrush x:Key="AppTapeEdgeBrush" Color="#765A20" />
                     <SolidColorBrush x:Key="AppStampBrush" Color="#F6EDE4" />
@@ -81,6 +82,7 @@
                     <SolidColorBrush x:Key="AppPaperEdgeBrush" Color="#3A5A50" />
                     <SolidColorBrush x:Key="AppCutoutMarginBrush" Color="#E8E3D8" />
                     <SolidColorBrush x:Key="AppCutoutEdgeBrush" Color="#C7C0B3" />
+                    <SolidColorBrush x:Key="AppCutoutInkBrush" Color="#19312A" />
                     <SolidColorBrush x:Key="AppTapeBrush" Color="#C6A863" />
                     <SolidColorBrush x:Key="AppTapeEdgeBrush" Color="#594117" />
                     <SolidColorBrush x:Key="AppStampBrush" Color="#1D342C" />
@@ -428,6 +430,9 @@
         </Style>
         <Style Selector="controls|CutoutFrame.tilt-right">
             <Setter Property="RenderTransform" Value="rotate(1.5deg)" />
+        </Style>
+        <Style Selector="controls|CutoutFrame TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource AppCutoutInkBrush}" />
         </Style>
 
         <Style Selector="controls|PaperTape">

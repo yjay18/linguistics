@@ -4,6 +4,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Linguistics.App.Features.Learn.Templates;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
@@ -13,7 +14,10 @@ namespace Linguistics.App.Features.Learn;
 public partial class LearnView : UserControl
 {
     private readonly Dictionary<Button, CourseLesson> _lessonsByButton = [];
+    private readonly TemplateRegistry _templateRegistry = TemplateRegistry.CreateDefault();
     private readonly LearnerProfileOwner? _profileOwner;
+    private LanguageCode _instructionLanguage = new("en");
+    private bool _shouldReduceMotion;
     private CourseCatalog? _course;
     private CourseLesson? _activeLesson;
     private LearnerLearningState? _learningState;
@@ -37,7 +41,9 @@ public partial class LearnView : UserControl
     {
         ArgumentNullException.ThrowIfNull(profile);
         _profileOwner = profileOwner;
-        SlideHost.PageTransition = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion)
+        _instructionLanguage = SelectInstructionLanguage(profile);
+        _shouldReduceMotion = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion);
+        SlideHost.PageTransition = _shouldReduceMotion
             ? null
             : new CrossFade(TimeSpan.FromMilliseconds(220));
 
@@ -329,11 +335,22 @@ public partial class LearnView : UserControl
         ContinueButton.Content = _slideIndex == _activeLesson.Slides.Count - 1
             ? "Finish lesson"
             : "Continue";
+        LessonTemplateOutcomeText.IsVisible = false;
         SlideHost.Content = CreateSlideCard(slide);
     }
 
     private Control CreateSlideCard(CourseSlide slide)
     {
+        if (slide.TemplateInstance is { } template)
+        {
+            return _templateRegistry.Render(
+                template.TemplateId,
+                template.Parameters,
+                _instructionLanguage,
+                _shouldReduceMotion,
+                OnTemplateOutcome);
+        }
+
         var content = new Grid
         {
             RowDefinitions = new RowDefinitions("Auto,*,Auto"),
@@ -421,11 +438,42 @@ public partial class LearnView : UserControl
         return card;
     }
 
+    private void OnTemplateOutcome(TemplateOutcome outcome)
+    {
+        LessonTemplateOutcomeText.Text = outcome.State switch
+        {
+            TemplateOutcomeState.Success =>
+                "Practice result: the deterministic check matched this response.",
+            TemplateOutcomeState.Uncertain =>
+                "Practice result: the deterministic check needs a complete response.",
+            TemplateOutcomeState.Failure =>
+                "Practice result: the deterministic check did not match yet. Try again.",
+            _ => "Practice is ready.",
+        };
+        LessonTemplateOutcomeText.IsVisible = true;
+    }
+
     internal static string Clean(string value) =>
         value
             .Replace('-', ' ')
             .Replace('–', ' ')
             .Replace('—', ' ');
+
+    private static LanguageCode SelectInstructionLanguage(LearnerProfile profile)
+    {
+        if (profile.Settings.PreferredExplanationLanguage is { } preferred &&
+            profile.KnownLanguages.Any(language =>
+                language.Language == preferred &&
+                language.AllowExplanations &&
+                language.ComfortableReading))
+        {
+            return preferred;
+        }
+
+        return profile.KnownLanguages
+            .FirstOrDefault(language => language.AllowExplanations && language.ComfortableReading)
+            ?.Language ?? profile.TargetLanguage;
+    }
 
     private static string Symbol(CourseSlideKind kind) => kind switch
     {

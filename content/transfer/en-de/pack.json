@@ -2,7 +2,7 @@
   "manifest": {
     "id": "transfer.en-de.core",
     "version": 1,
-    "schemaVersion": 1,
+    "schemaVersion": 2,
     "kind": "transfer",
     "languages": ["en", "de"],
     "dependencies": [{ "packId": "language.de.core", "minimumVersion": 1, "maximumVersion": 1 }],
@@ -86,6 +86,7 @@
   "feedbackTemplates": [],
   "rubrics": [],
   "pronunciationUtterances": [],
+  "lessons": [],
   "transferMappings": [
     {
       "id": "en-de.de.function.state-name.surface-bridge",

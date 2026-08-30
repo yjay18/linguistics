@@ -31,6 +31,12 @@ public sealed class ContentPackTests
         Assert.HasCount(5, german.ErrorRules);
         Assert.HasCount(4, german.Rubrics);
         Assert.HasCount(4, german.PronunciationUtterances);
+        Assert.IsTrue(catalog.Packs.All(pack => pack.Manifest.SchemaVersion == 2));
+        Assert.HasCount(1, german.Lessons);
+        Assert.HasCount(3, german.Lessons[0].TemplateInstances);
+        Assert.IsTrue(catalog.Packs
+            .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
+            .All(pack => pack.Lessons.Count == 0));
         Assert.IsTrue(german.PronunciationUtterances.All(utterance =>
             utterance.AssessmentMode == PronunciationAssessmentMode.None));
     }
@@ -175,13 +181,103 @@ public sealed class ContentPackTests
         Assert.AreEqual(13, catalog.AuthoredLessonCount);
         Assert.AreEqual(437, catalog.RemainingLessonCount);
         Assert.AreEqual("Greet someone", catalog.Units[0].Lessons[0].Title);
-        Assert.IsTrue(catalog.Units.SelectMany(unit => unit.Lessons).All(lesson => lesson.Slides.Count >= 5));
+        var lessons = catalog.Units.SelectMany(unit => unit.Lessons).ToArray();
+        var provingLesson = lessons.Single(lesson => lesson.Id == "lesson.de.lexicon.cafe-items");
+        Assert.HasCount(3, provingLesson.Slides);
+        Assert.IsTrue(provingLesson.Slides.All(slide => slide.Kind == CourseSlideKind.Template));
+        CollectionAssert.AreEqual(
+            new[] { "object-spotlight", "picture-match", "word-order-train" },
+            provingLesson.Slides
+                .Select(slide => slide.TemplateInstance!.TemplateId.Value)
+                .ToArray());
+        Assert.IsTrue(lessons
+            .Where(lesson => lesson != provingLesson)
+            .All(lesson => lesson.Slides.Count >= 5));
         CollectionAssert.AreEqual(
             catalog.Units.SelectMany(unit => unit.Lessons).Select(lesson => lesson.Id).ToArray(),
             repeated.Units.SelectMany(unit => unit.Lessons).Select(lesson => lesson.Id).ToArray());
         CollectionAssert.AreEqual(
             catalog.Units.SelectMany(unit => unit.Lessons).SelectMany(lesson => lesson.Slides).Select(slide => slide.Id).ToArray(),
             repeated.Units.SelectMany(unit => unit.Lessons).SelectMany(lesson => lesson.Slides).Select(slide => slide.Id).ToArray());
+        CollectionAssert.AreEqual(
+            PresentationIds(catalog),
+            PresentationIds(repeated));
+    }
+
+    [TestMethod]
+    public void AuthoredTemplatesReplaceFallbackInPackOrderAndResolveReferences()
+    {
+        var packs = LoadBundled(ContentLoadPolicy.AuthoringPreview).Packs.ToArray();
+        var targetIndex = Array.FindIndex(packs, pack => pack.Manifest.Id == "language.de.core");
+        var target = packs[targetIndex];
+        var concept = target.Concepts[0] with
+        {
+            Examples = Replace(
+                target.Concepts[0].Examples,
+                0,
+                target.Concepts[0].Examples[0] with { Id = "de.example.catalog-fixture" }),
+        };
+        target = ReplaceConcept(target, 0, concept);
+        var lessonId = $"lesson.{concept.Id}";
+        target = target with
+        {
+            Lessons =
+            [
+                new LessonTemplateContent(
+                    lessonId,
+                    [
+                        ObjectSpotlightInstance(lessonId, 1, concept, "Hallo"),
+                        ObjectSpotlightInstance(lessonId, 2, concept, "Guten Tag"),
+                    ]),
+            ],
+        };
+        packs[targetIndex] = target;
+        var directory = WritePacks(packs);
+        try
+        {
+            var first = ContentPackLoader
+                .LoadDirectory(directory, ContentLoadPolicy.AuthoringPreview)
+                .CreateCourseCatalog(new LanguageCode("de"));
+            var repeated = ContentPackLoader
+                .LoadDirectory(directory, ContentLoadPolicy.AuthoringPreview)
+                .CreateCourseCatalog(new LanguageCode("de"));
+            var authored = first.Units
+                .SelectMany(unit => unit.Lessons)
+                .Single(lesson => lesson.Id == lessonId);
+
+            Assert.HasCount(2, authored.Slides);
+            Assert.IsTrue(authored.Slides.All(slide => slide.Kind == CourseSlideKind.Template));
+            CollectionAssert.AreEqual(
+                new[]
+                {
+                    $"{lessonId}.template.01",
+                    $"{lessonId}.template.02",
+                },
+                authored.Slides.Select(slide => slide.TemplateInstance!.Id).ToArray());
+            Assert.AreEqual(
+                concept.Id,
+                authored.Slides[0].TemplateInstance!.Parameters.Values["concept"].Concept!.Id);
+            Assert.AreEqual(
+                "de.example.catalog-fixture",
+                authored.Slides[0].TemplateInstance!.Parameters.Values["example"].Example!.Id);
+            Assert.AreEqual(
+                "नमस्ते देखें।",
+                authored.Slides[0].TemplateInstance!.Parameters.Values["instruction"].TextByLanguage!["hi"]);
+
+            var fallback = first.Units
+                .SelectMany(unit => unit.Lessons)
+                .First(lesson => lesson.Id != lessonId);
+            Assert.IsGreaterThanOrEqualTo(5, fallback.Slides.Count);
+            Assert.IsTrue(fallback.Slides.All(slide => slide.TemplateInstance is null));
+
+            CollectionAssert.AreEqual(
+                PresentationIds(first),
+                PresentationIds(repeated));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
     }
 
     [TestMethod]
@@ -252,6 +348,14 @@ public sealed class ContentPackTests
     [DataRow("malformed-error-pattern", "error.pattern")]
     [DataRow("missing-explanation", "explanation.missing")]
     [DataRow("missing-dependency", "dependency.missing")]
+    [DataRow("missing-lessons", "lesson.collection")]
+    [DataRow("missing-lesson", "lesson.missing")]
+    [DataRow("broken-lesson-binding", "lesson.reference")]
+    [DataRow("duplicate-lesson-id", "id.duplicate")]
+    [DataRow("empty-template-instances", "template.collection")]
+    [DataRow("missing-template-instance", "template.instance")]
+    [DataRow("invalid-template-version", "template.version")]
+    [DataRow("missing-template-parameters", "template.parameters")]
     public void CorruptFixturesFailWithAttributableErrors(string corruption, string expectedCode)
     {
         var (packs, policy) = Corrupt(corruption);
@@ -403,6 +507,66 @@ public sealed class ContentPackTests
                     },
                 };
                 break;
+            case "missing-lessons":
+                target = target with { Lessons = null! };
+                break;
+            case "missing-lesson":
+                target = target with { Lessons = [null!] };
+                break;
+            case "broken-lesson-binding":
+                target = target with
+                {
+                    Lessons = [LessonFixture(target.Concepts[0]) with { Id = "lesson.de.missing" }],
+                };
+                break;
+            case "duplicate-lesson-id":
+                var duplicatedLesson = LessonFixture(target.Concepts[0]);
+                target = target with { Lessons = [duplicatedLesson, duplicatedLesson] };
+                break;
+            case "empty-template-instances":
+                target = target with
+                {
+                    Lessons = [LessonFixture(target.Concepts[0]) with { TemplateInstances = [] }],
+                };
+                break;
+            case "missing-template-instance":
+                target = target with
+                {
+                    Lessons = [LessonFixture(target.Concepts[0]) with { TemplateInstances = [null!] }],
+                };
+                break;
+            case "invalid-template-version":
+                var invalidVersionLesson = LessonFixture(target.Concepts[0]);
+                target = target with
+                {
+                    Lessons =
+                    [
+                        invalidVersionLesson with
+                        {
+                            TemplateInstances =
+                            [
+                                invalidVersionLesson.TemplateInstances[0] with { TemplateVersion = 0 },
+                            ],
+                        },
+                    ],
+                };
+                break;
+            case "missing-template-parameters":
+                var missingParametersLesson = LessonFixture(target.Concepts[0]);
+                target = target with
+                {
+                    Lessons =
+                    [
+                        missingParametersLesson with
+                        {
+                            TemplateInstances =
+                            [
+                                missingParametersLesson.TemplateInstances[0] with { Parameters = null! },
+                            ],
+                        },
+                    ],
+                };
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(corruption));
         }
@@ -423,6 +587,63 @@ public sealed class ContentPackTests
         int index,
         TaskTemplateContent task) =>
         pack with { Tasks = Replace(pack.Tasks, index, task) };
+
+    private static LessonTemplateContent LessonFixture(TargetConceptContent concept)
+    {
+        var lessonId = $"lesson.{concept.Id}";
+        return new LessonTemplateContent(
+            lessonId,
+            [
+                new TemplateInstance(
+                    $"{lessonId}.template.01",
+                    new TemplateId("fixture-template"),
+                    1,
+                    new Dictionary<string, TemplateParameterValue>()),
+            ]);
+    }
+
+    private static TemplateInstance ObjectSpotlightInstance(
+        string lessonId,
+        int number,
+        TargetConceptContent concept,
+        string word) =>
+        new(
+            $"{lessonId}.template.{number:00}",
+            new TemplateId("object-spotlight"),
+            1,
+            new Dictionary<string, TemplateParameterValue>
+            {
+                ["word"] = new(TemplateParameterKind.Text, Value: word),
+                ["meaning"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "greeting",
+                        ["hi"] = "अभिवादन",
+                    }),
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Notice this greeting.",
+                        ["hi"] = "नमस्ते देखें।",
+                    }),
+                ["concept"] = new(TemplateParameterKind.ConceptReference, Value: concept.Id),
+                ["example"] = new(
+                    TemplateParameterKind.ExampleReference,
+                    Value: "de.example.catalog-fixture"),
+            });
+
+    private static string[] PresentationIds(CourseCatalog course) =>
+        course.Units
+            .SelectMany(unit => unit.Lessons)
+            .SelectMany(lesson => lesson.Slides.Select(slide => string.Join(
+                '|',
+                lesson.Id,
+                slide.Id,
+                slide.TemplateInstance?.Id ?? "fallback",
+                slide.TemplateInstance?.TemplateId.Value ?? "fallback")))
+            .ToArray();
 
     private static IReadOnlyList<T> Replace<T>(IReadOnlyList<T> items, int index, T replacement)
     {
@@ -489,6 +710,7 @@ public sealed class ContentPackTests
             FeedbackTemplates = [],
             Rubrics = [],
             PronunciationUtterances = [],
+            Lessons = [],
         };
     }
 

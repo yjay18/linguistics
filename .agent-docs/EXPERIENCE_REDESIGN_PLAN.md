@@ -201,6 +201,18 @@ Gate: engine round-trips pack → validation → catalog → rendered lesson; th
 templates play with choreography, reduced motion, keyboard, and text-only paths; all
 gates green.
 
+**Status (2026-08-30): complete in the current uncommitted working tree.** Schema 2,
+the typed contracts and validator, deterministic authored/fallback catalog projection,
+the renderer registry, developer gallery, and all three proving templates are wired.
+The German café-items lesson contains three ordered machine-validated preview
+instances and deliberately omits pack asset references until Phase 3. Real macOS
+interaction covered mouse and keyboard paths, outcome cycling, replay, skip, complete
+text-only fallbacks, reduced-motion final states, both themes, and the authored lesson;
+finishing the preview created no mastery/progress file. Release build, 231 tests, and
+formatting are clean. Two consecutive post-fix Codex plus Antigravity Gemini visual-QA
+passes reported no material issue. Direct VoiceOver remains named unverified because
+macOS Accessibility trust is false, and Windows native interaction remains unavailable.
+
 ### Phase 3 — Asset pipeline
 
 - **P3.1** `tools/AssetPipeline` console app (BCL + HttpClient only): search Wikimedia

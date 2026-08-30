@@ -67,6 +67,7 @@ public sealed class DesignSystemTests
             AssertContrast(themeName, brushes, "AppPaperEdgeBrush", "AppPaperBrush", 1.35);
             AssertContrast(themeName, brushes, "AppPaperEdgeBrush", "AppPaperAltBrush", 1.35);
             AssertContrast(themeName, brushes, "AppCutoutEdgeBrush", "AppCutoutMarginBrush", 1.35);
+            AssertContrast(themeName, brushes, "AppCutoutInkBrush", "AppCutoutMarginBrush", 4.5);
             AssertContrast(themeName, brushes, "AppTapeEdgeBrush", "AppTapeBrush", 3);
             AssertContrast(themeName, brushes, "AppStampInkBrush", "AppStampBrush", 4.5);
             AssertContrast(themeName, brushes, "AppTornEdgeBrush", "AppCanvasBrush", 1.1);
@@ -94,6 +95,7 @@ public sealed class DesignSystemTests
             "AppPaperEdgeBrush",
             "AppCutoutMarginBrush",
             "AppCutoutEdgeBrush",
+            "AppCutoutInkBrush",
             "AppPaperShadow",
             "AppCutoutShadow",
             "AppPaperGrainBrush",

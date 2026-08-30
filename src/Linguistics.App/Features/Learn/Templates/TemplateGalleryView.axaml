@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="860"
+             d:DesignHeight="760"
+             x:Class="Linguistics.App.Features.Learn.Templates.TemplateGalleryView">
+    <StackPanel Spacing="18">
+        <controls:PaperCard>
+            <Grid ColumnDefinitions="*,Auto"
+                  ColumnSpacing="24">
+                <StackPanel Spacing="7">
+                    <TextBlock Text="Synthetic template fixtures"
+                               Classes="section-title"
+                               AutomationProperties.HeadingLevel="2" />
+                    <TextBlock Text="This gallery uses fixed local examples only. It reads no learner history and saves nothing."
+                               Classes="muted"
+                               TextWrapping="Wrap" />
+                    <TextBlock x:Name="OutcomeText"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource AppAccentTextBrush}"
+                               AutomationProperties.LiveSetting="Polite"
+                               AutomationProperties.AutomationId="TemplateGalleryOutcome" />
+                    <CheckBox x:Name="TextOnlyCheckBox"
+                              Content="Show text only fallback"
+                              IsCheckedChanged="OnTextOnlyChanged"
+                              AutomationProperties.AutomationId="TemplateGalleryTextOnly" />
+                </StackPanel>
+                <Button Grid.Column="1"
+                        Classes="primary lift"
+                        Content="Next outcome"
+                        VerticalAlignment="Center"
+                        Click="OnNextOutcomeClicked"
+                        AutomationProperties.AutomationId="TemplateGalleryNextOutcome" />
+            </Grid>
+        </controls:PaperCard>
+
+        <Border x:Name="EmptyState"
+                Classes="warning-card"
+                IsVisible="False">
+            <StackPanel Spacing="7">
+                <TextBlock Text="Gallery ready"
+                           Classes="section-title"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="No template renderers are registered yet. The first proving templates arrive in the next work item."
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel x:Name="FixturePanel"
+                    Spacing="20"
+                    AutomationProperties.AutomationId="TemplateGalleryFixtures" />
+    </StackPanel>
+</UserControl>

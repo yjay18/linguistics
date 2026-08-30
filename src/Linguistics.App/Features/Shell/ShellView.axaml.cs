@@ -7,6 +7,7 @@ using Linguistics.App.Features.Developer;
 using Linguistics.App.Persistence;
 using Linguistics.App.Features.Languages;
 using Linguistics.App.Features.Learn;
+using Linguistics.App.Features.Learn.Templates;
 using Linguistics.App.Features.Pronunciation;
 using Linguistics.App.Features.Progress;
 using Linguistics.App.Features.Review;
@@ -42,9 +43,11 @@ public partial class ShellView : UserControl
         InitializeComponent();
         NavigationList.SelectionChanged += OnNavigationChanged;
         AttachedToVisualTree += (_, _) => ApplyMotionPreference();
+        TemplateGalleryNavItem.IsVisible = DeveloperModeEnabled();
         PaperStageNavItem.IsVisible = DeveloperModeEnabled();
         NavigationList.SelectedItem = RequestedDeveloperPage() switch
         {
+            "TEMPLATES" or "TEMPLATEGALLERY" => TemplateGalleryNavItem,
             "PAPERSTAGE" => PaperStageNavItem,
             "TODAY" => TodayNavItem,
             "PROGRESS" => ProgressNavItem,
@@ -182,6 +185,12 @@ public partial class ShellView : UserControl
                     _speechSynthesisProvider,
                     _speechRecognitionProvider,
                     _speechRecordingStore));
+                break;
+            case "Template gallery" when DeveloperModeEnabled():
+                ShowPage(new TemplateGalleryView(
+                    TemplateRegistry.CreateDefault(),
+                    TemplateGalleryFixtures.All,
+                    MotionPreferences.ShouldReduce(_profile.Settings.ReduceMotion)));
                 break;
             case "Paper stage" when DeveloperModeEnabled():
                 ShowPage(new PaperStageSandboxView());

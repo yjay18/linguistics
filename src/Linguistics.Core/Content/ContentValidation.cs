@@ -9,9 +9,17 @@ public sealed record ContentValidationError(
     string Code,
     string PackId,
     string Path,
-    string Message)
+    string Message,
+    string? LessonId = null,
+    string? Parameter = null)
 {
-    public override string ToString() => $"[{Code}] {PackId}/{Path}: {Message}";
+    public override string ToString()
+    {
+        var templateScope = LessonId is null
+            ? string.Empty
+            : $" [lesson={LessonId}, parameter={Parameter ?? "<none>"}]";
+        return $"[{Code}] {PackId}/{Path}{templateScope}: {Message}";
+    }
 }
 
 public sealed class ContentValidationException : Exception
@@ -169,7 +177,7 @@ public static class ContentPackLoader
 
 public static class ContentPackValidator
 {
-    public const int SupportedSchemaVersion = 1;
+    public const int SupportedSchemaVersion = 2;
     public const int SupportedPackVersion = 1;
 
     private static readonly HashSet<string> AllowedCefr = new(StringComparer.Ordinal)
@@ -185,9 +193,18 @@ public static class ContentPackValidator
 
     public static IReadOnlyList<ContentValidationError> Validate(
         IReadOnlyList<ContentPackDocument> packs,
-        ContentLoadPolicy policy)
+        ContentLoadPolicy policy) =>
+        Validate(packs, policy, LessonTemplateSchemas.All, []);
+
+    public static IReadOnlyList<ContentValidationError> Validate(
+        IReadOnlyList<ContentPackDocument> packs,
+        ContentLoadPolicy policy,
+        IReadOnlyList<LessonTemplateSchema> templateSchemas,
+        IReadOnlyCollection<string> availableAssetIds)
     {
         ArgumentNullException.ThrowIfNull(packs);
+        ArgumentNullException.ThrowIfNull(templateSchemas);
+        ArgumentNullException.ThrowIfNull(availableAssetIds);
         if (!Enum.IsDefined(policy))
         {
             throw new ArgumentOutOfRangeException(nameof(policy));
@@ -245,6 +262,14 @@ public static class ContentPackValidator
             ValidatePackReferences(pack, concepts, tasks, errorRules, feedback, packsById, errors);
         }
 
+        ValidateLessonTemplates(
+            validPacks,
+            templateSchemas,
+            concepts.Keys.ToHashSet(StringComparer.Ordinal),
+            UniqueStrings(validPacks.SelectMany(NamedExampleIds)),
+            tasks.Keys.ToHashSet(StringComparer.Ordinal),
+            availableAssetIds.ToHashSet(StringComparer.Ordinal),
+            errors);
         ValidateConceptCycles(concepts, errors);
         return Order(errors);
     }
@@ -372,6 +397,7 @@ public static class ContentPackValidator
             ValidateTransferMapping(mapping, itemIndex, packId, policy, errors);
         }
 
+        ValidateLessons(pack, packId, errors);
         ValidateKindOwnership(pack, packId, errors);
     }
 
@@ -427,7 +453,8 @@ public static class ContentPackValidator
                 Items(pack.ErrorRules).Count > 0 ||
                 Items(pack.FeedbackTemplates).Count > 0 ||
                 Items(pack.Rubrics).Count > 0 ||
-                Items(pack.PronunciationUtterances).Count > 0)
+                Items(pack.PronunciationUtterances).Count > 0 ||
+                Items(pack.Lessons).Count > 0)
             {
                 Add(
                     errors,
@@ -436,6 +463,567 @@ public static class ContentPackValidator
                     "$",
                     "A transfer pack may not duplicate target-language content.");
             }
+        }
+    }
+
+    private static void ValidateLessons(
+        ContentPackDocument pack,
+        string packId,
+        ICollection<ContentValidationError> errors)
+    {
+        if (pack.Lessons is null)
+        {
+            Add(errors, "lesson.collection", packId, "lessons", "The lesson collection is missing.");
+            return;
+        }
+
+        var knownLessonIds = Items(pack.Concepts)
+            .Where(concept => concept is not null && !string.IsNullOrWhiteSpace(concept.Id))
+            .Select(concept => $"lesson.{concept.Id}")
+            .ToHashSet(StringComparer.Ordinal);
+        foreach (var (lesson, lessonIndex) in pack.Lessons.Select((lesson, index) => (lesson, index)))
+        {
+            var lessonPath = $"lessons[{lessonIndex}]";
+            if (lesson is null)
+            {
+                Add(errors, "lesson.missing", packId, lessonPath, "A lesson binding is missing.");
+                continue;
+            }
+
+            ValidateId(lesson.Id, packId, $"{lessonPath}.id", errors);
+            if (!knownLessonIds.Contains(lesson.Id))
+            {
+                Add(
+                    errors,
+                    "lesson.reference",
+                    packId,
+                    $"{lessonPath}.id",
+                    $"Lesson '{lesson.Id}' does not bind a concept projected by this pack.");
+            }
+
+            if (lesson.TemplateInstances is null || lesson.TemplateInstances.Count == 0)
+            {
+                Add(
+                    errors,
+                    "template.collection",
+                    packId,
+                    $"{lessonPath}.templateInstances",
+                    "An authored lesson needs at least one ordered template instance.");
+                continue;
+            }
+
+            foreach (var (instance, instanceIndex) in lesson.TemplateInstances.Select((instance, index) => (instance, index)))
+            {
+                var instancePath = $"{lessonPath}.templateInstances[{instanceIndex}]";
+                if (instance is null)
+                {
+                    Add(
+                        errors,
+                        "template.instance",
+                        packId,
+                        instancePath,
+                        "A template instance is missing.");
+                    continue;
+                }
+
+                ValidateId(instance.Id, packId, $"{instancePath}.id", errors);
+                ValidateId(instance.TemplateId.Value, packId, $"{instancePath}.templateId", errors);
+                if (instance.TemplateVersion < 1)
+                {
+                    Add(
+                        errors,
+                        "template.version",
+                        packId,
+                        $"{instancePath}.templateVersion",
+                        "A template version must be at least 1.");
+                }
+
+                if (instance.Parameters is null)
+                {
+                    Add(
+                        errors,
+                        "template.parameters",
+                        packId,
+                        $"{instancePath}.parameters",
+                        "The template parameter object is missing.");
+                }
+            }
+        }
+    }
+
+    private static void ValidateLessonTemplates(
+        IReadOnlyList<ContentPackDocument> packs,
+        IReadOnlyList<LessonTemplateSchema> templateSchemas,
+        IReadOnlySet<string> conceptIds,
+        IReadOnlySet<string> exampleIds,
+        IReadOnlySet<string> taskIds,
+        IReadOnlySet<string> assetIds,
+        ICollection<ContentValidationError> errors)
+    {
+        var schemasById = templateSchemas
+            .Where(schema => schema is not null)
+            .GroupBy(schema => schema.Id)
+            .ToDictionary(group => group.Key, group => group.ToArray());
+
+        foreach (var pack in packs)
+        {
+            var instructionLanguages = RequiredInstructionLanguages(packs, pack);
+            foreach (var (lesson, lessonIndex) in Items(pack.Lessons).Select((lesson, index) => (lesson, index)))
+            {
+                if (lesson is null)
+                {
+                    continue;
+                }
+
+                foreach (var (instance, instanceIndex) in Items(lesson.TemplateInstances).Select((instance, index) => (instance, index)))
+                {
+                    if (instance is null)
+                    {
+                        continue;
+                    }
+
+                    var instancePath = $"lessons[{lessonIndex}].templateInstances[{instanceIndex}]";
+                    if (!schemasById.TryGetValue(instance.TemplateId, out var schemas))
+                    {
+                        AddTemplate(
+                            errors,
+                            "template.unknown",
+                            pack.Manifest.Id,
+                            $"{instancePath}.templateId",
+                            lesson.Id,
+                            "templateId",
+                            $"Template '{instance.TemplateId}' is not registered.");
+                        continue;
+                    }
+
+                    var matchingSchemas = schemas
+                        .Where(schema => schema.Version == instance.TemplateVersion)
+                        .ToArray();
+                    if (matchingSchemas.Length == 0)
+                    {
+                        AddTemplate(
+                            errors,
+                            "template.version",
+                            pack.Manifest.Id,
+                            $"{instancePath}.templateVersion",
+                            lesson.Id,
+                            "templateVersion",
+                            $"Template '{instance.TemplateId}' does not support version {instance.TemplateVersion}.");
+                        continue;
+                    }
+
+                    if (matchingSchemas.Length > 1)
+                    {
+                        AddTemplate(
+                            errors,
+                            "template.schema",
+                            pack.Manifest.Id,
+                            $"{instancePath}.templateId",
+                            lesson.Id,
+                            "templateId",
+                            $"Template '{instance.TemplateId}' version {instance.TemplateVersion} is registered more than once.");
+                        continue;
+                    }
+
+                    ValidateTemplateParameters(
+                        pack.Manifest.Id,
+                        lesson.Id,
+                        instancePath,
+                        instance,
+                        matchingSchemas[0],
+                        instructionLanguages,
+                        conceptIds,
+                        exampleIds,
+                        taskIds,
+                        assetIds,
+                        errors);
+                }
+            }
+        }
+    }
+
+    private static void ValidateTemplateParameters(
+        string packId,
+        string lessonId,
+        string instancePath,
+        TemplateInstance instance,
+        LessonTemplateSchema schema,
+        IReadOnlySet<string> instructionLanguages,
+        IReadOnlySet<string> conceptIds,
+        IReadOnlySet<string> exampleIds,
+        IReadOnlySet<string> taskIds,
+        IReadOnlySet<string> assetIds,
+        ICollection<ContentValidationError> errors)
+    {
+        if (schema.Version < 1 || schema.Parameters is null)
+        {
+            AddTemplate(
+                errors,
+                "template.schema",
+                packId,
+                $"{instancePath}.templateId",
+                lessonId,
+                "templateId",
+                $"Template '{schema.Id}' has an invalid registered schema.");
+            return;
+        }
+
+        var definitions = schema.Parameters
+            .Where(definition => definition is not null)
+            .GroupBy(definition => definition.Name, StringComparer.Ordinal)
+            .ToArray();
+        foreach (var invalid in definitions.Where(group =>
+                     group.Count() != 1 ||
+                     !IsCanonicalIdentifier(group.Key) ||
+                     !Enum.IsDefined(group.First().Kind)))
+        {
+            AddTemplate(
+                errors,
+                "template.schema",
+                packId,
+                $"{instancePath}.templateId",
+                lessonId,
+                invalid.Key,
+                $"Template '{schema.Id}' has an invalid or duplicate parameter definition '{invalid.Key}'.");
+        }
+
+        var definitionsByName = definitions
+            .Where(group => group.Count() == 1)
+            .ToDictionary(group => group.Key, group => group.Single(), StringComparer.Ordinal);
+        if (instance.Parameters is null)
+        {
+            return;
+        }
+
+        foreach (var required in definitionsByName.Values.Where(definition =>
+                     definition.IsRequired && !instance.Parameters.ContainsKey(definition.Name)))
+        {
+            AddTemplate(
+                errors,
+                "template.parameter.missing",
+                packId,
+                $"{instancePath}.parameters.{required.Name}",
+                lessonId,
+                required.Name,
+                $"Required parameter '{required.Name}' is missing.");
+        }
+
+        foreach (var (parameterName, value) in instance.Parameters)
+        {
+            var parameterPath = $"{instancePath}.parameters.{parameterName}";
+            if (!definitionsByName.TryGetValue(parameterName, out var definition))
+            {
+                AddTemplate(
+                    errors,
+                    "template.parameter.unknown",
+                    packId,
+                    parameterPath,
+                    lessonId,
+                    parameterName,
+                    $"Parameter '{parameterName}' is not defined by template '{schema.Id}'.");
+                continue;
+            }
+
+            if (value is null || value.Kind != definition.Kind)
+            {
+                AddTemplate(
+                    errors,
+                    "template.parameter.type",
+                    packId,
+                    parameterPath,
+                    lessonId,
+                    parameterName,
+                    $"Parameter '{parameterName}' must be '{definition.Kind}'.");
+                continue;
+            }
+
+            ValidateTemplateParameterValue(
+                packId,
+                lessonId,
+                parameterName,
+                parameterPath,
+                value,
+                instructionLanguages,
+                conceptIds,
+                exampleIds,
+                taskIds,
+                assetIds,
+                errors);
+        }
+    }
+
+    private static void ValidateTemplateParameterValue(
+        string packId,
+        string lessonId,
+        string parameterName,
+        string parameterPath,
+        TemplateParameterValue value,
+        IReadOnlySet<string> instructionLanguages,
+        IReadOnlySet<string> conceptIds,
+        IReadOnlySet<string> exampleIds,
+        IReadOnlySet<string> taskIds,
+        IReadOnlySet<string> assetIds,
+        ICollection<ContentValidationError> errors)
+    {
+        switch (value.Kind)
+        {
+            case TemplateParameterKind.Text:
+                ValidateScalarShape(value, packId, lessonId, parameterName, parameterPath, errors);
+                break;
+            case TemplateParameterKind.TextByLanguage:
+                ValidateTextMap(
+                    value,
+                    packId,
+                    lessonId,
+                    parameterName,
+                    parameterPath,
+                    instructionLanguages,
+                    errors);
+                break;
+            case TemplateParameterKind.ConceptReference:
+                ValidateTemplateReference(
+                    value,
+                    conceptIds,
+                    "concept",
+                    packId,
+                    lessonId,
+                    parameterName,
+                    parameterPath,
+                    errors);
+                break;
+            case TemplateParameterKind.ExampleReference:
+                ValidateTemplateReference(
+                    value,
+                    exampleIds,
+                    "example",
+                    packId,
+                    lessonId,
+                    parameterName,
+                    parameterPath,
+                    errors);
+                break;
+            case TemplateParameterKind.AssetReference:
+                ValidateTemplateReference(
+                    value,
+                    assetIds,
+                    "asset",
+                    packId,
+                    lessonId,
+                    parameterName,
+                    parameterPath,
+                    errors);
+                break;
+            case TemplateParameterKind.TaskReference:
+                ValidateTemplateReference(
+                    value,
+                    taskIds,
+                    "task",
+                    packId,
+                    lessonId,
+                    parameterName,
+                    parameterPath,
+                    errors);
+                break;
+            case TemplateParameterKind.OptionList:
+                ValidateOptions(
+                    value,
+                    assetIds,
+                    packId,
+                    lessonId,
+                    parameterName,
+                    parameterPath,
+                    errors);
+                break;
+            default:
+                AddTemplate(
+                    errors,
+                    "template.parameter.type",
+                    packId,
+                    parameterPath,
+                    lessonId,
+                    parameterName,
+                    $"Parameter '{parameterName}' has an invalid kind.");
+                break;
+        }
+    }
+
+    private static void ValidateScalarShape(
+        TemplateParameterValue value,
+        string packId,
+        string lessonId,
+        string parameterName,
+        string parameterPath,
+        ICollection<ContentValidationError> errors)
+    {
+        if (string.IsNullOrWhiteSpace(value.Value) || value.TextByLanguage is not null || value.Options is not null)
+        {
+            AddTemplate(
+                errors,
+                "template.parameter.type",
+                packId,
+                parameterPath,
+                lessonId,
+                parameterName,
+                $"Parameter '{parameterName}' needs one non-empty scalar value.");
+        }
+    }
+
+    private static void ValidateTextMap(
+        TemplateParameterValue value,
+        string packId,
+        string lessonId,
+        string parameterName,
+        string parameterPath,
+        IReadOnlySet<string> instructionLanguages,
+        ICollection<ContentValidationError> errors)
+    {
+        if (value.Value is not null || value.Options is not null || value.TextByLanguage is null || value.TextByLanguage.Count == 0)
+        {
+            AddTemplate(
+                errors,
+                "template.parameter.type",
+                packId,
+                parameterPath,
+                lessonId,
+                parameterName,
+                $"Parameter '{parameterName}' needs a non-empty language-to-text map.");
+            return;
+        }
+
+        foreach (var (language, text) in value.TextByLanguage)
+        {
+            if (!IsCanonicalLanguage(language) || string.IsNullOrWhiteSpace(text))
+            {
+                AddTemplate(
+                    errors,
+                    "template.parameter.language",
+                    packId,
+                    parameterPath,
+                    lessonId,
+                    parameterName,
+                    $"Parameter '{parameterName}' has an invalid language or empty text for '{language}'.");
+            }
+        }
+
+        foreach (var language in instructionLanguages.Where(language =>
+                     !value.TextByLanguage.TryGetValue(language, out var text) || string.IsNullOrWhiteSpace(text)))
+        {
+            AddTemplate(
+                errors,
+                "template.parameter.language",
+                packId,
+                parameterPath,
+                lessonId,
+                parameterName,
+                $"Parameter '{parameterName}' is missing instruction-language text for '{language}'.");
+        }
+    }
+
+    private static void ValidateTemplateReference(
+        TemplateParameterValue value,
+        IReadOnlySet<string> knownIds,
+        string kind,
+        string packId,
+        string lessonId,
+        string parameterName,
+        string parameterPath,
+        ICollection<ContentValidationError> errors)
+    {
+        if (value.TextByLanguage is not null || value.Options is not null ||
+            string.IsNullOrWhiteSpace(value.Value) || !knownIds.Contains(value.Value))
+        {
+            AddTemplate(
+                errors,
+                $"template.reference.{kind}",
+                packId,
+                parameterPath,
+                lessonId,
+                parameterName,
+                $"Referenced {kind} '{value.Value}' does not resolve.");
+        }
+    }
+
+    private static void ValidateOptions(
+        TemplateParameterValue value,
+        IReadOnlySet<string> assetIds,
+        string packId,
+        string lessonId,
+        string parameterName,
+        string parameterPath,
+        ICollection<ContentValidationError> errors)
+    {
+        if (value.Value is not null || value.TextByLanguage is not null || value.Options is null || value.Options.Count == 0)
+        {
+            AddTemplate(
+                errors,
+                "template.parameter.type",
+                packId,
+                parameterPath,
+                lessonId,
+                parameterName,
+                $"Parameter '{parameterName}' needs a non-empty option list.");
+            return;
+        }
+
+        var optionIds = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var option in value.Options)
+        {
+            if (option is null || !IsCanonicalIdentifier(option.Id) ||
+                !optionIds.Add(option.Id) || string.IsNullOrWhiteSpace(option.Label))
+            {
+                AddTemplate(
+                    errors,
+                    "template.option",
+                    packId,
+                    parameterPath,
+                    lessonId,
+                    parameterName,
+                    $"Parameter '{parameterName}' contains a missing, duplicate, or invalid option.");
+                continue;
+            }
+
+            if (option.AssetReferenceId is { } assetId && !assetIds.Contains(assetId))
+            {
+                AddTemplate(
+                    errors,
+                    "template.reference.asset",
+                    packId,
+                    parameterPath,
+                    lessonId,
+                    parameterName,
+                    $"Referenced asset '{assetId}' does not resolve.");
+            }
+        }
+    }
+
+    private static IReadOnlySet<string> RequiredInstructionLanguages(
+        IReadOnlyList<ContentPackDocument> packs,
+        ContentPackDocument pack)
+    {
+        if (pack.Manifest.Kind != ContentPackKind.TargetLanguage || pack.Manifest.Languages.Count != 1)
+        {
+            return new HashSet<string>(StringComparer.Ordinal);
+        }
+
+        var targetLanguage = pack.Manifest.Languages[0];
+        return packs
+            .Where(candidate =>
+                candidate.Manifest.Kind == ContentPackKind.Transfer &&
+                candidate.Manifest.Languages.Count == 2 &&
+                candidate.Manifest.Languages[1] == targetLanguage)
+            .Select(candidate => candidate.Manifest.Languages[0])
+            .ToHashSet(StringComparer.Ordinal);
+    }
+
+    private static bool IsCanonicalLanguage(string language)
+    {
+        try
+        {
+            return new LanguageCode(language).Value == language;
+        }
+        catch (ArgumentException)
+        {
+            return false;
         }
     }
 
@@ -1273,11 +1861,103 @@ public static class ContentPackValidator
             }
         }
 
+        foreach (var (example, path) in PackExamples(pack))
+        {
+            if (example?.Id is { } exampleId)
+            {
+                yield return (exampleId, packId, $"{path}.id");
+            }
+        }
+
+        foreach (var (lesson, lessonIndex) in Items(pack.Lessons).Select((item, index) => (item, index)))
+        {
+            if (lesson is null)
+            {
+                continue;
+            }
+
+            yield return (lesson.Id, packId, $"lessons[{lessonIndex}].id");
+            foreach (var (instance, instanceIndex) in Items(lesson.TemplateInstances).Select((item, index) => (item, index)))
+            {
+                if (instance is not null)
+                {
+                    yield return (
+                        instance.Id,
+                        packId,
+                        $"lessons[{lessonIndex}].templateInstances[{instanceIndex}].id");
+                }
+            }
+        }
+
         foreach (var (mapping, index) in Items(pack.TransferMappings).Select((item, index) => (item, index)))
         {
             if (mapping is not null)
             {
                 yield return (mapping.Id, packId, $"transferMappings[{index}].id");
+            }
+        }
+    }
+
+    private static IEnumerable<string> NamedExampleIds(ContentPackDocument pack) =>
+        PackExamples(pack)
+            .Where(item => item.Example?.Id is not null)
+            .Select(item => item.Example.Id!);
+
+    private static IEnumerable<(ContentExample Example, string Path)> PackExamples(ContentPackDocument pack)
+    {
+        foreach (var (concept, conceptIndex) in Items(pack.Concepts).Select((item, index) => (item, index)))
+        {
+            if (concept is null)
+            {
+                continue;
+            }
+
+            foreach (var (example, exampleIndex) in Items(concept.Examples).Select((item, index) => (item, index)))
+            {
+                if (example is not null)
+                {
+                    yield return (example, $"concepts[{conceptIndex}].examples[{exampleIndex}]");
+                }
+            }
+
+            foreach (var (example, exampleIndex) in Items(concept.Counterexamples).Select((item, index) => (item, index)))
+            {
+                if (example is not null)
+                {
+                    yield return (example, $"concepts[{conceptIndex}].counterexamples[{exampleIndex}]");
+                }
+            }
+        }
+
+        foreach (var (entry, entryIndex) in Items(pack.Lexicon).Select((item, index) => (item, index)))
+        {
+            if (entry is null)
+            {
+                continue;
+            }
+
+            foreach (var (example, exampleIndex) in Items(entry.Examples).Select((item, index) => (item, index)))
+            {
+                if (example is not null)
+                {
+                    yield return (example, $"lexicon[{entryIndex}].examples[{exampleIndex}]");
+                }
+            }
+        }
+
+        foreach (var (mapping, mappingIndex) in Items(pack.TransferMappings).Select((item, index) => (item, index)))
+        {
+            if (mapping is null)
+            {
+                continue;
+            }
+
+            foreach (var (example, exampleIndex) in Items(mapping.PositiveExamples).Select((item, index) => (item, index)))
+            {
+                if (example is not null)
+                {
+                    yield return (example, $"transferMappings[{mappingIndex}].positiveExamples[{exampleIndex}]");
+                }
             }
         }
     }
@@ -1636,6 +2316,10 @@ public static class ContentPackValidator
             {
                 Add(errors, "example.invalid", packId, $"{path}[{index}]", "An example needs text and meaning.");
             }
+            else if (example.Id is { } exampleId)
+            {
+                ValidateId(exampleId, packId, $"{path}[{index}].id", errors);
+            }
         }
     }
 
@@ -1729,6 +2413,22 @@ public static class ContentPackValidator
         string path,
         string message) =>
         errors.Add(new ContentValidationError(code, packId, path, message));
+
+    private static void AddTemplate(
+        ICollection<ContentValidationError> errors,
+        string code,
+        string packId,
+        string path,
+        string lessonId,
+        string parameter,
+        string message) =>
+        errors.Add(new ContentValidationError(
+            code,
+            packId,
+            path,
+            message,
+            lessonId,
+            parameter));
 
     private static IReadOnlyList<ContentValidationError> Order(
         IEnumerable<ContentValidationError> errors) =>

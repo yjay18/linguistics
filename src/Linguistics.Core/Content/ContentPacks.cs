@@ -118,7 +118,8 @@ public sealed record SourceRecord(
 public sealed record ContentExample(
     string Text,
     string Meaning,
-    string Note);
+    string Note,
+    string? Id = null);
 
 public sealed record ConceptSuccessCriteria(
     int MinimumAttempts,
@@ -271,6 +272,7 @@ public sealed record ContentPackDocument(
     IReadOnlyList<FeedbackTemplateContent> FeedbackTemplates,
     IReadOnlyList<RubricContent> Rubrics,
     IReadOnlyList<PronunciationUtteranceContent> PronunciationUtterances,
+    IReadOnlyList<LessonTemplateContent> Lessons,
     IReadOnlyList<TransferMappingContent> TransferMappings);
 
 public sealed class ValidatedContentCatalog

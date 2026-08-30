@@ -144,6 +144,29 @@ Given identical learner state, content version, configuration, clock input, and 
 
 Given identical validated packs and course configuration, unit order, lesson order, slide IDs, and slide content must also be reproducible. Presentation projection may reuse reviewed pack text and fixed product copy. Model generated presentation proposals remain drafts until validated and accepted through the authoring boundary.
 
+## Lesson-template rendering boundary
+
+`Linguistics.Core.Content` owns typed template IDs, schemas, parameter values,
+instances, reference resolution, and deterministic interaction evaluation. Pack loading
+and validation fail closed before catalog projection. `CourseCatalogBuilder` preserves
+authored template-instance IDs and order; a lesson without authored instances keeps the
+existing deterministic generated-card fallback.
+
+`Linguistics.App.Features.Learn.Templates` owns only presentation. Its registry maps an
+application-known template ID to an Avalonia renderer. A renderer receives resolved
+parameters, one selected instruction language, the effective reduced-motion setting,
+and an outcome callback. Renderers may play bounded choreography, expose replay and
+skip, and present an authored text-only equivalent, but they do not receive a learner
+repository, profile owner, mastery service, scheduler, or persistence handle. The
+callback reports a local `Ready`, `Success`, `Uncertain`, or `Failure` presentation
+outcome; the deterministic core evaluator remains the authority for that result.
+
+The developer gallery supplies fixed synthetic fixtures and cycles presentation states
+without reading learner history. Bundled machine-validated lesson instances are preview
+only: finishing one returns to the course map without creating mastery evidence or a
+progress record. Asset references remain optional until the validated Phase 3 manifest
+exists; omission renders complete authored text instead of an invented or remote asset.
+
 ## Curriculum authoring flow
 
 Canonical curriculum is never improvised at runtime:

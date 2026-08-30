@@ -11,6 +11,7 @@ public enum CoursePublicationState
 
 public enum CourseSlideKind
 {
+    Template,
     Welcome,
     Explanation,
     Example,
@@ -25,7 +26,14 @@ public sealed record CourseSlide(
     string Title,
     string Body,
     string SupportingText,
-    string? TaskId);
+    string? TaskId,
+    CourseTemplateInstance? TemplateInstance = null);
+
+public sealed record CourseTemplateInstance(
+    string Id,
+    TemplateId TemplateId,
+    int TemplateVersion,
+    ResolvedTemplateParameters Parameters);
 
 public sealed record CourseLesson(
     string Id,
@@ -116,9 +124,14 @@ internal static class CourseCatalogBuilder
             throw new InvalidOperationException("Validation only content cannot create a learner course.");
         }
 
-        var entries = packs
+        var targetPacks = packs
             .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)
-            .SelectMany(pack => pack.Concepts.Select(concept => new CourseConcept(pack.Manifest, concept)))
+            .ToArray();
+        var entries = targetPacks
+            .SelectMany(pack => pack.Concepts.Select(concept => new CourseConcept(
+                pack.Manifest,
+                concept,
+                pack.Lessons.FirstOrDefault(lesson => lesson.Id == $"lesson.{concept.Id}"))))
             .Where(entry => entry.Concept.Language == targetLanguage.Value)
             .ToArray();
         if (entries.Length == 0)
@@ -145,15 +158,30 @@ internal static class CourseCatalogBuilder
         var ordered = entries
             .OrderBy(Depth)
             .ToArray();
-        var tasks = packs
-            .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)
+        var tasks = targetPacks
             .SelectMany(pack => pack.Tasks)
             .Where(task => task.Language == targetLanguage.Value)
             .OrderBy(task => task.Id, StringComparer.Ordinal)
             .ToArray();
+        var conceptsById = packs
+            .SelectMany(pack => pack.Concepts)
+            .ToDictionary(concept => concept.Id, StringComparer.Ordinal);
+        var examplesById = packs
+            .SelectMany(NamedExamples)
+            .ToDictionary(example => example.Id!, StringComparer.Ordinal);
+        var tasksById = packs
+            .SelectMany(pack => pack.Tasks)
+            .ToDictionary(task => task.Id, StringComparer.Ordinal);
         var units = ordered
             .Chunk(configuration.LessonsPerUnit)
-            .Select((chunk, index) => CreateUnit(targetLanguage, index + 1, chunk, tasks))
+            .Select((chunk, index) => CreateUnit(
+                targetLanguage,
+                index + 1,
+                chunk,
+                tasks,
+                conceptsById,
+                examplesById,
+                tasksById))
             .ToArray();
 
         return new CourseCatalog(
@@ -170,7 +198,10 @@ internal static class CourseCatalogBuilder
         LanguageCode targetLanguage,
         int number,
         IReadOnlyList<CourseConcept> entries,
-        IReadOnlyList<TaskTemplateContent> tasks)
+        IReadOnlyList<TaskTemplateContent> tasks,
+        IReadOnlyDictionary<string, TargetConceptContent> conceptsById,
+        IReadOnlyDictionary<string, ContentExample> examplesById,
+        IReadOnlyDictionary<string, TaskTemplateContent> tasksById)
     {
         var dominantType = entries
             .GroupBy(entry => entry.Concept.Type)
@@ -185,17 +216,54 @@ internal static class CourseCatalogBuilder
             number,
             copy.Title,
             copy.Description,
-            entries.Select(entry => CreateLesson(entry, tasks)).ToArray());
+            entries.Select(entry => CreateLesson(
+                entry,
+                tasks,
+                conceptsById,
+                examplesById,
+                tasksById)).ToArray());
     }
 
     private static CourseLesson CreateLesson(
         CourseConcept entry,
-        IReadOnlyList<TaskTemplateContent> tasks)
+        IReadOnlyList<TaskTemplateContent> tasks,
+        IReadOnlyDictionary<string, TargetConceptContent> conceptsById,
+        IReadOnlyDictionary<string, ContentExample> examplesById,
+        IReadOnlyDictionary<string, TaskTemplateContent> tasksById)
     {
         var concept = entry.Concept;
         var lessonId = $"lesson.{concept.Id}";
         var task = tasks.FirstOrDefault(candidate =>
             candidate.EligibleConceptIds.Contains(concept.Id, StringComparer.Ordinal));
+        var slides = entry.Lesson is { } authored
+            ? authored.TemplateInstances
+                .Select((instance, index) => TemplateSlide(
+                    lessonId,
+                    index + 1,
+                    concept,
+                    instance,
+                    conceptsById,
+                    examplesById,
+                    tasksById))
+                .ToList()
+            : CreateFallbackSlides(lessonId, concept, task);
+
+        return new CourseLesson(
+            lessonId,
+            new ConceptId(concept.Id),
+            concept.Title,
+            concept.Description,
+            concept.CefrApproximation,
+            concept.Review.Status,
+            new VersionId($"{entry.Manifest.Id}.v{entry.Manifest.Version}"),
+            slides);
+    }
+
+    private static List<CourseSlide> CreateFallbackSlides(
+        string lessonId,
+        TargetConceptContent concept,
+        TaskTemplateContent? task)
+    {
         var slides = new List<CourseSlide>
         {
             Slide(
@@ -254,17 +322,75 @@ internal static class CourseCatalogBuilder
             concept.Title,
             concept.Description,
             "Completing this lesson records a visit. Mastery still requires assessed evidence."));
+        return slides;
+    }
 
-        return new CourseLesson(
-            lessonId,
-            new ConceptId(concept.Id),
+    private static CourseSlide TemplateSlide(
+        string lessonId,
+        int number,
+        TargetConceptContent concept,
+        TemplateInstance instance,
+        IReadOnlyDictionary<string, TargetConceptContent> conceptsById,
+        IReadOnlyDictionary<string, ContentExample> examplesById,
+        IReadOnlyDictionary<string, TaskTemplateContent> tasksById) =>
+        new(
+            $"{lessonId}.slide.{number:00}",
+            CourseSlideKind.Template,
+            "Lesson",
             concept.Title,
             concept.Description,
-            concept.CefrApproximation,
-            concept.Review.Status,
-            new VersionId($"{entry.Manifest.Id}.v{entry.Manifest.Version}"),
-            slides);
-    }
+            "Authored presentation",
+            instance.Parameters.Values
+                .FirstOrDefault(value => value.Kind == TemplateParameterKind.TaskReference)
+                ?.Value,
+            new CourseTemplateInstance(
+                instance.Id,
+                instance.TemplateId,
+                instance.TemplateVersion,
+                new ResolvedTemplateParameters(instance.Parameters
+                    .OrderBy(pair => pair.Key, StringComparer.Ordinal)
+                    .ToDictionary(
+                        pair => pair.Key,
+                        pair => ResolveParameter(pair.Value, conceptsById, examplesById, tasksById),
+                        StringComparer.Ordinal))));
+
+    private static ResolvedTemplateParameter ResolveParameter(
+        TemplateParameterValue value,
+        IReadOnlyDictionary<string, TargetConceptContent> conceptsById,
+        IReadOnlyDictionary<string, ContentExample> examplesById,
+        IReadOnlyDictionary<string, TaskTemplateContent> tasksById) =>
+        value.Kind switch
+        {
+            TemplateParameterKind.Text => new(value.Kind, Text: value.Value),
+            TemplateParameterKind.TextByLanguage => new(
+                value.Kind,
+                TextByLanguage: value.TextByLanguage!
+                    .OrderBy(pair => pair.Key, StringComparer.Ordinal)
+                    .ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal)),
+            TemplateParameterKind.ConceptReference => new(
+                value.Kind,
+                Concept: conceptsById[value.Value!]),
+            TemplateParameterKind.ExampleReference => new(
+                value.Kind,
+                Example: examplesById[value.Value!]),
+            TemplateParameterKind.AssetReference => new(
+                value.Kind,
+                AssetReferenceId: value.Value),
+            TemplateParameterKind.TaskReference => new(
+                value.Kind,
+                Task: tasksById[value.Value!]),
+            TemplateParameterKind.OptionList => new(
+                value.Kind,
+                Options: value.Options!.ToArray()),
+            _ => throw new InvalidOperationException($"Template parameter kind '{value.Kind}' is unsupported."),
+        };
+
+    private static IEnumerable<ContentExample> NamedExamples(ContentPackDocument pack) =>
+        pack.Concepts
+            .SelectMany(concept => concept.Examples.Concat(concept.Counterexamples))
+            .Concat(pack.Lexicon.SelectMany(entry => entry.Examples))
+            .Concat(pack.TransferMappings.SelectMany(mapping => mapping.PositiveExamples))
+            .Where(example => example.Id is not null);
 
     private static CourseSlide Slide(
         string lessonId,
@@ -286,5 +412,6 @@ internal static class CourseCatalogBuilder
 
     private sealed record CourseConcept(
         ContentPackManifest Manifest,
-        TargetConceptContent Concept);
+        TargetConceptContent Concept,
+        LessonTemplateContent? Lesson);
 }

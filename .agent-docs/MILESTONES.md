@@ -477,6 +477,17 @@ Review/progress is committed and pushed as `d182749`; local-data/release hardeni
 
 Paper design system v2 Phase 1 is complete in the current uncommitted working tree on 2026-08-30. It adds paired paper materials, tape/stamp/torn-edge controls, tested stepped choreography with skip and reduced-motion final states, a fixed nine-layer PaperStage, a generated raster-cutout developer sandbox, and paper treatment for shell, Today, Progress, and Settings. New microphone audio is not retained and the learner-facing retention preference has been removed while keeping schema compatibility. Two consecutive independent visual-QA passes are clean in both themes. Current real keyboard and VoiceOver interaction remains named unverified because the macOS process lacks Accessibility control permission; Windows native interaction is also unavailable.
 
+Paper design system v2 Phase 2 is complete in the same uncommitted working tree on
+2026-08-30. It adds schema-2 lesson presentation contracts, attributable validation,
+deterministic authored/fallback course projection, an app-only renderer registry and
+developer gallery, and object-spotlight, picture-match, and word-order-train renderers.
+The real German café-items lesson exercises all three as machine-validated preview
+content without writing mastery. Release build, 231 tests, formatting, real macOS
+mouse/keyboard interaction, text-only and reduced-motion fallbacks, both themes, and
+two consecutive post-fix Codex plus Gemini visual-QA passes are clean. Direct VoiceOver
+remains unverified because Accessibility trust is false; Windows native interaction is
+unavailable.
+
 ### Objective
 
 Complete the deterministic review loop, present capability-based progress, harden privacy and failure behavior, prove the full MVP journey, and prepare auditable macOS and Windows release paths.

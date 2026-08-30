@@ -2,6 +2,11 @@
 
 These images are generated developer-only visual fixtures for the Phase 1 PaperStage sandbox. They are not reviewed lesson content and are not part of a language content pack.
 
+Phase 2 also reuses these files only in the synthetic template gallery so the three
+renderers can be visually inspected before the asset pipeline exists. The real German
+preview lesson deliberately omits asset references and exercises the complete authored
+text-only path. This reuse does not promote the fixtures into curriculum content.
+
 Generation mode: built-in OpenAI image generation, new image mode, 2026-08-30.
 
 Prompt set:

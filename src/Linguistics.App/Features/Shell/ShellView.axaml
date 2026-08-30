@@ -92,6 +92,12 @@
                                  AutomationProperties.AutomationId="NavSettings">
                         <TextBlock Classes="nav-label" Text="Settings" />
                     </ListBoxItem>
+                    <ListBoxItem x:Name="TemplateGalleryNavItem"
+                                 Tag="Inspect synthetic template fixtures across outcomes, motion settings, and text only presentation."
+                                 IsVisible="False"
+                                 AutomationProperties.AutomationId="NavTemplateGallery">
+                        <TextBlock Classes="nav-label" Text="Template gallery" />
+                    </ListBoxItem>
                     <ListBoxItem x:Name="PaperStageNavItem"
                                  Tag="Inspect the fixed layers, anchor lines, transforms, themes, and motion paths."
                                  IsVisible="False"

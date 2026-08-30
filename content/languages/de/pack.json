@@ -2,7 +2,7 @@
   "manifest": {
     "id": "language.de.core",
     "version": 1,
-    "schemaVersion": 1,
+    "schemaVersion": 2,
     "kind": "targetLanguage",
     "languages": ["de"],
     "dependencies": [],
@@ -260,7 +260,7 @@
       "errorRuleIds": [],
       "taskTags": ["cafe"],
       "examples": [
-        { "text": "der Kaffee", "meaning": "coffee", "note": "Masculine." },
+        { "id": "example.de.cafe-items.kaffee", "text": "der Kaffee", "meaning": "coffee", "note": "Masculine." },
         { "text": "der Tee", "meaning": "tea", "note": "Masculine." },
         { "text": "das Wasser", "meaning": "water", "note": "Neuter." }
       ],
@@ -314,7 +314,7 @@
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": ["de.eval.order-frame", "de.eval.order-item"] },
       "errorRuleIds": ["de.error.order-bitte"],
       "taskTags": ["cafe"],
-      "examples": [{ "text": "Ich möchte einen Kaffee, bitte.", "meaning": "I would like a coffee, please.", "note": "Complete request for this slice." }],
+      "examples": [{ "id": "example.de.order-polite.kaffee", "text": "Ich möchte einen Kaffee, bitte.", "meaning": "I would like a coffee, please.", "note": "Complete request for this slice." }],
       "counterexamples": [{ "text": "Kaffee.", "meaning": "Coffee.", "note": "The item may be understood, but the target request frame is absent." }],
       "sourceIds": ["source.de.dib-2017", "source.de.grimm-grammar", "source.de.cefr-2020"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Register, naturalness, and success threshold need competent review." }
@@ -524,6 +524,83 @@
     { "id": "de.utterance.name", "language": "de", "locale": "de-de", "text": "Ich heiße Mina.", "purpose": "production", "assessmentMode": "none", "conceptIds": ["de.function.state-name"], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Text metadata only; no voice or pronunciation score is approved." } },
     { "id": "de.utterance.origin", "language": "de", "locale": "de-de", "text": "Ich komme aus Indien.", "purpose": "production", "assessmentMode": "none", "conceptIds": ["de.function.state-origin"], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Text metadata only; no voice or pronunciation score is approved." } },
     { "id": "de.utterance.order", "language": "de", "locale": "de-de", "text": "Ich möchte einen Kaffee, bitte.", "purpose": "production", "assessmentMode": "none", "conceptIds": ["de.function.order-polite"], "sourceIds": ["source.de.dib-2017", "source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Text metadata only; no voice or pronunciation score is approved." } }
+  ],
+  "lessons": [
+    {
+      "id": "lesson.de.lexicon.cafe-items",
+      "templateInstances": [
+        {
+          "id": "lesson.de.lexicon.cafe-items.template.01",
+          "templateId": "object-spotlight",
+          "templateVersion": 1,
+          "parameters": {
+            "word": { "kind": "text", "value": "Kaffee" },
+            "article": { "kind": "text", "value": "der" },
+            "meaning": {
+              "kind": "textByLanguage",
+              "textByLanguage": { "en": "coffee", "hi": "कॉफ़ी" }
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Notice the word, article, and meaning together.",
+                "hi": "शब्द, लेख और अर्थ को एक साथ देखें।"
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.lexicon.cafe-items" },
+            "example": { "kind": "exampleReference", "value": "example.de.cafe-items.kaffee" }
+          }
+        },
+        {
+          "id": "lesson.de.lexicon.cafe-items.template.02",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": { "en": "Choose Kaffee.", "hi": "Kaffee चुनें।" }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.lexicon.cafe-items" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "kaffee", "label": "Kaffee" },
+                { "id": "tee", "label": "Tee" },
+                { "id": "wasser", "label": "Wasser" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "kaffee" }
+          }
+        },
+        {
+          "id": "lesson.de.lexicon.cafe-items.template.03",
+          "templateId": "word-order-train",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Build the complete café request.",
+                "hi": "कैफ़े का पूरा अनुरोध सही क्रम में बनाएँ।"
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.function.order-polite" },
+            "example": { "kind": "exampleReference", "value": "example.de.order-polite.kaffee" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "ich", "label": "Ich" },
+                { "id": "moechte", "label": "möchte" },
+                { "id": "einen", "label": "einen" },
+                { "id": "kaffee", "label": "Kaffee," },
+                { "id": "bitte", "label": "bitte." }
+              ]
+            },
+            "task": { "kind": "taskReference", "value": "de.task.cafe.order-one-item" }
+          }
+        }
+      ]
+    }
   ],
   "transferMappings": []
 }
