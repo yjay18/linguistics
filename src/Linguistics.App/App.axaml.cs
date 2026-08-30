@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
 using Linguistics.App.Diagnostics;
 using Linguistics.App.LocalAI;
 using Linguistics.App.Persistence;
@@ -16,6 +17,7 @@ public partial class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        ApplyDeveloperThemeOverride();
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -89,4 +91,21 @@ public partial class App : Application
             Environment.GetEnvironmentVariable("LINGUISTICS_DEVELOPER_MODE"),
             "1",
             StringComparison.Ordinal);
+
+    private void ApplyDeveloperThemeOverride()
+    {
+        if (!DeveloperModeEnabled())
+        {
+            return;
+        }
+
+        RequestedThemeVariant = Environment
+            .GetEnvironmentVariable("LINGUISTICS_DEVELOPER_THEME")?
+            .ToUpperInvariant() switch
+        {
+            "LIGHT" => ThemeVariant.Light,
+            "DARK" => ThemeVariant.Dark,
+            _ => ThemeVariant.Default,
+        };
+    }
 }

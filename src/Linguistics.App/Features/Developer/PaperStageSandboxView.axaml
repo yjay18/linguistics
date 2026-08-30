@@ -1,0 +1,242 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="820"
+             d:DesignHeight="560"
+             x:Class="Linguistics.App.Features.Developer.PaperStageSandboxView">
+    <StackPanel Spacing="18">
+        <Grid ColumnDefinitions="*,Auto"
+              ColumnSpacing="20">
+            <StackPanel Spacing="5">
+                <TextBlock Text="NINE LAYER COMPOSITION"
+                           Classes="eyebrow" />
+                <TextBlock Text="Market morning"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock x:Name="MotionStatusText"
+                           Classes="muted"
+                           AutomationProperties.LiveSetting="Polite" />
+            </StackPanel>
+            <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Spacing="8">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Spacing="8">
+                    <Button Content="Replay"
+                            Classes="primary"
+                            Click="OnReplayClicked"
+                            AutomationProperties.AutomationId="ReplayPaperStage" />
+                    <Button Content="Skip"
+                            Classes="quiet"
+                            Click="OnSkipClicked"
+                            AutomationProperties.AutomationId="SkipPaperStage" />
+                    <CheckBox x:Name="ShowAnchorsCheckBox"
+                              Content="Show anchors"
+                              IsChecked="True"
+                              IsCheckedChanged="OnShowAnchorsChanged"
+                              VerticalAlignment="Center"
+                              AutomationProperties.AutomationId="ShowPaperStageAnchors" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Spacing="7">
+                    <TextBlock Text="Theme"
+                               Classes="muted"
+                               VerticalAlignment="Center" />
+                    <Button Content="Light"
+                            Classes="quiet"
+                            Padding="10,6"
+                            Click="OnLightThemeClicked" />
+                    <Button Content="Dark"
+                            Classes="quiet"
+                            Padding="10,6"
+                            Click="OnDarkThemeClicked" />
+                    <Button Content="System"
+                            Classes="quiet"
+                            Padding="10,6"
+                            Click="OnSystemThemeClicked" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <controls:PaperCard Padding="14"
+                            CornerRadius="20">
+            <Border Height="360"
+                    Background="{DynamicResource AppPaperAltBrush}"
+                    BorderBrush="{DynamicResource AppPaperEdgeBrush}"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    ClipToBounds="True">
+                <Grid>
+                    <controls:PaperStage x:Name="Stage"
+                                         ClipToBounds="True"
+                                         AutomationProperties.Name="Composed nine layer paper stage">
+                        <Image x:Name="BackdropLayer"
+                               Source="/Assets/PaperStage/market-backdrop.png"
+                               Stretch="UniformToFill"
+                               controls:PaperStage.Layer="Backdrop" />
+
+                        <Border x:Name="PaperWashLayer"
+                                controls:PaperStage.Layer="PaperWash"
+                                Background="{DynamicResource AppPaperGrainBrush}"
+                                Opacity="0.38" />
+
+                        <Image x:Name="SupportingCastLayer"
+                               Width="238"
+                               Height="166"
+                               Source="/Assets/PaperStage/market-stall-cutout.png"
+                               Stretch="Uniform"
+                               controls:PaperStage.Layer="SupportingCast"
+                               controls:PaperStage.Anchor="Foot"
+                               controls:PaperStage.AnchorX="0.2"
+                               controls:PaperStage.AnchorOffsetY="2"
+                               controls:PaperStage.LayerTransform="rotate(-0.8deg)"
+                               RenderTransformOrigin="50%,100%" />
+
+                        <Grid x:Name="AmbientLayer"
+                              controls:PaperStage.Layer="AmbientPieces"
+                              IsHitTestVisible="False">
+                            <Image Width="420"
+                                   Height="126"
+                                   Margin="0,8,0,0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Top"
+                                   Source="/Assets/PaperStage/success-burst-cutout.png"
+                                   Stretch="Uniform"
+                                   Opacity="0.2" />
+                        </Grid>
+
+                        <controls:PaperTape x:Name="LocationTape"
+                                            Content="MARKET MORNING"
+                                            Angle="-2"
+                                            controls:PaperStage.Layer="TapedLabel"
+                                            controls:PaperStage.Anchor="Head"
+                                            controls:PaperStage.AnchorX="0.23"
+                                            controls:PaperStage.AnchorOffsetY="-12" />
+
+                        <Grid x:Name="ForegroundLayer"
+                              controls:PaperStage.Layer="ForegroundSilhouettes"
+                              IsHitTestVisible="False">
+                            <Image Height="150"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Bottom"
+                                   Source="/Assets/PaperStage/market-foreground-cutout.png"
+                                   Stretch="Fill" />
+                        </Grid>
+
+                        <Grid x:Name="SubjectLayer"
+                              Width="142"
+                              Height="220"
+                              controls:PaperStage.Layer="Subject"
+                              controls:PaperStage.Anchor="Foot"
+                              controls:PaperStage.AnchorX="0.54"
+                              RenderTransformOrigin="50%,100%">
+                            <Image Source="/Assets/PaperStage/learner-cutout.png"
+                                   Stretch="Uniform" />
+                        </Grid>
+
+                        <Grid x:Name="ReactionLayer"
+                              Width="250"
+                              Height="148"
+                              controls:PaperStage.Layer="ReactionBurst"
+                              controls:PaperStage.Anchor="Shoulder"
+                              controls:PaperStage.AnchorX="0.54"
+                              controls:PaperStage.AnchorOffsetY="-48">
+                            <Image Source="/Assets/PaperStage/success-burst-cutout.png"
+                                   Stretch="Uniform" />
+                        </Grid>
+
+                        <controls:PaperCard x:Name="VerdictLayer"
+                                            Width="194"
+                                            Padding="14"
+                                            CornerRadius="8"
+                                            controls:PaperStage.Layer="VerdictCard"
+                                            controls:PaperStage.Anchor="Waist"
+                                            controls:PaperStage.AnchorX="0.79"
+                                            controls:PaperStage.AnchorOffsetY="6"
+                                            controls:PaperStage.LayerTransform="rotate(-1.4deg)"
+                                            RenderTransformOrigin="50%,50%">
+                            <StackPanel HorizontalAlignment="Center"
+                                        Spacing="7">
+                                <controls:PaperStamp x:Name="VerdictStamp"
+                                                     Classes="rectangle"
+                                                     Content="PASSED"
+                                                     Angle="1" />
+                                <TextBlock Text="Meaning landed"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           TextAlignment="Center" />
+                            </StackPanel>
+                        </controls:PaperCard>
+                    </controls:PaperStage>
+
+                    <Grid x:Name="AnchorGuideOverlay"
+                          RowDefinitions="18*,16*,24*,30*,12*"
+                          IsHitTestVisible="False"
+                          Opacity="0.7"
+                          ZIndex="20">
+                        <Border Grid.Row="0"
+                                Height="1"
+                                VerticalAlignment="Bottom"
+                                Background="{DynamicResource AppFocusBrush}" />
+                        <TextBlock Grid.Row="0"
+                                   Margin="0,0,8,2"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Bottom"
+                                   Text="HEAD"
+                                   FontSize="9"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource AppFocusBrush}" />
+                        <Border Grid.Row="1"
+                                Height="1"
+                                VerticalAlignment="Bottom"
+                                Background="{DynamicResource AppFocusBrush}" />
+                        <TextBlock Grid.Row="1"
+                                   Margin="0,0,8,2"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Bottom"
+                                   Text="SHOULDER"
+                                   FontSize="9"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource AppFocusBrush}" />
+                        <Border Grid.Row="2"
+                                Height="1"
+                                VerticalAlignment="Bottom"
+                                Background="{DynamicResource AppFocusBrush}" />
+                        <TextBlock Grid.Row="2"
+                                   Margin="0,0,8,2"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Bottom"
+                                   Text="WAIST"
+                                   FontSize="9"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource AppFocusBrush}" />
+                        <Border Grid.Row="3"
+                                Height="1"
+                                VerticalAlignment="Bottom"
+                                Background="{DynamicResource AppFocusBrush}" />
+                        <TextBlock Grid.Row="3"
+                                   Margin="0,0,8,2"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Bottom"
+                                   Text="FOOT"
+                                   FontSize="9"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource AppFocusBrush}" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </controls:PaperCard>
+
+        <TextBlock Text="Backdrop · wash · cast · ambient · taped label · foreground · subject · reaction · verdict"
+                   Classes="muted"
+                   FontSize="12"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>
