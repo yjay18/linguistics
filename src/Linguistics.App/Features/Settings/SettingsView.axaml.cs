@@ -60,7 +60,6 @@ public partial class SettingsView : UserControl
         MicrophoneNow.IsChecked = profile.Settings.Microphone == MicrophonePreference.Now;
         MicrophoneLater.IsChecked = profile.Settings.Microphone == MicrophonePreference.Later;
         MicrophoneNever.IsChecked = profile.Settings.Microphone == MicrophonePreference.Never;
-        RetainRecordings.IsChecked = profile.Settings.RetainSpeechRecordings;
         ReduceMotion.IsChecked = profile.Settings.ReduceMotion;
 
         RefreshPreferredLanguageOptions();
@@ -180,11 +179,11 @@ public partial class SettingsView : UserControl
             SpeechServiceStatus.Text =
                 $"Playback: {germanVoices} installed German voice(s).\n" +
                 $"Recognition: {recognition.Message}\n" +
-                $"Retained recordings: {recordings.FileCount} file(s), {FormatBytes(recordings.TotalBytes)}.";
+                $"Existing recordings: {recordings.FileCount} file(s), {FormatBytes(recordings.TotalBytes)}.";
             SpeechModelDetailsText.Text = recognition.Model is { } model
                 ? $"Configured model: {model.Name} • {FormatBytes(model.SizeBytes)} • {model.ProviderVersion}\n" +
                   $"Source: {model.Source}\nLicense: {model.License}\n" +
-                  "The current stream adapter does not retain microphone audio, even if the saved future retention preference is on."
+                  "The current stream adapter does not retain microphone audio."
                 : "To enable transcription, explicitly install whisper.cpp and set LINGUISTICS_WHISPER_MODEL to a model whose size, source, and terms you reviewed. Linguistics does not download or redistribute it.";
         }
         finally
@@ -236,7 +235,7 @@ public partial class SettingsView : UserControl
                 SelectedShortcutMode(),
                 preferred,
                 SelectedMicrophonePreference(),
-                RetainRecordings.IsChecked == true,
+                RetainSpeechRecordings: false,
                 SelectedModelName(),
                 ReduceMotion.IsChecked == true);
             _profile = await _saveProfile(_profile with { Settings = settings });

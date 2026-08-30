@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -12,22 +13,29 @@
                 Padding="20,28,20,22"
                 Background="{DynamicResource AppNavBrush}"
                 AutomationProperties.LandmarkType="Navigation">
-            <Grid RowDefinitions="Auto,*,Auto">
+            <Grid>
+                <Border Background="{DynamicResource AppPaperGrainBrush}"
+                        IsHitTestVisible="False"
+                        Opacity="0.14" />
+                <Grid RowDefinitions="Auto,*,Auto">
                 <Grid Grid.Row="0"
                       Margin="4,0,4,30"
                       ColumnDefinitions="48,*"
                       ColumnSpacing="13">
-                    <Border Width="46"
-                            Height="46"
-                            CornerRadius="15"
-                            Background="{DynamicResource AppGlowBrush}">
-                        <TextBlock Text="L"
-                                   FontSize="23"
-                                   FontWeight="Bold"
-                                   Foreground="{DynamicResource AppNavBrush}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" />
-                    </Border>
+                    <controls:CutoutFrame Width="48"
+                                          Height="48"
+                                          Padding="4"
+                                          Classes="tilt-left">
+                        <Border CornerRadius="10"
+                                Background="{DynamicResource AppGlowBrush}">
+                            <TextBlock Text="L"
+                                       FontSize="23"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource AppNavBrush}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                    </controls:CutoutFrame>
                     <StackPanel Grid.Column="1"
                                 VerticalAlignment="Center"
                                 Spacing="2">
@@ -48,82 +56,93 @@
                          SelectionMode="Single"
                          AutomationProperties.Name="Main navigation"
                          AutomationProperties.AutomationId="MainNavigation">
-                    <ListBoxItem Content="Today"
+                    <ListBoxItem x:Name="TodayNavItem"
                                  Tag="Choose one calm next step from your local learning evidence."
-                                 AutomationProperties.AutomationId="NavToday" />
-                    <ListBoxItem Content="Learn"
+                                 AutomationProperties.AutomationId="NavToday">
+                        <TextBlock Classes="nav-label" Text="Today" />
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="LearnNavItem"
                                  Tag="Explore a course path built from short goals, examples, activities, and recaps."
-                                 AutomationProperties.AutomationId="NavLearn" />
-                    <ListBoxItem Content="Scenarios"
-                                 Tag="Practice one complete café exchange with deterministic feedback and local progress."
-                                 AutomationProperties.AutomationId="NavScenarios" />
-                    <ListBoxItem Content="Pronunciation"
-                                 Tag="Practice one approved phrase with system playback and honest local word recognition evidence."
-                                 AutomationProperties.AutomationId="NavPronunciation" />
-                    <ListBoxItem Content="Review"
-                                 Tag="Retrieve due phrases, concepts, pronunciation targets, and recurring forms."
-                                 AutomationProperties.AutomationId="NavReview" />
-                    <ListBoxItem Content="Progress"
+                                 AutomationProperties.AutomationId="NavLearn">
+                        <TextBlock Classes="nav-label" Text="Learn" />
+                    </ListBoxItem>
+                    <ListBoxItem Tag="Practice one complete café exchange with deterministic feedback and local progress."
+                                 AutomationProperties.AutomationId="NavScenarios">
+                        <TextBlock Classes="nav-label" Text="Scenarios" />
+                    </ListBoxItem>
+                    <ListBoxItem Tag="Practice one approved phrase with system playback and honest local word recognition evidence."
+                                 AutomationProperties.AutomationId="NavPronunciation">
+                        <TextBlock Classes="nav-label" Text="Pronunciation" />
+                    </ListBoxItem>
+                    <ListBoxItem Tag="Retrieve due phrases, concepts, pronunciation targets, and recurring forms."
+                                 AutomationProperties.AutomationId="NavReview">
+                        <TextBlock Classes="nav-label" Text="Review" />
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="ProgressNavItem"
                                  Tag="See practical capabilities first, with concept evidence as supporting detail."
-                                 AutomationProperties.AutomationId="NavProgress" />
-                    <ListBoxItem Content="Languages"
-                                 Tag="Review and edit the languages in your local learner profile."
-                                 AutomationProperties.AutomationId="NavLanguages" />
-                    <ListBoxItem Content="Settings"
+                                 AutomationProperties.AutomationId="NavProgress">
+                        <TextBlock Classes="nav-label" Text="Progress" />
+                    </ListBoxItem>
+                    <ListBoxItem Tag="Review and edit the languages in your local learner profile."
+                                 AutomationProperties.AutomationId="NavLanguages">
+                        <TextBlock Classes="nav-label" Text="Languages" />
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="SettingsNavItem"
                                  Tag="Review privacy and multilingual preferences or delete your local learner profile."
-                                 AutomationProperties.AutomationId="NavSettings" />
+                                 AutomationProperties.AutomationId="NavSettings">
+                        <TextBlock Classes="nav-label" Text="Settings" />
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="PaperStageNavItem"
+                                 Tag="Inspect the fixed layers, anchor lines, transforms, themes, and motion paths."
+                                 IsVisible="False"
+                                 AutomationProperties.AutomationId="NavPaperStage">
+                        <TextBlock Classes="nav-label" Text="Paper stage" />
+                    </ListBoxItem>
                 </ListBox>
-                <Border Grid.Row="2"
-                        Margin="4,24,4,0"
-                        Padding="14,12"
-                        CornerRadius="13"
-                        Background="{DynamicResource AppNavSurfaceBrush}">
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
-                        <Border Width="9"
-                                Height="9"
-                                CornerRadius="5"
-                                Background="{DynamicResource AppNavAccentBrush}"
-                                VerticalAlignment="Center" />
-                        <StackPanel Grid.Column="1" Spacing="1">
-                            <TextBlock Text="ON DEVICE"
-                                       FontSize="10"
-                                       FontWeight="Bold"
-                                       LetterSpacing="1.1"
-                                       Foreground="{DynamicResource AppNavAccentBrush}" />
-                            <TextBlock Text="Private by default"
-                                       FontSize="12"
-                                       Foreground="{DynamicResource AppNavMutedBrush}" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <controls:PaperTape Grid.Row="2"
+                                    Margin="4,24,4,0"
+                                    Content="ON DEVICE · PRIVATE"
+                                    Classes="compact"
+                                    Angle="-0.8"
+                                    FontSize="10"
+                                    AutomationProperties.Name="Private on device" />
+                </Grid>
             </Grid>
         </Border>
 
         <Grid Grid.Column="1">
             <Canvas IsHitTestVisible="False"
                     ClipToBounds="True">
-                <Ellipse Width="420"
-                         Height="420"
-                         Canvas.Right="-180"
-                         Canvas.Top="-210"
-                         Fill="{DynamicResource AppAccentSoftBrush}"
-                         Opacity="0.42" />
-                <Ellipse Width="300"
-                         Height="300"
-                         Canvas.Left="-110"
-                         Canvas.Bottom="-170"
-                         Fill="{DynamicResource AppAmberSoftBrush}"
-                         Opacity="0.34" />
+                <controls:CutoutFrame Width="390"
+                                      Height="210"
+                                      Padding="0"
+                                      Canvas.Right="-150"
+                                      Canvas.Top="-120"
+                                      Background="{DynamicResource AppAccentSoftBrush}"
+                                      Classes="tilt-right"
+                                      Opacity="0.55" />
+                <controls:CutoutFrame Width="310"
+                                      Height="180"
+                                      Padding="0"
+                                      Canvas.Left="-105"
+                                      Canvas.Bottom="-105"
+                                      Background="{DynamicResource AppAmberSoftBrush}"
+                                      Classes="tilt-left"
+                                      Opacity="0.46" />
             </Canvas>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+            <ScrollViewer x:Name="MainScrollViewer"
+                          HorizontalScrollBarVisibility="Disabled"
                           AutomationProperties.LandmarkType="Main">
                 <StackPanel Margin="54,44,64,70"
                             MaxWidth="900"
                             HorizontalAlignment="Left"
                             Spacing="28">
                     <StackPanel Spacing="8">
-                        <TextBlock Text="YOUR LOCAL LEARNING STUDIO"
-                                   Classes="eyebrow" />
+                        <controls:PaperTape Content="YOUR LOCAL LEARNING STUDIO"
+                                            Classes="compact"
+                                            Angle="-0.6"
+                                            HorizontalAlignment="Left"
+                                            AutomationProperties.Name="Your local learning studio" />
                         <TextBlock x:Name="PageTitle"
                                    Classes="display"
                                    AutomationProperties.HeadingLevel="1"

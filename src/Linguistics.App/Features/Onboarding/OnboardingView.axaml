@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -31,10 +32,10 @@
         <ScrollViewer Grid.Row="1"
                       Margin="0,28,0,20"
                       HorizontalScrollBarVisibility="Disabled">
-            <Border MaxWidth="800"
-                    HorizontalAlignment="Stretch"
-                    Classes="card"
-                    Padding="38">
+            <controls:PaperCard MaxWidth="800"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                Padding="38">
                 <StackPanel Spacing="20">
                 <TextBlock x:Name="QuestionTitle"
                            Classes="display"
@@ -191,18 +192,9 @@
                                Opacity="0.72" />
                 </StackPanel>
 
-                <StackPanel x:Name="RetentionStep"
+                <StackPanel x:Name="MotionStep"
                             IsVisible="False"
-                            Spacing="18">
-                    <StackPanel Spacing="10">
-                        <CheckBox x:Name="RetainRecordings"
-                                  Content="Keep speech recordings for later review"
-                                  IsChecked="False"
-                                  AutomationProperties.AutomationId="RetainRecordings" />
-                        <TextBlock Text="Off by default. The current local transcription adapter does not save microphone audio; retained recording support remains a future explicit capability."
-                                   TextWrapping="Wrap"
-                                   Opacity="0.72" />
-                    </StackPanel>
+                            Spacing="10">
                     <StackPanel Spacing="10">
                         <CheckBox x:Name="ReduceMotion"
                                   Content="Reduce interface motion"
@@ -228,7 +220,7 @@
                                Opacity="0.72" />
                 </StackPanel>
                 </StackPanel>
-            </Border>
+            </controls:PaperCard>
         </ScrollViewer>
 
         <Grid Grid.Row="2"

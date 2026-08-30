@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -7,7 +8,7 @@
              d:DesignHeight="900"
              x:Class="Linguistics.App.Features.Settings.SettingsView">
     <StackPanel Spacing="24">
-        <Border Classes="card">
+        <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
             <TextBlock Text="Multilingual shortcuts"
                        FontSize="22"
@@ -45,9 +46,9 @@
                 </ComboBox>
             </StackPanel>
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border Classes="card">
+        <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
             <TextBlock Text="Local conversation model"
                        FontSize="22"
@@ -80,9 +81,9 @@
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border Classes="card">
+        <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
             <TextBlock Text="Local speech"
                        FontSize="22"
@@ -107,9 +108,9 @@
                        Opacity="0.72"
                        AutomationProperties.AutomationId="LocalSpeechModelDetails" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border Classes="card">
+        <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
             <TextBlock Text="Microphone"
                        FontSize="22"
@@ -128,18 +129,15 @@
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border Classes="card">
+        <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
-            <TextBlock Text="Speech recording retention"
+            <TextBlock Text="Speech recordings"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
-            <CheckBox x:Name="RetainRecordings"
-                      Content="Keep speech recordings for later review"
-                      AutomationProperties.AutomationId="SettingsRetainRecordings" />
-            <TextBlock Text="Off by default. The current Whisper stream adapter never saves microphone audio, so this remains a future preference and is not acted on."
+            <TextBlock Text="New microphone audio is not retained. The current Whisper stream adapter never enables audio saving."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             <Button x:Name="DeleteSpeechRecordingsButton"
@@ -154,9 +152,9 @@
                        AutomationProperties.LiveSetting="Assertive"
                        AutomationProperties.AutomationId="SpeechDeletionStatus" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border Classes="card">
+        <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
             <TextBlock Text="Motion and focus"
                        FontSize="22"
@@ -169,7 +167,7 @@
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
         <TextBlock x:Name="ErrorText"
                    IsVisible="False"
@@ -189,7 +187,7 @@
                 Click="OnSaveClicked"
                 AutomationProperties.AutomationId="SaveSettings" />
 
-        <Border Classes="danger-card">
+        <controls:PaperCard Classes="danger">
             <StackPanel Spacing="12">
                 <TextBlock Text="Delete local learning data"
                            FontSize="20"
@@ -225,6 +223,6 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
     </StackPanel>
 </UserControl>

@@ -81,7 +81,7 @@ public partial class TodayView : UserControl
         DueCountText.Text = snapshot.Progress.DueReviewCount.ToString();
         StrongCountText.Text = snapshot.Progress.StrongConceptCount.ToString();
         SpeechCountText.Text = snapshot.Progress.PronunciationPracticeCount.ToString();
-        (PrimaryActionButton.Content, ActionGlyph.Text) = _action switch
+        (PrimaryActionButton.Content, ActionGlyph.Content) = _action switch
         {
             TodayAction.Review => ("Open review", "↻"),
             TodayAction.Pronunciation => ("Open pronunciation", "◌"),

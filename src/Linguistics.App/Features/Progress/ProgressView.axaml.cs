@@ -65,7 +65,7 @@ public partial class ProgressView : UserControl
         var capability = snapshot.Progress.Capabilities.Single();
         CapabilityTitle.Text = capability.Definition.Title;
         CapabilityDescription.Text = capability.Definition.Description;
-        (CapabilityGlyph.Text, CapabilityEvidence.Text) = capability.Status switch
+        (CapabilityGlyph.Content, CapabilityEvidence.Text) = capability.Status switch
         {
             CapabilityStatus.Demonstrated => (
                 "✓",

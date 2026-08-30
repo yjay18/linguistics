@@ -1,6 +1,9 @@
+using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
+using Avalonia.Threading;
 using Linguistics.App.Diagnostics;
+using Linguistics.App.Features.Developer;
 using Linguistics.App.Persistence;
 using Linguistics.App.Features.Languages;
 using Linguistics.App.Features.Learn;
@@ -39,7 +42,16 @@ public partial class ShellView : UserControl
         InitializeComponent();
         NavigationList.SelectionChanged += OnNavigationChanged;
         AttachedToVisualTree += (_, _) => ApplyMotionPreference();
-        NavigationList.SelectedIndex = DeveloperModeEnabled() ? 1 : 0;
+        PaperStageNavItem.IsVisible = DeveloperModeEnabled();
+        NavigationList.SelectedItem = RequestedDeveloperPage() switch
+        {
+            "PAPERSTAGE" => PaperStageNavItem,
+            "TODAY" => TodayNavItem,
+            "PROGRESS" => ProgressNavItem,
+            "SETTINGS" or "SETTINGSBOTTOM" => SettingsNavItem,
+            _ when DeveloperModeEnabled() => LearnNavItem,
+            _ => TodayNavItem,
+        };
     }
 
     public ShellView(
@@ -85,7 +97,8 @@ public partial class ShellView : UserControl
             return;
         }
 
-        PageTitle.Text = item.Content?.ToString() ?? "Linguistics";
+        var destination = GetDestination(item);
+        PageTitle.Text = destination;
         PageDescription.Text = item.Tag?.ToString() ?? "This area is not available yet.";
 
         if (_profile is null || _profileOwner is null)
@@ -94,7 +107,7 @@ public partial class ShellView : UserControl
             return;
         }
 
-        switch (item.Content?.ToString())
+        switch (destination)
         {
             case "Today":
                 ShowPage(new TodayView(
@@ -170,6 +183,9 @@ public partial class ShellView : UserControl
                     _speechRecognitionProvider,
                     _speechRecordingStore));
                 break;
+            case "Paper stage" when DeveloperModeEnabled():
+                ShowPage(new PaperStageSandboxView());
+                break;
             default:
                 ShowUnavailable();
                 break;
@@ -198,6 +214,7 @@ public partial class ShellView : UserControl
         PageContent.Content = page;
         PageContent.IsVisible = true;
         UnavailableState.IsVisible = false;
+        QueueScrollPosition();
     }
 
     private void ShowUnavailable()
@@ -212,7 +229,7 @@ public partial class ShellView : UserControl
         var item = NavigationList.Items
             .OfType<ListBoxItem>()
             .SingleOrDefault(candidate =>
-                string.Equals(candidate.Content?.ToString(), destination, StringComparison.Ordinal));
+                string.Equals(GetDestination(candidate), destination, StringComparison.Ordinal));
         if (item is not null)
         {
             NavigationList.SelectedItem = item;
@@ -233,4 +250,30 @@ public partial class ShellView : UserControl
             Environment.GetEnvironmentVariable("LINGUISTICS_DEVELOPER_MODE"),
             "1",
             StringComparison.Ordinal);
+
+    private void QueueScrollPosition() =>
+        Dispatcher.UIThread.Post(
+            () =>
+            {
+                var bottom = DeveloperModeEnabled() && RequestedDeveloperPage() == "SETTINGSBOTTOM";
+                MainScrollViewer.Offset = new Vector(
+                    0,
+                    bottom
+                        ? Math.Max(0, MainScrollViewer.Extent.Height - MainScrollViewer.Viewport.Height)
+                        : 0);
+            },
+            DispatcherPriority.Loaded);
+
+    private static string? RequestedDeveloperPage() =>
+        DeveloperModeEnabled()
+            ? Environment
+                .GetEnvironmentVariable("LINGUISTICS_DEVELOPER_PAGE")
+                ?.Trim()
+                .ToUpperInvariant()
+            : null;
+
+    private static string GetDestination(ListBoxItem item) =>
+        item.Content is TextBlock label && !string.IsNullOrWhiteSpace(label.Text)
+            ? label.Text
+            : item.Content?.ToString() ?? "Linguistics";
 }

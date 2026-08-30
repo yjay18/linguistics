@@ -14,7 +14,7 @@ public partial class OnboardingView : UserControl
         "How do you use those languages?",
         "How should multilingual shortcuts work?",
         "Would you like to use a microphone?",
-        "Should speech recordings be retained?",
+        "Would you like less interface motion?",
         "Review your local profile",
     ];
 
@@ -25,7 +25,7 @@ public partial class OnboardingView : UserControl
         "These preferences decide whether a language may support explanations; they do not infer identity or background.",
         "A language switch will always be visible and explained. Reviewed data, not a model, decides when a comparison is valid.",
         "Local speech is optional. Setup never requests microphone permission.",
-        "Choose data retention and motion preferences. Both can be changed later.",
+        "Reduce nonessential transitions while keeping every interaction and status cue.",
         "Nothing is written until you finish this step.",
     ];
 
@@ -46,7 +46,7 @@ public partial class OnboardingView : UserControl
             LanguageDetailsStep,
             ShortcutStep,
             MicrophoneStep,
-            RetentionStep,
+            MotionStep,
             ReviewStep,
         ];
 
@@ -215,7 +215,7 @@ public partial class OnboardingView : UserControl
                 SelectedShortcutMode(),
                 SelectedPreferredLanguage(),
                 SelectedMicrophonePreference(),
-                RetainRecordings.IsChecked == true,
+                RetainSpeechRecordings: false,
                 ReduceMotion: ReduceMotion.IsChecked == true));
 
     private IReadOnlyList<KnownLanguage> BuildKnownLanguages()
@@ -306,7 +306,7 @@ public partial class OnboardingView : UserControl
             .AppendLine($"Known languages: {knownNames}")
             .AppendLine($"Multilingual shortcuts: {ShortcutLabel(SelectedShortcutMode())}")
             .AppendLine($"Microphone: {MicrophoneLabel(SelectedMicrophonePreference())}")
-            .AppendLine($"Retain speech recordings: {(RetainRecordings.IsChecked == true ? "Yes" : "No")}")
+            .AppendLine("Speech recordings: Not retained")
             .Append($"Reduce interface motion: {(ReduceMotion.IsChecked == true ? "Yes" : "No")}");
 
         return summary.ToString();

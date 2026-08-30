@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -7,34 +8,33 @@
              d:DesignHeight="780"
              x:Class="Linguistics.App.Features.Progress.ProgressView">
     <StackPanel Spacing="22">
-        <Border x:Name="LoadingState"
-                Classes="soft-card">
+        <controls:PaperCard x:Name="LoadingState"
+                            Classes="soft">
             <StackPanel Spacing="12">
                 <ProgressBar IsIndeterminate="True"
                              AutomationProperties.Name="Loading local progress" />
                 <TextBlock Text="Reading capability evidence…"
                            AutomationProperties.LiveSetting="Polite" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border x:Name="CapabilityCard"
-                IsVisible="False"
-                Classes="hero-card">
+        <controls:PaperCard x:Name="CapabilityCard"
+                            IsVisible="False"
+                            Padding="28"
+                            Background="{DynamicResource AppPaperAltBrush}">
             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="20">
-                <Border Width="72"
-                        Height="72"
-                        CornerRadius="36"
-                        Background="{DynamicResource AppAccentBrush}">
-                    <TextBlock x:Name="CapabilityGlyph"
-                               Text="○"
-                               FontSize="31"
-                               Foreground="{DynamicResource AppOnAccentBrush}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
-                </Border>
+                <controls:PaperStamp x:Name="CapabilityGlyph"
+                                     Width="72"
+                                     Height="72"
+                                     Content="○"
+                                     FontSize="28"
+                                     Angle="-2"
+                                     AutomationProperties.Name="Capability status" />
                 <StackPanel Grid.Column="1" Spacing="7">
-                    <TextBlock Text="COMMUNICATIVE CAPABILITY"
-                               Classes="eyebrow" />
+                    <controls:PaperTape Content="COMMUNICATIVE CAPABILITY"
+                                        Classes="compact"
+                                        Angle="1"
+                                        HorizontalAlignment="Left" />
                     <TextBlock x:Name="CapabilityTitle"
                                FontSize="26"
                                FontWeight="SemiBold"
@@ -51,56 +51,70 @@
                                AutomationProperties.AutomationId="CapabilityEvidence" />
                 </StackPanel>
             </Grid>
-        </Border>
+        </controls:PaperCard>
 
-        <TextBlock x:Name="ConceptHeading"
-                   Text="Concept evidence"
-                   FontSize="22"
-                   FontWeight="SemiBold"
-                   IsVisible="False"
-                   AutomationProperties.HeadingLevel="2" />
+        <controls:PaperTape x:Name="ConceptHeading"
+                            Content="CONCEPT EVIDENCE"
+                            Classes="compact"
+                            Angle="-1"
+                            FontSize="12"
+                            HorizontalAlignment="Left"
+                            IsVisible="False"
+                            AutomationProperties.Name="Concept evidence"
+                            AutomationProperties.HeadingLevel="2" />
         <Grid x:Name="ConceptGrid"
               IsVisible="False"
               ColumnDefinitions="*,*,*"
               ColumnSpacing="12">
-            <Border Grid.Column="0"
-                    Classes="metric-card"
-                    Background="{DynamicResource AppBlueSoftBrush}">
-                <StackPanel Spacing="4">
-                    <TextBlock x:Name="PracticingCount"
-                               FontSize="28"
-                               FontWeight="SemiBold" />
-                    <TextBlock Text="practicing"
-                               Opacity="0.7" />
-                </StackPanel>
-            </Border>
-            <Border Grid.Column="1"
-                    Classes="metric-card"
-                    Background="{DynamicResource AppAccentSoftBrush}">
-                <StackPanel Spacing="4">
-                    <TextBlock x:Name="StrongCount"
-                               FontSize="28"
-                               FontWeight="SemiBold" />
-                    <TextBlock Text="strong"
-                               Opacity="0.7" />
-                </StackPanel>
-            </Border>
-            <Border Grid.Column="2"
-                    Classes="metric-card"
-                    Background="{DynamicResource AppAmberSoftBrush}">
-                <StackPanel Spacing="4">
-                    <TextBlock x:Name="DueCount"
-                               FontSize="28"
-                               FontWeight="SemiBold" />
-                    <TextBlock Text="due"
-                               Opacity="0.7" />
-                </StackPanel>
-            </Border>
+            <controls:CutoutFrame Grid.Column="0"
+                                  Classes="tilt-left"
+                                  Padding="6">
+                <Border Padding="18"
+                        Background="{DynamicResource AppBlueSoftBrush}"
+                        CornerRadius="2">
+                    <StackPanel Spacing="4">
+                        <TextBlock x:Name="PracticingCount"
+                                   FontSize="28"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="practicing"
+                                   Opacity="0.7" />
+                    </StackPanel>
+                </Border>
+            </controls:CutoutFrame>
+            <controls:CutoutFrame Grid.Column="1"
+                                  Padding="6">
+                <Border Padding="18"
+                        Background="{DynamicResource AppAccentSoftBrush}"
+                        CornerRadius="2">
+                    <StackPanel Spacing="4">
+                        <TextBlock x:Name="StrongCount"
+                                   FontSize="28"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="strong"
+                                   Opacity="0.7" />
+                    </StackPanel>
+                </Border>
+            </controls:CutoutFrame>
+            <controls:CutoutFrame Grid.Column="2"
+                                  Classes="tilt-right"
+                                  Padding="6">
+                <Border Padding="18"
+                        Background="{DynamicResource AppAmberSoftBrush}"
+                        CornerRadius="2">
+                    <StackPanel Spacing="4">
+                        <TextBlock x:Name="DueCount"
+                                   FontSize="28"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="due"
+                                   Opacity="0.7" />
+                    </StackPanel>
+                </Border>
+            </controls:CutoutFrame>
         </Grid>
 
-        <Border x:Name="MethodCard"
-                IsVisible="False"
-                Classes="soft-card">
+        <controls:PaperCard x:Name="MethodCard"
+                            IsVisible="False"
+                            Classes="soft">
             <StackPanel Spacing="7">
                 <TextBlock Text="How this is calculated"
                            FontSize="18"
@@ -110,7 +124,7 @@
                            TextWrapping="Wrap"
                            Opacity="0.74" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
         <TextBlock x:Name="ErrorText"
                    IsVisible="False"
