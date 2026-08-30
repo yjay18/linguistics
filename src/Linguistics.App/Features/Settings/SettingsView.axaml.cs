@@ -179,7 +179,7 @@ public partial class SettingsView : UserControl
             SpeechServiceStatus.Text =
                 $"Playback: {germanVoices} installed German voice(s).\n" +
                 $"Recognition: {recognition.Message}\n" +
-                $"Existing recordings: {recordings.FileCount} file(s), {FormatBytes(recordings.TotalBytes)}.";
+                $"Legacy audio files: {recordings.FileCount} file(s), {FormatBytes(recordings.TotalBytes)}.";
             SpeechModelDetailsText.Text = recognition.Model is { } model
                 ? $"Configured model: {model.Name} • {FormatBytes(model.SizeBytes)} • {model.ProviderVersion}\n" +
                   $"Source: {model.Source}\nLicense: {model.License}\n" +

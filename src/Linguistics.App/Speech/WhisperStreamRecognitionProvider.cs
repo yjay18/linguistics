@@ -399,7 +399,7 @@ public sealed partial class WhisperStreamRecognitionProvider : ISpeechRecognitio
 
         if (request.RetainAudio)
         {
-            return "This Whisper stream adapter does not retain recordings. Turn retention off or continue with text.";
+            return "This Whisper stream adapter never retains recordings. Continue with text.";
         }
 
         return null;

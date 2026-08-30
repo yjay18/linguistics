@@ -133,15 +133,15 @@
 
         <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
-            <TextBlock Text="Speech recordings"
+            <TextBlock Text="Legacy audio cleanup"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
-            <TextBlock Text="New microphone audio is not retained. The current Whisper stream adapter never enables audio saving."
+            <TextBlock Text="New microphone audio is never retained. Remove any legacy or interrupted audio files here."
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             <Button x:Name="DeleteSpeechRecordingsButton"
-                    Content="Delete speech recordings"
+                    Content="Delete legacy audio files"
                     Classes="quiet"
                     HorizontalAlignment="Left"
                     Click="OnDeleteSpeechRecordingsClicked"
@@ -193,7 +193,7 @@
                            FontSize="20"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="Linguistics stores your profile and learning history locally, with recovery copies owned by the app, a redacted diagnostic log, and any speech recordings. Deletion removes all of those learner data classes from this device. It preserves unrelated files, installed models, and content packs."
+                <TextBlock Text="Linguistics stores your profile and learning history locally, with recovery copies owned by the app, a redacted diagnostic log, and any app owned legacy audio files. Deletion removes all of those learner data classes from this device. It preserves unrelated files, installed models, and content packs."
                            TextWrapping="Wrap" />
                 <Button x:Name="ShowDeleteConfirmationButton"
                         Content="Delete all learning data"
@@ -205,7 +205,7 @@
                             IsVisible="False"
                             Spacing="10"
                             AutomationProperties.AutomationId="DeleteConfirmation">
-                    <TextBlock Text="Delete all local learner history, recovery copies, diagnostics, and recordings now? This cannot be undone. Linguistics will return to setup."
+                    <TextBlock Text="Delete all local learner history, recovery copies, diagnostics, and legacy audio files now? This cannot be undone. Linguistics will return to setup."
                                FontWeight="SemiBold"
                                TextWrapping="Wrap"
                                AutomationProperties.LiveSetting="Assertive" />

@@ -18,6 +18,6 @@ Every choreography uses `MotionPreferences.ShouldReduce`. The saved “Reduce in
 
 ## Privacy and verification
 
-The current speech adapter does not retain new microphone audio. Onboarding and Settings therefore expose no recording-retention preference; Settings keeps only the maintenance action for deleting any legacy recordings.
+The current speech adapter processes microphone audio transiently and never retains it. Onboarding and Settings therefore expose no retention preference; Settings keeps only the maintenance action for deleting any legacy or temporary audio files.
 
 Automated tests parse both theme dictionaries, calculate contrast for every new semantic color pair, enforce paired resources and tinted shadows, verify stage order and anchors, and prove stepped frame counts, reduced-motion final state, sub-four-second timelines, and skip behavior. Visual checks and screenshots remain separate from keyboard, VoiceOver, Narrator, and real-interaction evidence.

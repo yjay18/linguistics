@@ -306,7 +306,7 @@ public partial class OnboardingView : UserControl
             .AppendLine($"Known languages: {knownNames}")
             .AppendLine($"Multilingual shortcuts: {ShortcutLabel(SelectedShortcutMode())}")
             .AppendLine($"Microphone: {MicrophoneLabel(SelectedMicrophonePreference())}")
-            .AppendLine("Speech recordings: Not retained")
+            .AppendLine("Speech audio: Never retained")
             .Append($"Reduce interface motion: {(ReduceMotion.IsChecked == true ? "Yes" : "No")}");
 
         return summary.ToString();

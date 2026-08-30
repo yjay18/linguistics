@@ -12,7 +12,7 @@ The first adapter invokes a separately installed `whisper-stream` process with f
 
 Set `LINGUISTICS_WHISPER_STREAM` to the exact executable when it is not on `PATH`, and set `LINGUISTICS_WHISPER_MODEL` to a model file you acquired and reviewed. The Settings check reports the configured model filename, local size, provider contract version, upstream source, and license caveat. Linguistics never downloads, bundles, or selects a model automatically.
 
-The adapter does not pass `--save-audio`; therefore it creates no temporary or retained recording. The saved retention toggle remains a future-provider preference and is explicitly not acted on by this adapter. The independent deletion action still removes only app-owned `.wav` files should a later approved provider create them.
+The adapter does not pass `--save-audio`; therefore it creates no temporary or retained recording. Microphone audio is processed transiently and is never retained; the legacy schema field is always written `false` and is not a future-provider preference. The independent deletion action remains as exact-scope cleanup for app-owned legacy or temporary `.wav` files.
 
 ## Pronunciation evidence
 

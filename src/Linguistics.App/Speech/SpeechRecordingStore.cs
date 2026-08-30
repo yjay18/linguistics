@@ -57,7 +57,7 @@ public sealed class SpeechRecordingStore
             return Task.FromResult(new SpeechRecordingDeletionResult(
                 0,
                 0,
-                "No retained speech recordings were found."));
+                "No app-owned legacy audio files were found."));
         }
 
         if (IsReparsePoint(_rootDirectory))
@@ -110,9 +110,9 @@ public sealed class SpeechRecordingStore
             failed,
             failed == 0
                 ? deleted == 0
-                    ? "No retained speech recordings were found."
-                    : $"Deleted {deleted} retained speech recording(s)."
-                : $"Deleted {deleted} retained speech recording(s); {failed} could not be removed."));
+                    ? "No app-owned legacy audio files were found."
+                    : $"Deleted {deleted} app-owned legacy audio file(s)."
+                : $"Deleted {deleted} app-owned legacy audio file(s); {failed} could not be removed."));
     }
 
     private static bool IsReparsePoint(string path) =>

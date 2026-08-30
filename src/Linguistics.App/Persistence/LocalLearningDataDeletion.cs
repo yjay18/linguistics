@@ -22,7 +22,7 @@ public static class LocalLearningDataDeletion
             if (deletion.FailedFileCount > 0)
             {
                 throw new LearnerStoreException(
-                    "Some speech recordings owned by the app could not be deleted; learning data was kept so you can retry.");
+                    "Some app-owned legacy audio files could not be deleted; learning data was kept so you can retry.");
             }
         }
 
