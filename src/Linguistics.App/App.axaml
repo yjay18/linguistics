@@ -1,5 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
              x:Class="Linguistics.App.App"
              Name="Linguistics"
              RequestedThemeVariant="Default">
@@ -11,6 +12,16 @@
                     <SolidColorBrush x:Key="AppSurfaceBrush" Color="#FFFEFA" />
                     <SolidColorBrush x:Key="AppSurfaceAltBrush" Color="#EEECE3" />
                     <SolidColorBrush x:Key="AppSurfaceStrongBrush" Color="#E1E6DF" />
+                    <SolidColorBrush x:Key="AppPaperBrush" Color="#FFFDF6" />
+                    <SolidColorBrush x:Key="AppPaperAltBrush" Color="#F4F1E8" />
+                    <SolidColorBrush x:Key="AppPaperEdgeBrush" Color="#C8D3CB" />
+                    <SolidColorBrush x:Key="AppCutoutMarginBrush" Color="#FFFEFA" />
+                    <SolidColorBrush x:Key="AppCutoutEdgeBrush" Color="#D8D2C5" />
+                    <SolidColorBrush x:Key="AppTapeBrush" Color="#E1C77B" />
+                    <SolidColorBrush x:Key="AppTapeEdgeBrush" Color="#765A20" />
+                    <SolidColorBrush x:Key="AppStampBrush" Color="#F6EDE4" />
+                    <SolidColorBrush x:Key="AppStampInkBrush" Color="#873A34" />
+                    <SolidColorBrush x:Key="AppTornEdgeBrush" Color="#DDE7DE" />
                     <SolidColorBrush x:Key="AppTextBrush" Color="#19312A" />
                     <SolidColorBrush x:Key="AppTextMutedBrush" Color="#617169" />
                     <SolidColorBrush x:Key="AppBorderBrush" Color="#D4DCD6" />
@@ -32,6 +43,20 @@
                     <SolidColorBrush x:Key="AppNavTextBrush" Color="#EEF7F3" />
                     <SolidColorBrush x:Key="AppNavMutedBrush" Color="#B7CBC3" />
                     <SolidColorBrush x:Key="AppNavAccentBrush" Color="#75D8B4" />
+                    <BoxShadows x:Key="AppPaperShadow">0 14 30 0 #2B355448, 0 2 6 0 #18355448</BoxShadows>
+                    <BoxShadows x:Key="AppCutoutShadow">0 9 18 0 #30334D43, 0 2 4 0 #1F334D43</BoxShadows>
+                    <BoxShadows x:Key="AppStampShadow">0 7 14 0 #263C5147, 0 2 3 0 #1C3C5147</BoxShadows>
+                    <DrawingBrush x:Key="AppPaperGrainBrush"
+                                  SourceRect="0,0,96,96"
+                                  DestinationRect="0,0,96,96"
+                                  Stretch="None"
+                                  TileMode="Tile"
+                                  Opacity="0.1">
+                        <DrawingBrush.Drawing>
+                            <GeometryDrawing Brush="#71827A"
+                                             Geometry="M 7,12 L 10,12 10,12.35 7,12.35 Z M 43,8 L 44,8 44,8.5 43,8.5 Z M 82,17 L 85,17 85,17.35 82,17.35 Z M 24,29 L 25,29 25,29.5 24,29.5 Z M 61,35 L 64,35 64,35.35 61,35.35 Z M 91,41 L 92,41 92,41.5 91,41.5 Z M 13,52 L 16,52 16,52.35 13,52.35 Z M 48,58 L 49,58 49,58.5 48,58.5 Z M 75,64 L 78,64 78,64.35 75,64.35 Z M 31,72 L 32,72 32,72.5 31,72.5 Z M 4,84 L 7,84 7,84.35 4,84.35 Z M 55,89 L 58,89 58,89.35 55,89.35 Z M 88,79 L 89,79 89,79.5 88,79.5 Z" />
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
                     <LinearGradientBrush x:Key="AppHeroBrush"
                                          StartPoint="0%,0%"
                                          EndPoint="100%,100%">
@@ -51,6 +76,16 @@
                     <SolidColorBrush x:Key="AppSurfaceBrush" Color="#14241F" />
                     <SolidColorBrush x:Key="AppSurfaceAltBrush" Color="#1B3029" />
                     <SolidColorBrush x:Key="AppSurfaceStrongBrush" Color="#254038" />
+                    <SolidColorBrush x:Key="AppPaperBrush" Color="#152720" />
+                    <SolidColorBrush x:Key="AppPaperAltBrush" Color="#1D342C" />
+                    <SolidColorBrush x:Key="AppPaperEdgeBrush" Color="#3A5A50" />
+                    <SolidColorBrush x:Key="AppCutoutMarginBrush" Color="#E8E3D8" />
+                    <SolidColorBrush x:Key="AppCutoutEdgeBrush" Color="#C7C0B3" />
+                    <SolidColorBrush x:Key="AppTapeBrush" Color="#C6A863" />
+                    <SolidColorBrush x:Key="AppTapeEdgeBrush" Color="#594117" />
+                    <SolidColorBrush x:Key="AppStampBrush" Color="#1D342C" />
+                    <SolidColorBrush x:Key="AppStampInkBrush" Color="#F3B19B" />
+                    <SolidColorBrush x:Key="AppTornEdgeBrush" Color="#29453B" />
                     <SolidColorBrush x:Key="AppTextBrush" Color="#F0F6F2" />
                     <SolidColorBrush x:Key="AppTextMutedBrush" Color="#B4C4BD" />
                     <SolidColorBrush x:Key="AppBorderBrush" Color="#315047" />
@@ -72,6 +107,20 @@
                     <SolidColorBrush x:Key="AppNavTextBrush" Color="#EFF8F4" />
                     <SolidColorBrush x:Key="AppNavMutedBrush" Color="#A8BEB5" />
                     <SolidColorBrush x:Key="AppNavAccentBrush" Color="#72D5B2" />
+                    <BoxShadows x:Key="AppPaperShadow">0 18 40 0 #8A071B14, 0 3 8 0 #68071B14</BoxShadows>
+                    <BoxShadows x:Key="AppCutoutShadow">0 10 20 0 #7305100D, 0 2 5 0 #5905100D</BoxShadows>
+                    <BoxShadows x:Key="AppStampShadow">0 8 16 0 #780B1C16, 0 2 4 0 #600B1C16</BoxShadows>
+                    <DrawingBrush x:Key="AppPaperGrainBrush"
+                                  SourceRect="0,0,96,96"
+                                  DestinationRect="0,0,96,96"
+                                  Stretch="None"
+                                  TileMode="Tile"
+                                  Opacity="0.12">
+                        <DrawingBrush.Drawing>
+                            <GeometryDrawing Brush="#6E847A"
+                                             Geometry="M 7,12 L 10,12 10,12.35 7,12.35 Z M 43,8 L 44,8 44,8.5 43,8.5 Z M 82,17 L 85,17 85,17.35 82,17.35 Z M 24,29 L 25,29 25,29.5 24,29.5 Z M 61,35 L 64,35 64,35.35 61,35.35 Z M 91,41 L 92,41 92,41.5 91,41.5 Z M 13,52 L 16,52 16,52.35 13,52.35 Z M 48,58 L 49,58 49,58.5 48,58.5 Z M 75,64 L 78,64 78,64.35 75,64.35 Z M 31,72 L 32,72 32,72.5 31,72.5 Z M 4,84 L 7,84 7,84.35 4,84.35 Z M 55,89 L 58,89 58,89.35 55,89.35 Z M 88,79 L 89,79 89,79.5 88,79.5 Z" />
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
                     <LinearGradientBrush x:Key="AppHeroBrush"
                                          StartPoint="0%,0%"
                                          EndPoint="100%,100%">
@@ -90,7 +139,12 @@
     </Application.Resources>
 
     <Application.Styles>
-        <FluentTheme />
+        <FluentTheme>
+            <FluentTheme.Palettes>
+                <ColorPaletteResources x:Key="Light" Accent="#1D745C" />
+                <ColorPaletteResources x:Key="Dark" Accent="#72D5B2" />
+            </FluentTheme.Palettes>
+        </FluentTheme>
 
         <Style Selector="Window">
             <Setter Property="Background" Value="{DynamicResource AppCanvasBrush}" />
@@ -239,17 +293,17 @@
         <Style Selector="Border.card">
             <Setter Property="Padding" Value="24" />
             <Setter Property="CornerRadius" Value="18" />
-            <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource AppPaperBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppPaperEdgeBrush}" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BoxShadow" Value="0 12 30 0 #18000000" />
+            <Setter Property="BoxShadow" Value="{DynamicResource AppPaperShadow}" />
             <Setter Property="RenderTransform" Value="translateY(0px)" />
         </Style>
         <Style Selector="Border.soft-card">
             <Setter Property="Padding" Value="20" />
             <Setter Property="CornerRadius" Value="16" />
-            <Setter Property="Background" Value="{DynamicResource AppSurfaceAltBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource AppPaperAltBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppPaperEdgeBrush}" />
             <Setter Property="BorderThickness" Value="1" />
         </Style>
         <Style Selector="Border.hero-card">
@@ -258,7 +312,7 @@
             <Setter Property="Background" Value="{DynamicResource AppHeroBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BoxShadow" Value="0 18 42 0 #1C000000" />
+            <Setter Property="BoxShadow" Value="{DynamicResource AppPaperShadow}" />
         </Style>
         <Style Selector="Border.accent-card">
             <Setter Property="Padding" Value="20" />
@@ -292,6 +346,221 @@
             <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style Selector="controls|PaperCard">
+            <Setter Property="Padding" Value="24" />
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="Background" Value="{DynamicResource AppPaperBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppPaperEdgeBrush}" />
+            <Setter Property="BorderThickness" Value="1,1,2,1" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BoxShadow="{DynamicResource AppPaperShadow}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            ClipToBounds="True">
+                        <Grid>
+                            <Border Background="{DynamicResource AppPaperGrainBrush}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsHitTestVisible="False" />
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="controls|PaperCard.soft">
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="Background" Value="{DynamicResource AppPaperAltBrush}" />
+        </Style>
+        <Style Selector="controls|PaperCard.settings-sheet">
+            <Setter Property="Padding" Value="22" />
+            <Setter Property="CornerRadius" Value="12" />
+        </Style>
+        <Style Selector="controls|PaperCard.danger">
+            <Setter Property="Background" Value="{DynamicResource AppDangerSoftBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppDangerBrush}" />
+            <Setter Property="BorderThickness" Value="1,1,2,1" />
+        </Style>
+
+        <Style Selector="controls|CutoutFrame">
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Background" Value="{DynamicResource AppCutoutMarginBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppCutoutEdgeBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BoxShadow="{DynamicResource AppCutoutShadow}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <Grid>
+                            <Border Background="{DynamicResource AppPaperGrainBrush}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsHitTestVisible="False" />
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="controls|CutoutFrame.tilt-left">
+            <Setter Property="RenderTransform" Value="rotate(-1.5deg)" />
+        </Style>
+        <Style Selector="controls|CutoutFrame.tilt-right">
+            <Setter Property="RenderTransform" Value="rotate(1.5deg)" />
+        </Style>
+
+        <Style Selector="controls|PaperTape">
+            <Setter Property="MinWidth" Value="132" />
+            <Setter Property="MinHeight" Value="62" />
+            <Setter Property="Padding" Value="15,13,15,12" />
+            <Setter Property="Background" Value="{DynamicResource AppPaperBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppPaperEdgeBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid Margin="2,0,2,2">
+                        <Border Margin="0,10,0,0"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1,1,2,1"
+                                BoxShadow="{DynamicResource AppCutoutShadow}"
+                                CornerRadius="3">
+                            <Grid>
+                                <Border Background="{DynamicResource AppPaperGrainBrush}"
+                                        CornerRadius="3"
+                                        IsHitTestVisible="False"
+                                        Opacity="0.6" />
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           FontStyle="{TemplateBinding FontStyle}"
+                                           FontWeight="{TemplateBinding FontWeight}"
+                                           Foreground="{DynamicResource AppTextBrush}"
+                                           Text="{TemplateBinding Content}"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+                        <Path Width="76"
+                              Height="22"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Data="M 8,0 L 100,2 L 92,32 L 0,30 Z"
+                              Fill="{DynamicResource AppTapeBrush}"
+                              Stroke="{DynamicResource AppTapeEdgeBrush}"
+                              StrokeThickness="1"
+                              Stretch="Fill"
+                              Opacity="0.68" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="controls|PaperTape.compact">
+            <Setter Property="MinWidth" Value="108" />
+            <Setter Property="MinHeight" Value="48" />
+            <Setter Property="Padding" Value="11,8,11,7" />
+            <Setter Property="FontSize" Value="11" />
+        </Style>
+
+        <Style Selector="controls|PaperStamp">
+            <Setter Property="Width" Value="76" />
+            <Setter Property="Height" Value="76" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="CornerRadius" Value="999" />
+            <Setter Property="Background" Value="{DynamicResource AppStampBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppStampInkBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppStampInkBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BoxShadow="{DynamicResource AppStampShadow}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <Grid>
+                            <Border Background="{DynamicResource AppPaperGrainBrush}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsHitTestVisible="False"
+                                    Opacity="0.5" />
+                            <Border Margin="5"
+                                    BorderBrush="{DynamicResource AppStampInkBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsHitTestVisible="False"
+                                    Opacity="0.55" />
+                            <TextBlock Margin="{TemplateBinding Padding}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontStyle="{TemplateBinding FontStyle}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       Foreground="{DynamicResource AppStampInkBrush}"
+                                       Text="{TemplateBinding Content}"
+                                       TextAlignment="Center"
+                                       TextWrapping="NoWrap" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="controls|PaperStamp.rectangle">
+            <Setter Property="Width" Value="104" />
+            <Setter Property="Height" Value="48" />
+            <Setter Property="Padding" Value="15,8" />
+            <Setter Property="CornerRadius" Value="4" />
+        </Style>
+
+        <Style Selector="controls|TornEdge">
+            <Setter Property="Height" Value="26" />
+            <Setter Property="Background" Value="{DynamicResource AppTornEdgeBrush}" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Path Data="M 0,11 L 1.5,5 L 4,8 L 5.5,2 L 9,10 L 12,6 L 14,12 L 18,4 L 21,9 L 25,3 L 29,11 L 32,7 L 36,13 L 39,5 L 43,9 L 47,2 L 51,11 L 54,6 L 58,12 L 62,4 L 65,8 L 69,1 L 73,11 L 77,7 L 80,12 L 84,5 L 87,9 L 91,3 L 94,11 L 97,6 L 100,10 L 100,24 L 0,24 Z"
+                          Fill="{TemplateBinding Background}"
+                          Stroke="{DynamicResource AppPaperEdgeBrush}"
+                          StrokeThickness="0.6"
+                          Stretch="Fill" />
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="controls|TornEdge.bottom">
+            <Setter Property="RenderTransform" Value="rotate(180deg)" />
         </Style>
         <Style Selector="Border.lesson-unit-number, Border.lesson-symbol">
             <Setter Property="Background" Value="{DynamicResource AppAccentBrush}" />
@@ -335,17 +604,47 @@
             <Setter Property="Padding" Value="15,11" />
             <Setter Property="CornerRadius" Value="12" />
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Foreground" Value="{DynamicResource AppNavMutedBrush}" />
             <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="RenderTransform" Value="translateX(0px)" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="ListBox.nav > ListBoxItem TextBlock.nav-label">
+            <Setter Property="Foreground" Value="{DynamicResource AppNavMutedBrush}" />
         </Style>
         <Style Selector="ListBox.nav > ListBoxItem:pointerover">
             <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
             <Setter Property="Foreground" Value="{DynamicResource AppNavTextBrush}" />
         </Style>
+        <Style Selector="ListBox.nav > ListBoxItem:pointerover TextBlock.nav-label">
+            <Setter Property="Foreground" Value="{DynamicResource AppNavTextBrush}" />
+        </Style>
         <Style Selector="ListBox.nav > ListBoxItem:selected">
             <Setter Property="Background" Value="{DynamicResource AppNavSurfaceBrush}" />
             <Setter Property="Foreground" Value="{DynamicResource AppNavAccentBrush}" />
+        </Style>
+        <Style Selector="ListBox.nav > ListBoxItem:selected TextBlock.nav-label">
+            <Setter Property="Foreground" Value="{DynamicResource AppNavAccentBrush}" />
+        </Style>
+        <Style Selector="ListBox.nav > ListBoxItem:focus-visible">
+            <Setter Property="BorderBrush" Value="{DynamicResource AppFocusBrush}" />
         </Style>
         <Style Selector="Window.motion-enabled ListBox.nav > ListBoxItem">
             <Setter Property="Transitions">
