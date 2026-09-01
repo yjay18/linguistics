@@ -514,6 +514,50 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void SyllableClapUsesOnlyAuthoredBeatCountAndTimingBounds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("syllable-clap")));
+        var minimum = TimeSpan.FromMilliseconds(180);
+        var maximum = TimeSpan.FromMilliseconds(900);
+
+        var success = TemplateInteractionEvaluator.EvaluateTapRhythm(
+            2,
+            minimum,
+            maximum,
+            [TimeSpan.Zero, TimeSpan.FromMilliseconds(480)]);
+        var tooFast = TemplateInteractionEvaluator.EvaluateTapRhythm(
+            2,
+            minimum,
+            maximum,
+            [TimeSpan.Zero, TimeSpan.FromMilliseconds(80)]);
+        var incomplete = TemplateInteractionEvaluator.EvaluateTapRhythm(
+            2,
+            minimum,
+            maximum,
+            [TimeSpan.Zero]);
+        var extra = TemplateInteractionEvaluator.EvaluateTapRhythm(
+            2,
+            minimum,
+            maximum,
+            [TimeSpan.Zero, TimeSpan.FromMilliseconds(480), TimeSpan.FromMilliseconds(960)]);
+
+        Assert.AreEqual(TemplateOutcomeState.Success, success.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, tooFast.State);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, extra.State);
+        CollectionAssert.AreEqual(
+            new[] { "tap-1", "tap-2" },
+            success.OrderedOptionIds!.ToArray());
+        Assert.ThrowsExactly<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateTapRhythm(
+                2,
+                minimum,
+                maximum,
+                [TimeSpan.FromMilliseconds(20), TimeSpan.FromMilliseconds(20)]));
+    }
+
+    [TestMethod]
     public void ListenRouteUsesOnlyTheAuthoredStopOrder()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

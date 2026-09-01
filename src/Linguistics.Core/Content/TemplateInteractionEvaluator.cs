@@ -319,6 +319,61 @@ public static class TemplateInteractionEvaluator
                 : best.Key);
     }
 
+    public static TemplateOutcome EvaluateTapRhythm(
+        int expectedBeatCount,
+        TimeSpan minimumInterval,
+        TimeSpan maximumInterval,
+        IReadOnlyList<TimeSpan> tapOffsets)
+    {
+        ArgumentNullException.ThrowIfNull(tapOffsets);
+        if (expectedBeatCount < 1 ||
+            minimumInterval <= TimeSpan.Zero ||
+            maximumInterval < minimumInterval ||
+            maximumInterval > TimeSpan.FromSeconds(3))
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(expectedBeatCount),
+                "Tap rhythm bounds are invalid.");
+        }
+
+        for (var index = 0; index < tapOffsets.Count; index++)
+        {
+            if (tapOffsets[index] < TimeSpan.Zero ||
+                (index > 0 && tapOffsets[index] <= tapOffsets[index - 1]))
+            {
+                throw new ArgumentException(
+                    "Tap offsets must be nonnegative and strictly increasing.",
+                    nameof(tapOffsets));
+            }
+        }
+
+        var orderedTapIds = tapOffsets
+            .Select((_, index) => $"tap-{index + 1}")
+            .ToArray();
+        if (tapOffsets.Count < expectedBeatCount)
+        {
+            return new TemplateOutcome(
+                TemplateOutcomeState.Uncertain,
+                OrderedOptionIds: orderedTapIds);
+        }
+
+        if (tapOffsets.Count > expectedBeatCount)
+        {
+            return new TemplateOutcome(
+                TemplateOutcomeState.Failure,
+                OrderedOptionIds: orderedTapIds);
+        }
+
+        var intervalsAreInRange = tapOffsets
+            .Zip(tapOffsets.Skip(1), (first, second) => second - first)
+            .All(interval => interval >= minimumInterval && interval <= maximumInterval);
+        return new TemplateOutcome(
+            intervalsAreInRange
+                ? TemplateOutcomeState.Success
+                : TemplateOutcomeState.Failure,
+            OrderedOptionIds: orderedTapIds);
+    }
+
     private static string[] ValidateOptionIds(
         IReadOnlyList<TemplateOption> options,
         string parameterName)

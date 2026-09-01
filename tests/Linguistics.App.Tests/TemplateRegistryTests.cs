@@ -562,6 +562,49 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void SyllableClapUsesKeyboardButtonsAndNeverRequestsTheMicrophone()
+    {
+        using var synthesis = new RecordingSpeechProvider();
+        using var recognition = new RecordingRecognitionProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("syllable-clap"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault(
+                speechSynthesisProvider: synthesis,
+                speechRecognitionProvider: recognition,
+                pronunciationAssessmentProvider: new TranscriptPronunciationAssessmentProvider(),
+                microphoneAllowed: true)
+            .Render(
+                fixture.TemplateId,
+                fixture.Parameters with { UseTextOnlyFallback = true },
+                fixture.InstructionLanguage,
+                shouldReduceMotion: true,
+                reported.Add);
+        var buttons = rendered.GetLogicalDescendants().OfType<Button>().ToArray();
+        var play = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "SyllableClapPlayPhrase");
+        var tap = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "SyllableClapTap");
+        var check = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "SyllableClapCheck");
+
+        play.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        tap.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsFalse(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button)?.Contains(
+                "Microphone",
+                StringComparison.Ordinal) == true));
+        Assert.AreEqual(0, recognition.RequestCount);
+        Assert.IsNotNull(synthesis.LastRequest);
+        Assert.AreEqual("Kaffee", synthesis.LastRequest.Text);
+        Assert.HasCount(1, reported);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, reported[0].State);
+        CollectionAssert.AreEqual(new[] { "tap-1" }, reported[0].OrderedOptionIds!.ToArray());
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

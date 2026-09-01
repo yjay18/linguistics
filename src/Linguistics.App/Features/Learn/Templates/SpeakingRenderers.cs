@@ -3,6 +3,8 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using System.Diagnostics;
+using System.Globalization;
 using Linguistics.App.Content;
 using Linguistics.App.Controls;
 using Linguistics.App.Motion;
@@ -1230,5 +1232,317 @@ internal static class PromptRespondRenderer
         TemplateOutcomeState.Uncertain => "No complete response yet, or local recognition found partial evidence.",
         TemplateOutcomeState.Failure => "The response differs from the authored answers, or intelligibility was substantially reduced.",
         _ => "Ready: hear or read the puppet prompt, then answer by voice or text.",
+    };
+}
+
+internal static class SyllableClapRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ISpeechSynthesisProvider? speechSynthesisProvider,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var phrase = TemplateRendering.Text(parameters, "phrase");
+        var speechLanguage = TemplateRendering.Text(parameters, "speech-language");
+        var beats = TemplateRendering.Options(parameters, "beats");
+        var stressBeat = TemplateRendering.Text(parameters, "stress-beat");
+        if (!beats.Any(beat => string.Equals(beat.Id, stressBeat, StringComparison.Ordinal)))
+        {
+            throw new InvalidOperationException("The stressed beat must name an authored syllable.");
+        }
+
+        var minimumInterval = ParseInterval(parameters, "minimum-interval-ms");
+        var maximumInterval = ParseInterval(parameters, "maximum-interval-ms");
+        if (maximumInterval < minimumInterval || maximumInterval > TimeSpan.FromSeconds(3))
+        {
+            throw new InvalidOperationException("The authored clap interval range is invalid.");
+        }
+
+        var backdropReference = TemplateRendering.AssetReference(parameters, "backdrop");
+        var header = SpeakingTemplatePresentation.CreateHeader(
+            "SyllableClap",
+            instruction,
+            "Replay rhythm",
+            "Skip rhythm",
+            out var replayButton,
+            out var skipButton);
+        var playbackPanel = ListeningTemplatePresentation.CreatePlaybackPanel(
+            "SyllableClap",
+            speechSynthesisProvider,
+            speechLanguage,
+            [new ListeningPrompt("Phrase", "Play phrase", phrase, $"syllable-clap:{stressBeat}")],
+            parameters.UseTextOnlyFallback);
+        var stage = TemplateRendering.CreateStage(308, "Syllable stress rhythm stage");
+        var backdropRendered = TemplateRendering.AddBackdrop(
+            stage,
+            imageCache,
+            parameters.UseTextOnlyFallback ? null : backdropReference);
+        var tape = new PaperTape { Content = "CLAP THE RHYTHM", Angle = -1 };
+        PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
+        PaperStage.SetAnchor(tape, PaperAnchorLine.Head);
+        PaperStage.SetAnchorX(tape, 0.5);
+        PaperStage.SetAnchorOffsetY(tape, -10);
+        stage.Children.Add(tape);
+
+        var beatPanel = new WrapPanel
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            ItemWidth = 170,
+            ItemHeight = 126,
+            Margin = new Thickness(30, 76, 30, 24),
+        };
+        AutomationProperties.SetName(beatPanel, $"Written stress pattern for {phrase}");
+        foreach (var (beat, index) in beats.Select((beat, index) => (beat, index)))
+        {
+            var isStressed = string.Equals(beat.Id, stressBeat, StringComparison.Ordinal);
+            var beatCopy = new StackPanel
+            {
+                Spacing = 6,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+            beatCopy.Children.Add(new TextBlock
+            {
+                Text = (index + 1).ToString(CultureInfo.InvariantCulture),
+                Classes = { "eyebrow" },
+                HorizontalAlignment = HorizontalAlignment.Center,
+            });
+            beatCopy.Children.Add(new TextBlock
+            {
+                Text = beat.Label,
+                FontSize = isStressed ? 30 : 23,
+                FontWeight = isStressed ? FontWeight.Bold : FontWeight.SemiBold,
+                TextAlignment = TextAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            });
+            beatCopy.Children.Add(new TextBlock
+            {
+                Text = isStressed ? "STRONG" : "LIGHT",
+                FontSize = 12,
+                FontWeight = FontWeight.Bold,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            });
+            var beatCard = new PaperCard
+            {
+                Width = 156,
+                Height = 112,
+                Padding = new Thickness(14),
+                Content = beatCopy,
+            };
+            beatCard.Classes.Add(isStressed ? "accent-card" : "soft");
+            AutomationProperties.SetName(
+                beatCard,
+                $"Beat {index + 1}, {beat.Label}, {(isStressed ? "strong" : "light")}");
+            beatPanel.Children.Add(beatCard);
+        }
+
+        PaperStage.SetLayer(beatPanel, PaperStageLayer.Subject);
+        stage.Children.Add(beatPanel);
+        var noMicrophoneStamp = new PaperStamp { Content = "NO MICROPHONE", Angle = 1.8 };
+        noMicrophoneStamp.Classes.Add("rectangle");
+        AutomationProperties.SetName(noMicrophoneStamp, "This rhythm activity uses no microphone");
+        PaperStage.SetLayer(noMicrophoneStamp, PaperStageLayer.VerdictCard);
+        PaperStage.SetAnchor(noMicrophoneStamp, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(noMicrophoneStamp, 0.7);
+        PaperStage.SetAnchorOffsetY(noMicrophoneStamp, -16);
+        stage.Children.Add(noMicrophoneStamp);
+
+        var tapOffsets = new List<TimeSpan>();
+        long? firstTapTimestamp = null;
+        var tapStatus = new TextBlock
+        {
+            Text = PreviewTapStatus(parameters.PreviewOutcome, beats.Count),
+            TextWrapping = TextWrapping.Wrap,
+        };
+        AutomationProperties.SetAutomationId(tapStatus, "SyllableClapTapStatus");
+        AutomationProperties.SetLiveSetting(tapStatus, AutomationLiveSetting.Polite);
+        var tapButton = new Button { Content = "Tap beat 1", Classes = { "primary" } };
+        AutomationProperties.SetAutomationId(tapButton, "SyllableClapTap");
+        AutomationProperties.SetName(tapButton, "Tap the next syllable beat");
+        var checkButton = new Button { Content = "Check rhythm", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(checkButton, "SyllableClapCheck");
+        AutomationProperties.SetName(checkButton, "Check the complete tap rhythm");
+        var resetButton = new Button { Content = "Reset taps", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(resetButton, "SyllableClapReset");
+        AutomationProperties.SetName(resetButton, "Clear every recorded tap");
+        var tapActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        tapActions.Children.Add(tapButton);
+        tapActions.Children.Add(checkButton);
+        tapActions.Children.Add(resetButton);
+        var tapCopy = new StackPanel { Spacing = 9 };
+        tapCopy.Children.Add(new TextBlock
+        {
+            Text = "Tap once per written syllable. Keyboard activation and pointer clicks use the same timing path.",
+            TextWrapping = TextWrapping.Wrap,
+        });
+        tapCopy.Children.Add(tapActions);
+        tapCopy.Children.Add(tapStatus);
+        var tapCard = new PaperCard
+        {
+            Padding = new Thickness(16, 14),
+            Content = tapCopy,
+        };
+        tapCard.Classes.Add("soft");
+        AutomationProperties.SetName(tapCard, "Keyboard and pointer syllable rhythm controls");
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+
+        tapButton.Click += (_, _) =>
+        {
+            if (tapOffsets.Count >= beats.Count)
+            {
+                return;
+            }
+
+            if (firstTapTimestamp is null)
+            {
+                firstTapTimestamp = Stopwatch.GetTimestamp();
+                tapOffsets.Add(TimeSpan.Zero);
+            }
+            else
+            {
+                tapOffsets.Add(Stopwatch.GetElapsedTime(firstTapTimestamp.Value));
+            }
+
+            tapStatus.Text = $"Recorded {tapOffsets.Count} of {beats.Count} beats.";
+            tapButton.Content = tapOffsets.Count < beats.Count
+                ? $"Tap beat {tapOffsets.Count + 1}"
+                : "All beats tapped";
+            tapButton.IsEnabled = tapOffsets.Count < beats.Count;
+        };
+        checkButton.Click += (_, _) =>
+        {
+            var outcome = TemplateInteractionEvaluator.EvaluateTapRhythm(
+                beats.Count,
+                minimumInterval,
+                maximumInterval,
+                tapOffsets);
+            TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+            reportOutcome(outcome);
+        };
+        resetButton.Click += (_, _) =>
+        {
+            tapOffsets.Clear();
+            firstTapTimestamp = null;
+            tapButton.Content = "Tap beat 1";
+            tapButton.IsEnabled = true;
+            tapStatus.Text = $"Ready for {beats.Count} taps.";
+        };
+
+        var root = new StackPanel { Spacing = 12 };
+        root.Children.Add(header);
+        root.Children.Add(playbackPanel);
+        if (parameters.UseTextOnlyFallback)
+        {
+            root.Children.Add(new TextBlock
+            {
+                Text = $"Text-only rhythm: {string.Join(" | ", beats.Select(beat => beat.Label))}.",
+                TextWrapping = TextWrapping.Wrap,
+                Classes = { "muted" },
+            });
+            root.Children.Add(new TextBlock
+            {
+                Text = $"Tap gaps may be {minimumInterval.TotalMilliseconds:0} to {maximumInterval.TotalMilliseconds:0} milliseconds.",
+                TextWrapping = TextWrapping.Wrap,
+                Classes = { "muted" },
+            });
+        }
+
+        root.Children.Add(stage);
+        if (!parameters.UseTextOnlyFallback &&
+            TemplateRendering.CreateCreditsDisclosure(
+                imageCache,
+                backdropRendered ? [backdropReference] : [],
+                "SyllableClapImageCredits") is { } credits)
+        {
+            root.Children.Add(credits);
+        }
+
+        root.Children.Add(tapCard);
+        root.Children.Add(outcomePanel);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            TemplateRendering.Prepare(
+                shouldReduceMotion,
+                tape,
+                beatPanel,
+                noMicrophoneStamp,
+                tapCard);
+            if (!shouldReduceMotion)
+            {
+                beatPanel.RenderTransform = TemplateRendering.Transform(0, 10, -0.6, 0.98);
+                noMicrophoneStamp.RenderTransform = TemplateRendering.Transform(6, 5, 1.8, 0.97);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), tape),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(620), beatPanel, 0, 0, 0, 1),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(320), noMicrophoneStamp, 0, 0, 0, 1),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(260), tapCard),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) =>
+        {
+            scene?.Skip();
+            tape.SkipEntrance();
+        };
+        return root;
+    }
+
+    private static TimeSpan ParseInterval(
+        ResolvedTemplateParameters parameters,
+        string parameterName)
+    {
+        var value = TemplateRendering.Text(parameters, parameterName);
+        if (!int.TryParse(
+                value,
+                NumberStyles.None,
+                CultureInfo.InvariantCulture,
+                out var milliseconds) ||
+            milliseconds < 1)
+        {
+            throw new InvalidOperationException(
+                $"Template parameter '{parameterName}' must be positive milliseconds.");
+        }
+
+        return TimeSpan.FromMilliseconds(milliseconds);
+    }
+
+    private static string PreviewTapStatus(TemplateOutcomeState state, int beatCount) => state switch
+    {
+        TemplateOutcomeState.Success => $"Synthetic preview: {beatCount} well-spaced taps.",
+        TemplateOutcomeState.Uncertain => $"Synthetic preview: fewer than {beatCount} taps.",
+        TemplateOutcomeState.Failure => $"Synthetic preview: {beatCount} taps outside the authored window.",
+        _ => $"Ready for {beatCount} taps.",
+    };
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "The tap count and intervals fit the authored rhythm window.",
+        TemplateOutcomeState.Uncertain => "The rhythm is incomplete. Tap once for every written syllable.",
+        TemplateOutcomeState.Failure => "The tap count or intervals fall outside the authored rhythm window.",
+        _ => "Ready: play or read the phrase, then tap each syllable in rhythm.",
     };
 }

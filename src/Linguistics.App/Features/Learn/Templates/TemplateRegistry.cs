@@ -269,6 +269,16 @@ internal sealed class TemplateRegistry
                     instructionLanguage,
                     shouldReduceMotion,
                     reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("syllable-clap"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                SyllableClapRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
     ]);
 
     public Control Render(

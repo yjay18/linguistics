@@ -1191,5 +1191,35 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.AssetReference,
                     AssetReferenceId: "asset.de.stage.market-backdrop"),
             })),
+        new(
+            new TemplateId("syllable-clap"),
+            "Syllable clap",
+            "Speaking · deterministic tap timing · no microphone",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Play or read Kaffee, then tap its two written syllables with the first beat strong.",
+                        ["hi"] = "Kaffee को चलाएँ या पढ़ें, फिर पहले ताल को मजबूत रखते हुए दो अक्षरखंड थपथपाएँ।",
+                    }),
+                ["phrase"] = new(TemplateParameterKind.Text, Text: "Kaffee"),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["beats"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("ka", "KA"),
+                        new("ffee", "ffee"),
+                    ]),
+                ["stress-beat"] = new(TemplateParameterKind.Text, Text: "ka"),
+                ["minimum-interval-ms"] = new(TemplateParameterKind.Text, Text: "180"),
+                ["maximum-interval-ms"] = new(TemplateParameterKind.Text, Text: "900"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
     ];
 }

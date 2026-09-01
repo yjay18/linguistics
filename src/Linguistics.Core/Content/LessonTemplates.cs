@@ -556,6 +556,20 @@ public static class LessonTemplateSchemas
                 new("speaker-asset", TemplateParameterKind.AssetReference, IsRequired: false),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("syllable-clap"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("phrase", TemplateParameterKind.Text, IsRequired: true),
+                new("speech-language", TemplateParameterKind.Text, IsRequired: true),
+                new("beats", TemplateParameterKind.OptionList, IsRequired: true),
+                new("stress-beat", TemplateParameterKind.Text, IsRequired: true),
+                new("minimum-interval-ms", TemplateParameterKind.Text, IsRequired: true),
+                new("maximum-interval-ms", TemplateParameterKind.Text, IsRequired: true),
+                new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 
