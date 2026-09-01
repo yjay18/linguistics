@@ -543,6 +543,19 @@ public static class LessonTemplateSchemas
                 new("accepted-transcripts", TemplateParameterKind.OptionList, IsRequired: true),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("prompt-respond"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("speaker", TemplateParameterKind.Text, IsRequired: true),
+                new("prompt", TemplateParameterKind.Text, IsRequired: true),
+                new("speech-language", TemplateParameterKind.Text, IsRequired: true),
+                new("accepted-responses", TemplateParameterKind.OptionList, IsRequired: true),
+                new("speaker-asset", TemplateParameterKind.AssetReference, IsRequired: false),
+                new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 

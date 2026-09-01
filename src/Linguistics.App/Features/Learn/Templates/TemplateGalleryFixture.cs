@@ -1158,5 +1158,38 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.AssetReference,
                     AssetReferenceId: "asset.de.stage.market-backdrop"),
             })),
+        new(
+            new TemplateId("prompt-respond"),
+            "Prompt and respond",
+            "Speaking · authored puppet prompt · voice or typed response",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Hear or read Mina's question, then answer through local voice or text.",
+                        ["hi"] = "मीना का प्रश्न सुनें या पढ़ें, फिर स्थानीय आवाज़ या पाठ से उत्तर दें।",
+                    }),
+                ["speaker"] = new(TemplateParameterKind.Text, Text: "Mina"),
+                ["prompt"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Was möchtest du trinken?"),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["accepted-responses"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("full", "Ich möchte einen Tee, bitte."),
+                        new("short", "Einen Tee, bitte."),
+                    ]),
+                ["speaker-asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.learner"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
     ];
 }

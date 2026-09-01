@@ -287,6 +287,38 @@ public static class TemplateInteractionEvaluator
             _ => throw new ArgumentOutOfRangeException(nameof(assessment)),
         });
 
+    public static TemplateOutcome EvaluateBestPronunciationAssessment(
+        IReadOnlyList<KeyValuePair<string, PronunciationAssessmentOutcome>> assessments)
+    {
+        ArgumentNullException.ThrowIfNull(assessments);
+        if (assessments.Count == 0 ||
+            assessments.Any(candidate => string.IsNullOrWhiteSpace(candidate.Key)) ||
+            assessments.Select(candidate => candidate.Key)
+                .Distinct(StringComparer.Ordinal)
+                .Count() != assessments.Count)
+        {
+            throw new ArgumentException(
+                "Pronunciation candidates must have distinct nonempty IDs.",
+                nameof(assessments));
+        }
+
+        var best = assessments
+            .Select(candidate => new
+            {
+                candidate.Key,
+                Outcome = EvaluatePronunciationAssessment(candidate.Value).State,
+            })
+            .OrderByDescending(candidate => OutcomeRank(candidate.Outcome))
+            .ThenBy(candidate => candidate.Key, StringComparer.Ordinal)
+            .First();
+        return new TemplateOutcome(
+            best.Outcome,
+            best.Outcome == TemplateOutcomeState.Uncertain &&
+            assessments.All(candidate => candidate.Value == PronunciationAssessmentOutcome.NoSpeech)
+                ? null
+                : best.Key);
+    }
+
     private static string[] ValidateOptionIds(
         IReadOnlyList<TemplateOption> options,
         string parameterName)
@@ -317,4 +349,12 @@ public static class TemplateInteractionEvaluator
                     StringSplitOptions.RemoveEmptyEntries))
             .ToLowerInvariant();
     }
+
+    private static int OutcomeRank(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => 3,
+        TemplateOutcomeState.Uncertain => 2,
+        TemplateOutcomeState.Failure => 1,
+        _ => 0,
+    };
 }

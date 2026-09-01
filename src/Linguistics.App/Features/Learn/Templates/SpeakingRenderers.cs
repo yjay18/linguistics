@@ -64,7 +64,6 @@ internal static class SpeakingComparisonCard
 {
     public static PaperCard Create(
         string prefix,
-        string expectedText,
         IReadOnlyList<TemplateOption> acceptedTranscripts,
         string speechLanguageText,
         ISpeechRecognitionProvider? speechRecognitionProvider,
@@ -266,23 +265,35 @@ internal static class SpeakingComparisonCard
                 if (result.Status == SpeechRecognitionResultStatus.Accepted &&
                     !string.IsNullOrWhiteSpace(result.Transcript))
                 {
-                    var assessment = pronunciationAssessmentProvider.Assess(
-                        new PronunciationAssessmentRequest(
-                            expectedText,
-                            result.Transcript,
-                            result.Duration),
-                        result.ProviderVersion);
-                    var outcome = TemplateInteractionEvaluator.EvaluatePronunciationAssessment(
-                        assessment.Evidence.Outcome);
+                    var assessments = acceptedTranscripts
+                        .Select(option => new
+                        {
+                            Option = option,
+                            Assessment = pronunciationAssessmentProvider.Assess(
+                                new PronunciationAssessmentRequest(
+                                    option.Label,
+                                    result.Transcript,
+                                    result.Duration),
+                                result.ProviderVersion),
+                        })
+                        .ToArray();
+                    var outcome = TemplateInteractionEvaluator.EvaluateBestPronunciationAssessment(
+                        assessments
+                            .Select(candidate => new KeyValuePair<string, PronunciationAssessmentOutcome>(
+                                candidate.Option.Id,
+                                candidate.Assessment.Evidence.Outcome))
+                            .ToArray());
+                    var best = assessments.Single(candidate =>
+                        string.Equals(candidate.Option.Id, outcome.ResponseId, StringComparison.Ordinal));
                     TemplateRendering.ApplyOutcome(
                         outcomePanel,
                         outcomeText,
                         outcome.State,
                         outcomeCopy);
                     comparisonText.Text =
-                        $"Expected: {expectedText}{Environment.NewLine}Recognized: {result.Transcript}";
+                        $"Expected: {best.Option.Label}{Environment.NewLine}Recognized: {result.Transcript}";
                     comparisonText.IsVisible = true;
-                    recognitionStatus.Text = assessment.Message;
+                    recognitionStatus.Text = best.Assessment.Message;
                     reportOutcome(outcome);
                 }
                 else if (result.Status == SpeechRecognitionResultStatus.NoSpeech)
@@ -896,7 +907,6 @@ internal static class ReadAloudCardRenderer
             out var outcomeText);
         var practiceCard = SpeakingComparisonCard.Create(
             "ReadAloudCard",
-            cardText,
             acceptedTranscripts,
             speechLanguage,
             speechRecognitionProvider,
@@ -984,5 +994,241 @@ internal static class ReadAloudCardRenderer
         TemplateOutcomeState.Uncertain => "No complete comparison yet, or local recognition found partial intelligibility.",
         TemplateOutcomeState.Failure => "The wording differed, or local recognition found substantial intelligibility loss.",
         _ => "Ready: read the card aloud or silently, then choose a local comparison path.",
+    };
+}
+
+internal static class PromptRespondRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ISpeechSynthesisProvider? speechSynthesisProvider,
+        ISpeechRecognitionProvider? speechRecognitionProvider,
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider,
+        bool microphoneAllowed,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var speaker = TemplateRendering.Text(parameters, "speaker");
+        var prompt = TemplateRendering.Text(parameters, "prompt");
+        var speechLanguage = TemplateRendering.Text(parameters, "speech-language");
+        var acceptedResponses = TemplateRendering.Options(parameters, "accepted-responses");
+        var speakerAssetReference = TemplateRendering.AssetReference(parameters, "speaker-asset");
+        var backdropReference = TemplateRendering.AssetReference(parameters, "backdrop");
+        var header = SpeakingTemplatePresentation.CreateHeader(
+            "PromptRespond",
+            instruction,
+            "Replay prompt",
+            "Skip prompt",
+            out var replayButton,
+            out var skipButton);
+        var playbackPanel = ListeningTemplatePresentation.CreatePlaybackPanel(
+            "PromptRespond",
+            speechSynthesisProvider,
+            speechLanguage,
+            [
+                new ListeningPrompt(
+                    "Prompt",
+                    $"Play {speaker}",
+                    prompt,
+                    $"prompt-respond:{speaker}:{acceptedResponses[0].Id}"),
+            ],
+            parameters.UseTextOnlyFallback);
+        var stage = TemplateRendering.CreateStage(326, "Prompt and response puppet stage");
+        var backdropRendered = TemplateRendering.AddBackdrop(
+            stage,
+            imageCache,
+            parameters.UseTextOnlyFallback ? null : backdropReference);
+        var tape = new PaperTape { Content = "ANSWER THE PUPPET", Angle = 1.1 };
+        PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
+        PaperStage.SetAnchor(tape, PaperAnchorLine.Head);
+        PaperStage.SetAnchorX(tape, 0.5);
+        PaperStage.SetAnchorOffsetY(tape, -10);
+        stage.Children.Add(tape);
+
+        var speakerImage = parameters.UseTextOnlyFallback
+            ? null
+            : TemplateRendering.CreateContentImage(
+                imageCache,
+                speakerAssetReference,
+                height: 158,
+                Stretch.Uniform);
+        Control speakerCutout;
+        if (speakerImage is not null)
+        {
+            var speakerCopy = new StackPanel
+            {
+                Spacing = 5,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+            speakerCopy.Children.Add(speakerImage);
+            speakerCopy.Children.Add(new TextBlock
+            {
+                Text = speaker,
+                FontWeight = FontWeight.Bold,
+                TextAlignment = TextAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            });
+            speakerCutout = new CutoutFrame
+            {
+                Width = 184,
+                Height = 216,
+                Content = speakerCopy,
+            };
+        }
+        else
+        {
+            speakerCutout = new CutoutFrame
+            {
+                Width = 184,
+                Height = 132,
+                Content = new TextBlock
+                {
+                    Text = speaker,
+                    FontSize = 24,
+                    FontWeight = FontWeight.Bold,
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                },
+            };
+        }
+
+        speakerCutout.Classes.Add("tilt-left");
+        AutomationProperties.SetAutomationId(speakerCutout, "PromptRespondSpeaker");
+        AutomationProperties.SetName(speakerCutout, $"Prompt speaker {speaker}");
+        PaperStage.SetLayer(speakerCutout, PaperStageLayer.SupportingCast);
+        PaperStage.SetAnchor(speakerCutout, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(speakerCutout, 0.25);
+        PaperStage.SetAnchorOffsetY(speakerCutout, -12);
+        stage.Children.Add(speakerCutout);
+
+        var promptCopy = new StackPanel { Spacing = 7 };
+        promptCopy.Children.Add(new TextBlock
+        {
+            Text = speaker.ToUpperInvariant(),
+            Classes = { "eyebrow" },
+        });
+        promptCopy.Children.Add(new TextBlock
+        {
+            Text = prompt,
+            FontSize = 23,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+        });
+        var promptBubble = new PaperCard
+        {
+            Width = 460,
+            Padding = new Thickness(24, 18),
+            Content = promptCopy,
+        };
+        promptBubble.Classes.Add("soft");
+        AutomationProperties.SetAutomationId(promptBubble, "PromptRespondPrompt");
+        AutomationProperties.SetName(promptBubble, $"{speaker} asks. {prompt}");
+        PaperStage.SetLayer(promptBubble, PaperStageLayer.Subject);
+        PaperStage.SetAnchor(promptBubble, PaperAnchorLine.Waist);
+        PaperStage.SetAnchorX(promptBubble, 0.65);
+        PaperStage.SetAnchorOffsetY(promptBubble, -34);
+        stage.Children.Add(promptBubble);
+
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+        var practiceCard = SpeakingComparisonCard.Create(
+            "PromptRespond",
+            acceptedResponses,
+            speechLanguage,
+            speechRecognitionProvider,
+            pronunciationAssessmentProvider,
+            microphoneAllowed,
+            parameters.UseTextOnlyFallback,
+            parameters.PreviewOutcome,
+            outcomePanel,
+            outcomeText,
+            OutcomeCopy,
+            reportOutcome);
+
+        var root = new StackPanel { Spacing = 12 };
+        root.Children.Add(header);
+        root.Children.Add(playbackPanel);
+        if (parameters.UseTextOnlyFallback)
+        {
+            root.Children.Add(new TextBlock
+            {
+                Text = $"Text-only prompt: {speaker} asks, {prompt}",
+                TextWrapping = TextWrapping.Wrap,
+                Classes = { "muted" },
+            });
+        }
+
+        root.Children.Add(stage);
+        if (!parameters.UseTextOnlyFallback &&
+            TemplateRendering.CreateCreditsDisclosure(
+                imageCache,
+                new[]
+                {
+                    speakerImage is not null ? speakerAssetReference : null,
+                    backdropRendered ? backdropReference : null,
+                },
+                "PromptRespondImageCredits") is { } credits)
+        {
+            root.Children.Add(credits);
+        }
+
+        root.Children.Add(practiceCard);
+        root.Children.Add(outcomePanel);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            TemplateRendering.Prepare(
+                shouldReduceMotion,
+                tape,
+                speakerCutout,
+                promptBubble,
+                practiceCard);
+            if (!shouldReduceMotion)
+            {
+                speakerCutout.RenderTransform = TemplateRendering.Transform(-18, 4, -1.2, 0.98);
+                promptBubble.RenderTransform = TemplateRendering.Transform(18, 8, 0.8, 0.98);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), tape),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(560), speakerCutout, 0, 0, 0, 1),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(520), promptBubble, 0, 0, 0, 1),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(260), practiceCard),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) =>
+        {
+            scene?.Skip();
+            tape.SkipEntrance();
+        };
+        return root;
+    }
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "The response matches an authored answer, or local recognition found one intelligible.",
+        TemplateOutcomeState.Uncertain => "No complete response yet, or local recognition found partial evidence.",
+        TemplateOutcomeState.Failure => "The response differs from the authored answers, or intelligibility was substantially reduced.",
+        _ => "Ready: hear or read the puppet prompt, then answer by voice or text.",
     };
 }

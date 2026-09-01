@@ -529,6 +529,39 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void PromptRespondPlaysOnlyThePromptAndAcceptsAnAuthoredTypedAnswer()
+    {
+        using var synthesis = new RecordingSpeechProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("prompt-respond"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault(speechSynthesisProvider: synthesis).Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var playPrompt = controls.OfType<Button>().Single(button =>
+            AutomationProperties.GetAutomationId(button) == "PromptRespondPlayPrompt");
+        var response = controls.OfType<TextBox>().Single(textBox =>
+            AutomationProperties.GetAutomationId(textBox) == "PromptRespondTextResponse");
+        var compare = controls.OfType<Button>().Single(button =>
+            AutomationProperties.GetAutomationId(button) == "PromptRespondCompareText");
+
+        playPrompt.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        response.Text = "EINEN TEE, BITTE!";
+        compare.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsNotNull(synthesis.LastRequest);
+        Assert.AreEqual("Was möchtest du trinken?", synthesis.LastRequest.Text);
+        Assert.AreEqual(new LanguageCode("de"), synthesis.LastRequest.Language);
+        Assert.HasCount(1, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+        Assert.AreEqual("short", reported[0].ResponseId);
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

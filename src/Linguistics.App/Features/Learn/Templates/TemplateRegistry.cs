@@ -256,6 +256,19 @@ internal sealed class TemplateRegistry
                     instructionLanguage,
                     shouldReduceMotion,
                     reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("prompt-respond"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                PromptRespondRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    speechRecognitionProvider,
+                    pronunciationAssessmentProvider,
+                    microphoneAllowed,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
     ]);
 
     public Control Render(

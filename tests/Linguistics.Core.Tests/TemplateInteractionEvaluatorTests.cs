@@ -483,6 +483,37 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void PromptRespondSelectsTheBestAuthoredVoiceOrTextResponse()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("prompt-respond")));
+        var accepted = new[]
+        {
+            new TemplateOption("full", "Ich möchte einen Tee, bitte."),
+            new TemplateOption("short", "Einen Tee, bitte."),
+        };
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateDictation(
+                accepted,
+                "Einen Tee, bitte!").State);
+        var voice = TemplateInteractionEvaluator.EvaluateBestPronunciationAssessment(
+        [
+            new("full", PronunciationAssessmentOutcome.PartlyIntelligible),
+            new("short", PronunciationAssessmentOutcome.Intelligible),
+        ]);
+        Assert.AreEqual(TemplateOutcomeState.Success, voice.State);
+        Assert.AreEqual("short", voice.ResponseId);
+        Assert.ThrowsExactly<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateBestPronunciationAssessment(
+            [
+                new("same", PronunciationAssessmentOutcome.Intelligible),
+                new("same", PronunciationAssessmentOutcome.NotIntelligible),
+            ]));
+    }
+
+    [TestMethod]
     public void ListenRouteUsesOnlyTheAuthoredStopOrder()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
