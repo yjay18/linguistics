@@ -484,6 +484,51 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void ReadAloudCardTextOnlyRouteChecksWordingWithoutPronunciationClaims()
+    {
+        using var recognition = new RecordingRecognitionProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("read-aloud-card"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault(
+                speechRecognitionProvider: recognition,
+                pronunciationAssessmentProvider: new TranscriptPronunciationAssessmentProvider(),
+                microphoneAllowed: true)
+            .Render(
+                fixture.TemplateId,
+                fixture.Parameters with { UseTextOnlyFallback = true },
+                fixture.InstructionLanguage,
+                shouldReduceMotion: true,
+                reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var card = controls.Single(control =>
+            AutomationProperties.GetAutomationId(control) == "ReadAloudCardText");
+        var voiceButton = controls.OfType<Button>().Single(button =>
+            AutomationProperties.GetAutomationId(button) == "ReadAloudCardRequestMicrophone");
+        var response = controls.OfType<TextBox>().Single(textBox =>
+            AutomationProperties.GetAutomationId(textBox) == "ReadAloudCardTextResponse");
+        var compare = controls.OfType<Button>().Single(button =>
+            AutomationProperties.GetAutomationId(button) == "ReadAloudCardCompareText");
+
+        response.Text = "GUTEN MORGEN. EINEN KAFFEE, BITTE!";
+        compare.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.AreEqual(
+            "Read aloud card. Guten Morgen. Einen Kaffee, bitte.",
+            AutomationProperties.GetName(card));
+        Assert.IsFalse(voiceButton.IsVisible);
+        Assert.AreEqual(0, recognition.RequestCount);
+        Assert.HasCount(1, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+        Assert.IsTrue(rendered
+            .GetLogicalDescendants()
+            .OfType<TextBlock>()
+            .Any(text => text.Text?.Contains(
+                "cannot score phonemes, accent, or native-likeness",
+                StringComparison.Ordinal) == true));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

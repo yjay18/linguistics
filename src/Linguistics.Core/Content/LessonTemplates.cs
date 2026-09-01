@@ -532,6 +532,17 @@ public static class LessonTemplateSchemas
                 new("accepted-transcripts", TemplateParameterKind.OptionList, IsRequired: true),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("read-aloud-card"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("card-text", TemplateParameterKind.Text, IsRequired: true),
+                new("speech-language", TemplateParameterKind.Text, IsRequired: true),
+                new("accepted-transcripts", TemplateParameterKind.OptionList, IsRequired: true),
+                new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 

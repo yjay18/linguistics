@@ -1130,5 +1130,33 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.AssetReference,
                     AssetReferenceId: "asset.de.stage.market-backdrop"),
             })),
+        new(
+            new TemplateId("read-aloud-card"),
+            "Read-aloud card",
+            "Speaking · intelligibility only · complete typed route",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Read the café card aloud, or rehearse silently and compare its wording.",
+                        ["hi"] = "कैफ़े कार्ड ज़ोर से पढ़ें, या चुपचाप अभ्यास करके शब्दों की तुलना करें।",
+                    }),
+                ["card-text"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Guten Morgen. Einen Kaffee, bitte."),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["accepted-transcripts"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("full", "Guten Morgen. Einen Kaffee, bitte."),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
     ];
 }

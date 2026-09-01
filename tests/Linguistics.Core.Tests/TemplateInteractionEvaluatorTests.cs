@@ -457,6 +457,32 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void ReadAloudCardUsesDeterministicWordingAndIntelligibilityPaths()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("read-aloud-card")));
+        var accepted = new[]
+        {
+            new TemplateOption("full", "Guten Morgen. Einen Kaffee, bitte."),
+        };
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateDictation(
+                accepted,
+                "GUTEN MORGEN. EINEN KAFFEE, BITTE!").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateDictation(
+                accepted,
+                "Guten Abend.").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluatePronunciationAssessment(
+                PronunciationAssessmentOutcome.NotIntelligible).State);
+    }
+
+    [TestMethod]
     public void ListenRouteUsesOnlyTheAuthoredStopOrder()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

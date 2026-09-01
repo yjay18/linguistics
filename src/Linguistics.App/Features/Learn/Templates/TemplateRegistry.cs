@@ -244,6 +244,18 @@ internal sealed class TemplateRegistry
                     instructionLanguage,
                     shouldReduceMotion,
                     reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("read-aloud-card"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                ReadAloudCardRenderer.Render(
+                    cache,
+                    speechRecognitionProvider,
+                    pronunciationAssessmentProvider,
+                    microphoneAllowed,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
     ]);
 
     public Control Render(
