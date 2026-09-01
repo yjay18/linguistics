@@ -548,7 +548,9 @@
               }
             },
             "concept": { "kind": "conceptReference", "value": "de.lexicon.cafe-items" },
-            "example": { "kind": "exampleReference", "value": "example.de.cafe-items.kaffee" }
+            "example": { "kind": "exampleReference", "value": "example.de.cafe-items.kaffee" },
+            "asset": { "kind": "assetReference", "value": "asset.de.cafe.coffee" },
+            "backdrop": { "kind": "assetReference", "value": "asset.de.stage.market-backdrop" }
           }
         },
         {
@@ -564,12 +566,15 @@
             "options": {
               "kind": "optionList",
               "options": [
-                { "id": "kaffee", "label": "Kaffee" },
-                { "id": "tee", "label": "Tee" },
-                { "id": "wasser", "label": "Wasser" }
+                { "id": "kaffee", "label": "Kaffee", "assetReferenceId": "asset.de.cafe.coffee" },
+                { "id": "tee", "label": "Tee", "assetReferenceId": "asset.de.cafe.tea" },
+                { "id": "wasser", "label": "Wasser", "assetReferenceId": "asset.de.cafe.water" }
               ]
             },
-            "answer": { "kind": "text", "value": "kaffee" }
+            "answer": { "kind": "text", "value": "kaffee" },
+            "spoken-text": { "kind": "text", "value": "Kaffee" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "backdrop": { "kind": "assetReference", "value": "asset.de.stage.market-backdrop" }
           }
         },
         {
@@ -596,7 +601,9 @@
                 { "id": "bitte", "label": "bitte." }
               ]
             },
-            "task": { "kind": "taskReference", "value": "de.task.cafe.order-one-item" }
+            "task": { "kind": "taskReference", "value": "de.task.cafe.order-one-item" },
+            "asset": { "kind": "assetReference", "value": "asset.de.cafe.coffee" },
+            "backdrop": { "kind": "assetReference", "value": "asset.de.stage.market-backdrop" }
           }
         }
       ]

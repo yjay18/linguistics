@@ -4,10 +4,12 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Linguistics.App.Content;
 using Linguistics.App.Features.Learn.Templates;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Learn;
 
@@ -36,11 +38,14 @@ public partial class LearnView : UserControl
         ValidatedContentCatalog? contentCatalog,
         string? contentError,
         LearnerProfileOwner? profileOwner = null,
-        bool showDeveloperDetails = false)
+        bool showDeveloperDetails = false,
+        ContentImageCache? imageCache = null,
+        ISpeechSynthesisProvider? speechSynthesisProvider = null)
         : this()
     {
         ArgumentNullException.ThrowIfNull(profile);
         _profileOwner = profileOwner;
+        _templateRegistry = TemplateRegistry.CreateDefault(imageCache, speechSynthesisProvider);
         _instructionLanguage = SelectInstructionLanguage(profile);
         _shouldReduceMotion = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion);
         SlideHost.PageTransition = _shouldReduceMotion

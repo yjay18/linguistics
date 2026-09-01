@@ -66,4 +66,10 @@ Changes can affect application startup, relaunch routing, onboarding accessibili
 
 ## Last reconciled
 
-Paper design system v2 Phase 2 on 2026-08-30. Real macOS evidence covers the three template renderers in the developer gallery and the authored German preview lesson, including mouse, keyboard, replay, skip, outcome, text-only, reduced-motion, light, and dark states. The native accessibility tree exposes named controls and live outcome text; direct VoiceOver remains unverified because Accessibility trust is false. Windows native interaction remains unavailable.
+Phase 4 Wave D on 2026-09-01. The developer gallery now renders the exact 37-template
+registry without learner persistence. Real macOS evidence covers all seven Wave D
+templates, mouse and keyboard replay/skip/outcome paths on Listen Type and Listen Route,
+all four outcome states, complete transcripts and text-only routes, reduced-motion and
+motion-enabled final states, and light and dark themes. The native accessibility tree
+exposes named listening controls and live status text; direct VoiceOver, Windows native
+interaction, and a completed synthesized native drag gesture remain unverified.

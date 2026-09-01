@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using Linguistics.App.Content;
 using Linguistics.App.Diagnostics;
 using Linguistics.App.LocalAI;
 using Linguistics.App.Persistence;
@@ -48,19 +49,19 @@ public partial class App : Application
 
             ValidatedContentCatalog? authoringContentCatalog = null;
             string? authoringContentError = null;
-            if (DeveloperModeEnabled())
+            try
             {
-                try
-                {
-                    authoringContentCatalog = ContentPackLoader.LoadDirectory(
-                        contentDirectory,
-                        ContentLoadPolicy.AuthoringPreview);
-                }
-                catch (ContentValidationException exception)
-                {
-                    authoringContentError = exception.Message;
-                }
+                authoringContentCatalog = ContentPackLoader.LoadDirectory(
+                    contentDirectory,
+                    ContentLoadPolicy.AuthoringPreview);
             }
+            catch (ContentValidationException exception)
+            {
+                authoringContentError = exception.Message;
+            }
+
+            var imageCache = new ContentImageCache(
+                (authoringContentCatalog ?? runtimeContentCatalog)?.Assets ?? []);
 
             desktop.MainWindow = new MainWindow(
                 new LearnerProfileOwner(repository),
@@ -74,12 +75,14 @@ public partial class App : Application
                 pronunciationAssessmentProvider,
                 speechRecordingStore,
                 repository.PreserveForRecoveryAsync,
-                diagnosticLog);
+                diagnosticLog,
+                imageCache);
             desktop.Exit += (_, _) =>
             {
                 languageModelProvider.Dispose();
                 speechSynthesisProvider.Dispose();
                 speechRecognitionProvider.Dispose();
+                imageCache.Dispose();
             };
         }
 

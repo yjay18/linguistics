@@ -3,6 +3,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Linguistics.App.Content;
 using Linguistics.App.Controls;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
@@ -13,6 +14,7 @@ namespace Linguistics.App.Features.Learn.Templates;
 internal static class ObjectSpotlightRenderer
 {
     public static Control Render(
+        ContentImageCache? imageCache,
         ResolvedTemplateParameters parameters,
         LanguageCode instructionLanguage,
         bool shouldReduceMotion,
@@ -23,7 +25,11 @@ internal static class ObjectSpotlightRenderer
         var meaning = TemplateRendering.Localized(parameters, "meaning", instructionLanguage);
         var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
         var assetReference = TemplateRendering.AssetReference(parameters, "asset");
-        var useVisual = !parameters.UseTextOnlyFallback && assetReference is not null;
+        var backdropReference = TemplateRendering.AssetReference(parameters, "backdrop");
+        var subjectImage = parameters.UseTextOnlyFallback
+            ? null
+            : TemplateRendering.CreateContentImage(imageCache, assetReference, 142);
+        var useVisual = subjectImage is not null;
 
         var replayButton = new Button
         {
@@ -60,7 +66,10 @@ internal static class ObjectSpotlightRenderer
         header.Children.Add(sceneActions);
 
         var stage = TemplateRendering.CreateStage(292, $"Object spotlight for {article} {word}".Trim());
-        TemplateRendering.AddBackdrop(stage, useVisual);
+        var backdropRendered = TemplateRendering.AddBackdrop(
+            stage,
+            imageCache,
+            parameters.UseTextOnlyFallback ? null : backdropReference);
 
         var tape = new PaperTape { Content = "OBJECT SPOTLIGHT", Angle = -1.4 };
         PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
@@ -69,9 +78,7 @@ internal static class ObjectSpotlightRenderer
         PaperStage.SetAnchorOffsetY(tape, -12);
         stage.Children.Add(tape);
 
-        var subjectContent = (useVisual
-                ? TemplateRendering.CreatePreviewImage(assetReference, 142)
-                : null) as Control ??
+        var subjectContent = subjectImage as Control ??
             new TextBlock
             {
                 Text = word,
@@ -93,34 +100,60 @@ internal static class ObjectSpotlightRenderer
         PaperStage.SetAnchorX(subject, 0.39);
         stage.Children.Add(subject);
 
-        var wordLine = string.IsNullOrWhiteSpace(article) ? word : $"{article} {word}";
-        var revealCopy = new StackPanel { Spacing = 5 };
-        revealCopy.Children.Add(new TextBlock
+        var wordCard = new PaperCard
         {
-            Text = wordLine,
-            FontSize = 28,
-            FontWeight = FontWeight.Bold,
-            TextWrapping = TextWrapping.Wrap,
-        });
-        revealCopy.Children.Add(new TextBlock
-        {
-            Text = meaning,
-            FontSize = 17,
-            TextWrapping = TextWrapping.Wrap,
-            Classes = { "muted" },
-        });
-        var revealCard = new PaperCard
-        {
-            Width = 238,
-            Padding = new Thickness(18),
-            Content = revealCopy,
+            Width = 218,
+            Padding = new Thickness(14, 10),
+            Content = new TextBlock
+            {
+                Text = word,
+                FontSize = 28,
+                FontWeight = FontWeight.Bold,
+                TextWrapping = TextWrapping.Wrap,
+                TextAlignment = TextAlignment.Center,
+            },
         };
-        PaperStage.SetLayer(revealCard, PaperStageLayer.VerdictCard);
-        PaperStage.SetAnchor(revealCard, PaperAnchorLine.Waist);
-        PaperStage.SetAnchorX(revealCard, 0.72);
-        PaperStage.SetAnchorOffsetY(revealCard, -8);
-        PaperStage.SetLayerTransform(revealCard, TemplateRendering.Transform(0, 0, 1.2, 1));
-        stage.Children.Add(revealCard);
+        PaperStage.SetLayer(wordCard, PaperStageLayer.VerdictCard);
+        PaperStage.SetAnchor(wordCard, PaperAnchorLine.Shoulder);
+        PaperStage.SetAnchorX(wordCard, 0.72);
+        PaperStage.SetAnchorOffsetY(wordCard, 8);
+        PaperStage.SetLayerTransform(wordCard, TemplateRendering.Transform(0, 0, 1.1, 1));
+        stage.Children.Add(wordCard);
+
+        PaperStamp? articleStamp = null;
+        if (!string.IsNullOrWhiteSpace(article))
+        {
+            articleStamp = new PaperStamp
+            {
+                Content = article.ToUpperInvariant(),
+                Angle = -2.4,
+            };
+            PaperStage.SetLayer(articleStamp, PaperStageLayer.VerdictCard);
+            PaperStage.SetAnchor(articleStamp, PaperAnchorLine.Waist);
+            PaperStage.SetAnchorX(articleStamp, 0.64);
+            PaperStage.SetAnchorOffsetY(articleStamp, -16);
+            stage.Children.Add(articleStamp);
+        }
+
+        var meaningCard = new PaperCard
+        {
+            Width = 218,
+            Padding = new Thickness(14, 10),
+            Content = new TextBlock
+            {
+                Text = meaning,
+                FontSize = 17,
+                TextWrapping = TextWrapping.Wrap,
+                TextAlignment = TextAlignment.Center,
+                Classes = { "muted" },
+            },
+        };
+        PaperStage.SetLayer(meaningCard, PaperStageLayer.VerdictCard);
+        PaperStage.SetAnchor(meaningCard, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(meaningCard, 0.72);
+        PaperStage.SetAnchorOffsetY(meaningCard, -58);
+        PaperStage.SetLayerTransform(meaningCard, TemplateRendering.Transform(0, 0, -0.8, 1));
+        stage.Children.Add(meaningCard);
 
         var outcomePanel = TemplateRendering.CreateOutcomePanel(
             parameters.PreviewOutcome,
@@ -142,6 +175,15 @@ internal static class ObjectSpotlightRenderer
         var root = new StackPanel { Spacing = 12 };
         root.Children.Add(header);
         root.Children.Add(stage);
+        if (!parameters.UseTextOnlyFallback &&
+            TemplateRendering.CreateCreditsDisclosure(
+                imageCache,
+                [useVisual ? assetReference : null, backdropRendered ? backdropReference : null],
+                "ObjectSpotlightImageCredits") is { } credits)
+        {
+            root.Children.Add(credits);
+        }
+
         root.Children.Add(footer);
         if (parameters.UseTextOnlyFallback)
         {
@@ -158,18 +200,28 @@ internal static class ObjectSpotlightRenderer
         {
             scene?.Skip();
             scene?.Dispose();
-            TemplateRendering.Prepare(shouldReduceMotion, tape, subject, revealCard);
+            var revealControls = articleStamp is null
+                ? new Control[] { tape, subject, wordCard, meaningCard }
+                : [tape, subject, wordCard, articleStamp, meaningCard];
+            TemplateRendering.Prepare(shouldReduceMotion, revealControls);
             if (!shouldReduceMotion)
             {
                 subject.RenderTransform = TemplateRendering.Transform(-44, 8, -4, 0.92);
             }
 
-            scene = new PaperChoreography(
-            [
+            var steps = new List<PaperChoreographyStep>
+            {
                 TemplateRendering.Reveal(TimeSpan.FromMilliseconds(250), tape),
-                TemplateRendering.Move(TimeSpan.FromMilliseconds(700), subject, 0, 0, -1.4, 1),
-                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(700), revealCard),
-            ]);
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(550), subject, 0, 0, -1.4, 1),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(250), wordCard),
+            };
+            if (articleStamp is not null)
+            {
+                steps.Add(TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), articleStamp));
+            }
+
+            steps.Add(TemplateRendering.Reveal(TimeSpan.FromMilliseconds(350), meaningCard));
+            scene = new PaperChoreography(steps);
             await scene.PlayAsync(shouldReduceMotion);
         }
 
@@ -184,6 +236,7 @@ internal static class ObjectSpotlightRenderer
         {
             scene?.Skip();
             tape.SkipEntrance();
+            articleStamp?.SkipEntrance();
         };
         replayButton.Click += async (_, _) => await PlayAsync();
         acknowledge.Click += (_, _) =>

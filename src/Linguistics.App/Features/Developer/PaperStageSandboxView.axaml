@@ -77,7 +77,6 @@
                                          ClipToBounds="True"
                                          AutomationProperties.Name="Composed nine layer paper stage">
                         <Image x:Name="BackdropLayer"
-                               Source="/Assets/PaperStage/market-backdrop.png"
                                Stretch="UniformToFill"
                                controls:PaperStage.Layer="Backdrop" />
 
@@ -89,7 +88,6 @@
                         <Image x:Name="SupportingCastLayer"
                                Width="238"
                                Height="166"
-                               Source="/Assets/PaperStage/market-stall-cutout.png"
                                Stretch="Uniform"
                                controls:PaperStage.Layer="SupportingCast"
                                controls:PaperStage.Anchor="Foot"
@@ -101,12 +99,12 @@
                         <Grid x:Name="AmbientLayer"
                               controls:PaperStage.Layer="AmbientPieces"
                               IsHitTestVisible="False">
-                            <Image Width="420"
+                            <Image x:Name="AmbientImage"
+                                   Width="420"
                                    Height="126"
                                    Margin="0,8,0,0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Top"
-                                   Source="/Assets/PaperStage/success-burst-cutout.png"
                                    Stretch="Uniform"
                                    Opacity="0.2" />
                         </Grid>
@@ -122,10 +120,10 @@
                         <Grid x:Name="ForegroundLayer"
                               controls:PaperStage.Layer="ForegroundSilhouettes"
                               IsHitTestVisible="False">
-                            <Image Height="150"
+                            <Image x:Name="ForegroundImage"
+                                   Height="150"
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Bottom"
-                                   Source="/Assets/PaperStage/market-foreground-cutout.png"
                                    Stretch="Fill" />
                         </Grid>
 
@@ -136,7 +134,7 @@
                               controls:PaperStage.Anchor="Foot"
                               controls:PaperStage.AnchorX="0.54"
                               RenderTransformOrigin="50%,100%">
-                            <Image Source="/Assets/PaperStage/learner-cutout.png"
+                            <Image x:Name="SubjectImage"
                                    Stretch="Uniform" />
                         </Grid>
 
@@ -147,7 +145,7 @@
                               controls:PaperStage.Anchor="Shoulder"
                               controls:PaperStage.AnchorX="0.54"
                               controls:PaperStage.AnchorOffsetY="-48">
-                            <Image Source="/Assets/PaperStage/success-burst-cutout.png"
+                            <Image x:Name="ReactionImage"
                                    Stretch="Uniform" />
                         </Grid>
 
@@ -232,6 +230,9 @@
                 </Grid>
             </Border>
         </controls:PaperCard>
+
+        <ContentControl x:Name="CreditsHost"
+                        AutomationProperties.AutomationId="PaperStageCreditsHost" />
 
         <TextBlock Text="Backdrop · wash · cast · ambient · taped label · foreground · subject · reaction · verdict"
                    Classes="muted"

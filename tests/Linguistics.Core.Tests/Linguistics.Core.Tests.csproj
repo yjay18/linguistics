@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/Linguistics.Core/Linguistics.Core.csproj" />
+    <ProjectReference Include="../../tools/AssetPipeline/AssetPipeline.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,6 +15,14 @@
 
   <ItemGroup>
     <Content Include="..\..\content\**\pack.json">
+      <Link>Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\content\**\assets.json">
+      <Link>Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\content\**\assets\**\*.png;..\..\content\**\assets\**\*.jpg;..\..\content\**\assets\**\*.jpeg">
       <Link>Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

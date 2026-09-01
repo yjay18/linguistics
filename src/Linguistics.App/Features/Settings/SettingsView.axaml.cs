@@ -3,6 +3,8 @@ using Avalonia.Interactivity;
 using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
 using Linguistics.App.Speech;
+using Linguistics.App.Features.Learn.Templates;
+using Linguistics.Core.Content;
 using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Settings;
@@ -33,7 +35,8 @@ public partial class SettingsView : UserControl
         ILanguageModelProvider? languageModelProvider = null,
         ISpeechSynthesisProvider? speechSynthesisProvider = null,
         ISpeechRecognitionProvider? speechRecognitionProvider = null,
-        SpeechRecordingStore? speechRecordingStore = null)
+        SpeechRecordingStore? speechRecordingStore = null,
+        IReadOnlyList<ValidatedContentAsset>? contentAssets = null)
         : this()
     {
         _profile = profile;
@@ -43,7 +46,20 @@ public partial class SettingsView : UserControl
         _speechSynthesisProvider = speechSynthesisProvider;
         _speechRecognitionProvider = speechRecognitionProvider;
         _speechRecordingStore = speechRecordingStore;
+        LoadAssetCredits(contentAssets ?? []);
         LoadProfile(profile);
+    }
+
+    private void LoadAssetCredits(IReadOnlyList<ValidatedContentAsset> assets)
+    {
+        AssetCreditsPanel.Children.Clear();
+        AssetCreditsSummary.Text = assets.Count == 0
+            ? "No validated pack images are available in this build."
+            : $"{assets.Count} bundled Preview {(assets.Count == 1 ? "image has" : "images have")} local attribution and provenance records.";
+        foreach (var asset in assets.OrderBy(asset => asset.Record.Id, StringComparer.Ordinal))
+        {
+            AssetCreditsPanel.Children.Add(TemplateRendering.CreateAssetCreditCard(asset));
+        }
     }
 
     private void LoadProfile(LearnerProfile profile)

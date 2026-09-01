@@ -18,6 +18,10 @@ public sealed class DesignSystemTests
         Assert.IsTrue(MotionPreferences.ShouldReduce(savedPreference: false, environmentValue: "ON"));
         Assert.IsFalse(MotionPreferences.ShouldReduce(savedPreference: false, environmentValue: "0"));
         Assert.IsFalse(MotionPreferences.ShouldReduce(savedPreference: false, environmentValue: "sometimes"));
+        Assert.AreEqual(TimeSpan.Zero, MotionPreferences.PageTransitionDuration(shouldReduce: true));
+        Assert.AreEqual(
+            TimeSpan.FromMilliseconds(180),
+            MotionPreferences.PageTransitionDuration(shouldReduce: false));
     }
 
     [TestMethod]
@@ -188,7 +192,7 @@ public sealed class DesignSystemTests
     }
 
     [TestMethod]
-    public void PaperStageSandboxUsesRasterCutoutsInsteadOfVectorSceneArt()
+    public void PaperStageSandboxUsesValidatedPackRasterCutoutsInsteadOfVectorSceneArt()
     {
         var appRoot = Path.Combine(RepositoryRoot, "src", "Linguistics.App");
         var sandbox = XDocument.Load(Path.Combine(
@@ -205,23 +209,44 @@ public sealed class DesignSystemTests
             .Where(element => vectorPrimitives.Contains(element.Name.LocalName))
             .ToArray());
 
-        var sources = sandbox
+        var images = sandbox
             .Descendants()
             .Where(element => element.Name.LocalName == "Image")
-            .Select(element => (string?)element.Attribute("Source"))
-            .OfType<string>()
-            .ToHashSet(StringComparer.Ordinal);
-        foreach (var fileName in new[]
+            .ToArray();
+        Assert.IsGreaterThanOrEqualTo(5, images.Length);
+        Assert.IsTrue(images.All(image => image.Attribute("Source") is null),
+            "Sandbox images must be assigned only from the validated pack cache.");
+
+        var sandboxCode = File.ReadAllText(Path.Combine(
+            appRoot,
+            "Features",
+            "Developer",
+            "PaperStageSandboxView.axaml.cs"));
+        var manifest = File.ReadAllText(Path.Combine(
+            RepositoryRoot,
+            "content",
+            "languages",
+            "de",
+            "assets.json"));
+        foreach (var (assetId, fileName) in new[]
                  {
-                     "market-backdrop.png",
-                     "market-stall-cutout.png",
-                     "market-foreground-cutout.png",
-                     "learner-cutout.png",
-                     "success-burst-cutout.png",
+                     ("asset.de.stage.market-backdrop", "market-backdrop.jpg"),
+                     ("asset.de.stage.market-stall", "market-stall-cutout.png"),
+                     ("asset.de.stage.market-foreground", "market-foreground-cutout.png"),
+                     ("asset.de.stage.learner", "learner-cutout.png"),
+                     ("asset.de.stage.success-burst", "success-burst-cutout.png"),
                  })
         {
-            Assert.Contains($"/Assets/PaperStage/{fileName}", sources);
-            Assert.IsTrue(File.Exists(Path.Combine(appRoot, "Assets", "PaperStage", fileName)));
+            Assert.Contains(assetId, sandboxCode, StringComparison.Ordinal);
+            Assert.Contains(fileName, manifest, StringComparison.Ordinal);
+            Assert.IsTrue(File.Exists(Path.Combine(
+                RepositoryRoot,
+                "content",
+                "languages",
+                "de",
+                "assets",
+                "generated",
+                fileName)));
         }
     }
 

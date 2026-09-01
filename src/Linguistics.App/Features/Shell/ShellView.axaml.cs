@@ -3,6 +3,7 @@ using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using Linguistics.App.Diagnostics;
+using Linguistics.App.Content;
 using Linguistics.App.Features.Developer;
 using Linguistics.App.Persistence;
 using Linguistics.App.Features.Languages;
@@ -37,6 +38,7 @@ public partial class ShellView : UserControl
     private IPronunciationAssessmentProvider? _pronunciationAssessmentProvider;
     private SpeechRecordingStore? _speechRecordingStore;
     private LocalDiagnosticLog? _diagnosticLog;
+    private ContentImageCache? _imageCache;
 
     public ShellView()
     {
@@ -70,7 +72,8 @@ public partial class ShellView : UserControl
         ISpeechRecognitionProvider? speechRecognitionProvider = null,
         IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null,
         SpeechRecordingStore? speechRecordingStore = null,
-        LocalDiagnosticLog? diagnosticLog = null)
+        LocalDiagnosticLog? diagnosticLog = null,
+        ContentImageCache? imageCache = null)
         : this()
     {
         _profile = profile;
@@ -86,6 +89,7 @@ public partial class ShellView : UserControl
         _pronunciationAssessmentProvider = pronunciationAssessmentProvider;
         _speechRecordingStore = speechRecordingStore;
         _diagnosticLog = diagnosticLog;
+        _imageCache = imageCache;
         ApplyMotionPreference();
         ShowSelectedPage();
     }
@@ -128,7 +132,9 @@ public partial class ShellView : UserControl
                     _profile,
                     _runtimeContentCatalog,
                     _runtimeContentError,
-                    _profileOwner));
+                    _profileOwner,
+                    imageCache: _imageCache,
+                    speechSynthesisProvider: _speechSynthesisProvider));
                 break;
             case "Learn" when DeveloperModeEnabled():
                 ShowPage(new LearnView(
@@ -136,7 +142,9 @@ public partial class ShellView : UserControl
                     _authoringContentCatalog,
                     _authoringContentError,
                     _profileOwner,
-                    showDeveloperDetails: true));
+                    showDeveloperDetails: true,
+                    imageCache: _imageCache,
+                    speechSynthesisProvider: _speechSynthesisProvider));
                 break;
             case "Scenarios":
                 ShowPage(new CafeOrderView(
@@ -184,16 +192,18 @@ public partial class ShellView : UserControl
                     _languageModelProvider,
                     _speechSynthesisProvider,
                     _speechRecognitionProvider,
-                    _speechRecordingStore));
+                    _speechRecordingStore,
+                    _imageCache?.Assets));
                 break;
             case "Template gallery" when DeveloperModeEnabled():
                 ShowPage(new TemplateGalleryView(
-                    TemplateRegistry.CreateDefault(),
+                    TemplateRegistry.CreateDefault(_imageCache, _speechSynthesisProvider),
                     TemplateGalleryFixtures.All,
-                    MotionPreferences.ShouldReduce(_profile.Settings.ReduceMotion)));
+                    MotionPreferences.ShouldReduce(_profile.Settings.ReduceMotion),
+                    _imageCache));
                 break;
             case "Paper stage" when DeveloperModeEnabled():
-                ShowPage(new PaperStageSandboxView());
+                ShowPage(new PaperStageSandboxView(_imageCache));
                 break;
             default:
                 ShowUnavailable();
@@ -248,9 +258,8 @@ public partial class ShellView : UserControl
     private void ApplyMotionPreference()
     {
         var reduceMotion = MotionPreferences.ShouldReduce(_profile?.Settings.ReduceMotion == true);
-        PageContent.PageTransition = reduceMotion
-            ? null
-            : new CrossFade(TimeSpan.FromMilliseconds(180));
+        PageContent.PageTransition = new CrossFade(
+            MotionPreferences.PageTransitionDuration(reduceMotion));
         TopLevel.GetTopLevel(this)?.Classes.Set("motion-enabled", !reduceMotion);
     }
 

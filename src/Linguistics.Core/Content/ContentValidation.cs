@@ -37,6 +37,7 @@ public static class ContentPackLoader
 {
     private const int MaximumPackCount = 64;
     private const long MaximumPackBytes = 16_777_216;
+    private const long MaximumAssetManifestBytes = 4_194_304;
 
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
@@ -93,10 +94,12 @@ public static class ContentPackLoader
         }
 
         var packs = new List<ContentPackDocument>(files.Length);
+        var assetManifests = new List<ContentAssetManifestLocation>(files.Length);
         var decodeErrors = new List<ContentValidationError>();
         foreach (var file in files)
         {
             var relativePath = Path.GetRelativePath(rootDirectory, file);
+            var packDirectory = Path.GetDirectoryName(file)!;
             try
             {
                 var length = new FileInfo(file).Length;
@@ -123,6 +126,76 @@ public static class ContentPackLoader
                 }
 
                 packs.Add(pack);
+                if (pack.Manifest is null)
+                {
+                    continue;
+                }
+
+                var assetManifestPath = Path.Combine(packDirectory, "assets.json");
+                try
+                {
+                    if (File.Exists(assetManifestPath))
+                    {
+                        var assetManifestLength = new FileInfo(assetManifestPath).Length;
+                        if (assetManifestLength > MaximumAssetManifestBytes)
+                        {
+                            decodeErrors.Add(new ContentValidationError(
+                                "asset.manifest.limit",
+                                pack.Manifest.Id,
+                                "assets.json",
+                                $"Asset manifest size {assetManifestLength} bytes exceeds the {MaximumAssetManifestBytes}-byte limit."));
+                            continue;
+                        }
+
+                        using var assetManifestStream = File.OpenRead(assetManifestPath);
+                        var assetManifest = JsonSerializer.Deserialize<ContentAssetManifest>(
+                            assetManifestStream,
+                            SerializerOptions);
+                        if (assetManifest is null)
+                        {
+                            decodeErrors.Add(new ContentValidationError(
+                                "asset.manifest.null",
+                                pack.Manifest.Id,
+                                "assets.json",
+                                "The asset manifest decoded to null."));
+                            continue;
+                        }
+
+                        assetManifests.Add(new ContentAssetManifestLocation(
+                            assetManifest,
+                            packDirectory,
+                            assetManifestPath));
+                    }
+                    else if (Directory.Exists(Path.Combine(packDirectory, "assets")) &&
+                             Directory.EnumerateFiles(
+                                     Path.Combine(packDirectory, "assets"),
+                                     "*",
+                                     SearchOption.AllDirectories)
+                                 .Any(path => Path.GetExtension(path).ToLowerInvariant() is ".png" or ".jpg" or ".jpeg"))
+                    {
+                        decodeErrors.Add(new ContentValidationError(
+                            "asset.manifest.missing",
+                            pack.Manifest.Id,
+                            "assets.json",
+                            "A pack containing bundled images needs an assets.json manifest."));
+                    }
+                }
+                catch (JsonException exception)
+                {
+                    decodeErrors.Add(new ContentValidationError(
+                        "asset.manifest.json",
+                        pack.Manifest.Id,
+                        exception.Path is null ? "assets.json" : $"assets.json:{exception.Path}",
+                        exception.Message));
+                }
+                catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+                {
+                    decodeErrors.Add(new ContentValidationError(
+                        "asset.manifest.read",
+                        pack.Manifest.Id,
+                        "assets.json",
+                        exception.Message));
+                }
             }
             catch (JsonException exception)
             {
@@ -147,7 +220,23 @@ public static class ContentPackLoader
             throw new ContentValidationException(Order(decodeErrors));
         }
 
-        var validationErrors = ContentPackValidator.Validate(packs, policy);
+        var assetValidationErrors = ContentAssetValidator.Validate(
+            packs,
+            assetManifests,
+            policy,
+            out var validatedAssets);
+        var validationErrors = ContentPackValidator.Validate(
+            packs,
+            policy,
+            LessonTemplateSchemas.All,
+            validatedAssets.Select(asset => asset.Record.Id).ToArray());
+        validationErrors = validationErrors
+            .Concat(assetValidationErrors)
+            .OrderBy(error => error.PackId, StringComparer.Ordinal)
+            .ThenBy(error => error.Path, StringComparer.Ordinal)
+            .ThenBy(error => error.Code, StringComparer.Ordinal)
+            .ThenBy(error => error.Message, StringComparer.Ordinal)
+            .ToArray();
         if (validationErrors.Count > 0)
         {
             throw new ContentValidationException(validationErrors);
@@ -155,6 +244,7 @@ public static class ContentPackLoader
 
         return new ValidatedContentCatalog(
             packs.OrderBy(pack => pack.Manifest.Id, StringComparer.Ordinal).ToArray(),
+            validatedAssets,
             policy);
     }
 

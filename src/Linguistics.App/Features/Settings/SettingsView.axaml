@@ -187,6 +187,27 @@
                 Click="OnSaveClicked"
                 AutomationProperties.AutomationId="SaveSettings" />
 
+        <controls:PaperCard Classes="settings-sheet soft"
+                            AutomationProperties.AutomationId="ImageCreditsCard">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Image credits"
+                           FontSize="22"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock x:Name="AssetCreditsSummary"
+                           Text="No validated pack images are available in this build."
+                           TextWrapping="Wrap"
+                           Opacity="0.78"
+                           AutomationProperties.AutomationId="ImageCreditsSummary" />
+                <TextBlock Text="All bundled images remain Preview. Attribution is complete, but license, content, modification, and redistribution review are still required before release."
+                           TextWrapping="Wrap"
+                           Opacity="0.72" />
+                <StackPanel x:Name="AssetCreditsPanel"
+                            Spacing="10"
+                            AutomationProperties.AutomationId="ImageCreditsList" />
+            </StackPanel>
+        </controls:PaperCard>
+
         <controls:PaperCard Classes="danger">
             <StackPanel Spacing="12">
                 <TextBlock Text="Delete local learning data"

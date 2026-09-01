@@ -1,10 +1,13 @@
 using Avalonia.Controls;
+using Linguistics.App.Content;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Learn.Templates;
 
 internal delegate Control TemplateRendererFactory(
+    ContentImageCache? imageCache,
     ResolvedTemplateParameters parameters,
     LanguageCode instructionLanguage,
     bool shouldReduceMotion,
@@ -13,10 +16,19 @@ internal delegate Control TemplateRendererFactory(
 internal sealed class TemplateRegistry
 {
     private readonly IReadOnlyDictionary<TemplateId, TemplateRendererFactory> _renderers;
+    private readonly ContentImageCache? _imageCache;
 
     public TemplateRegistry(IEnumerable<KeyValuePair<TemplateId, TemplateRendererFactory>> renderers)
+        : this(null, renderers)
+    {
+    }
+
+    public TemplateRegistry(
+        ContentImageCache? imageCache,
+        IEnumerable<KeyValuePair<TemplateId, TemplateRendererFactory>> renderers)
     {
         ArgumentNullException.ThrowIfNull(renderers);
+        _imageCache = imageCache;
 
         var registrations = renderers.ToArray();
         var duplicate = registrations
@@ -37,17 +49,185 @@ internal sealed class TemplateRegistry
 
     public IReadOnlyList<TemplateId> RegisteredTemplateIds { get; }
 
-    public static TemplateRegistry CreateDefault() => new(
+    public static TemplateRegistry CreateDefault(
+        ContentImageCache? imageCache = null,
+        ISpeechSynthesisProvider? speechSynthesisProvider = null) => new(
+        imageCache,
     [
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("scene-establish"),
+            SceneEstablishRenderer.Render),
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("object-spotlight"),
             ObjectSpotlightRenderer.Render),
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("object-anatomy"),
+            ObjectAnatomyRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("paper-dialogue"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                PaperDialogueRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("street-walk"),
+            StreetWalkRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("postcard-story"),
+            PostcardStoryRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("photo-album"),
+            PhotoAlbumRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("culture-plate"),
+            CulturePlateRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("weather-window"),
+            WeatherWindowRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("clock-theatre"),
+            ClockTheatreRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("picture-match"),
-            PictureMatchRenderer.Render),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                PictureMatchRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("word-match"),
+            WordMatchRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("pair-cards"),
+            PairCardsRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("odd-one-out"),
+            OddOneOutRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("sort-into-baskets"),
+            SortIntoBasketsRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("article-stamp"),
+            ArticleStampRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("plural-fold"),
+            PluralFoldRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("color-swatch"),
+            ColorSwatchRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("number-tiles"),
+            NumberTilesRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("label-the-scene"),
+            LabelTheSceneRenderer.Render),
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("word-order-train"),
             WordOrderTrainRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("gap-card"),
+            GapCardRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("sentence-fold"),
+            SentenceFoldRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("conjugation-wheel"),
+            ConjugationWheelRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("case-switchboard"),
+            CaseSwitchboardRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("separable-verb-split"),
+            SeparableVerbSplitRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("question-flip"),
+            QuestionFlipRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("negation-strike"),
+            NegationStrikeRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("preposition-stage"),
+            PrepositionStageRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("sentence-expand"),
+            SentenceExpandRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("listen-pick-image"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                ListenPickImageRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("listen-order"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                ListenOrderRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("listen-type"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                ListenTypeRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("minimal-pair-doors"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                MinimalPairDoorsRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("listen-route"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                ListenRouteRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("listen-price-tag"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                ListenPriceTagRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("dialogue-eavesdrop"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                DialogueEavesdropRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
     ]);
 
     public Control Render(
@@ -65,6 +245,6 @@ internal sealed class TemplateRegistry
             throw new KeyNotFoundException($"Template renderer '{templateId}' is not registered.");
         }
 
-        return renderer(parameters, instructionLanguage, shouldReduceMotion, reportOutcome);
+        return renderer(_imageCache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome);
     }
 }

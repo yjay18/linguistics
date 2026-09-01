@@ -15,20 +15,46 @@ internal static class TemplateGalleryFixtures
     public static IReadOnlyList<TemplateGalleryFixture> All { get; } =
     [
         new(
+            new TemplateId("scene-establish"),
+            "Scene establish",
+            "Scene and story · validated backdrop · authored text cast",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["location"] = new(TemplateParameterKind.Text, Text: "Marktplatz"),
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Meet the place and the people before the story begins.",
+                        ["hi"] = "कहानी शुरू होने से पहले जगह और लोगों से मिलें।",
+                    }),
+                ["cast"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("vendor", "Marktfrau"),
+                        new("visitor", "Besucher"),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
             new TemplateId("object-spotlight"),
             "Object spotlight",
-            "Scene · synthetic Hindi instruction route",
+            "Scene · validated pack image · Hindi instruction route",
             new LanguageCode("hi"),
             new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
             {
-                ["word"] = new(TemplateParameterKind.Text, Text: "Marktstand"),
+                ["word"] = new(TemplateParameterKind.Text, Text: "Kaffee"),
                 ["article"] = new(TemplateParameterKind.Text, Text: "der"),
                 ["meaning"] = new(
                     TemplateParameterKind.TextByLanguage,
                     TextByLanguage: new Dictionary<string, string>
                     {
-                        ["en"] = "market stall",
-                        ["hi"] = "बाज़ार का स्टॉल",
+                        ["en"] = "coffee",
+                        ["hi"] = "कॉफ़ी",
                     }),
                 ["instruction"] = new(
                     TemplateParameterKind.TextByLanguage,
@@ -39,12 +65,220 @@ internal static class TemplateGalleryFixtures
                     }),
                 ["asset"] = new(
                     TemplateParameterKind.AssetReference,
-                    AssetReferenceId: "preview.market-stall"),
+                    AssetReferenceId: "asset.de.cafe.coffee"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("object-anatomy"),
+            "Object anatomy",
+            "Scene and story · synthetic Preview labels · local photograph",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["title"] = new(TemplateParameterKind.Text, Text: "die Schere"),
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Notice how two named parts make the classroom object.",
+                        ["hi"] = "ध्यान दें कि दो नामित हिस्से कक्षा की वस्तु बनाते हैं।",
+                    }),
+                ["parts"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("handle", "der Griff"),
+                        new("blade", "die Klinge"),
+                    ]),
+                ["asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.classroom.scissors"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("paper-dialogue"),
+            "Paper dialogue",
+            "Scene and story · caption-complete · optional local TTS",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Watch the greeting pass from one speaker to the other.",
+                        ["hi"] = "अभिवादन को एक वक्ता से दूसरे तक जाते हुए देखें।",
+                    }),
+                ["speaker-one"] = new(TemplateParameterKind.Text, Text: "Mina"),
+                ["line-one"] = new(TemplateParameterKind.Text, Text: "Guten Tag!"),
+                ["speaker-two"] = new(TemplateParameterKind.Text, Text: "Jonas"),
+                ["line-two"] = new(TemplateParameterKind.Text, Text: "Hallo, Mina!"),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("street-walk"),
+            "Street walk",
+            "Scene and story · stepped route · native torn foreground",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Follow Mina past three labeled places on the short route.",
+                        ["hi"] = "मीना के साथ छोटे रास्ते पर तीन नामित जगहों के पास जाएँ।",
+                    }),
+                ["subject"] = new(TemplateParameterKind.Text, Text: "Mina"),
+                ["route"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("cafe", "Café"),
+                        new("market", "Markt"),
+                        new("station", "Bahnhof"),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("postcard-story"),
+            "Postcard story",
+            "Scene and story · two-sided card · local photographs",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Turn the postcard to read the short note on its back.",
+                        ["hi"] = "पीछे का छोटा नोट पढ़ने के लिए पोस्टकार्ड पलटें।",
+                    }),
+                ["front-title"] = new(TemplateParameterKind.Text, Text: "Grüße vom Markt"),
+                ["front-caption"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "A friendly greeting at the market.",
+                        ["hi"] = "बाज़ार में एक दोस्ताना अभिवादन।",
+                    }),
+                ["back-title"] = new(TemplateParameterKind.Text, Text: "Hallo aus Berlin"),
+                ["back-body"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Mina sends a short greeting after visiting the market.",
+                        ["hi"] = "मीना बाज़ार जाने के बाद एक छोटा अभिवादन भेजती है।",
+                    }),
+                ["front-asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.greetings.handshake"),
+                ["back-asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("photo-album"),
+            "Photo album",
+            "Scene and story · captioned local photo set · keyboard paging",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["title"] = new(TemplateParameterKind.Text, Text: "Im Café"),
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Turn through three café items and read each complete caption.",
+                        ["hi"] = "कैफ़े की तीन वस्तुओं के पन्ने पलटें और हर कैप्शन पढ़ें।",
+                    }),
+                ["pages"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("coffee", "der Kaffee", "asset.de.cafe.coffee"),
+                        new("tea", "der Tee", "asset.de.cafe.tea"),
+                        new("water", "das Wasser", "asset.de.cafe.water"),
+                    ]),
+            })),
+        new(
+            new TemplateId("culture-plate"),
+            "Culture plate",
+            "Scene and story · authored text-only equivalent · asset follow-up",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["title"] = new(TemplateParameterKind.Text, Text: "Begrüßung"),
+                ["caption"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "A synthetic Preview plate tests the cultural-note layout without claiming reviewed cultural content.",
+                        ["hi"] = "यह सिंथेटिक प्रीव्यू बिना समीक्षित सांस्कृतिक दावा किए सांस्कृतिक नोट का लेआउट जाँचता है।",
+                    }),
+                ["source-note"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "No suitable Commons artifact is bundled yet."),
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Read the caption and the explicit source state together.",
+                        ["hi"] = "कैप्शन और स्पष्ट स्रोत स्थिति को साथ पढ़ें।",
+                    }),
+            })),
+        new(
+            new TemplateId("weather-window"),
+            "Weather window",
+            "Scene and story · native paper rain · validated backdrop",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["weather"] = new(TemplateParameterKind.Text, Text: "Regen"),
+                ["season"] = new(TemplateParameterKind.Text, Text: "Frühling"),
+                ["effect"] = new(TemplateParameterKind.Text, Text: "rain"),
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Look through the window and connect weather with the season.",
+                        ["hi"] = "खिड़की से देखें और मौसम को ऋतु से जोड़ें।",
+                    }),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("clock-theatre"),
+            "Clock theatre",
+            "Scene and story · native paper clock · authored time",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["time"] = new(TemplateParameterKind.Text, Text: "zehn Uhr dreißig"),
+                ["hour"] = new(TemplateParameterKind.Text, Text: "10"),
+                ["minute"] = new(TemplateParameterKind.Text, Text: "30"),
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Watch the paper hands settle on the authored time.",
+                        ["hi"] = "काग़ज़ की सुइयों को लिखे हुए समय पर टिकते देखें।",
+                    }),
             })),
         new(
             new TemplateId("picture-match"),
             "Picture match",
-            "Recognition · synthetic local cutouts",
+            "Recognition · validated café photographs",
             new LanguageCode("en"),
             new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
             {
@@ -52,18 +286,318 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.TextByLanguage,
                     TextByLanguage: new Dictionary<string, string>
                     {
-                        ["en"] = "Which cutout shows the learner?",
-                        ["hi"] = "कौन-सा कटआउट सीखने वाले व्यक्ति को दिखाता है?",
+                        ["en"] = "Which picture shows Kaffee?",
+                        ["hi"] = "कौन-सी तस्वीर Kaffee दिखाती है?",
                     }),
                 ["options"] = new(
                     TemplateParameterKind.OptionList,
                     Options:
                     [
-                        new("stall", "Market stall", "preview.market-stall"),
-                        new("learner", "Learner", "preview.learner"),
-                        new("square", "Market square", "preview.market-square"),
+                        new("kaffee", "Kaffee", "asset.de.cafe.coffee"),
+                        new("tee", "Tee", "asset.de.cafe.tea"),
+                        new("wasser", "Wasser", "asset.de.cafe.water"),
                     ]),
-                ["answer"] = new(TemplateParameterKind.Text, Text: "learner"),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "kaffee"),
+                ["spoken-text"] = new(TemplateParameterKind.Text, Text: "Kaffee"),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("word-match"),
+            "Word match",
+            "Recognition · validated cutout · complete text equivalent",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Choose the German word that names the cutout.",
+                        ["hi"] = "कटआउट का जर्मन नाम चुनें।",
+                    }),
+                ["subject-description"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "A white cup filled with coffee"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("kaffee", "Kaffee"),
+                        new("tee", "Tee"),
+                        new("wasser", "Wasser"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "kaffee"),
+                ["asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.cafe.coffee"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("pair-cards"),
+            "Pair cards",
+            "Recognition · keyboard card flips · validated café set",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Reveal two cards and match a German word with its picture.",
+                        ["hi"] = "दो कार्ड खोलें और जर्मन शब्द को उसकी तस्वीर से मिलाएँ।",
+                    }),
+                ["pairs"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("kaffee", "Kaffee", "asset.de.cafe.coffee"),
+                        new("tee", "Tee", "asset.de.cafe.tea"),
+                        new("wasser", "Wasser", "asset.de.cafe.water"),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("odd-one-out"),
+            "Odd one out",
+            "Recognition · four validated cutouts · authored category",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Choose the cutout that does not belong with the café drinks.",
+                        ["hi"] = "वह कटआउट चुनें जो कैफ़े पेयों के साथ नहीं आता।",
+                    }),
+                ["category-label"] = new(TemplateParameterKind.Text, Text: "Café drinks"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("kaffee", "Kaffee", "asset.de.cafe.coffee"),
+                        new("tee", "Tee", "asset.de.cafe.tea"),
+                        new("wasser", "Wasser", "asset.de.cafe.water"),
+                        new("schere", "Schere", "asset.de.classroom.scissors"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "schere"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("sort-into-baskets"),
+            "Sort into baskets",
+            "Recognition · drag or keyboard assignment · two authored groups",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Drag each item, or select it and choose its labeled basket.",
+                        ["hi"] = "हर वस्तु खींचें, या उसे चुनकर सही नाम वाली टोकरी चुनें।",
+                    }),
+                ["items"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("kaffee", "Kaffee", "asset.de.cafe.coffee"),
+                        new("tee", "Tee", "asset.de.cafe.tea"),
+                        new("schere", "Schere", "asset.de.classroom.scissors"),
+                        new("stifte", "Stifte", "asset.de.classroom.colouring-pencils"),
+                    ]),
+                ["baskets"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("cafe", "Im Café"),
+                        new("classroom", "Im Klassenzimmer"),
+                    ]),
+                ["answers"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("kaffee", "cafe"),
+                        new("tee", "cafe"),
+                        new("schere", "classroom"),
+                        new("stifte", "classroom"),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("article-stamp"),
+            "Article stamp",
+            "Recognition · native paper stamps · authored noun gender",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Stamp the authored article beside the German noun.",
+                        ["hi"] = "जर्मन संज्ञा के पास सही लिखा हुआ लेख लगाएँ।",
+                    }),
+                ["noun"] = new(TemplateParameterKind.Text, Text: "Kaffee"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("der", "der"),
+                        new("die", "die"),
+                        new("das", "das"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "der"),
+                ["asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.cafe.coffee"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("plural-fold"),
+            "Plural fold",
+            "Recognition · two-sided paper fold · authored word forms",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Unfold the card to compare the authored singular and plural.",
+                        ["hi"] = "लिखे हुए एकवचन और बहुवचन की तुलना के लिए कार्ड खोलें।",
+                    }),
+                ["singular"] = new(TemplateParameterKind.Text, Text: "der Stift"),
+                ["plural"] = new(TemplateParameterKind.Text, Text: "die Stifte"),
+                ["asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.classroom.colouring-pencils"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("color-swatch"),
+            "Color swatch",
+            "Recognition · authored pigment chips · validated classroom object",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Choose blau and apply its paper pigment to the object card.",
+                        ["hi"] = "blau चुनें और उसके काग़ज़ी रंग को वस्तु कार्ड पर लगाएँ।",
+                    }),
+                ["object-name"] = new(TemplateParameterKind.Text, Text: "der Stift"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("blau", "blau"),
+                        new("rot", "rot"),
+                        new("gruen", "grün"),
+                    ]),
+                ["swatch-colors"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("blau", "#6F8FAF"),
+                        new("rot", "#A95F52"),
+                        new("gruen", "#6F8A70"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "blau"),
+                ["asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.classroom.colouring-pencils"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("number-tiles"),
+            "Number tiles",
+            "Recognition · authored quantity scene · validated counting image",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Count the paper blocks and choose the matching digit tile.",
+                        ["hi"] = "काग़ज़ी ब्लॉक गिनें और मिलती हुई अंक टाइल चुनें।",
+                    }),
+                ["quantity-description"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Four separate counting blocks"),
+                ["pieces"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("block-1", "block one"),
+                        new("block-2", "block two"),
+                        new("block-3", "block three"),
+                        new("block-4", "block four"),
+                    ]),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("3", "3"),
+                        new("4", "4"),
+                        new("5", "5"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "4"),
+                ["asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.numbers.counting-blocks"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("label-the-scene"),
+            "Label the scene",
+            "Recognition · busy market stage · four tabbable hotspots",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Find der Kaffee in the busy scene and reveal its label.",
+                        ["hi"] = "व्यस्त दृश्य में der Kaffee खोजें और उसका लेबल खोलें।",
+                    }),
+                ["target-label"] = new(TemplateParameterKind.Text, Text: "der Kaffee"),
+                ["hotspots"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("kaffee", "der Kaffee", "asset.de.cafe.coffee"),
+                        new("tee", "der Tee", "asset.de.cafe.tea"),
+                        new("wasser", "das Wasser", "asset.de.cafe.water"),
+                        new("schere", "die Schere", "asset.de.classroom.scissors"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "kaffee"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
             })),
         new(
             new TemplateId("word-order-train"),
@@ -89,6 +623,484 @@ internal static class TemplateGalleryFixtures
                         new("kaffee", "Kaffee,"),
                         new("bitte", "bitte."),
                     ]),
+                ["asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.cafe.coffee"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("gap-card"),
+            "Gap card",
+            "Construction · synthetic Preview cloze · drag or keyboard",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Complete the authored café request with one word tile.",
+                        ["hi"] = "लिखे हुए कैफ़े अनुरोध को एक शब्द टाइल से पूरा करें।",
+                    }),
+                ["sentence-before"] = new(TemplateParameterKind.Text, Text: "Ich"),
+                ["sentence-after"] = new(TemplateParameterKind.Text, Text: "einen Kaffee, bitte."),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("moechte", "möchte"),
+                        new("trinke", "trinke"),
+                        new("sehe", "sehe"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "moechte"),
+            })),
+        new(
+            new TemplateId("sentence-fold"),
+            "Sentence fold",
+            "Construction · synthetic Preview accordion · authored sequence",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Unfold the authored café sentence one section at a time.",
+                        ["hi"] = "लिखे हुए कैफ़े वाक्य को एक बार में एक भाग खोलें।",
+                    }),
+                ["segments"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("subject", "Ich"),
+                        new("verb", "möchte"),
+                        new("object", "einen Kaffee"),
+                        new("courtesy", "bitte."),
+                    ]),
+            })),
+        new(
+            new TemplateId("conjugation-wheel"),
+            "Conjugation wheel",
+            "Construction · synthetic Preview forms · two keyboard wheels",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Rotate both paper wheels to align a person with its authored form.",
+                        ["hi"] = "व्यक्ति को उसके लिखे हुए रूप से मिलाने के लिए दोनों पहिए घुमाएँ।",
+                    }),
+                ["lemma"] = new(TemplateParameterKind.Text, Text: "gehen"),
+                ["persons"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("ich", "ich"),
+                        new("du", "du"),
+                        new("er", "er"),
+                    ]),
+                ["forms"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("gehe", "gehe"),
+                        new("gehst", "gehst"),
+                        new("geht", "geht"),
+                    ]),
+                ["answers"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("ich", "gehe"),
+                        new("du", "gehst"),
+                        new("er", "geht"),
+                    ]),
+            })),
+        new(
+            new TemplateId("case-switchboard"),
+            "Case switchboard",
+            "Construction · synthetic Preview roles · flipping article card",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Choose a sentence role, then flip the article card to its authored form.",
+                        ["hi"] = "वाक्य की भूमिका चुनें, फिर लेख कार्ड को लिखे हुए रूप में पलटें।",
+                    }),
+                ["noun"] = new(TemplateParameterKind.Text, Text: "Kaffee"),
+                ["roles"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("subject", "Subject"),
+                        new("direct-object", "Direct object"),
+                    ]),
+                ["articles"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("der", "der"),
+                        new("den", "den"),
+                    ]),
+                ["answers"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("subject", "der"),
+                        new("direct-object", "den"),
+                    ]),
+            })),
+        new(
+            new TemplateId("separable-verb-split"),
+            "Separable verb split",
+            "Construction · synthetic Preview clause · paper prefix motion",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Split the authored verb and move its prefix to the clause end.",
+                        ["hi"] = "लिखी हुई क्रिया को अलग करें और उपसर्ग को वाक्य के अंत में ले जाएँ।",
+                    }),
+                ["joined-form"] = new(TemplateParameterKind.Text, Text: "aufstehen"),
+                ["sentence-start"] = new(TemplateParameterKind.Text, Text: "Ich stehe"),
+                ["prefix"] = new(TemplateParameterKind.Text, Text: "auf."),
+            })),
+        new(
+            new TemplateId("question-flip"),
+            "Question flip",
+            "Construction · synthetic Preview sentence pair · two-sided card",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Flip the authored statement card to inspect its question form.",
+                        ["hi"] = "लिखे हुए कथन कार्ड को पलटकर उसका प्रश्न रूप देखें।",
+                    }),
+                ["statement"] = new(TemplateParameterKind.Text, Text: "Du trinkst Kaffee."),
+                ["question"] = new(TemplateParameterKind.Text, Text: "Trinkst du Kaffee?"),
+            })),
+        new(
+            new TemplateId("negation-strike"),
+            "Negation strike",
+            "Construction · synthetic Preview placement · native paper wobble",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Choose a negator and place it in the authored sentence slot.",
+                        ["hi"] = "निषेध शब्द चुनें और उसे लिखे हुए वाक्य स्थान में रखें।",
+                    }),
+                ["sentence-start"] = new(TemplateParameterKind.Text, Text: "Ich trinke"),
+                ["object"] = new(TemplateParameterKind.Text, Text: "Wasser"),
+                ["sentence-end"] = new(TemplateParameterKind.Text, Text: "."),
+                ["negators"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("nicht", "nicht"),
+                        new("kein", "kein"),
+                    ]),
+                ["slots"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("before-object", "Before the object"),
+                        new("after-object", "After the object"),
+                    ]),
+                ["answer-negator"] = new(TemplateParameterKind.Text, Text: "kein"),
+                ["answer-slot"] = new(TemplateParameterKind.Text, Text: "before-object"),
+            })),
+        new(
+            new TemplateId("preposition-stage"),
+            "Preposition stage",
+            "Construction · validated cutout · drag or keyboard positions",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Move der Kaffee to auf and read the resulting authored phrase.",
+                        ["hi"] = "der Kaffee को auf पर ले जाएँ और बना हुआ लिखा वाक्यांश पढ़ें।",
+                    }),
+                ["object-label"] = new(TemplateParameterKind.Text, Text: "der Kaffee"),
+                ["reference-label"] = new(TemplateParameterKind.Text, Text: "dem Tisch"),
+                ["positions"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("auf", "auf"),
+                        new("unter", "unter"),
+                        new("neben", "neben"),
+                    ]),
+                ["phrases"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("auf", "der Kaffee auf dem Tisch"),
+                        new("unter", "der Kaffee unter dem Tisch"),
+                        new("neben", "der Kaffee neben dem Tisch"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "auf"),
+                ["asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.cafe.coffee"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("sentence-expand"),
+            "Sentence expand",
+            "Construction · synthetic Preview sentence · optional local cutouts",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Add the authored complements to grow the café sentence in order.",
+                        ["hi"] = "कैफ़े वाक्य को क्रम में बढ़ाने के लिए लिखे हुए पूरक जोड़ें।",
+                    }),
+                ["base"] = new(TemplateParameterKind.Text, Text: "Ich bestelle"),
+                ["complements"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("object", "einen Kaffee", "asset.de.cafe.coffee"),
+                        new("place", "im Café"),
+                        new("time", "am Morgen."),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("listen-pick-image"),
+            "Listen and pick an image",
+            "Listening · optional local TTS · written prompt fallback",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Play the café request, then choose the matching cutout.",
+                        ["hi"] = "कैफ़े का अनुरोध चलाएँ, फिर उससे मिलता कटआउट चुनें।",
+                    }),
+                ["utterance"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Ich möchte einen Tee, bitte."),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("coffee", "der Kaffee", "asset.de.cafe.coffee"),
+                        new("tea", "der Tee", "asset.de.cafe.tea"),
+                        new("water", "das Wasser", "asset.de.cafe.water"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "tea"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("listen-order"),
+            "Listen and order",
+            "Listening · authored event sequence · optional local TTS",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Play the three-item sequence, then order its event cards.",
+                        ["hi"] = "तीन वस्तुओं का क्रम चलाएँ, फिर घटना कार्ड सही क्रम में रखें।",
+                    }),
+                ["utterance"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Zuerst Tee, dann Wasser, zuletzt Kaffee."),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["events"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("tea", "Tee", "asset.de.cafe.tea"),
+                        new("water", "Wasser", "asset.de.cafe.water"),
+                        new("coffee", "Kaffee", "asset.de.cafe.coffee"),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("listen-type"),
+            "Listen and type",
+            "Listening · local dictation · bounded core tolerance",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Play the café sentence, then type its complete wording.",
+                        ["hi"] = "कैफ़े का वाक्य चलाएँ, फिर उसका पूरा पाठ लिखें।",
+                    }),
+                ["utterance"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Ich möchte einen Tee, bitte."),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["accepted-answers"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("full", "Ich möchte einen Tee, bitte."),
+                    ]),
+            })),
+        new(
+            new TemplateId("minimal-pair-doors"),
+            "Minimal pair doors",
+            "Listening · two authored sound doors · no microphone",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Play the sound, then open the door with its matching word.",
+                        ["hi"] = "ध्वनि चलाएँ, फिर उससे मिलता शब्द वाला दरवाज़ा खोलें।",
+                    }),
+                ["utterance"] = new(TemplateParameterKind.Text, Text: "ich"),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("ich", "ich"),
+                        new("ach", "ach"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "ich"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("listen-route"),
+            "Listen and route",
+            "Listening · authored map route · deterministic sequence",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Play the directions, then build the route across the paper map.",
+                        ["hi"] = "दिशाएँ चलाएँ, फिर कागज़ी नक्शे पर रास्ता बनाएँ।",
+                    }),
+                ["utterance"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Gehe zuerst zum Café, dann zum Markt, zuletzt zum Bahnhof."),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["route"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("cafe", "Café"),
+                        new("market", "Markt"),
+                        new("station", "Bahnhof"),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
+        new(
+            new TemplateId("listen-price-tag"),
+            "Listen and set a price tag",
+            "Listening · number discrimination · optional local TTS",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Play the market price, then set the matching paper tag.",
+                        ["hi"] = "बाज़ार का दाम चलाएँ, फिर उससे मिलता कागज़ी टैग चुनें।",
+                    }),
+                ["utterance"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Das kostet drei Euro fünfzig."),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("three-fifteen", "€3,15"),
+                        new("three-fifty", "€3,50"),
+                        new("five-thirty", "€5,30"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "three-fifty"),
+            })),
+        new(
+            new TemplateId("dialogue-eavesdrop"),
+            "Dialogue eavesdrop",
+            "Listening · captioned exchange · deterministic comprehension",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Watch the café exchange, then answer the written question.",
+                        ["hi"] = "कैफ़े की बातचीत देखें, फिर लिखे हुए प्रश्न का उत्तर दें।",
+                    }),
+                ["speaker-one"] = new(TemplateParameterKind.Text, Text: "Mina"),
+                ["line-one"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Ich nehme den Tee."),
+                ["speaker-two"] = new(TemplateParameterKind.Text, Text: "Max"),
+                ["line-two"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Ich nehme den Kaffee."),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["question"] = new(TemplateParameterKind.Text, Text: "Was nimmt Mina?"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("tea", "Tee"),
+                        new("coffee", "Kaffee"),
+                        new("water", "Wasser"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "tea"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
             })),
     ];
 }

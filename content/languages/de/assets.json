@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "packId": "language.de.core",
+  "packVersion": 1,
+  "assets": [
+    {
+      "id": "asset.de.cafe.coffee",
+      "file": "assets/commons/coffee-cup.jpg",
+      "mediaType": "image/jpeg",
+      "byteSize": 56116,
+      "sha256": "9786f93b6993bc9740e8fb0e3cdb84b8dc5b3a32640f0d5ef7c89c8f5268e5ee",
+      "provenance": "wikimediaCommons",
+      "representation": "photograph",
+      "source": {
+        "title": "File:A small cup of coffee.JPG",
+        "author": "Julius Schorzman",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_small_cup_of_coffee.JPG",
+        "retrievedOn": "2026-08-30",
+        "originalSha256": "a3a5ad6f98018be9c3b8b26a5c15d426fe598067a1a70fc381a6258cd3db96f8"
+      },
+      "generation": null,
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 760x570; encoded as JPEG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The coffee, white cup, saucer, handle, and spoon remain clearly distinguishable at lesson scale; the original photographic background is intentionally retained."
+      },
+      "license": {
+        "identifier": "CC-BY-SA-2.0",
+        "copyrightHolder": "Julius Schorzman",
+        "licenseTextLocation": "https://creativecommons.org/licenses/by-sa/2.0",
+        "intendedUse": "Bundled local lesson image with source attribution; redistribution remains review-gated.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "File:A small cup of coffee.JPG by Julius Schorzman, CC-BY-SA-2.0. https://commons.wikimedia.org/wiki/File:A_small_cup_of_coffee.JPG",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Machine-validated asset draft; competent license and content review is still required."
+      }
+    },
+    {
+      "id": "asset.de.cafe.tea",
+      "file": "assets/commons/tea-cup.jpg",
+      "mediaType": "image/jpeg",
+      "byteSize": 81440,
+      "sha256": "146e8413000ce6eec91fc2e8805e851bba9a4025719fac1c761403f7abd16b32",
+      "provenance": "wikimediaCommons",
+      "representation": "photograph",
+      "source": {
+        "title": "File:Cup of milky tea.jpg",
+        "author": "Brett Taylor from Wellington, New Zealand",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cup_of_milky_tea.jpg",
+        "retrievedOn": "2026-08-30",
+        "originalSha256": "fcc334b647487e27ad324a6ae430f939faf394f45bcb8c0fdcd18bf7d267a4ad"
+      },
+      "generation": null,
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 760x695; encoded as JPEG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The milky tea, cup, saucer, spoon, and milk bottle remain distinguishable at lesson scale; the original photographic background is intentionally retained."
+      },
+      "license": {
+        "identifier": "CC-BY-2.0",
+        "copyrightHolder": "Brett Taylor from Wellington, New Zealand",
+        "licenseTextLocation": "https://creativecommons.org/licenses/by/2.0",
+        "intendedUse": "Bundled local lesson image with source attribution; redistribution remains review-gated.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "File:Cup of milky tea.jpg by Brett Taylor from Wellington, New Zealand, CC-BY-2.0. https://commons.wikimedia.org/wiki/File:Cup_of_milky_tea.jpg",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Machine-validated asset draft; competent license and content review is still required."
+      }
+    },
+    {
+      "id": "asset.de.cafe.water",
+      "file": "assets/commons/water-glass.jpg",
+      "mediaType": "image/jpeg",
+      "byteSize": 74729,
+      "sha256": "c9a3c22413d157a26144342a27a4e9a72537dca2db93b57231b1043a930a664a",
+      "provenance": "wikimediaCommons",
+      "representation": "photograph",
+      "source": {
+        "title": "File:Glass of water, detail.jpg",
+        "author": "Mia Gaitanidis",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Glass_of_water,_detail.jpg",
+        "retrievedOn": "2026-08-30",
+        "originalSha256": "47f2889f7d97eda986373165d0780c53091f4118d96a0a2cb1c18a8fef82a6a6"
+      },
+      "generation": null,
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 700x687; encoded as JPEG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The drinking glass, water line, ice, and reflections remain legible at lesson scale; the original photographic background is intentionally retained."
+      },
+      "license": {
+        "identifier": "CC-BY-SA-4.0",
+        "copyrightHolder": "Mia Gaitanidis",
+        "licenseTextLocation": "https://creativecommons.org/licenses/by-sa/4.0",
+        "intendedUse": "Bundled local lesson image with source attribution; redistribution remains review-gated.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "File:Glass of water, detail.jpg by Mia Gaitanidis, CC-BY-SA-4.0. https://commons.wikimedia.org/wiki/File:Glass_of_water,_detail.jpg",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Machine-validated asset draft; competent license and content review is still required."
+      }
+    },
+    {
+      "id": "asset.de.classroom.colouring-pencils",
+      "file": "assets/commons/colouring-pencils.jpg",
+      "mediaType": "image/jpeg",
+      "byteSize": 73909,
+      "sha256": "36c9b8104c7380da9e08efbede073385942afe8df5008380a278c92d0152075c",
+      "provenance": "wikimediaCommons",
+      "representation": "photograph",
+      "source": {
+        "title": "File:Colouring pencils.jpg",
+        "author": "MichaelMaggs",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colouring_pencils.jpg",
+        "retrievedOn": "2026-08-30",
+        "originalSha256": "13108c0593cf7a44294b10a5d4197d2ff2cc9e36a66f37a4de0c3372c0b29cb9"
+      },
+      "generation": null,
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 760x507; encoded as JPEG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The full colour sequence and sharpened pencil tips remain legible; the dark photographic field is intentionally retained to avoid destructive masking of the edge-touching subjects."
+      },
+      "license": {
+        "identifier": "CC-BY-SA-3.0",
+        "copyrightHolder": "MichaelMaggs",
+        "licenseTextLocation": "https://creativecommons.org/licenses/by-sa/3.0",
+        "intendedUse": "Bundled local lesson image with source attribution; redistribution remains review-gated.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "File:Colouring pencils.jpg by MichaelMaggs, CC-BY-SA-3.0. https://commons.wikimedia.org/wiki/File:Colouring_pencils.jpg",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Machine-validated asset draft; competent license and content review is still required."
+      }
+    },
+    {
+      "id": "asset.de.classroom.scissors",
+      "file": "assets/commons/school-scissors.jpg",
+      "mediaType": "image/jpeg",
+      "byteSize": 54420,
+      "sha256": "d9dda232e8f757863af09347606ec662e1579f5632133564874e99ed965eebdb",
+      "provenance": "wikimediaCommons",
+      "representation": "photograph",
+      "source": {
+        "title": "File:LH school scissors.jpg",
+        "author": "Doggerelblogger",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:LH_school_scissors.jpg",
+        "retrievedOn": "2026-08-30",
+        "originalSha256": "c397461b96fbb84fdfd912b75d20b81be4105d6f0f0d2a641ea387e151e93373"
+      },
+      "generation": null,
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 570x760; encoded as JPEG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "Both blunt-ended school scissors and their handles remain legible at lesson scale; source orientation is normalized and the original photographic background is intentionally retained."
+      },
+      "license": {
+        "identifier": "CC-BY-SA-4.0",
+        "copyrightHolder": "Doggerelblogger",
+        "licenseTextLocation": "https://creativecommons.org/licenses/by-sa/4.0",
+        "intendedUse": "Bundled local lesson image with source attribution; redistribution remains review-gated.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "File:LH school scissors.jpg by Doggerelblogger, CC-BY-SA-4.0. https://commons.wikimedia.org/wiki/File:LH_school_scissors.jpg",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Machine-validated asset draft; competent license and content review is still required."
+      }
+    },
+    {
+      "id": "asset.de.greetings.handshake",
+      "file": "assets/commons/friendship-handshake.jpg",
+      "mediaType": "image/jpeg",
+      "byteSize": 90819,
+      "sha256": "d02a8d303ce36f0a594fc84632189ba992bf3adfb5f20533e76ec5fc684a0c80",
+      "provenance": "wikimediaCommons",
+      "representation": "photograph",
+      "source": {
+        "title": "File:Hermandad - friendship.jpg",
+        "author": "Rufino",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hermandad_-_friendship.jpg",
+        "retrievedOn": "2026-08-30",
+        "originalSha256": "de798008d6c24dae11bfbd1e9347d69ca97ef677f825e1e5abd9b571180fe56d"
+      },
+      "generation": null,
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 760x550; encoded as JPEG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "Both hands and the greeting gesture remain clear at lesson scale; skin detail is preserved and the original photographic background is intentionally retained."
+      },
+      "license": {
+        "identifier": "CC-BY-SA-2.0",
+        "copyrightHolder": "Rufino",
+        "licenseTextLocation": "https://creativecommons.org/licenses/by-sa/2.0",
+        "intendedUse": "Bundled local lesson image with source attribution; redistribution remains review-gated.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "File:Hermandad - friendship.jpg by Rufino, CC-BY-SA-2.0. https://commons.wikimedia.org/wiki/File:Hermandad_-_friendship.jpg",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Machine-validated asset draft; competent license and content review is still required."
+      }
+    },
+    {
+      "id": "asset.de.numbers.counting-blocks",
+      "file": "assets/commons/counting-blocks.jpg",
+      "mediaType": "image/jpeg",
+      "byteSize": 64692,
+      "sha256": "ed4a6ba43aaa63906a08c22505c0f1156d88f0a0d4b2aac8cfa65fe85b8e75b7",
+      "provenance": "wikimediaCommons",
+      "representation": "photograph",
+      "source": {
+        "title": "File:Children\u0027s number blocks being used for learning to count - 51069936953.jpg",
+        "author": "perpetual.fostering",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Children%27s_number_blocks_being_used_for_learning_to_count_-_51069936953.jpg",
+        "retrievedOn": "2026-08-30",
+        "originalSha256": "7dc514fc594a02901a039b4e3030b4aced3955c6788b7c20d77d1cd47f51a142"
+      },
+      "generation": null,
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 900x600; encoded as JPEG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The numerals one, two, and three remain crisp at lesson scale; the original pale photographic field and natural contact shadows are retained after the automatic masking trial was rejected for ragged alpha edges."
+      },
+      "license": {
+        "identifier": "CC-BY-2.0",
+        "copyrightHolder": "perpetual.fostering",
+        "licenseTextLocation": "https://creativecommons.org/licenses/by/2.0",
+        "intendedUse": "Bundled local lesson image with source attribution; redistribution remains review-gated.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "File:Children\u0027s number blocks being used for learning to count - 51069936953.jpg by perpetual.fostering, CC-BY-2.0. https://commons.wikimedia.org/wiki/File:Children%27s_number_blocks_being_used_for_learning_to_count_-_51069936953.jpg",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Machine-validated asset draft; competent license and content review is still required."
+      }
+    },
+    {
+      "id": "asset.de.stage.learner",
+      "file": "assets/generated/learner-cutout.png",
+      "mediaType": "image/png",
+      "byteSize": 226417,
+      "sha256": "df51b632ddded577b58f08ad6a3204fc54ca799130e69a9408400802411cc876",
+      "provenance": "generated",
+      "representation": "generatedIllustration",
+      "source": null,
+      "generation": {
+        "title": "Adult learner paper puppet",
+        "generatorName": "OpenAI image generation",
+        "promptSummary": "Full-body adult learner paper puppet, side-facing walking pose, photographic collage texture, clean alpha background, no text.",
+        "originalSha256": "5c5681aaabc4712f8bbc038387cd06f6b136eb5635ce03c7ae234bc17b54bbbc"
+      },
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 403x604; encoded as PNG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The adult subject, facial features, paper outline, and walking pose remain legible at lesson scale; the authored alpha boundary is retained and no text is visible."
+      },
+      "license": {
+        "identifier": "LicenseRef-Generated-Internal-Draft",
+        "copyrightHolder": "Linguistics project contributors",
+        "licenseTextLocation": "docs/content-license.md",
+        "intendedUse": "Local machine-validated preview only; public redistribution remains blocked.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Adult learner paper puppet; generated with OpenAI image generation; see the prompt summary in assets.json.",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Generated illustration draft; it is not a photograph of a real subject and still needs human review."
+      }
+    },
+    {
+      "id": "asset.de.stage.market-backdrop",
+      "file": "assets/generated/market-backdrop.jpg",
+      "mediaType": "image/jpeg",
+      "byteSize": 81397,
+      "sha256": "e30a7b01e470b4baaab9c4097c5ed638fa1539b4d3d822076d6d0e4617461ec4",
+      "provenance": "generated",
+      "representation": "generatedIllustration",
+      "source": null,
+      "generation": {
+        "title": "European market paper backdrop",
+        "generatorName": "OpenAI image generation",
+        "promptSummary": "Quiet European outdoor market backdrop, warm analogue paper texture, no people, no text, no lettering.",
+        "originalSha256": "de7905be6a23bd16ba76c136bd53dcbe1fab493345ba8bb95bc24c39617bbe66"
+      },
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 1008x567; encoded as JPEG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The architecture, open stage area, depth layers, and paper texture remain legible after downscaling; no people or lettering are visible."
+      },
+      "license": {
+        "identifier": "LicenseRef-Generated-Internal-Draft",
+        "copyrightHolder": "Linguistics project contributors",
+        "licenseTextLocation": "docs/content-license.md",
+        "intendedUse": "Local machine-validated preview only; public redistribution remains blocked.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "European market paper backdrop; generated with OpenAI image generation; see the prompt summary in assets.json.",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Generated illustration draft; it is not a photograph of a real subject and still needs human review."
+      }
+    },
+    {
+      "id": "asset.de.stage.market-foreground",
+      "file": "assets/generated/market-foreground-cutout.png",
+      "mediaType": "image/png",
+      "byteSize": 273981,
+      "sha256": "6469c6796291cf7d0f01d79264669d657b39ad8652bad040bf956e8acff2f00b",
+      "provenance": "generated",
+      "representation": "generatedIllustration",
+      "source": null,
+      "generation": {
+        "title": "Botanical market foreground cutout",
+        "generatorName": "OpenAI image generation",
+        "promptSummary": "Low botanical and crate foreground silhouette for a market stage, torn-paper edge, clean alpha background, no text.",
+        "originalSha256": "550e2cd63df9ddf4e3c251fc5c14b61b6483d61b048017a4e1098e318edfd555"
+      },
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 705x396; encoded as PNG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The botanical silhouette, containers, torn-paper edge, and open central stage remain legible; the authored alpha boundary is retained and no text is visible."
+      },
+      "license": {
+        "identifier": "LicenseRef-Generated-Internal-Draft",
+        "copyrightHolder": "Linguistics project contributors",
+        "licenseTextLocation": "docs/content-license.md",
+        "intendedUse": "Local machine-validated preview only; public redistribution remains blocked.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Botanical market foreground cutout; generated with OpenAI image generation; see the prompt summary in assets.json.",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Generated illustration draft; it is not a photograph of a real subject and still needs human review."
+      }
+    },
+    {
+      "id": "asset.de.stage.market-stall",
+      "file": "assets/generated/market-stall-cutout.png",
+      "mediaType": "image/png",
+      "byteSize": 305787,
+      "sha256": "cc975f36354d15f4690857108b51a631821f2e3cd0dc833d9629eca293d6f02c",
+      "provenance": "generated",
+      "representation": "generatedIllustration",
+      "source": null,
+      "generation": {
+        "title": "Market vendor stall paper cutout",
+        "generatorName": "OpenAI image generation",
+        "promptSummary": "Friendly market vendor and produce stall as one paper-theatre cutout, clean alpha background, no text.",
+        "originalSha256": "02eed44a0a8c5e3dcbdfa2fa4aeba455fa28c70df4f4418463ea5cbceff73027"
+      },
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 564x375; encoded as PNG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The adult vendor, produce, stall structure, and paper outline remain legible at scene scale; the authored alpha boundary is retained and no text is visible."
+      },
+      "license": {
+        "identifier": "LicenseRef-Generated-Internal-Draft",
+        "copyrightHolder": "Linguistics project contributors",
+        "licenseTextLocation": "docs/content-license.md",
+        "intendedUse": "Local machine-validated preview only; public redistribution remains blocked.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Market vendor stall paper cutout; generated with OpenAI image generation; see the prompt summary in assets.json.",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Generated illustration draft; it is not a photograph of a real subject and still needs human review."
+      }
+    },
+    {
+      "id": "asset.de.stage.success-burst",
+      "file": "assets/generated/success-burst-cutout.png",
+      "mediaType": "image/png",
+      "byteSize": 236210,
+      "sha256": "58c81a6ef12fb644042fe98de602ced2bfab1e38432b41f5c05b74c0a0f32d56",
+      "provenance": "generated",
+      "representation": "generatedIllustration",
+      "source": null,
+      "generation": {
+        "title": "Paper confetti success burst",
+        "generatorName": "OpenAI image generation",
+        "promptSummary": "Restrained mint, amber, and coral paper-confetti reaction burst, clean alpha background, no text.",
+        "originalSha256": "6f461771d987e9b464b33813a29f9fa0774f0a1bbfff06a84896a044c4a4e227"
+      },
+      "transformation": {
+        "isDerivative": false,
+        "cropped": false,
+        "backgroundRemoved": false,
+        "shareAlikeObligationsRetained": false,
+        "description": "Decoded and downscaled to 720x480; encoded as PNG.",
+        "qaStatus": "machineInspected",
+        "qaNotes": "The stars and confetti pieces remain legible as a restrained success reaction; the authored alpha boundary is retained and no text is visible."
+      },
+      "license": {
+        "identifier": "LicenseRef-Generated-Internal-Draft",
+        "copyrightHolder": "Linguistics project contributors",
+        "licenseTextLocation": "docs/content-license.md",
+        "intendedUse": "Local machine-validated preview only; public redistribution remains blocked.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Paper confetti success burst; generated with OpenAI image generation; see the prompt summary in assets.json.",
+        "reviewStatus": "pending"
+      },
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Generated illustration draft; it is not a photograph of a real subject and still needs human review."
+      }
+    }
+  ]
+}

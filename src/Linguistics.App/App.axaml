@@ -578,6 +578,15 @@
             <Setter Property="Height" Value="1" />
             <Setter Property="Background" Value="{DynamicResource AppBorderBrush}" />
         </Style>
+        <Style Selector="Border.weather-window-frame">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppCutoutMarginBrush}" />
+            <Setter Property="BorderThickness" Value="9" />
+            <Setter Property="CornerRadius" Value="18" />
+        </Style>
+        <Style Selector="Border.weather-window-mullion">
+            <Setter Property="Background" Value="{DynamicResource AppCutoutMarginBrush}" />
+        </Style>
         <Style Selector="Border.guide-bubble">
             <Setter Property="Background" Value="{DynamicResource AppNavSurfaceBrush}" />
         </Style>

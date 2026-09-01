@@ -106,10 +106,12 @@ public sealed class ContentPackTests
     [TestMethod]
     public void OnlyAValidatedApprovedCatalogCreatesRuntimeTeachingObjects()
     {
-        var approved = LoadBundled(ContentLoadPolicy.AuthoringPreview)
-            .Packs.Select(ApproveForTestOnly)
+        var bundled = LoadBundled(ContentLoadPolicy.AuthoringPreview);
+        var approved = bundled.Packs.Select(ApproveForTestOnly)
             .ToArray();
-        var directory = WritePacks(approved);
+        var directory = WritePacks(
+            approved,
+            bundled.Assets.Select(ApproveAssetForTestOnly).ToArray());
         try
         {
             var runtime = ContentPackLoader.LoadDirectory(directory, ContentLoadPolicy.Runtime);
@@ -283,10 +285,12 @@ public sealed class ContentPackTests
     [TestMethod]
     public void RuntimeApprovedContentBecomesReadyLessons()
     {
-        var approved = LoadBundled(ContentLoadPolicy.AuthoringPreview)
-            .Packs.Select(ApproveForTestOnly)
+        var bundled = LoadBundled(ContentLoadPolicy.AuthoringPreview);
+        var approved = bundled.Packs.Select(ApproveForTestOnly)
             .ToArray();
-        var directory = WritePacks(approved);
+        var directory = WritePacks(
+            approved,
+            bundled.Assets.Select(ApproveAssetForTestOnly).ToArray());
         try
         {
             var course = ContentPackLoader
@@ -685,6 +689,33 @@ public sealed class ContentPackTests
         };
     }
 
+    private static ValidatedContentAsset ApproveAssetForTestOnly(ValidatedContentAsset asset)
+    {
+        var review = new ContentReview(
+            ContentReviewStatus.Approved,
+            "Synthetic test reviewer",
+            new DateOnly(2026, 8, 30),
+            "Test-only asset approval proving the runtime gate; not approval of bundled media.");
+        return asset with
+        {
+            Record = asset.Record with
+            {
+                License = asset.Record.License with
+                {
+                    ModificationReviewed = true,
+                    RedistributionReviewed = true,
+                    ReviewStatus = LicenseReviewStatus.Reviewed,
+                },
+                Transformation = asset.Record.Transformation with
+                {
+                    QaStatus = ContentAssetQaStatus.HumanReviewed,
+                    QaNotes = "Synthetic test-only human review marker.",
+                },
+                Review = review,
+            },
+        };
+    }
+
     private static ContentPackDocument CreateLargeTargetPack(
         ContentPackDocument source,
         int lessonCount)
@@ -714,7 +745,9 @@ public sealed class ContentPackTests
         };
     }
 
-    private static string WritePacks(IEnumerable<ContentPackDocument> packs)
+    private static string WritePacks(
+        IEnumerable<ContentPackDocument> packs,
+        IReadOnlyList<ValidatedContentAsset>? assets = null)
     {
         var directory = Path.Combine(Path.GetTempPath(), $"linguistics-content-{Guid.NewGuid():N}");
         foreach (var pack in packs)
@@ -724,6 +757,32 @@ public sealed class ContentPackTests
             File.WriteAllText(
                 Path.Combine(packDirectory, "pack.json"),
                 JsonSerializer.Serialize(pack, SerializerOptions));
+            var packAssets = assets?
+                .Where(asset => asset.PackId == pack.Manifest.Id)
+                .OrderBy(asset => asset.Record.Id, StringComparer.Ordinal)
+                .ToArray() ?? [];
+            if (packAssets.Length == 0)
+            {
+                continue;
+            }
+
+            foreach (var asset in packAssets)
+            {
+                var destination = Path.Combine(
+                    packDirectory,
+                    asset.Record.File.Replace('/', Path.DirectorySeparatorChar));
+                Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
+                File.Copy(asset.AbsoluteFilePath, destination);
+            }
+
+            var manifest = new ContentAssetManifest(
+                1,
+                pack.Manifest.Id,
+                pack.Manifest.Version,
+                packAssets.Select(asset => asset.Record).ToArray());
+            File.WriteAllText(
+                Path.Combine(packDirectory, "assets.json"),
+                JsonSerializer.Serialize(manifest, SerializerOptions));
         }
 
         return directory;

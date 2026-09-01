@@ -88,12 +88,12 @@
                         <TextBlock Classes="nav-label" Text="Languages" />
                     </ListBoxItem>
                     <ListBoxItem x:Name="SettingsNavItem"
-                                 Tag="Review privacy and multilingual preferences or delete your local learner profile."
+                                 Tag="Review privacy, preferences, bundled image credits, or delete your local learner profile."
                                  AutomationProperties.AutomationId="NavSettings">
                         <TextBlock Classes="nav-label" Text="Settings" />
                     </ListBoxItem>
                     <ListBoxItem x:Name="TemplateGalleryNavItem"
-                                 Tag="Inspect synthetic template fixtures across outcomes, motion settings, and text only presentation."
+                                 Tag="Inspect validated pack images across template outcomes, motion settings, and text only presentation."
                                  IsVisible="False"
                                  AutomationProperties.AutomationId="NavTemplateGallery">
                         <TextBlock Classes="nav-label" Text="Template gallery" />

@@ -1,8 +1,12 @@
 using System.Reflection;
+using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Linguistics.App.Features.Learn.Templates;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Tests;
 
@@ -10,7 +14,7 @@ namespace Linguistics.App.Tests;
 public sealed class TemplateRegistryTests
 {
     [TestMethod]
-    public void RegistryPassesOnlyTheFourRendererInputs()
+    public void RegistryPassesOnlyTheFiveRendererInputs()
     {
         var id = new TemplateId("fixture-template");
         var parameters = new ResolvedTemplateParameters(
@@ -21,8 +25,9 @@ public sealed class TemplateRegistryTests
         var language = new LanguageCode("en");
         var reported = new List<TemplateOutcome>();
         var expected = new Border();
-        TemplateRendererFactory renderer = (actualParameters, actualLanguage, actualMotion, callback) =>
+        TemplateRendererFactory renderer = (cache, actualParameters, actualLanguage, actualMotion, callback) =>
         {
+            Assert.IsNull(cache);
             Assert.AreSame(parameters, actualParameters);
             Assert.AreEqual(language, actualLanguage);
             Assert.IsTrue(actualMotion);
@@ -44,7 +49,7 @@ public sealed class TemplateRegistryTests
     public void RegistryRejectsMissingAndDuplicateRenderers()
     {
         var id = new TemplateId("fixture-template");
-        TemplateRendererFactory renderer = (_, _, _, _) => new Border();
+        TemplateRendererFactory renderer = (_, _, _, _, _) => new Border();
         var registry = new TemplateRegistry([]);
 
         Assert.ThrowsExactly<KeyNotFoundException>(() => registry.Render(
@@ -61,13 +66,30 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
-    public void DefaultRegistryContainsExactlyTheThreeProvingTemplates()
+    public void DefaultRegistryMatchesTheRegisteredTemplateSchemas()
     {
         CollectionAssert.AreEqual(
-            new[] { "object-spotlight", "picture-match", "word-order-train" },
+            LessonTemplateSchemas.All
+                .Select(schema => schema.Id.Value)
+                .OrderBy(id => id, StringComparer.Ordinal)
+                .ToArray(),
             TemplateRegistry.CreateDefault()
                 .RegisteredTemplateIds
                 .Select(id => id.Value)
+                .ToArray());
+    }
+
+    [TestMethod]
+    public void GalleryHasOneFixtureForEveryRegisteredTemplate()
+    {
+        CollectionAssert.AreEqual(
+            TemplateRegistry.CreateDefault()
+                .RegisteredTemplateIds
+                .Select(id => id.Value)
+                .ToArray(),
+            TemplateGalleryFixtures.All
+                .Select(fixture => fixture.TemplateId.Value)
+                .OrderBy(id => id, StringComparer.Ordinal)
                 .ToArray());
     }
 
@@ -79,6 +101,7 @@ public sealed class TemplateRegistryTests
         CollectionAssert.AreEqual(
             new[]
             {
+                typeof(Linguistics.App.Content.ContentImageCache),
                 typeof(ResolvedTemplateParameters),
                 typeof(LanguageCode),
                 typeof(bool),
@@ -113,7 +136,7 @@ public sealed class TemplateRegistryTests
             "ReviewScheduler",
             "LearnerRepository",
         };
-        foreach (var path in Directory.EnumerateFiles(templatesDirectory, "*Renderer.cs"))
+        foreach (var path in Directory.EnumerateFiles(templatesDirectory, "*Renderer*.cs"))
         {
             var source = File.ReadAllText(path);
             foreach (var term in forbidden)
@@ -124,7 +147,283 @@ public sealed class TemplateRegistryTests
         }
     }
 
+    [TestMethod]
+    public void EveryCatalogFixtureRendersEveryOutcomeAndTextOnlyStateWithoutProviders()
+    {
+        var registry = TemplateRegistry.CreateDefault();
+        var reported = new List<TemplateOutcome>();
+
+        foreach (var fixture in TemplateGalleryFixtures.All)
+        {
+            foreach (var outcome in Enum.GetValues<TemplateOutcomeState>())
+            {
+                foreach (var textOnly in new[] { false, true })
+                {
+                    var parameters = fixture.Parameters with
+                    {
+                        PreviewOutcome = outcome,
+                        UseTextOnlyFallback = textOnly,
+                    };
+
+                    var control = registry.Render(
+                        fixture.TemplateId,
+                        parameters,
+                        fixture.InstructionLanguage,
+                        shouldReduceMotion: true,
+                        reported.Add);
+
+                    Assert.IsNotNull(
+                        control,
+                        $"{fixture.TemplateId} failed for {outcome}, text only {textOnly}.");
+                    if (textOnly)
+                    {
+                        var doubledPunctuation = control
+                            .GetLogicalDescendants()
+                            .OfType<TextBlock>()
+                            .Select(text => text.Text)
+                            .FirstOrDefault(text => text?.Contains("..", StringComparison.Ordinal) == true);
+                        Assert.IsNull(
+                            doubledPunctuation,
+                            $"{fixture.TemplateId} text-only copy contains doubled punctuation: {doubledPunctuation}");
+                    }
+                }
+            }
+        }
+
+        Assert.IsEmpty(reported, "Rendering must not report an outcome without a learner action.");
+    }
+
+    [TestMethod]
+    public void WordOrderTrainReservesVerbSecondAndRightBracketCars()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("word-order-train"));
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var names = rendered
+            .GetLogicalDescendants()
+            .OfType<Control>()
+            .Select(AutomationProperties.GetName)
+            .Where(name => name is not null)
+            .ToArray();
+
+        CollectionAssert.Contains(names, "VERB 2 reserved train car, empty");
+        CollectionAssert.Contains(names, "RIGHT BRACKET reserved train car, empty");
+    }
+
+    [TestMethod]
+    public void PaperDialogueSendsOnlyTheSelectedCaptionToLocalSpeech()
+    {
+        using var provider = new RecordingSpeechProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("paper-dialogue"));
+        var rendered = TemplateRegistry.CreateDefault(speechSynthesisProvider: provider).Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var playButton = rendered
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Single(button =>
+                AutomationProperties.GetAutomationId(button) == "PaperDialoguePlaySpeakerOne");
+
+        playButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsNotNull(provider.LastRequest);
+        Assert.AreEqual("Guten Tag!", provider.LastRequest.Text);
+        Assert.AreEqual(new LanguageCode("de"), provider.LastRequest.Language);
+        Assert.AreEqual("paper-dialogue:Mina:1", provider.LastRequest.Seed);
+    }
+
+    [TestMethod]
+    public void PaperDialogueKeepsCompleteCaptionsWhenLocalSpeechIsUnavailable()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("paper-dialogue"));
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var playbackButtons = rendered
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Where(button =>
+                AutomationProperties.GetAutomationId(button)?.StartsWith(
+                    "PaperDialoguePlay",
+                    StringComparison.Ordinal) == true)
+            .ToArray();
+        var status = rendered
+            .GetLogicalDescendants()
+            .OfType<TextBlock>()
+            .Single(text =>
+                AutomationProperties.GetAutomationId(text) == "PaperDialoguePlaybackStatus");
+
+        Assert.HasCount(2, playbackButtons);
+        Assert.IsTrue(playbackButtons.All(button => !button.IsEnabled));
+        Assert.AreEqual("Local playback is unavailable. Captions remain complete.", status.Text);
+    }
+
+    [TestMethod]
+    public void PictureMatchSendsOnlyTheAuthoredTargetToLocalSpeech()
+    {
+        using var provider = new RecordingSpeechProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("picture-match"));
+        var rendered = TemplateRegistry.CreateDefault(speechSynthesisProvider: provider).Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var playButton = rendered
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Single(button =>
+                AutomationProperties.GetAutomationId(button) == "PictureMatchPlayTarget");
+
+        playButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsNotNull(provider.LastRequest);
+        Assert.AreEqual("Kaffee", provider.LastRequest.Text);
+        Assert.AreEqual(new LanguageCode("de"), provider.LastRequest.Language);
+        Assert.AreEqual("picture-match:kaffee", provider.LastRequest.Seed);
+    }
+
+    [TestMethod]
+    public void PictureMatchKeepsTheWrittenTargetWhenLocalSpeechIsUnavailable()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("picture-match"));
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var playButton = rendered
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Single(button =>
+                AutomationProperties.GetAutomationId(button) == "PictureMatchPlayTarget");
+        var status = rendered
+            .GetLogicalDescendants()
+            .OfType<TextBlock>()
+            .Single(text =>
+                AutomationProperties.GetAutomationId(text) == "PictureMatchPlaybackStatus");
+
+        Assert.IsFalse(playButton.IsEnabled);
+        Assert.AreEqual("Written target: Kaffee. Local playback is unavailable.", status.Text);
+    }
+
+    [TestMethod]
+    public void ListenPickImageSendsOnlyTheAuthoredPromptToLocalSpeech()
+    {
+        using var provider = new RecordingSpeechProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("listen-pick-image"));
+        var rendered = TemplateRegistry.CreateDefault(speechSynthesisProvider: provider).Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var playButton = rendered
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Single(button =>
+                AutomationProperties.GetAutomationId(button) == "ListenPickImagePlayPrompt");
+
+        playButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsNotNull(provider.LastRequest);
+        Assert.AreEqual("Ich möchte einen Tee, bitte.", provider.LastRequest.Text);
+        Assert.AreEqual(new LanguageCode("de"), provider.LastRequest.Language);
+        Assert.AreEqual("listen-pick-image:tea", provider.LastRequest.Seed);
+    }
+
+    [TestMethod]
+    public void ListenPickImageShowsItsWrittenPromptWhenLocalSpeechIsUnavailable()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("listen-pick-image"));
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var playButton = rendered
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Single(button =>
+                AutomationProperties.GetAutomationId(button) == "ListenPickImagePlayPrompt");
+        var transcript = rendered
+            .GetLogicalDescendants()
+            .OfType<TextBlock>()
+            .Single(text =>
+                AutomationProperties.GetAutomationId(text) == "ListenPickImageTranscript");
+
+        Assert.IsFalse(playButton.IsEnabled);
+        Assert.IsTrue(transcript.IsVisible);
+        Assert.AreEqual("Written prompt: Ich möchte einen Tee, bitte.", transcript.Text);
+    }
+
+    [TestMethod]
+    public void TemplateSourcesContainNoEmDash()
+    {
+        var templatesDirectory = Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Linguistics.App",
+            "Features",
+            "Learn",
+            "Templates");
+        foreach (var path in Directory.EnumerateFiles(templatesDirectory))
+        {
+            var source = File.ReadAllText(path);
+            Assert.DoesNotContain("—", source, StringComparison.Ordinal, Path.GetFileName(path));
+        }
+    }
+
     private static string RepositoryRoot => Path.GetFullPath(Path.Combine(
         AppContext.BaseDirectory,
         "../../../../../"));
+
+    private sealed class RecordingSpeechProvider : ISpeechSynthesisProvider
+    {
+        public SpeechSynthesisRequest? LastRequest { get; private set; }
+
+        public Task<SpeechSynthesisSnapshot> InspectAsync(CancellationToken cancellationToken = default) =>
+            Task.FromResult(new SpeechSynthesisSnapshot(
+                SpeechCapabilityStatus.Available,
+                [new SpeechVoice("de-test", "German test voice", "de-DE", new LanguageCode("de"))],
+                "Local test voice available."));
+
+        public Task<SpeechSynthesisResult> SpeakAsync(
+            SpeechSynthesisRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            LastRequest = request;
+            return Task.FromResult(new SpeechSynthesisResult(
+                request.RequestId,
+                SpeechSynthesisResultStatus.Completed,
+                "de-test",
+                TimeSpan.Zero,
+                "Speech playback completed locally."));
+        }
+
+        public Task StopAsync() => Task.CompletedTask;
+
+        public void Dispose()
+        {
+        }
+    }
 }

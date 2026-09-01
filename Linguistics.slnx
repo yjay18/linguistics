@@ -7,4 +7,7 @@
     <Project Path="tests/Linguistics.App.Tests/Linguistics.App.Tests.csproj" />
     <Project Path="tests/Linguistics.Core.Tests/Linguistics.Core.Tests.csproj" />
   </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/AssetPipeline/AssetPipeline.csproj" />
+  </Folder>
 </Solution>

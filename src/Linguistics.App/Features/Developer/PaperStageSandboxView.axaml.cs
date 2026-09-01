@@ -4,6 +4,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media.Transformation;
 using Avalonia.Styling;
+using Linguistics.App.Content;
+using Linguistics.App.Features.Learn.Templates;
 using Linguistics.App.Motion;
 
 namespace Linguistics.App.Features.Developer;
@@ -17,6 +19,36 @@ public partial class PaperStageSandboxView : UserControl
         InitializeComponent();
         AttachedToVisualTree += OnAttachedToVisualTree;
         DetachedFromVisualTree += (_, _) => CancelScene();
+    }
+
+    internal PaperStageSandboxView(ContentImageCache? imageCache)
+        : this()
+    {
+        SetImage(imageCache, "asset.de.stage.market-backdrop", BackdropLayer);
+        SetImage(imageCache, "asset.de.stage.market-stall", SupportingCastLayer);
+        SetImage(imageCache, "asset.de.stage.success-burst", AmbientImage);
+        SetImage(imageCache, "asset.de.stage.market-foreground", ForegroundImage);
+        SetImage(imageCache, "asset.de.stage.learner", SubjectImage);
+        SetImage(imageCache, "asset.de.stage.success-burst", ReactionImage);
+        CreditsHost.Content = TemplateRendering.CreateCreditsDisclosure(
+            imageCache,
+            [
+                "asset.de.stage.market-backdrop",
+                "asset.de.stage.market-stall",
+                "asset.de.stage.success-burst",
+                "asset.de.stage.market-foreground",
+                "asset.de.stage.learner",
+            ],
+            "PaperStageImageCredits");
+        CreditsHost.IsVisible = CreditsHost.Content is not null;
+    }
+
+    private static void SetImage(ContentImageCache? imageCache, string assetId, Image image)
+    {
+        if (imageCache?.TryGetBitmap(assetId, out var bitmap) == true)
+        {
+            image.Source = bitmap;
+        }
     }
 
     private async void OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs args)

@@ -15,6 +15,19 @@ Avalonia brings its rendering, native-platform, and text stack transitively. The
 | --- | --- | --- | --- |
 | MSTest | 4.0.2 | Unit-test discovery, assertions, and execution | MIT |
 
+## Authoring only
+
+| Dependency | Version | Purpose | License |
+| --- | --- | --- | --- |
+| SkiaSharp plus macOS, Linux, and Windows native assets | 3.119.4 | Decode, orient, crop, downscale, background-mask, and encode pack images in `tools/AssetPipeline` | MIT wrapper; bundled upstream notices |
+
+SkiaSharp was already resolved transitively by Avalonia at the same locked version; the
+tool adds direct compile-time references so its cross-platform authoring transforms do
+not depend on Avalonia internals. It introduces no new library version. Commons API
+search and fetch use .NET `HttpClient`; JSON, hashing, backoff, and file operations use
+the .NET base class library. `Linguistics.App` does not reference the tool, and the tool
+must be absent from app publish output.
+
 The application itself has no analytics, account, backend, database, bundled model, or linked third-party speech package. The deterministic curriculum, content validator, Ollama HTTP adapter, process safety layer, transcript comparison, review scheduler, recovery flow, and bounded local diagnostic log use only the .NET base class library.
 
 Ollama is an optional, separately installed local runtime and is not linked, bundled, started, signed into, or downloaded by Linguistics. Ollama's application code is MIT-licensed; every installed model has separate capability, storage, license, and redistribution terms that must be inspected and reviewed before the app recommends it. No model configuration is currently claimed as supported.

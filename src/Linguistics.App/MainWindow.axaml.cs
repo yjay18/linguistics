@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Linguistics.App.Diagnostics;
+using Linguistics.App.Content;
 using Linguistics.App.Features.Onboarding;
 using Linguistics.App.Features.Shell;
 using Linguistics.App.Persistence;
@@ -26,6 +27,7 @@ public partial class MainWindow : Window
     private SpeechRecordingStore? _speechRecordingStore;
     private Func<CancellationToken, Task<LearnerStoreRecoveryResult>>? _recoverLearnerStore;
     private LocalDiagnosticLog? _diagnosticLog;
+    private ContentImageCache? _imageCache;
     private CancellationTokenSource? _loadCancellation;
     private bool _recoveryConfirmationPending;
 
@@ -47,7 +49,8 @@ public partial class MainWindow : Window
         IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null,
         SpeechRecordingStore? speechRecordingStore = null,
         Func<CancellationToken, Task<LearnerStoreRecoveryResult>>? recoverLearnerStore = null,
-        LocalDiagnosticLog? diagnosticLog = null)
+        LocalDiagnosticLog? diagnosticLog = null,
+        ContentImageCache? imageCache = null)
         : this()
     {
         _profileOwner = profileOwner;
@@ -62,6 +65,7 @@ public partial class MainWindow : Window
         _speechRecordingStore = speechRecordingStore;
         _recoverLearnerStore = recoverLearnerStore;
         _diagnosticLog = diagnosticLog;
+        _imageCache = imageCache;
         Opened += OnOpened;
         Closed += OnClosed;
     }
@@ -224,7 +228,8 @@ public partial class MainWindow : Window
             _speechRecognitionProvider,
             _pronunciationAssessmentProvider,
             _speechRecordingStore,
-            _diagnosticLog);
+            _diagnosticLog,
+            _imageCache);
         StartupStatus.IsVisible = false;
     }
 

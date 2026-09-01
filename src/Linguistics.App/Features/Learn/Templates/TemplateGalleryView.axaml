@@ -44,10 +44,31 @@
                 <TextBlock Text="Gallery ready"
                            Classes="section-title"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="No template renderers are registered yet. The first proving templates arrive in the next work item."
+                <TextBlock Text="No template fixtures are available. Check local content and renderer registration."
                            TextWrapping="Wrap" />
             </StackPanel>
         </Border>
+
+        <controls:PaperCard x:Name="SeedBatchCard"
+                            IsVisible="False">
+            <StackPanel Spacing="12">
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Unit 1 and 2 seed batch"
+                               Classes="section-title"
+                               AutomationProperties.HeadingLevel="2" />
+                    <TextBlock Text="This contact sheet checks local Unit 1 and 2 images. It is not a curriculum activity."
+                               Classes="muted"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <WrapPanel x:Name="SeedAssetPanel"
+                           ItemWidth="174"
+                           ItemHeight="174"
+                           Orientation="Horizontal"
+                           AutomationProperties.AutomationId="TemplateGallerySeedAssets" />
+                <ContentControl x:Name="SeedCreditsHost"
+                                HorizontalContentAlignment="Stretch" />
+            </StackPanel>
+        </controls:PaperCard>
 
         <StackPanel x:Name="FixturePanel"
                     Spacing="20"

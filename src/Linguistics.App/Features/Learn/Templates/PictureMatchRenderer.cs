@@ -3,16 +3,20 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Linguistics.App.Content;
 using Linguistics.App.Controls;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Learn.Templates;
 
 internal static class PictureMatchRenderer
 {
     public static Control Render(
+        ContentImageCache? imageCache,
+        ISpeechSynthesisProvider? speechSynthesisProvider,
         ResolvedTemplateParameters parameters,
         LanguageCode instructionLanguage,
         bool shouldReduceMotion,
@@ -21,8 +25,20 @@ internal static class PictureMatchRenderer
         var prompt = TemplateRendering.Localized(parameters, "prompt", instructionLanguage);
         var options = TemplateRendering.Options(parameters, "options");
         var answerId = TemplateRendering.Text(parameters, "answer");
+        var spokenText = TemplateRendering.Text(parameters, "spoken-text");
+        var speechLanguageText = TemplateRendering.Text(parameters, "speech-language");
+        LanguageCode? speechLanguage = null;
+        try
+        {
+            speechLanguage = new LanguageCode(speechLanguageText);
+        }
+        catch (ArgumentException)
+        {
+            // The written target remains complete when authored speech metadata is unusable.
+        }
+        var backdropReference = TemplateRendering.AssetReference(parameters, "backdrop");
         var useVisuals = !parameters.UseTextOnlyFallback &&
-            options.Any(option => option.AssetReferenceId is not null);
+            options.Any(option => imageCache?.TryGetBitmap(option.AssetReferenceId, out _) == true);
 
         var replayButton = new Button { Content = "Replay reveal", Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(replayButton, "PictureMatchReplay");
@@ -50,7 +66,10 @@ internal static class PictureMatchRenderer
         header.Children.Add(sceneActions);
 
         var stage = TemplateRendering.CreateStage(304, $"Picture match. {prompt}");
-        TemplateRendering.AddBackdrop(stage, useVisuals);
+        var backdropRendered = TemplateRendering.AddBackdrop(
+            stage,
+            imageCache,
+            parameters.UseTextOnlyFallback ? null : backdropReference);
         var tape = new PaperTape { Content = "CHOOSE ONE", Angle = 1.2 };
         PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(tape, PaperAnchorLine.Head);
@@ -76,11 +95,12 @@ internal static class PictureMatchRenderer
             OutcomeCopy,
             out var outcomeText);
 
+        var renderedAssetReferences = new List<string?>();
         foreach (var option in options)
         {
             var image = parameters.UseTextOnlyFallback
                 ? null
-                : TemplateRendering.CreatePreviewImage(option.AssetReferenceId, 102);
+                : TemplateRendering.CreateContentImage(imageCache, option.AssetReferenceId, 102);
             var optionCopy = new StackPanel
             {
                 Spacing = 7,
@@ -91,6 +111,7 @@ internal static class PictureMatchRenderer
             };
             if (image is not null)
             {
+                renderedAssetReferences.Add(option.AssetReferenceId);
                 optionCopy.Children.Add(image);
             }
 
@@ -139,6 +160,106 @@ internal static class PictureMatchRenderer
         UpdateSelection(buttons, selectedId);
         var root = new StackPanel { Spacing = 12 };
         root.Children.Add(header);
+        var playButton = new Button
+        {
+            Content = $"Play {spokenText}",
+            Classes = { "quiet" },
+            IsEnabled = speechSynthesisProvider is not null && speechLanguage is not null,
+        };
+        AutomationProperties.SetAutomationId(playButton, "PictureMatchPlayTarget");
+        AutomationProperties.SetName(playButton, $"Play the target word {spokenText} with local system speech");
+        var playbackStatus = new TextBlock
+        {
+            Text = playButton.IsEnabled
+                ? $"Written target: {spokenText}. Optional playback uses no microphone."
+                : $"Written target: {spokenText}. Local playback is unavailable.",
+            Classes = { "muted" },
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetAutomationId(playbackStatus, "PictureMatchPlaybackStatus");
+        AutomationProperties.SetLiveSetting(playbackStatus, AutomationLiveSetting.Polite);
+        var playbackGrid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        playbackGrid.Children.Add(playbackStatus);
+        Grid.SetColumn(playButton, 1);
+        playbackGrid.Children.Add(playButton);
+        var playbackPanel = new PaperCard
+        {
+            Padding = new Thickness(12, 8),
+            Content = playbackGrid,
+        };
+        playbackPanel.Classes.Add("soft");
+        AutomationProperties.SetName(
+            playbackPanel,
+            $"Written target {spokenText}. Optional local speech. No microphone is used.");
+        root.Children.Add(playbackPanel);
+
+        var availabilityCancellation = new CancellationTokenSource();
+        playbackPanel.AttachedToVisualTree += async (_, _) =>
+        {
+            if (speechSynthesisProvider is null || speechLanguage is not { } language)
+            {
+                return;
+            }
+
+            try
+            {
+                var snapshot = await speechSynthesisProvider.InspectAsync(availabilityCancellation.Token);
+                var hasMatchingVoice = snapshot.Status == SpeechCapabilityStatus.Available &&
+                                       snapshot.Voices.Any(voice => voice.Language == language);
+                playButton.IsEnabled = hasMatchingVoice;
+                playbackStatus.Text = hasMatchingVoice
+                    ? $"Written target: {spokenText}. Optional playback uses no microphone."
+                    : $"Written target: {spokenText}. No matching local voice is installed.";
+            }
+            catch (OperationCanceledException)
+            {
+            }
+        };
+
+        CancellationTokenSource? playbackCancellation = null;
+        playButton.Click += async (_, _) =>
+        {
+            if (speechSynthesisProvider is null || speechLanguage is not { } language)
+            {
+                playbackStatus.Text = $"Written target: {spokenText}. Local playback is unavailable.";
+                return;
+            }
+
+            playbackCancellation?.Cancel();
+            playbackCancellation?.Dispose();
+            playbackCancellation = new CancellationTokenSource();
+            playButton.IsEnabled = false;
+            playbackStatus.Text = $"Playing {spokenText} locally.";
+            try
+            {
+                var result = await speechSynthesisProvider.SpeakAsync(
+                    new SpeechSynthesisRequest(
+                        Guid.NewGuid(),
+                        spokenText,
+                        language,
+                        $"picture-match:{answerId}"),
+                    playbackCancellation.Token);
+                playbackStatus.Text = result.Message;
+            }
+            catch (OperationCanceledException)
+            {
+                playbackStatus.Text = $"Playback stopped. Written target: {spokenText}.";
+            }
+            finally
+            {
+                playButton.IsEnabled = true;
+            }
+        };
+        playbackPanel.DetachedFromVisualTree += (_, _) =>
+        {
+            availabilityCancellation.Cancel();
+            availabilityCancellation.Dispose();
+            playbackCancellation?.Cancel();
+            playbackCancellation?.Dispose();
+            playbackCancellation = null;
+        };
+
         if (parameters.UseTextOnlyFallback)
         {
             root.Children.Add(new TextBlock
@@ -150,6 +271,17 @@ internal static class PictureMatchRenderer
         }
 
         root.Children.Add(stage);
+        if (!parameters.UseTextOnlyFallback &&
+            TemplateRendering.CreateCreditsDisclosure(
+                imageCache,
+                backdropRendered
+                    ? renderedAssetReferences.Append(backdropReference)
+                    : renderedAssetReferences,
+                "PictureMatchImageCredits") is { } credits)
+        {
+            root.Children.Add(credits);
+        }
+
         root.Children.Add(outcomePanel);
 
         PaperChoreography? scene = null;

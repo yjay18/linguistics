@@ -40,6 +40,27 @@ Owns bundled and installed versioned packs, schema decoding, dependency resoluti
 
 It also projects validated concepts, examples, and tasks into a deterministic course catalog. The projection targets 450 lessons per language, accepts no more than 500, and reports the honest gap between authored and planned content. Authoring preview catalogs remain visibly distinct from runtime approved catalogs.
 
+### Asset system
+
+`tools/AssetPipeline` owns networked image research and authoring. Only its `search` and
+`fetch` commands may contact Wikimedia Commons; they use `HttpClient`, a descriptive
+User-Agent, conservative license filtering, bounded downloads, sequential requests, and
+backoff. Processing, generated-image import, and audit are local operations. The tool is
+not referenced by `Linguistics.App` and must not appear in app publish output.
+
+`Linguistics.Core.Content` owns the strict `assets.json` schema, provenance and license
+records, path/size/hash validation, per-template and pack budgets, and lesson-reference resolution. A
+catalog exposes only validated immutable asset records and absolute local paths. Pending
+asset review keeps the same Preview/runtime gate as the adjacent content pack.
+
+`Linguistics.App.Content.ContentImageCache` owns lazy local decode and disposal. It has
+no HTTP or provider dependency. Its cache key includes pack ID, pack version, and asset
+ID so a new immutable pack version cannot reuse stale decoded bytes. Template renderers,
+the developer PaperStage, and Settings receive this one read-only cache from the app
+shell. Decode failure produces the authored text fallback; it does not trigger a fetch.
+Settings lists every validated asset credit, and each rendered scene exposes the credits
+for the images it actually presents.
+
 ### Local AI
 
 Owns Ollama discovery, model configuration, constrained prompting, streaming, cancellation, timeouts, response decoding, and diagnostics. It has no authority over curriculum or persistence.
@@ -153,19 +174,40 @@ authored template-instance IDs and order; a lesson without authored instances ke
 existing deterministic generated-card fallback.
 
 `Linguistics.App.Features.Learn.Templates` owns only presentation. Its registry maps an
-application-known template ID to an Avalonia renderer. A renderer receives resolved
-parameters, one selected instruction language, the effective reduced-motion setting,
-and an outcome callback. Renderers may play bounded choreography, expose replay and
+application-known template ID to an Avalonia renderer. A renderer receives the shared
+read-only content image cache, resolved parameters, one selected instruction language,
+the effective reduced-motion setting, and an outcome callback. Renderers may play bounded choreography, expose replay and
 skip, and present an authored text-only equivalent, but they do not receive a learner
 repository, profile owner, mastery service, scheduler, or persistence handle. The
 callback reports a local `Ready`, `Success`, `Uncertain`, or `Failure` presentation
 outcome; the deterministic core evaluator remains the authority for that result.
+The registry may additionally adapt the existing optional local speech-synthesis
+provider into a TTS-capable renderer. That provider can play authored captions only; it
+does not expose microphone input, persistence, curriculum, scoring, or state authority,
+and provider or voice unavailability must leave the complete caption path intact.
+Recognition renderers may keep local selection, card-reveal, assignment, drag/drop, and
+choreography state. They submit stable authored IDs or complete assignment snapshots to
+`TemplateInteractionEvaluator`; only that pure core evaluator maps the input to a bounded
+outcome. Pointer and keyboard routes therefore share the same result mapping, while drag
+events remain presentation input rather than a second scoring implementation.
+Construction renderers follow the same boundary. Cloze and preposition stages submit one
+stable selection; conjugation and case controls submit an authored key/value mapping;
+negation submits the selected token and slot; ordered train cars and complements submit
+their complete stable-ID sequence. `EvaluateMappedPair`, `EvaluateSelectionPair`, and
+`EvaluateWordOrder` remain pure core functions. Accordion, prefix-split, and question-flip
+presentations use acknowledgement outcomes only after the authored interaction completes.
+Listening renderers likewise keep only local playback and selection state. They expose
+the complete written prompt or transcript, use the optional installed-system-voice
+adapter without microphone access, and submit stable authored choices, ordered IDs, or a
+typed response to the core. Dictation tolerance is a deterministic normalization policy
+inside `TemplateInteractionEvaluator`; speech availability, animation, and renderer
+timing never influence its outcome.
 
-The developer gallery supplies fixed synthetic fixtures and cycles presentation states
+The developer gallery supplies fixed parameters backed by the validated pack and cycles presentation states
 without reading learner history. Bundled machine-validated lesson instances are preview
 only: finishing one returns to the course map without creating mastery evidence or a
-progress record. Asset references remain optional until the validated Phase 3 manifest
-exists; omission renders complete authored text instead of an invented or remote asset.
+progress record. Asset references remain optional; omission, text-only mode, or local
+decode failure renders complete authored text instead of an invented or remote asset.
 
 ## Curriculum authoring flow
 

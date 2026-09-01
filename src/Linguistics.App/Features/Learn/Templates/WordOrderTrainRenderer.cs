@@ -2,6 +2,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Linguistics.App.Content;
 using Linguistics.App.Controls;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
@@ -12,6 +13,7 @@ namespace Linguistics.App.Features.Learn.Templates;
 internal static class WordOrderTrainRenderer
 {
     public static Control Render(
+        ContentImageCache? imageCache,
         ResolvedTemplateParameters parameters,
         LanguageCode instructionLanguage,
         bool shouldReduceMotion,
@@ -19,6 +21,11 @@ internal static class WordOrderTrainRenderer
     {
         var prompt = TemplateRendering.Localized(parameters, "prompt", instructionLanguage);
         var options = TemplateRendering.Options(parameters, "options");
+        var assetReference = TemplateRendering.AssetReference(parameters, "asset");
+        var backdropReference = TemplateRendering.AssetReference(parameters, "backdrop");
+        var sceneImage = parameters.UseTextOnlyFallback
+            ? null
+            : TemplateRendering.CreateContentImage(imageCache, assetReference, 76);
         var selectedIds = InitialOrder(parameters.PreviewOutcome, options).ToList();
         var bankButtons = new Dictionary<string, Button>(StringComparer.Ordinal);
 
@@ -48,13 +55,33 @@ internal static class WordOrderTrainRenderer
         header.Children.Add(sceneActions);
 
         var stage = TemplateRendering.CreateStage(320, "Word order train construction stage");
-        TemplateRendering.AddBackdrop(stage, useScenicPreview: false);
+        var backdropRendered = TemplateRendering.AddBackdrop(
+            stage,
+            imageCache,
+            parameters.UseTextOnlyFallback ? null : backdropReference);
         var tape = new PaperTape { Content = "BUILD THE REQUEST", Angle = -1.1 };
         PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(tape, PaperAnchorLine.Head);
         PaperStage.SetAnchorX(tape, 0.2);
         PaperStage.SetAnchorOffsetY(tape, -12);
         stage.Children.Add(tape);
+
+        if (sceneImage is not null)
+        {
+            var sceneProp = new CutoutFrame
+            {
+                Width = 120,
+                Height = 92,
+                Content = sceneImage,
+                IsHitTestVisible = false,
+            };
+            sceneProp.Classes.Add("tilt-right");
+            PaperStage.SetLayer(sceneProp, PaperStageLayer.Subject);
+            PaperStage.SetAnchor(sceneProp, PaperAnchorLine.Head);
+            PaperStage.SetAnchorX(sceneProp, 0.84);
+            PaperStage.SetAnchorOffsetY(sceneProp, 34);
+            stage.Children.Add(sceneProp);
+        }
 
         var bankPanel = new WrapPanel
         {
@@ -73,7 +100,6 @@ internal static class WordOrderTrainRenderer
 
         var construction = new Grid
         {
-            Margin = new Avalonia.Thickness(26, 72, 26, 22),
             RowDefinitions = new RowDefinitions("Auto,Auto,*,Auto"),
             RowSpacing = 8,
         };
@@ -121,8 +147,15 @@ internal static class WordOrderTrainRenderer
         };
         Grid.SetRow(trainHint, 3);
         construction.Children.Add(trainHint);
-        PaperStage.SetLayer(construction, PaperStageLayer.Subject);
-        stage.Children.Add(construction);
+        var constructionBoard = new PaperCard
+        {
+            Margin = new Avalonia.Thickness(24, 68, 24, 14),
+            Padding = new Avalonia.Thickness(14, 10),
+            Content = construction,
+        };
+        constructionBoard.Classes.Add("soft");
+        PaperStage.SetLayer(constructionBoard, PaperStageLayer.SupportingCast);
+        stage.Children.Add(constructionBoard);
 
         foreach (var option in DeterministicBankOrder(options))
         {
@@ -175,14 +208,13 @@ internal static class WordOrderTrainRenderer
                 pair.Value.IsEnabled = !selectedIds.Contains(pair.Key, StringComparer.Ordinal);
             }
 
-            foreach (var id in selectedIds)
+            for (var index = 0; index < options.Count; index++)
             {
-                var option = options.Single(candidate => candidate.Id == id);
                 if (trainPanel.Children.Count > 0)
                 {
                     trainPanel.Children.Add(new TextBlock
                     {
-                        Text = "—",
+                        Text = "›",
                         FontSize = 17,
                         FontWeight = FontWeight.Bold,
                         VerticalAlignment = VerticalAlignment.Center,
@@ -190,11 +222,66 @@ internal static class WordOrderTrainRenderer
                     });
                 }
 
+                var slotLabel = SlotLabel(index, options.Count, instructionLanguage);
+                if (index >= selectedIds.Count)
+                {
+                    var emptyCopy = new StackPanel
+                    {
+                        Spacing = 2,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                    };
+                    emptyCopy.Children.Add(new TextBlock
+                    {
+                        Text = slotLabel,
+                        Classes = { "eyebrow" },
+                        FontSize = 8,
+                        Width = 72,
+                        TextAlignment = TextAlignment.Center,
+                        TextWrapping = TextWrapping.Wrap,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                    });
+                    emptyCopy.Children.Add(new TextBlock
+                    {
+                        Text = "EMPTY",
+                        Classes = { "muted" },
+                        FontSize = 10,
+                        FontWeight = FontWeight.SemiBold,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                    });
+                    var emptySlot = new PaperCard
+                    {
+                        Width = 92,
+                        Height = 58,
+                        Padding = new Avalonia.Thickness(7, 5),
+                        Content = emptyCopy,
+                        Margin = new Avalonia.Thickness(3),
+                    };
+                    emptySlot.Classes.Add("soft");
+                    AutomationProperties.SetName(
+                        emptySlot,
+                        $"{slotLabel} reserved train car, empty");
+                    trainPanel.Children.Add(emptySlot);
+                    continue;
+                }
+
+                var id = selectedIds[index];
+                var option = options.Single(candidate => candidate.Id == id);
                 var carCopy = new StackPanel
                 {
                     Spacing = 0,
                     HorizontalAlignment = HorizontalAlignment.Center,
                 };
+                carCopy.Children.Add(new TextBlock
+                {
+                    Text = slotLabel,
+                    FontSize = 8,
+                    Width = 72,
+                    TextAlignment = TextAlignment.Center,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontWeight = FontWeight.SemiBold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Classes = { "on-accent" },
+                });
                 carCopy.Children.Add(new TextBlock
                 {
                     Text = option.Label,
@@ -213,15 +300,17 @@ internal static class WordOrderTrainRenderer
                 });
                 var car = new Button
                 {
-                    MinWidth = 64,
+                    Width = 92,
                     Height = 58,
-                    Padding = new Avalonia.Thickness(9, 4),
+                    Padding = new Avalonia.Thickness(7, 3),
                     CornerRadius = new Avalonia.CornerRadius(6),
                     Content = carCopy,
                     Margin = new Avalonia.Thickness(3),
                     Classes = { "primary", "lift" },
                 };
-                AutomationProperties.SetName(car, $"Remove {option.Label} from the sentence");
+                AutomationProperties.SetName(
+                    car,
+                    $"{slotLabel}. {option.Label}. Remove from the sentence");
                 AutomationProperties.SetAutomationId(car, $"WordOrderCar_{option.Id}");
                 car.Click += (_, _) =>
                 {
@@ -229,17 +318,6 @@ internal static class WordOrderTrainRenderer
                     RefreshTrain();
                 };
                 trainPanel.Children.Add(car);
-            }
-
-            if (selectedIds.Count == 0)
-            {
-                trainPanel.Children.Add(new TextBlock
-                {
-                    Text = "The paper train is waiting for its first word.",
-                    Classes = { "muted" },
-                    VerticalAlignment = VerticalAlignment.Center,
-                    TextWrapping = TextWrapping.Wrap,
-                });
             }
         }
 
@@ -274,6 +352,15 @@ internal static class WordOrderTrainRenderer
         }
 
         root.Children.Add(stage);
+        if (!parameters.UseTextOnlyFallback &&
+            TemplateRendering.CreateCreditsDisclosure(
+                imageCache,
+                [sceneImage is not null ? assetReference : null, backdropRendered ? backdropReference : null],
+                "WordOrderTrainImageCredits") is { } credits)
+        {
+            root.Children.Add(credits);
+        }
+
         root.Children.Add(footer);
 
         PaperChoreography? scene = null;
@@ -318,6 +405,27 @@ internal static class WordOrderTrainRenderer
         options.Where((_, index) => index % 2 == 1)
             .Concat(options.Where((_, index) => index % 2 == 0))
             .ToArray();
+
+    private static string SlotLabel(int index, int count, LanguageCode language)
+    {
+        var useHindi = string.Equals(language.Value, "hi", StringComparison.Ordinal);
+        if (index == 0)
+        {
+            return useHindi ? "शुरुआत" : "START";
+        }
+
+        if (index == 1)
+        {
+            return useHindi ? "क्रिया 2" : "VERB 2";
+        }
+
+        if (index == count - 1)
+        {
+            return useHindi ? "दायाँ ब्रैकेट" : "RIGHT BRACKET";
+        }
+
+        return useHindi ? "मध्य" : "MIDDLE";
+    }
 
     private static IReadOnlyList<string> InitialOrder(
         TemplateOutcomeState state,

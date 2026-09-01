@@ -241,6 +241,14 @@ macOS Accessibility trust is false, and Windows native interaction remains unava
 Gate: validator rejects every crafted bad-asset fixture; the app renders seeded assets
 offline from the validated pack; credits are visible and complete.
 
+Implementation status, 2026-08-31: P3.1–P3.6 are implemented in the current uncommitted
+working tree. The validated German pack contains seven Wikimedia Commons photographs and
+five generated paper-stage images (12 unique assets, 1,619,917 bytes); all 248 tests,
+locked restore, formatter, Release build, audit, publish inspection, and two consecutive
+final budget-corrected Gemini visual-QA passes are clean on macOS. The assets remain Preview material
+pending competent content, license, modification, and redistribution review. Direct
+VoiceOver and Windows native interaction remain named evidence gaps.
+
 ### Phase 4 — Template catalog (58 templates)
 
 Every template item (`P4.T<number>`) has the same definition of done:
@@ -282,6 +290,28 @@ wave.
   snow dots, sun glints) for weather and seasons.
 - **P4.T10** clock-theatre — paper clock with animating hands for time expressions.
 
+**Wave A status (2026-09-01): complete with named unverified evidence in the current
+Phase 4 checkpoint.** P4.T1–P4.T10 have typed schemas, strict per-kind validator
+fixtures, registered Avalonia renderers, all-outcome gallery fixtures, bounded replay and
+skip choreography, reduced-motion instant states, named controls and live regions,
+complete authored text-only routes, callback-only acknowledgement outcomes, and unit
+coverage. P4.T2 now reveals word, article, and meaning in sequence. P4.T4 uses the
+existing optional installed-system-voice provider for each complete caption, remains
+fully usable without it, and never requests a microphone. Locked restore, formatter,
+zero-warning Release build, publish inspection, and all 267 tests pass. Fresh macOS
+interaction covered Scene Establish and Postcard Story by mouse and keyboard, replay,
+skip, outcome reporting, all four gallery outcome states, image-free text-only routes,
+reduced-motion final states, and light/dark themes. Local German caption playback also
+completed through the installed system voice. Final gallery captures for every Wave A
+template are under `artifacts/phase4-wave-a/screenshots/`.
+
+Named follow-ups and evidence gaps: no suitable validated Commons cultural artifact is
+bundled, so P4.T8 intentionally renders its authored text-only plate until that exact
+asset is sourced and validated; direct VoiceOver and Windows native interaction remain
+unverified; competent linguistic, cultural, content, license, modification, and
+redistribution review remains pending. No approval, distribution, or release claim is
+made.
+
 **Wave B — Vocabulary recognition**
 - **P4.T11** picture-match — hear/read a word, pick the matching cutout from 3–4.
 - **P4.T12** word-match — see a cutout, pick the word.
@@ -295,6 +325,33 @@ wave.
 - **P4.T18** color-swatch — paint-chip cards for color terms applied to objects.
 - **P4.T19** number-tiles — quantity scenes and digit tiles for numbers.
 - **P4.T20** label-the-scene — busy backdrop with tappable/tabbable hotspots to label.
+
+**Wave B status (2026-09-01): complete with named unverified evidence in the current
+Phase 4 checkpoint.** P4.T11–P4.T20 have typed schemas, strict per-kind validator
+fixtures, registered Avalonia renderers, all-outcome gallery fixtures, bounded replay and
+skip choreography, reduced-motion instant states, keyboard names and live regions,
+complete authored text-only routes, callback-only outcomes, and deterministic core
+mapping tests. The existing P4.T11 proving renderer now keeps the written target visible
+and offers optional installed-system-voice playback without a microphone. P4.T15 supports
+pointer selection, keyboard assignment, and native Avalonia drag/drop while reporting
+only the core evaluator result. Wave B needed no new assets and uses only the 12 validated
+German Preview images already bundled by Phase 3.
+
+Locked restore, formatter, zero-warning Release build, publish inspection, and all 279
+tests pass. The published app contains all 12 validated images and no AssetPipeline
+binary. Fresh macOS interaction covered Picture Match and Sort Into Baskets by mouse and
+keyboard, deterministic failure/uncertain/success callbacks, replay, skip, local German
+playback, all four gallery outcome states, complete image-free text-only routes,
+reduced-motion final states, and light/dark themes. Final captures for every Wave B
+template plus the interaction variants are under
+`artifacts/phase4-wave-b/screenshots/`.
+
+Named follow-ups and evidence gaps: the automation bridge could not synthesize a native
+drag gesture, so drag-specific macOS interaction remains unverified even though the
+pointer and keyboard assignment paths were exercised; direct VoiceOver and Windows
+native interaction remain unverified; competent linguistic, cultural, content, license,
+modification, and redistribution review remains pending. No approval, distribution, or
+release claim is made.
 
 **Wave C — Sentence and grammar construction**
 - **P4.T21** word-order-train — arrange word cutouts on paper train cars; verb-second
@@ -313,6 +370,34 @@ wave.
 - **P4.T30** sentence-expand — start with subject-verb, add cutout complements to
   build longer sentences.
 
+**Wave C status (2026-09-01): complete with named unverified evidence in the current
+Phase 4 checkpoint.** P4.T21–P4.T30 have typed schemas, strict per-kind validator
+fixtures, registered Avalonia renderers, all-outcome gallery fixtures, bounded replay and
+skip choreography, reduced-motion instant states, keyboard names and live regions,
+complete authored text-only routes, callback-only outcomes, and deterministic core
+mapping tests. P4.T21 now exposes fixed START, VERB 2, MIDDLE, and RIGHT BRACKET cars.
+P4.T22 and P4.T29 share the same callback path for pointer, keyboard, and native
+drag/drop inputs. Person/form, role/article, negator/slot, and complement-order checks
+submit stable authored IDs to the pure core evaluator. Presentation-only fold, split,
+and flip templates report acknowledgement only after their authored interaction is
+complete. Wave C needed no new assets and uses only the 12 validated German Preview
+images already bundled by Phase 3.
+
+Locked restore, formatter, zero-warning Release build, publish inspection, and all 289
+tests pass. The published app contains all 12 validated images and no AssetPipeline
+binary. Fresh macOS interaction covered Gap Card and Preposition Stage by mouse and
+keyboard, deterministic failure and success callbacks, replay, skip, all four gallery
+outcome states, complete image-free text-only routes, reduced-motion final states, and
+light/dark themes. Final captures for every Wave C template plus the interaction
+variants are under `artifacts/phase4-wave-c/screenshots/`.
+
+Named follow-ups and evidence gaps: the automation bridge moved the pointer but did not
+complete an Avalonia native drag/drop gesture, so drag-specific macOS interaction
+remains unverified even though pointer and keyboard paths were exercised; direct
+VoiceOver and Windows native interaction remain unverified; competent linguistic,
+cultural, content, license, modification, and redistribution review remains pending. No
+approval, distribution, or release claim is made.
+
 **Wave D — Listening**
 - **P4.T31** listen-pick-image — play TTS utterance, pick the matching cutout.
 - **P4.T32** listen-order — sequence event cards in the order heard.
@@ -324,6 +409,33 @@ wave.
 - **P4.T36** listen-price-tag — hear a price or time; set the tag or clock.
 - **P4.T37** dialogue-eavesdrop — watch a puppet dialogue, then answer one
   comprehension check.
+
+**Wave D status (2026-09-01): complete with named unverified evidence in the current
+Phase 4 checkpoint.** P4.T31–P4.T37 have typed schemas, strict per-kind validator
+fixtures, registered Avalonia renderers, all-outcome gallery fixtures, bounded replay and
+skip choreography, reduced-motion instant states, keyboard names and live regions,
+complete authored transcripts and text-only routes, callback-only outcomes, and
+deterministic core mapping tests. The listening controls optionally play complete
+authored text through the existing installed-system-voice provider, remain fully usable
+without it, and never request a microphone. Image, event-order, dictation, minimal-pair,
+route, price/time, and dialogue choices submit only stable authored values to the core
+evaluator. Wave D needed no new assets and uses only the 12 validated German Preview
+images already bundled by Phase 3.
+
+Locked restore, formatter, zero-warning Release build, publish inspection, and all 299
+tests pass. The published app contains all 12 validated images and no AssetPipeline
+binary. Fresh macOS inspection covered all seven Wave D templates. Real interaction on
+Listen Type and Listen Route covered mouse and keyboard success/failure paths, replay,
+skip, local German playback, all four gallery outcome states, complete text-only routes,
+reduced-motion and motion-enabled final states, and light/dark themes. A first independent
+visual review identified selected-state contrast and dialogue-layer alignment issues;
+both were corrected. A fresh second review passed the corrected dark, light, scenic,
+success, and text-only captures with no material defect. Final captures are under
+`artifacts/phase4-wave-d/screenshots/`.
+
+Named evidence gaps: direct VoiceOver and Windows native interaction remain unverified;
+competent linguistic, cultural, content, license, modification, and redistribution review
+remains pending. No approval, distribution, or release claim is made.
 
 **Wave E — Speaking and pronunciation** (all with text-only and microphone-free paths;
 honest assessment rules from `SPEECH.md` apply unchanged)

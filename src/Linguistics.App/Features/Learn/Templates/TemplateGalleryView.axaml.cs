@@ -1,6 +1,8 @@
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Media;
+using Linguistics.App.Content;
 using Linguistics.App.Controls;
 using Linguistics.Core.Content;
 
@@ -11,6 +13,7 @@ public partial class TemplateGalleryView : UserControl
     private readonly TemplateRegistry? _registry;
     private readonly IReadOnlyList<TemplateGalleryFixture> _fixtures = [];
     private readonly bool _shouldReduceMotion;
+    private readonly ContentImageCache? _imageCache;
 
     public TemplateGalleryView()
     {
@@ -20,7 +23,8 @@ public partial class TemplateGalleryView : UserControl
     internal TemplateGalleryView(
         TemplateRegistry registry,
         IReadOnlyList<TemplateGalleryFixture> fixtures,
-        bool shouldReduceMotion)
+        bool shouldReduceMotion,
+        ContentImageCache? imageCache = null)
         : this()
     {
         ArgumentNullException.ThrowIfNull(registry);
@@ -28,6 +32,7 @@ public partial class TemplateGalleryView : UserControl
         _registry = registry;
         _fixtures = fixtures;
         _shouldReduceMotion = shouldReduceMotion;
+        _imageCache = imageCache;
         RenderFixtures();
     }
 
@@ -68,6 +73,7 @@ public partial class TemplateGalleryView : UserControl
         OutcomeText.Text = $"Outcome preview: {CurrentOutcome}";
         FixturePanel.Children.Clear();
         EmptyState.IsVisible = _fixtures.Count == 0;
+        RenderSeedBatch();
         if (_registry is null)
         {
             return;
@@ -113,5 +119,81 @@ public partial class TemplateGalleryView : UserControl
             var card = new PaperCard { Content = content };
             FixturePanel.Children.Add(card);
         }
+    }
+
+    private void RenderSeedBatch()
+    {
+        SeedAssetPanel.Children.Clear();
+        SeedCreditsHost.Content = null;
+        if (_imageCache is null)
+        {
+            SeedBatchCard.IsVisible = false;
+            return;
+        }
+
+        SeedBatchCard.IsVisible = true;
+        var seedAssets = _imageCache.Assets
+            .Where(asset => asset.Record.Provenance == ContentAssetProvenance.WikimediaCommons)
+            .OrderBy(asset => asset.Record.Id, StringComparer.Ordinal)
+            .ToArray();
+        if (UseTextOnlyFallback)
+        {
+            SeedAssetPanel.ItemWidth = double.NaN;
+            SeedAssetPanel.ItemHeight = double.NaN;
+            SeedAssetPanel.Children.Add(new TextBlock
+            {
+                Text = $"Text-only fallback active · {seedAssets.Length} local seed images intentionally hidden.",
+                TextWrapping = TextWrapping.Wrap,
+                Classes = { "muted" },
+            });
+            return;
+        }
+
+        SeedAssetPanel.ItemWidth = 174;
+        SeedAssetPanel.ItemHeight = 174;
+        var renderedIds = new List<string>(seedAssets.Length);
+        foreach (var asset in seedAssets)
+        {
+            var image = TemplateRendering.CreateContentImage(
+                _imageCache,
+                asset.Record.Id,
+                height: 112,
+                Stretch.Uniform);
+            if (image is null)
+            {
+                continue;
+            }
+
+            var subject = asset.Record.Id.Split('.').Last().Replace('-', ' ');
+            var title = char.ToUpperInvariant(subject[0]) + subject[1..];
+            var content = new StackPanel { Spacing = 6 };
+            content.Children.Add(image);
+            content.Children.Add(new TextBlock
+            {
+                Text = title,
+                FontSize = 12,
+                FontWeight = FontWeight.SemiBold,
+                MaxLines = 2,
+                TextAlignment = TextAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                TextWrapping = TextWrapping.Wrap,
+            });
+            var frame = new CutoutFrame
+            {
+                Width = 162,
+                Height = 162,
+                Margin = new Avalonia.Thickness(4),
+                Content = content,
+            };
+            frame.Classes.Add(renderedIds.Count % 2 == 0 ? "tilt-left" : "tilt-right");
+            AutomationProperties.SetName(frame, $"Seed asset {title}");
+            SeedAssetPanel.Children.Add(frame);
+            renderedIds.Add(asset.Record.Id);
+        }
+
+        SeedCreditsHost.Content = TemplateRendering.CreateCreditsDisclosure(
+            _imageCache,
+            renderedIds,
+            "TemplateGallerySeedCredits");
     }
 }

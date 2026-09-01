@@ -279,13 +279,17 @@ public sealed class ValidatedContentCatalog
 {
     internal ValidatedContentCatalog(
         IReadOnlyList<ContentPackDocument> packs,
+        IReadOnlyList<ValidatedContentAsset> assets,
         ContentLoadPolicy policy)
     {
         Packs = packs;
+        Assets = assets;
         Policy = policy;
     }
 
     public IReadOnlyList<ContentPackDocument> Packs { get; }
+
+    public IReadOnlyList<ValidatedContentAsset> Assets { get; }
 
     public ContentLoadPolicy Policy { get; }
 

@@ -1,15 +1,8 @@
-# PaperStage developer fixture assets
+# Generated authoring sources
 
-These images are generated developer-only visual fixtures for the Phase 1 PaperStage sandbox. They are not reviewed lesson content and are not part of a language content pack.
-
-Phase 2 also reuses these files only in the synthetic template gallery so the three
-renderers can be visually inspected before the asset pipeline exists. The real German
-preview lesson deliberately omits asset references and exercises the complete authored
-text-only path. This reuse does not promote the fixtures into curriculum content.
+These five full-resolution files are authoring inputs, not app resources and not publish output. The processed Preview copies live in `content/languages/de/assets/generated/` and are the only generated images shipped with the German pack.
 
 Generation mode: built-in OpenAI image generation, new image mode, 2026-08-30.
-
-Prompt set:
 
 - `market-backdrop.png`: quiet European outdoor market backdrop, warm analogue paper texture, no people, no text, no lettering.
 - `learner-cutout.png`: full-body adult learner paper puppet, side-facing walking pose, photographic collage texture, clean alpha background, no text.
@@ -17,4 +10,4 @@ Prompt set:
 - `market-foreground-cutout.png`: low botanical and crate foreground silhouette for a market stage, torn-paper edge, clean alpha background, no text.
 - `success-burst-cutout.png`: restrained mint, amber, and coral paper-confetti reaction burst, clean alpha background, no text.
 
-If any fixture is promoted into a lesson pack, Phase 3 must create the generated-asset manifest entry, size and hash validation, prompt summary, and human review record before runtime use.
+`content/languages/de/assets.json` records each processed file's generated provenance, generator, prompt summary, original source hash, output hash, size, transformation, and review gate. Regenerate through `tools/AssetPipeline`; never copy these originals back into the app bundle.

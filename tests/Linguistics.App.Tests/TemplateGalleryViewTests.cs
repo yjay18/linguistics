@@ -13,7 +13,7 @@ public sealed class TemplateGalleryViewTests
     {
         var id = new TemplateId("fixture-template");
         var renderedOutcomes = new List<TemplateOutcomeState>();
-        TemplateRendererFactory renderer = (parameters, _, _, _) =>
+        TemplateRendererFactory renderer = (_, parameters, _, _, _) =>
         {
             renderedOutcomes.Add(parameters.PreviewOutcome);
             return new Border();
@@ -50,7 +50,7 @@ public sealed class TemplateGalleryViewTests
     {
         var id = new TemplateId("fixture-template");
         var textOnlyStates = new List<bool>();
-        TemplateRendererFactory renderer = (parameters, _, _, _) =>
+        TemplateRendererFactory renderer = (_, parameters, _, _, _) =>
         {
             textOnlyStates.Add(parameters.UseTextOnlyFallback);
             return new Border();

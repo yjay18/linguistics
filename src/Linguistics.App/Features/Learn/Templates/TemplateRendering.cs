@@ -4,9 +4,8 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Avalonia.Media.Transformation;
-using Avalonia.Platform;
+using Linguistics.App.Content;
 using Linguistics.App.Controls;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
@@ -79,17 +78,16 @@ internal static class TemplateRendering
         return stage;
     }
 
-    public static void AddBackdrop(PaperStage stage, bool useScenicPreview)
+    public static bool AddBackdrop(
+        PaperStage stage,
+        ContentImageCache? imageCache,
+        string? assetReferenceId)
     {
         Control backdrop;
-        if (useScenicPreview)
+        if (CreateContentImage(imageCache, assetReferenceId, double.NaN, Stretch.UniformToFill) is { } image)
         {
-            backdrop = new Image
-            {
-                Source = LoadPreviewBitmap("market-backdrop.png"),
-                Stretch = Stretch.UniformToFill,
-                Opacity = 0.88,
-            };
+            image.Opacity = 0.88;
+            backdrop = image;
         }
         else
         {
@@ -105,27 +103,69 @@ internal static class TemplateRendering
         wash.Classes.Add("soft-card");
         PaperStage.SetLayer(wash, PaperStageLayer.PaperWash);
         stage.Children.Add(wash);
+        return backdrop is Image;
     }
 
-    public static Image? CreatePreviewImage(string? assetReferenceId, double height)
+    public static Image? CreateContentImage(
+        ContentImageCache? imageCache,
+        string? assetReferenceId,
+        double height,
+        Stretch stretch = Stretch.Uniform)
     {
-        var fileName = assetReferenceId switch
+        if (imageCache is null ||
+            !imageCache.TryGetBitmap(assetReferenceId, out var bitmap) ||
+            bitmap is null)
         {
-            "preview.market-stall" => "market-stall-cutout.png",
-            "preview.market-square" => "market-backdrop.png",
-            "preview.learner" => "learner-cutout.png",
-            "preview.market-foreground" => "market-foreground-cutout.png",
-            "preview.success-burst" => "success-burst-cutout.png",
-            _ => null,
+            return null;
+        }
+
+        return new Image
+        {
+            Source = bitmap,
+            Height = height,
+            Stretch = stretch,
         };
-        return fileName is null
-            ? null
-            : new Image
-            {
-                Source = LoadPreviewBitmap(fileName),
-                Height = height,
-                Stretch = Stretch.Uniform,
-            };
+    }
+
+    public static Expander? CreateCreditsDisclosure(
+        ContentImageCache? imageCache,
+        IEnumerable<string?> assetReferenceIds,
+        string automationId)
+    {
+        ArgumentNullException.ThrowIfNull(assetReferenceIds);
+        if (imageCache is null)
+        {
+            return null;
+        }
+
+        var assets = assetReferenceIds
+            .Where(assetId => !string.IsNullOrWhiteSpace(assetId))
+            .Distinct(StringComparer.Ordinal)
+            .Select(assetId => imageCache.TryGetAsset(assetId, out var asset) ? asset : null)
+            .OfType<ValidatedContentAsset>()
+            .ToArray();
+        if (assets.Length == 0)
+        {
+            return null;
+        }
+
+        var list = new StackPanel { Spacing = 10 };
+        foreach (var asset in assets)
+        {
+            list.Children.Add(CreateAssetCreditCard(asset));
+        }
+
+        var disclosure = new Expander
+        {
+            Header = assets.Length == 1 ? "Image credit" : $"Image credits · {assets.Length}",
+            Content = list,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+        };
+        AutomationProperties.SetAutomationId(disclosure, automationId);
+        AutomationProperties.SetName(
+            disclosure,
+            $"{assets.Length} image {(assets.Length == 1 ? "credit" : "credits")}. Expand for attribution details.");
+        return disclosure;
     }
 
     public static Border CreateOutcomePanel(
@@ -279,10 +319,80 @@ internal static class TemplateRendering
         control.Opacity = 1;
     }
 
-    private static Bitmap LoadPreviewBitmap(string fileName)
+    public static Border CreateAssetCreditCard(ValidatedContentAsset asset)
     {
-        using var stream = AssetLoader.Open(
-            new Uri($"avares://Linguistics/Assets/PaperStage/{fileName}"));
-        return new Bitmap(stream);
+        ArgumentNullException.ThrowIfNull(asset);
+        var record = asset.Record;
+        var title = record.Source?.Title ?? record.Generation?.Title ?? record.Id;
+        var provenance = record.Source is { } source
+            ? $"Photograph by {source.Author} · {record.License.Identifier}"
+            : $"Generated illustration · {record.Generation!.GeneratorName}";
+        var details = new StackPanel { Spacing = 4 };
+        details.Children.Add(new TextBlock
+        {
+            Text = title,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+        });
+        details.Children.Add(new TextBlock
+        {
+            Text = provenance,
+            Classes = { "muted" },
+            TextWrapping = TextWrapping.Wrap,
+        });
+        details.Children.Add(new TextBlock
+        {
+            Text = record.License.RequiredAttribution,
+            FontSize = 12,
+            TextWrapping = TextWrapping.Wrap,
+        });
+        if (record.Source is { } photographed)
+        {
+            details.Children.Add(new TextBlock
+            {
+                Text = $"Source: {photographed.SourceUrl}",
+                FontSize = 12,
+                TextWrapping = TextWrapping.Wrap,
+            });
+            details.Children.Add(new TextBlock
+            {
+                Text = $"License: {record.License.LicenseTextLocation} · retrieved {photographed.RetrievedOn:yyyy-MM-dd}",
+                FontSize = 12,
+                TextWrapping = TextWrapping.Wrap,
+            });
+        }
+        else
+        {
+            details.Children.Add(new TextBlock
+            {
+                Text = $"Prompt summary: {record.Generation!.PromptSummary}",
+                FontSize = 12,
+                TextWrapping = TextWrapping.Wrap,
+            });
+        }
+
+        details.Children.Add(new TextBlock
+        {
+            Text = record.Transformation.IsDerivative
+                ? $"Processed derivative: {record.Transformation.Description}"
+                : record.Transformation.Description,
+            FontSize = 12,
+            TextWrapping = TextWrapping.Wrap,
+        });
+        details.Children.Add(new TextBlock
+        {
+            Text = "Preview asset · license and redistribution review remain pending.",
+            Classes = { "muted" },
+            FontSize = 12,
+            TextWrapping = TextWrapping.Wrap,
+        });
+        var card = new Border
+        {
+            Padding = new Thickness(12, 10),
+            Child = details,
+        };
+        card.Classes.Add("soft-card");
+        AutomationProperties.SetName(card, $"Image credit for {title}. {provenance}.");
+        return card;
     }
 }
