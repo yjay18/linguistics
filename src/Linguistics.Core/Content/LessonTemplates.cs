@@ -570,6 +570,20 @@ public static class LessonTemplateSchemas
                 new("maximum-interval-ms", TemplateParameterKind.Text, IsRequired: true),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("long-short-vowel"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("utterance", TemplateParameterKind.Text, IsRequired: true),
+                new("speech-language", TemplateParameterKind.Text, IsRequired: true),
+                new("contrast-label", TemplateParameterKind.Text, IsRequired: true),
+                new("options", TemplateParameterKind.OptionList, IsRequired: true),
+                new("long-option", TemplateParameterKind.Text, IsRequired: true),
+                new("answer", TemplateParameterKind.Text, IsRequired: true),
+                new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 

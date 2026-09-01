@@ -605,6 +605,54 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void LongShortVowelKeepsProductionUnscoredAndChoiceDeterministic()
+    {
+        using var synthesis = new RecordingSpeechProvider();
+        using var recognition = new RecordingRecognitionProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("long-short-vowel"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault(
+                speechSynthesisProvider: synthesis,
+                speechRecognitionProvider: recognition,
+                pronunciationAssessmentProvider: new TranscriptPronunciationAssessmentProvider(),
+                microphoneAllowed: true)
+            .Render(
+                fixture.TemplateId,
+                fixture.Parameters with { UseTextOnlyFallback = true },
+                fixture.InstructionLanguage,
+                shouldReduceMotion: true,
+                reported.Add);
+        var buttons = rendered.GetLogicalDescendants().OfType<Button>().ToArray();
+        var play = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "LongShortVowelPlayTarget");
+        var practice = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "LongShortVowelPractice");
+        var chooseLong = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "LongShortVowelOption_long");
+        var status = rendered
+            .GetLogicalDescendants()
+            .OfType<TextBlock>()
+            .Single(text =>
+                AutomationProperties.GetAutomationId(text) == "LongShortVowelPracticeStatus");
+
+        play.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        practice.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsEmpty(reported);
+        Assert.AreEqual(0, recognition.RequestCount);
+        Assert.Contains("not scored", status.Text ?? string.Empty, StringComparison.Ordinal);
+
+        chooseLong.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsNotNull(synthesis.LastRequest);
+        Assert.AreEqual("Staat", synthesis.LastRequest.Text);
+        Assert.HasCount(1, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+        Assert.AreEqual("long", reported[0].ResponseId);
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

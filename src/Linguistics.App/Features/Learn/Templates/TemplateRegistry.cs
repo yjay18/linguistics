@@ -279,6 +279,16 @@ internal sealed class TemplateRegistry
                     instructionLanguage,
                     shouldReduceMotion,
                     reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("long-short-vowel"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                LongShortVowelRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
     ]);
 
     public Control Render(

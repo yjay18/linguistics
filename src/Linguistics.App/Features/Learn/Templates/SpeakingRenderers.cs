@@ -1546,3 +1546,286 @@ internal static class SyllableClapRenderer
         _ => "Ready: play or read the phrase, then tap each syllable in rhythm.",
     };
 }
+
+internal static class LongShortVowelRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ISpeechSynthesisProvider? speechSynthesisProvider,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var utterance = TemplateRendering.Text(parameters, "utterance");
+        var speechLanguage = TemplateRendering.Text(parameters, "speech-language");
+        var contrastLabel = TemplateRendering.Text(parameters, "contrast-label");
+        var options = TemplateRendering.Options(parameters, "options");
+        var longOptionId = TemplateRendering.Text(parameters, "long-option");
+        var answerId = TemplateRendering.Text(parameters, "answer");
+        var optionIds = options.Select(option => option.Id).ToArray();
+        if (options.Count != 2 ||
+            !optionIds.Contains(longOptionId, StringComparer.Ordinal) ||
+            !optionIds.Contains(answerId, StringComparer.Ordinal))
+        {
+            throw new InvalidOperationException(
+                "The vowel contrast requires two choices, a long choice, and an authored answer.");
+        }
+
+        var selectedId = parameters.PreviewOutcome switch
+        {
+            TemplateOutcomeState.Success => answerId,
+            TemplateOutcomeState.Failure => options.First(option => option.Id != answerId).Id,
+            _ => null,
+        };
+        var backdropReference = TemplateRendering.AssetReference(parameters, "backdrop");
+        var header = SpeakingTemplatePresentation.CreateHeader(
+            "LongShortVowel",
+            instruction,
+            "Replay contrast",
+            "Skip contrast",
+            out var replayButton,
+            out var skipButton);
+        var playbackPanel = ListeningTemplatePresentation.CreatePlaybackPanel(
+            "LongShortVowel",
+            speechSynthesisProvider,
+            speechLanguage,
+            [new ListeningPrompt("Target", "Play target", utterance, $"long-short-vowel:{answerId}")],
+            parameters.UseTextOnlyFallback);
+        var stage = TemplateRendering.CreateStage(328, "Long and short vowel paper stretch stage");
+        var backdropRendered = TemplateRendering.AddBackdrop(
+            stage,
+            imageCache,
+            parameters.UseTextOnlyFallback ? null : backdropReference);
+        var tape = new PaperTape { Content = "HEAR THE LENGTH", Angle = 1.2 };
+        PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
+        PaperStage.SetAnchor(tape, PaperAnchorLine.Head);
+        PaperStage.SetAnchorX(tape, 0.5);
+        PaperStage.SetAnchorOffsetY(tape, -10);
+        stage.Children.Add(tape);
+
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+        var bandPanel = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 18,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(24, 78, 24, 30),
+        };
+        AutomationProperties.SetName(bandPanel, $"Vowel contrast choices. {contrastLabel}");
+        var buttons = new Dictionary<string, Button>(StringComparer.Ordinal);
+        foreach (var (option, index) in options.Select((option, index) => (option, index)))
+        {
+            var isLong = string.Equals(option.Id, longOptionId, StringComparison.Ordinal);
+            var width = isLong ? 292 : 190;
+            var bandCopy = new StackPanel
+            {
+                Spacing = 8,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+            bandCopy.Children.Add(new TextBlock
+            {
+                Text = isLong ? "LONG VOWEL" : "SHORT VOWEL",
+                Classes = { "eyebrow" },
+                HorizontalAlignment = HorizontalAlignment.Center,
+            });
+            bandCopy.Children.Add(new TextBlock
+            {
+                Text = option.Label,
+                FontSize = 25,
+                FontWeight = FontWeight.Bold,
+                TextAlignment = TextAlignment.Center,
+                TextWrapping = TextWrapping.Wrap,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            });
+            var band = new PaperCard
+            {
+                Width = width,
+                Height = 122,
+                Padding = new Thickness(16),
+                Content = bandCopy,
+            };
+            band.Classes.Add("soft");
+            var button = new Button
+            {
+                Width = width + 12,
+                Height = 136,
+                Padding = new Thickness(5),
+                Content = band,
+                Classes = { "quiet", "lift" },
+            };
+            AutomationProperties.SetAutomationId(button, $"LongShortVowelOption_{option.Id}");
+            AutomationProperties.SetName(
+                button,
+                $"Choose {(isLong ? "long" : "short")} vowel, {option.Label}");
+            button.Click += (_, _) =>
+            {
+                selectedId = option.Id;
+                RefreshSelection();
+                var outcome = TemplateInteractionEvaluator.EvaluateSingleSelection(
+                    options,
+                    answerId,
+                    selectedId);
+                TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+                reportOutcome(outcome);
+            };
+            buttons.Add(option.Id, button);
+            bandPanel.Children.Add(button);
+            band.Classes.Add(index == 0 ? "tilt-left" : "tilt-right");
+        }
+
+        PaperStage.SetLayer(bandPanel, PaperStageLayer.Subject);
+        stage.Children.Add(bandPanel);
+        var honestyStamp = new PaperStamp { Content = "NO PHONEME SCORE", Angle = -1.7 };
+        honestyStamp.Classes.Add("rectangle");
+        AutomationProperties.SetName(
+            honestyStamp,
+            "Production practice has no phoneme or accent score");
+        PaperStage.SetLayer(honestyStamp, PaperStageLayer.VerdictCard);
+        PaperStage.SetAnchor(honestyStamp, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(honestyStamp, 0.68);
+        PaperStage.SetAnchorOffsetY(honestyStamp, -15);
+        stage.Children.Add(honestyStamp);
+
+        var practiceStatus = new TextBlock
+        {
+            Text = "Production practice is optional and unscored. The choice path reports the outcome.",
+            TextWrapping = TextWrapping.Wrap,
+            Classes = { "muted" },
+        };
+        AutomationProperties.SetAutomationId(practiceStatus, "LongShortVowelPracticeStatus");
+        AutomationProperties.SetLiveSetting(practiceStatus, AutomationLiveSetting.Polite);
+        var practiceButton = new Button
+        {
+            Content = "Practice the target aloud",
+            Classes = { "quiet" },
+        };
+        AutomationProperties.SetAutomationId(practiceButton, "LongShortVowelPractice");
+        AutomationProperties.SetName(
+            practiceButton,
+            "Mark unscored production practice. No microphone is used");
+        practiceButton.Click += (_, _) =>
+        {
+            practiceStatus.Text =
+                "Practice noted for this screen. Vowel length, phonemes, and accent were not scored.";
+        };
+        var practiceActions = new StackPanel { Spacing = 8 };
+        practiceActions.Children.Add(practiceButton);
+        practiceActions.Children.Add(practiceStatus);
+        var practiceCard = new PaperCard
+        {
+            Padding = new Thickness(16, 14),
+            Content = practiceActions,
+        };
+        practiceCard.Classes.Add("soft");
+        AutomationProperties.SetName(
+            practiceCard,
+            "Optional unscored vowel production practice without microphone access");
+        RefreshSelection();
+
+        var root = new StackPanel { Spacing = 12 };
+        root.Children.Add(header);
+        root.Children.Add(playbackPanel);
+        if (parameters.UseTextOnlyFallback)
+        {
+            root.Children.Add(new TextBlock
+            {
+                Text = $"Text-only vowel contrast: {contrastLabel}.",
+                TextWrapping = TextWrapping.Wrap,
+                Classes = { "muted" },
+            });
+            root.Children.Add(new TextBlock
+            {
+                Text = $"Written target: {utterance}. Choices: {string.Join(", ", options.Select(option => option.Label))}.",
+                TextWrapping = TextWrapping.Wrap,
+                Classes = { "muted" },
+            });
+        }
+
+        root.Children.Add(stage);
+        if (!parameters.UseTextOnlyFallback &&
+            TemplateRendering.CreateCreditsDisclosure(
+                imageCache,
+                backdropRendered ? [backdropReference] : [],
+                "LongShortVowelImageCredits") is { } credits)
+        {
+            root.Children.Add(credits);
+        }
+
+        root.Children.Add(practiceCard);
+        root.Children.Add(outcomePanel);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            TemplateRendering.Prepare(
+                shouldReduceMotion,
+                tape,
+                bandPanel,
+                honestyStamp,
+                practiceCard);
+            if (!shouldReduceMotion)
+            {
+                bandPanel.RenderTransform = TemplateRendering.Transform(-12, 8, -0.7, 0.96);
+                honestyStamp.RenderTransform = TemplateRendering.Transform(7, 5, -1.7, 0.97);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), tape),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(720), bandPanel, 0, 0, 0, 1),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(320), honestyStamp, 0, 0, 0, 1),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(260), practiceCard),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) =>
+        {
+            scene?.Skip();
+            tape.SkipEntrance();
+        };
+        return root;
+
+        void RefreshSelection()
+        {
+            foreach (var pair in buttons)
+            {
+                pair.Value.Classes.Remove("primary");
+                pair.Value.Classes.Remove("quiet");
+                if (string.Equals(pair.Key, selectedId, StringComparison.Ordinal))
+                {
+                    pair.Value.Classes.Add("primary");
+                }
+                else
+                {
+                    pair.Value.Classes.Add("quiet");
+                }
+            }
+        }
+    }
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "The selected length matches the authored listening target.",
+        TemplateOutcomeState.Uncertain => "Choose the long or short written option for a scored outcome.",
+        TemplateOutcomeState.Failure => "The selected length does not match the authored listening target.",
+        _ => "Ready: play or read the target, then choose its vowel length or practice unscored production.",
+    };
+}

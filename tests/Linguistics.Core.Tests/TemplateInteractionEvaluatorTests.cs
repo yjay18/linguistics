@@ -92,6 +92,7 @@ public sealed class TemplateInteractionEvaluatorTests
     [DataRow("minimal-pair-doors")]
     [DataRow("listen-price-tag")]
     [DataRow("dialogue-eavesdrop")]
+    [DataRow("long-short-vowel")]
     public void SingleSelectionTemplatesUseDeterministicMapping(string templateId)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(templateId));
@@ -555,6 +556,37 @@ public sealed class TemplateInteractionEvaluatorTests
                 minimum,
                 maximum,
                 [TimeSpan.FromMilliseconds(20), TimeSpan.FromMilliseconds(20)]));
+    }
+
+    [TestMethod]
+    public void LongShortVowelUsesOnlyTheAuthoredChoiceForItsOutcome()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("long-short-vowel")));
+        var options = new[]
+        {
+            new TemplateOption("short", "kurz · Stadt"),
+            new TemplateOption("long", "lang · Staat"),
+        };
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                options,
+                "long",
+                "long").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                options,
+                "long",
+                "short").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                options,
+                "long",
+                null).State);
     }
 
     [TestMethod]

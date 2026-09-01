@@ -1221,5 +1221,37 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.AssetReference,
                     AssetReferenceId: "asset.de.stage.market-backdrop"),
             })),
+        new(
+            new TemplateId("long-short-vowel"),
+            "Long and short vowel",
+            "Speaking · length contrast choice · unscored production",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Play or read Staat, then choose its written length or practice it without a score.",
+                        ["hi"] = "Staat को चलाएँ या पढ़ें, फिर लिखी लंबाई चुनें या बिना अंक के अभ्यास करें।",
+                    }),
+                ["utterance"] = new(TemplateParameterKind.Text, Text: "Staat"),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["contrast-label"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Machine-validated Preview contrast: Stadt and Staat"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("short", "kurz · Stadt"),
+                        new("long", "lang · Staat"),
+                    ]),
+                ["long-option"] = new(TemplateParameterKind.Text, Text: "long"),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "long"),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
     ];
 }
