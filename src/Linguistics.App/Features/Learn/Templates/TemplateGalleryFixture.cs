@@ -1102,5 +1102,33 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.AssetReference,
                     AssetReferenceId: "asset.de.stage.market-backdrop"),
             })),
+        new(
+            new TemplateId("echo-stage"),
+            "Echo stage",
+            "Speaking · optional local recognition · complete typed route",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Listen to the café phrase, echo it, then compare through voice or text.",
+                        ["hi"] = "कैफ़े का वाक्य सुनें, दोहराएँ, फिर आवाज़ या पाठ से तुलना करें।",
+                    }),
+                ["phrase"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Ich möchte einen Tee, bitte."),
+                ["speech-language"] = new(TemplateParameterKind.Text, Text: "de"),
+                ["accepted-transcripts"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("full", "Ich möchte einen Tee, bitte."),
+                    ]),
+                ["backdrop"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.market-backdrop"),
+            })),
     ];
 }

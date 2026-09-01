@@ -521,6 +521,17 @@ public static class LessonTemplateSchemas
                 new("answer", TemplateParameterKind.Text, IsRequired: true),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("echo-stage"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("phrase", TemplateParameterKind.Text, IsRequired: true),
+                new("speech-language", TemplateParameterKind.Text, IsRequired: true),
+                new("accepted-transcripts", TemplateParameterKind.OptionList, IsRequired: true),
+                new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 

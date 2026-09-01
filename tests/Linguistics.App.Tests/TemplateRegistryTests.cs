@@ -377,6 +377,113 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void EchoStageOffersNormalAndSlowerLocalPlayback()
+    {
+        using var provider = new RecordingSpeechProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("echo-stage"));
+        var rendered = TemplateRegistry.CreateDefault(speechSynthesisProvider: provider).Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var buttons = rendered
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Where(button => AutomationProperties.GetAutomationId(button) is not null)
+            .ToDictionary(
+                button => AutomationProperties.GetAutomationId(button)!,
+                StringComparer.Ordinal);
+
+        buttons["EchoStagePlayNormal"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        buttons["EchoStagePlaySlower"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, provider.Requests);
+        Assert.AreEqual("Ich möchte einen Tee, bitte.", provider.Requests[0].Text);
+        Assert.AreEqual(1d, provider.Requests[0].Rate);
+        Assert.AreEqual("Ich möchte einen Tee, bitte.", provider.Requests[1].Text);
+        Assert.AreEqual(0.72d, provider.Requests[1].Rate);
+    }
+
+    [TestMethod]
+    public void EchoStageRequiresConfirmationBeforeLocalRecognition()
+    {
+        using var synthesis = new RecordingSpeechProvider();
+        using var recognition = new RecordingRecognitionProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("echo-stage"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault(
+                speechSynthesisProvider: synthesis,
+                speechRecognitionProvider: recognition,
+                pronunciationAssessmentProvider: new TranscriptPronunciationAssessmentProvider(),
+                microphoneAllowed: true)
+            .Render(
+                fixture.TemplateId,
+                fixture.Parameters,
+                fixture.InstructionLanguage,
+                shouldReduceMotion: true,
+                reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var request = controls.OfType<Button>().Single(button =>
+            AutomationProperties.GetAutomationId(button) == "EchoStageRequestMicrophone");
+        var confirm = controls.OfType<Button>().Single(button =>
+            AutomationProperties.GetAutomationId(button) == "EchoStageConfirmMicrophone");
+        var disclosure = controls.OfType<Border>().Single(border =>
+            AutomationProperties.GetAutomationId(border) == "EchoStageMicrophoneDisclosure");
+
+        request.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.AreEqual(0, recognition.RequestCount);
+        Assert.IsTrue(disclosure.IsVisible);
+
+        confirm.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.AreEqual(1, recognition.RequestCount);
+        Assert.IsNotNull(recognition.LastRequest);
+        Assert.AreEqual(TimeSpan.FromSeconds(15), recognition.LastRequest.MaximumDuration);
+        Assert.IsFalse(recognition.LastRequest.RetainAudio);
+        Assert.HasCount(1, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+        Assert.IsNull(reported[0].ResponseId);
+    }
+
+    [TestMethod]
+    public void EchoStageTextOnlyRouteNeverUsesTheMicrophone()
+    {
+        using var recognition = new RecordingRecognitionProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("echo-stage"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault(
+                speechRecognitionProvider: recognition,
+                pronunciationAssessmentProvider: new TranscriptPronunciationAssessmentProvider(),
+                microphoneAllowed: true)
+            .Render(
+                fixture.TemplateId,
+                fixture.Parameters with { UseTextOnlyFallback = true },
+                fixture.InstructionLanguage,
+                shouldReduceMotion: true,
+                reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var voiceButton = controls.OfType<Button>().Single(button =>
+            AutomationProperties.GetAutomationId(button) == "EchoStageRequestMicrophone");
+        var response = controls.OfType<TextBox>().Single(textBox =>
+            AutomationProperties.GetAutomationId(textBox) == "EchoStageTextResponse");
+        var compare = controls.OfType<Button>().Single(button =>
+            AutomationProperties.GetAutomationId(button) == "EchoStageCompareText");
+
+        response.Text = "  ICH MÖCHTE EINEN TEE, BITTE! ";
+        compare.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsFalse(voiceButton.IsVisible);
+        Assert.AreEqual(0, recognition.RequestCount);
+        Assert.HasCount(1, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(
@@ -401,6 +508,8 @@ public sealed class TemplateRegistryTests
     {
         public SpeechSynthesisRequest? LastRequest { get; private set; }
 
+        public List<SpeechSynthesisRequest> Requests { get; } = [];
+
         public Task<SpeechSynthesisSnapshot> InspectAsync(CancellationToken cancellationToken = default) =>
             Task.FromResult(new SpeechSynthesisSnapshot(
                 SpeechCapabilityStatus.Available,
@@ -412,6 +521,7 @@ public sealed class TemplateRegistryTests
             CancellationToken cancellationToken = default)
         {
             LastRequest = request;
+            Requests.Add(request);
             return Task.FromResult(new SpeechSynthesisResult(
                 request.RequestId,
                 SpeechSynthesisResultStatus.Completed,
@@ -421,6 +531,46 @@ public sealed class TemplateRegistryTests
         }
 
         public Task StopAsync() => Task.CompletedTask;
+
+        public void Dispose()
+        {
+        }
+    }
+
+    private sealed class RecordingRecognitionProvider : ISpeechRecognitionProvider
+    {
+        public int RequestCount { get; private set; }
+
+        public SpeechRecognitionRequest? LastRequest { get; private set; }
+
+        public Task<SpeechRecognitionSnapshot> InspectAsync(
+            CancellationToken cancellationToken = default) =>
+            Task.FromResult(new SpeechRecognitionSnapshot(
+                SpeechCapabilityStatus.Available,
+                new SpeechModelDescriptor(
+                    "test-model",
+                    1,
+                    "local fixture",
+                    "MIT",
+                    "test-recognition-v1"),
+                "Local recognition is available."));
+
+        public Task<SpeechRecognitionResult> RecognizeAsync(
+            SpeechRecognitionRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            RequestCount++;
+            LastRequest = request;
+            return Task.FromResult(new SpeechRecognitionResult(
+                request.RequestId,
+                SpeechRecognitionResultStatus.Accepted,
+                "Ich möchte einen Tee, bitte.",
+                request.Language,
+                TimeSpan.FromSeconds(2),
+                "test-recognition-v1",
+                "test-model",
+                "Local transcript ready."));
+        }
 
         public void Dispose()
         {

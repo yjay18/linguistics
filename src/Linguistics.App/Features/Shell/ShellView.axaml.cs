@@ -134,7 +134,9 @@ public partial class ShellView : UserControl
                     _runtimeContentError,
                     _profileOwner,
                     imageCache: _imageCache,
-                    speechSynthesisProvider: _speechSynthesisProvider));
+                    speechSynthesisProvider: _speechSynthesisProvider,
+                    speechRecognitionProvider: _speechRecognitionProvider,
+                    pronunciationAssessmentProvider: _pronunciationAssessmentProvider));
                 break;
             case "Learn" when DeveloperModeEnabled():
                 ShowPage(new LearnView(
@@ -144,7 +146,9 @@ public partial class ShellView : UserControl
                     _profileOwner,
                     showDeveloperDetails: true,
                     imageCache: _imageCache,
-                    speechSynthesisProvider: _speechSynthesisProvider));
+                    speechSynthesisProvider: _speechSynthesisProvider,
+                    speechRecognitionProvider: _speechRecognitionProvider,
+                    pronunciationAssessmentProvider: _pronunciationAssessmentProvider));
                 break;
             case "Scenarios":
                 ShowPage(new CafeOrderView(
@@ -197,7 +201,12 @@ public partial class ShellView : UserControl
                 break;
             case "Template gallery" when DeveloperModeEnabled():
                 ShowPage(new TemplateGalleryView(
-                    TemplateRegistry.CreateDefault(_imageCache, _speechSynthesisProvider),
+                    TemplateRegistry.CreateDefault(
+                        _imageCache,
+                        _speechSynthesisProvider,
+                        _speechRecognitionProvider,
+                        _pronunciationAssessmentProvider,
+                        _profile.Settings.Microphone != MicrophonePreference.Never),
                     TemplateGalleryFixtures.All,
                     MotionPreferences.ShouldReduce(_profile.Settings.ReduceMotion),
                     _imageCache));

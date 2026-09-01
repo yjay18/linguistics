@@ -1,4 +1,5 @@
 using Linguistics.Core.Content;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.Core.Tests;
 
@@ -429,6 +430,30 @@ public sealed class TemplateInteractionEvaluatorTests
                     new("two", "  GUTEN   MORGEN! "),
                 ],
                 "Guten Morgen"));
+    }
+
+    [TestMethod]
+    public void EchoStageMapsOnlySupportedIntelligibilityEvidence()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("echo-stage")));
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluatePronunciationAssessment(
+                PronunciationAssessmentOutcome.Intelligible).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluatePronunciationAssessment(
+                PronunciationAssessmentOutcome.PartlyIntelligible).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluatePronunciationAssessment(
+                PronunciationAssessmentOutcome.NotIntelligible).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluatePronunciationAssessment(
+                PronunciationAssessmentOutcome.NoSpeech).State);
     }
 
     [TestMethod]

@@ -51,7 +51,10 @@ internal sealed class TemplateRegistry
 
     public static TemplateRegistry CreateDefault(
         ContentImageCache? imageCache = null,
-        ISpeechSynthesisProvider? speechSynthesisProvider = null) => new(
+        ISpeechSynthesisProvider? speechSynthesisProvider = null,
+        ISpeechRecognitionProvider? speechRecognitionProvider = null,
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null,
+        bool microphoneAllowed = false) => new(
         imageCache,
     [
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
@@ -224,6 +227,19 @@ internal sealed class TemplateRegistry
                 DialogueEavesdropRenderer.Render(
                     cache,
                     speechSynthesisProvider,
+                    parameters,
+                    instructionLanguage,
+                    shouldReduceMotion,
+                    reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("echo-stage"),
+            (cache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome) =>
+                EchoStageRenderer.Render(
+                    cache,
+                    speechSynthesisProvider,
+                    speechRecognitionProvider,
+                    pronunciationAssessmentProvider,
+                    microphoneAllowed,
                     parameters,
                     instructionLanguage,
                     shouldReduceMotion,

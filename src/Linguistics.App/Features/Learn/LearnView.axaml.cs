@@ -40,12 +40,19 @@ public partial class LearnView : UserControl
         LearnerProfileOwner? profileOwner = null,
         bool showDeveloperDetails = false,
         ContentImageCache? imageCache = null,
-        ISpeechSynthesisProvider? speechSynthesisProvider = null)
+        ISpeechSynthesisProvider? speechSynthesisProvider = null,
+        ISpeechRecognitionProvider? speechRecognitionProvider = null,
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null)
         : this()
     {
         ArgumentNullException.ThrowIfNull(profile);
         _profileOwner = profileOwner;
-        _templateRegistry = TemplateRegistry.CreateDefault(imageCache, speechSynthesisProvider);
+        _templateRegistry = TemplateRegistry.CreateDefault(
+            imageCache,
+            speechSynthesisProvider,
+            speechRecognitionProvider,
+            pronunciationAssessmentProvider,
+            profile.Settings.Microphone != MicrophonePreference.Never);
         _instructionLanguage = SelectInstructionLanguage(profile);
         _shouldReduceMotion = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion);
         SlideHost.PageTransition = _shouldReduceMotion

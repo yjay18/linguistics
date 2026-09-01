@@ -78,14 +78,18 @@ internal static class ListeningTemplatePresentation
         }
 
         var canPlay = speechSynthesisProvider is not null && speechLanguage is not null;
+        var writtenPrompts = prompts
+            .Select(prompt => prompt.Transcript)
+            .Distinct(StringComparer.Ordinal)
+            .ToArray();
         var transcript = new TextBlock
         {
-            Text = prompts.Count == 1
-                ? $"Written prompt: {prompts[0].Transcript}"
+            Text = writtenPrompts.Length == 1
+                ? $"Written prompt: {writtenPrompts[0]}"
                 : string.Join(
                     Environment.NewLine,
-                    prompts.Select((prompt, index) =>
-                        $"Written prompt {index + 1}: {prompt.Transcript}")),
+                    writtenPrompts.Select((prompt, index) =>
+                        $"Written prompt {index + 1}: {prompt}")),
             TextWrapping = TextWrapping.Wrap,
             IsVisible = useTextOnlyFallback || !canPlay,
         };

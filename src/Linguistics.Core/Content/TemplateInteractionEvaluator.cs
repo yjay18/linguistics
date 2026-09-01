@@ -1,4 +1,5 @@
 using System.Text;
+using Linguistics.Core.Speech;
 
 namespace Linguistics.Core.Content;
 
@@ -274,6 +275,17 @@ public static class TemplateInteractionEvaluator
             ? new TemplateOutcome(TemplateOutcomeState.Failure)
             : new TemplateOutcome(TemplateOutcomeState.Success, match.Id);
     }
+
+    public static TemplateOutcome EvaluatePronunciationAssessment(
+        PronunciationAssessmentOutcome assessment) =>
+        new(assessment switch
+        {
+            PronunciationAssessmentOutcome.Intelligible => TemplateOutcomeState.Success,
+            PronunciationAssessmentOutcome.PartlyIntelligible => TemplateOutcomeState.Uncertain,
+            PronunciationAssessmentOutcome.NotIntelligible => TemplateOutcomeState.Failure,
+            PronunciationAssessmentOutcome.NoSpeech => TemplateOutcomeState.Uncertain,
+            _ => throw new ArgumentOutOfRangeException(nameof(assessment)),
+        });
 
     private static string[] ValidateOptionIds(
         IReadOnlyList<TemplateOption> options,
