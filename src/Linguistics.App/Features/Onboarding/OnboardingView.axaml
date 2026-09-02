@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Linguistics.App.Controls"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -14,9 +15,9 @@
                     MaxWidth="800"
                     HorizontalAlignment="Stretch"
                     Spacing="7">
-            <TextBlock Text="PRIVATE, ON DEVICE SETUP"
+            <TextBlock Text="{loc:Localize Onboarding_Eyebrow}"
                        Classes="eyebrow" />
-            <TextBlock Text="Shape your learning path"
+            <TextBlock Text="{loc:Localize Onboarding_Heading}"
                        FontSize="25"
                        FontWeight="SemiBold" />
             <TextBlock x:Name="StepText"
@@ -26,7 +27,7 @@
             <ProgressBar x:Name="StepProgress"
                          Minimum="1"
                          Maximum="7"
-                         AutomationProperties.Name="Onboarding progress" />
+                         AutomationProperties.Name="{loc:Localize Onboarding_Progress}" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="1"
@@ -50,11 +51,11 @@
 
                 <StackPanel x:Name="TargetStep" Spacing="12">
                     <RadioButton x:Name="GermanTarget"
-                                 Content="German"
+                                 Content="{loc:Localize Language_German}"
                                  IsChecked="True"
                                  GroupName="TargetLanguage"
                                  AutomationProperties.AutomationId="TargetGerman" />
-                    <TextBlock Text="German is the first target configuration. Bundled draft lessons remain gated until linguistic and license review; more languages can arrive through reviewed content packs."
+                    <TextBlock Text="{loc:Localize Onboarding_Target_Note}"
                                TextWrapping="Wrap"
                                Opacity="0.72" />
                 </StackPanel>
@@ -63,12 +64,12 @@
                             IsVisible="False"
                             Spacing="12">
                     <CheckBox x:Name="EnglishSelected"
-                              Content="English"
+                              Content="{loc:Localize Language_English}"
                               AutomationProperties.AutomationId="KnownEnglish" />
                     <CheckBox x:Name="HindiSelected"
-                              Content="Hindi"
+                              Content="{loc:Localize Language_Hindi}"
                               AutomationProperties.AutomationId="KnownHindi" />
-                    <TextBlock Text="Choose any that apply. You may continue without selecting another language."
+                    <TextBlock Text="{loc:Localize Onboarding_Known_Note}"
                                TextWrapping="Wrap"
                                Opacity="0.72" />
                 </StackPanel>
@@ -77,35 +78,35 @@
                             IsVisible="False"
                             Spacing="18">
                     <TextBlock x:Name="NoKnownLanguagesMessage"
-                               Text="You chose not to use another language. You can change this later in Languages."
+                               Text="{loc:Localize Onboarding_NoKnownLanguages}"
                                TextWrapping="Wrap"
                                IsVisible="False" />
 
                     <Border x:Name="EnglishDetails"
                             Classes="soft-card">
                         <StackPanel Spacing="10">
-                            <TextBlock Text="English"
+                            <TextBlock Text="{loc:Localize Language_English}"
                                        FontSize="20"
                                        FontWeight="SemiBold"
                                        AutomationProperties.HeadingLevel="2" />
-                            <TextBlock Text="Approximate proficiency" />
+                            <TextBlock Text="{loc:Localize Languages_Proficiency}" />
                             <ComboBox x:Name="EnglishProficiency"
                                       SelectedIndex="2"
-                                      AutomationProperties.Name="English proficiency"
+                                      AutomationProperties.Name="{loc:Localize Languages_EnglishProficiency}"
                                       AutomationProperties.AutomationId="EnglishProficiency">
-                                <ComboBoxItem Content="Beginner" Tag="Beginner" />
-                                <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
-                                <ComboBoxItem Content="Advanced" Tag="Advanced" />
-                                <ComboBoxItem Content="Native or nearly native" Tag="NativeOrNearNative" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Beginner}" Tag="Beginner" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Intermediate}" Tag="Intermediate" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Advanced}" Tag="Advanced" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Native}" Tag="NativeOrNearNative" />
                             </ComboBox>
                             <CheckBox x:Name="EnglishReading"
-                                      Content="I am comfortable reading English"
+                                      Content="{loc:Localize Languages_EnglishReading}"
                                       IsChecked="True" />
                             <CheckBox x:Name="EnglishListening"
-                                      Content="I am comfortable hearing English"
+                                      Content="{loc:Localize Languages_EnglishListening}"
                                       IsChecked="True" />
                             <CheckBox x:Name="EnglishExplanations"
-                                      Content="English may be used for explanations"
+                                      Content="{loc:Localize Languages_EnglishExplanations}"
                                       IsChecked="True" />
                         </StackPanel>
                     </Border>
@@ -113,28 +114,28 @@
                     <Border x:Name="HindiDetails"
                             Classes="soft-card">
                         <StackPanel Spacing="10">
-                            <TextBlock Text="Hindi"
+                            <TextBlock Text="{loc:Localize Language_Hindi}"
                                        FontSize="20"
                                        FontWeight="SemiBold"
                                        AutomationProperties.HeadingLevel="2" />
-                            <TextBlock Text="Approximate proficiency" />
+                            <TextBlock Text="{loc:Localize Languages_Proficiency}" />
                             <ComboBox x:Name="HindiProficiency"
                                       SelectedIndex="2"
-                                      AutomationProperties.Name="Hindi proficiency"
+                                      AutomationProperties.Name="{loc:Localize Languages_HindiProficiency}"
                                       AutomationProperties.AutomationId="HindiProficiency">
-                                <ComboBoxItem Content="Beginner" Tag="Beginner" />
-                                <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
-                                <ComboBoxItem Content="Advanced" Tag="Advanced" />
-                                <ComboBoxItem Content="Native or nearly native" Tag="NativeOrNearNative" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Beginner}" Tag="Beginner" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Intermediate}" Tag="Intermediate" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Advanced}" Tag="Advanced" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Native}" Tag="NativeOrNearNative" />
                             </ComboBox>
                             <CheckBox x:Name="HindiReading"
-                                      Content="I am comfortable reading Hindi"
+                                      Content="{loc:Localize Languages_HindiReading}"
                                       IsChecked="True" />
                             <CheckBox x:Name="HindiListening"
-                                      Content="I am comfortable hearing Hindi"
+                                      Content="{loc:Localize Languages_HindiListening}"
                                       IsChecked="True" />
                             <CheckBox x:Name="HindiExplanations"
-                                      Content="Hindi may be used for explanations"
+                                      Content="{loc:Localize Languages_HindiExplanations}"
                                       IsChecked="True" />
                         </StackPanel>
                     </Border>
@@ -144,50 +145,58 @@
                             IsVisible="False"
                             Spacing="12">
                     <RadioButton x:Name="ShortcutAutomatic"
-                                 Content="Automatic. Show a reviewed comparison when it is useful"
+                                 Content="{loc:Localize Onboarding_Shortcut_Automatic}"
                                  GroupName="ShortcutMode"
                                  IsCheckedChanged="OnShortcutChoiceChanged" />
                     <RadioButton x:Name="ShortcutAskFirst"
-                                 Content="Ask first. Let me approve each language switch"
+                                 Content="{loc:Localize Onboarding_Shortcut_Ask}"
                                  GroupName="ShortcutMode"
                                  IsChecked="True"
                                  IsCheckedChanged="OnShortcutChoiceChanged" />
                     <RadioButton x:Name="ShortcutPreferred"
-                                 Content="Use one preferred explanation language"
+                                 Content="{loc:Localize Onboarding_Shortcut_Preferred}"
                                  GroupName="ShortcutMode"
                                  IsCheckedChanged="OnShortcutChoiceChanged" />
                     <RadioButton x:Name="ShortcutNever"
-                                 Content="Never. Keep explanations in the target language experience"
+                                 Content="{loc:Localize Onboarding_Shortcut_Never}"
                                  GroupName="ShortcutMode"
                                  IsCheckedChanged="OnShortcutChoiceChanged" />
                     <StackPanel x:Name="PreferredLanguagePanel"
                                 IsVisible="False"
                                 Margin="24,4,0,0"
                                 Spacing="8">
-                        <TextBlock Text="Preferred explanation language" />
+                        <TextBlock Text="{loc:Localize Settings_PreferredLanguage}" />
                         <ComboBox x:Name="PreferredLanguage"
-                                  AutomationProperties.Name="Preferred explanation language"
+                                  SelectionChanged="OnPreferredLanguageChanged"
+                                  AutomationProperties.Name="{loc:Localize Settings_PreferredLanguage}"
                                   AutomationProperties.AutomationId="PreferredLanguage">
-                            <ComboBoxItem x:Name="PreferredEnglish" Content="English" Tag="en" />
-                            <ComboBoxItem x:Name="PreferredHindi" Content="Hindi" Tag="hi" />
+                            <ComboBoxItem x:Name="PreferredEnglish" Content="{loc:Localize Language_English}" Tag="en" />
+                            <ComboBoxItem x:Name="PreferredHindi" Content="{loc:Localize Language_Hindi}" Tag="hi" />
                         </ComboBox>
                     </StackPanel>
+                    <TextBlock x:Name="InstructionSelectionStatus"
+                               TextWrapping="Wrap"
+                               AutomationProperties.LiveSetting="Polite"
+                               AutomationProperties.AutomationId="OnboardingInstructionStatus" />
+                    <TextBlock Text="{loc:Localize Onboarding_Instruction_Fallback}"
+                               TextWrapping="Wrap"
+                               Opacity="0.72" />
                 </StackPanel>
 
                 <StackPanel x:Name="MicrophoneStep"
                             IsVisible="False"
                             Spacing="12">
                     <RadioButton x:Name="MicrophoneNow"
-                                 Content="Use the microphone for local speech practice"
+                                 Content="{loc:Localize Onboarding_Microphone_Now}"
                                  GroupName="MicrophonePreference" />
                     <RadioButton x:Name="MicrophoneLater"
-                                 Content="Decide later"
+                                 Content="{loc:Localize Onboarding_Microphone_Later}"
                                  GroupName="MicrophonePreference"
                                  IsChecked="True" />
                     <RadioButton x:Name="MicrophoneNever"
-                                 Content="Never use the microphone"
+                                 Content="{loc:Localize Onboarding_Microphone_Never}"
                                  GroupName="MicrophonePreference" />
-                    <TextBlock Text="Setup does not request microphone permission. If you opt in, the app will ask only when you start a speech action. Text practice remains available."
+                    <TextBlock Text="{loc:Localize Onboarding_Microphone_Note}"
                                TextWrapping="Wrap"
                                Opacity="0.72" />
                 </StackPanel>
@@ -197,10 +206,10 @@
                             Spacing="10">
                     <StackPanel Spacing="10">
                         <CheckBox x:Name="ReduceMotion"
-                                  Content="Reduce interface motion"
+                                  Content="{loc:Localize Onboarding_Motion_Reduce}"
                                   IsChecked="False"
                                   AutomationProperties.AutomationId="OnboardingReduceMotion" />
-                        <TextBlock Text="Removes page fades, lifts, and animated state changes while preserving every interaction and status cue."
+                        <TextBlock Text="{loc:Localize Onboarding_Motion_Note}"
                                    TextWrapping="Wrap"
                                    Opacity="0.72" />
                     </StackPanel>
@@ -215,7 +224,7 @@
                                    LineHeight="24"
                                    AutomationProperties.AutomationId="OnboardingSummary" />
                     </Border>
-                    <TextBlock Text="Your profile stays on this device. No account, analytics, backend, model, microphone, or network connection is required."
+                    <TextBlock Text="{loc:Localize Onboarding_Review_Note}"
                                TextWrapping="Wrap"
                                Opacity="0.72" />
                 </StackPanel>
@@ -240,14 +249,14 @@
                     Grid.Column="1"
                     Margin="0,0,10,0"
                     Classes="quiet"
-                    Content="Back"
+                    Content="{loc:Localize Common_Back}"
                     IsEnabled="False"
                     Click="OnBackClicked"
                     AutomationProperties.AutomationId="OnboardingBack" />
             <Button x:Name="ContinueButton"
                     Grid.Column="2"
                     Classes="primary"
-                    Content="Continue"
+                    Content="{loc:Localize Common_Continue}"
                     Click="OnContinueClicked"
                     AutomationProperties.AutomationId="OnboardingContinue" />
         </Grid>

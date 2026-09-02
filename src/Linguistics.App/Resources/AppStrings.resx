@@ -978,4 +978,64 @@
   <data name="Languages_Instruction_UsingPreferred" xml:space="preserve"><value>Lessons will use your preferred language, {0}.</value></data>
   <data name="Languages_Save" xml:space="preserve"><value>Save language preferences</value></data>
   <data name="Languages_Saved" xml:space="preserve"><value>Saved locally. New lessons now use {0}; validated content stayed loaded.</value></data>
+  <data name="Common_Yes" xml:space="preserve"><value>Yes</value></data>
+  <data name="Common_No" xml:space="preserve"><value>No</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Unknown</value></data>
+  <data name="Onboarding_Eyebrow" xml:space="preserve"><value>PRIVATE, ON DEVICE SETUP</value></data>
+  <data name="Onboarding_Heading" xml:space="preserve"><value>Shape your learning path</value></data>
+  <data name="Onboarding_Progress" xml:space="preserve"><value>Onboarding progress</value></data>
+  <data name="Onboarding_Step" xml:space="preserve"><value>Step {0} of {1}</value></data>
+  <data name="Onboarding_Title_Target" xml:space="preserve"><value>What would you like to learn?</value></data>
+  <data name="Onboarding_Title_Known" xml:space="preserve"><value>Which languages do you already know?</value></data>
+  <data name="Onboarding_Title_Details" xml:space="preserve"><value>How do you use those languages?</value></data>
+  <data name="Onboarding_Title_Instruction" xml:space="preserve"><value>Which language should explain lessons?</value></data>
+  <data name="Onboarding_Title_Microphone" xml:space="preserve"><value>Would you like to use a microphone?</value></data>
+  <data name="Onboarding_Title_Motion" xml:space="preserve"><value>Would you like less interface motion?</value></data>
+  <data name="Onboarding_Title_Review" xml:space="preserve"><value>Review your local profile</value></data>
+  <data name="Onboarding_Body_Target" xml:space="preserve"><value>The first content configuration is intentionally small.</value></data>
+  <data name="Onboarding_Body_Known" xml:space="preserve"><value>Your repertoire can include several languages, with separate preferences for each.</value></data>
+  <data name="Onboarding_Body_Details" xml:space="preserve"><value>These choices control explanation support. They do not infer identity or background.</value></data>
+  <data name="Onboarding_Body_Instruction" xml:space="preserve"><value>Reviewed data and your explicit choices determine lesson instruction and language bridges.</value></data>
+  <data name="Onboarding_Body_Microphone" xml:space="preserve"><value>Local speech is optional. Setup never requests microphone permission.</value></data>
+  <data name="Onboarding_Body_Motion" xml:space="preserve"><value>Reduce nonessential transitions while keeping every interaction and status cue.</value></data>
+  <data name="Onboarding_Body_Review" xml:space="preserve"><value>Nothing is written until you finish this step.</value></data>
+  <data name="Onboarding_Target_Note" xml:space="preserve"><value>German is the first target. Draft lessons remain gated until linguistic and license review. Reviewed packs can add more languages.</value></data>
+  <data name="Onboarding_Known_Note" xml:space="preserve"><value>Choose any that apply. You may continue without another language.</value></data>
+  <data name="Onboarding_NoKnownLanguages" xml:space="preserve"><value>You chose no supporting language. You can change this later in Languages.</value></data>
+  <data name="Onboarding_Shortcut_Automatic" xml:space="preserve"><value>Automatic. Use the first eligible instruction language and show useful reviewed bridges</value></data>
+  <data name="Onboarding_Shortcut_Ask" xml:space="preserve"><value>Ask before showing a reviewed language bridge</value></data>
+  <data name="Onboarding_Shortcut_Preferred" xml:space="preserve"><value>Use one preferred instruction language</value></data>
+  <data name="Onboarding_Shortcut_Never" xml:space="preserve"><value>Never use a known language for explanations</value></data>
+  <data name="Onboarding_Shortcut_Automatic_Label" xml:space="preserve"><value>Automatic</value></data>
+  <data name="Onboarding_Shortcut_Ask_Label" xml:space="preserve"><value>Ask first</value></data>
+  <data name="Onboarding_Shortcut_Preferred_Label" xml:space="preserve"><value>One preferred language</value></data>
+  <data name="Onboarding_Shortcut_Never_Label" xml:space="preserve"><value>Never</value></data>
+  <data name="Onboarding_Instruction_Fallback" xml:space="preserve"><value>Automatic and Ask first use eligible languages in stable code order. An unavailable preference falls back deterministically.</value></data>
+  <data name="Onboarding_Instruction_Ineligible" xml:space="preserve"><value>Choose a known, readable language that is allowed for explanations.</value></data>
+  <data name="Onboarding_Instruction_NoCatalog" xml:space="preserve"><value>Instruction routing will apply when validated content is available.</value></data>
+  <data name="Onboarding_Instruction_None" xml:space="preserve"><value>None available</value></data>
+  <data name="Onboarding_Instruction_Selected" xml:space="preserve"><value>Current lesson instruction choice: {0}.</value></data>
+  <data name="Onboarding_Instruction_Unavailable" xml:space="preserve"><value>No loaded instruction language matches these choices. Lessons will remain unavailable.</value></data>
+  <data name="Onboarding_Preferred_Error" xml:space="preserve"><value>Choose a known, readable language allowed for explanations, or select another mode.</value></data>
+  <data name="Onboarding_Microphone_Now" xml:space="preserve"><value>Use the microphone for local speech practice</value></data>
+  <data name="Onboarding_Microphone_Later" xml:space="preserve"><value>Decide later</value></data>
+  <data name="Onboarding_Microphone_Never" xml:space="preserve"><value>Never use the microphone</value></data>
+  <data name="Onboarding_Microphone_Now_Label" xml:space="preserve"><value>Use when available</value></data>
+  <data name="Onboarding_Microphone_Later_Label" xml:space="preserve"><value>Decide later</value></data>
+  <data name="Onboarding_Microphone_Never_Label" xml:space="preserve"><value>Never</value></data>
+  <data name="Onboarding_Microphone_Note" xml:space="preserve"><value>Setup requests no permission. If enabled, the app asks only when speech starts. Text practice remains available.</value></data>
+  <data name="Onboarding_Motion_Reduce" xml:space="preserve"><value>Reduce interface motion</value></data>
+  <data name="Onboarding_Motion_Note" xml:space="preserve"><value>Removes fades, lifts, and animated state changes while preserving every interaction and status cue.</value></data>
+  <data name="Onboarding_Review_Note" xml:space="preserve"><value>Your profile stays on this device. No account, analytics, backend, model, microphone, or network is required.</value></data>
+  <data name="Onboarding_NoneSelected" xml:space="preserve"><value>None selected</value></data>
+  <data name="Onboarding_SaveProfile" xml:space="preserve"><value>Save profile</value></data>
+  <data name="Onboarding_Saving" xml:space="preserve"><value>Saving your profile locally...</value></data>
+  <data name="Onboarding_Unavailable" xml:space="preserve"><value>Onboarding is unavailable because the local profile service did not initialize.</value></data>
+  <data name="Onboarding_Summary_Target" xml:space="preserve"><value>Target language: {0}</value></data>
+  <data name="Onboarding_Summary_Known" xml:space="preserve"><value>Known languages: {0}</value></data>
+  <data name="Onboarding_Summary_Instruction" xml:space="preserve"><value>Lesson instruction: {0}</value></data>
+  <data name="Onboarding_Summary_Shortcuts" xml:space="preserve"><value>Multilingual bridges: {0}</value></data>
+  <data name="Onboarding_Summary_Microphone" xml:space="preserve"><value>Microphone: {0}</value></data>
+  <data name="Onboarding_Summary_SpeechRetention" xml:space="preserve"><value>Speech audio: Never retained</value></data>
+  <data name="Onboarding_Summary_Motion" xml:space="preserve"><value>Reduce interface motion: {0}</value></data>
 </root>

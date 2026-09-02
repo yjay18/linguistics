@@ -978,4 +978,64 @@
   <data name="Languages_Instruction_UsingPreferred" xml:space="preserve"><value>पाठ आपकी पसंदीदा भाषा {0} में होंगे।</value></data>
   <data name="Languages_Save" xml:space="preserve"><value>भाषा प्राथमिकताएँ सहेजें</value></data>
   <data name="Languages_Saved" xml:space="preserve"><value>स्थानीय रूप से सहेजा। नए पाठ अब {0} में हैं; जाँची सामग्री लोड रही।</value></data>
+  <data name="Common_Yes" xml:space="preserve"><value>हाँ</value></data>
+  <data name="Common_No" xml:space="preserve"><value>नहीं</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>अज्ञात</value></data>
+  <data name="Onboarding_Eyebrow" xml:space="preserve"><value>निजी, डिवाइस पर सेटअप</value></data>
+  <data name="Onboarding_Heading" xml:space="preserve"><value>अपना सीखने का मार्ग बनाएँ</value></data>
+  <data name="Onboarding_Progress" xml:space="preserve"><value>आरंभिक सेटअप प्रगति</value></data>
+  <data name="Onboarding_Step" xml:space="preserve"><value>{1} में चरण {0}</value></data>
+  <data name="Onboarding_Title_Target" xml:space="preserve"><value>आप क्या सीखना चाहेंगे?</value></data>
+  <data name="Onboarding_Title_Known" xml:space="preserve"><value>आप कौन सी भाषाएँ पहले से जानते हैं?</value></data>
+  <data name="Onboarding_Title_Details" xml:space="preserve"><value>आप उन भाषाओं का उपयोग कैसे करते हैं?</value></data>
+  <data name="Onboarding_Title_Instruction" xml:space="preserve"><value>पाठों को कौन सी भाषा समझाए?</value></data>
+  <data name="Onboarding_Title_Microphone" xml:space="preserve"><value>क्या आप माइक्रोफ़ोन उपयोग करना चाहेंगे?</value></data>
+  <data name="Onboarding_Title_Motion" xml:space="preserve"><value>क्या आप इंटरफ़ेस में कम गति चाहेंगे?</value></data>
+  <data name="Onboarding_Title_Review" xml:space="preserve"><value>अपनी स्थानीय प्रोफ़ाइल देखें</value></data>
+  <data name="Onboarding_Body_Target" xml:space="preserve"><value>पहला सामग्री विन्यास जानबूझकर छोटा है।</value></data>
+  <data name="Onboarding_Body_Known" xml:space="preserve"><value>आप कई भाषाएँ जान सकते हैं और हर भाषा की अलग प्राथमिकताएँ रख सकते हैं।</value></data>
+  <data name="Onboarding_Body_Details" xml:space="preserve"><value>ये विकल्प स्पष्टीकरण सहायता नियंत्रित करते हैं। इनसे पहचान या पृष्ठभूमि का अनुमान नहीं लगाया जाता।</value></data>
+  <data name="Onboarding_Body_Instruction" xml:space="preserve"><value>जाँचा डेटा और आपके स्पष्ट विकल्प पाठ निर्देश और भाषा सेतु तय करते हैं।</value></data>
+  <data name="Onboarding_Body_Microphone" xml:space="preserve"><value>स्थानीय भाषण वैकल्पिक है। सेटअप माइक्रोफ़ोन अनुमति नहीं माँगता।</value></data>
+  <data name="Onboarding_Body_Motion" xml:space="preserve"><value>हर क्रिया और स्थिति संकेत रखते हुए अनावश्यक बदलाव घटाएँ।</value></data>
+  <data name="Onboarding_Body_Review" xml:space="preserve"><value>यह चरण पूरा होने तक कुछ सहेजा नहीं जाता।</value></data>
+  <data name="Onboarding_Target_Note" xml:space="preserve"><value>जर्मन पहला लक्ष्य है। प्रारूप पाठ भाषाई और लाइसेंस समीक्षा तक बंद हैं। जाँचे पैक और भाषाएँ जोड़ सकते हैं।</value></data>
+  <data name="Onboarding_Known_Note" xml:space="preserve"><value>लागू होने वाली भाषाएँ चुनें। दूसरी भाषा चुने बिना भी आगे बढ़ सकते हैं।</value></data>
+  <data name="Onboarding_NoKnownLanguages" xml:space="preserve"><value>आपने सहायक भाषा नहीं चुनी। इसे बाद में भाषाएँ पृष्ठ पर बदल सकते हैं।</value></data>
+  <data name="Onboarding_Shortcut_Automatic" xml:space="preserve"><value>स्वचालित। पहली योग्य निर्देश भाषा और उपयोगी जाँचे सेतु प्रयोग करें</value></data>
+  <data name="Onboarding_Shortcut_Ask" xml:space="preserve"><value>जाँचा भाषा सेतु दिखाने से पहले पूछें</value></data>
+  <data name="Onboarding_Shortcut_Preferred" xml:space="preserve"><value>एक पसंदीदा निर्देश भाषा प्रयोग करें</value></data>
+  <data name="Onboarding_Shortcut_Never" xml:space="preserve"><value>स्पष्टीकरण में ज्ञात भाषा कभी प्रयोग न करें</value></data>
+  <data name="Onboarding_Shortcut_Automatic_Label" xml:space="preserve"><value>स्वचालित</value></data>
+  <data name="Onboarding_Shortcut_Ask_Label" xml:space="preserve"><value>पहले पूछें</value></data>
+  <data name="Onboarding_Shortcut_Preferred_Label" xml:space="preserve"><value>एक पसंदीदा भाषा</value></data>
+  <data name="Onboarding_Shortcut_Never_Label" xml:space="preserve"><value>कभी नहीं</value></data>
+  <data name="Onboarding_Instruction_Fallback" xml:space="preserve"><value>स्वचालित और पहले पूछें योग्य भाषाएँ स्थिर कोड क्रम में लेते हैं। अनुपलब्ध पसंद का विकल्प नियत ढंग से मिलता है।</value></data>
+  <data name="Onboarding_Instruction_Ineligible" xml:space="preserve"><value>ज्ञात और सहज-पठन भाषा चुनें जिसे स्पष्टीकरण की अनुमति है।</value></data>
+  <data name="Onboarding_Instruction_NoCatalog" xml:space="preserve"><value>जाँची सामग्री उपलब्ध होने पर निर्देश मार्ग लागू होगा।</value></data>
+  <data name="Onboarding_Instruction_None" xml:space="preserve"><value>कोई उपलब्ध नहीं</value></data>
+  <data name="Onboarding_Instruction_Selected" xml:space="preserve"><value>वर्तमान पाठ निर्देश भाषा: {0}।</value></data>
+  <data name="Onboarding_Instruction_Unavailable" xml:space="preserve"><value>लोड की गई कोई निर्देश भाषा इन विकल्पों से मेल नहीं खाती। पाठ उपलब्ध नहीं होंगे।</value></data>
+  <data name="Onboarding_Preferred_Error" xml:space="preserve"><value>स्पष्टीकरण के लिए अनुमत ज्ञात और सहज-पठन भाषा या दूसरा मोड चुनें।</value></data>
+  <data name="Onboarding_Microphone_Now" xml:space="preserve"><value>स्थानीय भाषण अभ्यास के लिए माइक्रोफ़ोन प्रयोग करें</value></data>
+  <data name="Onboarding_Microphone_Later" xml:space="preserve"><value>बाद में तय करें</value></data>
+  <data name="Onboarding_Microphone_Never" xml:space="preserve"><value>माइक्रोफ़ोन कभी प्रयोग न करें</value></data>
+  <data name="Onboarding_Microphone_Now_Label" xml:space="preserve"><value>उपलब्ध होने पर प्रयोग करें</value></data>
+  <data name="Onboarding_Microphone_Later_Label" xml:space="preserve"><value>बाद में तय करें</value></data>
+  <data name="Onboarding_Microphone_Never_Label" xml:space="preserve"><value>कभी नहीं</value></data>
+  <data name="Onboarding_Microphone_Note" xml:space="preserve"><value>सेटअप अनुमति नहीं माँगता। सक्षम होने पर ऐप केवल भाषण शुरू करते समय पूछता है। पाठ अभ्यास उपलब्ध रहता है।</value></data>
+  <data name="Onboarding_Motion_Reduce" xml:space="preserve"><value>इंटरफ़ेस गति घटाएँ</value></data>
+  <data name="Onboarding_Motion_Note" xml:space="preserve"><value>हर क्रिया और स्थिति संकेत रखते हुए फ़ेड, लिफ़्ट और एनिमेटेड बदलाव हटाता है।</value></data>
+  <data name="Onboarding_Review_Note" xml:space="preserve"><value>प्रोफ़ाइल इसी डिवाइस पर रहती है। खाता, विश्लेषण, बैकएंड, मॉडल, माइक्रोफ़ोन या नेटवर्क आवश्यक नहीं।</value></data>
+  <data name="Onboarding_NoneSelected" xml:space="preserve"><value>कोई नहीं चुना</value></data>
+  <data name="Onboarding_SaveProfile" xml:space="preserve"><value>प्रोफ़ाइल सहेजें</value></data>
+  <data name="Onboarding_Saving" xml:space="preserve"><value>प्रोफ़ाइल स्थानीय रूप से सहेजी जा रही है...</value></data>
+  <data name="Onboarding_Unavailable" xml:space="preserve"><value>स्थानीय प्रोफ़ाइल सेवा शुरू न होने के कारण सेटअप उपलब्ध नहीं है।</value></data>
+  <data name="Onboarding_Summary_Target" xml:space="preserve"><value>लक्ष्य भाषा: {0}</value></data>
+  <data name="Onboarding_Summary_Known" xml:space="preserve"><value>ज्ञात भाषाएँ: {0}</value></data>
+  <data name="Onboarding_Summary_Instruction" xml:space="preserve"><value>पाठ निर्देश: {0}</value></data>
+  <data name="Onboarding_Summary_Shortcuts" xml:space="preserve"><value>बहुभाषी सेतु: {0}</value></data>
+  <data name="Onboarding_Summary_Microphone" xml:space="preserve"><value>माइक्रोफ़ोन: {0}</value></data>
+  <data name="Onboarding_Summary_SpeechRetention" xml:space="preserve"><value>भाषण ऑडियो: कभी सहेजा नहीं जाता</value></data>
+  <data name="Onboarding_Summary_Motion" xml:space="preserve"><value>इंटरफ़ेस गति घटाएँ: {0}</value></data>
 </root>

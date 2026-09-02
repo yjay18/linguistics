@@ -243,7 +243,10 @@ public partial class MainWindow : Window
             return;
         }
 
-        RootContent.Content = new OnboardingView(_profileOwner, ShowShell);
+        RootContent.Content = new OnboardingView(
+            _profileOwner,
+            ShowShell,
+            _runtimeContentCatalog ?? _authoringContentCatalog);
         StartupStatus.IsVisible = false;
     }
 
