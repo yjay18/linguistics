@@ -682,3 +682,295 @@ internal static class CognateThreadRenderer
         _ => "Ready: trace or dismiss this routed written-form cue.",
     };
 }
+
+internal static class ContrastPanesRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var sourceLanguage = TemplateRendering.Text(parameters, "source-language");
+        var targetLanguage = TemplateRendering.Text(parameters, "target-language");
+        var transfers = TemplateRendering.Options(parameters, "transfers");
+        var changes = TemplateRendering.Options(parameters, "changes");
+        var risk = TemplateRendering.Text(parameters, "risk");
+        var actions = TemplateRendering.Options(parameters, "actions");
+        var acknowledgementId = TemplateRendering.Text(parameters, "acknowledgement");
+        var dismissalId = TemplateRendering.Text(parameters, "dismissal");
+        var acknowledgement = actions.Single(action => action.Id == acknowledgementId);
+        var dismissal = actions.Single(action => action.Id == dismissalId);
+
+        var replayButton = new Button { Content = "Replay comparison", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(replayButton, "ContrastPanesReplay");
+        AutomationProperties.SetName(replayButton, "Replay the transfer comparison");
+        var skipButton = new Button { Content = "Skip entrance", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(skipButton, "ContrastPanesSkip");
+        AutomationProperties.SetName(skipButton, "Skip to the completed transfer comparison");
+        var instructionText = new TextBlock
+        {
+            Text = instruction,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetName(instructionText, $"Contrast panes instruction. {instruction}");
+        var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        headerActions.Children.Add(replayButton);
+        headerActions.Children.Add(skipButton);
+        var header = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        header.Children.Add(instructionText);
+        Grid.SetColumn(headerActions, 1);
+        header.Children.Add(headerActions);
+
+        var transferPane = Pane(
+            "WHAT TRANSFERS",
+            sourceLanguage,
+            transfers,
+            "soft-card",
+            "ContrastPanesTransfers");
+        var changePane = Pane(
+            "WHAT CHANGES",
+            targetLanguage,
+            changes,
+            "accent-card",
+            "ContrastPanesChanges");
+        var hinge = new StackPanel
+        {
+            Width = 42,
+            Spacing = 8,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = "↔",
+                    FontSize = 27,
+                    FontWeight = FontWeight.Bold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                },
+                new TextBlock
+                {
+                    Text = "COMPARE",
+                    FontSize = 9,
+                    FontWeight = FontWeight.Bold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                },
+            },
+        };
+        AutomationProperties.SetAutomationId(hinge, "ContrastPanesHinge");
+        AutomationProperties.SetName(
+            hinge,
+            $"Comparison boundary between {sourceLanguage} and {targetLanguage}");
+        var panes = new Grid
+        {
+            Width = 660,
+            ColumnDefinitions = new ColumnDefinitions("*,42,*"),
+            ColumnSpacing = 10,
+        };
+        panes.Children.Add(transferPane);
+        Grid.SetColumn(hinge, 1);
+        panes.Children.Add(hinge);
+        Grid.SetColumn(changePane, 2);
+        panes.Children.Add(changePane);
+        AutomationProperties.SetName(
+            panes,
+            $"Routed comparison from {sourceLanguage} knowledge to {targetLanguage} changes");
+
+        var stage = TemplateRendering.CreateStage(
+            318,
+            $"Transfer comparison from {sourceLanguage} to {targetLanguage}");
+        TemplateRendering.AddBackdrop(stage, imageCache: null, assetReferenceId: null);
+        PaperStage.SetLayer(panes, PaperStageLayer.Subject);
+        PaperStage.SetAnchor(panes, PaperAnchorLine.Waist);
+        PaperStage.SetAnchorX(panes, 0.5);
+        stage.Children.Add(panes);
+
+        var riskText = new TextBlock
+        {
+            Text = risk,
+            FontSize = 14,
+            TextWrapping = TextWrapping.Wrap,
+        };
+        AutomationProperties.SetAutomationId(riskText, "ContrastPanesBoundary");
+        AutomationProperties.SetName(riskText, $"Transfer boundary. {risk}");
+        var riskCard = new Border
+        {
+            Padding = new Thickness(14, 10),
+            Classes = { "soft-card" },
+            Child = new StackPanel
+            {
+                Spacing = 5,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = "BOUNDARY",
+                        FontSize = 11,
+                        FontWeight = FontWeight.Bold,
+                    },
+                    riskText,
+                },
+            },
+        };
+
+        var acknowledgeButton = new Button
+        {
+            Content = acknowledgement.Label,
+            Classes = { "primary", "lift" },
+        };
+        AutomationProperties.SetAutomationId(acknowledgeButton, "ContrastPanesAcknowledge");
+        AutomationProperties.SetName(acknowledgeButton, acknowledgement.Label);
+        var dismissButton = new Button { Content = dismissal.Label, Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(dismissButton, "ContrastPanesDismiss");
+        AutomationProperties.SetName(dismissButton, $"{dismissal.Label}. Continue without this comparison.");
+        var actionPanel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        actionPanel.Children.Add(acknowledgeButton);
+        actionPanel.Children.Add(dismissButton);
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+        var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,*"), ColumnSpacing = 12 };
+        footer.Children.Add(actionPanel);
+        Grid.SetColumn(outcomePanel, 1);
+        footer.Children.Add(outcomePanel);
+
+        void Apply(string actionId, string? overrideCopy = null)
+        {
+            var outcome = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+                actions,
+                acknowledgementId,
+                actionId);
+            TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+            if (overrideCopy is not null)
+            {
+                outcomeText.Text = overrideCopy;
+            }
+
+            reportOutcome(outcome);
+        }
+
+        acknowledgeButton.Click += (_, _) => Apply(acknowledgementId);
+        dismissButton.Click += (_, _) =>
+        {
+            panes.IsVisible = false;
+            Apply(dismissalId, "Comparison dismissed. The transfer boundary remains available as text.");
+        };
+
+        var root = new StackPanel { Spacing = 14 };
+        root.Children.Add(header);
+        root.Children.Add(stage);
+        root.Children.Add(riskCard);
+        root.Children.Add(footer);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            panes.IsVisible = true;
+            TemplateRendering.Prepare(
+                shouldReduceMotion,
+                transferPane,
+                hinge,
+                changePane,
+                riskCard,
+                footer);
+            if (!shouldReduceMotion)
+            {
+                transferPane.RenderTransform = TemplateRendering.Transform(-8, 0, -0.8, 0.98);
+                changePane.RenderTransform = TemplateRendering.Transform(8, 0, 0.8, 0.98);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(240), transferPane),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(180), hinge),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(240), changePane),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), riskCard, footer),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) => scene?.Skip();
+        return root;
+    }
+
+    private static Border Pane(
+        string heading,
+        string language,
+        IReadOnlyList<TemplateOption> points,
+        string className,
+        string automationId)
+    {
+        var list = new StackPanel { Spacing = 8 };
+        foreach (var point in points)
+        {
+            var copy = new TextBlock
+            {
+                Text = $"• {point.Label}",
+                FontSize = 14,
+                LineHeight = 19,
+                TextWrapping = TextWrapping.Wrap,
+            };
+            AutomationProperties.SetName(copy, point.Label);
+            list.Children.Add(copy);
+        }
+
+        var content = new StackPanel
+        {
+            Spacing = 9,
+            Children =
+            {
+                new PaperTape
+                {
+                    Content = heading,
+                    Angle = heading == "WHAT TRANSFERS" ? -1 : 1,
+                    Classes = { "compact" },
+                },
+                new TextBlock
+                {
+                    Text = language.ToUpperInvariant(),
+                    FontSize = 11,
+                    FontWeight = FontWeight.Bold,
+                },
+                list,
+            },
+        };
+        var pane = new Border
+        {
+            Width = 294,
+            MinHeight = 230,
+            Padding = new Thickness(15, 12),
+            Child = content,
+            Classes = { className },
+        };
+        AutomationProperties.SetAutomationId(pane, automationId);
+        AutomationProperties.SetName(
+            pane,
+            $"{heading}. {language}. {string.Join(" ", points.Select(point => point.Label))}");
+        return pane;
+    }
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "Comparison complete. Transfer and change remain separated.",
+        TemplateOutcomeState.Uncertain => "Read both panes and the boundary before continuing.",
+        TemplateOutcomeState.Failure => "Replay the comparison and separate transfer from change again.",
+        _ => "Ready: compare both routed panes or dismiss this explanation.",
+    };
+}

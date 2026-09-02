@@ -316,6 +316,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("cognate-thread"),
             CognateThreadRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("contrast-panes"),
+            ContrastPanesRenderer.Render),
     ]);
 
     public Control Render(

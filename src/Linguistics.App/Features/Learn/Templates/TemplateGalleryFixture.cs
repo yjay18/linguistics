@@ -1608,5 +1608,55 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "dismiss-thread"),
             })),
+        new(
+            new TemplateId("contrast-panes"),
+            "Contrast panes",
+            "Transfer · routed Hindi comparison · explicit non-transfer boundary",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Compare what the selected Hindi bridge supports with what changes in German.",
+                        ["hi"] = "चुना हुआ हिंदी सेतु किसमें सहायक है और जर्मन में क्या बदलता है, इसकी तुलना करें।",
+                    }),
+                ["source-language"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Hindi"),
+                ["target-language"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "German"),
+                ["transfers"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("gender-category", "Prior experience with grammatical gender may make the category familiar."),
+                    ]),
+                ["changes"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("three-genders", "German uses three noun genders in this Preview."),
+                        new("learn-article", "Learn each German noun with its article."),
+                    ]),
+                ["risk"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Do not infer a German article from the Hindi translation."),
+                ["actions"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("compare-panes", "I compared both panes"),
+                        new("dismiss-comparison", "Dismiss comparison"),
+                    ]),
+                ["acknowledgement"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "compare-panes"),
+                ["dismissal"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "dismiss-comparison"),
+            })),
     ];
 }

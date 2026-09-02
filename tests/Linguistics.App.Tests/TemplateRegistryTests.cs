@@ -1029,6 +1029,45 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void ContrastPanesKeepTransferAndChangeSeparateAndAdvisory()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("contrast-panes"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        byId["ContrastPanesAcknowledge"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        byId["ContrastPanesDismiss"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+        Assert.AreEqual("compare-panes", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, reported[1].State);
+        Assert.AreEqual("dismiss-comparison", reported[1].ResponseId);
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["ContrastPanesTransfers"]),
+            "Hindi");
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["ContrastPanesChanges"]),
+            "German");
+        Assert.IsTrue(byId.ContainsKey("ContrastPanesBoundary"));
+        Assert.IsTrue(byId.ContainsKey("ContrastPanesHinge"));
+        Assert.IsTrue(byId.ContainsKey("ContrastPanesReplay"));
+        Assert.IsTrue(byId.ContainsKey("ContrastPanesSkip"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

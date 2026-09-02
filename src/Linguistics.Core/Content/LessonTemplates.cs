@@ -698,6 +698,21 @@ public static class LessonTemplateSchemas
                 new("acknowledgement", TemplateParameterKind.Text, IsRequired: true),
                 new("dismissal", TemplateParameterKind.Text, IsRequired: true),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("contrast-panes"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("source-language", TemplateParameterKind.Text, IsRequired: true),
+                new("target-language", TemplateParameterKind.Text, IsRequired: true),
+                new("transfers", TemplateParameterKind.OptionList, IsRequired: true),
+                new("changes", TemplateParameterKind.OptionList, IsRequired: true),
+                new("risk", TemplateParameterKind.Text, IsRequired: true),
+                new("actions", TemplateParameterKind.OptionList, IsRequired: true),
+                new("acknowledgement", TemplateParameterKind.Text, IsRequired: true),
+                new("dismissal", TemplateParameterKind.Text, IsRequired: true),
+            ]),
     ];
 }
 

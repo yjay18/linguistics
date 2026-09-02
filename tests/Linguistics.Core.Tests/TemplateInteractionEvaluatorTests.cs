@@ -714,6 +714,33 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void ContrastPanesReportOnlyAuthoredAdvisoryActionIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("contrast-panes")));
+        var actions = new[]
+        {
+            new TemplateOption("compare-panes", "I compared both panes"),
+            new TemplateOption("dismiss-comparison", "Dismiss comparison"),
+        };
+
+        var compared = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "compare-panes",
+            "compare-panes");
+        var dismissed = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "compare-panes",
+            "dismiss-comparison");
+
+        Assert.AreEqual(TemplateOutcomeState.Success, compared.State);
+        Assert.AreEqual("compare-panes", compared.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, dismissed.State);
+        Assert.AreEqual("dismiss-comparison", dismissed.ResponseId);
+        Assert.AreNotEqual("German", compared.ResponseId);
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
