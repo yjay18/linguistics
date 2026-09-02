@@ -1149,6 +1149,7 @@ internal static class ProgressShelfRenderer
                             new PaperStamp
                             {
                                 Content = statusLabel,
+                                Width = 132,
                                 Angle = index % 2 == 0 ? -2 : 1.6,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                                 Classes = { "rectangle" },
