@@ -104,10 +104,13 @@ public sealed class AppLocalizationTests
         AppStringProvider.Instance.PropertyChanged += Count;
         try
         {
+            _ = AppStringProvider.Instance["Settings_AppLanguage_Title"];
             AppStrings.UseLanguage(new LanguageCode("hi"));
-            CollectionAssert.AreEqual(
-                new[] { string.Empty, "Item[]" },
-                notifications.ToArray());
+            Assert.AreEqual(string.Empty, notifications[0]);
+            Assert.AreEqual("Item[]", notifications[1]);
+            CollectionAssert.Contains(
+                notifications,
+                "Item[Settings_AppLanguage_Title]");
         }
         finally
         {

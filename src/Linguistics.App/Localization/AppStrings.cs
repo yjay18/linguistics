@@ -54,6 +54,8 @@ public static class AppStrings
 
 public sealed class AppStringProvider : INotifyPropertyChanged
 {
+    private readonly HashSet<string> _observedKeys = new(StringComparer.Ordinal);
+
     public static AppStringProvider Instance { get; } = new();
 
     private AppStringProvider()
@@ -62,12 +64,33 @@ public sealed class AppStringProvider : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public string this[string key] => AppStrings.Get(key);
+    public string this[string key]
+    {
+        get
+        {
+            lock (_observedKeys)
+            {
+                _observedKeys.Add(key);
+            }
+
+            return AppStrings.Get(key);
+        }
+    }
 
     internal void Refresh()
     {
+        string[] keys;
+        lock (_observedKeys)
+        {
+            keys = _observedKeys.ToArray();
+        }
+
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
+        foreach (var key in keys)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs($"Item[{key}]"));
+        }
     }
 }
 
