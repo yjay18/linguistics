@@ -1109,4 +1109,61 @@
   <data name="ConsequenceVerdict_OutcomeFailure" xml:space="preserve"><value>असफलता सुरक्षित है। विवरण दिखाते हुए फिर प्रयास उपलब्ध है।</value></data>
   <data name="ConsequenceVerdict_OutcomeReady" xml:space="preserve"><value>तैयार। दिखाया परिणाम और विवरण उपलब्ध हैं।</value></data>
   <data name="ConsequenceVerdict_StageName" xml:space="preserve"><value>{0} के लिए परिणाम। {1}। {2}</value></data>
+  <data name="ReviewFlash_Replay" xml:space="preserve"><value>कार्ड फिर चलाएँ</value></data>
+  <data name="ReviewFlash_ReplayName" xml:space="preserve"><value>पुनरावृत्ति कार्ड रीसेट करके प्रवेश फिर चलाएँ</value></data>
+  <data name="ReviewFlash_Skip" xml:space="preserve"><value>प्रवेश छोड़ें</value></data>
+  <data name="ReviewFlash_SkipName" xml:space="preserve"><value>सीधे पूरे पुनरावृत्ति कार्ड पर जाएँ</value></data>
+  <data name="ReviewFlash_InstructionName" xml:space="preserve"><value>पुनरावृत्ति निर्देश। {0}</value></data>
+  <data name="ReviewFlash_StageName" xml:space="preserve"><value>याद करने का कार्ड। संकेत: {0}। याद को अंक देने से पहले उत्तर खोलें।</value></data>
+  <data name="ReviewFlash_Recall" xml:space="preserve"><value>याद करें</value></data>
+  <data name="ReviewFlash_FrontName" xml:space="preserve"><value>पुनरावृत्ति कार्ड का सामने का भाग। याद करें: {0}</value></data>
+  <data name="ReviewFlash_ReviewedAnswer" xml:space="preserve"><value>जाँचा उत्तर</value></data>
+  <data name="ReviewFlash_BackName" xml:space="preserve"><value>जाँचा उत्तर। {0}। {1}</value></data>
+  <data name="ReviewFlash_Hidden" xml:space="preserve"><value>उत्तर छिपा है। खोलने से पहले याद करें।</value></data>
+  <data name="ReviewFlash_StatusName" xml:space="preserve"><value>पुनरावृत्ति कार्ड की स्थिति</value></data>
+  <data name="ReviewFlash_RevealName" xml:space="preserve"><value>जाँचा उत्तर और अंक विकल्प खोलें</value></data>
+  <data name="ReviewFlash_RatingsName" xml:space="preserve"><value>याद को फिर, कठिन, अच्छा या आसान अंक दें</value></data>
+  <data name="ReviewFlash_RatingName" xml:space="preserve"><value>याद को {0} अंक दें</value></data>
+  <data name="ReviewFlash_Rated" xml:space="preserve"><value>याद को {0} अंक दिया।</value></data>
+  <data name="ReviewFlash_Configuration" xml:space="preserve"><value>पुनरावृत्ति नियम: {0}। यह कार्ड एक अंक देता है; नियतात्मक कोड समय तय करता है।</value></data>
+  <data name="ReviewFlash_ConfigurationName" xml:space="preserve"><value>पुनरावृत्ति विन्यास {0}। कार्ड केवल अंक देता है, समय नहीं तय करता।</value></data>
+  <data name="ReviewFlash_Revealed" xml:space="preserve"><value>जाँचा उत्तर खुला। {0}</value></data>
+  <data name="ReviewFlash_OutcomeSuccess" xml:space="preserve"><value>अच्छा या आसान चुना। मौजूदा नियतात्मक नियम अगला समय तय करते हैं।</value></data>
+  <data name="ReviewFlash_OutcomeUncertain" xml:space="preserve"><value>याद बाकी है या कठिन चुना। मौजूदा नियतात्मक नियम समय तय करते हैं।</value></data>
+  <data name="ReviewFlash_OutcomeFailure" xml:space="preserve"><value>फिर से चुना। मौजूदा नियतात्मक नियम अगला समय तय करते हैं।</value></data>
+  <data name="ReviewFlash_OutcomeReady" xml:space="preserve"><value>तैयार। उत्तर खोलने से पहले उसे याद करें।</value></data>
+  <data name="ProgressShelf_Instruction" xml:space="preserve"><value>स्थानीय रूप से दिखाई स्थिति जाँचने के लिए काग़ज़ परिस्थिति चुनें।</value></data>
+  <data name="ProgressShelf_Title" xml:space="preserve"><value>परिस्थितियाँ जिन्हें आप संभाल सकते हैं</value></data>
+  <data name="ProgressShelf_Empty" xml:space="preserve"><value>इस शेल्फ पर पहली परिस्थिति रखने के लिए व्यावहारिक कार्य पूरा करें।</value></data>
+  <data name="ProgressShelf_Method" xml:space="preserve"><value>सहेजे सफल कार्य क्षमताएँ दिखाते हैं। संस्करण वाले नियतात्मक नियम अवधारणा और पुनरावृत्ति प्रमाण अलग रखते हैं।</value></data>
+  <data name="ProgressShelf_Replay" xml:space="preserve"><value>शेल्फ फिर चलाएँ</value></data>
+  <data name="ProgressShelf_ReplayName" xml:space="preserve"><value>क्षमता शेल्फ का प्रवेश फिर चलाएँ</value></data>
+  <data name="ProgressShelf_Skip" xml:space="preserve"><value>प्रवेश छोड़ें</value></data>
+  <data name="ProgressShelf_SkipName" xml:space="preserve"><value>सीधे पूरे क्षमता शेल्फ पर जाएँ</value></data>
+  <data name="ProgressShelf_InstructionName" xml:space="preserve"><value>प्रगति निर्देश। {0}</value></data>
+  <data name="ProgressShelf_SelectPrompt" xml:space="preserve"><value>दिखाई स्थिति जाँचने के लिए काग़ज़ परिस्थिति चुनें।</value></data>
+  <data name="ProgressShelf_StatusName" xml:space="preserve"><value>चुनी क्षमता की स्थिति</value></data>
+  <data name="ProgressShelf_SelectedSituation" xml:space="preserve"><value>चुनी परिस्थिति</value></data>
+  <data name="ProgressShelf_StageName" xml:space="preserve"><value>{0}। {1} प्रदर्शित, {2} अभ्यास में और {3} शुरू नहीं।</value></data>
+  <data name="ProgressShelf_BoardName" xml:space="preserve"><value>काग़ज़ क्षमता शेल्फ</value></data>
+  <data name="ProgressShelf_ObjectsName" xml:space="preserve"><value>स्थिति क्रम में दिखाई क्षमता वस्तुएँ</value></data>
+  <data name="ProgressShelf_ReadyLabel" xml:space="preserve"><value>शेल्फ तैयार</value></data>
+  <data name="ProgressShelf_EmptyName" xml:space="preserve"><value>खाली क्षमता शेल्फ। {0}</value></data>
+  <data name="ProgressShelf_Inspect" xml:space="preserve"><value>परिस्थिति देखें</value></data>
+  <data name="ProgressShelf_CapabilityName" xml:space="preserve"><value>{0}। {1} विवरण के लिए चुनें।</value></data>
+  <data name="ProgressShelf_SelectedStatus" xml:space="preserve"><value>{0}। {1}</value></data>
+  <data name="ProgressShelf_ObjectName" xml:space="preserve"><value>काग़ज़ परिस्थिति वस्तु। {0}। {1}।</value></data>
+  <data name="ProgressShelf_TextMode" xml:space="preserve"><value>केवल-पाठ प्रगति। हर परिस्थिति और दिखाई स्थिति पूरी है।</value></data>
+  <data name="ProgressShelf_PaperMode" xml:space="preserve"><value>काग़ज़ वस्तुएँ परिस्थिति और दिखाई प्रमाण स्थिति पहले रखती हैं।</value></data>
+  <data name="ProgressShelf_MethodName" xml:space="preserve"><value>स्थिति कैसे दिखाई जाती है। {0}</value></data>
+  <data name="ProgressShelf_StatusDemonstrated" xml:space="preserve"><value>संभाल सकते हैं</value></data>
+  <data name="ProgressShelf_StatusPracticing" xml:space="preserve"><value>अभ्यास में</value></data>
+  <data name="ProgressShelf_StatusNotStarted" xml:space="preserve"><value>शुरू नहीं</value></data>
+  <data name="ProgressShelf_DescriptionDemonstrated" xml:space="preserve"><value>दिखाए कार्य प्रमाण से प्रदर्शित।</value></data>
+  <data name="ProgressShelf_DescriptionPracticing" xml:space="preserve"><value>दिखाए कार्य प्रमाण से अभ्यास में।</value></data>
+  <data name="ProgressShelf_DescriptionNotStarted" xml:space="preserve"><value>शुरू नहीं। केवल सेटअप से क्षमता नहीं मानी जाती।</value></data>
+  <data name="ProgressShelf_OutcomeSuccess" xml:space="preserve"><value>दिखाए कार्य प्रमाण से प्रदर्शित परिस्थिति चुनी गई।</value></data>
+  <data name="ProgressShelf_OutcomeUncertain" xml:space="preserve"><value>अभ्यास परिस्थिति चुनी गई, या काग़ज़ परिस्थिति चुनें।</value></data>
+  <data name="ProgressShelf_OutcomeFailure" xml:space="preserve"><value>क्षमता स्थिति उपलब्ध नहीं। दिखाई शेल्फ पर लौटें।</value></data>
+  <data name="ProgressShelf_OutcomeReady" xml:space="preserve"><value>शुरू न हुई परिस्थिति चुनी, या क्षमता शेल्फ तैयार है।</value></data>
 </root>

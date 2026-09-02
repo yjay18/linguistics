@@ -5,6 +5,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Linguistics.App.Content;
 using Linguistics.App.Controls;
+using Linguistics.App.Localization;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
@@ -27,12 +28,20 @@ internal static class ReviewFlashRenderer
         var ratings = TemplateRendering.Options(parameters, "ratings");
         var configurationVersion = TemplateRendering.Text(parameters, "configuration-version");
 
-        var replayButton = new Button { Content = "Replay card", Classes = { "quiet" } };
+        var replayButton = new Button
+        {
+            Content = AppStrings.Get("ReviewFlash_Replay"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(replayButton, "ReviewFlashReplay");
-        AutomationProperties.SetName(replayButton, "Reset and replay the review card entrance");
-        var skipButton = new Button { Content = "Skip entrance", Classes = { "quiet" } };
+        AutomationProperties.SetName(replayButton, AppStrings.Get("ReviewFlash_ReplayName"));
+        var skipButton = new Button
+        {
+            Content = AppStrings.Get("ReviewFlash_Skip"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(skipButton, "ReviewFlashSkip");
-        AutomationProperties.SetName(skipButton, "Skip to the completed review card entrance");
+        AutomationProperties.SetName(skipButton, AppStrings.Get("ReviewFlash_SkipName"));
         var instructionText = new TextBlock
         {
             Text = instruction,
@@ -41,7 +50,9 @@ internal static class ReviewFlashRenderer
             TextWrapping = TextWrapping.Wrap,
             VerticalAlignment = VerticalAlignment.Center,
         };
-        AutomationProperties.SetName(instructionText, $"Review instruction. {instruction}");
+        AutomationProperties.SetName(
+            instructionText,
+            AppStrings.Format("ReviewFlash_InstructionName", instruction));
         var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
         headerActions.Children.Add(replayButton);
         headerActions.Children.Add(skipButton);
@@ -52,7 +63,7 @@ internal static class ReviewFlashRenderer
 
         var stage = TemplateRendering.CreateStage(
             304,
-            $"Review recall card. Prompt: {prompt}. Reveal the answer before rating recall.");
+            AppStrings.Format("ReviewFlash_StageName", prompt));
         TemplateRendering.AddBackdrop(stage, imageCache, assetReferenceId: null);
         var deckShadow = new PaperCard
         {
@@ -80,7 +91,7 @@ internal static class ReviewFlashRenderer
                 {
                     new PaperTape
                     {
-                        Content = "RECALL",
+                        Content = AppStrings.Get("ReviewFlash_Recall"),
                         Angle = -1.6,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         Classes = { "compact" },
@@ -98,7 +109,9 @@ internal static class ReviewFlashRenderer
         };
         frontCard.Classes.Add("accent");
         AutomationProperties.SetAutomationId(frontCard, "ReviewFlashFront");
-        AutomationProperties.SetName(frontCard, $"Review card front. Recall: {prompt}");
+        AutomationProperties.SetName(
+            frontCard,
+            AppStrings.Format("ReviewFlash_FrontName", prompt));
         PaperStage.SetLayer(frontCard, PaperStageLayer.Subject);
         PaperStage.SetAnchor(frontCard, PaperAnchorLine.Waist);
         PaperStage.SetAnchorX(frontCard, 0.5);
@@ -130,7 +143,7 @@ internal static class ReviewFlashRenderer
                 {
                     new PaperTape
                     {
-                        Content = "REVIEWED ANSWER",
+                        Content = AppStrings.Get("ReviewFlash_ReviewedAnswer"),
                         Angle = 1.2,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         Classes = { "compact" },
@@ -151,7 +164,10 @@ internal static class ReviewFlashRenderer
         AutomationProperties.SetAutomationId(backCard, "ReviewFlashBack");
         AutomationProperties.SetName(
             backCard,
-            $"Reviewed answer. {answer}. {string.Join(" ", details.Select(detail => detail.Label))}");
+            AppStrings.Format(
+                "ReviewFlash_BackName",
+                answer,
+                string.Join(" ", details.Select(detail => detail.Label))));
         PaperStage.SetLayer(backCard, PaperStageLayer.Subject);
         PaperStage.SetAnchor(backCard, PaperAnchorLine.Waist);
         PaperStage.SetAnchorX(backCard, 0.5);
@@ -160,24 +176,24 @@ internal static class ReviewFlashRenderer
 
         var recallStatus = new TextBlock
         {
-            Text = "Answer hidden. Recall before revealing.",
+            Text = AppStrings.Get("ReviewFlash_Hidden"),
             FontSize = 13,
             TextAlignment = TextAlignment.Center,
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
         };
         AutomationProperties.SetAutomationId(recallStatus, "ReviewFlashStatus");
-        AutomationProperties.SetName(recallStatus, "Review card status");
+        AutomationProperties.SetName(recallStatus, AppStrings.Get("ReviewFlash_StatusName"));
         AutomationProperties.SetLiveSetting(recallStatus, AutomationLiveSetting.Polite);
 
         var revealButton = new Button
         {
-            Content = "Reveal reviewed answer",
+            Content = AppStrings.Get("Review_Reveal"),
             HorizontalAlignment = HorizontalAlignment.Left,
             Classes = { "primary" },
         };
         AutomationProperties.SetAutomationId(revealButton, "ReviewFlashReveal");
-        AutomationProperties.SetName(revealButton, "Reveal the reviewed answer and rating choices");
+        AutomationProperties.SetName(revealButton, AppStrings.Get("ReviewFlash_RevealName"));
 
         var ratingButtons = new List<Button>();
         var ratingPanel = new WrapPanel
@@ -186,7 +202,7 @@ internal static class ReviewFlashRenderer
             IsVisible = false,
         };
         AutomationProperties.SetAutomationId(ratingPanel, "ReviewFlashRatings");
-        AutomationProperties.SetName(ratingPanel, "Rate recall as Again, Hard, Good, or Easy");
+        AutomationProperties.SetName(ratingPanel, AppStrings.Get("ReviewFlash_RatingsName"));
         var outcomePanel = TemplateRendering.CreateOutcomePanel(
             parameters.PreviewOutcome,
             OutcomeCopy,
@@ -201,11 +217,13 @@ internal static class ReviewFlashRenderer
                 Classes = { rating.Id is "good" or "easy" ? "primary" : "quiet" },
             };
             AutomationProperties.SetAutomationId(button, $"ReviewFlashRating_{rating.Id}");
-            AutomationProperties.SetName(button, $"Rate recall {rating.Label}");
+            AutomationProperties.SetName(
+                button,
+                AppStrings.Format("ReviewFlash_RatingName", rating.Label));
             button.Click += (_, _) =>
             {
                 var outcome = TemplateInteractionEvaluator.EvaluateReviewRating(ratings, rating.Id);
-                recallStatus.Text = $"Recall rated {rating.Label}.";
+                recallStatus.Text = AppStrings.Format("ReviewFlash_Rated", rating.Label);
                 TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
                 reportOutcome(outcome);
             };
@@ -218,7 +236,7 @@ internal static class ReviewFlashRenderer
             Padding = new Thickness(14, 10),
             Content = new TextBlock
             {
-                Text = $"Review rule set: {configurationVersion}. This card reports one rating; the deterministic review flow schedules it.",
+                Text = AppStrings.Format("ReviewFlash_Configuration", configurationVersion),
                 FontSize = 13,
                 TextWrapping = TextWrapping.Wrap,
             },
@@ -227,7 +245,7 @@ internal static class ReviewFlashRenderer
         AutomationProperties.SetAutomationId(configurationNote, "ReviewFlashConfiguration");
         AutomationProperties.SetName(
             configurationNote,
-            $"Review configuration {configurationVersion}. Rating only; no scheduling occurs in this card.");
+            AppStrings.Format("ReviewFlash_ConfigurationName", configurationVersion));
 
         var controls = new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,*"), ColumnSpacing = 12 };
         controls.Children.Add(revealButton);
@@ -249,7 +267,7 @@ internal static class ReviewFlashRenderer
                 button.IsEnabled = false;
             }
 
-            recallStatus.Text = "Answer hidden. Recall before revealing.";
+            recallStatus.Text = AppStrings.Get("ReviewFlash_Hidden");
             TemplateRendering.ApplyOutcome(
                 outcomePanel,
                 outcomeText,
@@ -268,7 +286,7 @@ internal static class ReviewFlashRenderer
                 button.IsEnabled = true;
             }
 
-            recallStatus.Text = $"Reviewed answer revealed. {answer}";
+            recallStatus.Text = AppStrings.Format("ReviewFlash_Revealed", answer);
         };
 
         var root = new StackPanel { Spacing = 14 };
@@ -329,10 +347,10 @@ internal static class ReviewFlashRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "Good or Easy selected. Scheduling follows the existing review rules.",
-        TemplateOutcomeState.Uncertain => "Recall is pending or Hard selected. Scheduling follows the existing review rules.",
-        TemplateOutcomeState.Failure => "Again selected. Scheduling follows the existing review rules.",
-        _ => "Ready: reveal only after you have recalled the answer.",
+        TemplateOutcomeState.Success => AppStrings.Get("ReviewFlash_OutcomeSuccess"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("ReviewFlash_OutcomeUncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("ReviewFlash_OutcomeFailure"),
+        _ => AppStrings.Get("ReviewFlash_OutcomeReady"),
     };
 }
 
@@ -991,12 +1009,20 @@ internal static class ProgressShelfRenderer
                 new ProjectedCapability(capability, ShelfCapabilityStatus.NotStarted)))
             .ToArray();
 
-        var replayButton = new Button { Content = "Replay shelf", Classes = { "quiet" } };
+        var replayButton = new Button
+        {
+            Content = AppStrings.Get("ProgressShelf_Replay"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(replayButton, "ProgressShelfReplay");
-        AutomationProperties.SetName(replayButton, "Replay the capability shelf entrance");
-        var skipButton = new Button { Content = "Skip entrance", Classes = { "quiet" } };
+        AutomationProperties.SetName(replayButton, AppStrings.Get("ProgressShelf_ReplayName"));
+        var skipButton = new Button
+        {
+            Content = AppStrings.Get("ProgressShelf_Skip"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(skipButton, "ProgressShelfSkip");
-        AutomationProperties.SetName(skipButton, "Skip to the completed capability shelf");
+        AutomationProperties.SetName(skipButton, AppStrings.Get("ProgressShelf_SkipName"));
         var instructionText = new TextBlock
         {
             Text = instruction,
@@ -1005,7 +1031,9 @@ internal static class ProgressShelfRenderer
             TextWrapping = TextWrapping.Wrap,
             VerticalAlignment = VerticalAlignment.Center,
         };
-        AutomationProperties.SetName(instructionText, $"Progress instruction. {instruction}");
+        AutomationProperties.SetName(
+            instructionText,
+            AppStrings.Format("ProgressShelf_InstructionName", instruction));
         var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
         headerActions.Children.Add(replayButton);
         headerActions.Children.Add(skipButton);
@@ -1018,12 +1046,12 @@ internal static class ProgressShelfRenderer
         {
             Text = projected.Length == 0
                 ? emptyCopy
-                : "Select a paper situation to inspect its projected status.",
+                : AppStrings.Get("ProgressShelf_SelectPrompt"),
             FontSize = 14,
             TextWrapping = TextWrapping.Wrap,
         };
         AutomationProperties.SetAutomationId(selectedText, "ProgressShelfSelectionStatus");
-        AutomationProperties.SetName(selectedText, "Selected capability status");
+        AutomationProperties.SetName(selectedText, AppStrings.Get("ProgressShelf_StatusName"));
         AutomationProperties.SetLiveSetting(selectedText, AutomationLiveSetting.Polite);
         var detailCard = new PaperCard
         {
@@ -1035,7 +1063,7 @@ internal static class ProgressShelfRenderer
                 {
                     new TextBlock
                     {
-                        Text = "SELECTED SITUATION",
+                        Text = AppStrings.Get("ProgressShelf_SelectedSituation"),
                         FontSize = 11,
                         FontWeight = FontWeight.Bold,
                     },
@@ -1052,8 +1080,12 @@ internal static class ProgressShelfRenderer
 
         var stage = TemplateRendering.CreateStage(
             402,
-            $"{title}. {demonstrated.Count} demonstrated, {practicing.Count} practicing, " +
-            $"and {notStarted.Count} not started situations are projected.");
+            AppStrings.Format(
+                "ProgressShelf_StageName",
+                title,
+                demonstrated.Count,
+                practicing.Count,
+                notStarted.Count));
         TemplateRendering.AddBackdrop(stage, imageCache, assetReferenceId: null);
         var shelfHeader = new PaperTape
         {
@@ -1079,7 +1111,7 @@ internal static class ProgressShelfRenderer
             Classes = { "soft-card" },
         };
         AutomationProperties.SetAutomationId(shelfLine, "ProgressShelfBoard");
-        AutomationProperties.SetName(shelfLine, "Paper capability shelf");
+        AutomationProperties.SetName(shelfLine, AppStrings.Get("ProgressShelf_BoardName"));
         PaperStage.SetLayer(shelfLine, PaperStageLayer.ForegroundSilhouettes);
         PaperStage.SetAnchor(shelfLine, PaperAnchorLine.Foot);
         PaperStage.SetAnchorX(shelfLine, 0.5);
@@ -1093,7 +1125,7 @@ internal static class ProgressShelfRenderer
             HorizontalAlignment = HorizontalAlignment.Center,
         };
         AutomationProperties.SetAutomationId(objectsPanel, "ProgressShelfObjects");
-        AutomationProperties.SetName(objectsPanel, "Projected capability objects in status order");
+        AutomationProperties.SetName(objectsPanel, AppStrings.Get("ProgressShelf_ObjectsName"));
         var shelfObjects = new List<Control>();
         if (projected.Length == 0)
         {
@@ -1109,7 +1141,7 @@ internal static class ProgressShelfRenderer
                     {
                         new PaperTape
                         {
-                            Content = "SHELF READY",
+                            Content = AppStrings.Get("ProgressShelf_ReadyLabel"),
                             Angle = 1.1,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             Classes = { "compact" },
@@ -1126,7 +1158,9 @@ internal static class ProgressShelfRenderer
             };
             emptyCard.Classes.Add("soft");
             AutomationProperties.SetAutomationId(emptyCard, "ProgressShelfEmpty");
-            AutomationProperties.SetName(emptyCard, $"Empty capability shelf. {emptyCopy}");
+            AutomationProperties.SetName(
+                emptyCard,
+                AppStrings.Format("ProgressShelf_EmptyName", emptyCopy));
             shelfObjects.Add(emptyCard);
             objectsPanel.Children.Add(emptyCard);
         }
@@ -1163,7 +1197,7 @@ internal static class ProgressShelfRenderer
                             },
                             new TextBlock
                             {
-                                Text = "Inspect situation",
+                                Text = AppStrings.Get("ProgressShelf_Inspect"),
                                 FontSize = 12,
                                 FontWeight = FontWeight.SemiBold,
                             },
@@ -1175,7 +1209,10 @@ internal static class ProgressShelfRenderer
                     $"ProgressShelfCapability_{projection.Capability.Id}");
                 AutomationProperties.SetName(
                     selectButton,
-                    $"{projection.Capability.Label}. {StatusDescription(projection.Status)} Select for details.");
+                    AppStrings.Format(
+                        "ProgressShelf_CapabilityName",
+                        projection.Capability.Label,
+                        StatusDescription(projection.Status)));
                 selectButton.Click += (_, _) =>
                 {
                     var outcome = TemplateInteractionEvaluator.EvaluateCapabilitySelection(
@@ -1183,8 +1220,10 @@ internal static class ProgressShelfRenderer
                         practicing,
                         notStarted,
                         projection.Capability.Id);
-                    selectedText.Text =
-                        $"{projection.Capability.Label}. {StatusDescription(projection.Status)}";
+                    selectedText.Text = AppStrings.Format(
+                        "ProgressShelf_SelectedStatus",
+                        projection.Capability.Label,
+                        StatusDescription(projection.Status));
                     TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
                     reportOutcome(outcome);
                 };
@@ -1202,7 +1241,10 @@ internal static class ProgressShelfRenderer
                     $"ProgressShelfObject_{projection.Capability.Id}");
                 AutomationProperties.SetName(
                     frame,
-                    $"Paper situation object. {projection.Capability.Label}. {statusLabel}.");
+                    AppStrings.Format(
+                        "ProgressShelf_ObjectName",
+                        projection.Capability.Label,
+                        statusLabel));
                 shelfObjects.Add(frame);
                 objectsPanel.Children.Add(frame);
             }
@@ -1217,8 +1259,8 @@ internal static class ProgressShelfRenderer
         var modeText = new TextBlock
         {
             Text = parameters.UseTextOnlyFallback
-                ? "Text-only progress mode is active. Every situation and projected status remains complete."
-                : "Paper objects lead with situations and projected evidence status.",
+                ? AppStrings.Get("ProgressShelf_TextMode")
+                : AppStrings.Get("ProgressShelf_PaperMode"),
             FontSize = 13,
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
@@ -1236,7 +1278,9 @@ internal static class ProgressShelfRenderer
         };
         methodCard.Classes.Add("soft");
         AutomationProperties.SetAutomationId(methodCard, "ProgressShelfMethod");
-        AutomationProperties.SetName(methodCard, $"How status is projected. {methodNote}");
+        AutomationProperties.SetName(
+            methodCard,
+            AppStrings.Format("ProgressShelf_MethodName", methodNote));
         var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,*"), ColumnSpacing = 12 };
         footer.Children.Add(detailCard);
         Grid.SetColumn(outcomePanel, 1);
@@ -1286,24 +1330,24 @@ internal static class ProgressShelfRenderer
 
     private static string StatusLabel(ShelfCapabilityStatus status) => status switch
     {
-        ShelfCapabilityStatus.Demonstrated => "CAN HANDLE",
-        ShelfCapabilityStatus.Practicing => "PRACTICING",
-        _ => "NOT STARTED",
+        ShelfCapabilityStatus.Demonstrated => AppStrings.Get("ProgressShelf_StatusDemonstrated"),
+        ShelfCapabilityStatus.Practicing => AppStrings.Get("ProgressShelf_StatusPracticing"),
+        _ => AppStrings.Get("ProgressShelf_StatusNotStarted"),
     };
 
     private static string StatusDescription(ShelfCapabilityStatus status) => status switch
     {
-        ShelfCapabilityStatus.Demonstrated => "Demonstrated from projected task evidence.",
-        ShelfCapabilityStatus.Practicing => "Practicing from projected task evidence.",
-        _ => "Not started. No ability is inferred from setup alone.",
+        ShelfCapabilityStatus.Demonstrated => AppStrings.Get("ProgressShelf_DescriptionDemonstrated"),
+        ShelfCapabilityStatus.Practicing => AppStrings.Get("ProgressShelf_DescriptionPracticing"),
+        _ => AppStrings.Get("ProgressShelf_DescriptionNotStarted"),
     };
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "Demonstrated situation selected from projected task evidence.",
-        TemplateOutcomeState.Uncertain => "Practicing situation selected, or choose a paper situation to inspect.",
-        TemplateOutcomeState.Failure => "Capability status is unavailable. Return to the projected shelf.",
-        _ => "Not-started situation selected, or the capability shelf is ready.",
+        TemplateOutcomeState.Success => AppStrings.Get("ProgressShelf_OutcomeSuccess"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("ProgressShelf_OutcomeUncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("ProgressShelf_OutcomeFailure"),
+        _ => AppStrings.Get("ProgressShelf_OutcomeReady"),
     };
 
     private sealed record ProjectedCapability(

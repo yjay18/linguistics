@@ -4,6 +4,7 @@ using Avalonia.LogicalTree;
 using Linguistics.App.Controls;
 using Linguistics.App.Features.Learn;
 using Linguistics.App.Features.Learn.Templates;
+using Linguistics.App.Features.Review;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
@@ -145,6 +146,51 @@ public sealed class LearnExperienceTests
         Assert.Contains("CafeConsequenceVerdictHost", axaml);
         Assert.DoesNotContain("Scenario_Completed_Title", axaml);
     }
+
+    [TestMethod]
+    public void ReviewProgressAndTodayUseThePhaseSixPaperSurfaces()
+    {
+        var reviewCode = FeatureText("Review", "ReviewView.axaml.cs");
+        var reviewAxaml = FeatureText("Review", "ReviewView.axaml");
+        var progressCode = FeatureText("Progress", "ProgressView.axaml.cs");
+        var progressAxaml = FeatureText("Progress", "ProgressView.axaml");
+        var todayAxaml = FeatureText("Today", "TodayView.axaml");
+
+        Assert.Contains("ReviewFlashRenderer.Render", reviewCode);
+        Assert.Contains("_controller.RecordAsync", reviewCode);
+        Assert.Contains("ReviewFlashHost", reviewAxaml);
+        Assert.DoesNotContain("OnRatingClicked", reviewAxaml);
+
+        Assert.Contains("ProgressShelfRenderer.Render", progressCode);
+        Assert.Contains("ProgressShelfHost", progressAxaml);
+        Assert.DoesNotContain("CapabilityCard", progressAxaml);
+
+        Assert.Contains("controls:PaperCard", todayAxaml);
+        Assert.Contains("controls:PaperTape", todayAxaml);
+        Assert.Contains("controls:PaperStamp", todayAxaml);
+        Assert.Contains("controls:CutoutFrame", todayAxaml);
+        Assert.Contains("<WrapPanel x:Name=\"EvidenceGrid\"", todayAxaml);
+    }
+
+    [TestMethod]
+    public void ReviewFlashResponseIdsMapToTheExistingSchedulerRatings()
+    {
+        Assert.AreEqual(ReviewRating.Again, ReviewView.RatingFromResponseId("again"));
+        Assert.AreEqual(ReviewRating.Hard, ReviewView.RatingFromResponseId("hard"));
+        Assert.AreEqual(ReviewRating.Good, ReviewView.RatingFromResponseId("good"));
+        Assert.AreEqual(ReviewRating.Easy, ReviewView.RatingFromResponseId("easy"));
+        Assert.IsNull(ReviewView.RatingFromResponseId("unknown"));
+        Assert.IsNull(ReviewView.RatingFromResponseId(null));
+    }
+
+    private static string FeatureText(string feature, string fileName) => File.ReadAllText(
+        Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Linguistics.App",
+            "Features",
+            feature,
+            fileName));
 
     private static CourseLesson Lesson(string id, string title, bool templateAuthored)
     {

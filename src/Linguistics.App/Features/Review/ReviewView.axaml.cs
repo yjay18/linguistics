@@ -1,7 +1,8 @@
 using System.Diagnostics;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
+using Linguistics.App.Content;
 using Linguistics.App.Diagnostics;
+using Linguistics.App.Features.Learn.Templates;
 using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
@@ -22,6 +23,9 @@ public partial class ReviewView : UserControl
     private long _shownAt;
     private bool _busy;
     private bool _initialized;
+    private readonly ContentImageCache? _imageCache;
+    private readonly bool _shouldReduceMotion;
+    private readonly LanguageCode _instructionLanguage = new("en");
 
     public ReviewView()
     {
@@ -34,16 +38,20 @@ public partial class ReviewView : UserControl
         LearnerProfileOwner profileOwner,
         ValidatedContentCatalog? contentCatalog,
         string? contentError,
-        LocalDiagnosticLog? diagnosticLog = null)
+        LocalDiagnosticLog? diagnosticLog = null,
+        ContentImageCache? imageCache = null)
         : this()
     {
         ArgumentNullException.ThrowIfNull(profile);
         _contentError = contentError;
+        _imageCache = imageCache;
+        _shouldReduceMotion = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion);
         if (contentCatalog is not null)
         {
             var selection = contentCatalog.SelectInstructionLanguage(profile);
             if (selection.SelectedLanguage is { } instructionLanguage)
             {
+                _instructionLanguage = instructionLanguage;
                 _graph = contentCatalog.CreateRuntimeConceptGraph(
                     profile.TargetLanguage,
                     instructionLanguage);
@@ -88,36 +96,26 @@ public partial class ReviewView : UserControl
         }
     }
 
-    private void OnRevealClicked(object? sender, RoutedEventArgs args)
+    private async void OnReviewOutcome(TemplateOutcome outcome)
     {
-        if (_current is null || _busy)
+        if (_controller is null || _current is null || _busy)
         {
             return;
         }
 
-        RevealButton.IsVisible = false;
-        AnswerPanel.IsVisible = true;
-        RatingPanel.IsVisible = true;
-    }
-
-    private async void OnRatingClicked(object? sender, RoutedEventArgs args)
-    {
-        if (_controller is null ||
-            _current is null ||
-            _busy ||
-            sender is not Button { Tag: string value } ||
-            !Enum.TryParse<ReviewRating>(value, out var rating))
+        var rating = RatingFromResponseId(outcome.ResponseId);
+        if (rating is null)
         {
             return;
         }
 
         _busy = true;
-        RatingPanel.IsEnabled = false;
+        ReviewFlashHost.IsEnabled = false;
         ClearMessages();
         try
         {
             var latency = Stopwatch.GetElapsedTime(_shownAt);
-            var submission = await _controller.RecordAsync(_current.Id, rating, latency);
+            var submission = await _controller.RecordAsync(_current.Id, rating.Value, latency);
             _snapshot = submission.Snapshot;
             var nextDue = submission.Decision.Current.DueAt.ToLocalTime();
             Render();
@@ -128,13 +126,22 @@ public partial class ReviewView : UserControl
             exception is LearnerStoreException or CurriculumValidationException or InvalidOperationException)
         {
             ShowError(exception.Message);
-            RatingPanel.IsEnabled = true;
+            ReviewFlashHost.IsEnabled = true;
         }
         finally
         {
             _busy = false;
         }
     }
+
+    internal static ReviewRating? RatingFromResponseId(string? responseId) => responseId switch
+    {
+        "again" => ReviewRating.Again,
+        "hard" => ReviewRating.Hard,
+        "good" => ReviewRating.Good,
+        "easy" => ReviewRating.Easy,
+        _ => (ReviewRating?)null,
+    };
 
     private void Render()
     {
@@ -148,7 +155,8 @@ public partial class ReviewView : UserControl
         QueueCountText.Text = AppStrings.Format("Review_DueCount", _snapshot.Queue.Due.Count);
         if (_graph is null || _cafeDefinition is null)
         {
-            ReviewCard.IsVisible = false;
+            ReviewFlashHost.IsVisible = false;
+            ReviewFlashHost.Content = null;
             EmptyState.IsVisible = false;
             ContentGateState.IsVisible = true;
             ContentGateMessage.Text = string.IsNullOrWhiteSpace(_contentError)
@@ -161,7 +169,8 @@ public partial class ReviewView : UserControl
         _current = _snapshot.Queue.Due.FirstOrDefault();
         if (_current is null)
         {
-            ReviewCard.IsVisible = false;
+            ReviewFlashHost.IsVisible = false;
+            ReviewFlashHost.Content = null;
             EmptyState.IsVisible = true;
             EmptyMessage.Text = _snapshot.Queue.Upcoming.FirstOrDefault() is { } upcoming
                 ? AppStrings.Format(
@@ -172,19 +181,53 @@ public partial class ReviewView : UserControl
         }
 
         EmptyState.IsVisible = false;
-        ReviewCard.IsVisible = true;
         var descriptor = Describe(_current);
-        KindText.Text = descriptor.Kind.ToUpperInvariant();
-        PromptText.Text = descriptor.Prompt;
-        SupportText.Text = descriptor.Support;
-        AnswerText.Text = descriptor.Answer;
-        RevealButton.IsVisible = true;
-        RevealButton.IsEnabled = true;
-        AnswerPanel.IsVisible = false;
-        RatingPanel.IsVisible = false;
-        RatingPanel.IsEnabled = true;
+        ReviewFlashHost.Content = ReviewFlashRenderer.Render(
+            _imageCache,
+            CreateTemplateParameters(descriptor),
+            _instructionLanguage,
+            _shouldReduceMotion,
+            OnReviewOutcome);
+        ReviewFlashHost.IsEnabled = true;
+        ReviewFlashHost.IsVisible = true;
         _shownAt = Stopwatch.GetTimestamp();
     }
+
+    private ResolvedTemplateParameters CreateTemplateParameters(ReviewDescriptor descriptor) => new(
+        new Dictionary<string, ResolvedTemplateParameter>
+        {
+            ["instruction"] = new(
+                TemplateParameterKind.TextByLanguage,
+                TextByLanguage: new Dictionary<string, string>
+                {
+                    [_instructionLanguage.Value] = AppStrings.Get("Review_Rating_Body"),
+                }),
+            ["prompt"] = new(
+                TemplateParameterKind.Text,
+                Text: descriptor.Prompt),
+            ["answer"] = new(
+                TemplateParameterKind.Text,
+                Text: descriptor.Answer),
+            ["details"] = new(
+                TemplateParameterKind.OptionList,
+                Options:
+                [
+                    new("kind", descriptor.Kind),
+                    new("support", descriptor.Support),
+                ]),
+            ["ratings"] = new(
+                TemplateParameterKind.OptionList,
+                Options:
+                [
+                    new("again", AppStrings.Get("Review_Rating_Again")),
+                    new("hard", AppStrings.Get("Review_Rating_Hard")),
+                    new("good", AppStrings.Get("Review_Rating_Good")),
+                    new("easy", AppStrings.Get("Review_Rating_Easy")),
+                ]),
+            ["configuration-version"] = new(
+                TemplateParameterKind.Text,
+                Text: ReviewConfiguration.Default.Version.Value),
+        });
 
     private ReviewDescriptor Describe(ReviewSchedule schedule)
     {

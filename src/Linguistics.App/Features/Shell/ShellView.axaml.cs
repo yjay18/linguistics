@@ -184,14 +184,16 @@ public partial class ShellView : UserControl
                     _profileOwner,
                     _runtimeContentCatalog,
                     _runtimeContentError,
-                    _diagnosticLog));
+                    _diagnosticLog,
+                    _imageCache));
                 break;
             case "Progress":
                 ShowPage(new ProgressView(
                     _profile,
                     _profileOwner,
                     _runtimeContentCatalog,
-                    _diagnosticLog));
+                    _diagnosticLog,
+                    _imageCache));
                 break;
             case "Settings":
                 ShowPage(new SettingsView(

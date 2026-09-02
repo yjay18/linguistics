@@ -62,12 +62,12 @@
             </Grid>
         </controls:PaperCard>
 
-        <Grid x:Name="EvidenceGrid"
-              IsVisible="False"
-              ColumnDefinitions="*,*,*"
-              ColumnSpacing="12">
-            <controls:CutoutFrame Grid.Column="0"
-                                  Classes="tilt-left"
+        <WrapPanel x:Name="EvidenceGrid"
+                   IsVisible="False"
+                   ItemWidth="224"
+                   ItemSpacing="12"
+                   LineSpacing="12">
+            <controls:CutoutFrame Classes="tilt-left"
                                   Padding="6">
                 <Border Padding="18"
                         Background="{DynamicResource AppBlueSoftBrush}"
@@ -82,8 +82,7 @@
                     </StackPanel>
                 </Border>
             </controls:CutoutFrame>
-            <controls:CutoutFrame Grid.Column="1"
-                                  Padding="6">
+            <controls:CutoutFrame Padding="6">
                 <Border Padding="18"
                         Background="{DynamicResource AppAccentSoftBrush}"
                         CornerRadius="2">
@@ -97,8 +96,7 @@
                     </StackPanel>
                 </Border>
             </controls:CutoutFrame>
-            <controls:CutoutFrame Grid.Column="2"
-                                  Classes="tilt-right"
+            <controls:CutoutFrame Classes="tilt-right"
                                   Padding="6">
                 <Border Padding="18"
                         Background="{DynamicResource AppAmberSoftBrush}"
@@ -113,7 +111,7 @@
                     </StackPanel>
                 </Border>
             </controls:CutoutFrame>
-        </Grid>
+        </WrapPanel>
 
         <controls:PaperCard Classes="soft">
             <TextBlock Text="{loc:Localize Today_LocalOnly}"

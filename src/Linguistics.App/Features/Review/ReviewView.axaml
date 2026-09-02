@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
              xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,7 +9,7 @@
              d:DesignHeight="780"
              x:Class="Linguistics.App.Features.Review.ReviewView">
     <StackPanel Spacing="20">
-        <Border Classes="soft-card">
+        <controls:PaperCard Classes="soft">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel Spacing="5">
                     <TextBlock Text="{loc:Localize Review_Intro_Title}"
@@ -28,21 +29,21 @@
                                AutomationProperties.AutomationId="ReviewQueueCount" />
                 </Border>
             </Grid>
-        </Border>
+        </controls:PaperCard>
 
-        <Border x:Name="LoadingState"
-                Classes="soft-card">
+        <controls:PaperCard x:Name="LoadingState"
+                            Classes="soft">
             <StackPanel Spacing="12">
                 <ProgressBar IsIndeterminate="True"
                              AutomationProperties.Name="{loc:Localize Review_LoadingName}" />
                 <TextBlock Text="{loc:Localize Review_Loading}"
                            AutomationProperties.LiveSetting="Polite" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border x:Name="ContentGateState"
-                IsVisible="False"
-                Classes="warning-card">
+        <controls:PaperCard x:Name="ContentGateState"
+                            IsVisible="False"
+                            Classes="soft">
             <StackPanel Spacing="9">
                 <TextBlock Text="{loc:Localize Review_Gate_Title}"
                            FontSize="20"
@@ -55,11 +56,11 @@
                            TextWrapping="Wrap"
                            Opacity="0.74" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border x:Name="EmptyState"
-                IsVisible="False"
-                Classes="soft-card">
+        <controls:PaperCard x:Name="EmptyState"
+                            IsVisible="False"
+                            Classes="soft">
             <StackPanel Spacing="8">
                 <TextBlock Text="{loc:Localize Review_Empty_Title}"
                            FontSize="24"
@@ -69,77 +70,12 @@
                            TextWrapping="Wrap"
                            AutomationProperties.AutomationId="ReviewEmptyMessage" />
             </StackPanel>
-        </Border>
+        </controls:PaperCard>
 
-        <Border x:Name="ReviewCard"
-                IsVisible="False"
-                Classes="card">
-            <StackPanel Spacing="18">
-                <TextBlock x:Name="KindText"
-                           FontSize="13"
-                           FontWeight="SemiBold"
-                           Opacity="0.7"
-                           AutomationProperties.AutomationId="ReviewKind" />
-                <TextBlock x:Name="PromptText"
-                           FontSize="26"
-                           FontWeight="SemiBold"
-                           TextWrapping="Wrap"
-                           LineHeight="34"
-                           AutomationProperties.HeadingLevel="2"
-                           AutomationProperties.AutomationId="ReviewPrompt" />
-                <TextBlock x:Name="SupportText"
-                           TextWrapping="Wrap"
-                           Opacity="0.74" />
-                <Button x:Name="RevealButton"
-                        Content="{loc:Localize Review_Reveal}"
-                        Classes="primary lift"
-                        HorizontalAlignment="Left"
-                        Click="OnRevealClicked"
-                        AutomationProperties.AutomationId="RevealReviewAnswer" />
-                <Border x:Name="AnswerPanel"
+        <ContentControl x:Name="ReviewFlashHost"
                         IsVisible="False"
-                        Classes="accent-card">
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="{loc:Localize Review_Answer}"
-                                   FontSize="13"
-                                   FontWeight="SemiBold"
-                                   Opacity="0.7" />
-                        <TextBlock x:Name="AnswerText"
-                                   FontSize="20"
-                                   TextWrapping="Wrap"
-                                   AutomationProperties.AutomationId="ReviewAnswer" />
-                    </StackPanel>
-                </Border>
-                <StackPanel x:Name="RatingPanel"
-                            IsVisible="False"
-                            Spacing="10">
-                    <TextBlock Text="{loc:Localize Review_RatingPrompt}"
-                               FontWeight="SemiBold" />
-                    <WrapPanel ItemSpacing="8"
-                               LineSpacing="8">
-                        <Button Content="{loc:Localize Review_Rating_Again}"
-                                Tag="Again"
-                                Click="OnRatingClicked"
-                                AutomationProperties.AutomationId="ReviewAgain" />
-                        <Button Content="{loc:Localize Review_Rating_Hard}"
-                                Tag="Hard"
-                                Click="OnRatingClicked"
-                                AutomationProperties.AutomationId="ReviewHard" />
-                        <Button Content="{loc:Localize Review_Rating_Good}"
-                                Tag="Good"
-                                Click="OnRatingClicked"
-                                AutomationProperties.AutomationId="ReviewGood" />
-                        <Button Content="{loc:Localize Review_Rating_Easy}"
-                                Tag="Easy"
-                                Click="OnRatingClicked"
-                                AutomationProperties.AutomationId="ReviewEasy" />
-                    </WrapPanel>
-                    <TextBlock Text="{loc:Localize Review_Rating_Body}"
-                               TextWrapping="Wrap"
-                               Opacity="0.68" />
-                </StackPanel>
-            </StackPanel>
-        </Border>
+                        HorizontalContentAlignment="Stretch"
+                        AutomationProperties.AutomationId="ReviewFlashHost" />
 
         <TextBlock x:Name="StatusText"
                    IsVisible="False"

@@ -182,10 +182,10 @@ public sealed class DesignSystemTests
             ("CutoutFrame", 3));
         AssertMaterialCounts(
             Path.Combine(appRoot, "Features", "Progress", "ProgressView.axaml"),
-            ("PaperCard", 3),
-            ("PaperTape", 2),
-            ("PaperStamp", 1),
-            ("CutoutFrame", 3));
+            ("PaperCard", 1));
+        AssertMaterialCounts(
+            Path.Combine(appRoot, "Features", "Review", "ReviewView.axaml"),
+            ("PaperCard", 4));
         AssertMaterialCounts(
             Path.Combine(appRoot, "Features", "Settings", "SettingsView.axaml"),
             ("PaperCard", 7));

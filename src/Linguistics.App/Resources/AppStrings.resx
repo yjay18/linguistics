@@ -1109,4 +1109,61 @@
   <data name="ConsequenceVerdict_OutcomeFailure" xml:space="preserve"><value>Failure is preserved. Retry remains available with the report visible.</value></data>
   <data name="ConsequenceVerdict_OutcomeReady" xml:space="preserve"><value>Ready. The projected outcome and report are available.</value></data>
   <data name="ConsequenceVerdict_StageName" xml:space="preserve"><value>Outcome consequence for {0}. {1}. {2}</value></data>
+  <data name="ReviewFlash_Replay" xml:space="preserve"><value>Replay card</value></data>
+  <data name="ReviewFlash_ReplayName" xml:space="preserve"><value>Reset and replay the review card entrance</value></data>
+  <data name="ReviewFlash_Skip" xml:space="preserve"><value>Skip entrance</value></data>
+  <data name="ReviewFlash_SkipName" xml:space="preserve"><value>Skip to the complete review card</value></data>
+  <data name="ReviewFlash_InstructionName" xml:space="preserve"><value>Review instruction. {0}</value></data>
+  <data name="ReviewFlash_StageName" xml:space="preserve"><value>Review recall card. Prompt: {0}. Reveal the answer before rating recall.</value></data>
+  <data name="ReviewFlash_Recall" xml:space="preserve"><value>RECALL</value></data>
+  <data name="ReviewFlash_FrontName" xml:space="preserve"><value>Review card front. Recall: {0}</value></data>
+  <data name="ReviewFlash_ReviewedAnswer" xml:space="preserve"><value>REVIEWED ANSWER</value></data>
+  <data name="ReviewFlash_BackName" xml:space="preserve"><value>Reviewed answer. {0}. {1}</value></data>
+  <data name="ReviewFlash_Hidden" xml:space="preserve"><value>Answer hidden. Recall before revealing.</value></data>
+  <data name="ReviewFlash_StatusName" xml:space="preserve"><value>Review card status</value></data>
+  <data name="ReviewFlash_RevealName" xml:space="preserve"><value>Reveal the reviewed answer and rating choices</value></data>
+  <data name="ReviewFlash_RatingsName" xml:space="preserve"><value>Rate recall as Again, Hard, Good, or Easy</value></data>
+  <data name="ReviewFlash_RatingName" xml:space="preserve"><value>Rate recall {0}</value></data>
+  <data name="ReviewFlash_Rated" xml:space="preserve"><value>Recall rated {0}.</value></data>
+  <data name="ReviewFlash_Configuration" xml:space="preserve"><value>Review rule set: {0}. This card reports one rating; deterministic review code schedules it.</value></data>
+  <data name="ReviewFlash_ConfigurationName" xml:space="preserve"><value>Review configuration {0}. This card rates only and never schedules.</value></data>
+  <data name="ReviewFlash_Revealed" xml:space="preserve"><value>Reviewed answer revealed. {0}</value></data>
+  <data name="ReviewFlash_OutcomeSuccess" xml:space="preserve"><value>Good or Easy selected. Existing deterministic review rules schedule the item.</value></data>
+  <data name="ReviewFlash_OutcomeUncertain" xml:space="preserve"><value>Recall is pending or Hard selected. Existing deterministic review rules schedule the item.</value></data>
+  <data name="ReviewFlash_OutcomeFailure" xml:space="preserve"><value>Again selected. Existing deterministic review rules schedule the item.</value></data>
+  <data name="ReviewFlash_OutcomeReady" xml:space="preserve"><value>Ready. Recall the answer before revealing it.</value></data>
+  <data name="ProgressShelf_Instruction" xml:space="preserve"><value>Select a paper situation to inspect its locally projected status.</value></data>
+  <data name="ProgressShelf_Title" xml:space="preserve"><value>Situations you can handle</value></data>
+  <data name="ProgressShelf_Empty" xml:space="preserve"><value>Complete a practical task to place its first situation on this shelf.</value></data>
+  <data name="ProgressShelf_Method" xml:space="preserve"><value>Stored successful tasks demonstrate capabilities. Versioned deterministic rules keep concept and review evidence separate.</value></data>
+  <data name="ProgressShelf_Replay" xml:space="preserve"><value>Replay shelf</value></data>
+  <data name="ProgressShelf_ReplayName" xml:space="preserve"><value>Replay the capability shelf entrance</value></data>
+  <data name="ProgressShelf_Skip" xml:space="preserve"><value>Skip entrance</value></data>
+  <data name="ProgressShelf_SkipName" xml:space="preserve"><value>Skip to the complete capability shelf</value></data>
+  <data name="ProgressShelf_InstructionName" xml:space="preserve"><value>Progress instruction. {0}</value></data>
+  <data name="ProgressShelf_SelectPrompt" xml:space="preserve"><value>Select a paper situation to inspect its projected status.</value></data>
+  <data name="ProgressShelf_StatusName" xml:space="preserve"><value>Selected capability status</value></data>
+  <data name="ProgressShelf_SelectedSituation" xml:space="preserve"><value>SELECTED SITUATION</value></data>
+  <data name="ProgressShelf_StageName" xml:space="preserve"><value>{0}. {1} demonstrated, {2} practising, and {3} not started.</value></data>
+  <data name="ProgressShelf_BoardName" xml:space="preserve"><value>Paper capability shelf</value></data>
+  <data name="ProgressShelf_ObjectsName" xml:space="preserve"><value>Projected capability objects in status order</value></data>
+  <data name="ProgressShelf_ReadyLabel" xml:space="preserve"><value>SHELF READY</value></data>
+  <data name="ProgressShelf_EmptyName" xml:space="preserve"><value>Empty capability shelf. {0}</value></data>
+  <data name="ProgressShelf_Inspect" xml:space="preserve"><value>Inspect situation</value></data>
+  <data name="ProgressShelf_CapabilityName" xml:space="preserve"><value>{0}. {1} Select for details.</value></data>
+  <data name="ProgressShelf_SelectedStatus" xml:space="preserve"><value>{0}. {1}</value></data>
+  <data name="ProgressShelf_ObjectName" xml:space="preserve"><value>Paper situation object. {0}. {1}.</value></data>
+  <data name="ProgressShelf_TextMode" xml:space="preserve"><value>Text-only progress. Every situation and projected status remains complete.</value></data>
+  <data name="ProgressShelf_PaperMode" xml:space="preserve"><value>Paper objects lead with situations and projected evidence status.</value></data>
+  <data name="ProgressShelf_MethodName" xml:space="preserve"><value>How status is projected. {0}</value></data>
+  <data name="ProgressShelf_StatusDemonstrated" xml:space="preserve"><value>CAN HANDLE</value></data>
+  <data name="ProgressShelf_StatusPracticing" xml:space="preserve"><value>PRACTISING</value></data>
+  <data name="ProgressShelf_StatusNotStarted" xml:space="preserve"><value>NOT STARTED</value></data>
+  <data name="ProgressShelf_DescriptionDemonstrated" xml:space="preserve"><value>Demonstrated from projected task evidence.</value></data>
+  <data name="ProgressShelf_DescriptionPracticing" xml:space="preserve"><value>Practising from projected task evidence.</value></data>
+  <data name="ProgressShelf_DescriptionNotStarted" xml:space="preserve"><value>Not started. Setup alone never implies ability.</value></data>
+  <data name="ProgressShelf_OutcomeSuccess" xml:space="preserve"><value>Demonstrated situation selected from projected task evidence.</value></data>
+  <data name="ProgressShelf_OutcomeUncertain" xml:space="preserve"><value>Practising situation selected, or choose a paper situation.</value></data>
+  <data name="ProgressShelf_OutcomeFailure" xml:space="preserve"><value>Capability status is unavailable. Return to the projected shelf.</value></data>
+  <data name="ProgressShelf_OutcomeReady" xml:space="preserve"><value>Not-started situation selected, or the capability shelf is ready.</value></data>
 </root>
