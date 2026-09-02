@@ -795,6 +795,42 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void MenuReadReportsDeterministicAuthoredPriceIds()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("menu-read"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var descendants = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var buttons = descendants.OfType<Button>().ToArray();
+        var wrong = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "MenuReadOption_price-280");
+        var correct = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "MenuReadOption_price-340");
+
+        wrong.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        correct.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[0].State);
+        Assert.AreEqual("price-280", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[1].State);
+        Assert.AreEqual("price-340", reported[1].ResponseId);
+        Assert.AreNotEqual("3,40 €", reported[1].ResponseId);
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "MenuReadReplay"));
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "MenuReadSkip"));
+        Assert.IsTrue(descendants.OfType<TextBlock>().Any(text =>
+            text.Text == "Kännchen Tee · 3,40 €"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

@@ -739,3 +739,214 @@ internal static class NoteWriteRenderer
         _ => "Ready: write a short note using every listed detail.",
     };
 }
+
+internal static class MenuReadRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        _ = imageCache;
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var menuTitle = TemplateRendering.Text(parameters, "menu-title");
+        var menuItems = TemplateRendering.Options(parameters, "menu-items");
+        var question = TemplateRendering.Text(parameters, "question");
+        var options = TemplateRendering.Options(parameters, "options");
+        var answerId = TemplateRendering.Text(parameters, "answer");
+        if (menuItems.Count < 2 || options.Count < 2)
+        {
+            throw new InvalidOperationException("Menu reading requires menu items and at least two answer options.");
+        }
+
+        if (!options.Any(option => string.Equals(option.Id, answerId, StringComparison.Ordinal)))
+        {
+            throw new InvalidOperationException("Menu reading answer must name an available option.");
+        }
+
+        var replayButton = new Button { Content = "Replay menu", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(replayButton, "MenuReadReplay");
+        AutomationProperties.SetName(replayButton, "Replay the menu entrance");
+        var skipButton = new Button { Content = "Skip menu", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(skipButton, "MenuReadSkip");
+        AutomationProperties.SetName(skipButton, "Skip to the completed menu");
+        var instructionText = new TextBlock
+        {
+            Text = instruction,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetName(instructionText, $"Reading instruction. {instruction}");
+        var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        headerActions.Children.Add(replayButton);
+        headerActions.Children.Add(skipButton);
+        var header = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        header.Children.Add(instructionText);
+        Grid.SetColumn(headerActions, 1);
+        header.Children.Add(headerActions);
+
+        var menuTape = new PaperTape { Content = menuTitle.ToUpperInvariant(), Angle = -1.1 };
+        AutomationProperties.SetName(menuTape, $"Menu title. {menuTitle}");
+        var itemPanel = new StackPanel { Spacing = 8 };
+        foreach (var item in menuItems)
+        {
+            var itemText = new TextBlock
+            {
+                Text = item.Label,
+                FontSize = 17,
+                FontWeight = FontWeight.SemiBold,
+                TextWrapping = TextWrapping.Wrap,
+            };
+            AutomationProperties.SetName(itemText, $"Menu item. {item.Label}");
+            itemPanel.Children.Add(itemText);
+        }
+
+        var menuContent = new StackPanel { Spacing = 12 };
+        menuContent.Children.Add(menuTape);
+        menuContent.Children.Add(new TextBlock
+        {
+            Text = "SYNTHETIC PREVIEW MENU",
+            FontSize = 12,
+            FontWeight = FontWeight.Bold,
+            Classes = { "muted" },
+        });
+        menuContent.Children.Add(itemPanel);
+        var menuCard = new PaperCard
+        {
+            Padding = new Thickness(22, 18),
+            Content = menuContent,
+            RenderTransformOrigin = new RelativePoint(0.5, 1, RelativeUnit.Relative),
+        };
+        menuCard.Classes.Add("settings-sheet");
+        AutomationProperties.SetName(
+            menuCard,
+            $"Synthetic menu. {menuTitle}. {string.Join(". ", menuItems.Select(item => item.Label))}");
+
+        var questionText = new TextBlock
+        {
+            Text = question,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+        };
+        AutomationProperties.SetName(questionText, $"Menu question. {question}");
+        var optionPanel = new WrapPanel { Orientation = Orientation.Horizontal };
+        AutomationProperties.SetName(optionPanel, "Menu answer choices");
+        var buttons = new Dictionary<string, Button>(StringComparer.Ordinal);
+        string? selectedId = null;
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+        foreach (var option in options)
+        {
+            var button = new Button
+            {
+                Content = option.Label,
+                Margin = new Thickness(0, 6, 8, 0),
+                Classes = { "quiet" },
+            };
+            AutomationProperties.SetAutomationId(button, $"MenuReadOption_{option.Id}");
+            AutomationProperties.SetName(button, $"Answer {option.Label}");
+            button.Click += (_, _) =>
+            {
+                selectedId = option.Id;
+                RefreshSelection();
+                var outcome = TemplateInteractionEvaluator.EvaluateSingleSelection(
+                    options,
+                    answerId,
+                    selectedId);
+                TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+                reportOutcome(outcome);
+            };
+            buttons.Add(option.Id, button);
+            optionPanel.Children.Add(button);
+        }
+
+        var questionContent = new StackPanel { Spacing = 6 };
+        questionContent.Children.Add(questionText);
+        questionContent.Children.Add(optionPanel);
+        var questionCard = new PaperCard
+        {
+            Padding = new Thickness(14, 12),
+            Content = questionContent,
+        };
+        questionCard.Classes.Add("soft");
+        AutomationProperties.SetName(questionCard, "Synthetic menu extraction question");
+
+        var root = new StackPanel { Spacing = 12 };
+        root.Children.Add(header);
+        if (parameters.UseTextOnlyFallback)
+        {
+            root.Children.Add(new TextBlock
+            {
+                Text = "Text-only menu mode is active. Every item, price, question, and choice remains available.",
+                Classes = { "muted" },
+                TextWrapping = TextWrapping.Wrap,
+            });
+        }
+
+        root.Children.Add(menuCard);
+        root.Children.Add(questionCard);
+        root.Children.Add(outcomePanel);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            TemplateRendering.Prepare(shouldReduceMotion, menuCard, questionCard);
+            if (!shouldReduceMotion)
+            {
+                menuCard.RenderTransform = TemplateRendering.Transform(-10, 10, -1.2, 0.98);
+                questionCard.RenderTransform = TemplateRendering.Transform(10, 6, 0.8, 0.98);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(520), menuCard, 0, 0, 0, 1),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(320), questionCard, 0, 0, 0, 1),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) =>
+        {
+            scene?.Skip();
+            menuTape.SkipEntrance();
+        };
+        return root;
+
+        void RefreshSelection()
+        {
+            foreach (var pair in buttons)
+            {
+                pair.Value.Classes.Remove("primary");
+                if (string.Equals(pair.Key, selectedId, StringComparison.Ordinal))
+                {
+                    pair.Value.Classes.Add("primary");
+                }
+            }
+        }
+    }
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "That price matches the requested menu item.",
+        TemplateOutcomeState.Uncertain => "Choose one price from the synthetic menu.",
+        TemplateOutcomeState.Failure => "Check the requested item and its printed price again.",
+        _ => "Ready: find the requested item, then choose its price.",
+    };
+}

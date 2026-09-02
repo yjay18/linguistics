@@ -1351,5 +1351,45 @@ internal static class TemplateGalleryFixtures
                         new("return-time", "um sechs Uhr"),
                     ]),
             })),
+        new(
+            new TemplateId("menu-read"),
+            "Menu read",
+            "Reading · synthetic café menu · deterministic price extraction",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Read the synthetic menu, then choose the requested price.",
+                        ["hi"] = "कृत्रिम मेनू पढ़ें, फिर पूछा गया मूल्य चुनें।",
+                    }),
+                ["menu-title"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Café Morgenrot"),
+                ["menu-items"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("coffee", "Kaffee · 2,80 €"),
+                        new("tea", "Kännchen Tee · 3,40 €"),
+                        new("cake", "Apfelkuchen · 4,20 €"),
+                    ]),
+                ["question"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Was kostet ein Kännchen Tee?"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("price-280", "2,80 €"),
+                        new("price-340", "3,40 €"),
+                        new("price-420", "4,20 €"),
+                    ]),
+                ["answer"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "price-340"),
+            })),
     ];
 }

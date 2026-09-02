@@ -707,6 +707,39 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void MenuReadMapsOnlyAuthoredPriceOptionIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("menu-read")));
+        var options = new[]
+        {
+            new TemplateOption("price-280", "2,80 €"),
+            new TemplateOption("price-340", "3,40 €"),
+            new TemplateOption("price-420", "4,20 €"),
+        };
+
+        var incomplete = TemplateInteractionEvaluator.EvaluateSingleSelection(
+            options,
+            "price-340",
+            null);
+        var failure = TemplateInteractionEvaluator.EvaluateSingleSelection(
+            options,
+            "price-340",
+            "price-280");
+        var success = TemplateInteractionEvaluator.EvaluateSingleSelection(
+            options,
+            "price-340",
+            "price-340");
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, failure.State);
+        Assert.AreEqual(TemplateOutcomeState.Success, success.State);
+        Assert.AreEqual("price-280", failure.ResponseId);
+        Assert.AreEqual("price-340", success.ResponseId);
+        Assert.AreNotEqual("3,40 €", success.ResponseId);
+    }
+
+    [TestMethod]
     public void ListenRouteUsesOnlyTheAuthoredStopOrder()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

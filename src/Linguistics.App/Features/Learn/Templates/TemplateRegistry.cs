@@ -298,6 +298,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("note-write"),
             NoteWriteRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("menu-read"),
+            MenuReadRenderer.Render),
     ]);
 
     public Control Render(
