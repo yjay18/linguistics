@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Linguistics.App.Controls;
+using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Providers;
@@ -92,8 +93,9 @@ public partial class CafeOrderView : UserControl
             LoadingPanel.IsVisible = false;
             ContentGatePanel.IsVisible = true;
             ContentGateTechnicalText.IsVisible = true;
-            ContentGateTechnicalText.Text =
-                $"The local scenario could not initialize safely: {exception.Message}";
+            ContentGateTechnicalText.Text = AppStrings.Format(
+                "Scenario_InitializeFailed",
+                exception.Message);
         }
     }
 
@@ -103,7 +105,7 @@ public partial class CafeOrderView : UserControl
         ContentGatePanel.IsVisible = true;
         ContentGateTechnicalText.IsVisible = DeveloperModeEnabled();
         ContentGateTechnicalText.Text = string.IsNullOrWhiteSpace(_runtimeContentError)
-            ? "No approved runtime content catalog was loaded."
+            ? AppStrings.Get("Scenario_NoRuntimeCatalog")
             : _runtimeContentError;
     }
 
@@ -119,14 +121,20 @@ public partial class CafeOrderView : UserControl
         SuccessCriteriaList.ItemsSource = definition.SuccessCriteria
             .Select(criterion => $"• {criterion}")
             .ToArray();
-        ReadyStatusText.Text = state.Message;
+        ReadyStatusText.Text = state.CanStart
+            ? AppStrings.Get("Scenario_Ready")
+            : AppStrings.Get("Scenario_PrerequisitesLocked");
         PreviousAttemptsText.Text = state.PreviousCompletions == 0
-            ? "No previous café completion is stored."
-            : $"Completed locally {state.PreviousCompletions} time(s).";
+            ? AppStrings.Get("Scenario_NoPreviousCompletion")
+            : AppStrings.Format(
+                "Scenario_PreviousCompletions",
+                state.PreviousCompletions);
         MissingPrerequisitesText.IsVisible = state.MissingPrerequisiteTitles.Count > 0;
         MissingPrerequisitesText.Text = state.MissingPrerequisiteTitles.Count == 0
             ? string.Empty
-            : $"Still needed: {string.Join(", ", state.MissingPrerequisiteTitles)}.";
+            : AppStrings.Format(
+                "Scenario_MissingPrerequisites",
+                string.Join(", ", state.MissingPrerequisiteTitles));
         StartButton.IsEnabled = state.CanStart;
 
         if (state.Bridge is { } bridge)
@@ -138,7 +146,7 @@ public partial class CafeOrderView : UserControl
                     bridge.Explanation,
                     bridge.Risks,
                     bridge.RequiresConfirmation,
-                    "Dismiss bridge"),
+                    AppStrings.Get("Scenario_DismissBridge")),
                 "Cafe");
             _bridgeNote.Dismissed += (_, _) =>
             {
@@ -177,8 +185,8 @@ public partial class CafeOrderView : UserControl
             var opening = _controller.Start(_bridgeNote?.IsConfirmed == true);
             ReadyPanel.IsVisible = false;
             ActiveScenarioPanel.IsVisible = true;
-            AddConversationMessage("Server", opening, isLearner: false);
-            TurnStatusText.Text = "Scripted dialogue is ready. Type or use configured local speech; a selected local model may vary only an allowed server line.";
+            AddConversationMessage(AppStrings.Get("Scenario_Server"), opening, isLearner: false);
+            TurnStatusText.Text = AppStrings.Get("Scenario_DialogueReady");
             LearnerInput.Focus();
         }
         catch (InvalidOperationException exception)
@@ -209,7 +217,7 @@ public partial class CafeOrderView : UserControl
         var learnerText = LearnerInput.Text?.Trim();
         if (string.IsNullOrWhiteSpace(learnerText))
         {
-            TurnStatusText.Text = "Type a short reply before sending.";
+            TurnStatusText.Text = AppStrings.Get("Scenario_ReplyRequired");
             LearnerInput.Focus();
             return;
         }
@@ -218,7 +226,7 @@ public partial class CafeOrderView : UserControl
                            string.Equals(pending.Transcript?.Trim(), learnerText, StringComparison.Ordinal)
             ? pending
             : null;
-        AddConversationMessage("You", learnerText, isLearner: true);
+        AddConversationMessage(AppStrings.Get("Scenario_You"), learnerText, isLearner: true);
         _settingTranscript = true;
         LearnerInput.Text = string.Empty;
         _settingTranscript = false;
@@ -239,7 +247,7 @@ public partial class CafeOrderView : UserControl
         }
         catch (OperationCanceledException)
         {
-            TurnStatusText.Text = "The response was cancelled. The deterministic scenario remains consistent.";
+            TurnStatusText.Text = AppStrings.Get("Scenario_ResponseCancelled");
         }
         catch (Exception exception) when (
             exception is InvalidOperationException or
@@ -258,7 +266,7 @@ public partial class CafeOrderView : UserControl
     {
         if (outcome.NpcResponse is { } npcResponse)
         {
-            AddConversationMessage("Server", npcResponse, isLearner: false);
+            AddConversationMessage(AppStrings.Get("Scenario_Server"), npcResponse, isLearner: false);
         }
 
         if (outcome.Evaluation.PrimaryIntervention is { } primary)
@@ -272,11 +280,15 @@ public partial class CafeOrderView : UserControl
         OtherObservationsText.Text = string.Join(
             Environment.NewLine,
             outcome.Evaluation.OtherObservations.Select(observation => $"• {observation.Message}"));
-        TurnStatusText.Text = outcome.ModelMessage;
+        TurnStatusText.Text = outcome.DialogueMode == DialogueRealizationMode.LocalModel
+            ? AppStrings.Get("Scenario_LocalModelResponse")
+            : AppStrings.Get("Scenario_ScriptedResponse");
         if (outcome.PronunciationAssessment is { } pronunciation)
         {
-            TurnStatusText.Text +=
-                $" Local word evidence: {pronunciation.Evidence.MatchedWordCount} of {pronunciation.Evidence.ExpectedWordCount} expected words matched in order; this is not a phoneme or accent score.";
+            TurnStatusText.Text += " " + AppStrings.Format(
+                "Scenario_WordEvidence",
+                pronunciation.Evidence.MatchedWordCount,
+                pronunciation.Evidence.ExpectedWordCount);
         }
 
         var diagnostic = outcome.ModelDiagnostic;
@@ -306,16 +318,19 @@ public partial class CafeOrderView : UserControl
         CompletionPanel.IsVisible = true;
         var evidence = outcome.Evaluation.Evidence!;
         var pronunciationText = outcome.PronunciationAssessment is { } pronunciation
-            ? $"Recognizer intelligibility proxy: {pronunciation.Evidence.MatchedWordCount} of {pronunciation.Evidence.ExpectedWordCount} expected words matched"
-            : "Pronunciation: not measured from text";
-        EvidenceText.Text =
-            $"Communicative goal: achieved\n" +
-            $"Linguistic accuracy: {Percent(evidence.LinguisticAccuracy)}\n" +
-            $"Fluency: {Percent(evidence.Fluency)}\n" +
-            $"Target concept: {Percent(evidence.TargetConceptPerformance)}\n" +
-            pronunciationText;
+            ? AppStrings.Format(
+                "Scenario_Evidence_Pronunciation",
+                pronunciation.Evidence.MatchedWordCount,
+                pronunciation.Evidence.ExpectedWordCount)
+            : AppStrings.Get("Scenario_Evidence_PronunciationNotMeasured");
+        EvidenceText.Text = AppStrings.Format(
+            "Scenario_Evidence",
+            Percent(evidence.LinguisticAccuracy),
+            Percent(evidence.Fluency),
+            Percent(evidence.TargetConceptPerformance),
+            pronunciationText);
         PersistenceStatusText.Text = outcome.Persisted
-            ? $"Saved locally. Concept state: {outcome.UpdatedProgressState}. A deterministic review handoff was created."
+            ? AppStrings.Get("Scenario_PersistenceSaved")
             : outcome.PersistenceError;
         RetrySaveButton.IsVisible = !outcome.Persisted;
         PracticeAgainButton.IsVisible = outcome.Persisted;
@@ -332,7 +347,9 @@ public partial class CafeOrderView : UserControl
         try
         {
             var result = await _controller.RetryPersistenceAsync();
-            PersistenceStatusText.Text = result.Message;
+            PersistenceStatusText.Text = result.Persisted
+                ? AppStrings.Get("Scenario_PersistenceSaved")
+                : result.Message;
             RetrySaveButton.IsVisible = !result.Persisted;
             PracticeAgainButton.IsVisible = result.Persisted;
         }
@@ -347,7 +364,7 @@ public partial class CafeOrderView : UserControl
     private void OnCancelResponseClicked(object? sender, RoutedEventArgs args)
     {
         _turnCancellation?.Cancel();
-        TurnStatusText.Text = "Cancelling the optional local response; scripted recovery will remain available.";
+        TurnStatusText.Text = AppStrings.Get("Scenario_CancellingResponse");
     }
 
     private void OnExitClicked(object? sender, RoutedEventArgs args)
@@ -361,7 +378,7 @@ public partial class CafeOrderView : UserControl
         _controller.Exit();
         ActiveScenarioPanel.IsVisible = false;
         ReadyPanel.IsVisible = true;
-        ReadyStatusText.Text = "Scenario exited. No unfinished conversation text was stored.";
+        ReadyStatusText.Text = AppStrings.Get("Scenario_Exited");
         StartButton.Focus();
     }
 
@@ -372,7 +389,9 @@ public partial class CafeOrderView : UserControl
             return;
         }
 
-        SupportText.Text = $"On request: {Translation(_lastNpcResponse)}";
+        SupportText.Text = AppStrings.Format(
+            "Scenario_TranslationResult",
+            Translation(_lastNpcResponse));
         SupportText.IsVisible = true;
     }
 
@@ -405,7 +424,7 @@ public partial class CafeOrderView : UserControl
             await _speechSynthesisProvider.StopAsync();
         }
 
-        SpeechStatusText.Text = "Speech playback stopped. The caption remains in the conversation.";
+        SpeechStatusText.Text = AppStrings.Get("Scenario_PlaybackStopped");
     }
 
     private async Task SpeakLastNpcAsync(double rate)
@@ -414,14 +433,16 @@ public partial class CafeOrderView : UserControl
             _speechSynthesisProvider is null ||
             _controller?.Session is not { } session)
         {
-            SpeechStatusText.Text = "No server caption is ready to play.";
+            SpeechStatusText.Text = AppStrings.Get("Scenario_NoCaption");
             return;
         }
 
         _playbackCancellation?.Cancel();
         _playbackCancellation?.Dispose();
         _playbackCancellation = new CancellationTokenSource();
-        SpeechStatusText.Text = rate < 1 ? "Playing the server caption more slowly…" : "Playing the server caption…";
+        SpeechStatusText.Text = rate < 1
+            ? AppStrings.Get("Scenario_PlayingSlowly")
+            : AppStrings.Get("Scenario_Playing");
         var result = await _speechSynthesisProvider.SpeakAsync(
             new SpeechSynthesisRequest(
                 Guid.NewGuid(),
@@ -458,7 +479,7 @@ public partial class CafeOrderView : UserControl
         SpeechDisclosurePanel.IsVisible = false;
         RecordingPanel.IsVisible = true;
         RecordReplyButton.IsVisible = false;
-        SpeechStatusText.Text = "Microphone active. Speak one short café reply; processing stays local.";
+        SpeechStatusText.Text = AppStrings.Get("Scenario_MicrophoneActive");
         _recognitionCancellation?.Dispose();
         _recognitionCancellation = new CancellationTokenSource();
         try
@@ -482,8 +503,8 @@ public partial class CafeOrderView : UserControl
                 _settingTranscript = true;
                 LearnerInput.Text = result.Transcript;
                 _settingTranscript = false;
-                SpeechStatusText.Text = result.Message +
-                    " Sending it unchanged keeps intelligibility evidence based on the transcript; editing treats it as text.";
+                SpeechStatusText.Text = result.Message + " " +
+                    AppStrings.Get("Scenario_TranscriptAccepted");
                 RecordReplyButton.IsVisible = true;
                 LearnerInput.Focus();
             }
@@ -514,7 +535,7 @@ public partial class CafeOrderView : UserControl
         CancelActiveSpeechRequest();
         RecordingPanel.IsVisible = false;
         RecordReplyButton.IsVisible = true;
-        SpeechStatusText.Text = "Recording cancelled. The café task did not change; text remains available.";
+        SpeechStatusText.Text = AppStrings.Get("Scenario_RecordingCancelled");
         LearnerInput.Focus();
     }
 
@@ -531,8 +552,7 @@ public partial class CafeOrderView : UserControl
                 StringComparison.Ordinal))
         {
             CancelActiveSpeechRequest();
-            SpeechStatusText.Text =
-                "Transcript edited. This reply will be evaluated as text, so no pronunciation evidence will be attached.";
+            SpeechStatusText.Text = AppStrings.Get("Scenario_TranscriptEdited");
         }
     }
 
@@ -540,7 +560,7 @@ public partial class CafeOrderView : UserControl
     {
         if (_speechSynthesisProvider is null || _speechRecognitionProvider is null)
         {
-            SpeechStatusText.Text = "Local speech providers are unavailable. Text and captions remain complete.";
+            SpeechStatusText.Text = AppStrings.Get("Scenario_SpeechUnavailable");
             RecordReplyButton.IsEnabled = false;
             _recognitionAvailable = false;
             RepeatButton.IsEnabled = false;
@@ -561,9 +581,12 @@ public partial class CafeOrderView : UserControl
         StopPlaybackButton.IsEnabled = hasGermanVoice;
         _recognitionAvailable = recognition.Status == SpeechCapabilityStatus.Available;
         RecordReplyButton.IsEnabled = _microphoneAllowed && _recognitionAvailable;
-        SpeechStatusText.Text =
-            $"Playback: {(hasGermanVoice ? "German system voice ready" : "no German system voice")}. " +
-            $"Microphone transcription: {recognition.Message}";
+        SpeechStatusText.Text = AppStrings.Format(
+            "Scenario_SpeechStatus",
+            hasGermanVoice
+                ? AppStrings.Get("Scenario_GermanVoiceReady")
+                : AppStrings.Get("Scenario_GermanVoiceMissing"),
+            recognition.Message);
     }
 
     private void ResetTaskSurface()
@@ -635,7 +658,7 @@ public partial class CafeOrderView : UserControl
         PracticeAgainButton.IsEnabled = !busy;
         RecordReplyButton.IsEnabled = !busy && _microphoneAllowed && _recognitionAvailable;
         TurnStatusText.Text = busy
-            ? "Checking the deterministic task, then asking the optional local renderer…"
+            ? AppStrings.Get("Scenario_CheckingTask")
             : TurnStatusText.Text;
     }
 
@@ -670,31 +693,33 @@ public partial class CafeOrderView : UserControl
     }
 
     private static string Percent(double? value) =>
-        value is null ? "not measured" : $"{value:P0}";
+        value is null
+            ? AppStrings.Get("Scenario_NotMeasured")
+            : value.Value.ToString("P0", AppStrings.CurrentCulture);
 
     private static string LanguageName(LanguageCode language) => language.Value switch
     {
-        "en" => "English",
-        "hi" => "Hindi",
+        "en" => AppStrings.Get("Language_English"),
+        "hi" => AppStrings.Get("Language_Hindi"),
         _ => language.Value,
     };
 
     private static string RelationName(TransferRelation relation) => relation switch
     {
-        TransferRelation.Facilitative => "helpful similarity",
-        TransferRelation.PartiallyFacilitative => "partial bridge",
-        TransferRelation.Interfering => "interference warning",
-        _ => "language note",
+        TransferRelation.Facilitative => AppStrings.Get("Scenario_Relation_Helpful"),
+        TransferRelation.PartiallyFacilitative => AppStrings.Get("Scenario_Relation_Partial"),
+        TransferRelation.Interfering => AppStrings.Get("Scenario_Relation_Interfering"),
+        _ => AppStrings.Get("Scenario_Relation_Note"),
     };
 
     private static string Translation(string german) => german switch
     {
-        "Guten Tag! Was möchten Sie?" => "Hello! What would you like?",
-        "Sie können beginnen: Ich möchte ..." => "You can begin: I would like ...",
-        "Kaffee, Tee oder Wasser?" => "Coffee, tea, or water?",
-        "Wählen Sie ein Getränk." => "Choose a drink.",
-        "Gern. Einen Moment, bitte." => "Certainly. One moment, please.",
-        _ => "A reviewed translation is not available for this line.",
+        "Guten Tag! Was möchten Sie?" => AppStrings.Get("Scenario_Translation_Greeting"),
+        "Sie können beginnen: Ich möchte ..." => AppStrings.Get("Scenario_Translation_Frame"),
+        "Kaffee, Tee oder Wasser?" => AppStrings.Get("Scenario_Translation_Options"),
+        "Wählen Sie ein Getränk." => AppStrings.Get("Scenario_Translation_Choose"),
+        "Gern. Einen Moment, bitte." => AppStrings.Get("Scenario_Translation_Complete"),
+        _ => AppStrings.Get("Scenario_Translation_Unavailable"),
     };
 
     private static bool DeveloperModeEnabled() =>

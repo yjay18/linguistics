@@ -756,4 +756,82 @@
   <data name="Review_Unavailable" xml:space="preserve">
     <value>Review is unavailable because the learning service was not initialized.</value>
   </data>
+  <data name="Scenario_Adjustment" xml:space="preserve"><value>One useful adjustment</value></data>
+  <data name="Scenario_AtCounter" xml:space="preserve"><value>At the counter</value></data>
+  <data name="Scenario_CancelRecording" xml:space="preserve"><value>Cancel recording</value></data>
+  <data name="Scenario_CancelResponse" xml:space="preserve"><value>Cancel local response</value></data>
+  <data name="Scenario_CancellingResponse" xml:space="preserve"><value>Cancelling the optional local response. Scripted recovery remains available.</value></data>
+  <data name="Scenario_CheckingTask" xml:space="preserve"><value>Checking the deterministic task, then asking the optional local renderer...</value></data>
+  <data name="Scenario_Completed_Body" xml:space="preserve"><value>You accomplished the café goal. Accuracy and fluency remain separate. Typed text creates no pronunciation score.</value></data>
+  <data name="Scenario_Completed_Title" xml:space="preserve"><value>Order understood</value></data>
+  <data name="Scenario_DialogueReady" xml:space="preserve"><value>Scripted dialogue is ready. Type or use configured local speech. A selected local model can vary only an allowed server line.</value></data>
+  <data name="Scenario_DismissBridge" xml:space="preserve"><value>Dismiss bridge</value></data>
+  <data name="Scenario_Evidence" xml:space="preserve"><value>Communicative goal: achieved&#xA;Linguistic accuracy: {0}&#xA;Fluency: {1}&#xA;Target concept: {2}&#xA;{3}</value></data>
+  <data name="Scenario_Evidence_Pronunciation" xml:space="preserve"><value>Recognizer intelligibility proxy: {0} of {1} expected words matched</value></data>
+  <data name="Scenario_Evidence_PronunciationNotMeasured" xml:space="preserve"><value>Pronunciation: not measured from text</value></data>
+  <data name="Scenario_Exit" xml:space="preserve"><value>Exit scenario</value></data>
+  <data name="Scenario_Exited" xml:space="preserve"><value>Scenario exited. No unfinished conversation text was stored.</value></data>
+  <data name="Scenario_Eyebrow" xml:space="preserve"><value>CAFÉ • TEXT + LOCAL SPEECH</value></data>
+  <data name="Scenario_Gate_Body" xml:space="preserve"><value>The café engine is installed, but its language and licenses need approval. Unreviewed content has not entered your learning history.</value></data>
+  <data name="Scenario_Gate_Title" xml:space="preserve"><value>Scenario content is safely paused</value></data>
+  <data name="Scenario_GermanVoiceMissing" xml:space="preserve"><value>no German system voice</value></data>
+  <data name="Scenario_GermanVoiceReady" xml:space="preserve"><value>German system voice ready</value></data>
+  <data name="Scenario_Hint" xml:space="preserve"><value>Hint</value></data>
+  <data name="Scenario_InitializeFailed" xml:space="preserve"><value>The local scenario could not initialize safely: {0}</value></data>
+  <data name="Scenario_InputPlaceholder" xml:space="preserve"><value>Type in German...</value></data>
+  <data name="Scenario_Loading" xml:space="preserve"><value>Checking local learning readiness...</value></data>
+  <data name="Scenario_LoadingName" xml:space="preserve"><value>Loading café scenario</value></data>
+  <data name="Scenario_LocalModelResponse" xml:space="preserve"><value>An allowed local model line was used after deterministic evaluation.</value></data>
+  <data name="Scenario_MicrophoneActive" xml:space="preserve"><value>Microphone active. Speak one short café reply. Processing stays local.</value></data>
+  <data name="Scenario_MicrophoneDisclosure_Body" xml:space="preserve"><value>A local whisper.cpp process uses the microphone for up to 15 seconds. Audio stays on this device and is not retained. You can cancel.</value></data>
+  <data name="Scenario_MicrophoneDisclosure_Title" xml:space="preserve"><value>Before the microphone opens</value></data>
+  <data name="Scenario_MissingPrerequisites" xml:space="preserve"><value>Still needed: {0}.</value></data>
+  <data name="Scenario_NoCaption" xml:space="preserve"><value>No server caption is ready to play.</value></data>
+  <data name="Scenario_NoPreviousCompletion" xml:space="preserve"><value>No previous café completion is stored.</value></data>
+  <data name="Scenario_NoRuntimeCatalog" xml:space="preserve"><value>No approved runtime content catalog was loaded.</value></data>
+  <data name="Scenario_NotMeasured" xml:space="preserve"><value>not measured</value></data>
+  <data name="Scenario_NotNow" xml:space="preserve"><value>Not now</value></data>
+  <data name="Scenario_OtherObservations" xml:space="preserve"><value>Smaller observations</value></data>
+  <data name="Scenario_PersistenceSaved" xml:space="preserve"><value>Saved locally. A deterministic review handoff was created.</value></data>
+  <data name="Scenario_PlayCaption" xml:space="preserve"><value>Play caption</value></data>
+  <data name="Scenario_PlaybackStopped" xml:space="preserve"><value>Speech playback stopped. The caption remains in the conversation.</value></data>
+  <data name="Scenario_Playing" xml:space="preserve"><value>Playing the server caption...</value></data>
+  <data name="Scenario_PlayingSlowly" xml:space="preserve"><value>Playing the server caption more slowly...</value></data>
+  <data name="Scenario_PracticeAgain" xml:space="preserve"><value>Practice again</value></data>
+  <data name="Scenario_PrerequisitesLocked" xml:space="preserve"><value>Build the prerequisite capabilities first. The scenario unlocks deterministically.</value></data>
+  <data name="Scenario_PreviousCompletions" xml:space="preserve"><value>Completed locally {0} times.</value></data>
+  <data name="Scenario_Ready" xml:space="preserve"><value>Ready for a short café exchange using text. Scripted dialogue is always available.</value></data>
+  <data name="Scenario_RecordReply" xml:space="preserve"><value>Record reply locally</value></data>
+  <data name="Scenario_RecordingBody" xml:space="preserve"><value>Recording is active. Speak once. The first complete local transcript appears in the reply box for review.</value></data>
+  <data name="Scenario_RecordingCancelled" xml:space="preserve"><value>Recording cancelled. The café task did not change. Text remains available.</value></data>
+  <data name="Scenario_RecordingName" xml:space="preserve"><value>Café microphone recording active</value></data>
+  <data name="Scenario_Relation_Helpful" xml:space="preserve"><value>helpful similarity</value></data>
+  <data name="Scenario_Relation_Interfering" xml:space="preserve"><value>interference warning</value></data>
+  <data name="Scenario_Relation_Note" xml:space="preserve"><value>language note</value></data>
+  <data name="Scenario_Relation_Partial" xml:space="preserve"><value>partial bridge</value></data>
+  <data name="Scenario_ReplyRequired" xml:space="preserve"><value>Type a short reply before sending.</value></data>
+  <data name="Scenario_ResponseCancelled" xml:space="preserve"><value>The response was cancelled. The deterministic scenario remains consistent.</value></data>
+  <data name="Scenario_RetrySave" xml:space="preserve"><value>Retry local save</value></data>
+  <data name="Scenario_ScriptedResponse" xml:space="preserve"><value>The validated scripted response was used after deterministic evaluation.</value></data>
+  <data name="Scenario_SendReply" xml:space="preserve"><value>Send reply</value></data>
+  <data name="Scenario_Server" xml:space="preserve"><value>Server</value></data>
+  <data name="Scenario_Slower" xml:space="preserve"><value>Slower</value></data>
+  <data name="Scenario_SpeechStatus" xml:space="preserve"><value>Playback: {0}. Microphone transcription: {1}</value></data>
+  <data name="Scenario_SpeechUnavailable" xml:space="preserve"><value>Local speech providers are unavailable. Text and captions remain complete.</value></data>
+  <data name="Scenario_StartRecording" xml:space="preserve"><value>Start recording</value></data>
+  <data name="Scenario_Stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="Scenario_SuccessLooksLike" xml:space="preserve"><value>Success looks like</value></data>
+  <data name="Scenario_TranscriptAccepted" xml:space="preserve"><value>Sending unchanged keeps transcript-based intelligibility evidence. Editing treats it as text.</value></data>
+  <data name="Scenario_TranscriptEdited" xml:space="preserve"><value>Transcript edited. This reply is evaluated as text, so no pronunciation evidence is attached.</value></data>
+  <data name="Scenario_Translation" xml:space="preserve"><value>Translation</value></data>
+  <data name="Scenario_TranslationResult" xml:space="preserve"><value>On request: {0}</value></data>
+  <data name="Scenario_Translation_Choose" xml:space="preserve"><value>Choose a drink.</value></data>
+  <data name="Scenario_Translation_Complete" xml:space="preserve"><value>Certainly. One moment, please.</value></data>
+  <data name="Scenario_Translation_Frame" xml:space="preserve"><value>You can begin: I would like ...</value></data>
+  <data name="Scenario_Translation_Greeting" xml:space="preserve"><value>Hello! What would you like?</value></data>
+  <data name="Scenario_Translation_Options" xml:space="preserve"><value>Coffee, tea, or water?</value></data>
+  <data name="Scenario_Translation_Unavailable" xml:space="preserve"><value>A reviewed translation is not available for this line.</value></data>
+  <data name="Scenario_WordEvidence" xml:space="preserve"><value>Local word evidence: {0} of {1} expected words matched in order. This is not a phoneme or accent score.</value></data>
+  <data name="Scenario_You" xml:space="preserve"><value>You</value></data>
+  <data name="Scenario_YourReply" xml:space="preserve"><value>Your reply</value></data>
 </root>

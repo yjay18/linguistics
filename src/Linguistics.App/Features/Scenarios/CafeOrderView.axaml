@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -10,8 +11,8 @@
         <StackPanel x:Name="LoadingPanel"
                     Spacing="10">
             <ProgressBar IsIndeterminate="True"
-                         AutomationProperties.Name="Loading café scenario" />
-            <TextBlock Text="Checking local learning readiness…"
+                         AutomationProperties.Name="{loc:Localize Scenario_LoadingName}" />
+            <TextBlock Text="{loc:Localize Scenario_Loading}"
                        AutomationProperties.LiveSetting="Polite" />
         </StackPanel>
 
@@ -20,11 +21,11 @@
                 Classes="warning-card"
                 AutomationProperties.AutomationId="CafeContentGate">
             <StackPanel Spacing="10">
-                <TextBlock Text="Scenario content is safely paused"
+                <TextBlock Text="{loc:Localize Scenario_Gate_Title}"
                            FontSize="21"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="The café engine is installed, but its language and licenses must be approved before learners can use this content. Nothing unreviewed has been promoted into your learning history."
+                <TextBlock Text="{loc:Localize Scenario_Gate_Body}"
                            TextWrapping="Wrap"
                            LineHeight="22" />
                 <TextBlock x:Name="ContentGateTechnicalText"
@@ -40,7 +41,7 @@
                     Spacing="18">
             <Border Classes="hero-card">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="CAFÉ • TEXT + LOCAL SPEECH"
+                    <TextBlock Text="{loc:Localize Scenario_Eyebrow}"
                                Classes="eyebrow" />
                     <TextBlock x:Name="GoalText"
                                FontSize="25"
@@ -51,7 +52,7 @@
                     <TextBlock x:Name="ContextText"
                                TextWrapping="Wrap"
                                LineHeight="22" />
-                    <TextBlock Text="Success looks like"
+                    <TextBlock Text="{loc:Localize Scenario_SuccessLooksLike}"
                                Margin="0,5,0,0"
                                FontWeight="SemiBold" />
                     <ItemsControl x:Name="SuccessCriteriaList"
@@ -79,7 +80,7 @@
                                FontSize="13"
                                Opacity="0.72" />
                     <Button x:Name="StartButton"
-                            Content="Enter the café"
+                            Content="{loc:Localize Today_EnterCafe}"
                             Classes="primary lift"
                             HorizontalAlignment="Left"
                             Click="OnStartClicked"
@@ -92,7 +93,7 @@
                         Spacing="16">
                 <Border Classes="card">
                     <StackPanel Spacing="14">
-                        <TextBlock Text="At the counter"
+                        <TextBlock Text="{loc:Localize Scenario_AtCounter}"
                                    FontSize="20"
                                    FontWeight="SemiBold"
                                    AutomationProperties.HeadingLevel="2" />
@@ -101,26 +102,26 @@
                                     AutomationProperties.AutomationId="CafeConversation" />
                         <StackPanel Orientation="Horizontal"
                                     Spacing="8">
-                            <Button Content="Translation"
+                            <Button Content="{loc:Localize Scenario_Translation}"
                                     Classes="quiet"
                                     Click="OnTranslationClicked"
                                     AutomationProperties.AutomationId="CafeTranslation" />
-                            <Button Content="Hint"
+                            <Button Content="{loc:Localize Scenario_Hint}"
                                     Classes="quiet"
                                     Click="OnHintClicked"
                                     AutomationProperties.AutomationId="CafeHint" />
                             <Button x:Name="RepeatButton"
-                                    Content="Play caption"
+                                    Content="{loc:Localize Scenario_PlayCaption}"
                                     Classes="quiet"
                                     Click="OnRepeatClicked"
                                     AutomationProperties.AutomationId="CafeRepeat" />
                             <Button x:Name="SlowerButton"
-                                    Content="Slower"
+                                    Content="{loc:Localize Scenario_Slower}"
                                     Classes="quiet"
                                     Click="OnSlowerClicked"
                                     AutomationProperties.AutomationId="CafeRepeatSlower" />
                             <Button x:Name="StopPlaybackButton"
-                                    Content="Stop"
+                                    Content="{loc:Localize Scenario_Stop}"
                                     Classes="quiet"
                                     Click="OnStopPlaybackClicked"
                                     AutomationProperties.AutomationId="CafeStopPlayback" />
@@ -138,7 +139,7 @@
                         IsVisible="False"
                         Classes="accent-card">
                     <StackPanel Spacing="8">
-                        <TextBlock Text="One useful adjustment"
+                        <TextBlock Text="{loc:Localize Scenario_Adjustment}"
                                    FontSize="13"
                                    FontWeight="Bold" />
                         <TextBlock x:Name="FeedbackMessageText"
@@ -151,7 +152,7 @@
                                    TextWrapping="Wrap" />
                         <Expander x:Name="OtherObservationsExpander"
                                   IsVisible="False"
-                                  Header="Smaller observations">
+                                  Header="{loc:Localize Scenario_OtherObservations}">
                             <TextBlock x:Name="OtherObservationsText"
                                        Margin="0,8,0,0"
                                        TextWrapping="Wrap" />
@@ -161,9 +162,9 @@
 
                 <StackPanel x:Name="InputPanel"
                             Spacing="10">
-                    <TextBlock Text="Your reply" FontWeight="SemiBold" />
+                    <TextBlock Text="{loc:Localize Scenario_YourReply}" FontWeight="SemiBold" />
                     <TextBox x:Name="LearnerInput"
-                             PlaceholderText="Type in German…"
+                             PlaceholderText="{loc:Localize Scenario_InputPlaceholder}"
                              MaxLength="500"
                              KeyDown="OnLearnerInputKeyDown"
                              TextChanged="OnLearnerInputChanged"
@@ -174,7 +175,7 @@
                                AutomationProperties.LiveSetting="Polite"
                                AutomationProperties.AutomationId="CafeSpeechStatus" />
                     <Button x:Name="RecordReplyButton"
-                            Content="Record reply locally"
+                            Content="{loc:Localize Scenario_RecordReply}"
                             Classes="quiet"
                             HorizontalAlignment="Left"
                             Click="OnRecordClicked"
@@ -183,17 +184,17 @@
                             IsVisible="False"
                             Classes="warning-card">
                         <StackPanel Spacing="10">
-                            <TextBlock Text="Before the microphone opens"
+                            <TextBlock Text="{loc:Localize Scenario_MicrophoneDisclosure_Title}"
                                        FontWeight="SemiBold" />
-                            <TextBlock Text="A separate local whisper.cpp process will access the microphone for up to 15 seconds. Audio is processed on this device and this adapter does not retain it. You can cancel or keep typing."
+                            <TextBlock Text="{loc:Localize Scenario_MicrophoneDisclosure_Body}"
                                        TextWrapping="Wrap" />
                             <StackPanel Orientation="Horizontal" Spacing="9">
                                 <Button x:Name="ConfirmRecordButton"
-                                        Content="Start recording"
+                                        Content="{loc:Localize Scenario_StartRecording}"
                                         Classes="primary lift"
                                         Click="OnConfirmRecordClicked"
                                         AutomationProperties.AutomationId="CafeConfirmRecord" />
-                                <Button Content="Not now"
+                                <Button Content="{loc:Localize Scenario_NotNow}"
                                         Classes="quiet"
                                         Click="OnDismissRecordClicked"
                                         AutomationProperties.AutomationId="CafeDismissRecord" />
@@ -204,28 +205,28 @@
                                 IsVisible="False"
                                 Spacing="9">
                         <ProgressBar IsIndeterminate="True"
-                                     AutomationProperties.Name="Café microphone recording active" />
-                        <TextBlock Text="Recording is active. Speak once; the first complete local transcript will appear in the reply box for review."
+                                     AutomationProperties.Name="{loc:Localize Scenario_RecordingName}" />
+                        <TextBlock Text="{loc:Localize Scenario_RecordingBody}"
                                    TextWrapping="Wrap"
                                    AutomationProperties.LiveSetting="Assertive" />
-                        <Button Content="Cancel recording"
+                        <Button Content="{loc:Localize Scenario_CancelRecording}"
                                 HorizontalAlignment="Left"
                                 Click="OnCancelRecordingClicked"
                                 AutomationProperties.AutomationId="CafeCancelRecording" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="9">
                         <Button x:Name="SendButton"
-                                Content="Send reply"
+                                Content="{loc:Localize Scenario_SendReply}"
                                 Classes="primary lift"
                                 Click="OnSendClicked"
                                 AutomationProperties.AutomationId="SendCafeReply" />
                         <Button x:Name="CancelResponseButton"
-                                Content="Cancel local response"
+                                Content="{loc:Localize Scenario_CancelResponse}"
                                 IsVisible="False"
                                 Click="OnCancelResponseClicked"
                                 AutomationProperties.AutomationId="CancelCafeResponse" />
                         <Button x:Name="ExitButton"
-                                Content="Exit scenario"
+                                Content="{loc:Localize Scenario_Exit}"
                                 Classes="quiet"
                                 Click="OnExitClicked"
                                 AutomationProperties.AutomationId="ExitCafeScenario" />
@@ -242,11 +243,11 @@
                         Classes="hero-card"
                         AutomationProperties.AutomationId="CafeCompletion">
                     <StackPanel Spacing="10">
-                        <TextBlock Text="Order understood"
+                        <TextBlock Text="{loc:Localize Scenario_Completed_Title}"
                                    FontSize="24"
                                    FontWeight="SemiBold"
                                    AutomationProperties.HeadingLevel="2" />
-                        <TextBlock Text="You accomplished the café goal. Accuracy and fluency stay separate from that communicative success. No pronunciation score was created from typed text."
+                        <TextBlock Text="{loc:Localize Scenario_Completed_Body}"
                                    TextWrapping="Wrap"
                                    LineHeight="22" />
                         <TextBlock x:Name="EvidenceText"
@@ -258,12 +259,12 @@
                                    AutomationProperties.AutomationId="CafePersistenceStatus" />
                         <StackPanel Orientation="Horizontal" Spacing="9">
                             <Button x:Name="RetrySaveButton"
-                                    Content="Retry local save"
+                                    Content="{loc:Localize Scenario_RetrySave}"
                                     IsVisible="False"
                                     Click="OnRetrySaveClicked"
                                     AutomationProperties.AutomationId="RetryCafeSave" />
                             <Button x:Name="PracticeAgainButton"
-                                    Content="Practice again"
+                                    Content="{loc:Localize Scenario_PracticeAgain}"
                                     Classes="primary lift"
                                     IsVisible="False"
                                     Click="OnPracticeAgainClicked"

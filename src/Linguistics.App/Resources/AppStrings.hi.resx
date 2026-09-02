@@ -756,4 +756,82 @@
   <data name="Review_Unavailable" xml:space="preserve">
     <value>शिक्षण सेवा शुरू नहीं हुई, इसलिए पुनरावृत्ति उपलब्ध नहीं है।</value>
   </data>
+  <data name="Scenario_Adjustment" xml:space="preserve"><value>एक उपयोगी सुधार</value></data>
+  <data name="Scenario_AtCounter" xml:space="preserve"><value>काउंटर पर</value></data>
+  <data name="Scenario_CancelRecording" xml:space="preserve"><value>रिकॉर्डिंग रद्द करें</value></data>
+  <data name="Scenario_CancelResponse" xml:space="preserve"><value>स्थानीय उत्तर रद्द करें</value></data>
+  <data name="Scenario_CancellingResponse" xml:space="preserve"><value>वैकल्पिक स्थानीय उत्तर रद्द हो रहा है। स्क्रिप्ट वाला विकल्प उपलब्ध रहेगा।</value></data>
+  <data name="Scenario_CheckingTask" xml:space="preserve"><value>नियतात्मक कार्य जाँचा जा रहा है, फिर वैकल्पिक स्थानीय रेंडरर से पूछा जाएगा...</value></data>
+  <data name="Scenario_Completed_Body" xml:space="preserve"><value>आपने कैफ़े लक्ष्य पूरा किया। शुद्धता और प्रवाह अलग रहते हैं। लिखे पाठ से उच्चारण स्कोर नहीं बनता।</value></data>
+  <data name="Scenario_Completed_Title" xml:space="preserve"><value>ऑर्डर समझा गया</value></data>
+  <data name="Scenario_DialogueReady" xml:space="preserve"><value>स्क्रिप्ट संवाद तैयार है। लिखें या स्थानीय भाषण उपयोग करें। चुना स्थानीय मॉडल केवल अनुमत सर्वर पंक्ति बदल सकता है।</value></data>
+  <data name="Scenario_DismissBridge" xml:space="preserve"><value>सेतु हटाएँ</value></data>
+  <data name="Scenario_Evidence" xml:space="preserve"><value>संवाद लक्ष्य: पूरा&#xA;भाषाई शुद्धता: {0}&#xA;प्रवाह: {1}&#xA;लक्ष्य अवधारणा: {2}&#xA;{3}</value></data>
+  <data name="Scenario_Evidence_Pronunciation" xml:space="preserve"><value>पहचान बोधगम्यता संकेत: {1} अपेक्षित शब्दों में {0} मेल खाते हैं</value></data>
+  <data name="Scenario_Evidence_PronunciationNotMeasured" xml:space="preserve"><value>उच्चारण: पाठ से नहीं मापा गया</value></data>
+  <data name="Scenario_Exit" xml:space="preserve"><value>परिस्थिति से बाहर निकलें</value></data>
+  <data name="Scenario_Exited" xml:space="preserve"><value>परिस्थिति बंद हुई। अधूरा संवाद पाठ सहेजा नहीं गया।</value></data>
+  <data name="Scenario_Eyebrow" xml:space="preserve"><value>कैफ़े • पाठ + स्थानीय भाषण</value></data>
+  <data name="Scenario_Gate_Body" xml:space="preserve"><value>कैफ़े इंजन इंस्टॉल है, पर भाषा और लाइसेंस को स्वीकृति चाहिए। बिना समीक्षा की सामग्री आपके इतिहास में नहीं गई।</value></data>
+  <data name="Scenario_Gate_Title" xml:space="preserve"><value>परिस्थिति सामग्री सुरक्षित रूप से रुकी है</value></data>
+  <data name="Scenario_GermanVoiceMissing" xml:space="preserve"><value>जर्मन सिस्टम आवाज़ नहीं</value></data>
+  <data name="Scenario_GermanVoiceReady" xml:space="preserve"><value>जर्मन सिस्टम आवाज़ तैयार</value></data>
+  <data name="Scenario_Hint" xml:space="preserve"><value>संकेत</value></data>
+  <data name="Scenario_InitializeFailed" xml:space="preserve"><value>स्थानीय परिस्थिति सुरक्षित रूप से शुरू नहीं हो सकी: {0}</value></data>
+  <data name="Scenario_InputPlaceholder" xml:space="preserve"><value>जर्मन में लिखें...</value></data>
+  <data name="Scenario_Loading" xml:space="preserve"><value>स्थानीय सीखने की तैयारी जाँची जा रही है...</value></data>
+  <data name="Scenario_LoadingName" xml:space="preserve"><value>कैफ़े परिस्थिति लोड हो रही है</value></data>
+  <data name="Scenario_LocalModelResponse" xml:space="preserve"><value>नियतात्मक जाँच के बाद अनुमत स्थानीय मॉडल पंक्ति उपयोग हुई।</value></data>
+  <data name="Scenario_MicrophoneActive" xml:space="preserve"><value>माइक्रोफ़ोन सक्रिय है। कैफ़े का छोटा उत्तर बोलें। प्रसंस्करण स्थानीय रहेगा।</value></data>
+  <data name="Scenario_MicrophoneDisclosure_Body" xml:space="preserve"><value>स्थानीय whisper.cpp प्रक्रिया माइक्रोफ़ोन को 15 सेकंड तक उपयोग करती है। ऑडियो इसी डिवाइस पर रहता और सहेजा नहीं जाता। आप रद्द कर सकते हैं।</value></data>
+  <data name="Scenario_MicrophoneDisclosure_Title" xml:space="preserve"><value>माइक्रोफ़ोन खुलने से पहले</value></data>
+  <data name="Scenario_MissingPrerequisites" xml:space="preserve"><value>अभी आवश्यक: {0}।</value></data>
+  <data name="Scenario_NoCaption" xml:space="preserve"><value>चलाने के लिए कोई सर्वर कैप्शन तैयार नहीं है।</value></data>
+  <data name="Scenario_NoPreviousCompletion" xml:space="preserve"><value>कैफ़े पूरा करने का कोई पिछला रिकॉर्ड नहीं है।</value></data>
+  <data name="Scenario_NoRuntimeCatalog" xml:space="preserve"><value>कोई स्वीकृत रनटाइम सामग्री सूची लोड नहीं हुई।</value></data>
+  <data name="Scenario_NotMeasured" xml:space="preserve"><value>नहीं मापा गया</value></data>
+  <data name="Scenario_NotNow" xml:space="preserve"><value>अभी नहीं</value></data>
+  <data name="Scenario_OtherObservations" xml:space="preserve"><value>छोटे अवलोकन</value></data>
+  <data name="Scenario_PersistenceSaved" xml:space="preserve"><value>स्थानीय रूप से सहेजा गया। नियतात्मक पुनरावृत्ति हस्तांतरण बनाया गया।</value></data>
+  <data name="Scenario_PlayCaption" xml:space="preserve"><value>कैप्शन चलाएँ</value></data>
+  <data name="Scenario_PlaybackStopped" xml:space="preserve"><value>भाषण प्लेबैक रुका। कैप्शन संवाद में रहेगा।</value></data>
+  <data name="Scenario_Playing" xml:space="preserve"><value>सर्वर कैप्शन चल रहा है...</value></data>
+  <data name="Scenario_PlayingSlowly" xml:space="preserve"><value>सर्वर कैप्शन धीरे चल रहा है...</value></data>
+  <data name="Scenario_PracticeAgain" xml:space="preserve"><value>फिर अभ्यास करें</value></data>
+  <data name="Scenario_PrerequisitesLocked" xml:space="preserve"><value>पहले आवश्यक क्षमताएँ बनाएँ। परिस्थिति नियतात्मक रूप से खुलेगी।</value></data>
+  <data name="Scenario_PreviousCompletions" xml:space="preserve"><value>स्थानीय रूप से {0} बार पूरा किया।</value></data>
+  <data name="Scenario_Ready" xml:space="preserve"><value>पाठ से छोटे कैफ़े संवाद के लिए तैयार। स्क्रिप्ट संवाद हमेशा उपलब्ध है।</value></data>
+  <data name="Scenario_RecordReply" xml:space="preserve"><value>उत्तर स्थानीय रूप से रिकॉर्ड करें</value></data>
+  <data name="Scenario_RecordingBody" xml:space="preserve"><value>रिकॉर्डिंग सक्रिय है। एक बार बोलें। पहला पूरा स्थानीय ट्रांसक्रिप्ट समीक्षा के लिए उत्तर बॉक्स में आएगा।</value></data>
+  <data name="Scenario_RecordingCancelled" xml:space="preserve"><value>रिकॉर्डिंग रद्द हुई। कैफ़े कार्य नहीं बदला। पाठ उपलब्ध है।</value></data>
+  <data name="Scenario_RecordingName" xml:space="preserve"><value>कैफ़े माइक्रोफ़ोन रिकॉर्डिंग सक्रिय</value></data>
+  <data name="Scenario_Relation_Helpful" xml:space="preserve"><value>सहायक समानता</value></data>
+  <data name="Scenario_Relation_Interfering" xml:space="preserve"><value>हस्तक्षेप चेतावनी</value></data>
+  <data name="Scenario_Relation_Note" xml:space="preserve"><value>भाषा टिप्पणी</value></data>
+  <data name="Scenario_Relation_Partial" xml:space="preserve"><value>आंशिक सेतु</value></data>
+  <data name="Scenario_ReplyRequired" xml:space="preserve"><value>भेजने से पहले छोटा उत्तर लिखें।</value></data>
+  <data name="Scenario_ResponseCancelled" xml:space="preserve"><value>उत्तर रद्द हुआ। नियतात्मक परिस्थिति वैसी ही है।</value></data>
+  <data name="Scenario_RetrySave" xml:space="preserve"><value>स्थानीय सहेजना फिर आज़माएँ</value></data>
+  <data name="Scenario_ScriptedResponse" xml:space="preserve"><value>नियतात्मक जाँच के बाद सत्यापित स्क्रिप्ट उत्तर उपयोग हुआ।</value></data>
+  <data name="Scenario_SendReply" xml:space="preserve"><value>उत्तर भेजें</value></data>
+  <data name="Scenario_Server" xml:space="preserve"><value>सर्वर</value></data>
+  <data name="Scenario_Slower" xml:space="preserve"><value>धीरे</value></data>
+  <data name="Scenario_SpeechStatus" xml:space="preserve"><value>प्लेबैक: {0}। माइक्रोफ़ोन ट्रांसक्रिप्शन: {1}</value></data>
+  <data name="Scenario_SpeechUnavailable" xml:space="preserve"><value>स्थानीय भाषण प्रदाता उपलब्ध नहीं हैं। पाठ और कैप्शन पूरे हैं।</value></data>
+  <data name="Scenario_StartRecording" xml:space="preserve"><value>रिकॉर्डिंग शुरू करें</value></data>
+  <data name="Scenario_Stop" xml:space="preserve"><value>रोकें</value></data>
+  <data name="Scenario_SuccessLooksLike" xml:space="preserve"><value>सफलता कैसी दिखती है</value></data>
+  <data name="Scenario_TranscriptAccepted" xml:space="preserve"><value>बिना बदलाव भेजने पर ट्रांसक्रिप्ट-आधारित बोधगम्यता प्रमाण रहेगा। बदलाव करने पर इसे पाठ माना जाएगा।</value></data>
+  <data name="Scenario_TranscriptEdited" xml:space="preserve"><value>ट्रांसक्रिप्ट बदला गया। उत्तर पाठ के रूप में जाँचा जाएगा, इसलिए उच्चारण प्रमाण नहीं जुड़ेगा।</value></data>
+  <data name="Scenario_Translation" xml:space="preserve"><value>अनुवाद</value></data>
+  <data name="Scenario_TranslationResult" xml:space="preserve"><value>अनुरोध पर: {0}</value></data>
+  <data name="Scenario_Translation_Choose" xml:space="preserve"><value>कोई पेय चुनें।</value></data>
+  <data name="Scenario_Translation_Complete" xml:space="preserve"><value>ज़रूर। कृपया एक क्षण।</value></data>
+  <data name="Scenario_Translation_Frame" xml:space="preserve"><value>आप शुरू कर सकते हैं: मुझे ... चाहिए</value></data>
+  <data name="Scenario_Translation_Greeting" xml:space="preserve"><value>नमस्ते! आप क्या चाहेंगे?</value></data>
+  <data name="Scenario_Translation_Options" xml:space="preserve"><value>कॉफ़ी, चाय या पानी?</value></data>
+  <data name="Scenario_Translation_Unavailable" xml:space="preserve"><value>इस पंक्ति का जाँचा अनुवाद उपलब्ध नहीं है।</value></data>
+  <data name="Scenario_WordEvidence" xml:space="preserve"><value>स्थानीय शब्द प्रमाण: {1} अपेक्षित शब्दों में {0} क्रम से मिले। यह स्वनिम या लहजे का स्कोर नहीं है।</value></data>
+  <data name="Scenario_You" xml:space="preserve"><value>आप</value></data>
+  <data name="Scenario_YourReply" xml:space="preserve"><value>आपका उत्तर</value></data>
 </root>
