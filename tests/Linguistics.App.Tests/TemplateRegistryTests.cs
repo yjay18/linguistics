@@ -831,6 +831,42 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void ScheduleReadReportsDeterministicAuthoredTimeIds()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("schedule-read"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var descendants = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var buttons = descendants.OfType<Button>().ToArray();
+        var wrong = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "ScheduleReadOption_time-0900");
+        var correct = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "ScheduleReadOption_time-1000");
+
+        wrong.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        correct.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[0].State);
+        Assert.AreEqual("time-0900", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[1].State);
+        Assert.AreEqual("time-1000", reported[1].ResponseId);
+        Assert.AreNotEqual("10:00 Uhr", reported[1].ResponseId);
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "ScheduleReadReplay"));
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "ScheduleReadSkip"));
+        Assert.IsTrue(descendants.OfType<TextBlock>().Any(text =>
+            text.Text == "Dienstag · 10:00 bis 19:00"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

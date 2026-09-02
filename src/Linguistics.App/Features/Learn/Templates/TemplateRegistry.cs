@@ -301,6 +301,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("menu-read"),
             MenuReadRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("schedule-read"),
+            ScheduleReadRenderer.Render),
     ]);
 
     public Control Render(

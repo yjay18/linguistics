@@ -1391,5 +1391,45 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "price-340"),
             })),
+        new(
+            new TemplateId("schedule-read"),
+            "Schedule read",
+            "Reading · synthetic opening hours · deterministic time extraction",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Read the synthetic opening hours, then choose the requested time.",
+                        ["hi"] = "कृत्रिम खुलने का समय पढ़ें, फिर पूछा गया समय चुनें।",
+                    }),
+                ["schedule-title"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Stadtbibliothek Nord"),
+                ["entries"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("monday", "Montag · 09:00 bis 18:00"),
+                        new("tuesday", "Dienstag · 10:00 bis 19:00"),
+                        new("wednesday", "Mittwoch · 11:00 bis 18:00"),
+                    ]),
+                ["question"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Wann öffnet die Bibliothek am Dienstag?"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("time-0900", "09:00 Uhr"),
+                        new("time-1000", "10:00 Uhr"),
+                        new("time-1100", "11:00 Uhr"),
+                    ]),
+                ["answer"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "time-1000"),
+            })),
     ];
 }

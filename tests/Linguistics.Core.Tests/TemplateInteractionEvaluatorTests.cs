@@ -740,6 +740,39 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void ScheduleReadMapsOnlyAuthoredTimeOptionIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("schedule-read")));
+        var options = new[]
+        {
+            new TemplateOption("time-0900", "09:00 Uhr"),
+            new TemplateOption("time-1000", "10:00 Uhr"),
+            new TemplateOption("time-1100", "11:00 Uhr"),
+        };
+
+        var incomplete = TemplateInteractionEvaluator.EvaluateSingleSelection(
+            options,
+            "time-1000",
+            null);
+        var failure = TemplateInteractionEvaluator.EvaluateSingleSelection(
+            options,
+            "time-1000",
+            "time-0900");
+        var success = TemplateInteractionEvaluator.EvaluateSingleSelection(
+            options,
+            "time-1000",
+            "time-1000");
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, failure.State);
+        Assert.AreEqual(TemplateOutcomeState.Success, success.State);
+        Assert.AreEqual("time-0900", failure.ResponseId);
+        Assert.AreEqual("time-1000", success.ResponseId);
+        Assert.AreNotEqual("10:00 Uhr", success.ResponseId);
+    }
+
+    [TestMethod]
     public void ListenRouteUsesOnlyTheAuthoredStopOrder()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

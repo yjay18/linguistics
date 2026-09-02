@@ -630,6 +630,18 @@ public static class LessonTemplateSchemas
                 new("options", TemplateParameterKind.OptionList, IsRequired: true),
                 new("answer", TemplateParameterKind.Text, IsRequired: true),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("schedule-read"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("schedule-title", TemplateParameterKind.Text, IsRequired: true),
+                new("entries", TemplateParameterKind.OptionList, IsRequired: true),
+                new("question", TemplateParameterKind.Text, IsRequired: true),
+                new("options", TemplateParameterKind.OptionList, IsRequired: true),
+                new("answer", TemplateParameterKind.Text, IsRequired: true),
+            ]),
     ];
 }
 
