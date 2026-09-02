@@ -93,6 +93,7 @@ public sealed class TemplateInteractionEvaluatorTests
     [DataRow("listen-price-tag")]
     [DataRow("dialogue-eavesdrop")]
     [DataRow("long-short-vowel")]
+    [DataRow("sign-reading")]
     public void SingleSelectionTemplatesUseDeterministicMapping(string templateId)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(templateId));
@@ -586,6 +587,38 @@ public sealed class TemplateInteractionEvaluatorTests
             TemplateInteractionEvaluator.EvaluateSingleSelection(
                 options,
                 "long",
+                null).State);
+    }
+
+    [TestMethod]
+    public void SignReadingUsesOnlyTheAuthoredChoiceForItsOutcome()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("sign-reading")));
+        var options = new[]
+        {
+            new TemplateOption("customers", "Nur Kunden"),
+            new TemplateOption("everyone", "Alle Personen"),
+            new TemplateOption("staff", "Nur Mitarbeitende"),
+        };
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                options,
+                "customers",
+                "customers").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                options,
+                "customers",
+                "everyone").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                options,
+                "customers",
                 null).State);
     }
 

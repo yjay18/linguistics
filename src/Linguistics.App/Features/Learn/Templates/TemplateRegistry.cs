@@ -289,6 +289,9 @@ internal sealed class TemplateRegistry
                     instructionLanguage,
                     shouldReduceMotion,
                     reportOutcome)),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("sign-reading"),
+            SignReadingRenderer.Render),
     ]);
 
     public Control Render(

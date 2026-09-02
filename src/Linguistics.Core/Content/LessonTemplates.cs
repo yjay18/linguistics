@@ -584,6 +584,19 @@ public static class LessonTemplateSchemas
                 new("answer", TemplateParameterKind.Text, IsRequired: true),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("sign-reading"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("sign-text", TemplateParameterKind.Text, IsRequired: true),
+                new("context", TemplateParameterKind.Text, IsRequired: true),
+                new("question", TemplateParameterKind.Text, IsRequired: true),
+                new("options", TemplateParameterKind.OptionList, IsRequired: true),
+                new("answer", TemplateParameterKind.Text, IsRequired: true),
+                new("sign-asset", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 

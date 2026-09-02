@@ -1253,5 +1253,38 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.AssetReference,
                     AssetReferenceId: "asset.de.stage.market-backdrop"),
             })),
+        new(
+            new TemplateId("sign-reading"),
+            "Sign reading",
+            "Reading · authored sign text · photograph follow-up",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Read the complete entrance sign, then choose who may use the door.",
+                        ["hi"] = "पूरा प्रवेश संकेत पढ़ें, फिर चुनें कि दरवाज़ा कौन इस्तेमाल कर सकता है।",
+                    }),
+                ["sign-text"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Eingang nur für Kunden"),
+                ["context"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "A shop entrance sign in a synthetic Preview reading task."),
+                ["question"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Wer darf diesen Eingang benutzen?"),
+                ["options"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("customers", "Nur Kunden"),
+                        new("everyone", "Alle Personen"),
+                        new("staff", "Nur Mitarbeitende"),
+                    ]),
+                ["answer"] = new(TemplateParameterKind.Text, Text: "customers"),
+            })),
     ];
 }

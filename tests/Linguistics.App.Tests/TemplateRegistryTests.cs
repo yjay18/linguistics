@@ -653,6 +653,53 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void SignReadingUsesAuthoredTextWhenThePhotographIsUnavailable()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("sign-reading"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var descendants = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var buttons = descendants.OfType<Button>().ToArray();
+        var chooseWrong = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "SignReadingOption_everyone");
+        var chooseCorrect = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "SignReadingOption_customers");
+        var fallback = descendants.Single(control =>
+            AutomationProperties.GetAutomationId(control) == "SignReadingAssetStatus");
+
+        Assert.IsFalse(descendants.OfType<Image>().Any());
+        Assert.Contains(
+            "photograph unavailable",
+            AutomationProperties.GetName(fallback) ?? string.Empty,
+            StringComparison.OrdinalIgnoreCase);
+        Assert.IsTrue(descendants
+            .OfType<TextBlock>()
+            .Any(text => string.Equals(
+                text.Text,
+                "Eingang nur für Kunden",
+                StringComparison.Ordinal)));
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "SignReadingReplay"));
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "SignReadingSkip"));
+
+        chooseWrong.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        chooseCorrect.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[0].State);
+        Assert.AreEqual("everyone", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[1].State);
+        Assert.AreEqual("customers", reported[1].ResponseId);
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(
