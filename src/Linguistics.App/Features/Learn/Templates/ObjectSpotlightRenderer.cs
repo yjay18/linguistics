@@ -5,6 +5,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Linguistics.App.Content;
 using Linguistics.App.Controls;
+using Linguistics.App.Localization;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
@@ -33,13 +34,13 @@ internal static class ObjectSpotlightRenderer
 
         var replayButton = new Button
         {
-            Content = "Replay scene",
+            Content = AppStrings.Get("Template_ReplayScene"),
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(replayButton, "ObjectSpotlightReplay");
         var skipButton = new Button
         {
-            Content = "Skip scene",
+            Content = AppStrings.Get("Template_SkipScene"),
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(skipButton, "ObjectSpotlightSkip");
@@ -52,7 +53,9 @@ internal static class ObjectSpotlightRenderer
             TextWrapping = TextWrapping.Wrap,
             VerticalAlignment = VerticalAlignment.Center,
         };
-        AutomationProperties.SetName(instructionText, $"Object spotlight instruction. {instruction}");
+        AutomationProperties.SetName(
+            instructionText,
+            AppStrings.Format("Template_ObjectSpotlight_Instruction", instruction));
         var sceneActions = new StackPanel
         {
             Orientation = Orientation.Horizontal,
@@ -65,13 +68,21 @@ internal static class ObjectSpotlightRenderer
         Grid.SetColumn(sceneActions, 1);
         header.Children.Add(sceneActions);
 
-        var stage = TemplateRendering.CreateStage(292, $"Object spotlight for {article} {word}".Trim());
+        var stage = TemplateRendering.CreateStage(
+            292,
+            AppStrings.Format(
+                "Template_ObjectSpotlight_Stage",
+                $"{article} {word}".Trim()));
         var backdropRendered = TemplateRendering.AddBackdrop(
             stage,
             imageCache,
             parameters.UseTextOnlyFallback ? null : backdropReference);
 
-        var tape = new PaperTape { Content = "OBJECT SPOTLIGHT", Angle = -1.4 };
+        var tape = new PaperTape
+        {
+            Content = AppStrings.Get("Template_ObjectSpotlight_Tape"),
+            Angle = -1.4,
+        };
         PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(tape, PaperAnchorLine.Head);
         PaperStage.SetAnchorX(tape, 0.23);
@@ -161,7 +172,7 @@ internal static class ObjectSpotlightRenderer
             out var outcomeText);
         var acknowledge = new Button
         {
-            Content = "I noticed it",
+            Content = AppStrings.Get("Template_ObjectSpotlight_Acknowledge"),
             Classes = { "primary", "lift" },
             HorizontalAlignment = HorizontalAlignment.Left,
         };
@@ -189,7 +200,7 @@ internal static class ObjectSpotlightRenderer
         {
             root.Children.Insert(1, new TextBlock
             {
-                Text = "Text-only presentation: the authored word, article, and meaning remain complete.",
+                Text = AppStrings.Get("Template_ObjectSpotlight_TextOnly"),
                 Classes = { "muted" },
                 TextWrapping = TextWrapping.Wrap,
             });
@@ -250,9 +261,9 @@ internal static class ObjectSpotlightRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "Seen: the word, article, and meaning are together.",
-        TemplateOutcomeState.Uncertain => "Pause on the article and meaning before moving on.",
-        TemplateOutcomeState.Failure => "Replay the reveal and look at the complete noun entry.",
-        _ => "Watch the cutout settle, then notice the complete noun entry.",
+        TemplateOutcomeState.Success => AppStrings.Get("Template_ObjectSpotlight_Success"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("Template_ObjectSpotlight_Uncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("Template_ObjectSpotlight_Failure"),
+        _ => AppStrings.Get("Template_ObjectSpotlight_Ready"),
     };
 }

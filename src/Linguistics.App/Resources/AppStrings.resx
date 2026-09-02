@@ -879,4 +879,70 @@
   <data name="Pronunciation_Title" xml:space="preserve"><value>Speak to be understood</value></data>
   <data name="Pronunciation_VoiceMissing" xml:space="preserve"><value>No matching system voice is installed. The caption remains authoritative.</value></data>
   <data name="Pronunciation_VoiceReady" xml:space="preserve"><value>A matching system voice is ready. The caption remains authoritative.</value></data>
+  <data name="Template_CheckOrder" xml:space="preserve"><value>Check order</value></data>
+  <data name="Template_ChooseOption" xml:space="preserve"><value>Choose {0}</value></data>
+  <data name="Template_Credit_AutomationMany" xml:space="preserve"><value>{0} image credits. Expand for attribution details.</value></data>
+  <data name="Template_Credit_AutomationOne" xml:space="preserve"><value>One image credit. Expand for attribution details.</value></data>
+  <data name="Template_Credit_CardAutomation" xml:space="preserve"><value>Image credit for {0}. {1}.</value></data>
+  <data name="Template_Credit_Generated" xml:space="preserve"><value>Generated illustration • {0}</value></data>
+  <data name="Template_Credit_HeaderMany" xml:space="preserve"><value>Image credits • {0}</value></data>
+  <data name="Template_Credit_HeaderOne" xml:space="preserve"><value>Image credit</value></data>
+  <data name="Template_Credit_LicenseRetrieved" xml:space="preserve"><value>License: {0} • retrieved {1}</value></data>
+  <data name="Template_Credit_Photograph" xml:space="preserve"><value>Photograph by {0} • {1}</value></data>
+  <data name="Template_Credit_PreviewNotice" xml:space="preserve"><value>Preview asset • license and redistribution review remain pending.</value></data>
+  <data name="Template_Credit_ProcessedDerivative" xml:space="preserve"><value>Processed derivative: {0}</value></data>
+  <data name="Template_Credit_PromptSummary" xml:space="preserve"><value>Prompt summary: {0}</value></data>
+  <data name="Template_Credit_Source" xml:space="preserve"><value>Source: {0}</value></data>
+  <data name="Template_ObjectSpotlight_Acknowledge" xml:space="preserve"><value>I noticed it</value></data>
+  <data name="Template_ObjectSpotlight_Failure" xml:space="preserve"><value>Replay the reveal and look at the complete noun entry.</value></data>
+  <data name="Template_ObjectSpotlight_Instruction" xml:space="preserve"><value>Object spotlight instruction. {0}</value></data>
+  <data name="Template_ObjectSpotlight_Ready" xml:space="preserve"><value>Watch the cutout settle, then notice the complete noun entry.</value></data>
+  <data name="Template_ObjectSpotlight_Stage" xml:space="preserve"><value>Object spotlight for {0}</value></data>
+  <data name="Template_ObjectSpotlight_Success" xml:space="preserve"><value>Seen: the word, article, and meaning are together.</value></data>
+  <data name="Template_ObjectSpotlight_Tape" xml:space="preserve"><value>OBJECT SPOTLIGHT</value></data>
+  <data name="Template_ObjectSpotlight_TextOnly" xml:space="preserve"><value>Text-only presentation: the authored word, article, and meaning remain complete.</value></data>
+  <data name="Template_ObjectSpotlight_Uncertain" xml:space="preserve"><value>Pause on the article and meaning before moving on.</value></data>
+  <data name="Template_PictureMatch_Failure" xml:space="preserve"><value>Not this one yet. Compare the labels and try again.</value></data>
+  <data name="Template_PictureMatch_Prompt" xml:space="preserve"><value>Picture match prompt. {0}</value></data>
+  <data name="Template_PictureMatch_Ready" xml:space="preserve"><value>Ready: choose the cutout or text label that matches the prompt.</value></data>
+  <data name="Template_PictureMatch_Stage" xml:space="preserve"><value>Picture match. {0}</value></data>
+  <data name="Template_PictureMatch_Success" xml:space="preserve"><value>Matched. The chosen cutout carries the target word.</value></data>
+  <data name="Template_PictureMatch_Tape" xml:space="preserve"><value>CHOOSE ONE</value></data>
+  <data name="Template_PictureMatch_TextOnly" xml:space="preserve"><value>Text-only match: every choice keeps its complete authored label.</value></data>
+  <data name="Template_PictureMatch_Uncertain" xml:space="preserve"><value>Choose one complete option before the match can be checked.</value></data>
+  <data name="Template_PlayTarget" xml:space="preserve"><value>Play {0}</value></data>
+  <data name="Template_PlayTarget_Automation" xml:space="preserve"><value>Play the target word {0} with local system speech</value></data>
+  <data name="Template_PlaybackStopped" xml:space="preserve"><value>Playback stopped. Written target: {0}.</value></data>
+  <data name="Template_PlayingTarget" xml:space="preserve"><value>Playing {0} locally.</value></data>
+  <data name="Template_ReplayBuild" xml:space="preserve"><value>Replay build</value></data>
+  <data name="Template_ReplayReveal" xml:space="preserve"><value>Replay reveal</value></data>
+  <data name="Template_ReplayScene" xml:space="preserve"><value>Replay scene</value></data>
+  <data name="Template_Reset" xml:space="preserve"><value>Reset</value></data>
+  <data name="Template_SkipBuild" xml:space="preserve"><value>Skip build</value></data>
+  <data name="Template_SkipReveal" xml:space="preserve"><value>Skip reveal</value></data>
+  <data name="Template_SkipScene" xml:space="preserve"><value>Skip scene</value></data>
+  <data name="Template_WordOrder_Add" xml:space="preserve"><value>Add {0} to the sentence</value></data>
+  <data name="Template_WordOrder_AvailableCards" xml:space="preserve"><value>Available word cards</value></data>
+  <data name="Template_WordOrder_Empty" xml:space="preserve"><value>EMPTY</value></data>
+  <data name="Template_WordOrder_EmptySlot" xml:space="preserve"><value>{0} reserved train car, empty</value></data>
+  <data name="Template_WordOrder_Failure" xml:space="preserve"><value>The words are all here, but the train order needs another pass.</value></data>
+  <data name="Template_WordOrder_Hint" xml:space="preserve"><value>Select a word to add it. Select a train car to return it.</value></data>
+  <data name="Template_WordOrder_Prompt" xml:space="preserve"><value>Word order prompt. {0}</value></data>
+  <data name="Template_WordOrder_Ready" xml:space="preserve"><value>Ready: build the sentence from left to right.</value></data>
+  <data name="Template_WordOrder_Remove" xml:space="preserve"><value>{0}. {1}. Remove from the sentence</value></data>
+  <data name="Template_WordOrder_SelectedCars" xml:space="preserve"><value>Selected train cars in sentence order</value></data>
+  <data name="Template_WordOrder_SlotMiddle" xml:space="preserve"><value>MIDDLE</value></data>
+  <data name="Template_WordOrder_SlotRightBracket" xml:space="preserve"><value>RIGHT BRACKET</value></data>
+  <data name="Template_WordOrder_SlotStart" xml:space="preserve"><value>START</value></data>
+  <data name="Template_WordOrder_SlotVerbTwo" xml:space="preserve"><value>VERB 2</value></data>
+  <data name="Template_WordOrder_Stage" xml:space="preserve"><value>Word order train construction stage</value></data>
+  <data name="Template_WordOrder_Success" xml:space="preserve"><value>The train reads in the authored order.</value></data>
+  <data name="Template_WordOrder_Tape" xml:space="preserve"><value>BUILD THE REQUEST</value></data>
+  <data name="Template_WordOrder_TextOnly" xml:space="preserve"><value>Text-only construction: every word and action remains keyboard operable.</value></data>
+  <data name="Template_WordOrder_Uncertain" xml:space="preserve"><value>The train needs every word before it can be checked.</value></data>
+  <data name="Template_WordOrder_WordBank" xml:space="preserve"><value>WORD BANK</value></data>
+  <data name="Template_WrittenTarget_Automation" xml:space="preserve"><value>Written target {0}. Optional local speech. No microphone is used.</value></data>
+  <data name="Template_WrittenTarget_NoVoice" xml:space="preserve"><value>Written target: {0}. No matching local voice is installed.</value></data>
+  <data name="Template_WrittenTarget_Playback" xml:space="preserve"><value>Written target: {0}. Optional playback uses no microphone.</value></data>
+  <data name="Template_WrittenTarget_Unavailable" xml:space="preserve"><value>Written target: {0}. Local playback is unavailable.</value></data>
 </root>

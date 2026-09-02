@@ -879,4 +879,70 @@
   <data name="Pronunciation_Title" xml:space="preserve"><value>समझे जाने के लिए बोलें</value></data>
   <data name="Pronunciation_VoiceMissing" xml:space="preserve"><value>मेल खाने वाली सिस्टम आवाज़ इंस्टॉल नहीं है। कैप्शन आधिकारिक वाक्यांश है।</value></data>
   <data name="Pronunciation_VoiceReady" xml:space="preserve"><value>मेल खाने वाली सिस्टम आवाज़ तैयार है। कैप्शन आधिकारिक वाक्यांश है।</value></data>
+  <data name="Template_CheckOrder" xml:space="preserve"><value>क्रम जाँचें</value></data>
+  <data name="Template_ChooseOption" xml:space="preserve"><value>{0} चुनें</value></data>
+  <data name="Template_Credit_AutomationMany" xml:space="preserve"><value>{0} चित्र श्रेय। स्रोत विवरण के लिए खोलें।</value></data>
+  <data name="Template_Credit_AutomationOne" xml:space="preserve"><value>एक चित्र श्रेय। स्रोत विवरण के लिए खोलें।</value></data>
+  <data name="Template_Credit_CardAutomation" xml:space="preserve"><value>{0} का चित्र श्रेय। {1}।</value></data>
+  <data name="Template_Credit_Generated" xml:space="preserve"><value>निर्मित चित्रण • {0}</value></data>
+  <data name="Template_Credit_HeaderMany" xml:space="preserve"><value>चित्र श्रेय • {0}</value></data>
+  <data name="Template_Credit_HeaderOne" xml:space="preserve"><value>चित्र श्रेय</value></data>
+  <data name="Template_Credit_LicenseRetrieved" xml:space="preserve"><value>लाइसेंस: {0} • प्राप्ति {1}</value></data>
+  <data name="Template_Credit_Photograph" xml:space="preserve"><value>{0} का छायाचित्र • {1}</value></data>
+  <data name="Template_Credit_PreviewNotice" xml:space="preserve"><value>पूर्वावलोकन संपत्ति • लाइसेंस और पुनर्वितरण समीक्षा लंबित है।</value></data>
+  <data name="Template_Credit_ProcessedDerivative" xml:space="preserve"><value>संसाधित व्युत्पन्न: {0}</value></data>
+  <data name="Template_Credit_PromptSummary" xml:space="preserve"><value>प्रॉम्प्ट सारांश: {0}</value></data>
+  <data name="Template_Credit_Source" xml:space="preserve"><value>स्रोत: {0}</value></data>
+  <data name="Template_ObjectSpotlight_Acknowledge" xml:space="preserve"><value>मैंने ध्यान दिया</value></data>
+  <data name="Template_ObjectSpotlight_Failure" xml:space="preserve"><value>प्रकटीकरण फिर चलाएँ और पूरी संज्ञा प्रविष्टि देखें।</value></data>
+  <data name="Template_ObjectSpotlight_Instruction" xml:space="preserve"><value>वस्तु पर प्रकाश का निर्देश। {0}</value></data>
+  <data name="Template_ObjectSpotlight_Ready" xml:space="preserve"><value>कटआउट को टिकते देखें, फिर पूरी संज्ञा प्रविष्टि पर ध्यान दें।</value></data>
+  <data name="Template_ObjectSpotlight_Stage" xml:space="preserve"><value>{0} के लिए वस्तु मंच</value></data>
+  <data name="Template_ObjectSpotlight_Success" xml:space="preserve"><value>देख लिया: शब्द, आर्टिकल और अर्थ साथ हैं।</value></data>
+  <data name="Template_ObjectSpotlight_Tape" xml:space="preserve"><value>वस्तु पर प्रकाश</value></data>
+  <data name="Template_ObjectSpotlight_TextOnly" xml:space="preserve"><value>केवल पाठ प्रस्तुति: लिखा शब्द, आर्टिकल और अर्थ पूरे रहते हैं।</value></data>
+  <data name="Template_ObjectSpotlight_Uncertain" xml:space="preserve"><value>आगे बढ़ने से पहले आर्टिकल और अर्थ पर रुकें।</value></data>
+  <data name="Template_PictureMatch_Failure" xml:space="preserve"><value>अभी यह नहीं। लेबलों की तुलना करके फिर कोशिश करें।</value></data>
+  <data name="Template_PictureMatch_Prompt" xml:space="preserve"><value>चित्र मिलान संकेत। {0}</value></data>
+  <data name="Template_PictureMatch_Ready" xml:space="preserve"><value>तैयार: संकेत से मेल खाता कटआउट या पाठ लेबल चुनें।</value></data>
+  <data name="Template_PictureMatch_Stage" xml:space="preserve"><value>चित्र मिलान। {0}</value></data>
+  <data name="Template_PictureMatch_Success" xml:space="preserve"><value>मेल हुआ। चुने कटआउट पर लक्ष्य शब्द है।</value></data>
+  <data name="Template_PictureMatch_Tape" xml:space="preserve"><value>एक चुनें</value></data>
+  <data name="Template_PictureMatch_TextOnly" xml:space="preserve"><value>केवल पाठ मिलान: हर विकल्प का पूरा लिखा लेबल रहता है।</value></data>
+  <data name="Template_PictureMatch_Uncertain" xml:space="preserve"><value>मिलान जाँचने से पहले एक पूरा विकल्प चुनें।</value></data>
+  <data name="Template_PlayTarget" xml:space="preserve"><value>{0} चलाएँ</value></data>
+  <data name="Template_PlayTarget_Automation" xml:space="preserve"><value>लक्ष्य शब्द {0} को स्थानीय सिस्टम आवाज़ में चलाएँ</value></data>
+  <data name="Template_PlaybackStopped" xml:space="preserve"><value>प्लेबैक रुका। लिखा लक्ष्य: {0}।</value></data>
+  <data name="Template_PlayingTarget" xml:space="preserve"><value>{0} स्थानीय रूप से चल रहा है।</value></data>
+  <data name="Template_ReplayBuild" xml:space="preserve"><value>निर्माण फिर चलाएँ</value></data>
+  <data name="Template_ReplayReveal" xml:space="preserve"><value>प्रकटीकरण फिर चलाएँ</value></data>
+  <data name="Template_ReplayScene" xml:space="preserve"><value>दृश्य फिर चलाएँ</value></data>
+  <data name="Template_Reset" xml:space="preserve"><value>रीसेट करें</value></data>
+  <data name="Template_SkipBuild" xml:space="preserve"><value>निर्माण छोड़ें</value></data>
+  <data name="Template_SkipReveal" xml:space="preserve"><value>प्रकटीकरण छोड़ें</value></data>
+  <data name="Template_SkipScene" xml:space="preserve"><value>दृश्य छोड़ें</value></data>
+  <data name="Template_WordOrder_Add" xml:space="preserve"><value>{0} को वाक्य में जोड़ें</value></data>
+  <data name="Template_WordOrder_AvailableCards" xml:space="preserve"><value>उपलब्ध शब्द कार्ड</value></data>
+  <data name="Template_WordOrder_Empty" xml:space="preserve"><value>खाली</value></data>
+  <data name="Template_WordOrder_EmptySlot" xml:space="preserve"><value>{0} आरक्षित रेल डिब्बा, खाली</value></data>
+  <data name="Template_WordOrder_Failure" xml:space="preserve"><value>सभी शब्द मौजूद हैं, पर रेल का क्रम फिर देखें।</value></data>
+  <data name="Template_WordOrder_Hint" xml:space="preserve"><value>शब्द जोड़ने के लिए उसे चुनें। लौटाने के लिए रेल डिब्बा चुनें।</value></data>
+  <data name="Template_WordOrder_Prompt" xml:space="preserve"><value>शब्द क्रम संकेत। {0}</value></data>
+  <data name="Template_WordOrder_Ready" xml:space="preserve"><value>तैयार: वाक्य को बाएँ से दाएँ बनाएँ।</value></data>
+  <data name="Template_WordOrder_Remove" xml:space="preserve"><value>{0}। {1}। वाक्य से हटाएँ</value></data>
+  <data name="Template_WordOrder_SelectedCars" xml:space="preserve"><value>वाक्य क्रम में चुने रेल डिब्बे</value></data>
+  <data name="Template_WordOrder_SlotMiddle" xml:space="preserve"><value>मध्य</value></data>
+  <data name="Template_WordOrder_SlotRightBracket" xml:space="preserve"><value>दायाँ ब्रैकेट</value></data>
+  <data name="Template_WordOrder_SlotStart" xml:space="preserve"><value>शुरुआत</value></data>
+  <data name="Template_WordOrder_SlotVerbTwo" xml:space="preserve"><value>क्रिया 2</value></data>
+  <data name="Template_WordOrder_Stage" xml:space="preserve"><value>शब्द क्रम रेल निर्माण मंच</value></data>
+  <data name="Template_WordOrder_Success" xml:space="preserve"><value>रेल लिखे क्रम में पढ़ी जाती है।</value></data>
+  <data name="Template_WordOrder_Tape" xml:space="preserve"><value>अनुरोध बनाएँ</value></data>
+  <data name="Template_WordOrder_TextOnly" xml:space="preserve"><value>केवल पाठ निर्माण: हर शब्द और क्रिया कीबोर्ड से चलती है।</value></data>
+  <data name="Template_WordOrder_Uncertain" xml:space="preserve"><value>जाँच से पहले रेल को हर शब्द चाहिए।</value></data>
+  <data name="Template_WordOrder_WordBank" xml:space="preserve"><value>शब्द बैंक</value></data>
+  <data name="Template_WrittenTarget_Automation" xml:space="preserve"><value>लिखा लक्ष्य {0}। वैकल्पिक स्थानीय आवाज़। माइक्रोफ़ोन उपयोग नहीं होता।</value></data>
+  <data name="Template_WrittenTarget_NoVoice" xml:space="preserve"><value>लिखा लक्ष्य: {0}। मेल खाने वाली स्थानीय आवाज़ इंस्टॉल नहीं है।</value></data>
+  <data name="Template_WrittenTarget_Playback" xml:space="preserve"><value>लिखा लक्ष्य: {0}। वैकल्पिक प्लेबैक में माइक्रोफ़ोन उपयोग नहीं होता।</value></data>
+  <data name="Template_WrittenTarget_Unavailable" xml:space="preserve"><value>लिखा लक्ष्य: {0}। स्थानीय प्लेबैक उपलब्ध नहीं है।</value></data>
 </root>

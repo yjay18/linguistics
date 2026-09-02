@@ -5,6 +5,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Linguistics.App.Content;
 using Linguistics.App.Controls;
+using Linguistics.App.Localization;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
@@ -40,9 +41,17 @@ internal static class PictureMatchRenderer
         var useVisuals = !parameters.UseTextOnlyFallback &&
             options.Any(option => imageCache?.TryGetBitmap(option.AssetReferenceId, out _) == true);
 
-        var replayButton = new Button { Content = "Replay reveal", Classes = { "quiet" } };
+        var replayButton = new Button
+        {
+            Content = AppStrings.Get("Template_ReplayReveal"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(replayButton, "PictureMatchReplay");
-        var skipButton = new Button { Content = "Skip reveal", Classes = { "quiet" } };
+        var skipButton = new Button
+        {
+            Content = AppStrings.Get("Template_SkipReveal"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(skipButton, "PictureMatchSkip");
         var promptText = new TextBlock
         {
@@ -52,7 +61,9 @@ internal static class PictureMatchRenderer
             TextWrapping = TextWrapping.Wrap,
             VerticalAlignment = VerticalAlignment.Center,
         };
-        AutomationProperties.SetName(promptText, $"Picture match prompt. {prompt}");
+        AutomationProperties.SetName(
+            promptText,
+            AppStrings.Format("Template_PictureMatch_Prompt", prompt));
         var sceneActions = new StackPanel
         {
             Orientation = Orientation.Horizontal,
@@ -65,12 +76,18 @@ internal static class PictureMatchRenderer
         Grid.SetColumn(sceneActions, 1);
         header.Children.Add(sceneActions);
 
-        var stage = TemplateRendering.CreateStage(304, $"Picture match. {prompt}");
+        var stage = TemplateRendering.CreateStage(
+            304,
+            AppStrings.Format("Template_PictureMatch_Stage", prompt));
         var backdropRendered = TemplateRendering.AddBackdrop(
             stage,
             imageCache,
             parameters.UseTextOnlyFallback ? null : backdropReference);
-        var tape = new PaperTape { Content = "CHOOSE ONE", Angle = 1.2 };
+        var tape = new PaperTape
+        {
+            Content = AppStrings.Get("Template_PictureMatch_Tape"),
+            Angle = 1.2,
+        };
         PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(tape, PaperAnchorLine.Head);
         PaperStage.SetAnchorX(tape, 0.5);
@@ -140,7 +157,9 @@ internal static class PictureMatchRenderer
                 Content = frame,
                 Classes = { "quiet", "lift" },
             };
-            AutomationProperties.SetName(button, $"Choose {option.Label}");
+            AutomationProperties.SetName(
+                button,
+                AppStrings.Format("Template_ChooseOption", option.Label));
             AutomationProperties.SetAutomationId(button, $"PictureMatchOption_{option.Id}");
             button.Click += (_, _) =>
             {
@@ -162,17 +181,19 @@ internal static class PictureMatchRenderer
         root.Children.Add(header);
         var playButton = new Button
         {
-            Content = $"Play {spokenText}",
+            Content = AppStrings.Format("Template_PlayTarget", spokenText),
             Classes = { "quiet" },
             IsEnabled = speechSynthesisProvider is not null && speechLanguage is not null,
         };
         AutomationProperties.SetAutomationId(playButton, "PictureMatchPlayTarget");
-        AutomationProperties.SetName(playButton, $"Play the target word {spokenText} with local system speech");
+        AutomationProperties.SetName(
+            playButton,
+            AppStrings.Format("Template_PlayTarget_Automation", spokenText));
         var playbackStatus = new TextBlock
         {
             Text = playButton.IsEnabled
-                ? $"Written target: {spokenText}. Optional playback uses no microphone."
-                : $"Written target: {spokenText}. Local playback is unavailable.",
+                ? AppStrings.Format("Template_WrittenTarget_Playback", spokenText)
+                : AppStrings.Format("Template_WrittenTarget_Unavailable", spokenText),
             Classes = { "muted" },
             TextWrapping = TextWrapping.Wrap,
             VerticalAlignment = VerticalAlignment.Center,
@@ -191,7 +212,7 @@ internal static class PictureMatchRenderer
         playbackPanel.Classes.Add("soft");
         AutomationProperties.SetName(
             playbackPanel,
-            $"Written target {spokenText}. Optional local speech. No microphone is used.");
+            AppStrings.Format("Template_WrittenTarget_Automation", spokenText));
         root.Children.Add(playbackPanel);
 
         var availabilityCancellation = new CancellationTokenSource();
@@ -209,8 +230,8 @@ internal static class PictureMatchRenderer
                                        snapshot.Voices.Any(voice => voice.Language == language);
                 playButton.IsEnabled = hasMatchingVoice;
                 playbackStatus.Text = hasMatchingVoice
-                    ? $"Written target: {spokenText}. Optional playback uses no microphone."
-                    : $"Written target: {spokenText}. No matching local voice is installed.";
+                    ? AppStrings.Format("Template_WrittenTarget_Playback", spokenText)
+                    : AppStrings.Format("Template_WrittenTarget_NoVoice", spokenText);
             }
             catch (OperationCanceledException)
             {
@@ -222,7 +243,9 @@ internal static class PictureMatchRenderer
         {
             if (speechSynthesisProvider is null || speechLanguage is not { } language)
             {
-                playbackStatus.Text = $"Written target: {spokenText}. Local playback is unavailable.";
+                playbackStatus.Text = AppStrings.Format(
+                    "Template_WrittenTarget_Unavailable",
+                    spokenText);
                 return;
             }
 
@@ -230,7 +253,7 @@ internal static class PictureMatchRenderer
             playbackCancellation?.Dispose();
             playbackCancellation = new CancellationTokenSource();
             playButton.IsEnabled = false;
-            playbackStatus.Text = $"Playing {spokenText} locally.";
+            playbackStatus.Text = AppStrings.Format("Template_PlayingTarget", spokenText);
             try
             {
                 var result = await speechSynthesisProvider.SpeakAsync(
@@ -244,7 +267,9 @@ internal static class PictureMatchRenderer
             }
             catch (OperationCanceledException)
             {
-                playbackStatus.Text = $"Playback stopped. Written target: {spokenText}.";
+                playbackStatus.Text = AppStrings.Format(
+                    "Template_PlaybackStopped",
+                    spokenText);
             }
             finally
             {
@@ -264,7 +289,7 @@ internal static class PictureMatchRenderer
         {
             root.Children.Add(new TextBlock
             {
-                Text = "Text-only match: every choice keeps its complete authored label.",
+                Text = AppStrings.Get("Template_PictureMatch_TextOnly"),
                 Classes = { "muted" },
                 TextWrapping = TextWrapping.Wrap,
             });
@@ -345,9 +370,9 @@ internal static class PictureMatchRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "Matched. The chosen cutout carries the target word.",
-        TemplateOutcomeState.Uncertain => "Choose one complete option before the match can be checked.",
-        TemplateOutcomeState.Failure => "Not this one yet. Compare the labels and try again.",
-        _ => "Ready: choose the cutout or text label that matches the prompt.",
+        TemplateOutcomeState.Success => AppStrings.Get("Template_PictureMatch_Success"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("Template_PictureMatch_Uncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("Template_PictureMatch_Failure"),
+        _ => AppStrings.Get("Template_PictureMatch_Ready"),
     };
 }

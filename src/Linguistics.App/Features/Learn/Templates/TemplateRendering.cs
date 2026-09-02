@@ -7,6 +7,7 @@ using Avalonia.Media;
 using Avalonia.Media.Transformation;
 using Linguistics.App.Content;
 using Linguistics.App.Controls;
+using Linguistics.App.Localization;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
@@ -156,14 +157,18 @@ internal static class TemplateRendering
 
         var disclosure = new Expander
         {
-            Header = assets.Length == 1 ? "Image credit" : $"Image credits · {assets.Length}",
+            Header = assets.Length == 1
+                ? AppStrings.Get("Template_Credit_HeaderOne")
+                : AppStrings.Format("Template_Credit_HeaderMany", assets.Length),
             Content = list,
             HorizontalAlignment = HorizontalAlignment.Stretch,
         };
         AutomationProperties.SetAutomationId(disclosure, automationId);
         AutomationProperties.SetName(
             disclosure,
-            $"{assets.Length} image {(assets.Length == 1 ? "credit" : "credits")}. Expand for attribution details.");
+            assets.Length == 1
+                ? AppStrings.Get("Template_Credit_AutomationOne")
+                : AppStrings.Format("Template_Credit_AutomationMany", assets.Length));
         return disclosure;
     }
 
@@ -324,8 +329,8 @@ internal static class TemplateRendering
         var record = asset.Record;
         var title = record.Source?.Title ?? record.Generation?.Title ?? record.Id;
         var provenance = record.Source is { } source
-            ? $"Photograph by {source.Author} · {record.License.Identifier}"
-            : $"Generated illustration · {record.Generation!.GeneratorName}";
+            ? AppStrings.Format("Template_Credit_Photograph", source.Author, record.License.Identifier)
+            : AppStrings.Format("Template_Credit_Generated", record.Generation!.GeneratorName);
         var details = new StackPanel { Spacing = 4 };
         details.Children.Add(new TextBlock
         {
@@ -349,13 +354,16 @@ internal static class TemplateRendering
         {
             details.Children.Add(new TextBlock
             {
-                Text = $"Source: {photographed.SourceUrl}",
+                Text = AppStrings.Format("Template_Credit_Source", photographed.SourceUrl),
                 FontSize = 12,
                 TextWrapping = TextWrapping.Wrap,
             });
             details.Children.Add(new TextBlock
             {
-                Text = $"License: {record.License.LicenseTextLocation} · retrieved {photographed.RetrievedOn:yyyy-MM-dd}",
+                Text = AppStrings.Format(
+                    "Template_Credit_LicenseRetrieved",
+                    record.License.LicenseTextLocation,
+                    photographed.RetrievedOn.ToString("yyyy-MM-dd", AppStrings.CurrentCulture)),
                 FontSize = 12,
                 TextWrapping = TextWrapping.Wrap,
             });
@@ -364,7 +372,7 @@ internal static class TemplateRendering
         {
             details.Children.Add(new TextBlock
             {
-                Text = $"Prompt summary: {record.Generation!.PromptSummary}",
+                Text = AppStrings.Format("Template_Credit_PromptSummary", record.Generation!.PromptSummary),
                 FontSize = 12,
                 TextWrapping = TextWrapping.Wrap,
             });
@@ -373,14 +381,14 @@ internal static class TemplateRendering
         details.Children.Add(new TextBlock
         {
             Text = record.Transformation.IsDerivative
-                ? $"Processed derivative: {record.Transformation.Description}"
+                ? AppStrings.Format("Template_Credit_ProcessedDerivative", record.Transformation.Description)
                 : record.Transformation.Description,
             FontSize = 12,
             TextWrapping = TextWrapping.Wrap,
         });
         details.Children.Add(new TextBlock
         {
-            Text = "Preview asset · license and redistribution review remain pending.",
+            Text = AppStrings.Get("Template_Credit_PreviewNotice"),
             Classes = { "muted" },
             FontSize = 12,
             TextWrapping = TextWrapping.Wrap,
@@ -391,7 +399,9 @@ internal static class TemplateRendering
             Child = details,
         };
         card.Classes.Add("soft-card");
-        AutomationProperties.SetName(card, $"Image credit for {title}. {provenance}.");
+        AutomationProperties.SetName(
+            card,
+            AppStrings.Format("Template_Credit_CardAutomation", title, provenance));
         return card;
     }
 }

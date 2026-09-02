@@ -4,6 +4,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Linguistics.App.Content;
 using Linguistics.App.Controls;
+using Linguistics.App.Localization;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
@@ -29,9 +30,17 @@ internal static class WordOrderTrainRenderer
         var selectedIds = InitialOrder(parameters.PreviewOutcome, options).ToList();
         var bankButtons = new Dictionary<string, Button>(StringComparer.Ordinal);
 
-        var replayButton = new Button { Content = "Replay build", Classes = { "quiet" } };
+        var replayButton = new Button
+        {
+            Content = AppStrings.Get("Template_ReplayBuild"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(replayButton, "WordOrderTrainReplay");
-        var skipButton = new Button { Content = "Skip build", Classes = { "quiet" } };
+        var skipButton = new Button
+        {
+            Content = AppStrings.Get("Template_SkipBuild"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(skipButton, "WordOrderTrainSkip");
         var promptText = new TextBlock
         {
@@ -41,7 +50,9 @@ internal static class WordOrderTrainRenderer
             TextWrapping = TextWrapping.Wrap,
             VerticalAlignment = VerticalAlignment.Center,
         };
-        AutomationProperties.SetName(promptText, $"Word order prompt. {prompt}");
+        AutomationProperties.SetName(
+            promptText,
+            AppStrings.Format("Template_WordOrder_Prompt", prompt));
         var sceneActions = new StackPanel
         {
             Orientation = Orientation.Horizontal,
@@ -54,12 +65,18 @@ internal static class WordOrderTrainRenderer
         Grid.SetColumn(sceneActions, 1);
         header.Children.Add(sceneActions);
 
-        var stage = TemplateRendering.CreateStage(320, "Word order train construction stage");
+        var stage = TemplateRendering.CreateStage(
+            320,
+            AppStrings.Get("Template_WordOrder_Stage"));
         var backdropRendered = TemplateRendering.AddBackdrop(
             stage,
             imageCache,
             parameters.UseTextOnlyFallback ? null : backdropReference);
-        var tape = new PaperTape { Content = "BUILD THE REQUEST", Angle = -1.1 };
+        var tape = new PaperTape
+        {
+            Content = AppStrings.Get("Template_WordOrder_Tape"),
+            Angle = -1.1,
+        };
         PaperStage.SetLayer(tape, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(tape, PaperAnchorLine.Head);
         PaperStage.SetAnchorX(tape, 0.2);
@@ -95,8 +112,12 @@ internal static class WordOrderTrainRenderer
             VerticalAlignment = VerticalAlignment.Center,
             ItemHeight = 60,
         };
-        AutomationProperties.SetName(bankPanel, "Available word cards");
-        AutomationProperties.SetName(trainPanel, "Selected train cars in sentence order");
+        AutomationProperties.SetName(
+            bankPanel,
+            AppStrings.Get("Template_WordOrder_AvailableCards"));
+        AutomationProperties.SetName(
+            trainPanel,
+            AppStrings.Get("Template_WordOrder_SelectedCars"));
 
         var construction = new Grid
         {
@@ -105,7 +126,7 @@ internal static class WordOrderTrainRenderer
         };
         construction.Children.Add(new TextBlock
         {
-            Text = "WORD BANK",
+            Text = AppStrings.Get("Template_WordOrder_WordBank"),
             Classes = { "eyebrow" },
             HorizontalAlignment = HorizontalAlignment.Center,
         });
@@ -139,7 +160,7 @@ internal static class WordOrderTrainRenderer
         construction.Children.Add(trainPanel);
         var trainHint = new TextBlock
         {
-            Text = "Select a word to add it. Select a train car to return it.",
+            Text = AppStrings.Get("Template_WordOrder_Hint"),
             Classes = { "muted" },
             FontSize = 12,
             TextAlignment = TextAlignment.Center,
@@ -165,7 +186,9 @@ internal static class WordOrderTrainRenderer
                 Margin = new Avalonia.Thickness(4),
                 Classes = { "lift" },
             };
-            AutomationProperties.SetName(button, $"Add {option.Label} to the sentence");
+            AutomationProperties.SetName(
+                button,
+                AppStrings.Format("Template_WordOrder_Add", option.Label));
             AutomationProperties.SetAutomationId(button, $"WordOrderBank_{option.Id}");
             button.Click += (_, _) =>
             {
@@ -183,9 +206,17 @@ internal static class WordOrderTrainRenderer
             parameters.PreviewOutcome,
             OutcomeCopy,
             out var outcomeText);
-        var resetButton = new Button { Content = "Reset", Classes = { "quiet" } };
+        var resetButton = new Button
+        {
+            Content = AppStrings.Get("Template_Reset"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(resetButton, "WordOrderTrainReset");
-        var checkButton = new Button { Content = "Check order", Classes = { "primary", "lift" } };
+        var checkButton = new Button
+        {
+            Content = AppStrings.Get("Template_CheckOrder"),
+            Classes = { "primary", "lift" },
+        };
         AutomationProperties.SetAutomationId(checkButton, "WordOrderTrainCheck");
         var actions = new StackPanel
         {
@@ -222,7 +253,7 @@ internal static class WordOrderTrainRenderer
                     });
                 }
 
-                var slotLabel = SlotLabel(index, options.Count, instructionLanguage);
+                var slotLabel = SlotLabel(index, options.Count);
                 if (index >= selectedIds.Count)
                 {
                     var emptyCopy = new StackPanel
@@ -242,7 +273,7 @@ internal static class WordOrderTrainRenderer
                     });
                     emptyCopy.Children.Add(new TextBlock
                     {
-                        Text = "EMPTY",
+                        Text = AppStrings.Get("Template_WordOrder_Empty"),
                         Classes = { "muted" },
                         FontSize = 10,
                         FontWeight = FontWeight.SemiBold,
@@ -259,7 +290,7 @@ internal static class WordOrderTrainRenderer
                     emptySlot.Classes.Add("soft");
                     AutomationProperties.SetName(
                         emptySlot,
-                        $"{slotLabel} reserved train car, empty");
+                        AppStrings.Format("Template_WordOrder_EmptySlot", slotLabel));
                     trainPanel.Children.Add(emptySlot);
                     continue;
                 }
@@ -310,7 +341,10 @@ internal static class WordOrderTrainRenderer
                 };
                 AutomationProperties.SetName(
                     car,
-                    $"{slotLabel}. {option.Label}. Remove from the sentence");
+                    AppStrings.Format(
+                        "Template_WordOrder_Remove",
+                        slotLabel,
+                        option.Label));
                 AutomationProperties.SetAutomationId(car, $"WordOrderCar_{option.Id}");
                 car.Click += (_, _) =>
                 {
@@ -345,7 +379,7 @@ internal static class WordOrderTrainRenderer
         {
             root.Children.Add(new TextBlock
             {
-                Text = "Text-only construction: every word and action remains keyboard operable.",
+                Text = AppStrings.Get("Template_WordOrder_TextOnly"),
                 Classes = { "muted" },
                 TextWrapping = TextWrapping.Wrap,
             });
@@ -406,25 +440,24 @@ internal static class WordOrderTrainRenderer
             .Concat(options.Where((_, index) => index % 2 == 0))
             .ToArray();
 
-    private static string SlotLabel(int index, int count, LanguageCode language)
+    private static string SlotLabel(int index, int count)
     {
-        var useHindi = string.Equals(language.Value, "hi", StringComparison.Ordinal);
         if (index == 0)
         {
-            return useHindi ? "शुरुआत" : "START";
+            return AppStrings.Get("Template_WordOrder_SlotStart");
         }
 
         if (index == 1)
         {
-            return useHindi ? "क्रिया 2" : "VERB 2";
+            return AppStrings.Get("Template_WordOrder_SlotVerbTwo");
         }
 
         if (index == count - 1)
         {
-            return useHindi ? "दायाँ ब्रैकेट" : "RIGHT BRACKET";
+            return AppStrings.Get("Template_WordOrder_SlotRightBracket");
         }
 
-        return useHindi ? "मध्य" : "MIDDLE";
+        return AppStrings.Get("Template_WordOrder_SlotMiddle");
     }
 
     private static IReadOnlyList<string> InitialOrder(
@@ -441,9 +474,9 @@ internal static class WordOrderTrainRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "The train reads in the authored order.",
-        TemplateOutcomeState.Uncertain => "The train needs every word before it can be checked.",
-        TemplateOutcomeState.Failure => "The words are all here, but the train order needs another pass.",
-        _ => "Ready: build the sentence from left to right.",
+        TemplateOutcomeState.Success => AppStrings.Get("Template_WordOrder_Success"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("Template_WordOrder_Uncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("Template_WordOrder_Failure"),
+        _ => AppStrings.Get("Template_WordOrder_Ready"),
     };
 }
