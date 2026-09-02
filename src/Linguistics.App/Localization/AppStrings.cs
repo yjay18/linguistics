@@ -1,5 +1,7 @@
 using System.Globalization;
+using System.ComponentModel;
 using System.Resources;
+using Avalonia.Data;
 using Avalonia.Markup.Xaml;
 using Linguistics.Core.Profiles;
 
@@ -31,6 +33,7 @@ public static class AppStrings
         }
 
         _culture = CultureInfo.GetCultureInfo(language.Value);
+        AppStringProvider.Instance.Refresh();
     }
 
     public static string Get(string key)
@@ -45,6 +48,22 @@ public static class AppStrings
 
     public static string Format(string key, params object?[] arguments) =>
         string.Format(_culture, Get(key), arguments);
+}
+
+public sealed class AppStringProvider : INotifyPropertyChanged
+{
+    public static AppStringProvider Instance { get; } = new();
+
+    private AppStringProvider()
+    {
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public string this[string key] => AppStrings.Get(key);
+
+    internal void Refresh() =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
 }
 
 public static class AppLanguageSelector
@@ -80,5 +99,9 @@ public sealed class LocalizeExtension : MarkupExtension
     public string Key { get; }
 
     public override object ProvideValue(IServiceProvider serviceProvider) =>
-        AppStrings.Get(Key);
+        new Binding($"[{Key}]")
+        {
+            Source = AppStringProvider.Instance,
+            Mode = BindingMode.OneWay,
+        };
 }
