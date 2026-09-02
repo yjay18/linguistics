@@ -1,5 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
+             xmlns:learn="using:Linguistics.App.Features.Learn"
              xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -108,9 +110,137 @@
                 <TextBlock Text="{loc:Localize Learn_CoursePath_Body}"
                            Classes="muted"
                            TextWrapping="Wrap" />
-                <StackPanel x:Name="UnitsPanel"
-                            Spacing="16"
-                            AutomationProperties.AutomationId="CourseUnits" />
+                <Grid AutomationProperties.AutomationId="CourseUnits">
+                    <Border Width="3"
+                            Margin="30,26,0,56"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Background="{DynamicResource AppAccentBrush}"
+                            CornerRadius="2"
+                            IsHitTestVisible="False"
+                            AutomationProperties.AccessibilityView="Raw" />
+                    <ItemsControl x:Name="UnitsList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Spacing="22" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="learn:CourseJourneyUnit">
+                                <Grid ColumnDefinitions="64,*"
+                                      ColumnSpacing="12">
+                                    <controls:PaperStamp Width="54"
+                                                         Height="54"
+                                                         Margin="4,18,0,0"
+                                                         VerticalAlignment="Top"
+                                                         Content="{Binding Number}"
+                                                         FontSize="16"
+                                                         Angle="-2"
+                                                         AutomationProperties.Name="{Binding UnitAutomationName}" />
+                                    <controls:PaperCard Grid.Column="1"
+                                                        Padding="22"
+                                                        AutomationProperties.Name="{Binding UnitAutomationName}">
+                                        <StackPanel Spacing="15">
+                                            <StackPanel Spacing="7">
+                                                <controls:PaperTape Content="{Binding UnitLabel}"
+                                                                    Classes="compact"
+                                                                    Angle="1"
+                                                                    HorizontalAlignment="Left" />
+                                                <TextBlock Text="{Binding Title}"
+                                                           FontSize="21"
+                                                           FontWeight="SemiBold"
+                                                           TextWrapping="Wrap"
+                                                           AutomationProperties.HeadingLevel="3" />
+                                                <TextBlock Text="{Binding Description}"
+                                                           Classes="muted"
+                                                           TextWrapping="Wrap" />
+                                            </StackPanel>
+                                            <ItemsControl ItemsSource="{Binding Lessons}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="learn:CourseJourneyLesson">
+                                                        <Button Width="246"
+                                                                MinHeight="126"
+                                                                Margin="0,0,10,10"
+                                                                Classes="lesson-tile lift"
+                                                                Tag="{Binding Lesson}"
+                                                                Click="OnLessonClicked"
+                                                                AutomationProperties.Name="{Binding AutomationName}">
+                                                            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+                                                                  RowSpacing="5">
+                                                                <Grid ColumnDefinitions="*,Auto">
+                                                                    <TextBlock Text="{Binding NumberLabel}"
+                                                                               Classes="lesson-label"
+                                                                               FontSize="10"
+                                                                               FontWeight="Bold"
+                                                                               LetterSpacing="1.1" />
+                                                                    <controls:PaperTape Grid.Column="1"
+                                                                                        IsVisible="{Binding IsNext}"
+                                                                                        Content="{loc:Localize Learn_Journey_Next}"
+                                                                                        Classes="compact"
+                                                                                        Angle="2"
+                                                                                        FontSize="9" />
+                                                                </Grid>
+                                                                <TextBlock Grid.Row="1"
+                                                                           Text="{Binding Title}"
+                                                                           FontSize="16"
+                                                                           FontWeight="SemiBold"
+                                                                           TextWrapping="Wrap"
+                                                                           MaxLines="2" />
+                                                                <TextBlock Grid.Row="2"
+                                                                           Text="{Binding CardCount}"
+                                                                           Classes="muted"
+                                                                           FontSize="12" />
+                                                                <StackPanel Grid.Row="3"
+                                                                            Orientation="Horizontal"
+                                                                            Spacing="6">
+                                                                    <Border Classes="status-pill"
+                                                                            Padding="8,3">
+                                                                        <TextBlock Text="{Binding PresentationKind}"
+                                                                                   FontSize="10"
+                                                                                   FontWeight="SemiBold" />
+                                                                    </Border>
+                                                                    <Border Classes="status-pill"
+                                                                            Padding="8,3">
+                                                                        <TextBlock Text="{Binding ReviewState}"
+                                                                                   FontSize="10"
+                                                                                   FontWeight="SemiBold" />
+                                                                    </Border>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </controls:PaperCard>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+
+                <controls:PaperCard Classes="soft"
+                                    Margin="64,0,0,0"
+                                    Padding="20"
+                                    AutomationProperties.AutomationId="CoursePlannedPath">
+                    <StackPanel Spacing="8">
+                        <controls:PaperTape Content="{loc:Localize Learn_Journey_Planned}"
+                                            Classes="compact"
+                                            Angle="-1"
+                                            HorizontalAlignment="Left" />
+                        <TextBlock x:Name="PlannedPathText"
+                                   FontWeight="SemiBold"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Localize Learn_Journey_PlannedBody}"
+                                   Classes="muted"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </controls:PaperCard>
             </StackPanel>
 
             <Expander x:Name="DeveloperDetails"

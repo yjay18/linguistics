@@ -1038,4 +1038,14 @@
   <data name="Onboarding_Summary_Microphone" xml:space="preserve"><value>माइक्रोफ़ोन: {0}</value></data>
   <data name="Onboarding_Summary_SpeechRetention" xml:space="preserve"><value>भाषण ऑडियो: कभी सहेजा नहीं जाता</value></data>
   <data name="Onboarding_Summary_Motion" xml:space="preserve"><value>इंटरफ़ेस गति घटाएँ: {0}</value></data>
+  <data name="Learn_Journey_AuthoredTemplate" xml:space="preserve"><value>लिखा टेम्पलेट</value></data>
+  <data name="Learn_Journey_Complete" xml:space="preserve"><value>पूरी नियोजित राह लिखी जा चुकी है।</value></data>
+  <data name="Learn_Journey_GuidedCards" xml:space="preserve"><value>मार्गदर्शित कार्ड</value></data>
+  <data name="Learn_Journey_Next" xml:space="preserve"><value>अगला</value></data>
+  <data name="Learn_Journey_Planned" xml:space="preserve"><value>नियोजित राह</value></data>
+  <data name="Learn_Journey_PlannedBody" xml:space="preserve"><value>समीक्षित सामग्री लिखे जाने तक आगे के पाठ स्पष्ट रूप से नियोजित रहते हैं।</value></data>
+  <data name="Learn_Journey_Preview" xml:space="preserve"><value>पूर्वावलोकन</value></data>
+  <data name="Learn_Journey_Remaining" xml:space="preserve"><value>{0} नियोजित पाठ अभी लिखे नहीं गए हैं।</value></data>
+  <data name="Learn_Journey_Unit" xml:space="preserve"><value>इकाई {0}</value></data>
+  <data name="Learn_Journey_UnitAutomation" xml:space="preserve"><value>इकाई {0}। {1}।</value></data>
 </root>

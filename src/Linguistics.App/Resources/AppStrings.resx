@@ -1038,4 +1038,14 @@
   <data name="Onboarding_Summary_Microphone" xml:space="preserve"><value>Microphone: {0}</value></data>
   <data name="Onboarding_Summary_SpeechRetention" xml:space="preserve"><value>Speech audio: Never retained</value></data>
   <data name="Onboarding_Summary_Motion" xml:space="preserve"><value>Reduce interface motion: {0}</value></data>
+  <data name="Learn_Journey_AuthoredTemplate" xml:space="preserve"><value>Authored template</value></data>
+  <data name="Learn_Journey_Complete" xml:space="preserve"><value>The complete planned path is authored.</value></data>
+  <data name="Learn_Journey_GuidedCards" xml:space="preserve"><value>Guided cards</value></data>
+  <data name="Learn_Journey_Next" xml:space="preserve"><value>Next</value></data>
+  <data name="Learn_Journey_Planned" xml:space="preserve"><value>Planned path</value></data>
+  <data name="Learn_Journey_PlannedBody" xml:space="preserve"><value>Future lessons stay visibly planned until reviewed content is authored.</value></data>
+  <data name="Learn_Journey_Preview" xml:space="preserve"><value>Preview</value></data>
+  <data name="Learn_Journey_Remaining" xml:space="preserve"><value>{0} planned lessons are not authored yet.</value></data>
+  <data name="Learn_Journey_Unit" xml:space="preserve"><value>Unit {0}</value></data>
+  <data name="Learn_Journey_UnitAutomation" xml:space="preserve"><value>Unit {0}. {1}.</value></data>
 </root>

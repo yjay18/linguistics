@@ -14,9 +14,26 @@ using Linguistics.Core.Speech;
 
 namespace Linguistics.App.Features.Learn;
 
+internal sealed record CourseJourneyUnit(
+    string Number,
+    string UnitLabel,
+    string Title,
+    string Description,
+    string UnitAutomationName,
+    IReadOnlyList<CourseJourneyLesson> Lessons);
+
+internal sealed record CourseJourneyLesson(
+    CourseLesson Lesson,
+    string NumberLabel,
+    string Title,
+    string CardCount,
+    string PresentationKind,
+    string ReviewState,
+    bool IsNext,
+    string AutomationName);
+
 public partial class LearnView : UserControl
 {
-    private readonly Dictionary<Button, CourseLesson> _lessonsByButton = [];
     private readonly TemplateRegistry _templateRegistry = TemplateRegistry.CreateDefault();
     private readonly LearnerProfileOwner? _profileOwner;
     private LanguageCode _instructionLanguage = new("en");
@@ -101,7 +118,7 @@ public partial class LearnView : UserControl
             if (_canPersistLessonProgress)
             {
                 StartCourseButton.IsEnabled = false;
-                UnitsPanel.IsEnabled = false;
+                UnitsList.IsEnabled = false;
                 AttachedToVisualTree += async (_, _) => await LoadLessonProgressAsync();
             }
         }
@@ -134,124 +151,48 @@ public partial class LearnView : UserControl
                 "Learn_CapacityRemaining",
                 course.RemainingLessonCount,
                 course.TargetLessonCount);
-        UnitsPanel.Children.Clear();
-        _lessonsByButton.Clear();
-
-        var lessonNumber = 1;
-        foreach (var unit in course.Units)
-        {
-            UnitsPanel.Children.Add(CreateUnitCard(unit, ref lessonNumber));
-        }
+        UnitsList.ItemsSource = CreateJourney(course, _resumeLesson);
+        PlannedPathText.Text = course.RemainingLessonCount == 0
+            ? AppStrings.Get("Learn_Journey_Complete")
+            : AppStrings.Format("Learn_Journey_Remaining", course.RemainingLessonCount);
 
         StartCourseButton.IsEnabled = course.AuthoredLessonCount > 0;
     }
 
-    private Control CreateUnitCard(CourseUnit unit, ref int lessonNumber)
+    internal static IReadOnlyList<CourseJourneyUnit> CreateJourney(
+        CourseCatalog course,
+        CourseLesson? nextLesson)
     {
-        var header = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("Auto,*"),
-            ColumnSpacing = 14,
-        };
-        var number = new Border
-        {
-            Width = 48,
-            Height = 48,
-            CornerRadius = new CornerRadius(16),
-            Child = new TextBlock
-            {
-                Text = unit.Number.ToString("00"),
-                FontSize = 16,
-                FontWeight = FontWeight.Bold,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-            },
-        };
-        number.Classes.Add("lesson-unit-number");
-        ((TextBlock)number.Child).Classes.Add("on-accent");
-        var title = new StackPanel { Spacing = 3 };
-        title.Children.Add(new TextBlock
-        {
-            Text = AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Title"),
-            FontSize = 21,
-            FontWeight = FontWeight.SemiBold,
-        });
-        title.Children.Add(new TextBlock
-        {
-            Text = AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Description"),
-            TextWrapping = TextWrapping.Wrap,
-            Opacity = 0.72,
-        });
-        Grid.SetColumn(title, 1);
-        header.Children.Add(number);
-        header.Children.Add(title);
-
-        var lessonTiles = new WrapPanel
-        {
-            Orientation = Orientation.Horizontal,
-            ItemWidth = 250,
-            ItemHeight = 112,
-        };
-        foreach (var lesson in unit.Lessons)
-        {
-            var tile = CreateLessonButton(lesson, lessonNumber++);
-            lessonTiles.Children.Add(tile);
-        }
-
-        var content = new StackPanel { Spacing = 16 };
-        content.Children.Add(header);
-        content.Children.Add(lessonTiles);
-        var card = new Border { Child = content };
-        card.Classes.Add("card");
-        return card;
-    }
-
-    private Button CreateLessonButton(CourseLesson lesson, int number)
-    {
-        var copy = new StackPanel
-        {
-            Spacing = 5,
-            Margin = new Thickness(2),
-        };
-        var label = new TextBlock
-        {
-            Text = AppStrings.Format("Learn_LessonNumber", number),
-            FontSize = 10,
-            FontWeight = FontWeight.Bold,
-            LetterSpacing = 1.1,
-        };
-        label.Classes.Add("lesson-label");
-        copy.Children.Add(label);
-        copy.Children.Add(new TextBlock
-        {
-            Text = Clean(lesson.Title),
-            FontSize = 16,
-            FontWeight = FontWeight.SemiBold,
-            TextWrapping = TextWrapping.Wrap,
-            MaxLines = 2,
-        });
-        copy.Children.Add(new TextBlock
-        {
-            Text = AppStrings.Format("Learn_ShortCards", lesson.Slides.Count),
-            FontSize = 12,
-            Opacity = 0.68,
-        });
-
-        var button = new Button
-        {
-            Content = copy,
-            HorizontalContentAlignment = HorizontalAlignment.Stretch,
-            VerticalContentAlignment = VerticalAlignment.Stretch,
-            Margin = new Thickness(0, 0, 10, 10),
-        };
-        button.Classes.Add("lesson-tile");
-        button.Classes.Add("lift");
-        AutomationProperties.SetName(
-            button,
-            AppStrings.Format("Learn_OpenLesson", number, Clean(lesson.Title)));
-        button.Click += OnLessonClicked;
-        _lessonsByButton.Add(button, lesson);
-        return button;
+        ArgumentNullException.ThrowIfNull(course);
+        nextLesson ??= course.Units.SelectMany(unit => unit.Lessons).FirstOrDefault();
+        var lessonNumber = 1;
+        return course.Units
+            .Select(unit => new CourseJourneyUnit(
+                unit.Number.ToString("00"),
+                AppStrings.Format("Learn_Journey_Unit", unit.Number),
+                AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Title"),
+                AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Description"),
+                AppStrings.Format(
+                    "Learn_Journey_UnitAutomation",
+                    unit.Number,
+                    AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Title")),
+                unit.Lessons.Select(lesson =>
+                {
+                    var number = lessonNumber++;
+                    var isTemplateAuthored = lesson.Slides.Any(slide => slide.TemplateInstance is not null);
+                    return new CourseJourneyLesson(
+                        lesson,
+                        AppStrings.Format("Learn_LessonNumber", number),
+                        Clean(lesson.Title),
+                        AppStrings.Format("Learn_ShortCards", lesson.Slides.Count),
+                        isTemplateAuthored
+                            ? AppStrings.Get("Learn_Journey_AuthoredTemplate")
+                            : AppStrings.Get("Learn_Journey_GuidedCards"),
+                        AppStrings.Get("Learn_Journey_Preview"),
+                        string.Equals(lesson.Id, nextLesson?.Id, StringComparison.Ordinal),
+                        AppStrings.Format("Learn_OpenLesson", number, Clean(lesson.Title)));
+                }).ToArray()))
+            .ToArray();
     }
 
     private async void OnStartCourseClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -266,7 +207,7 @@ public partial class LearnView : UserControl
 
     private async void OnLessonClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
     {
-        if (sender is Button button && _lessonsByButton.TryGetValue(button, out var lesson))
+        if (sender is Button { Tag: CourseLesson lesson })
         {
             await OpenLessonAsync(lesson);
         }
@@ -586,6 +527,10 @@ public partial class LearnView : UserControl
                     Clean(lesson.Title),
                     resumeSlideIndex + 1);
                 SessionStatusText.IsVisible = true;
+                if (_course is not null)
+                {
+                    UnitsList.ItemsSource = CreateJourney(_course, lesson);
+                }
             }
         }
         catch (Exception exception) when (
@@ -599,7 +544,7 @@ public partial class LearnView : UserControl
         finally
         {
             StartCourseButton.IsEnabled = _course?.AuthoredLessonCount > 0;
-            UnitsPanel.IsEnabled = true;
+            UnitsList.IsEnabled = true;
         }
     }
 
@@ -659,4 +604,5 @@ public partial class LearnView : UserControl
             BackButton.IsEnabled = true;
         }
     }
+
 }
