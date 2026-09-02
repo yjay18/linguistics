@@ -22,7 +22,7 @@
 
 ## Responsibility
 
-`App.axaml` owns paired light/dark palette tokens, paper grain, tinted shadows, typography roles, semantic controls, navigation, focus styling, motion selectors, and the theme-safe ink used on light cutout-paper surfaces. `PaperCard`, `CutoutFrame`, `PaperTape`, `PaperStamp`, and `TornEdge` expose the material vocabulary without duplicating theme resources. `PaperStage` owns the fixed nine-layer scene order and puppet anchors. `SteppedEasing` and `PaperChoreography` own bounded presentation sequencing, replay, and skip-to-final behavior. The 37 registered lesson-template renderers compose those primitives across the complete Wave A presentation, Wave B recognition, Wave C construction, and Wave D listening families. The developer PaperStage resolves its five generated layers through `ContentImageCache` and validated pack records rather than app-resource magic paths. Main window and shell own branded composition and page transitions. Feature XAML selects semantic classes but does not recreate tokens. `MotionPreferences` combines the saved learner choice with the explicit pre-profile environment override and supplies a zero-duration page transition when reduction is active so runtime preference changes cannot strand the transition presenter at partial opacity.
+`App.axaml` owns paired light/dark palette tokens, paper grain, tinted shadows, typography roles, semantic controls, navigation, focus styling, motion selectors, and the theme-safe ink used on light cutout-paper surfaces. `PaperCard`, `CutoutFrame`, `PaperTape`, `PaperStamp`, and `TornEdge` expose the material vocabulary without duplicating theme resources. `PaperStage` owns the fixed nine-layer scene order and puppet anchors. `SteppedEasing` and `PaperChoreography` own bounded presentation sequencing, replay, and skip-to-final behavior. The 42 registered lesson-template renderers compose those primitives across the complete Wave A presentation, Wave B recognition, Wave C construction, Wave D listening, and Wave E speaking families. The developer PaperStage resolves its five generated layers through `ContentImageCache` and validated pack records rather than app-resource magic paths. Main window and shell own branded composition and page transitions. Feature XAML selects semantic classes but does not recreate tokens. `MotionPreferences` combines the saved learner choice with the explicit pre-profile environment override and supplies a zero-duration page transition when reduction is active so runtime preference changes cannot strand the transition presenter at partial opacity.
 
 ## Invariants
 
@@ -38,13 +38,14 @@
 
 ## Checks
 
-Release XAML compilation covers every view. App tests parse the actual theme dictionaries, calculate relative luminance/contrast for both themes, reject pure-black paper shadows, verify paired resources including cutout ink, and prove the sandbox contains cache-assigned raster scene images rather than vector scene art. Motion tests cover step counts, timeline bounds, reduced-motion completion, synchronous skip, and zero-duration page transitions. Stage tests cover the exact layer order, z-indexes, anchors, and offsets. Gallery and registry tests prove the developer route, exact 37 registrations, one fixture per schema, provider-free rendering across every outcome and text-only state, state cycling, text-only punctuation hygiene, and the optional caption-playback adapter. Persistence tests prove the additive reduced-motion field defaults off in earlier schema-5 files without rewriting them. Native minimum-window, scalable-text, keyboard, light/dark, motion, VoiceOver, and Narrator journeys remain separate final-candidate evidence.
+Release XAML compilation covers every view. App tests parse the actual theme dictionaries, calculate relative luminance/contrast for both themes, reject pure-black paper shadows, verify paired resources including cutout ink, and prove the sandbox contains cache-assigned raster scene images rather than vector scene art. Motion tests cover step counts, timeline bounds, reduced-motion completion, synchronous skip, and zero-duration page transitions. Stage tests cover the exact layer order, z-indexes, anchors, and offsets. Gallery and registry tests prove the developer route, exact 42 registrations, one fixture per schema, provider-free rendering across every outcome and text-only state, state cycling, text-only punctuation hygiene, optional caption playback, typed speech routes, and deterministic timing outcomes. Persistence tests prove the additive reduced-motion field defaults off in earlier schema-5 files without rewriting them. Native minimum-window, scalable-text, keyboard, light/dark, motion, VoiceOver, and Narrator journeys remain separate final-candidate evidence.
 
 ## Last reconciled
 
-Phase 4 Wave D on 2026-09-01. Fresh macOS inspection covers every Wave D template,
-complete transcripts and text-only routes, reduced-motion and motion-enabled final
-states, light and dark themes, and real mouse and keyboard interaction on Listen Type
-and Listen Route. Native QA corrected selected-state contrast and dialogue-layer
-alignment before a clean independent second visual pass. Direct VoiceOver, Windows
-native interaction, and a completed synthesized native drag gesture remain unverified.
+Phase 4 Wave E on 2026-09-02. Fresh macOS inspection covers every Wave E template,
+complete typed and text-only routes, reduced-motion and motion-enabled final states,
+light and dark themes, and real mouse and keyboard interaction on Syllable Clap and Long
+and Short Vowel. Native QA corrected clipped speech-honesty stamps before a clean
+independent visual pass. Direct VoiceOver, Windows native interaction, real microphone
+capture, configured local recognition, and a completed synthesized native drag gesture
+remain unverified.

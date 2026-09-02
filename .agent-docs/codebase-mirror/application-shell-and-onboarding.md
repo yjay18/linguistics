@@ -66,10 +66,11 @@ Changes can affect application startup, relaunch routing, onboarding accessibili
 
 ## Last reconciled
 
-Phase 4 Wave D on 2026-09-01. The developer gallery now renders the exact 37-template
-registry without learner persistence. Real macOS evidence covers all seven Wave D
-templates, mouse and keyboard replay/skip/outcome paths on Listen Type and Listen Route,
-all four outcome states, complete transcripts and text-only routes, reduced-motion and
-motion-enabled final states, and light and dark themes. The native accessibility tree
-exposes named listening controls and live status text; direct VoiceOver, Windows native
-interaction, and a completed synthesized native drag gesture remain unverified.
+Phase 4 Wave E on 2026-09-02. The developer gallery now renders the exact 42-template
+registry without learner persistence. Real macOS evidence covers all five Wave E
+templates, mouse and keyboard replay/skip/outcome paths on Syllable Clap and Long and
+Short Vowel, all four outcome states, installed-system-voice playback, complete typed and
+text-only routes, reduced-motion and motion-enabled final states, and light and dark
+themes. The native accessibility tree exposes named speech controls and live status text.
+Direct VoiceOver, Windows native interaction, real microphone capture, configured local
+recognition, and a completed synthesized native drag gesture remain unverified.

@@ -203,6 +203,16 @@ typed response to the core. Dictation tolerance is a deterministic normalization
 inside `TemplateInteractionEvaluator`; speech availability, animation, and renderer
 timing never influence its outcome.
 
+Speaking renderers keep the same authority boundary. They may receive the existing local
+synthesis, recognition, and pronunciation-assessment providers, but they retain no audio,
+transcript, mastery, or learner-history state and cannot invent a score. Recognition is
+available only after the learner's microphone preference, an explicit per-action
+disclosure, and a configured local model all permit it. Typed wording remains a complete
+microphone-free route and is never presented as pronunciation evidence. Authored response
+IDs, intelligibility-only assessment outcomes, or bounded in-memory tap intervals go to
+the deterministic core; raw transcripts and timing values never leave through the
+template callback. Production without supported evidence stays explicitly unscored.
+
 The developer gallery supplies fixed parameters backed by the validated pack and cycles presentation states
 without reading learner history. Bundled machine-validated lesson instances are preview
 only: finishing one returns to the course map without creating mastery evidence or a

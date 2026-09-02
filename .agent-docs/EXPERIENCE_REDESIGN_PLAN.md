@@ -449,6 +449,35 @@ honest assessment rules from `SPEECH.md` apply unchanged)
 - **P4.T42** long-short-vowel — elastic paper stretch visualizes vowel length; learner
   chooses or produces.
 
+**Wave E status (2026-09-02): complete with named unverified evidence in the current
+Phase 4 checkpoint.** P4.T38–P4.T42 have typed schemas, strict per-kind validator
+fixtures, registered Avalonia renderers, all-outcome gallery fixtures, bounded replay and
+skip choreography, reduced-motion instant states, keyboard names and live regions,
+complete written prompts and text-only routes, callback-only outcomes, and deterministic
+core mapping tests. Echo Stage, Read Aloud Card, and Prompt and Respond keep microphone
+audio transient, require an explicit disclosure before any supported local recognition,
+and expose complete typed routes that never claim pronunciation scoring. Syllable Clap
+submits only authored beat counts and in-memory interval evidence to the core. Long and
+Short Vowel keeps production explicitly unscored and submits only an authored contrast
+choice. All optional playback uses the installed system voice and no microphone.
+
+Locked restore, formatter, zero-warning Release build, publish inspection, and all 312
+tests pass. The published app contains all 12 validated German Preview images and no
+AssetPipeline binary. Fresh macOS inspection covered every Wave E template. Real mouse
+and keyboard interaction on Syllable Clap and Long and Short Vowel covered deterministic
+success and failure paths, local playback, slower playback, replay, skip, all four gallery
+outcomes, text-only routes, reduced-motion and motion-enabled final states, and light and
+dark themes. Echo Stage's complete typed route was also exercised successfully while the
+unconfigured local speech-model state remained honest and usable. Native QA found three
+clipped speech-honesty stamps; their local widths were corrected, and a fresh independent
+visual review passed the final all-template, outcome, theme, scenic, and text-only
+captures. Final captures are under `artifacts/phase4-wave-e/screenshots/`.
+
+Named evidence gaps: direct VoiceOver, Windows native interaction, real microphone
+permission/capture, and configured local speech recognition remain unverified; competent
+linguistic, cultural, content, license, modification, and redistribution review remains
+pending. No approval, distribution, or release claim is made.
+
 **Wave F — Reading and writing**
 - **P4.T43** sign-reading — real photographed sign (Commons) with a comprehension
   check.

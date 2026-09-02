@@ -41,6 +41,14 @@ one accent family. Selected items use explicit accent ink in both themes, and sc
 labels remain clear of tape and dialogue layers. Playback is optional presentation;
 stable authored responses still go to the deterministic core evaluator.
 
+The Wave E speaking catalog uses the same stage for echo strips, read-aloud cards,
+puppet prompts, written rhythm beats, and vowel-length bands. Clear paper stamps name the
+assessment boundary: intelligibility only, no microphone, or no phoneme score. Local
+speech controls remain optional, every microphone-led surface keeps a complete typed
+route, and text-only mode removes scenic imagery without removing prompt, controls, or
+outcome meaning. Tap intervals and authored response choices still go to the deterministic
+core; the visual stretch, stamp press, and puppet motion remain presentation only.
+
 ## Motion
 
 Motion is presentation-only and never gates state. `SteppedEasing` supplies deterministic low-frame-rate puppet movement, while `PaperChoreography` sequences bounded stages, supports replay and synchronous skip-to-final behavior, and rejects timelines of four seconds or longer. Tape settles, stamps press, and the sandbox scene establishes, enters, reacts, and resolves in under four seconds.
