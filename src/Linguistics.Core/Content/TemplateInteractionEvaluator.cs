@@ -181,6 +181,49 @@ public static class TemplateInteractionEvaluator
             updated);
     }
 
+    public static TemplateOutcome EvaluateCapabilitySelection(
+        IReadOnlyList<TemplateOption> demonstrated,
+        IReadOnlyList<TemplateOption> practicing,
+        IReadOnlyList<TemplateOption> notStarted,
+        string? selectedCapabilityId)
+    {
+        ArgumentNullException.ThrowIfNull(demonstrated);
+        ArgumentNullException.ThrowIfNull(practicing);
+        ArgumentNullException.ThrowIfNull(notStarted);
+        var demonstratedIds = ValidateOptionalOptionIds(demonstrated, nameof(demonstrated));
+        var practicingIds = ValidateOptionalOptionIds(practicing, nameof(practicing));
+        var notStartedIds = ValidateOptionalOptionIds(notStarted, nameof(notStarted));
+        var allIds = demonstratedIds.Concat(practicingIds).Concat(notStartedIds).ToArray();
+        if (allIds.Distinct(StringComparer.Ordinal).Count() != allIds.Length)
+        {
+            throw new ArgumentException(
+                "Capability IDs must be unique across every projected status.",
+                nameof(demonstrated));
+        }
+
+        if (selectedCapabilityId is null)
+        {
+            return new TemplateOutcome(
+                allIds.Length == 0 ? TemplateOutcomeState.Ready : TemplateOutcomeState.Uncertain);
+        }
+
+        if (!allIds.Contains(selectedCapabilityId, StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "The selected capability must be declared by the template.",
+                nameof(selectedCapabilityId));
+        }
+
+        return new TemplateOutcome(
+            demonstratedIds.Contains(selectedCapabilityId, StringComparer.Ordinal)
+                ? TemplateOutcomeState.Success
+                : practicingIds.Contains(selectedCapabilityId, StringComparer.Ordinal)
+                    ? TemplateOutcomeState.Uncertain
+                    : TemplateOutcomeState.Ready,
+            selectedCapabilityId,
+            [selectedCapabilityId]);
+    }
+
     public static TemplateOutcome EvaluatePictureMatch(
         IReadOnlyList<TemplateOption> options,
         string answerId,
@@ -655,6 +698,11 @@ public static class TemplateInteractionEvaluator
 
         return optionIds;
     }
+
+    private static string[] ValidateOptionalOptionIds(
+        IReadOnlyList<TemplateOption> options,
+        string parameterName) =>
+        options.Count == 0 ? [] : ValidateOptionIds(options, parameterName);
 
     private static string NormalizeDictation(string value)
     {

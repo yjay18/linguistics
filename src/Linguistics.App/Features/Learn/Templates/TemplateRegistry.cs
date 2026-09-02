@@ -334,6 +334,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("unit-capstone"),
             UnitCapstoneRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("progress-shelf"),
+            ProgressShelfRenderer.Render),
     ]);
 
     public Control Render(

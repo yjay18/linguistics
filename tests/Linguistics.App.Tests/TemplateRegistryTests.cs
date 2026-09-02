@@ -1309,6 +1309,92 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void ProgressShelfPreservesProjectedStatusesAndReportsStableCapabilityIds()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("progress-shelf"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        byId["ProgressShelfCapability_order-drink"].RaiseEvent(
+            new RoutedEventArgs(Button.ClickEvent));
+        byId["ProgressShelfCapability_repair-request"].RaiseEvent(
+            new RoutedEventArgs(Button.ClickEvent));
+        byId["ProgressShelfCapability_ask-directions"].RaiseEvent(
+            new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(3, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+        Assert.AreEqual("order-drink", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, reported[1].State);
+        Assert.AreEqual("repair-request", reported[1].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, reported[2].State);
+        Assert.AreEqual("ask-directions", reported[2].ResponseId);
+        StringAssert.Contains(
+            ((TextBlock)byId["ProgressShelfSelectionStatus"]).Text,
+            "Ask where a destination is");
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["ProgressShelfMethod"]),
+            "deterministic task evidence");
+        Assert.IsTrue(byId.ContainsKey("ProgressShelfObject_order-drink"));
+        Assert.IsTrue(byId.ContainsKey("ProgressShelfObjects"));
+        Assert.IsTrue(byId.ContainsKey("ProgressShelfBoard"));
+        Assert.IsTrue(byId.ContainsKey("ProgressShelfReplay"));
+        Assert.IsTrue(byId.ContainsKey("ProgressShelfSkip"));
+        Assert.IsTrue(byId.ContainsKey("ProgressShelfTextEquivalent"));
+
+        var source = File.ReadAllText(Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Linguistics.App",
+            "Features",
+            "Learn",
+            "Templates",
+            "ReviewProgressRenderers.cs"));
+        var shelfSource = source[source.IndexOf(
+            "internal static class ProgressShelfRenderer",
+            StringComparison.Ordinal)..];
+        Assert.IsFalse(shelfSource.Contains("XP", StringComparison.Ordinal));
+        Assert.IsFalse(shelfSource.Contains("streak", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [TestMethod]
+    public void ProgressShelfRendersAnAuthoredEmptyState()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("progress-shelf"));
+        var emptyValues = fixture.Parameters.Values
+            .Where(pair => pair.Key is not "demonstrated" and not "practicing" and not "not-started")
+            .ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            new ResolvedTemplateParameters(emptyValues, UseTextOnlyFallback: true),
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => Assert.Fail("Rendering the empty shelf must not report an outcome."));
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var empty = controls.Single(control =>
+            AutomationProperties.GetAutomationId(control) == "ProgressShelfEmpty");
+
+        StringAssert.Contains(AutomationProperties.GetName(empty), "No capability evidence");
+        Assert.IsFalse(controls.Any(control =>
+            AutomationProperties.GetAutomationId(control)?.StartsWith(
+                "ProgressShelfCapability_",
+                StringComparison.Ordinal) == true));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

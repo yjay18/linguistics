@@ -780,6 +780,19 @@ public static class LessonTemplateSchemas
                 new("template-chain", TemplateParameterKind.OptionList, IsRequired: true),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("progress-shelf"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("title", TemplateParameterKind.Text, IsRequired: true),
+                new("demonstrated", TemplateParameterKind.OptionList, IsRequired: false),
+                new("practicing", TemplateParameterKind.OptionList, IsRequired: false),
+                new("not-started", TemplateParameterKind.OptionList, IsRequired: false),
+                new("empty-copy", TemplateParameterKind.Text, IsRequired: true),
+                new("method-note", TemplateParameterKind.Text, IsRequired: true),
+            ]),
     ];
 }
 

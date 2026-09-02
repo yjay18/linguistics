@@ -961,3 +961,358 @@ internal static class UnitCapstoneRenderer
         _ => "Ready: begin with the first mission activity.",
     };
 }
+
+internal static class ProgressShelfRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var title = TemplateRendering.Text(parameters, "title");
+        var demonstrated = TemplateRendering.OptionalOptions(parameters, "demonstrated");
+        var practicing = TemplateRendering.OptionalOptions(parameters, "practicing");
+        var notStarted = TemplateRendering.OptionalOptions(parameters, "not-started");
+        var emptyCopy = TemplateRendering.Text(parameters, "empty-copy");
+        var methodNote = TemplateRendering.Text(parameters, "method-note");
+        _ = TemplateInteractionEvaluator.EvaluateCapabilitySelection(
+            demonstrated,
+            practicing,
+            notStarted,
+            null);
+        var projected = demonstrated
+            .Select(capability => new ProjectedCapability(capability, ShelfCapabilityStatus.Demonstrated))
+            .Concat(practicing.Select(capability =>
+                new ProjectedCapability(capability, ShelfCapabilityStatus.Practicing)))
+            .Concat(notStarted.Select(capability =>
+                new ProjectedCapability(capability, ShelfCapabilityStatus.NotStarted)))
+            .ToArray();
+
+        var replayButton = new Button { Content = "Replay shelf", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(replayButton, "ProgressShelfReplay");
+        AutomationProperties.SetName(replayButton, "Replay the capability shelf entrance");
+        var skipButton = new Button { Content = "Skip entrance", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(skipButton, "ProgressShelfSkip");
+        AutomationProperties.SetName(skipButton, "Skip to the completed capability shelf");
+        var instructionText = new TextBlock
+        {
+            Text = instruction,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetName(instructionText, $"Progress instruction. {instruction}");
+        var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        headerActions.Children.Add(replayButton);
+        headerActions.Children.Add(skipButton);
+        var header = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        header.Children.Add(instructionText);
+        Grid.SetColumn(headerActions, 1);
+        header.Children.Add(headerActions);
+
+        var selectedText = new TextBlock
+        {
+            Text = projected.Length == 0
+                ? emptyCopy
+                : "Select a paper situation to inspect its projected status.",
+            FontSize = 14,
+            TextWrapping = TextWrapping.Wrap,
+        };
+        AutomationProperties.SetAutomationId(selectedText, "ProgressShelfSelectionStatus");
+        AutomationProperties.SetName(selectedText, "Selected capability status");
+        AutomationProperties.SetLiveSetting(selectedText, AutomationLiveSetting.Polite);
+        var detailCard = new PaperCard
+        {
+            Padding = new Thickness(16, 12),
+            Content = new StackPanel
+            {
+                Spacing = 6,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = "SELECTED SITUATION",
+                        FontSize = 11,
+                        FontWeight = FontWeight.Bold,
+                    },
+                    selectedText,
+                },
+            },
+        };
+        detailCard.Classes.Add("settings-sheet");
+        AutomationProperties.SetAutomationId(detailCard, "ProgressShelfDetail");
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+
+        var stage = TemplateRendering.CreateStage(
+            402,
+            $"{title}. {demonstrated.Count} demonstrated, {practicing.Count} practicing, " +
+            $"and {notStarted.Count} not started situations are projected.");
+        TemplateRendering.AddBackdrop(stage, imageCache, assetReferenceId: null);
+        var shelfHeader = new PaperTape
+        {
+            Content = title.ToUpperInvariant(),
+            Angle = -1.4,
+            MaxWidth = 600,
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            Classes = { "compact" },
+        };
+        AutomationProperties.SetAutomationId(shelfHeader, "ProgressShelfTitle");
+        AutomationProperties.SetName(shelfHeader, title);
+        PaperStage.SetLayer(shelfHeader, PaperStageLayer.TapedLabel);
+        PaperStage.SetAnchor(shelfHeader, PaperAnchorLine.Head);
+        PaperStage.SetAnchorX(shelfHeader, 0.5);
+        PaperStage.SetAnchorOffsetY(shelfHeader, 7);
+        stage.Children.Add(shelfHeader);
+
+        var shelfLine = new Border
+        {
+            Width = 720,
+            Height = 18,
+            IsHitTestVisible = false,
+            Classes = { "soft-card" },
+        };
+        AutomationProperties.SetAutomationId(shelfLine, "ProgressShelfBoard");
+        AutomationProperties.SetName(shelfLine, "Paper capability shelf");
+        PaperStage.SetLayer(shelfLine, PaperStageLayer.ForegroundSilhouettes);
+        PaperStage.SetAnchor(shelfLine, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(shelfLine, 0.5);
+        PaperStage.SetAnchorOffsetY(shelfLine, -3);
+        stage.Children.Add(shelfLine);
+
+        var objectsPanel = new WrapPanel
+        {
+            Width = 720,
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
+        AutomationProperties.SetAutomationId(objectsPanel, "ProgressShelfObjects");
+        AutomationProperties.SetName(objectsPanel, "Projected capability objects in status order");
+        var shelfObjects = new List<Control>();
+        if (projected.Length == 0)
+        {
+            var emptyCard = new PaperCard
+            {
+                Width = 620,
+                Margin = new Thickness(10),
+                Padding = new Thickness(22, 18),
+                Content = new StackPanel
+                {
+                    Spacing = 9,
+                    Children =
+                    {
+                        new PaperTape
+                        {
+                            Content = "SHELF READY",
+                            Angle = 1.1,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            Classes = { "compact" },
+                        },
+                        new TextBlock
+                        {
+                            Text = emptyCopy,
+                            FontSize = 16,
+                            FontWeight = FontWeight.SemiBold,
+                            TextWrapping = TextWrapping.Wrap,
+                        },
+                    },
+                },
+            };
+            emptyCard.Classes.Add("soft");
+            AutomationProperties.SetAutomationId(emptyCard, "ProgressShelfEmpty");
+            AutomationProperties.SetName(emptyCard, $"Empty capability shelf. {emptyCopy}");
+            shelfObjects.Add(emptyCard);
+            objectsPanel.Children.Add(emptyCard);
+        }
+        else
+        {
+            for (var index = 0; index < projected.Length; index++)
+            {
+                var projection = projected[index];
+                var statusLabel = StatusLabel(projection.Status);
+                var selectButton = new Button
+                {
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    Classes = { "quiet" },
+                    Content = new StackPanel
+                    {
+                        Spacing = 12,
+                        Children =
+                        {
+                            new PaperStamp
+                            {
+                                Content = statusLabel,
+                                Angle = index % 2 == 0 ? -2 : 1.6,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                Classes = { "compact" },
+                            },
+                            new TextBlock
+                            {
+                                Text = projection.Capability.Label,
+                                FontSize = 16,
+                                FontWeight = FontWeight.Bold,
+                                TextWrapping = TextWrapping.Wrap,
+                            },
+                            new TextBlock
+                            {
+                                Text = "Inspect situation",
+                                FontSize = 12,
+                                Classes = { "muted" },
+                            },
+                        },
+                    },
+                };
+                AutomationProperties.SetAutomationId(
+                    selectButton,
+                    $"ProgressShelfCapability_{projection.Capability.Id}");
+                AutomationProperties.SetName(
+                    selectButton,
+                    $"{projection.Capability.Label}. {StatusDescription(projection.Status)} Select for details.");
+                selectButton.Click += (_, _) =>
+                {
+                    var outcome = TemplateInteractionEvaluator.EvaluateCapabilitySelection(
+                        demonstrated,
+                        practicing,
+                        notStarted,
+                        projection.Capability.Id);
+                    selectedText.Text =
+                        $"{projection.Capability.Label}. {StatusDescription(projection.Status)}";
+                    TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+                    reportOutcome(outcome);
+                };
+                var frame = new CutoutFrame
+                {
+                    Width = 224,
+                    Height = 238,
+                    Margin = new Thickness(8),
+                    Padding = new Thickness(7),
+                    Content = selectButton,
+                };
+                frame.Classes.Add(index % 2 == 0 ? "tilt-left" : "tilt-right");
+                AutomationProperties.SetAutomationId(
+                    frame,
+                    $"ProgressShelfObject_{projection.Capability.Id}");
+                AutomationProperties.SetName(
+                    frame,
+                    $"Paper situation object. {projection.Capability.Label}. {statusLabel}.");
+                shelfObjects.Add(frame);
+                objectsPanel.Children.Add(frame);
+            }
+        }
+
+        PaperStage.SetLayer(objectsPanel, PaperStageLayer.Subject);
+        PaperStage.SetAnchor(objectsPanel, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(objectsPanel, 0.5);
+        PaperStage.SetAnchorOffsetY(objectsPanel, -22);
+        stage.Children.Add(objectsPanel);
+
+        var modeText = new TextBlock
+        {
+            Text = parameters.UseTextOnlyFallback
+                ? "Text-only progress mode is active. Every situation and projected status remains complete."
+                : "Paper objects lead with situations and projected evidence status.",
+            FontSize = 13,
+            TextWrapping = TextWrapping.Wrap,
+            Classes = { "muted" },
+        };
+        AutomationProperties.SetAutomationId(modeText, "ProgressShelfTextEquivalent");
+        var methodCard = new PaperCard
+        {
+            Padding = new Thickness(14, 10),
+            Content = new TextBlock
+            {
+                Text = methodNote,
+                FontSize = 13,
+                TextWrapping = TextWrapping.Wrap,
+            },
+        };
+        methodCard.Classes.Add("soft");
+        AutomationProperties.SetAutomationId(methodCard, "ProgressShelfMethod");
+        AutomationProperties.SetName(methodCard, $"How status is projected. {methodNote}");
+        var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,*"), ColumnSpacing = 12 };
+        footer.Children.Add(detailCard);
+        Grid.SetColumn(outcomePanel, 1);
+        footer.Children.Add(outcomePanel);
+        var root = new StackPanel { Spacing = 14 };
+        root.Children.Add(header);
+        root.Children.Add(stage);
+        root.Children.Add(modeText);
+        root.Children.Add(methodCard);
+        root.Children.Add(footer);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            var midpoint = (shelfObjects.Count + 1) / 2;
+            TemplateRendering.Prepare(
+                shouldReduceMotion,
+                [shelfHeader, shelfLine, modeText, methodCard, footer, .. shelfObjects]);
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(140), shelfHeader),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(140), shelfLine),
+                TemplateRendering.Reveal(
+                    TimeSpan.FromMilliseconds(280),
+                    [.. shelfObjects.Take(midpoint)]),
+                TemplateRendering.Reveal(
+                    TimeSpan.FromMilliseconds(280),
+                    [.. shelfObjects.Skip(midpoint)]),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(200), modeText, methodCard, footer),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) => scene?.Skip();
+        return root;
+    }
+
+    private static string StatusLabel(ShelfCapabilityStatus status) => status switch
+    {
+        ShelfCapabilityStatus.Demonstrated => "CAN HANDLE",
+        ShelfCapabilityStatus.Practicing => "PRACTICING",
+        _ => "NOT STARTED",
+    };
+
+    private static string StatusDescription(ShelfCapabilityStatus status) => status switch
+    {
+        ShelfCapabilityStatus.Demonstrated => "Demonstrated from projected task evidence.",
+        ShelfCapabilityStatus.Practicing => "Practicing from projected task evidence.",
+        _ => "Not started. No ability is inferred from setup alone.",
+    };
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "Demonstrated situation selected from projected task evidence.",
+        TemplateOutcomeState.Uncertain => "Practicing situation selected, or choose a paper situation to inspect.",
+        TemplateOutcomeState.Failure => "Capability status is unavailable. Return to the projected shelf.",
+        _ => "Not-started situation selected, or the capability shelf is ready.",
+    };
+
+    private sealed record ProjectedCapability(
+        TemplateOption Capability,
+        ShelfCapabilityStatus Status);
+
+    private enum ShelfCapabilityStatus
+    {
+        Demonstrated,
+        Practicing,
+        NotStarted,
+    }
+}

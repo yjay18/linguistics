@@ -1873,6 +1873,48 @@ internal static class TemplateGalleryFixtures
                         new("answer-worker", "scenario-theatre"),
                     ]),
             })),
+        new(
+            new TemplateId("progress-shelf"),
+            "Progress shelf",
+            "Progress · projected capability evidence · calm shelf",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Explore the situations represented by the projected capability evidence.",
+                        ["hi"] = "दिखाए गए क्षमता प्रमाण से दर्शाई स्थितियों को देखें।",
+                    }),
+                ["title"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Situations you can handle"),
+                ["demonstrated"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("order-drink", "Order one café drink politely"),
+                    ]),
+                ["practicing"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("repair-request", "Repair an incomplete café request"),
+                    ]),
+                ["not-started"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("ask-directions", "Ask where a destination is"),
+                    ]),
+                ["empty-copy"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "No capability evidence has been projected yet. Practice a complete task when ready."),
+                ["method-note"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Status comes from deterministic task evidence. This shelf does not infer ability from lesson setup."),
+            })),
     ];
 
     private static TaskTemplateContent ScenarioTask() => new(

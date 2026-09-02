@@ -947,6 +947,69 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void ProgressShelfPreservesProjectedCapabilityStatusAndStableIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("progress-shelf")));
+        var demonstrated = new[]
+        {
+            new TemplateOption("order-drink", "Order one café drink politely"),
+        };
+        var practicing = new[]
+        {
+            new TemplateOption("repair-request", "Repair an incomplete request"),
+        };
+        var notStarted = new[]
+        {
+            new TemplateOption("ask-directions", "Ask where a destination is"),
+        };
+
+        var incomplete = TemplateInteractionEvaluator.EvaluateCapabilitySelection(
+            demonstrated,
+            practicing,
+            notStarted,
+            null);
+        var handled = TemplateInteractionEvaluator.EvaluateCapabilitySelection(
+            demonstrated,
+            practicing,
+            notStarted,
+            "order-drink");
+        var inPractice = TemplateInteractionEvaluator.EvaluateCapabilitySelection(
+            demonstrated,
+            practicing,
+            notStarted,
+            "repair-request");
+        var planned = TemplateInteractionEvaluator.EvaluateCapabilitySelection(
+            demonstrated,
+            practicing,
+            notStarted,
+            "ask-directions");
+        var empty = TemplateInteractionEvaluator.EvaluateCapabilitySelection([], [], [], null);
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Success, handled.State);
+        Assert.AreEqual("order-drink", handled.ResponseId);
+        CollectionAssert.AreEqual(new[] { "order-drink" }, handled.OrderedOptionIds!.ToArray());
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, inPractice.State);
+        Assert.AreEqual("repair-request", inPractice.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, planned.State);
+        Assert.AreEqual("ask-directions", planned.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, empty.State);
+        Assert.Throws<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateCapabilitySelection(
+                demonstrated,
+                practicing,
+                [new TemplateOption("order-drink", "Duplicate")],
+                "order-drink"));
+        Assert.Throws<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateCapabilitySelection(
+                demonstrated,
+                practicing,
+                notStarted,
+                "Order one café drink politely"));
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
