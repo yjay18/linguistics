@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Linguistics.App.Diagnostics;
 using Linguistics.App.Features.Review;
+using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
@@ -51,7 +52,7 @@ public partial class TodayView : UserControl
         _initialized = true;
         if (_controller is null)
         {
-            ShowError("Today is unavailable because the learning service was not initialized.");
+            ShowError(AppStrings.Get("Today_Unavailable"));
             return;
         }
 
@@ -83,16 +84,30 @@ public partial class TodayView : UserControl
         PlanCard.IsVisible = true;
         EvidenceGrid.IsVisible = true;
         _action = snapshot.Today.PrimaryAction;
-        HeadlineText.Text = snapshot.Today.Headline;
-        ExplanationText.Text = snapshot.Today.Explanation;
+        (HeadlineText.Text, ExplanationText.Text) = _action switch
+        {
+            TodayAction.Review => (
+                AppStrings.Format("Today_Review_Headline", snapshot.Progress.DueReviewCount),
+                AppStrings.Get("Today_Review_Explanation")),
+            TodayAction.Pronunciation => (
+                AppStrings.Get("Today_Pronunciation_Headline"),
+                AppStrings.Get("Today_Pronunciation_Explanation")),
+            _ when snapshot.Progress.Capabilities.All(item =>
+                item.Status == CapabilityStatus.NotStarted) => (
+                    AppStrings.Get("Today_FirstScenario_Headline"),
+                    AppStrings.Get("Today_FirstScenario_Explanation")),
+            _ => (
+                AppStrings.Get("Today_Scenario_Headline"),
+                AppStrings.Get("Today_Scenario_Explanation")),
+        };
         DueCountText.Text = snapshot.Progress.DueReviewCount.ToString();
         StrongCountText.Text = snapshot.Progress.StrongConceptCount.ToString();
         SpeechCountText.Text = snapshot.Progress.PronunciationPracticeCount.ToString();
         (PrimaryActionButton.Content, ActionGlyph.Content) = _action switch
         {
-            TodayAction.Review => ("Open review", "↻"),
-            TodayAction.Pronunciation => ("Open pronunciation", "◌"),
-            _ => ("Enter the café", "→"),
+            TodayAction.Review => (AppStrings.Get("Today_OpenReview"), "↻"),
+            TodayAction.Pronunciation => (AppStrings.Get("Today_OpenPronunciation"), "◌"),
+            _ => (AppStrings.Get("Today_EnterCafe"), "→"),
         };
     }
 

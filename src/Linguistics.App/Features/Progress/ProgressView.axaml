@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Linguistics.App.Controls"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -12,8 +13,8 @@
                             Classes="soft">
             <StackPanel Spacing="12">
                 <ProgressBar IsIndeterminate="True"
-                             AutomationProperties.Name="Loading local progress" />
-                <TextBlock Text="Reading capability evidence…"
+                             AutomationProperties.Name="{loc:Localize Progress_LoadingName}" />
+                <TextBlock Text="{loc:Localize Progress_Loading}"
                            AutomationProperties.LiveSetting="Polite" />
             </StackPanel>
         </controls:PaperCard>
@@ -29,9 +30,9 @@
                                      Content="○"
                                      FontSize="28"
                                      Angle="-2"
-                                     AutomationProperties.Name="Capability status" />
+                                     AutomationProperties.Name="{loc:Localize Progress_CapabilityStatus}" />
                 <StackPanel Grid.Column="1" Spacing="7">
-                    <controls:PaperTape Content="COMMUNICATIVE CAPABILITY"
+                    <controls:PaperTape Content="{loc:Localize Progress_CapabilityTape}"
                                         Classes="compact"
                                         Angle="1"
                                         HorizontalAlignment="Left" />
@@ -54,13 +55,13 @@
         </controls:PaperCard>
 
         <controls:PaperTape x:Name="ConceptHeading"
-                            Content="CONCEPT EVIDENCE"
+                            Content="{loc:Localize Progress_ConceptEvidence}"
                             Classes="compact"
                             Angle="-1"
                             FontSize="12"
                             HorizontalAlignment="Left"
                             IsVisible="False"
-                            AutomationProperties.Name="Concept evidence"
+                            AutomationProperties.Name="{loc:Localize Progress_ConceptEvidence}"
                             AutomationProperties.HeadingLevel="2" />
         <Grid x:Name="ConceptGrid"
               IsVisible="False"
@@ -76,7 +77,7 @@
                         <TextBlock x:Name="PracticingCount"
                                    FontSize="28"
                                    FontWeight="SemiBold" />
-                        <TextBlock Text="practicing"
+                        <TextBlock Text="{loc:Localize Progress_Practicing}"
                                    Opacity="0.7" />
                     </StackPanel>
                 </Border>
@@ -90,7 +91,7 @@
                         <TextBlock x:Name="StrongCount"
                                    FontSize="28"
                                    FontWeight="SemiBold" />
-                        <TextBlock Text="strong"
+                        <TextBlock Text="{loc:Localize Progress_Strong}"
                                    Opacity="0.7" />
                     </StackPanel>
                 </Border>
@@ -105,7 +106,7 @@
                         <TextBlock x:Name="DueCount"
                                    FontSize="28"
                                    FontWeight="SemiBold" />
-                        <TextBlock Text="due"
+                        <TextBlock Text="{loc:Localize Progress_Due}"
                                    Opacity="0.7" />
                     </StackPanel>
                 </Border>
@@ -116,11 +117,14 @@
                             IsVisible="False"
                             Classes="soft">
             <StackPanel Spacing="7">
-                <TextBlock Text="How this is calculated"
+                <TextBlock Text="{loc:Localize Progress_Method_Title}"
                            FontSize="18"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="A capability becomes demonstrated only after a stored task attempt says the practical goal succeeded. Accuracy, fluency, pronunciation, and target concept evidence remain separate. Review can strengthen or return a concept to practice through versioned deterministic rules."
+                <TextBlock Text="{loc:Localize Progress_Method_BodyOne}"
+                           TextWrapping="Wrap"
+                           Opacity="0.74" />
+                <TextBlock Text="{loc:Localize Progress_Method_BodyTwo}"
                            TextWrapping="Wrap"
                            Opacity="0.74" />
             </StackPanel>

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Linguistics.App.Diagnostics;
+using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
@@ -71,7 +72,7 @@ public partial class ReviewView : UserControl
         _initialized = true;
         if (_controller is null)
         {
-            ShowError("Review is unavailable because the learning service was not initialized.");
+            ShowError(AppStrings.Get("Review_Unavailable"));
             return;
         }
 
@@ -120,7 +121,7 @@ public partial class ReviewView : UserControl
             _snapshot = submission.Snapshot;
             var nextDue = submission.Decision.Current.DueAt.ToLocalTime();
             Render();
-            StatusText.Text = $"Saved locally. This item is next due {FormatDue(nextDue)}.";
+            StatusText.Text = AppStrings.Format("Review_Saved", FormatDue(nextDue));
             StatusText.IsVisible = true;
         }
         catch (Exception exception) when (
@@ -144,15 +145,15 @@ public partial class ReviewView : UserControl
             return;
         }
 
-        QueueCountText.Text = $"{_snapshot.Queue.Due.Count} due";
+        QueueCountText.Text = AppStrings.Format("Review_DueCount", _snapshot.Queue.Due.Count);
         if (_graph is null || _cafeDefinition is null)
         {
             ReviewCard.IsVisible = false;
             EmptyState.IsVisible = false;
             ContentGateState.IsVisible = true;
             ContentGateMessage.Text = string.IsNullOrWhiteSpace(_contentError)
-                ? "The installed content is not approved for learner review."
-                : "The installed content did not pass the runtime review gate.";
+                ? AppStrings.Get("Review_Gate_NotApproved")
+                : AppStrings.Get("Review_Gate_Failed");
             return;
         }
 
@@ -163,8 +164,10 @@ public partial class ReviewView : UserControl
             ReviewCard.IsVisible = false;
             EmptyState.IsVisible = true;
             EmptyMessage.Text = _snapshot.Queue.Upcoming.FirstOrDefault() is { } upcoming
-                ? $"Your next local review is due {FormatDue(upcoming.DueAt.ToLocalTime())}."
-                : "Complete a learning task or pronunciation attempt and the deterministic queue will prepare the next review.";
+                ? AppStrings.Format(
+                    "Review_NextDue",
+                    FormatDue(upcoming.DueAt.ToLocalTime()))
+                : AppStrings.Get("Review_Empty_Body");
             return;
         }
 
@@ -187,28 +190,28 @@ public partial class ReviewView : UserControl
     {
         if (_cafeDefinition is null || _graph is null)
         {
-            throw new InvalidOperationException("Reviewed content is unavailable.");
+            throw new InvalidOperationException(AppStrings.Get("Review_ContentUnavailable"));
         }
 
         return schedule.Kind switch
         {
             ReviewItemKind.Phrase => new ReviewDescriptor(
-                "Phrase",
-                "Rebuild the complete café request from memory.",
-                "Think first, then reveal. Exact punctuation is not the learning target.",
+                AppStrings.Get("Review_Kind_Phrase"),
+                AppStrings.Get("Review_Phrase_Prompt"),
+                AppStrings.Get("Review_Phrase_Support"),
                 _cafeDefinition.PronunciationTargetText),
             ReviewItemKind.Concept => DescribeConcept(schedule),
             ReviewItemKind.RecurringError => DescribeError(schedule),
             ReviewItemKind.PronunciationTarget when _utterances.TryGetValue(schedule.TargetId, out var utterance) =>
                 new ReviewDescriptor(
-                    "Pronunciation target",
-                    "Recall the phrase, then say it aloud or trace it silently.",
-                    "Speech is optional; the complete target remains visible after reveal.",
+                    AppStrings.Get("Review_Kind_Pronunciation"),
+                    AppStrings.Get("Review_Pronunciation_Prompt"),
+                    AppStrings.Get("Review_Pronunciation_Support"),
                     utterance.Text),
             _ => new ReviewDescriptor(
                 schedule.Kind.ToString(),
-                "Recall this reviewed learning item.",
-                "The installed pack provides no richer prompt for this item type.",
+                AppStrings.Get("Review_Generic_Prompt"),
+                AppStrings.Get("Review_Generic_Support"),
                 schedule.TargetId),
         };
     }
@@ -217,9 +220,9 @@ public partial class ReviewView : UserControl
     {
         var concept = _graph!.Get(new ConceptId(schedule.TargetId));
         return new ReviewDescriptor(
-            "Capability concept",
-            $"What does “{concept.Title}” let you accomplish?",
-            "Recall the communicative goal before revealing its reviewed description.",
+            AppStrings.Get("Review_Kind_Concept"),
+            AppStrings.Format("Review_Concept_Prompt", concept.Title),
+            AppStrings.Get("Review_Concept_Support"),
             concept.Description);
     }
 
@@ -235,14 +238,14 @@ public partial class ReviewView : UserControl
             string.Equals(item.ErrorRuleId, schedule.TargetId, StringComparison.Ordinal));
         return intervention is null
             ? new ReviewDescriptor(
-                "Recurring form",
-                "Recall the smallest correction that kept the café exchange moving.",
-                "This historical rule is not present in the installed content version.",
+                AppStrings.Get("Review_Kind_RecurringForm"),
+                AppStrings.Get("Review_RecurringMissing_Prompt"),
+                AppStrings.Get("Review_RecurringMissing_Support"),
                 schedule.TargetId)
             : new ReviewDescriptor(
-                "Recurring form",
+                AppStrings.Get("Review_Kind_RecurringForm"),
                 intervention.RetryPrompt,
-                "Recall one focused contrast; do not fix every detail at once.",
+                AppStrings.Get("Review_Recurring_Support"),
                 intervention.Message);
     }
 
@@ -251,20 +254,24 @@ public partial class ReviewView : UserControl
         var remaining = localDue - DateTimeOffset.Now;
         if (remaining <= TimeSpan.FromMinutes(1))
         {
-            return "now";
+            return AppStrings.Get("Review_Due_Now");
         }
 
         if (remaining < TimeSpan.FromHours(2))
         {
-            return $"in {Math.Ceiling(remaining.TotalMinutes):0} minutes";
+            return AppStrings.Format(
+                "Review_Due_Minutes",
+                Math.Ceiling(remaining.TotalMinutes));
         }
 
         if (remaining < TimeSpan.FromDays(1))
         {
-            return $"in {Math.Ceiling(remaining.TotalHours):0} hours";
+            return AppStrings.Format(
+                "Review_Due_Hours",
+                Math.Ceiling(remaining.TotalHours));
         }
 
-        return localDue.ToString("ddd, d MMM");
+        return localDue.ToString("ddd, d MMM", AppStrings.CurrentCulture);
     }
 
     private void ShowError(string message)

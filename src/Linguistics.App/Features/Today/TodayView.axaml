@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Linguistics.App.Controls"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -12,8 +13,8 @@
                             Classes="soft">
             <StackPanel Spacing="12">
                 <ProgressBar IsIndeterminate="True"
-                             AutomationProperties.Name="Preparing today's plan" />
-                <TextBlock Text="Reading your local learning state…"
+                             AutomationProperties.Name="{loc:Localize Today_Preparing}" />
+                <TextBlock Text="{loc:Localize Today_Loading}"
                            AutomationProperties.LiveSetting="Polite" />
             </StackPanel>
         </controls:PaperCard>
@@ -24,7 +25,7 @@
                             Background="{DynamicResource AppPaperAltBrush}">
             <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
                 <StackPanel Grid.Row="0" Grid.Column="0" Spacing="8">
-                    <controls:PaperTape Content="YOUR NEXT MOVE"
+                    <controls:PaperTape Content="{loc:Localize Today_NextMove}"
                                         Classes="compact"
                                         Angle="-1.2"
                                         HorizontalAlignment="Left" />
@@ -49,7 +50,7 @@
                                      Content="→"
                                      FontSize="31"
                                      Angle="2"
-                                     AutomationProperties.Name="Recommended next action" />
+                                     AutomationProperties.Name="{loc:Localize Today_RecommendedAction}" />
                 <Button x:Name="PrimaryActionButton"
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
@@ -75,7 +76,7 @@
                         <TextBlock x:Name="DueCountText"
                                    FontSize="28"
                                    FontWeight="SemiBold" />
-                        <TextBlock Text="review items due"
+                        <TextBlock Text="{loc:Localize Today_DueReviews}"
                                    TextWrapping="Wrap"
                                    Opacity="0.7" />
                     </StackPanel>
@@ -90,7 +91,7 @@
                         <TextBlock x:Name="StrongCountText"
                                    FontSize="28"
                                    FontWeight="SemiBold" />
-                        <TextBlock Text="concepts strong"
+                        <TextBlock Text="{loc:Localize Today_StrongConcepts}"
                                    TextWrapping="Wrap"
                                    Opacity="0.7" />
                     </StackPanel>
@@ -106,7 +107,7 @@
                         <TextBlock x:Name="SpeechCountText"
                                    FontSize="28"
                                    FontWeight="SemiBold" />
-                        <TextBlock Text="pronunciation tries"
+                        <TextBlock Text="{loc:Localize Today_PronunciationTries}"
                                    TextWrapping="Wrap"
                                    Opacity="0.7" />
                     </StackPanel>
@@ -115,7 +116,7 @@
         </Grid>
 
         <controls:PaperCard Classes="soft">
-            <TextBlock Text="Everything here comes from the learner file on this device. Today makes no network request and stores no analytics."
+            <TextBlock Text="{loc:Localize Today_LocalOnly}"
                        TextWrapping="Wrap"
                        Opacity="0.72" />
         </controls:PaperCard>

@@ -519,4 +519,241 @@
   <data name="Startup_TryPreservationAgain" xml:space="preserve">
     <value>Try preservation again</value>
   </data>
+  <data name="Today_DueReviews" xml:space="preserve">
+    <value>review items due</value>
+  </data>
+  <data name="Today_EnterCafe" xml:space="preserve">
+    <value>Enter the café</value>
+  </data>
+  <data name="Today_FirstScenario_Explanation" xml:space="preserve">
+    <value>Practice a complete local task with text. Speech remains optional.</value>
+  </data>
+  <data name="Today_FirstScenario_Headline" xml:space="preserve">
+    <value>Handle your first café exchange</value>
+  </data>
+  <data name="Today_Loading" xml:space="preserve">
+    <value>Reading your local learning state...</value>
+  </data>
+  <data name="Today_LocalOnly" xml:space="preserve">
+    <value>Everything comes from this device. Today makes no network request and stores no analytics.</value>
+  </data>
+  <data name="Today_NextMove" xml:space="preserve">
+    <value>YOUR NEXT MOVE</value>
+  </data>
+  <data name="Today_OpenPronunciation" xml:space="preserve">
+    <value>Open pronunciation</value>
+  </data>
+  <data name="Today_OpenReview" xml:space="preserve">
+    <value>Open review</value>
+  </data>
+  <data name="Today_Preparing" xml:space="preserve">
+    <value>Preparing today's plan</value>
+  </data>
+  <data name="Today_PronunciationTries" xml:space="preserve">
+    <value>pronunciation tries</value>
+  </data>
+  <data name="Today_Pronunciation_Explanation" xml:space="preserve">
+    <value>Use system playback, then speak locally or follow the complete text-only path.</value>
+  </data>
+  <data name="Today_Pronunciation_Headline" xml:space="preserve">
+    <value>Hear and rehearse the café phrase</value>
+  </data>
+  <data name="Today_RecommendedAction" xml:space="preserve">
+    <value>Recommended next action</value>
+  </data>
+  <data name="Today_Review_Explanation" xml:space="preserve">
+    <value>Retrieve what you learned before starting something new.</value>
+  </data>
+  <data name="Today_Review_Headline" xml:space="preserve">
+    <value>{0} review items ready</value>
+  </data>
+  <data name="Today_Scenario_Explanation" xml:space="preserve">
+    <value>Nothing is due. Repeat the practical task without streak pressure.</value>
+  </data>
+  <data name="Today_Scenario_Headline" xml:space="preserve">
+    <value>Revisit the café when it feels useful</value>
+  </data>
+  <data name="Today_StrongConcepts" xml:space="preserve">
+    <value>concepts strong</value>
+  </data>
+  <data name="Today_Unavailable" xml:space="preserve">
+    <value>Today is unavailable because the learning service was not initialized.</value>
+  </data>
+  <data name="Progress_CafeCapability_Description" xml:space="preserve">
+    <value>Request one item politely and complete the exchange.</value>
+  </data>
+  <data name="Progress_CafeCapability_Title" xml:space="preserve">
+    <value>Order at a café</value>
+  </data>
+  <data name="Progress_CapabilityStatus" xml:space="preserve">
+    <value>Capability status</value>
+  </data>
+  <data name="Progress_CapabilityTape" xml:space="preserve">
+    <value>COMMUNICATIVE CAPABILITY</value>
+  </data>
+  <data name="Progress_ConceptEvidence" xml:space="preserve">
+    <value>CONCEPT EVIDENCE</value>
+  </data>
+  <data name="Progress_Demonstrated" xml:space="preserve">
+    <value>Demonstrated locally.</value>
+  </data>
+  <data name="Progress_DemonstratedOn" xml:space="preserve">
+    <value>Demonstrated locally on {0}.</value>
+  </data>
+  <data name="Progress_Due" xml:space="preserve">
+    <value>due</value>
+  </data>
+  <data name="Progress_Loading" xml:space="preserve">
+    <value>Reading capability evidence...</value>
+  </data>
+  <data name="Progress_LoadingName" xml:space="preserve">
+    <value>Loading local progress</value>
+  </data>
+  <data name="Progress_Method_BodyOne" xml:space="preserve">
+    <value>A capability is demonstrated only after a stored task attempt says the practical goal succeeded.</value>
+  </data>
+  <data name="Progress_Method_BodyTwo" xml:space="preserve">
+    <value>Other evidence stays separate. Versioned deterministic rules can strengthen a concept or return it to practice.</value>
+  </data>
+  <data name="Progress_Method_Title" xml:space="preserve">
+    <value>How this is calculated</value>
+  </data>
+  <data name="Progress_NotStarted" xml:space="preserve">
+    <value>Not started yet. No ability is inferred from setup alone.</value>
+  </data>
+  <data name="Progress_Practicing" xml:space="preserve">
+    <value>practicing</value>
+  </data>
+  <data name="Progress_PracticingAttempts" xml:space="preserve">
+    <value>Practicing across {0} stored attempts.</value>
+  </data>
+  <data name="Progress_Strong" xml:space="preserve">
+    <value>strong</value>
+  </data>
+  <data name="Progress_Unavailable" xml:space="preserve">
+    <value>Progress is unavailable because the learning service was not initialized.</value>
+  </data>
+  <data name="Review_Answer" xml:space="preserve">
+    <value>Answer</value>
+  </data>
+  <data name="Review_Concept_Prompt" xml:space="preserve">
+    <value>What does “{0}” let you accomplish?</value>
+  </data>
+  <data name="Review_Concept_Support" xml:space="preserve">
+    <value>Recall the communicative goal before revealing its reviewed description.</value>
+  </data>
+  <data name="Review_ContentUnavailable" xml:space="preserve">
+    <value>Reviewed content is unavailable.</value>
+  </data>
+  <data name="Review_DueCount" xml:space="preserve">
+    <value>{0} due</value>
+  </data>
+  <data name="Review_Due_Hours" xml:space="preserve">
+    <value>in {0} hours</value>
+  </data>
+  <data name="Review_Due_Minutes" xml:space="preserve">
+    <value>in {0} minutes</value>
+  </data>
+  <data name="Review_Due_Now" xml:space="preserve">
+    <value>now</value>
+  </data>
+  <data name="Review_Empty_Body" xml:space="preserve">
+    <value>Complete a learning task or pronunciation attempt. The deterministic queue will prepare the next review.</value>
+  </data>
+  <data name="Review_Empty_Title" xml:space="preserve">
+    <value>Nothing is due</value>
+  </data>
+  <data name="Review_Gate_Body" xml:space="preserve">
+    <value>Your saved evidence remains untouched. The queue opens after the installed pack passes linguistic and license review.</value>
+  </data>
+  <data name="Review_Gate_Failed" xml:space="preserve">
+    <value>The installed content did not pass the runtime review gate.</value>
+  </data>
+  <data name="Review_Gate_NotApproved" xml:space="preserve">
+    <value>The installed content is not approved for learner review.</value>
+  </data>
+  <data name="Review_Gate_Title" xml:space="preserve">
+    <value>Reviewed learning content is required</value>
+  </data>
+  <data name="Review_Generic_Prompt" xml:space="preserve">
+    <value>Recall this reviewed learning item.</value>
+  </data>
+  <data name="Review_Generic_Support" xml:space="preserve">
+    <value>The installed pack provides no richer prompt for this item type.</value>
+  </data>
+  <data name="Review_Intro_Body" xml:space="preserve">
+    <value>Timing uses your local outcomes, response time, and versioned review rules. There is no punitive streak.</value>
+  </data>
+  <data name="Review_Intro_Title" xml:space="preserve">
+    <value>Retrieval, not pressure</value>
+  </data>
+  <data name="Review_Kind_Concept" xml:space="preserve">
+    <value>Capability concept</value>
+  </data>
+  <data name="Review_Kind_Phrase" xml:space="preserve">
+    <value>Phrase</value>
+  </data>
+  <data name="Review_Kind_Pronunciation" xml:space="preserve">
+    <value>Pronunciation target</value>
+  </data>
+  <data name="Review_Kind_RecurringForm" xml:space="preserve">
+    <value>Recurring form</value>
+  </data>
+  <data name="Review_Loading" xml:space="preserve">
+    <value>Building your local review queue...</value>
+  </data>
+  <data name="Review_LoadingName" xml:space="preserve">
+    <value>Loading local review queue</value>
+  </data>
+  <data name="Review_NextDue" xml:space="preserve">
+    <value>Your next local review is due {0}.</value>
+  </data>
+  <data name="Review_Phrase_Prompt" xml:space="preserve">
+    <value>Rebuild the complete café request from memory.</value>
+  </data>
+  <data name="Review_Phrase_Support" xml:space="preserve">
+    <value>Think first, then reveal. Exact punctuation is not the learning target.</value>
+  </data>
+  <data name="Review_Pronunciation_Prompt" xml:space="preserve">
+    <value>Recall the phrase, then say it aloud or trace it silently.</value>
+  </data>
+  <data name="Review_Pronunciation_Support" xml:space="preserve">
+    <value>Speech is optional. The complete target remains visible after reveal.</value>
+  </data>
+  <data name="Review_RatingPrompt" xml:space="preserve">
+    <value>How did retrieval feel?</value>
+  </data>
+  <data name="Review_Rating_Again" xml:space="preserve">
+    <value>Again. Not yet</value>
+  </data>
+  <data name="Review_Rating_Body" xml:space="preserve">
+    <value>Your choice is evidence. Deterministic code, not a model, sets the next due time.</value>
+  </data>
+  <data name="Review_Rating_Easy" xml:space="preserve">
+    <value>Easy. Immediate</value>
+  </data>
+  <data name="Review_Rating_Good" xml:space="preserve">
+    <value>Good. Recalled</value>
+  </data>
+  <data name="Review_Rating_Hard" xml:space="preserve">
+    <value>Hard. With effort</value>
+  </data>
+  <data name="Review_RecurringMissing_Prompt" xml:space="preserve">
+    <value>Recall the smallest correction that kept the café exchange moving.</value>
+  </data>
+  <data name="Review_RecurringMissing_Support" xml:space="preserve">
+    <value>This historical rule is not present in the installed content version.</value>
+  </data>
+  <data name="Review_Recurring_Support" xml:space="preserve">
+    <value>Recall one focused contrast. Do not fix every detail at once.</value>
+  </data>
+  <data name="Review_Reveal" xml:space="preserve">
+    <value>Reveal the answer</value>
+  </data>
+  <data name="Review_Saved" xml:space="preserve">
+    <value>Saved locally. This item is next due {0}.</value>
+  </data>
+  <data name="Review_Unavailable" xml:space="preserve">
+    <value>Review is unavailable because the learning service was not initialized.</value>
+  </data>
 </root>

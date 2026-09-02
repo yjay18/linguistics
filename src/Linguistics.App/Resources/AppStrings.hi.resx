@@ -519,4 +519,241 @@
   <data name="Startup_TryPreservationAgain" xml:space="preserve">
     <value>फिर सुरक्षित रखने की कोशिश करें</value>
   </data>
+  <data name="Today_DueReviews" xml:space="preserve">
+    <value>दोहराने की चीज़ें बाकी</value>
+  </data>
+  <data name="Today_EnterCafe" xml:space="preserve">
+    <value>कैफ़े में जाएँ</value>
+  </data>
+  <data name="Today_FirstScenario_Explanation" xml:space="preserve">
+    <value>पाठ के साथ पूरा स्थानीय कार्य अभ्यास करें। बोलना वैकल्पिक है।</value>
+  </data>
+  <data name="Today_FirstScenario_Headline" xml:space="preserve">
+    <value>अपना पहला कैफ़े संवाद पूरा करें</value>
+  </data>
+  <data name="Today_Loading" xml:space="preserve">
+    <value>आपकी स्थानीय सीखने की स्थिति पढ़ी जा रही है...</value>
+  </data>
+  <data name="Today_LocalOnly" xml:space="preserve">
+    <value>सब कुछ इसी डिवाइस से आता है। आज का पृष्ठ नेटवर्क अनुरोध या विश्लेषण संग्रह नहीं करता।</value>
+  </data>
+  <data name="Today_NextMove" xml:space="preserve">
+    <value>आपका अगला कदम</value>
+  </data>
+  <data name="Today_OpenPronunciation" xml:space="preserve">
+    <value>उच्चारण खोलें</value>
+  </data>
+  <data name="Today_OpenReview" xml:space="preserve">
+    <value>पुनरावृत्ति खोलें</value>
+  </data>
+  <data name="Today_Preparing" xml:space="preserve">
+    <value>आज की योजना तैयार हो रही है</value>
+  </data>
+  <data name="Today_PronunciationTries" xml:space="preserve">
+    <value>उच्चारण की कोशिशें</value>
+  </data>
+  <data name="Today_Pronunciation_Explanation" xml:space="preserve">
+    <value>सिस्टम प्लेबैक सुनें, फिर स्थानीय रूप से बोलें या पूरा केवल-पाठ मार्ग अपनाएँ।</value>
+  </data>
+  <data name="Today_Pronunciation_Headline" xml:space="preserve">
+    <value>कैफ़े वाक्यांश सुनें और दोहराएँ</value>
+  </data>
+  <data name="Today_RecommendedAction" xml:space="preserve">
+    <value>सुझाया अगला काम</value>
+  </data>
+  <data name="Today_Review_Explanation" xml:space="preserve">
+    <value>कुछ नया शुरू करने से पहले सीखी हुई चीज़ याद करें।</value>
+  </data>
+  <data name="Today_Review_Headline" xml:space="preserve">
+    <value>दोहराने की {0} चीज़ें तैयार हैं</value>
+  </data>
+  <data name="Today_Scenario_Explanation" xml:space="preserve">
+    <value>कुछ बाकी नहीं है। क्रम बनाए रखने के दबाव के बिना व्यावहारिक कार्य दोहराएँ।</value>
+  </data>
+  <data name="Today_Scenario_Headline" xml:space="preserve">
+    <value>उपयोगी लगे तो कैफ़े फिर देखें</value>
+  </data>
+  <data name="Today_StrongConcepts" xml:space="preserve">
+    <value>मज़बूत अवधारणाएँ</value>
+  </data>
+  <data name="Today_Unavailable" xml:space="preserve">
+    <value>शिक्षण सेवा शुरू नहीं हुई, इसलिए आज का पृष्ठ उपलब्ध नहीं है।</value>
+  </data>
+  <data name="Progress_CafeCapability_Description" xml:space="preserve">
+    <value>विनम्रता से एक चीज़ माँगें और संवाद पूरा करें।</value>
+  </data>
+  <data name="Progress_CafeCapability_Title" xml:space="preserve">
+    <value>कैफ़े में ऑर्डर करें</value>
+  </data>
+  <data name="Progress_CapabilityStatus" xml:space="preserve">
+    <value>क्षमता की स्थिति</value>
+  </data>
+  <data name="Progress_CapabilityTape" xml:space="preserve">
+    <value>संवाद क्षमता</value>
+  </data>
+  <data name="Progress_ConceptEvidence" xml:space="preserve">
+    <value>अवधारणा प्रमाण</value>
+  </data>
+  <data name="Progress_Demonstrated" xml:space="preserve">
+    <value>स्थानीय रूप से प्रदर्शित।</value>
+  </data>
+  <data name="Progress_DemonstratedOn" xml:space="preserve">
+    <value>{0} को स्थानीय रूप से प्रदर्शित।</value>
+  </data>
+  <data name="Progress_Due" xml:space="preserve">
+    <value>बाकी</value>
+  </data>
+  <data name="Progress_Loading" xml:space="preserve">
+    <value>क्षमता प्रमाण पढ़ा जा रहा है...</value>
+  </data>
+  <data name="Progress_LoadingName" xml:space="preserve">
+    <value>स्थानीय प्रगति लोड हो रही है</value>
+  </data>
+  <data name="Progress_Method_BodyOne" xml:space="preserve">
+    <value>क्षमता तभी प्रदर्शित होती है जब सहेजे कार्य प्रयास में व्यावहारिक लक्ष्य सफल हो।</value>
+  </data>
+  <data name="Progress_Method_BodyTwo" xml:space="preserve">
+    <value>अन्य प्रमाण अलग रहते हैं। संस्करण वाले नियतात्मक नियम अवधारणा को मज़बूत या फिर अभ्यास में ला सकते हैं।</value>
+  </data>
+  <data name="Progress_Method_Title" xml:space="preserve">
+    <value>इसकी गणना कैसे होती है</value>
+  </data>
+  <data name="Progress_NotStarted" xml:space="preserve">
+    <value>अभी शुरू नहीं हुआ। केवल सेटअप से कोई क्षमता नहीं मानी जाती।</value>
+  </data>
+  <data name="Progress_Practicing" xml:space="preserve">
+    <value>अभ्यास में</value>
+  </data>
+  <data name="Progress_PracticingAttempts" xml:space="preserve">
+    <value>{0} सहेजे प्रयासों में अभ्यास जारी है।</value>
+  </data>
+  <data name="Progress_Strong" xml:space="preserve">
+    <value>मज़बूत</value>
+  </data>
+  <data name="Progress_Unavailable" xml:space="preserve">
+    <value>शिक्षण सेवा शुरू नहीं हुई, इसलिए प्रगति उपलब्ध नहीं है।</value>
+  </data>
+  <data name="Review_Answer" xml:space="preserve">
+    <value>उत्तर</value>
+  </data>
+  <data name="Review_Concept_Prompt" xml:space="preserve">
+    <value>“{0}” आपको क्या करने देता है?</value>
+  </data>
+  <data name="Review_Concept_Support" xml:space="preserve">
+    <value>जाँचा विवरण खोलने से पहले संवाद लक्ष्य याद करें।</value>
+  </data>
+  <data name="Review_ContentUnavailable" xml:space="preserve">
+    <value>जाँची सामग्री उपलब्ध नहीं है।</value>
+  </data>
+  <data name="Review_DueCount" xml:space="preserve">
+    <value>{0} बाकी</value>
+  </data>
+  <data name="Review_Due_Hours" xml:space="preserve">
+    <value>{0} घंटे में</value>
+  </data>
+  <data name="Review_Due_Minutes" xml:space="preserve">
+    <value>{0} मिनट में</value>
+  </data>
+  <data name="Review_Due_Now" xml:space="preserve">
+    <value>अभी</value>
+  </data>
+  <data name="Review_Empty_Body" xml:space="preserve">
+    <value>कोई शिक्षण कार्य या उच्चारण प्रयास पूरा करें। नियतात्मक कतार अगली पुनरावृत्ति तैयार करेगी।</value>
+  </data>
+  <data name="Review_Empty_Title" xml:space="preserve">
+    <value>कुछ बाकी नहीं है</value>
+  </data>
+  <data name="Review_Gate_Body" xml:space="preserve">
+    <value>आपके सहेजे प्रमाण सुरक्षित हैं। इंस्टॉल पैक की भाषाई और लाइसेंस समीक्षा के बाद कतार खुलेगी।</value>
+  </data>
+  <data name="Review_Gate_Failed" xml:space="preserve">
+    <value>इंस्टॉल सामग्री रनटाइम समीक्षा द्वार पार नहीं कर सकी।</value>
+  </data>
+  <data name="Review_Gate_NotApproved" xml:space="preserve">
+    <value>इंस्टॉल सामग्री शिक्षार्थी पुनरावृत्ति के लिए स्वीकृत नहीं है।</value>
+  </data>
+  <data name="Review_Gate_Title" xml:space="preserve">
+    <value>जाँची शिक्षण सामग्री आवश्यक है</value>
+  </data>
+  <data name="Review_Generic_Prompt" xml:space="preserve">
+    <value>इस जाँची शिक्षण चीज़ को याद करें।</value>
+  </data>
+  <data name="Review_Generic_Support" xml:space="preserve">
+    <value>इंस्टॉल पैक में इस प्रकार के लिए अधिक विस्तृत संकेत नहीं है।</value>
+  </data>
+  <data name="Review_Intro_Body" xml:space="preserve">
+    <value>समय आपके स्थानीय परिणाम, उत्तर समय और संस्करण वाले नियमों से बनता है। दंड देने वाला क्रम नहीं है।</value>
+  </data>
+  <data name="Review_Intro_Title" xml:space="preserve">
+    <value>याद करें, दबाव नहीं</value>
+  </data>
+  <data name="Review_Kind_Concept" xml:space="preserve">
+    <value>क्षमता अवधारणा</value>
+  </data>
+  <data name="Review_Kind_Phrase" xml:space="preserve">
+    <value>वाक्यांश</value>
+  </data>
+  <data name="Review_Kind_Pronunciation" xml:space="preserve">
+    <value>उच्चारण लक्ष्य</value>
+  </data>
+  <data name="Review_Kind_RecurringForm" xml:space="preserve">
+    <value>दोहराया रूप</value>
+  </data>
+  <data name="Review_Loading" xml:space="preserve">
+    <value>आपकी स्थानीय पुनरावृत्ति कतार बन रही है...</value>
+  </data>
+  <data name="Review_LoadingName" xml:space="preserve">
+    <value>स्थानीय पुनरावृत्ति कतार लोड हो रही है</value>
+  </data>
+  <data name="Review_NextDue" xml:space="preserve">
+    <value>आपकी अगली स्थानीय पुनरावृत्ति {0} बाकी है।</value>
+  </data>
+  <data name="Review_Phrase_Prompt" xml:space="preserve">
+    <value>याद से पूरा कैफ़े अनुरोध फिर बनाएँ।</value>
+  </data>
+  <data name="Review_Phrase_Support" xml:space="preserve">
+    <value>पहले सोचें, फिर खोलें। सटीक विराम-चिह्न शिक्षण लक्ष्य नहीं है।</value>
+  </data>
+  <data name="Review_Pronunciation_Prompt" xml:space="preserve">
+    <value>वाक्यांश याद करें, फिर ज़ोर से बोलें या चुपचाप उसका अनुसरण करें।</value>
+  </data>
+  <data name="Review_Pronunciation_Support" xml:space="preserve">
+    <value>बोलना वैकल्पिक है। खोलने के बाद पूरा लक्ष्य दिखाई देता है।</value>
+  </data>
+  <data name="Review_RatingPrompt" xml:space="preserve">
+    <value>याद करना कैसा लगा?</value>
+  </data>
+  <data name="Review_Rating_Again" xml:space="preserve">
+    <value>फिर से। अभी नहीं</value>
+  </data>
+  <data name="Review_Rating_Body" xml:space="preserve">
+    <value>आपका चुनाव प्रमाण है। मॉडल नहीं, नियतात्मक कोड अगला समय तय करता है।</value>
+  </data>
+  <data name="Review_Rating_Easy" xml:space="preserve">
+    <value>आसान। तुरंत</value>
+  </data>
+  <data name="Review_Rating_Good" xml:space="preserve">
+    <value>अच्छा। याद आया</value>
+  </data>
+  <data name="Review_Rating_Hard" xml:space="preserve">
+    <value>कठिन। प्रयास से</value>
+  </data>
+  <data name="Review_RecurringMissing_Prompt" xml:space="preserve">
+    <value>कैफ़े संवाद आगे बढ़ाने वाला सबसे छोटा सुधार याद करें।</value>
+  </data>
+  <data name="Review_RecurringMissing_Support" xml:space="preserve">
+    <value>यह पुराना नियम इंस्टॉल सामग्री संस्करण में नहीं है।</value>
+  </data>
+  <data name="Review_Recurring_Support" xml:space="preserve">
+    <value>एक केंद्रित अंतर याद करें। हर विवरण एक साथ न सुधारें।</value>
+  </data>
+  <data name="Review_Reveal" xml:space="preserve">
+    <value>उत्तर खोलें</value>
+  </data>
+  <data name="Review_Saved" xml:space="preserve">
+    <value>स्थानीय रूप से सहेजा गया। यह चीज़ अगली बार {0} बाकी होगी।</value>
+  </data>
+  <data name="Review_Unavailable" xml:space="preserve">
+    <value>शिक्षण सेवा शुरू नहीं हुई, इसलिए पुनरावृत्ति उपलब्ध नहीं है।</value>
+  </data>
 </root>

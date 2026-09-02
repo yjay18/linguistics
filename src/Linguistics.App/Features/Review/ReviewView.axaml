@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -10,11 +11,11 @@
         <Border Classes="soft-card">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel Spacing="5">
-                    <TextBlock Text="Retrieval, not pressure"
+                    <TextBlock Text="{loc:Localize Review_Intro_Title}"
                                FontSize="18"
                                FontWeight="SemiBold"
                                AutomationProperties.HeadingLevel="2" />
-                    <TextBlock Text="Review timing is calculated locally from your outcomes, response time, and versioned review rules. There is no punitive streak."
+                    <TextBlock Text="{loc:Localize Review_Intro_Body}"
                                TextWrapping="Wrap"
                                Opacity="0.76" />
                 </StackPanel>
@@ -22,7 +23,7 @@
                         Margin="20,0,0,0"
                         Classes="status-pill">
                     <TextBlock x:Name="QueueCountText"
-                               Text="due"
+                               Text="{loc:Localize Progress_Due}"
                                FontWeight="SemiBold"
                                AutomationProperties.AutomationId="ReviewQueueCount" />
                 </Border>
@@ -33,8 +34,8 @@
                 Classes="soft-card">
             <StackPanel Spacing="12">
                 <ProgressBar IsIndeterminate="True"
-                             AutomationProperties.Name="Loading local review queue" />
-                <TextBlock Text="Building your local review queue…"
+                             AutomationProperties.Name="{loc:Localize Review_LoadingName}" />
+                <TextBlock Text="{loc:Localize Review_Loading}"
                            AutomationProperties.LiveSetting="Polite" />
             </StackPanel>
         </Border>
@@ -43,14 +44,14 @@
                 IsVisible="False"
                 Classes="warning-card">
             <StackPanel Spacing="9">
-                <TextBlock Text="Reviewed learning content is required"
+                <TextBlock Text="{loc:Localize Review_Gate_Title}"
                            FontSize="20"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
                 <TextBlock x:Name="ContentGateMessage"
                            TextWrapping="Wrap"
                            AutomationProperties.AutomationId="ReviewContentGate" />
-                <TextBlock Text="Your saved evidence remains untouched. The queue will open when the installed pack passes linguistic and license review."
+                <TextBlock Text="{loc:Localize Review_Gate_Body}"
                            TextWrapping="Wrap"
                            Opacity="0.74" />
             </StackPanel>
@@ -60,7 +61,7 @@
                 IsVisible="False"
                 Classes="soft-card">
             <StackPanel Spacing="8">
-                <TextBlock Text="Nothing is due"
+                <TextBlock Text="{loc:Localize Review_Empty_Title}"
                            FontSize="24"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
@@ -90,7 +91,7 @@
                            TextWrapping="Wrap"
                            Opacity="0.74" />
                 <Button x:Name="RevealButton"
-                        Content="Reveal the answer"
+                        Content="{loc:Localize Review_Reveal}"
                         Classes="primary lift"
                         HorizontalAlignment="Left"
                         Click="OnRevealClicked"
@@ -99,7 +100,7 @@
                         IsVisible="False"
                         Classes="accent-card">
                     <StackPanel Spacing="8">
-                        <TextBlock Text="Answer"
+                        <TextBlock Text="{loc:Localize Review_Answer}"
                                    FontSize="13"
                                    FontWeight="SemiBold"
                                    Opacity="0.7" />
@@ -112,28 +113,28 @@
                 <StackPanel x:Name="RatingPanel"
                             IsVisible="False"
                             Spacing="10">
-                    <TextBlock Text="How did retrieval feel?"
+                    <TextBlock Text="{loc:Localize Review_RatingPrompt}"
                                FontWeight="SemiBold" />
                     <WrapPanel ItemSpacing="8"
                                LineSpacing="8">
-                        <Button Content="Again. Not yet"
+                        <Button Content="{loc:Localize Review_Rating_Again}"
                                 Tag="Again"
                                 Click="OnRatingClicked"
                                 AutomationProperties.AutomationId="ReviewAgain" />
-                        <Button Content="Hard. With effort"
+                        <Button Content="{loc:Localize Review_Rating_Hard}"
                                 Tag="Hard"
                                 Click="OnRatingClicked"
                                 AutomationProperties.AutomationId="ReviewHard" />
-                        <Button Content="Good. Recalled"
+                        <Button Content="{loc:Localize Review_Rating_Good}"
                                 Tag="Good"
                                 Click="OnRatingClicked"
                                 AutomationProperties.AutomationId="ReviewGood" />
-                        <Button Content="Easy. Immediate"
+                        <Button Content="{loc:Localize Review_Rating_Easy}"
                                 Tag="Easy"
                                 Click="OnRatingClicked"
                                 AutomationProperties.AutomationId="ReviewEasy" />
                     </WrapPanel>
-                    <TextBlock Text="Your choice is evidence. Deterministic code, not a model, sets the next due time."
+                    <TextBlock Text="{loc:Localize Review_Rating_Body}"
                                TextWrapping="Wrap"
                                Opacity="0.68" />
                 </StackPanel>

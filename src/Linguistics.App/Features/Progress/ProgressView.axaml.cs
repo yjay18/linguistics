@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Linguistics.App.Diagnostics;
 using Linguistics.App.Features.Review;
+using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
@@ -46,7 +47,7 @@ public partial class ProgressView : UserControl
         _initialized = true;
         if (_controller is null)
         {
-            ShowError("Progress is unavailable because the learning service was not initialized.");
+            ShowError(AppStrings.Get("Progress_Unavailable"));
             return;
         }
 
@@ -70,25 +71,28 @@ public partial class ProgressView : UserControl
         MethodCard.IsVisible = true;
 
         var capability = snapshot.Progress.Capabilities.Single();
-        CapabilityTitle.Text = capability.Definition.Title;
-        CapabilityDescription.Text = capability.Definition.Description;
+        CapabilityTitle.Text = AppStrings.Get("Progress_CafeCapability_Title");
+        CapabilityDescription.Text = AppStrings.Get("Progress_CafeCapability_Description");
         (CapabilityGlyph.Content, CapabilityEvidence.Text) = capability.Status switch
         {
             CapabilityStatus.Demonstrated => (
                 "✓",
-                $"Demonstrated locally{FormatEvidenceDate(capability.LastEvidenceAt)}."),
+                capability.LastEvidenceAt is { } evidenceAt
+                    ? AppStrings.Format(
+                        "Progress_DemonstratedOn",
+                        evidenceAt.ToLocalTime().ToString(
+                            "d MMM yyyy",
+                            AppStrings.CurrentCulture))
+                    : AppStrings.Get("Progress_Demonstrated")),
             CapabilityStatus.Practicing => (
                 "↗",
-                $"Practicing across {capability.AttemptCount} stored attempt{(capability.AttemptCount == 1 ? string.Empty : "s")}."),
-            _ => ("○", "Not started yet. No ability is inferred from setup alone."),
+                AppStrings.Format("Progress_PracticingAttempts", capability.AttemptCount)),
+            _ => ("○", AppStrings.Get("Progress_NotStarted")),
         };
         PracticingCount.Text = snapshot.Progress.PracticingConceptCount.ToString();
         StrongCount.Text = snapshot.Progress.StrongConceptCount.ToString();
         DueCount.Text = snapshot.Progress.DueConceptCount.ToString();
     }
-
-    private static string FormatEvidenceDate(DateTimeOffset? evidenceAt) =>
-        evidenceAt is null ? string.Empty : $" on {evidenceAt.Value.ToLocalTime():d MMM yyyy}";
 
     private void ShowError(string message)
     {

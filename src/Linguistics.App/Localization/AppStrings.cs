@@ -20,6 +20,8 @@ public static class AppStrings
 
     public static LanguageCode CurrentLanguage => new(_culture.Name);
 
+    public static CultureInfo CurrentCulture => _culture;
+
     public static bool Supports(LanguageCode language) =>
         SupportedLanguages.Contains(language);
 
