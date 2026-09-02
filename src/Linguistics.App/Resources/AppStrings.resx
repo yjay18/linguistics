@@ -834,4 +834,49 @@
   <data name="Scenario_WordEvidence" xml:space="preserve"><value>Local word evidence: {0} of {1} expected words matched in order. This is not a phoneme or accent score.</value></data>
   <data name="Scenario_You" xml:space="preserve"><value>You</value></data>
   <data name="Scenario_YourReply" xml:space="preserve"><value>Your reply</value></data>
+  <data name="Common_None" xml:space="preserve"><value>none</value></data>
+  <data name="Pronunciation_Body" xml:space="preserve"><value>The app compares recognized words with this phrase. It does not score phonemes, accent, tongue position, or similarity to a native speaker.</value></data>
+  <data name="Pronunciation_Comparison" xml:space="preserve"><value>Expected words matched in order: {0} of {1}&#xA;Expected words not heard: {2}&#xA;Other recognized words: {3}</value></data>
+  <data name="Pronunciation_Eyebrow" xml:space="preserve"><value>UNDERSTOOD, NOT ACCENT FREE</value></data>
+  <data name="Pronunciation_Gate_Body" xml:space="preserve"><value>Local speech tools are separate from teaching content. This practice phrase needs approval before learners can use it.</value></data>
+  <data name="Pronunciation_Gate_Title" xml:space="preserve"><value>Pronunciation content is safely paused</value></data>
+  <data name="Pronunciation_InitializeFailed" xml:space="preserve"><value>Pronunciation practice could not initialize safely: {0}</value></data>
+  <data name="Pronunciation_Listen" xml:space="preserve"><value>Listen</value></data>
+  <data name="Pronunciation_Loading" xml:space="preserve"><value>Checking local speech and approved practice content...</value></data>
+  <data name="Pronunciation_LoadingName" xml:space="preserve"><value>Loading local speech</value></data>
+  <data name="Pronunciation_MicrophoneActive" xml:space="preserve"><value>Microphone active. Processing remains local.</value></data>
+  <data name="Pronunciation_MicrophoneDisabled" xml:space="preserve"><value>Your microphone preference is Never. Text and playback remain available.</value></data>
+  <data name="Pronunciation_MicrophoneDisclosure_Body" xml:space="preserve"><value>A local whisper.cpp process uses the microphone for up to 15 seconds. Audio stays on this device and is not retained. You can cancel.</value></data>
+  <data name="Pronunciation_ModelDetails" xml:space="preserve"><value>Model: {0} • {1} • provider {2}&#xA;Source: {3}&#xA;License: {4}</value></data>
+  <data name="Pronunciation_ModelMissing" xml:space="preserve"><value>Linguistics downloaded no model. Configure one explicitly. Text and playback do not depend on it.</value></data>
+  <data name="Pronunciation_NoPriorAttempts" xml:space="preserve"><value>No prior pronunciation attempt metadata is stored.</value></data>
+  <data name="Pronunciation_NoWordsRecognized" xml:space="preserve"><value>No words recognized</value></data>
+  <data name="Pronunciation_Outcome_Intelligible_Body" xml:space="preserve"><value>The expected words were recognized in order under this recording condition.</value></data>
+  <data name="Pronunciation_Outcome_Intelligible_Title" xml:space="preserve"><value>Phrase understood</value></data>
+  <data name="Pronunciation_Outcome_None_Body" xml:space="preserve"><value>No complete local speech segment was available for word comparison.</value></data>
+  <data name="Pronunciation_Outcome_None_Title" xml:space="preserve"><value>No speech evidence yet</value></data>
+  <data name="Pronunciation_Outcome_NotIntelligible_Body" xml:space="preserve"><value>Too few expected words were recognized in order. Use the caption and try again.</value></data>
+  <data name="Pronunciation_Outcome_NotIntelligible_Title" xml:space="preserve"><value>Try the phrase once more</value></data>
+  <data name="Pronunciation_Outcome_Partial_Body" xml:space="preserve"><value>Some expected words were recognized in order. Compare the visible words before retrying.</value></data>
+  <data name="Pronunciation_Outcome_Partial_Title" xml:space="preserve"><value>Part of the phrase was understood</value></data>
+  <data name="Pronunciation_PlaybackStopped" xml:space="preserve"><value>Speech playback stopped. The caption remains visible.</value></data>
+  <data name="Pronunciation_Playing" xml:space="preserve"><value>Playing the caption...</value></data>
+  <data name="Pronunciation_PlayingSlowly" xml:space="preserve"><value>Playing the caption more slowly...</value></data>
+  <data name="Pronunciation_PracticePhrase" xml:space="preserve"><value>Practice phrase</value></data>
+  <data name="Pronunciation_PriorAttempts" xml:space="preserve"><value>{0} prior attempts are stored as counts and outcomes only.</value></data>
+  <data name="Pronunciation_ProxyDisclosure" xml:space="preserve"><value>This is a word recognition proxy under one local condition, not a phoneme or accent score.</value></data>
+  <data name="Pronunciation_RecognitionComplete" xml:space="preserve"><value>Local word recognition is complete. Review the visible comparison.</value></data>
+  <data name="Pronunciation_RecognitionReady" xml:space="preserve"><value>Local recognition is ready. Recording remains optional.</value></data>
+  <data name="Pronunciation_RecognitionUnavailable" xml:space="preserve"><value>Local recognition is unavailable. Text and playback remain complete.</value></data>
+  <data name="Pronunciation_RecognizerHeard" xml:space="preserve"><value>Recognizer heard</value></data>
+  <data name="Pronunciation_Record" xml:space="preserve"><value>Record locally</value></data>
+  <data name="Pronunciation_RecordingBody" xml:space="preserve"><value>Recording is active. Recognition stops after the first complete speech segment or the time limit.</value></data>
+  <data name="Pronunciation_RecordingCancelled" xml:space="preserve"><value>Recording cancelled. No pronunciation result was created.</value></data>
+  <data name="Pronunciation_RecordingCancelledNoChange" xml:space="preserve"><value>Recording cancelled. No task or pronunciation state changed.</value></data>
+  <data name="Pronunciation_RecordingName" xml:space="preserve"><value>Microphone recording active</value></data>
+  <data name="Pronunciation_Saved" xml:space="preserve"><value>Pronunciation evidence was saved locally.</value></data>
+  <data name="Pronunciation_StopPlayback" xml:space="preserve"><value>Stop playback</value></data>
+  <data name="Pronunciation_Title" xml:space="preserve"><value>Speak to be understood</value></data>
+  <data name="Pronunciation_VoiceMissing" xml:space="preserve"><value>No matching system voice is installed. The caption remains authoritative.</value></data>
+  <data name="Pronunciation_VoiceReady" xml:space="preserve"><value>A matching system voice is ready. The caption remains authoritative.</value></data>
 </root>

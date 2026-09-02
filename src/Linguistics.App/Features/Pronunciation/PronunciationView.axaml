@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -9,8 +10,8 @@
     <StackPanel Spacing="18">
         <StackPanel x:Name="LoadingPanel" Spacing="10">
             <ProgressBar IsIndeterminate="True"
-                         AutomationProperties.Name="Loading local speech" />
-            <TextBlock Text="Checking local speech and approved practice content…"
+                         AutomationProperties.Name="{loc:Localize Pronunciation_LoadingName}" />
+            <TextBlock Text="{loc:Localize Pronunciation_Loading}"
                        AutomationProperties.LiveSetting="Polite" />
         </StackPanel>
 
@@ -19,11 +20,11 @@
                 Classes="warning-card"
                 AutomationProperties.AutomationId="PronunciationContentGate">
             <StackPanel Spacing="10">
-                <TextBlock Text="Pronunciation content is safely paused"
+                <TextBlock Text="{loc:Localize Pronunciation_Gate_Title}"
                            FontSize="21"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="The local speech tools are separate from teaching content. This practice phrase must be approved before learners can use it."
+                <TextBlock Text="{loc:Localize Pronunciation_Gate_Body}"
                            TextWrapping="Wrap"
                            LineHeight="22" />
                 <TextBlock x:Name="ContentGateTechnicalText"
@@ -38,13 +39,13 @@
                     Spacing="18">
             <Border Classes="hero-card">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="UNDERSTOOD, NOT ACCENT FREE"
+                    <TextBlock Text="{loc:Localize Pronunciation_Eyebrow}"
                                Classes="eyebrow" />
-                    <TextBlock Text="Speak to be understood"
+                    <TextBlock Text="{loc:Localize Pronunciation_Title}"
                                FontSize="26"
                                FontWeight="SemiBold"
                                AutomationProperties.HeadingLevel="2" />
-                    <TextBlock Text="The app compares the recognizer’s words with this phrase. It does not score phonemes, accent, tongue position, or similarity to a native speaker."
+                    <TextBlock Text="{loc:Localize Pronunciation_Body}"
                                TextWrapping="Wrap"
                                LineHeight="22" />
                 </StackPanel>
@@ -52,7 +53,7 @@
 
             <Border Classes="card">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Practice phrase"
+                    <TextBlock Text="{loc:Localize Pronunciation_PracticePhrase}"
                                FontWeight="SemiBold" />
                     <TextBlock x:Name="ExpectedPhraseText"
                                FontSize="28"
@@ -61,17 +62,17 @@
                                AutomationProperties.AutomationId="PronunciationExpectedPhrase" />
                     <StackPanel Orientation="Horizontal" Spacing="9">
                         <Button x:Name="ListenButton"
-                                Content="Listen"
+                                Content="{loc:Localize Pronunciation_Listen}"
                                 Classes="primary lift"
                                 Click="OnListenClicked"
                                 AutomationProperties.AutomationId="PronunciationListen" />
                         <Button x:Name="SlowerButton"
-                                Content="Slower"
+                                Content="{loc:Localize Scenario_Slower}"
                                 Classes="quiet"
                                 Click="OnSlowerClicked"
                                 AutomationProperties.AutomationId="PronunciationListenSlower" />
                         <Button x:Name="StopPlaybackButton"
-                                Content="Stop playback"
+                                Content="{loc:Localize Pronunciation_StopPlayback}"
                                 Classes="quiet"
                                 Click="OnStopPlaybackClicked"
                                 AutomationProperties.AutomationId="PronunciationStopPlayback" />
@@ -85,7 +86,7 @@
 
             <Border Classes="accent-card">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Your turn"
+                    <TextBlock Text="{loc:Localize Scenario_YourReply}"
                                FontSize="20"
                                FontWeight="SemiBold"
                                AutomationProperties.HeadingLevel="2" />
@@ -98,7 +99,7 @@
                                FontSize="13"
                                Opacity="0.72" />
                     <Button x:Name="RecordButton"
-                            Content="Record locally"
+                            Content="{loc:Localize Pronunciation_Record}"
                             Classes="primary lift"
                             HorizontalAlignment="Left"
                             Click="OnRecordClicked"
@@ -108,17 +109,17 @@
                             IsVisible="False"
                             Classes="warning-card">
                         <StackPanel Spacing="10">
-                            <TextBlock Text="Before the microphone opens"
+                            <TextBlock Text="{loc:Localize Scenario_MicrophoneDisclosure_Title}"
                                        FontWeight="SemiBold" />
-                            <TextBlock Text="A separate local whisper.cpp process will access the microphone for up to 15 seconds. Audio is processed on this device and this adapter does not retain it. You can cancel or continue with captions and text."
+                            <TextBlock Text="{loc:Localize Pronunciation_MicrophoneDisclosure_Body}"
                                        TextWrapping="Wrap" />
                             <StackPanel Orientation="Horizontal" Spacing="9">
                                 <Button x:Name="StartRecordingButton"
-                                        Content="Start recording"
+                                        Content="{loc:Localize Scenario_StartRecording}"
                                         Classes="primary lift"
                                         Click="OnStartRecordingClicked"
                                         AutomationProperties.AutomationId="PronunciationConfirmRecord" />
-                                <Button Content="Not now"
+                                <Button Content="{loc:Localize Scenario_NotNow}"
                                         Classes="quiet"
                                         Click="OnDismissDisclosureClicked"
                                         AutomationProperties.AutomationId="PronunciationDismissRecord" />
@@ -130,11 +131,11 @@
                                 IsVisible="False"
                                 Spacing="10">
                         <ProgressBar IsIndeterminate="True"
-                                     AutomationProperties.Name="Microphone recording active" />
-                        <TextBlock Text="Recording is active. Speak once; local recognition stops after the first complete speech segment or the time limit."
+                                     AutomationProperties.Name="{loc:Localize Pronunciation_RecordingName}" />
+                        <TextBlock Text="{loc:Localize Pronunciation_RecordingBody}"
                                    TextWrapping="Wrap"
                                    AutomationProperties.LiveSetting="Assertive" />
-                        <Button Content="Cancel recording"
+                        <Button Content="{loc:Localize Scenario_CancelRecording}"
                                 HorizontalAlignment="Left"
                                 Click="OnCancelRecordingClicked"
                                 AutomationProperties.AutomationId="PronunciationCancelRecording" />
@@ -155,14 +156,14 @@
                                TextWrapping="Wrap"
                                LineHeight="22"
                                AutomationProperties.LiveSetting="Assertive" />
-                    <TextBlock Text="Recognizer heard"
+                    <TextBlock Text="{loc:Localize Pronunciation_RecognizerHeard}"
                                FontWeight="SemiBold" />
                     <TextBlock x:Name="RecognizedPhraseText"
                                TextWrapping="Wrap"
                                AutomationProperties.AutomationId="PronunciationRecognizedPhrase" />
                     <TextBlock x:Name="WordComparisonText"
                                TextWrapping="Wrap" />
-                    <TextBlock Text="This is a word recognition proxy under one local recording condition, not a phoneme or accent score."
+                    <TextBlock Text="{loc:Localize Pronunciation_ProxyDisclosure}"
                                TextWrapping="Wrap"
                                FontSize="13"
                                Opacity="0.72" />
@@ -170,12 +171,12 @@
                                TextWrapping="Wrap"
                                AutomationProperties.LiveSetting="Polite" />
                     <StackPanel Orientation="Horizontal" Spacing="9">
-                        <Button Content="Try again"
+                        <Button Content="{loc:Localize Common_TryAgain}"
                                 Classes="primary lift"
                                 Click="OnTryAgainClicked"
                                 AutomationProperties.AutomationId="PronunciationTryAgain" />
                         <Button x:Name="RetrySaveButton"
-                                Content="Retry local save"
+                                Content="{loc:Localize Scenario_RetrySave}"
                                 IsVisible="False"
                                 Click="OnRetrySaveClicked"
                                 AutomationProperties.AutomationId="PronunciationRetrySave" />

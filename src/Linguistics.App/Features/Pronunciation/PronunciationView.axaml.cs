@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
 using Linguistics.Core.Speech;
@@ -81,8 +82,9 @@ public partial class PronunciationView : UserControl
             LoadingPanel.IsVisible = false;
             ContentGatePanel.IsVisible = true;
             ContentGateTechnicalText.IsVisible = true;
-            ContentGateTechnicalText.Text =
-                $"Pronunciation practice could not initialize safely: {exception.Message}";
+            ContentGateTechnicalText.Text = AppStrings.Format(
+                "Pronunciation_InitializeFailed",
+                exception.Message);
         }
     }
 
@@ -92,7 +94,7 @@ public partial class PronunciationView : UserControl
         ContentGatePanel.IsVisible = true;
         ContentGateTechnicalText.IsVisible = DeveloperModeEnabled();
         ContentGateTechnicalText.Text = string.IsNullOrWhiteSpace(_runtimeContentError)
-            ? "No approved runtime content catalog was loaded."
+            ? AppStrings.Get("Scenario_NoRuntimeCatalog")
             : _runtimeContentError;
     }
 
@@ -106,8 +108,10 @@ public partial class PronunciationView : UserControl
         PracticePanel.IsVisible = true;
         ExpectedPhraseText.Text = initialization.Utterance.Text;
         PreviousAttemptsText.Text = initialization.PreviousAttempts == 0
-            ? "No prior pronunciation attempt metadata is stored."
-            : $"{initialization.PreviousAttempts} prior attempt(s) are stored as counts and outcomes only.";
+            ? AppStrings.Get("Pronunciation_NoPriorAttempts")
+            : AppStrings.Format(
+                "Pronunciation_PriorAttempts",
+                initialization.PreviousAttempts);
 
         var hasVoice = synthesis.Status == SpeechCapabilityStatus.Available &&
                        synthesis.Voices.Any(voice => voice.Language == initialization.Utterance.Language);
@@ -115,17 +119,25 @@ public partial class PronunciationView : UserControl
         SlowerButton.IsEnabled = hasVoice;
         StopPlaybackButton.IsEnabled = hasVoice;
         PlaybackStatusText.Text = hasVoice
-            ? synthesis.Message
-            : "No matching system voice is installed. The caption remains the authoritative phrase.";
+            ? AppStrings.Get("Pronunciation_VoiceReady")
+            : AppStrings.Get("Pronunciation_VoiceMissing");
 
         var recognitionAvailable = recognition.Status == SpeechCapabilityStatus.Available;
         RecordButton.IsEnabled = recognitionAvailable && initialization.MicrophoneAllowed;
         RecognitionStatusText.Text = initialization.MicrophoneAllowed
-            ? recognition.Message
-            : initialization.Message;
+            ? recognitionAvailable
+                ? AppStrings.Get("Pronunciation_RecognitionReady")
+                : AppStrings.Get("Pronunciation_RecognitionUnavailable")
+            : AppStrings.Get("Pronunciation_MicrophoneDisabled");
         SpeechModelDetailsText.Text = recognition.Model is { } model
-            ? $"Model: {model.Name} • {FormatBytes(model.SizeBytes)} • provider {model.ProviderVersion}\nSource: {model.Source}\nLicense: {model.License}"
-            : "No model was downloaded or selected by Linguistics. Configure one explicitly; text and playback do not depend on it.";
+            ? AppStrings.Format(
+                "Pronunciation_ModelDetails",
+                model.Name,
+                FormatBytes(model.SizeBytes),
+                model.ProviderVersion,
+                model.Source,
+                model.License)
+            : AppStrings.Get("Pronunciation_ModelMissing");
     }
 
     private async void OnListenClicked(object? sender, RoutedEventArgs args) =>
@@ -145,7 +157,9 @@ public partial class PronunciationView : UserControl
         _playbackCancellation?.Dispose();
         _playbackCancellation = new CancellationTokenSource();
         var utterance = _controller.Utterance;
-        PlaybackStatusText.Text = rate < 1 ? "Playing the caption more slowly…" : "Playing the caption…";
+        PlaybackStatusText.Text = rate < 1
+            ? AppStrings.Get("Pronunciation_PlayingSlowly")
+            : AppStrings.Get("Pronunciation_Playing");
         var result = await _synthesisProvider.SpeakAsync(
             new SpeechSynthesisRequest(
                 Guid.NewGuid(),
@@ -165,7 +179,7 @@ public partial class PronunciationView : UserControl
             await _synthesisProvider.StopAsync();
         }
 
-        PlaybackStatusText.Text = "Speech playback stopped. The caption remains visible.";
+        PlaybackStatusText.Text = AppStrings.Get("Pronunciation_PlaybackStopped");
     }
 
     private void OnRecordClicked(object? sender, RoutedEventArgs args)
@@ -192,7 +206,7 @@ public partial class PronunciationView : UserControl
         DisclosurePanel.IsVisible = false;
         ResultPanel.IsVisible = false;
         RecordingPanel.IsVisible = true;
-        RecognitionStatusText.Text = "Microphone active; processing remains local.";
+        RecognitionStatusText.Text = AppStrings.Get("Pronunciation_MicrophoneActive");
         _recognitionCancellation?.Cancel();
         _recognitionCancellation?.Dispose();
         _recognitionCancellation = new CancellationTokenSource();
@@ -220,7 +234,7 @@ public partial class PronunciationView : UserControl
         catch (OperationCanceledException)
         {
             RecordingPanel.IsVisible = false;
-            RecognitionStatusText.Text = "Recording cancelled. No pronunciation result was created.";
+            RecognitionStatusText.Text = AppStrings.Get("Pronunciation_RecordingCancelled");
             RecordButton.IsVisible = true;
         }
         catch (Exception exception) when (
@@ -240,17 +254,32 @@ public partial class PronunciationView : UserControl
         RecordButton.IsVisible = false;
         OutcomeTitleText.Text = outcome.Assessment.Evidence.Outcome switch
         {
-            PronunciationAssessmentOutcome.Intelligible => "Phrase understood",
-            PronunciationAssessmentOutcome.PartlyIntelligible => "Part of the phrase was understood",
-            PronunciationAssessmentOutcome.NotIntelligible => "Try the phrase once more",
-            _ => "No speech evidence yet",
+            PronunciationAssessmentOutcome.Intelligible =>
+                AppStrings.Get("Pronunciation_Outcome_Intelligible_Title"),
+            PronunciationAssessmentOutcome.PartlyIntelligible =>
+                AppStrings.Get("Pronunciation_Outcome_Partial_Title"),
+            PronunciationAssessmentOutcome.NotIntelligible =>
+                AppStrings.Get("Pronunciation_Outcome_NotIntelligible_Title"),
+            _ => AppStrings.Get("Pronunciation_Outcome_None_Title"),
         };
-        OutcomeMessageText.Text = outcome.Assessment.Message;
-        RecognizedPhraseText.Text = recognition.Transcript ?? "No words recognized";
+        OutcomeMessageText.Text = outcome.Assessment.Evidence.Outcome switch
+        {
+            PronunciationAssessmentOutcome.Intelligible =>
+                AppStrings.Get("Pronunciation_Outcome_Intelligible_Body"),
+            PronunciationAssessmentOutcome.PartlyIntelligible =>
+                AppStrings.Get("Pronunciation_Outcome_Partial_Body"),
+            PronunciationAssessmentOutcome.NotIntelligible =>
+                AppStrings.Get("Pronunciation_Outcome_NotIntelligible_Body"),
+            _ => AppStrings.Get("Pronunciation_Outcome_None_Body"),
+        };
+        RecognizedPhraseText.Text = recognition.Transcript ??
+            AppStrings.Get("Pronunciation_NoWordsRecognized");
         WordComparisonText.Text = Comparison(outcome.Assessment);
-        PersistenceStatusText.Text = outcome.PersistenceMessage;
+        PersistenceStatusText.Text = outcome.Persisted
+            ? AppStrings.Get("Pronunciation_Saved")
+            : outcome.PersistenceMessage;
         RetrySaveButton.IsVisible = !outcome.Persisted;
-        RecognitionStatusText.Text = recognition.Message;
+        RecognitionStatusText.Text = AppStrings.Get("Pronunciation_RecognitionComplete");
     }
 
     private void OnTryAgainClicked(object? sender, RoutedEventArgs args)
@@ -268,7 +297,9 @@ public partial class PronunciationView : UserControl
         }
 
         var result = await _controller.RetryPersistenceAsync();
-        PersistenceStatusText.Text = result.Message;
+        PersistenceStatusText.Text = result.Persisted
+            ? AppStrings.Get("Pronunciation_Saved")
+            : result.Message;
         RetrySaveButton.IsVisible = !result.Persisted;
     }
 
@@ -282,7 +313,7 @@ public partial class PronunciationView : UserControl
         }
 
         RecordingPanel.IsVisible = false;
-        RecognitionStatusText.Text = "Recording cancelled. No task or pronunciation state changed.";
+        RecognitionStatusText.Text = AppStrings.Get("Pronunciation_RecordingCancelledNoChange");
         RecordButton.IsVisible = true;
         RecordButton.Focus();
     }
@@ -307,13 +338,17 @@ public partial class PronunciationView : UserControl
     private static string Comparison(PronunciationAssessmentResult assessment)
     {
         var missing = assessment.MissingExpectedWords.Count == 0
-            ? "none"
+            ? AppStrings.Get("Common_None")
             : string.Join(", ", assessment.MissingExpectedWords);
         var unexpected = assessment.UnexpectedRecognizedWords.Count == 0
-            ? "none"
+            ? AppStrings.Get("Common_None")
             : string.Join(", ", assessment.UnexpectedRecognizedWords);
-        return $"Expected words matched in order: {assessment.Evidence.MatchedWordCount} of {assessment.Evidence.ExpectedWordCount}\n" +
-               $"Expected words not heard: {missing}\nOther recognized words: {unexpected}";
+        return AppStrings.Format(
+            "Pronunciation_Comparison",
+            assessment.Evidence.MatchedWordCount,
+            assessment.Evidence.ExpectedWordCount,
+            missing,
+            unexpected);
     }
 
     private static string FormatBytes(long bytes) =>

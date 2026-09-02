@@ -834,4 +834,49 @@
   <data name="Scenario_WordEvidence" xml:space="preserve"><value>स्थानीय शब्द प्रमाण: {1} अपेक्षित शब्दों में {0} क्रम से मिले। यह स्वनिम या लहजे का स्कोर नहीं है।</value></data>
   <data name="Scenario_You" xml:space="preserve"><value>आप</value></data>
   <data name="Scenario_YourReply" xml:space="preserve"><value>आपका उत्तर</value></data>
+  <data name="Common_None" xml:space="preserve"><value>कोई नहीं</value></data>
+  <data name="Pronunciation_Body" xml:space="preserve"><value>ऐप पहचाने शब्दों की वाक्यांश से तुलना करता है। यह स्वनिम, लहजा, जीभ की स्थिति या मूल वक्ता से समानता नहीं मापता।</value></data>
+  <data name="Pronunciation_Comparison" xml:space="preserve"><value>क्रम से मिले अपेक्षित शब्द: {1} में {0}&#xA;नहीं सुने अपेक्षित शब्द: {2}&#xA;अन्य पहचाने शब्द: {3}</value></data>
+  <data name="Pronunciation_Eyebrow" xml:space="preserve"><value>समझ में आए, लहजा मिटाना लक्ष्य नहीं</value></data>
+  <data name="Pronunciation_Gate_Body" xml:space="preserve"><value>स्थानीय भाषण साधन शिक्षण सामग्री से अलग हैं। शिक्षार्थी उपयोग से पहले इस अभ्यास वाक्यांश को स्वीकृति चाहिए।</value></data>
+  <data name="Pronunciation_Gate_Title" xml:space="preserve"><value>उच्चारण सामग्री सुरक्षित रूप से रुकी है</value></data>
+  <data name="Pronunciation_InitializeFailed" xml:space="preserve"><value>उच्चारण अभ्यास सुरक्षित रूप से शुरू नहीं हो सका: {0}</value></data>
+  <data name="Pronunciation_Listen" xml:space="preserve"><value>सुनें</value></data>
+  <data name="Pronunciation_Loading" xml:space="preserve"><value>स्थानीय भाषण और स्वीकृत अभ्यास सामग्री जाँची जा रही है...</value></data>
+  <data name="Pronunciation_LoadingName" xml:space="preserve"><value>स्थानीय भाषण लोड हो रहा है</value></data>
+  <data name="Pronunciation_MicrophoneActive" xml:space="preserve"><value>माइक्रोफ़ोन सक्रिय है। प्रसंस्करण स्थानीय रहेगा।</value></data>
+  <data name="Pronunciation_MicrophoneDisabled" xml:space="preserve"><value>आपकी माइक्रोफ़ोन प्राथमिकता कभी नहीं है। पाठ और प्लेबैक उपलब्ध हैं।</value></data>
+  <data name="Pronunciation_MicrophoneDisclosure_Body" xml:space="preserve"><value>स्थानीय whisper.cpp प्रक्रिया माइक्रोफ़ोन को 15 सेकंड तक उपयोग करती है। ऑडियो इसी डिवाइस पर रहता और सहेजा नहीं जाता। आप रद्द कर सकते हैं।</value></data>
+  <data name="Pronunciation_ModelDetails" xml:space="preserve"><value>मॉडल: {0} • {1} • प्रदाता {2}&#xA;स्रोत: {3}&#xA;लाइसेंस: {4}</value></data>
+  <data name="Pronunciation_ModelMissing" xml:space="preserve"><value>Linguistics ने कोई मॉडल डाउनलोड नहीं किया। स्पष्ट रूप से कॉन्फ़िगर करें। पाठ और प्लेबैक उस पर निर्भर नहीं।</value></data>
+  <data name="Pronunciation_NoPriorAttempts" xml:space="preserve"><value>पिछले उच्चारण प्रयास का कोई मेटाडेटा सहेजा नहीं है।</value></data>
+  <data name="Pronunciation_NoWordsRecognized" xml:space="preserve"><value>कोई शब्द नहीं पहचाना गया</value></data>
+  <data name="Pronunciation_Outcome_Intelligible_Body" xml:space="preserve"><value>इस रिकॉर्डिंग परिस्थिति में अपेक्षित शब्द क्रम से पहचाने गए।</value></data>
+  <data name="Pronunciation_Outcome_Intelligible_Title" xml:space="preserve"><value>वाक्यांश समझा गया</value></data>
+  <data name="Pronunciation_Outcome_None_Body" xml:space="preserve"><value>शब्द तुलना के लिए पूरा स्थानीय भाषण खंड उपलब्ध नहीं था।</value></data>
+  <data name="Pronunciation_Outcome_None_Title" xml:space="preserve"><value>अभी भाषण प्रमाण नहीं</value></data>
+  <data name="Pronunciation_Outcome_NotIntelligible_Body" xml:space="preserve"><value>बहुत कम अपेक्षित शब्द क्रम से पहचाने गए। कैप्शन देखकर फिर कोशिश करें।</value></data>
+  <data name="Pronunciation_Outcome_NotIntelligible_Title" xml:space="preserve"><value>वाक्यांश फिर बोलें</value></data>
+  <data name="Pronunciation_Outcome_Partial_Body" xml:space="preserve"><value>कुछ अपेक्षित शब्द क्रम से पहचाने गए। दोबारा बोलने से पहले दिखाई देने वाले शब्द देखें।</value></data>
+  <data name="Pronunciation_Outcome_Partial_Title" xml:space="preserve"><value>वाक्यांश का कुछ भाग समझा गया</value></data>
+  <data name="Pronunciation_PlaybackStopped" xml:space="preserve"><value>भाषण प्लेबैक रुका। कैप्शन दिखाई देता रहेगा।</value></data>
+  <data name="Pronunciation_Playing" xml:space="preserve"><value>कैप्शन चल रहा है...</value></data>
+  <data name="Pronunciation_PlayingSlowly" xml:space="preserve"><value>कैप्शन धीरे चल रहा है...</value></data>
+  <data name="Pronunciation_PracticePhrase" xml:space="preserve"><value>अभ्यास वाक्यांश</value></data>
+  <data name="Pronunciation_PriorAttempts" xml:space="preserve"><value>{0} पिछले प्रयास केवल संख्या और परिणाम के रूप में सहेजे हैं।</value></data>
+  <data name="Pronunciation_ProxyDisclosure" xml:space="preserve"><value>यह एक स्थानीय परिस्थिति में शब्द पहचान संकेत है, स्वनिम या लहजे का स्कोर नहीं।</value></data>
+  <data name="Pronunciation_RecognitionComplete" xml:space="preserve"><value>स्थानीय शब्द पहचान पूरी हुई। दिखाई देने वाली तुलना देखें।</value></data>
+  <data name="Pronunciation_RecognitionReady" xml:space="preserve"><value>स्थानीय पहचान तैयार है। रिकॉर्डिंग वैकल्पिक है।</value></data>
+  <data name="Pronunciation_RecognitionUnavailable" xml:space="preserve"><value>स्थानीय पहचान उपलब्ध नहीं है। पाठ और प्लेबैक पूरे हैं।</value></data>
+  <data name="Pronunciation_RecognizerHeard" xml:space="preserve"><value>पहचानकर्ता ने सुना</value></data>
+  <data name="Pronunciation_Record" xml:space="preserve"><value>स्थानीय रूप से रिकॉर्ड करें</value></data>
+  <data name="Pronunciation_RecordingBody" xml:space="preserve"><value>रिकॉर्डिंग सक्रिय है। पहले पूरे भाषण खंड या समय सीमा के बाद पहचान रुकती है।</value></data>
+  <data name="Pronunciation_RecordingCancelled" xml:space="preserve"><value>रिकॉर्डिंग रद्द हुई। कोई उच्चारण परिणाम नहीं बना।</value></data>
+  <data name="Pronunciation_RecordingCancelledNoChange" xml:space="preserve"><value>रिकॉर्डिंग रद्द हुई। कार्य या उच्चारण स्थिति नहीं बदली।</value></data>
+  <data name="Pronunciation_RecordingName" xml:space="preserve"><value>माइक्रोफ़ोन रिकॉर्डिंग सक्रिय</value></data>
+  <data name="Pronunciation_Saved" xml:space="preserve"><value>उच्चारण प्रमाण स्थानीय रूप से सहेजा गया।</value></data>
+  <data name="Pronunciation_StopPlayback" xml:space="preserve"><value>प्लेबैक रोकें</value></data>
+  <data name="Pronunciation_Title" xml:space="preserve"><value>समझे जाने के लिए बोलें</value></data>
+  <data name="Pronunciation_VoiceMissing" xml:space="preserve"><value>मेल खाने वाली सिस्टम आवाज़ इंस्टॉल नहीं है। कैप्शन आधिकारिक वाक्यांश है।</value></data>
+  <data name="Pronunciation_VoiceReady" xml:space="preserve"><value>मेल खाने वाली सिस्टम आवाज़ तैयार है। कैप्शन आधिकारिक वाक्यांश है।</value></data>
 </root>
