@@ -184,7 +184,7 @@ public sealed class ContentPackTests
             var hindiNotes = runtime.CreateRuntimeTransferNotes(
                 new LanguageCode("hi"),
                 new LanguageCode("de"),
-                new LanguageCode("en"));
+                new LanguageCode("hi"));
             var cafe = runtime.CreateRuntimeCafeOrderDefinition(new LanguageCode("en"));
             var pronunciation = runtime.CreateRuntimePronunciationUtterances(
                 new LanguageCode("de"));
@@ -194,6 +194,10 @@ public sealed class ContentPackTests
             Assert.IsTrue(english.All(mapping => mapping.ReviewStatus == TransferReviewStatus.Approved));
             Assert.IsTrue(hindiNotes.Any(note =>
                 note.Mapping.TargetConceptId == new ConceptId("de.noun.gender-basic")));
+            Assert.IsTrue(hindiNotes.All(note => note.LearnerExplanation.Any(character =>
+                character is >= '\u0900' and <= '\u097f')));
+            Assert.IsTrue(hindiNotes.SelectMany(note => note.NegativeTransferRisks).All(risk =>
+                risk.Any(character => character is >= '\u0900' and <= '\u097f')));
             Assert.AreEqual("de.task.cafe.order-one-item", cafe.TaskId);
             Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
             Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
@@ -269,6 +273,51 @@ public sealed class ContentPackTests
         CollectionAssert.AreEqual(
             PresentationIds(catalog),
             PresentationIds(repeated));
+    }
+
+    [TestMethod]
+    public void BundledGermanCourseKeepsTargetContentStableAcrossEnglishAndHindi()
+    {
+        var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
+        var german = new LanguageCode("de");
+        var english = catalog.CreateCourseCatalog(german, new LanguageCode("en"));
+        var hindi = catalog.CreateCourseCatalog(german, new LanguageCode("hi"));
+
+        CollectionAssert.AreEqual(
+            new[] { new LanguageCode("en"), new LanguageCode("hi") },
+            catalog.GetInstructionLanguages(german).ToArray());
+        Assert.AreEqual(CoursePublicationState.Preview, english.PublicationState);
+        Assert.AreEqual(CoursePublicationState.Preview, hindi.PublicationState);
+        CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hindi));
+        Assert.AreEqual("Greet someone", english.Units[0].Lessons[0].Title);
+        Assert.AreEqual("किसी का अभिवादन करें", hindi.Units[0].Lessons[0].Title);
+
+        var englishLesson = english.Units.SelectMany(unit => unit.Lessons)
+            .Single(lesson => lesson.Id == "lesson.de.lexicon.cafe-items");
+        var hindiLesson = hindi.Units.SelectMany(unit => unit.Lessons)
+            .Single(lesson => lesson.Id == englishLesson.Id);
+        var englishTemplates = englishLesson.Slides.Select(slide => slide.TemplateInstance!).ToArray();
+        var hindiTemplates = hindiLesson.Slides.Select(slide => slide.TemplateInstance!).ToArray();
+
+        CollectionAssert.AreEqual(
+            englishTemplates.Select(template => template.TemplateId.Value).ToArray(),
+            hindiTemplates.Select(template => template.TemplateId.Value).ToArray());
+        Assert.AreEqual(
+            englishTemplates[0].Parameters.Values["word"].Text,
+            hindiTemplates[0].Parameters.Values["word"].Text);
+        Assert.AreNotEqual(
+            englishTemplates[0].Parameters.Values["instruction"].TextByLanguage!["en"],
+            hindiTemplates[0].Parameters.Values["instruction"].TextByLanguage!["hi"]);
+        CollectionAssert.AreEqual(
+            englishTemplates[1].Parameters.Values["options"].Options!
+                .Select(option => option.Label).ToArray(),
+            hindiTemplates[1].Parameters.Values["options"].Options!
+                .Select(option => option.Label).ToArray());
+        CollectionAssert.AreEqual(
+            englishTemplates[2].Parameters.Values["options"].Options!
+                .Select(option => option.Label).ToArray(),
+            hindiTemplates[2].Parameters.Values["options"].Options!
+                .Select(option => option.Label).ToArray());
     }
 
     [TestMethod]
@@ -838,6 +887,7 @@ public sealed class ContentPackTests
                 Title = new Dictionary<string, string>
                 {
                     ["en"] = $"Synthetic lesson {index}",
+                    ["hi"] = $"कृत्रिम पाठ {index}",
                 },
                 PrerequisiteIds = [],
                 SuccessCriteria = seed.SuccessCriteria with { RequiredEvaluatorIds = [] },
@@ -901,10 +951,15 @@ public sealed class ContentPackTests
 
     private static IReadOnlyDictionary<string, string> AddHindi(
         IReadOnlyDictionary<string, string> values,
-        string hindi) =>
-        values
-            .Append(new KeyValuePair<string, string>("hi", hindi))
-            .ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
+        string hindi)
+    {
+        var result = values.ToDictionary(
+            pair => pair.Key,
+            pair => pair.Value,
+            StringComparer.Ordinal);
+        result["hi"] = hindi;
+        return result;
+    }
 
     private static string WritePacks(
         IEnumerable<ContentPackDocument> packs,
