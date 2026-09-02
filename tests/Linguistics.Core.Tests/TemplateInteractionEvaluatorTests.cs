@@ -687,6 +687,33 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void CognateThreadReportsOnlyAuthoredAdvisoryActionIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("cognate-thread")));
+        var actions = new[]
+        {
+            new TemplateOption("trace-thread", "Trace this connection"),
+            new TemplateOption("dismiss-thread", "Dismiss thread"),
+        };
+
+        var traced = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "trace-thread",
+            "trace-thread");
+        var dismissed = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "trace-thread",
+            "dismiss-thread");
+
+        Assert.AreEqual(TemplateOutcomeState.Success, traced.State);
+        Assert.AreEqual("trace-thread", traced.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, dismissed.State);
+        Assert.AreEqual("dismiss-thread", dismissed.ResponseId);
+        Assert.AreNotEqual("name", traced.ResponseId);
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

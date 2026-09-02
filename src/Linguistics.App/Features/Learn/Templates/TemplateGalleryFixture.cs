@@ -1565,5 +1565,48 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "dismiss-alarm"),
             })),
+        new(
+            new TemplateId("cognate-thread"),
+            "Cognate thread",
+            "Transfer · routed written-form cue · explicit boundary",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Trace the selected written-form cue from the known word to German.",
+                        ["hi"] = "चुने हुए लिखित-रूप संकेत को ज्ञात शब्द से जर्मन तक देखें।",
+                    }),
+                ["source-language"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "English"),
+                ["target-language"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "German"),
+                ["source-word"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "name"),
+                ["target-word"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Name"),
+                ["explanation"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "English name can help you remember German Name. Keep the German capital letter and learn the full frame Ich heiße …"),
+                ["actions"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("trace-thread", "Trace this connection"),
+                        new("dismiss-thread", "Dismiss thread"),
+                    ]),
+                ["acknowledgement"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "trace-thread"),
+                ["dismissal"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "dismiss-thread"),
+            })),
     ];
 }

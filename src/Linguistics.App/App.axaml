@@ -323,6 +323,11 @@
             <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
             <Setter Property="BorderThickness" Value="1" />
         </Style>
+        <Style Selector="Border.paper-thread">
+            <Setter Property="Height" Value="3" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="Background" Value="{DynamicResource AppAccentBrush}" />
+        </Style>
         <Style Selector="Border.warning-card">
             <Setter Property="Padding" Value="20" />
             <Setter Property="CornerRadius" Value="16" />

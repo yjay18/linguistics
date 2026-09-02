@@ -457,3 +457,228 @@ internal static class FalseFriendAlarmRenderer
         _ => "Ready: compare the tempting form with the authored target form.",
     };
 }
+
+internal static class CognateThreadRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var sourceLanguage = TemplateRendering.Text(parameters, "source-language");
+        var targetLanguage = TemplateRendering.Text(parameters, "target-language");
+        var sourceWord = TemplateRendering.Text(parameters, "source-word");
+        var targetWord = TemplateRendering.Text(parameters, "target-word");
+        var explanation = TemplateRendering.Text(parameters, "explanation");
+        var actions = TemplateRendering.Options(parameters, "actions");
+        var acknowledgementId = TemplateRendering.Text(parameters, "acknowledgement");
+        var dismissalId = TemplateRendering.Text(parameters, "dismissal");
+        var acknowledgement = actions.Single(action => action.Id == acknowledgementId);
+        var dismissal = actions.Single(action => action.Id == dismissalId);
+
+        var replayButton = new Button { Content = "Replay thread", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(replayButton, "CognateThreadReplay");
+        AutomationProperties.SetName(replayButton, "Replay the word connection");
+        var skipButton = new Button { Content = "Skip entrance", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(skipButton, "CognateThreadSkip");
+        AutomationProperties.SetName(skipButton, "Skip to the completed word connection");
+        var instructionText = new TextBlock
+        {
+            Text = instruction,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetName(instructionText, $"Cognate thread instruction. {instruction}");
+        var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        headerActions.Children.Add(replayButton);
+        headerActions.Children.Add(skipButton);
+        var header = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        header.Children.Add(instructionText);
+        Grid.SetColumn(headerActions, 1);
+        header.Children.Add(headerActions);
+
+        var sourcePanel = WordCard(sourceLanguage, sourceWord, -1.2, "CognateThreadSourceWord");
+        var targetPanel = WordCard(targetLanguage, targetWord, 1.2, "CognateThreadTargetWord");
+        var thread = new Border
+        {
+            Width = 168,
+            VerticalAlignment = VerticalAlignment.Center,
+            Classes = { "paper-thread" },
+        };
+        AutomationProperties.SetAutomationId(thread, "CognateThreadLine");
+        AutomationProperties.SetName(
+            thread,
+            $"Routed written connection from {sourceWord} to {targetWord}");
+        var wordPair = new Grid
+        {
+            Width = 620,
+            ColumnDefinitions = new ColumnDefinitions("210,*,210"),
+            ColumnSpacing = 16,
+        };
+        wordPair.Children.Add(sourcePanel);
+        Grid.SetColumn(thread, 1);
+        wordPair.Children.Add(thread);
+        Grid.SetColumn(targetPanel, 2);
+        wordPair.Children.Add(targetPanel);
+        AutomationProperties.SetName(
+            wordPair,
+            $"{sourceLanguage} {sourceWord} connects to {targetLanguage} {targetWord}");
+
+        var stage = TemplateRendering.CreateStage(
+            258,
+            $"Cognate thread from {sourceLanguage} {sourceWord} to {targetLanguage} {targetWord}");
+        TemplateRendering.AddBackdrop(stage, imageCache: null, assetReferenceId: null);
+        PaperStage.SetLayer(wordPair, PaperStageLayer.Subject);
+        PaperStage.SetAnchor(wordPair, PaperAnchorLine.Waist);
+        PaperStage.SetAnchorX(wordPair, 0.5);
+        stage.Children.Add(wordPair);
+
+        var explanationText = new TextBlock
+        {
+            Text = explanation,
+            FontSize = 16,
+            LineHeight = 22,
+            TextWrapping = TextWrapping.Wrap,
+        };
+        AutomationProperties.SetAutomationId(explanationText, "CognateThreadExplanation");
+        AutomationProperties.SetName(explanationText, $"Routed cognate explanation. {explanation}");
+        var explanationCard = new Border
+        {
+            Padding = new Thickness(14, 11),
+            Classes = { "soft-card" },
+            Child = explanationText,
+        };
+
+        var acknowledgeButton = new Button
+        {
+            Content = acknowledgement.Label,
+            Classes = { "primary", "lift" },
+        };
+        AutomationProperties.SetAutomationId(acknowledgeButton, "CognateThreadAcknowledge");
+        AutomationProperties.SetName(acknowledgeButton, acknowledgement.Label);
+        var dismissButton = new Button { Content = dismissal.Label, Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(dismissButton, "CognateThreadDismiss");
+        AutomationProperties.SetName(dismissButton, $"{dismissal.Label}. Continue without this cue.");
+        var actionPanel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        actionPanel.Children.Add(acknowledgeButton);
+        actionPanel.Children.Add(dismissButton);
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+        var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,*"), ColumnSpacing = 12 };
+        footer.Children.Add(actionPanel);
+        Grid.SetColumn(outcomePanel, 1);
+        footer.Children.Add(outcomePanel);
+
+        void Apply(string actionId, string? overrideCopy = null)
+        {
+            var outcome = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+                actions,
+                acknowledgementId,
+                actionId);
+            TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+            if (overrideCopy is not null)
+            {
+                outcomeText.Text = overrideCopy;
+            }
+
+            reportOutcome(outcome);
+        }
+
+        acknowledgeButton.Click += (_, _) => Apply(acknowledgementId);
+        dismissButton.Click += (_, _) =>
+        {
+            wordPair.IsVisible = false;
+            Apply(dismissalId, "Thread dismissed. The routed explanation remains available as text.");
+        };
+
+        var root = new StackPanel { Spacing = 14 };
+        root.Children.Add(header);
+        root.Children.Add(stage);
+        root.Children.Add(explanationCard);
+        root.Children.Add(footer);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            wordPair.IsVisible = true;
+            TemplateRendering.Prepare(
+                shouldReduceMotion,
+                sourcePanel,
+                thread,
+                targetPanel,
+                explanationCard,
+                footer);
+            if (!shouldReduceMotion)
+            {
+                sourcePanel.RenderTransform = TemplateRendering.Transform(-8, 0, -1, 0.98);
+                targetPanel.RenderTransform = TemplateRendering.Transform(8, 0, 1, 0.98);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), sourcePanel),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(260), thread),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), targetPanel),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), explanationCard, footer),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) => scene?.Skip();
+        return root;
+    }
+
+    private static StackPanel WordCard(
+        string language,
+        string word,
+        double angle,
+        string automationId)
+    {
+        var languageLabel = new TextBlock
+        {
+            Text = language.ToUpperInvariant(),
+            FontSize = 11,
+            FontWeight = FontWeight.Bold,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
+        var wordTape = new PaperTape
+        {
+            Content = word,
+            Angle = angle,
+            MinWidth = 180,
+        };
+        var panel = new StackPanel
+        {
+            Spacing = 4,
+            Children = { languageLabel, wordTape },
+        };
+        AutomationProperties.SetAutomationId(panel, automationId);
+        AutomationProperties.SetName(panel, $"{language} word {word}");
+        return panel;
+    }
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "Connection traced. The routed written-form cue stays visible.",
+        TemplateOutcomeState.Uncertain => "Follow the thread from the known word to the target word.",
+        TemplateOutcomeState.Failure => "Replay the thread and read the complete boundary again.",
+        _ => "Ready: trace or dismiss this routed written-form cue.",
+    };
+}

@@ -991,6 +991,44 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void CognateThreadConnectsRoutedWordsAndReportsAdvisoryActions()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("cognate-thread"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        byId["CognateThreadAcknowledge"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        byId["CognateThreadDismiss"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+        Assert.AreEqual("trace-thread", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, reported[1].State);
+        Assert.AreEqual("dismiss-thread", reported[1].ResponseId);
+        Assert.AreEqual(
+            "English word name",
+            AutomationProperties.GetName(byId["CognateThreadSourceWord"]));
+        Assert.AreEqual(
+            "German word Name",
+            AutomationProperties.GetName(byId["CognateThreadTargetWord"]));
+        Assert.IsTrue(byId.ContainsKey("CognateThreadLine"));
+        Assert.IsTrue(byId.ContainsKey("CognateThreadReplay"));
+        Assert.IsTrue(byId.ContainsKey("CognateThreadSkip"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

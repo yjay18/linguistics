@@ -313,6 +313,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("false-friend-alarm"),
             FalseFriendAlarmRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("cognate-thread"),
+            CognateThreadRenderer.Render),
     ]);
 
     public Control Render(
