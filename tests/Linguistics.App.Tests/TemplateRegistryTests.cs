@@ -979,7 +979,10 @@ public sealed class TemplateRegistryTests
         Assert.AreEqual("notice-capital", reported[0].ResponseId);
         Assert.AreEqual(TemplateOutcomeState.Ready, reported[1].State);
         Assert.AreEqual("dismiss-alarm", reported[1].ResponseId);
-        Assert.AreEqual("WATCH", ((Linguistics.App.Controls.PaperStamp)byId["FalseFriendAlarmStamp"]).Content);
+        var warningStamp = (Linguistics.App.Controls.PaperStamp)byId["FalseFriendAlarmStamp"];
+        Assert.AreEqual("WATCH", warningStamp.Content);
+        Assert.AreEqual(Linguistics.App.Controls.PaperAnchorLine.Head, Linguistics.App.Controls.PaperStage.GetAnchor(warningStamp));
+        Assert.AreEqual(0.4, Linguistics.App.Controls.PaperStage.GetAnchorX(warningStamp));
         Assert.AreEqual(
             "English habit: kaffee",
             AutomationProperties.GetName(byId["TemptingFormCard"]));
@@ -1063,6 +1066,9 @@ public sealed class TemplateRegistryTests
             "German");
         Assert.IsTrue(byId.ContainsKey("ContrastPanesBoundary"));
         Assert.IsTrue(byId.ContainsKey("ContrastPanesHinge"));
+        Assert.AreEqual(52, byId["ContrastPanesHinge"].Width);
+        Assert.IsTrue(byId["ContrastPanesHinge"].GetLogicalDescendants().OfType<TextBlock>().Any(text =>
+            text.Text == "COMPARE"));
         Assert.IsTrue(byId.ContainsKey("ContrastPanesReplay"));
         Assert.IsTrue(byId.ContainsKey("ContrastPanesSkip"));
     }

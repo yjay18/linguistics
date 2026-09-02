@@ -268,9 +268,9 @@ internal static class FalseFriendAlarmRenderer
             stage,
             stamp,
             PaperStageLayer.ReactionBurst,
-            PaperAnchorLine.Waist,
-            0.27,
-            offsetY: -44);
+            PaperAnchorLine.Head,
+            0.4,
+            offsetY: 18);
 
         var explanationText = new TextBlock
         {
@@ -741,7 +741,7 @@ internal static class ContrastPanesRenderer
             "ContrastPanesChanges");
         var hinge = new StackPanel
         {
-            Width = 42,
+            Width = 52,
             Spacing = 8,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
@@ -769,8 +769,8 @@ internal static class ContrastPanesRenderer
             $"Comparison boundary between {sourceLanguage} and {targetLanguage}");
         var panes = new Grid
         {
-            Width = 660,
-            ColumnDefinitions = new ColumnDefinitions("*,42,*"),
+            Width = 680,
+            ColumnDefinitions = new ColumnDefinitions("*,52,*"),
             ColumnSpacing = 10,
         };
         panes.Children.Add(transferPane);
