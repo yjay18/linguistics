@@ -623,6 +623,43 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void BridgeNoteKeepsDismissalAdvisoryAndReportsOnlyActionIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("bridge-note")));
+        var actions = new[]
+        {
+            new TemplateOption("use-bridge", "Use this bridge"),
+            new TemplateOption("dismiss-bridge", "Dismiss note"),
+        };
+
+        var pending = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "use-bridge",
+            null);
+        var dismissed = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "use-bridge",
+            "dismiss-bridge");
+        var acknowledged = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "use-bridge",
+            "use-bridge");
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, pending.State);
+        Assert.AreEqual(TemplateOutcomeState.Ready, dismissed.State);
+        Assert.AreEqual("dismiss-bridge", dismissed.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, acknowledged.State);
+        Assert.AreEqual("use-bridge", acknowledged.ResponseId);
+        Assert.AreNotEqual("Use this bridge", acknowledged.ResponseId);
+        Assert.ThrowsExactly<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+                actions,
+                "use-bridge",
+                "invented-action"));
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

@@ -653,6 +653,21 @@ public static class LessonTemplateSchemas
                 new("letters", TemplateParameterKind.OptionList, IsRequired: true),
                 new("letter-names", TemplateParameterKind.OptionList, IsRequired: true),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("bridge-note"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("source-language", TemplateParameterKind.Text, IsRequired: true),
+                new("note-type", TemplateParameterKind.Text, IsRequired: true),
+                new("explanation", TemplateParameterKind.Text, IsRequired: true),
+                new("risks", TemplateParameterKind.OptionList, IsRequired: false),
+                new("preference-mode", TemplateParameterKind.Text, IsRequired: true),
+                new("actions", TemplateParameterKind.OptionList, IsRequired: true),
+                new("acknowledgement", TemplateParameterKind.Text, IsRequired: true),
+                new("dismissal", TemplateParameterKind.Text, IsRequired: true),
+            ]),
     ];
 }
 

@@ -221,6 +221,17 @@ public sealed class CafeScenarioController
         return _definition.ScriptedResponses[_definition.WaitingStateId][0];
     }
 
+    public void DismissBridge()
+    {
+        if (_session is not null)
+        {
+            throw new InvalidOperationException("Dismiss the bridge before starting the café scenario.");
+        }
+
+        _bridge = null;
+        _selectedBridge = null;
+    }
+
     public Guid BeginSpeechInput()
     {
         if (_session is null)

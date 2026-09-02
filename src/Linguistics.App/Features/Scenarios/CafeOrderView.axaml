@@ -59,30 +59,10 @@
                 </StackPanel>
             </Border>
 
-            <Border x:Name="BridgeCard"
-                    IsVisible="False"
-                    Classes="accent-card">
-                <StackPanel Spacing="9">
-                    <TextBlock x:Name="BridgeLabelText"
-                               FontSize="12"
-                               FontWeight="Bold" />
-                    <TextBlock x:Name="BridgeExplanationText"
-                               TextWrapping="Wrap"
-                               LineHeight="22"
-                               AutomationProperties.AutomationId="CafeTransferExplanation" />
-                    <TextBlock x:Name="BridgeRiskText"
-                               TextWrapping="Wrap"
-                               FontSize="13"
-                               Opacity="0.72" />
-                    <CheckBox x:Name="UseBridgeCheckBox"
-                              Content="Use this language bridge for this task"
-                              AutomationProperties.AutomationId="ConfirmCafeBridge" />
-                    <TextBlock x:Name="BridgeModeText"
-                               IsVisible="False"
-                               FontSize="13"
-                               Opacity="0.72" />
-                </StackPanel>
-            </Border>
+            <ContentControl x:Name="BridgeHost"
+                            IsVisible="False"
+                            HorizontalContentAlignment="Stretch"
+                            AutomationProperties.AutomationId="CafeBridgeHost" />
 
             <Border x:Name="ReadyPanel"
                     Classes="card">

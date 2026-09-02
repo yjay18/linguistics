@@ -8,6 +8,41 @@ public static class TemplateInteractionEvaluator
     public static TemplateOutcome EvaluateAcknowledgement(bool acknowledged) =>
         new(acknowledged ? TemplateOutcomeState.Success : TemplateOutcomeState.Ready);
 
+    public static TemplateOutcome EvaluateAdvisoryChoice(
+        IReadOnlyList<TemplateOption> actions,
+        string acknowledgementId,
+        string? selectedActionId)
+    {
+        ArgumentNullException.ThrowIfNull(actions);
+        ArgumentException.ThrowIfNullOrWhiteSpace(acknowledgementId);
+
+        var actionIds = ValidateOptionIds(actions, nameof(actions));
+        if (!actionIds.Contains(acknowledgementId, StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "The acknowledgement must name an available advisory action.",
+                nameof(acknowledgementId));
+        }
+
+        if (selectedActionId is null)
+        {
+            return new TemplateOutcome(TemplateOutcomeState.Uncertain);
+        }
+
+        if (!actionIds.Contains(selectedActionId, StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "The advisory action must be declared by the template.",
+                nameof(selectedActionId));
+        }
+
+        return new TemplateOutcome(
+            string.Equals(selectedActionId, acknowledgementId, StringComparison.Ordinal)
+                ? TemplateOutcomeState.Success
+                : TemplateOutcomeState.Ready,
+            selectedActionId);
+    }
+
     public static TemplateOutcome EvaluatePictureMatch(
         IReadOnlyList<TemplateOption> options,
         string answerId,

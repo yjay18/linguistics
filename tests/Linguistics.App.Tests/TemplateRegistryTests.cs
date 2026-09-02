@@ -915,6 +915,44 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void BridgeNoteUsesRoutedCopyAndAdvisoryActionsOnly()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("bridge-note"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        byId["BridgeNoteAcknowledge"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Assert.HasCount(1, reported);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, reported[0].State);
+
+        ((CheckBox)byId["BridgeNoteConfirmBridge"]).IsChecked = true;
+        byId["BridgeNoteAcknowledge"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        byId["BridgeNoteDismissBridge"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(3, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[1].State);
+        Assert.AreEqual("use-bridge", reported[1].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, reported[2].State);
+        Assert.AreEqual("dismiss-bridge", reported[2].ResponseId);
+        Assert.IsTrue(byId.ContainsKey("BridgeNoteReplay"));
+        Assert.IsTrue(byId.ContainsKey("BridgeNoteSkip"));
+        Assert.IsTrue(controls.OfType<TextBlock>().Any(text =>
+            text.Text?.Contains("grammatical gender", StringComparison.Ordinal) == true));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

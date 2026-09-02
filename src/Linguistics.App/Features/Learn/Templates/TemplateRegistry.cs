@@ -307,6 +307,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("spelling-tiles"),
             SpellingTilesRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("bridge-note"),
+            BridgeNoteRenderer.Render),
     ]);
 
     public Control Render(

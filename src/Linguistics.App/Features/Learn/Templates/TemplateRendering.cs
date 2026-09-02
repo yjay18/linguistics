@@ -64,6 +64,13 @@ internal static class TemplateRendering
             ? options
             : throw new InvalidOperationException($"Template parameter '{name}' has no resolved options.");
 
+    public static IReadOnlyList<TemplateOption> OptionalOptions(
+        ResolvedTemplateParameters parameters,
+        string name) =>
+        parameters.Values.TryGetValue(name, out var value) && value.Options is { Count: > 0 } options
+            ? options
+            : [];
+
     public static string? AssetReference(ResolvedTemplateParameters parameters, string name) =>
         parameters.Values.TryGetValue(name, out var value) ? value.AssetReferenceId : null;
 

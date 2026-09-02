@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Linguistics.App.Controls;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Providers;
@@ -28,6 +29,7 @@ public partial class CafeOrderView : UserControl
     private bool _initialized;
     private bool _busy;
     private string? _lastNpcResponse;
+    private TransferNoteCardView? _bridgeNote;
 
     public CafeOrderView()
     {
@@ -129,22 +131,28 @@ public partial class CafeOrderView : UserControl
 
         if (state.Bridge is { } bridge)
         {
-            BridgeCard.IsVisible = true;
-            BridgeLabelText.Text =
-                $"{LanguageName(bridge.SourceLanguage)} BRIDGE • {RelationName(bridge.Relation)}";
-            BridgeExplanationText.Text = bridge.Explanation;
-            BridgeRiskText.IsVisible = bridge.Risks.Count > 0;
-            BridgeRiskText.Text = bridge.Risks.Count == 0
-                ? string.Empty
-                : $"Keep in mind: {string.Join(" ", bridge.Risks)}";
-            UseBridgeCheckBox.IsVisible = bridge.RequiresConfirmation;
-            UseBridgeCheckBox.IsChecked = false;
-            BridgeModeText.IsVisible = !bridge.RequiresConfirmation;
-            BridgeModeText.Text = "Shown according to your saved multilingual shortcut preference.";
+            _bridgeNote = new TransferNoteCardView(
+                new TransferNoteCardContent(
+                    LanguageName(bridge.SourceLanguage),
+                    RelationName(bridge.Relation),
+                    bridge.Explanation,
+                    bridge.Risks,
+                    bridge.RequiresConfirmation,
+                    "Dismiss bridge"),
+                "Cafe");
+            _bridgeNote.Dismissed += (_, _) =>
+            {
+                BridgeHost.IsVisible = false;
+                _controller?.DismissBridge();
+            };
+            BridgeHost.Content = _bridgeNote;
+            BridgeHost.IsVisible = true;
         }
         else
         {
-            BridgeCard.IsVisible = false;
+            _bridgeNote = null;
+            BridgeHost.Content = null;
+            BridgeHost.IsVisible = false;
         }
 
         DeveloperPanel.IsVisible = DeveloperModeEnabled();
@@ -166,7 +174,7 @@ public partial class CafeOrderView : UserControl
         try
         {
             ResetTaskSurface();
-            var opening = _controller.Start(UseBridgeCheckBox.IsChecked == true);
+            var opening = _controller.Start(_bridgeNote?.IsConfirmed == true);
             ReadyPanel.IsVisible = false;
             ActiveScenarioPanel.IsVisible = true;
             AddConversationMessage("Server", opening, isLearner: false);

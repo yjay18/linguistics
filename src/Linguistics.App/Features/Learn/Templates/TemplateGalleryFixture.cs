@@ -1476,5 +1476,51 @@ internal static class TemplateGalleryFixtures
                         new("letter-l", "el"),
                     ]),
             })),
+        new(
+            new TemplateId("bridge-note"),
+            "Bridge note",
+            "Transfer · routed Hindi note · advisory dismissal",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Read why the selected Hindi bridge appears, then use or dismiss it.",
+                        ["hi"] = "चुना हुआ हिंदी सेतु क्यों दिखता है, इसे पढ़ें, फिर उपयोग करें या हटाएँ।",
+                    }),
+                ["source-language"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Hindi"),
+                ["note-type"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "partial bridge"),
+                ["explanation"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Hindi experience with grammatical gender can make the idea familiar. German has three noun genders in this Preview, so learn each noun with its article."),
+                ["risks"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("gender-caution", "Do not infer a German article from the Hindi translation."),
+                    ]),
+                ["preference-mode"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "ask-first"),
+                ["actions"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("use-bridge", "Use this bridge"),
+                        new("dismiss-bridge", "Dismiss note"),
+                    ]),
+                ["acknowledgement"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "use-bridge"),
+                ["dismissal"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "dismiss-bridge"),
+            })),
     ];
 }

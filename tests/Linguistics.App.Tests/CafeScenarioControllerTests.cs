@@ -78,6 +78,22 @@ public sealed class CafeScenarioControllerTests
     }
 
     [TestMethod]
+    public async Task DismissedBridgeIsNotRecordedAsSelected()
+    {
+        var setup = await CreateSetupAsync(prerequisiteReady: true, provider: null);
+        var initialization = await setup.Controller.InitializeAsync();
+        Assert.IsNotNull(initialization.Bridge);
+
+        setup.Controller.DismissBridge();
+        setup.Controller.Start(useConfirmedBridge: true);
+        var completion = await setup.Controller.SubmitAsync(
+            "Ich möchte einen Kaffee, bitte");
+
+        Assert.IsTrue(completion.Persisted);
+        Assert.IsNull(setup.Repository.State.Tasks.Attempts.Single().SelectedBridge);
+    }
+
+    [TestMethod]
     public async Task AcceptedSpeechUsesTheSameTaskPathAndPersistsOnlyBoundedEvidence()
     {
         var setup = await CreateSetupAsync(prerequisiteReady: true, provider: null);
