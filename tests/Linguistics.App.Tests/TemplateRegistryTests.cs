@@ -867,6 +867,54 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void SpellingTilesReportsOnlyAuthoredTileOrder()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("spelling-tiles"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var descendants = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var buttons = descendants.OfType<Button>().ToArray();
+        var byId = buttons.ToDictionary(
+            button => AutomationProperties.GetAutomationId(button) ?? string.Empty,
+            StringComparer.Ordinal);
+        var check = byId["SpellingTilesCheck"];
+        var reset = byId["SpellingTilesReset"];
+
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        foreach (var id in new[] { "letter-p", "letter-a", "letter-f", "letter-e", "letter-l" })
+        {
+            byId[$"SpellingTilesBank_{id}"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        }
+
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        reset.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        foreach (var id in new[] { "letter-a", "letter-p", "letter-f", "letter-e", "letter-l" })
+        {
+            byId[$"SpellingTilesBank_{id}"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        }
+
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(3, reported);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, reported[0].State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[1].State);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[2].State);
+        CollectionAssert.AreEqual(
+            new[] { "letter-a", "letter-p", "letter-f", "letter-e", "letter-l" },
+            reported[2].OrderedOptionIds!.ToArray());
+        Assert.IsFalse(reported[2].OrderedOptionIds!.Contains("A", StringComparer.Ordinal));
+        Assert.IsTrue(byId.ContainsKey("SpellingTilesReplay"));
+        Assert.IsTrue(byId.ContainsKey("SpellingTilesSkip"));
+        Assert.IsTrue(descendants.OfType<TextBlock>().Any(text => text.Text == "pe"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

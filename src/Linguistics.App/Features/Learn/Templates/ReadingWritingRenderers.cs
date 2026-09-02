@@ -1161,3 +1161,356 @@ internal static class ScheduleReadRenderer
         _ => "Ready: find the requested day, then choose its opening time.",
     };
 }
+
+internal static class SpellingTilesRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        _ = imageCache;
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var word = TemplateRendering.Text(parameters, "word");
+        var meaning = TemplateRendering.Localized(parameters, "meaning", instructionLanguage);
+        var letters = TemplateRendering.Options(parameters, "letters");
+        var letterNames = TemplateRendering.Options(parameters, "letter-names");
+        var letterIds = letters.Select(letter => letter.Id).ToArray();
+        var nameIds = letterNames.Select(letterName => letterName.Id).ToArray();
+        if (letters.Count < 2 ||
+            !letterIds.OrderBy(id => id, StringComparer.Ordinal)
+                .SequenceEqual(nameIds.OrderBy(id => id, StringComparer.Ordinal), StringComparer.Ordinal))
+        {
+            throw new InvalidOperationException("Spelling letters and letter names must declare the same IDs.");
+        }
+
+        if (!string.Equals(
+            string.Concat(letters.Select(letter => letter.Label)),
+            word,
+            StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException("Authored spelling letters must form the target word.");
+        }
+
+        var namesById = letterNames.ToDictionary(
+            letterName => letterName.Id,
+            letterName => letterName.Label,
+            StringComparer.Ordinal);
+        var selectedIds = InitialOrder(parameters.PreviewOutcome, letters).ToList();
+        var bankButtons = new Dictionary<string, Button>(StringComparer.Ordinal);
+
+        var replayButton = new Button { Content = "Replay tiles", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(replayButton, "SpellingTilesReplay");
+        AutomationProperties.SetName(replayButton, "Replay the spelling-tile entrance");
+        var skipButton = new Button { Content = "Skip tiles", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(skipButton, "SpellingTilesSkip");
+        AutomationProperties.SetName(skipButton, "Skip to the completed spelling board");
+        var instructionText = new TextBlock
+        {
+            Text = instruction,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetName(instructionText, $"Spelling instruction. {instruction}");
+        var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        headerActions.Children.Add(replayButton);
+        headerActions.Children.Add(skipButton);
+        var header = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        header.Children.Add(instructionText);
+        Grid.SetColumn(headerActions, 1);
+        header.Children.Add(headerActions);
+
+        var meaningCard = new PaperCard
+        {
+            Padding = new Thickness(14, 10),
+            Content = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = "TARGET MEANING",
+                        FontSize = 12,
+                        FontWeight = FontWeight.Bold,
+                        Classes = { "muted" },
+                    },
+                    new TextBlock
+                    {
+                        Text = meaning,
+                        FontSize = 20,
+                        FontWeight = FontWeight.Bold,
+                        TextWrapping = TextWrapping.Wrap,
+                    },
+                },
+            },
+        };
+        meaningCard.Classes.Add("soft");
+        AutomationProperties.SetName(meaningCard, $"Target meaning. {meaning}");
+
+        var boardTape = new PaperTape { Content = "BUILD THE SPELLING", Angle = -1.1 };
+        AutomationProperties.SetName(boardTape, "Build the spelling");
+        var bankPanel = new WrapPanel
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            ItemHeight = 68,
+        };
+        AutomationProperties.SetName(bankPanel, "Available letter tiles with German letter names");
+        var spellingPanel = new WrapPanel
+        {
+            MinHeight = 72,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            ItemHeight = 64,
+        };
+        AutomationProperties.SetName(spellingPanel, "Selected letters in spelling order");
+        var spellingStatus = new TextBlock
+        {
+            Text = "Current spelling is empty.",
+            Classes = { "muted" },
+            TextAlignment = TextAlignment.Center,
+            TextWrapping = TextWrapping.Wrap,
+        };
+        AutomationProperties.SetLiveSetting(spellingStatus, AutomationLiveSetting.Polite);
+
+        foreach (var letter in DeterministicBankOrder(letters))
+        {
+            var tileCopy = CreateTileCopy(letter.Label, namesById[letter.Id], onAccent: false);
+            var button = new Button
+            {
+                Width = 76,
+                Height = 62,
+                Content = tileCopy,
+                Margin = new Thickness(4),
+                Classes = { "lift" },
+            };
+            AutomationProperties.SetAutomationId(button, $"SpellingTilesBank_{letter.Id}");
+            AutomationProperties.SetName(
+                button,
+                $"Add letter {letter.Label}, German letter name {namesById[letter.Id]}");
+            button.Click += (_, _) =>
+            {
+                if (!selectedIds.Contains(letter.Id, StringComparer.Ordinal))
+                {
+                    selectedIds.Add(letter.Id);
+                    RefreshSpelling();
+                }
+            };
+            bankButtons.Add(letter.Id, button);
+            bankPanel.Children.Add(button);
+        }
+
+        var boardContent = new StackPanel { Spacing = 10 };
+        boardContent.Children.Add(boardTape);
+        boardContent.Children.Add(new TextBlock
+        {
+            Text = "LETTER BANK",
+            Classes = { "eyebrow" },
+            HorizontalAlignment = HorizontalAlignment.Center,
+        });
+        boardContent.Children.Add(bankPanel);
+        boardContent.Children.Add(new TextBlock
+        {
+            Text = "YOUR SPELLING",
+            Classes = { "eyebrow" },
+            HorizontalAlignment = HorizontalAlignment.Center,
+        });
+        boardContent.Children.Add(spellingPanel);
+        boardContent.Children.Add(spellingStatus);
+        var boardCard = new PaperCard
+        {
+            Padding = new Thickness(18, 14),
+            Content = boardContent,
+            RenderTransformOrigin = new RelativePoint(0.5, 1, RelativeUnit.Relative),
+        };
+        boardCard.Classes.Add("settings-sheet");
+        AutomationProperties.SetName(boardCard, "Paper spelling board with removable letter tiles");
+
+        var resetButton = new Button { Content = "Reset tiles", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(resetButton, "SpellingTilesReset");
+        AutomationProperties.SetName(resetButton, "Return every letter to the bank");
+        var checkButton = new Button { Content = "Check spelling", Classes = { "primary", "lift" } };
+        AutomationProperties.SetAutomationId(checkButton, "SpellingTilesCheck");
+        AutomationProperties.SetName(checkButton, "Check the selected letter order");
+        var actions = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 8,
+            Children = { resetButton, checkButton },
+        };
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+        var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        footer.Children.Add(outcomePanel);
+        Grid.SetColumn(actions, 1);
+        footer.Children.Add(actions);
+
+        void RefreshSpelling()
+        {
+            spellingPanel.Children.Clear();
+            foreach (var pair in bankButtons)
+            {
+                pair.Value.IsEnabled = !selectedIds.Contains(pair.Key, StringComparer.Ordinal);
+            }
+
+            foreach (var selectedId in selectedIds)
+            {
+                var letter = letters.Single(candidate => candidate.Id == selectedId);
+                var tile = new Button
+                {
+                    Width = 76,
+                    Height = 58,
+                    Content = CreateTileCopy(letter.Label, namesById[letter.Id], onAccent: true),
+                    Margin = new Thickness(4),
+                    Classes = { "primary", "lift" },
+                };
+                AutomationProperties.SetAutomationId(tile, $"SpellingTilesSelected_{letter.Id}");
+                AutomationProperties.SetName(
+                    tile,
+                    $"Selected letter {letter.Label}. Remove it from the spelling");
+                tile.Click += (_, _) =>
+                {
+                    selectedIds.Remove(letter.Id);
+                    RefreshSpelling();
+                };
+                spellingPanel.Children.Add(tile);
+            }
+
+            spellingStatus.Text = selectedIds.Count == 0
+                ? "Current spelling is empty."
+                : $"Current spelling: {string.Join(" ", selectedIds.Select(id => letters.Single(letter => letter.Id == id).Label))}.";
+        }
+
+        RefreshSpelling();
+        resetButton.Click += (_, _) =>
+        {
+            selectedIds.Clear();
+            RefreshSpelling();
+            TemplateRendering.ApplyOutcome(
+                outcomePanel,
+                outcomeText,
+                TemplateOutcomeState.Ready,
+                OutcomeCopy);
+        };
+        checkButton.Click += (_, _) =>
+        {
+            var outcome = TemplateInteractionEvaluator.EvaluateWordOrder(letters, selectedIds);
+            TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+            reportOutcome(outcome);
+        };
+
+        var root = new StackPanel { Spacing = 12 };
+        root.Children.Add(header);
+        if (parameters.UseTextOnlyFallback)
+        {
+            root.Children.Add(new TextBlock
+            {
+                Text = "Text-only spelling mode is active. Every letter, letter name, and action remains available.",
+                Classes = { "muted" },
+                TextWrapping = TextWrapping.Wrap,
+            });
+        }
+
+        root.Children.Add(meaningCard);
+        root.Children.Add(boardCard);
+        root.Children.Add(footer);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            TemplateRendering.Prepare(shouldReduceMotion, meaningCard, boardCard, footer);
+            if (!shouldReduceMotion)
+            {
+                boardCard.RenderTransform = TemplateRendering.Transform(0, 12, -1.1, 0.98);
+                footer.RenderTransform = TemplateRendering.Transform(0, 8, 0, 0.98);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), meaningCard),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(520), boardCard, 0, 0, 0, 1),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(300), footer, 0, 0, 0, 1),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) =>
+        {
+            scene?.Skip();
+            boardTape.SkipEntrance();
+        };
+        return root;
+    }
+
+    private static StackPanel CreateTileCopy(string letter, string letterName, bool onAccent)
+    {
+        var copy = new StackPanel
+        {
+            Spacing = 0,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
+        var letterText = new TextBlock
+        {
+            Text = letter,
+            FontSize = 22,
+            FontWeight = FontWeight.Bold,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
+        var nameText = new TextBlock
+        {
+            Text = letterName,
+            FontSize = 10,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
+        if (onAccent)
+        {
+            letterText.Classes.Add("on-accent");
+            nameText.Classes.Add("on-accent");
+        }
+
+        copy.Children.Add(letterText);
+        copy.Children.Add(nameText);
+        return copy;
+    }
+
+    private static IReadOnlyList<TemplateOption> DeterministicBankOrder(
+        IReadOnlyList<TemplateOption> letters) =>
+        letters.Where((_, index) => index % 2 == 1)
+            .Concat(letters.Where((_, index) => index % 2 == 0))
+            .ToArray();
+
+    private static IReadOnlyList<string> InitialOrder(
+        TemplateOutcomeState state,
+        IReadOnlyList<TemplateOption> letters) => state switch
+        {
+            TemplateOutcomeState.Success => letters.Select(letter => letter.Id).ToArray(),
+            TemplateOutcomeState.Failure => letters.Reverse().Select(letter => letter.Id).ToArray(),
+            TemplateOutcomeState.Uncertain => letters.Take(Math.Max(1, letters.Count / 2))
+                .Select(letter => letter.Id)
+                .ToArray(),
+            _ => [],
+        };
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "The tiles match the authored spelling.",
+        TemplateOutcomeState.Uncertain => "Add every letter before checking the spelling.",
+        TemplateOutcomeState.Failure => "Every letter is present, but the order needs another pass.",
+        _ => "Ready: build the spelling from left to right.",
+    };
+}

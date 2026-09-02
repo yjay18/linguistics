@@ -304,6 +304,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("schedule-read"),
             ScheduleReadRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("spelling-tiles"),
+            SpellingTilesRenderer.Render),
     ]);
 
     public Control Render(

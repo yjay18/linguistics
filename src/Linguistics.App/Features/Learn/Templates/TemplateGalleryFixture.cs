@@ -1431,5 +1431,50 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "time-1000"),
             })),
+        new(
+            new TemplateId("spelling-tiles"),
+            "Spelling tiles",
+            "Writing · paper letter tiles · deterministic authored order",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Spell the German word for apple from left to right.",
+                        ["hi"] = "सेब के जर्मन शब्द की वर्तनी बाएँ से दाएँ बनाएँ।",
+                    }),
+                ["word"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "APFEL"),
+                ["meaning"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "apple",
+                        ["hi"] = "सेब",
+                    }),
+                ["letters"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("letter-a", "A"),
+                        new("letter-p", "P"),
+                        new("letter-f", "F"),
+                        new("letter-e", "E"),
+                        new("letter-l", "L"),
+                    ]),
+                ["letter-names"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("letter-a", "a"),
+                        new("letter-p", "pe"),
+                        new("letter-f", "ef"),
+                        new("letter-e", "e"),
+                        new("letter-l", "el"),
+                    ]),
+            })),
     ];
 }

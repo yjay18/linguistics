@@ -773,6 +773,39 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void SpellingTilesMapOnlyAuthoredLetterTileIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("spelling-tiles")));
+        var letters = new[]
+        {
+            new TemplateOption("letter-a", "A"),
+            new TemplateOption("letter-p", "P"),
+            new TemplateOption("letter-f", "F"),
+            new TemplateOption("letter-e", "E"),
+            new TemplateOption("letter-l", "L"),
+        };
+
+        var incomplete = TemplateInteractionEvaluator.EvaluateWordOrder(
+            letters,
+            ["letter-a", "letter-p"]);
+        var failure = TemplateInteractionEvaluator.EvaluateWordOrder(
+            letters,
+            ["letter-p", "letter-a", "letter-f", "letter-e", "letter-l"]);
+        var success = TemplateInteractionEvaluator.EvaluateWordOrder(
+            letters,
+            ["letter-a", "letter-p", "letter-f", "letter-e", "letter-l"]);
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, failure.State);
+        Assert.AreEqual(TemplateOutcomeState.Success, success.State);
+        CollectionAssert.AreEqual(
+            new[] { "letter-a", "letter-p", "letter-f", "letter-e", "letter-l" },
+            success.OrderedOptionIds!.ToArray());
+        Assert.IsFalse(success.OrderedOptionIds!.Contains("A", StringComparer.Ordinal));
+    }
+
+    [TestMethod]
     public void ListenRouteUsesOnlyTheAuthoredStopOrder()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

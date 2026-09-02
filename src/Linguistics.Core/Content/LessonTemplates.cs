@@ -642,6 +642,17 @@ public static class LessonTemplateSchemas
                 new("options", TemplateParameterKind.OptionList, IsRequired: true),
                 new("answer", TemplateParameterKind.Text, IsRequired: true),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("spelling-tiles"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("word", TemplateParameterKind.Text, IsRequired: true),
+                new("meaning", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("letters", TemplateParameterKind.OptionList, IsRequired: true),
+                new("letter-names", TemplateParameterKind.OptionList, IsRequired: true),
+            ]),
     ];
 }
 
