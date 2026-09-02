@@ -694,7 +694,7 @@ internal static class UnitCapstoneRenderer
         PaperStage.SetLayer(missionStamp, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(missionStamp, PaperAnchorLine.Head);
         PaperStage.SetAnchorX(missionStamp, 0.22);
-        PaperStage.SetAnchorOffsetY(missionStamp, 9);
+        PaperStage.SetAnchorOffsetY(missionStamp, -22);
         stage.Children.Add(missionStamp);
 
         var goalCard = new PaperCard
@@ -1165,7 +1165,7 @@ internal static class ProgressShelfRenderer
                             {
                                 Text = "Inspect situation",
                                 FontSize = 12,
-                                Classes = { "muted" },
+                                FontWeight = FontWeight.SemiBold,
                             },
                         },
                     },

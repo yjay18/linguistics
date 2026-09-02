@@ -132,7 +132,7 @@ internal static class ScenarioTheatreRenderer
         PaperStage.SetLayer(stateTape, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(stateTape, PaperAnchorLine.Head);
         PaperStage.SetAnchorX(stateTape, 0.22);
-        PaperStage.SetAnchorOffsetY(stateTape, 12);
+        PaperStage.SetAnchorOffsetY(stateTape, -22);
         stage.Children.Add(stateTape);
 
         var counter = new PaperCard
@@ -201,8 +201,9 @@ internal static class ScenarioTheatreRenderer
                     {
                         Text = "Authored text-only character",
                         FontSize = 12,
+                        FontWeight = FontWeight.SemiBold,
+                        Opacity = 0.72,
                         TextAlignment = TextAlignment.Center,
-                        Classes = { "muted" },
                     },
                 },
             };
