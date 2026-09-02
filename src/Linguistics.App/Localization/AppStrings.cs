@@ -2,6 +2,7 @@ using System.Globalization;
 using System.ComponentModel;
 using System.Resources;
 using Avalonia.Data;
+using Avalonia.Data.Converters;
 using Avalonia.Markup.Xaml;
 using Linguistics.Core.Profiles;
 
@@ -54,8 +55,6 @@ public static class AppStrings
 
 public sealed class AppStringProvider : INotifyPropertyChanged
 {
-    private readonly HashSet<string> _observedKeys = new(StringComparer.Ordinal);
-
     public static AppStringProvider Instance { get; } = new();
 
     private AppStringProvider()
@@ -64,33 +63,12 @@ public sealed class AppStringProvider : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public string this[string key]
-    {
-        get
-        {
-            lock (_observedKeys)
-            {
-                _observedKeys.Add(key);
-            }
-
-            return AppStrings.Get(key);
-        }
-    }
+    public int Version { get; private set; }
 
     internal void Refresh()
     {
-        string[] keys;
-        lock (_observedKeys)
-        {
-            keys = _observedKeys.ToArray();
-        }
-
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
-        foreach (var key in keys)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs($"Item[{key}]"));
-        }
+        Version++;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Version)));
     }
 }
 
@@ -127,9 +105,10 @@ public sealed class LocalizeExtension : MarkupExtension
     public string Key { get; }
 
     public override object ProvideValue(IServiceProvider serviceProvider) =>
-        new Binding($"[{Key}]")
+        new Binding(nameof(AppStringProvider.Version))
         {
             Source = AppStringProvider.Instance,
             Mode = BindingMode.OneWay,
+            Converter = new FuncValueConverter<int, string>(_ => AppStrings.Get(Key)),
         };
 }
