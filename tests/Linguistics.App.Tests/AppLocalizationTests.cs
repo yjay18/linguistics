@@ -95,20 +95,19 @@ public sealed class AppLocalizationTests
     [TestMethod]
     public void LanguageChangeNotifiesLiveResourceBindings()
     {
-        var notifications = 0;
+        var notifications = new List<string?>();
         void Count(object? sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == "Item[]")
-            {
-                notifications++;
-            }
+            notifications.Add(args.PropertyName);
         }
 
         AppStringProvider.Instance.PropertyChanged += Count;
         try
         {
             AppStrings.UseLanguage(new LanguageCode("hi"));
-            Assert.AreEqual(1, notifications);
+            CollectionAssert.AreEqual(
+                new[] { string.Empty, "Item[]" },
+                notifications.ToArray());
         }
         finally
         {

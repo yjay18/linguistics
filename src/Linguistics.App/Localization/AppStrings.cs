@@ -64,8 +64,11 @@ public sealed class AppStringProvider : INotifyPropertyChanged
 
     public string this[string key] => AppStrings.Get(key);
 
-    internal void Refresh() =>
+    internal void Refresh()
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
+    }
 }
 
 public static class AppLanguageSelector
