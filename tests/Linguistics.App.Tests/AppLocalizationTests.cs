@@ -2,6 +2,7 @@ using System.Collections;
 using System.Globalization;
 using System.Resources;
 using Linguistics.App.Localization;
+using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App.Tests;
@@ -66,6 +67,54 @@ public sealed class AppLocalizationTests
         Assert.AreEqual(
             new LanguageCode("en"),
             AppLanguageSelector.Select(profile, new LanguageCode("fr")));
+    }
+
+    [TestMethod]
+    public void LearnChromeCoversEveryCourseConceptTypeInBothLanguages()
+    {
+        try
+        {
+            foreach (var language in AppStrings.SupportedLanguages)
+            {
+                AppStrings.UseLanguage(language);
+                foreach (var type in Enum.GetValues<ConceptType>())
+                {
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(
+                        AppStrings.Get($"Learn_Unit_{type}_Title")));
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(
+                        AppStrings.Get($"Learn_Unit_{type}_Description")));
+                }
+            }
+        }
+        finally
+        {
+            AppStrings.UseLanguage(new LanguageCode("en"));
+        }
+    }
+
+    [TestMethod]
+    public void LanguageChangeNotifiesLiveResourceBindings()
+    {
+        var notifications = 0;
+        void Count(object? sender, System.ComponentModel.PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == "Item[]")
+            {
+                notifications++;
+            }
+        }
+
+        AppStringProvider.Instance.PropertyChanged += Count;
+        try
+        {
+            AppStrings.UseLanguage(new LanguageCode("hi"));
+            Assert.AreEqual(1, notifications);
+        }
+        finally
+        {
+            AppStringProvider.Instance.PropertyChanged -= Count;
+            AppStrings.UseLanguage(new LanguageCode("en"));
+        }
     }
 
     private static SortedDictionary<string, string> Read(

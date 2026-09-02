@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -25,11 +26,11 @@
                                    VerticalAlignment="Center" />
                     </Border>
                     <StackPanel Grid.Column="1" Spacing="4">
-                        <TextBlock Text="Course preview"
+                        <TextBlock Text="{loc:Localize Learn_Preview_Title}"
                                    FontWeight="SemiBold"
                                    FontSize="17"
                                    AutomationProperties.HeadingLevel="2" />
-                        <TextBlock Text="This content passed structural checks and still needs competent linguistic and license approval before release. Preview visits do not change mastery."
+                        <TextBlock Text="{loc:Localize Learn_Preview_Body}"
                                    TextWrapping="Wrap"
                                    Opacity="0.82" />
                     </StackPanel>
@@ -40,10 +41,10 @@
                 <Grid ColumnDefinitions="*,Auto"
                       ColumnSpacing="28">
                     <StackPanel Grid.Column="0" Spacing="13">
-                        <TextBlock Text="YOUR COURSE"
+                        <TextBlock Text="{loc:Localize Learn_Course_Eyebrow}"
                                    Classes="eyebrow" />
                         <TextBlock x:Name="CourseTitleText"
-                                   Text="German foundations"
+                                   Text="{loc:Localize Learn_GermanFoundations}"
                                    FontSize="32"
                                    FontWeight="SemiBold"
                                    LineHeight="39"
@@ -57,14 +58,14 @@
                         <ProgressBar x:Name="CatalogProgress"
                                      MaxWidth="520"
                                      HorizontalAlignment="Stretch"
-                                     AutomationProperties.Name="Authored course capacity" />
+                                     AutomationProperties.Name="{loc:Localize Learn_CourseCapacity}" />
                         <TextBlock x:Name="PlannedContentText"
                                    Classes="muted"
                                    TextWrapping="Wrap"
                                    FontSize="13" />
                         <Button x:Name="StartCourseButton"
                                 Classes="primary lift"
-                                Content="Start first lesson"
+                                Content="{loc:Localize Learn_StartFirstLesson}"
                                 HorizontalAlignment="Left"
                                 Click="OnStartCourseClicked"
                                 AutomationProperties.AutomationId="StartCourse" />
@@ -89,7 +90,7 @@
                                        FontWeight="Bold"
                                        Foreground="{DynamicResource AppOnAccentBrush}"
                                        HorizontalAlignment="Center" />
-                            <TextBlock Text="LESSONS"
+                            <TextBlock Text="{loc:Localize Learn_Lessons}"
                                        FontSize="10"
                                        FontWeight="Bold"
                                        LetterSpacing="1.2"
@@ -101,10 +102,10 @@
             </Border>
 
             <StackPanel Spacing="12">
-                <TextBlock Text="Course path"
+                <TextBlock Text="{loc:Localize Learn_CoursePath_Title}"
                            Classes="section-title"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="Choose any available lesson. The path follows reviewed prerequisites and keeps each session short."
+                <TextBlock Text="{loc:Localize Learn_CoursePath_Body}"
                            Classes="muted"
                            TextWrapping="Wrap" />
                 <StackPanel x:Name="UnitsPanel"
@@ -130,7 +131,7 @@
                   ColumnSpacing="14">
                 <Button Grid.Column="0"
                         Classes="quiet"
-                        Content="Course map"
+                        Content="{loc:Localize Learn_CourseMap}"
                         Click="OnCloseLessonClicked"
                         AutomationProperties.AutomationId="CloseLesson" />
                 <TextBlock x:Name="LessonPositionText"
@@ -138,7 +139,7 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Classes="muted"
-                           AutomationProperties.Name="Lesson position" />
+                           AutomationProperties.Name="{loc:Localize Learn_LessonPosition}" />
                 <Border Grid.Column="2"
                         Classes="status-pill">
                     <TextBlock x:Name="LessonLevelText"
@@ -148,7 +149,7 @@
             </Grid>
 
             <ProgressBar x:Name="LessonProgress"
-                         AutomationProperties.Name="Lesson card progress" />
+                         AutomationProperties.Name="{loc:Localize Learn_LessonProgress}" />
 
             <TransitioningContentControl x:Name="SlideHost"
                                          MinHeight="390"
@@ -170,7 +171,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Classes="quiet"
-                        Content="Back"
+                        Content="{loc:Localize Common_Back}"
                         Click="OnBackClicked"
                         AutomationProperties.AutomationId="LessonBack" />
                 <Button x:Name="ContinueButton"
@@ -179,7 +180,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Classes="primary lift"
-                        Content="Continue"
+                        Content="{loc:Localize Common_Continue}"
                         Click="OnContinueClicked"
                         AutomationProperties.AutomationId="LessonContinue" />
             </Grid>
@@ -189,7 +190,7 @@
                 Classes="warning-card"
                 IsVisible="False">
             <StackPanel Spacing="8">
-                <TextBlock Text="Course unavailable"
+                <TextBlock Text="{loc:Localize Learn_Unavailable_Title}"
                            FontSize="20"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />

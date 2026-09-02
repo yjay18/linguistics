@@ -102,4 +102,199 @@
   <data name="Shell_Unavailable_Title" xml:space="preserve">
     <value>समीक्षा द्वार से सुरक्षित</value>
   </data>
+  <data name="Common_Back" xml:space="preserve">
+    <value>पीछे</value>
+  </data>
+  <data name="Common_Continue" xml:space="preserve">
+    <value>आगे बढ़ें</value>
+  </data>
+  <data name="Learn_Availability_Preview" xml:space="preserve">
+    <value>इस स्थानीय पूर्वावलोकन में {0} पाठ उपलब्ध हैं।</value>
+  </data>
+  <data name="Learn_Availability_Ready" xml:space="preserve">
+    <value>इस डिवाइस पर {0} स्वीकृत पाठ तैयार हैं।</value>
+  </data>
+  <data name="Learn_CapacityComplete" xml:space="preserve">
+    <value>नियोजित पाठ्यक्रम पूरी तरह लिखा जा चुका है।</value>
+  </data>
+  <data name="Learn_CapacityRemaining" xml:space="preserve">
+    <value>{1} पाठों की योजना पूरी करने के लिए {0} और पाठों को स्रोत कार्य, समीक्षा और स्वीकृति चाहिए।</value>
+  </data>
+  <data name="Learn_CardPosition" xml:space="preserve">
+    <value>कार्ड {0}, कुल {1}</value>
+  </data>
+  <data name="Learn_CourseCapacity" xml:space="preserve">
+    <value>लिखे गए पाठ्यक्रम की क्षमता</value>
+  </data>
+  <data name="Learn_CourseMap" xml:space="preserve">
+    <value>पाठ्यक्रम मानचित्र</value>
+  </data>
+  <data name="Learn_CoursePath_Body" xml:space="preserve">
+    <value>कोई भी उपलब्ध पाठ चुनें। जाँची गई पूर्वापेक्षाएँ हर सत्र को छोटा रखती हैं।</value>
+  </data>
+  <data name="Learn_CoursePath_Title" xml:space="preserve">
+    <value>पाठ्यक्रम का मार्ग</value>
+  </data>
+  <data name="Learn_Course_Eyebrow" xml:space="preserve">
+    <value>आपका पाठ्यक्रम</value>
+  </data>
+  <data name="Learn_FinishLesson" xml:space="preserve">
+    <value>पाठ पूरा करें</value>
+  </data>
+  <data name="Learn_GermanFoundations" xml:space="preserve">
+    <value>जर्मन की बुनियाद</value>
+  </data>
+  <data name="Learn_LessonNumber" xml:space="preserve">
+    <value>पाठ {0:00}</value>
+  </data>
+  <data name="Learn_LessonPosition" xml:space="preserve">
+    <value>पाठ की स्थिति</value>
+  </data>
+  <data name="Learn_LessonProgress" xml:space="preserve">
+    <value>पाठ के कार्ड की प्रगति</value>
+  </data>
+  <data name="Learn_Lessons" xml:space="preserve">
+    <value>पाठ</value>
+  </data>
+  <data name="Learn_NoInstructionLanguage" xml:space="preserve">
+    <value>इस पाठ्यक्रम के लिए निर्देश की कोई भाषा उपलब्ध नहीं है।</value>
+  </data>
+  <data name="Learn_NoValidatedContent" xml:space="preserve">
+    <value>इस डिवाइस पर कोई सत्यापित पाठ्यक्रम सामग्री उपलब्ध नहीं है।</value>
+  </data>
+  <data name="Learn_OpenLesson" xml:space="preserve">
+    <value>पाठ {0} खोलें। {1}</value>
+  </data>
+  <data name="Learn_Outcome_Failure" xml:space="preserve">
+    <value>अभ्यास परिणाम: नियतात्मक जाँच अभी मेल नहीं खाई। फिर कोशिश करें।</value>
+  </data>
+  <data name="Learn_Outcome_Ready" xml:space="preserve">
+    <value>अभ्यास तैयार है।</value>
+  </data>
+  <data name="Learn_Outcome_Success" xml:space="preserve">
+    <value>अभ्यास परिणाम: नियतात्मक जाँच इस उत्तर से मेल खाई।</value>
+  </data>
+  <data name="Learn_Outcome_Uncertain" xml:space="preserve">
+    <value>अभ्यास परिणाम: नियतात्मक जाँच को पूरा उत्तर चाहिए।</value>
+  </data>
+  <data name="Learn_PreviewVisit" xml:space="preserve">
+    <value>आपने {0} देखा। इस पूर्वावलोकन ने निपुणता नहीं बदली।</value>
+  </data>
+  <data name="Learn_Preview_Body" xml:space="preserve">
+    <value>संरचना-जाँची सामग्री को अभी भाषाई और लाइसेंस स्वीकृति चाहिए। पूर्वावलोकन से निपुणता नहीं बदलती।</value>
+  </data>
+  <data name="Learn_Preview_Title" xml:space="preserve">
+    <value>पाठ्यक्रम पूर्वावलोकन</value>
+  </data>
+  <data name="Learn_ProgressSaveFailed" xml:space="preserve">
+    <value>यह पाठ खुला है, लेकिन स्थानीय प्रगति सहेजी नहीं जा सकी।</value>
+  </data>
+  <data name="Learn_ProgressUnavailable" xml:space="preserve">
+    <value>स्थानीय पाठ प्रगति उपलब्ध नहीं है। इस सत्र में पाठ उपयोग किए जा सकते हैं।</value>
+  </data>
+  <data name="Learn_ResumeLesson" xml:space="preserve">
+    <value>पाठ फिर शुरू करें</value>
+  </data>
+  <data name="Learn_ResumeReady" xml:space="preserve">
+    <value>{0} को कार्ड {1} से फिर शुरू करने के लिए तैयार।</value>
+  </data>
+  <data name="Learn_ShortCards" xml:space="preserve">
+    <value>{0} छोटे कार्ड</value>
+  </data>
+  <data name="Learn_Slide_Activity_Eyebrow" xml:space="preserve">
+    <value>अब आपकी बारी</value>
+  </data>
+  <data name="Learn_Slide_Activity_Supporting" xml:space="preserve">
+    <value>ऐप नियतात्मक नियमों से कार्य की जाँच करता है।</value>
+  </data>
+  <data name="Learn_Slide_Example_Eyebrow" xml:space="preserve">
+    <value>उदाहरण</value>
+  </data>
+  <data name="Learn_Slide_Explanation_Eyebrow" xml:space="preserve">
+    <value>ध्यान दें</value>
+  </data>
+  <data name="Learn_Slide_Explanation_Supporting" xml:space="preserve">
+    <value>अपनी गति से आगे बढ़ें। आप हर कार्ड फिर देख सकते हैं।</value>
+  </data>
+  <data name="Learn_Slide_Explanation_Title" xml:space="preserve">
+    <value>विचार को समझें</value>
+  </data>
+  <data name="Learn_Slide_Recall_Body" xml:space="preserve">
+    <value>अर्थ याद करें, फिर बिना देखे उदाहरण बोलें या लिखें।</value>
+  </data>
+  <data name="Learn_Slide_Recall_Supporting" xml:space="preserve">
+    <value>यह अभ्यास अपने आप निपुणता नहीं बदलता।</value>
+  </data>
+  <data name="Learn_Slide_Recall_Title" xml:space="preserve">
+    <value>याद करके कोशिश करें</value>
+  </data>
+  <data name="Learn_Slide_Recap_Eyebrow" xml:space="preserve">
+    <value>पुनरावृत्ति</value>
+  </data>
+  <data name="Learn_Slide_Recap_Supporting" xml:space="preserve">
+    <value>पाठ पूरा करने पर यात्रा दर्ज होती है। निपुणता के लिए अभी भी आकलित प्रमाण चाहिए।</value>
+  </data>
+  <data name="Learn_Slide_Welcome_Eyebrow" xml:space="preserve">
+    <value>पाठ का लक्ष्य</value>
+  </data>
+  <data name="Learn_Slide_Welcome_Supporting" xml:space="preserve">
+    <value>स्तर {0}</value>
+  </data>
+  <data name="Learn_StartFirstLesson" xml:space="preserve">
+    <value>पहला पाठ शुरू करें</value>
+  </data>
+  <data name="Learn_TargetFoundations" xml:space="preserve">
+    <value>{0} की बुनियाद</value>
+  </data>
+  <data name="Learn_Unavailable_Title" xml:space="preserve">
+    <value>पाठ्यक्रम उपलब्ध नहीं है</value>
+  </data>
+  <data name="Learn_Unit_Discourse_Description" xml:space="preserve">
+    <value>पूरे संवाद में अर्थ को जोड़ें।</value>
+  </data>
+  <data name="Learn_Unit_Discourse_Title" xml:space="preserve">
+    <value>विचार जोड़ें</value>
+  </data>
+  <data name="Learn_Unit_Grammatical_Description" xml:space="preserve">
+    <value>अर्थ को सटीक बनाने वाले ढाँचे पहचानें।</value>
+  </data>
+  <data name="Learn_Unit_Grammatical_Title" xml:space="preserve">
+    <value>स्पष्ट वाक्य बनाएँ</value>
+  </data>
+  <data name="Learn_Unit_Lexical_Description" xml:space="preserve">
+    <value>पहचानने और उपयोग करने योग्य शब्द बढ़ाएँ।</value>
+  </data>
+  <data name="Learn_Unit_Lexical_Title" xml:space="preserve">
+    <value>उपयोगी शब्द बनाएँ</value>
+  </data>
+  <data name="Learn_Unit_Listening_Description" xml:space="preserve">
+    <value>छोटे संवादों में उपयोगी भाषा पहचानें।</value>
+  </data>
+  <data name="Learn_Unit_Listening_Title" xml:space="preserve">
+    <value>सुनने का अभ्यास</value>
+  </data>
+  <data name="Learn_Unit_Phonological_Description" xml:space="preserve">
+    <value>सार्थक वाक्यांशों में ध्वनि और लय का अभ्यास करें।</value>
+  </data>
+  <data name="Learn_Unit_Phonological_Title" xml:space="preserve">
+    <value>बोली स्पष्ट करें</value>
+  </data>
+  <data name="Learn_Unit_Pragmatic_Description" xml:space="preserve">
+    <value>किसी उपयोगी काम के लिए भाषा का प्रयोग करें।</value>
+  </data>
+  <data name="Learn_Unit_Pragmatic_Title" xml:space="preserve">
+    <value>उद्देश्य से बोलें</value>
+  </data>
+  <data name="Learn_Unit_Sociolinguistic_Description" xml:space="preserve">
+    <value>परिस्थिति के अनुसार भाषा चुनें।</value>
+  </data>
+  <data name="Learn_Unit_Sociolinguistic_Title" xml:space="preserve">
+    <value>समय के अनुसार भाषा चुनें</value>
+  </data>
+  <data name="Learn_VisitNotSaved" xml:space="preserve">
+    <value>आपने {0} देखा, पर यह यात्रा सहेजी नहीं जा सकी। निपुणता नहीं बदली।</value>
+  </data>
+  <data name="Learn_VisitSaved" xml:space="preserve">
+    <value>{0} की आपकी यात्रा स्थानीय रूप से सहेजी गई। निपुणता केवल आकलित अभ्यास से बदलती है।</value>
+  </data>
 </root>

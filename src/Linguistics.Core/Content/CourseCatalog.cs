@@ -48,6 +48,7 @@ public sealed record CourseLesson(
 public sealed record CourseUnit(
     string Id,
     int Number,
+    ConceptType DominantConceptType,
     string Title,
     string Description,
     IReadOnlyList<CourseLesson> Lessons);
@@ -238,6 +239,7 @@ internal static class CourseCatalogBuilder
         return new CourseUnit(
             $"unit.{targetLanguage.Value}.{number:000}",
             number,
+            dominantType,
             copy.Title,
             copy.Description,
             entries.Select(entry => CreateLesson(

@@ -102,4 +102,199 @@
   <data name="Shell_Unavailable_Title" xml:space="preserve">
     <value>Protected by a review gate</value>
   </data>
+  <data name="Common_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Common_Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Learn_Availability_Preview" xml:space="preserve">
+    <value>{0} lessons are available in this local preview.</value>
+  </data>
+  <data name="Learn_Availability_Ready" xml:space="preserve">
+    <value>{0} approved lessons are ready on this device.</value>
+  </data>
+  <data name="Learn_CapacityComplete" xml:space="preserve">
+    <value>The planned course capacity is fully authored.</value>
+  </data>
+  <data name="Learn_CapacityRemaining" xml:space="preserve">
+    <value>{0} more lessons need source work, review, and approval to reach the {1} lesson plan.</value>
+  </data>
+  <data name="Learn_CardPosition" xml:space="preserve">
+    <value>Card {0} of {1}</value>
+  </data>
+  <data name="Learn_CourseCapacity" xml:space="preserve">
+    <value>Authored course capacity</value>
+  </data>
+  <data name="Learn_CourseMap" xml:space="preserve">
+    <value>Course map</value>
+  </data>
+  <data name="Learn_CoursePath_Body" xml:space="preserve">
+    <value>Choose any available lesson. Reviewed prerequisites keep each session short.</value>
+  </data>
+  <data name="Learn_CoursePath_Title" xml:space="preserve">
+    <value>Course path</value>
+  </data>
+  <data name="Learn_Course_Eyebrow" xml:space="preserve">
+    <value>YOUR COURSE</value>
+  </data>
+  <data name="Learn_FinishLesson" xml:space="preserve">
+    <value>Finish lesson</value>
+  </data>
+  <data name="Learn_GermanFoundations" xml:space="preserve">
+    <value>German foundations</value>
+  </data>
+  <data name="Learn_LessonNumber" xml:space="preserve">
+    <value>LESSON {0:00}</value>
+  </data>
+  <data name="Learn_LessonPosition" xml:space="preserve">
+    <value>Lesson position</value>
+  </data>
+  <data name="Learn_LessonProgress" xml:space="preserve">
+    <value>Lesson card progress</value>
+  </data>
+  <data name="Learn_Lessons" xml:space="preserve">
+    <value>LESSONS</value>
+  </data>
+  <data name="Learn_NoInstructionLanguage" xml:space="preserve">
+    <value>No instruction language is available for this course.</value>
+  </data>
+  <data name="Learn_NoValidatedContent" xml:space="preserve">
+    <value>No validated course content is available on this device.</value>
+  </data>
+  <data name="Learn_OpenLesson" xml:space="preserve">
+    <value>Open lesson {0}. {1}</value>
+  </data>
+  <data name="Learn_Outcome_Failure" xml:space="preserve">
+    <value>Practice result: the deterministic check did not match yet. Try again.</value>
+  </data>
+  <data name="Learn_Outcome_Ready" xml:space="preserve">
+    <value>Practice is ready.</value>
+  </data>
+  <data name="Learn_Outcome_Success" xml:space="preserve">
+    <value>Practice result: the deterministic check matched this response.</value>
+  </data>
+  <data name="Learn_Outcome_Uncertain" xml:space="preserve">
+    <value>Practice result: the deterministic check needs a complete response.</value>
+  </data>
+  <data name="Learn_PreviewVisit" xml:space="preserve">
+    <value>You explored {0}. This preview did not change mastery.</value>
+  </data>
+  <data name="Learn_Preview_Body" xml:space="preserve">
+    <value>This structurally checked content still needs linguistic and license approval. Preview visits do not change mastery.</value>
+  </data>
+  <data name="Learn_Preview_Title" xml:space="preserve">
+    <value>Course preview</value>
+  </data>
+  <data name="Learn_ProgressSaveFailed" xml:space="preserve">
+    <value>This lesson remains open, but local progress could not be saved.</value>
+  </data>
+  <data name="Learn_ProgressUnavailable" xml:space="preserve">
+    <value>Local lesson progress is unavailable. Lessons remain usable in this session.</value>
+  </data>
+  <data name="Learn_ResumeLesson" xml:space="preserve">
+    <value>Resume lesson</value>
+  </data>
+  <data name="Learn_ResumeReady" xml:space="preserve">
+    <value>Ready to resume {0} at card {1}.</value>
+  </data>
+  <data name="Learn_ShortCards" xml:space="preserve">
+    <value>{0} short cards</value>
+  </data>
+  <data name="Learn_Slide_Activity_Eyebrow" xml:space="preserve">
+    <value>Your turn</value>
+  </data>
+  <data name="Learn_Slide_Activity_Supporting" xml:space="preserve">
+    <value>The app checks the task with deterministic rules.</value>
+  </data>
+  <data name="Learn_Slide_Example_Eyebrow" xml:space="preserve">
+    <value>Example</value>
+  </data>
+  <data name="Learn_Slide_Explanation_Eyebrow" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="Learn_Slide_Explanation_Supporting" xml:space="preserve">
+    <value>Move at your own pace. You can revisit every card.</value>
+  </data>
+  <data name="Learn_Slide_Explanation_Title" xml:space="preserve">
+    <value>Meet the idea</value>
+  </data>
+  <data name="Learn_Slide_Recall_Body" xml:space="preserve">
+    <value>Recall the meaning, then say or write the example without looking.</value>
+  </data>
+  <data name="Learn_Slide_Recall_Supporting" xml:space="preserve">
+    <value>This practice does not change mastery on its own.</value>
+  </data>
+  <data name="Learn_Slide_Recall_Title" xml:space="preserve">
+    <value>Try it from memory</value>
+  </data>
+  <data name="Learn_Slide_Recap_Eyebrow" xml:space="preserve">
+    <value>Recap</value>
+  </data>
+  <data name="Learn_Slide_Recap_Supporting" xml:space="preserve">
+    <value>Completing this lesson records a visit. Mastery still requires assessed evidence.</value>
+  </data>
+  <data name="Learn_Slide_Welcome_Eyebrow" xml:space="preserve">
+    <value>Lesson goal</value>
+  </data>
+  <data name="Learn_Slide_Welcome_Supporting" xml:space="preserve">
+    <value>Level {0}</value>
+  </data>
+  <data name="Learn_StartFirstLesson" xml:space="preserve">
+    <value>Start first lesson</value>
+  </data>
+  <data name="Learn_TargetFoundations" xml:space="preserve">
+    <value>{0} foundations</value>
+  </data>
+  <data name="Learn_Unavailable_Title" xml:space="preserve">
+    <value>Course unavailable</value>
+  </data>
+  <data name="Learn_Unit_Discourse_Description" xml:space="preserve">
+    <value>Link meaning across a complete exchange.</value>
+  </data>
+  <data name="Learn_Unit_Discourse_Title" xml:space="preserve">
+    <value>Connect ideas</value>
+  </data>
+  <data name="Learn_Unit_Grammatical_Description" xml:space="preserve">
+    <value>Notice patterns that make meaning precise.</value>
+  </data>
+  <data name="Learn_Unit_Grammatical_Title" xml:space="preserve">
+    <value>Shape clear sentences</value>
+  </data>
+  <data name="Learn_Unit_Lexical_Description" xml:space="preserve">
+    <value>Grow the words you can recognize and use.</value>
+  </data>
+  <data name="Learn_Unit_Lexical_Title" xml:space="preserve">
+    <value>Build useful words</value>
+  </data>
+  <data name="Learn_Unit_Listening_Description" xml:space="preserve">
+    <value>Recognize useful language in short exchanges.</value>
+  </data>
+  <data name="Learn_Unit_Listening_Title" xml:space="preserve">
+    <value>Train your ear</value>
+  </data>
+  <data name="Learn_Unit_Phonological_Description" xml:space="preserve">
+    <value>Practice sounds and rhythm in meaningful phrases.</value>
+  </data>
+  <data name="Learn_Unit_Phonological_Title" xml:space="preserve">
+    <value>Make speech clear</value>
+  </data>
+  <data name="Learn_Unit_Pragmatic_Description" xml:space="preserve">
+    <value>Use language to accomplish something useful.</value>
+  </data>
+  <data name="Learn_Unit_Pragmatic_Title" xml:space="preserve">
+    <value>Speak with purpose</value>
+  </data>
+  <data name="Learn_Unit_Sociolinguistic_Description" xml:space="preserve">
+    <value>Match your language to the situation.</value>
+  </data>
+  <data name="Learn_Unit_Sociolinguistic_Title" xml:space="preserve">
+    <value>Choose language for the moment</value>
+  </data>
+  <data name="Learn_VisitNotSaved" xml:space="preserve">
+    <value>You explored {0}, but this visit could not be saved. Mastery was not changed.</value>
+  </data>
+  <data name="Learn_VisitSaved" xml:space="preserve">
+    <value>Your visit to {0} was saved locally. Mastery changes only through assessed practice.</value>
+  </data>
 </root>

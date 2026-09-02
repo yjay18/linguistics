@@ -6,6 +6,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Linguistics.App.Content;
 using Linguistics.App.Features.Learn.Templates;
+using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
@@ -74,7 +75,7 @@ public partial class LearnView : UserControl
         if (contentCatalog is null)
         {
             ShowError(string.IsNullOrWhiteSpace(contentError)
-                ? "No validated course content is available on this device."
+                ? AppStrings.Get("Learn_NoValidatedContent")
                 : contentError);
             return;
         }
@@ -83,7 +84,7 @@ public partial class LearnView : UserControl
         {
             ShowError(
                 instructionSelection?.Explanation.Summary ??
-                "No instruction language is available for this course.");
+                AppStrings.Get("Learn_NoInstructionLanguage"));
             return;
         }
 
@@ -116,18 +117,23 @@ public partial class LearnView : UserControl
         _course = course;
         PreviewNotice.IsVisible = course.PublicationState == CoursePublicationState.Preview;
         CourseTitleText.Text = course.TargetLanguage.Value == "de"
-            ? "German foundations"
-            : $"{course.TargetLanguage.Value.ToUpperInvariant()} foundations";
+            ? AppStrings.Get("Learn_GermanFoundations")
+            : AppStrings.Format(
+                "Learn_TargetFoundations",
+                course.TargetLanguage.Value.ToUpperInvariant());
         CourseAvailabilityText.Text = course.PublicationState == CoursePublicationState.Preview
-            ? $"{course.AuthoredLessonCount} lessons are available in this local preview."
-            : $"{course.AuthoredLessonCount} approved lessons are ready on this device.";
+            ? AppStrings.Format("Learn_Availability_Preview", course.AuthoredLessonCount)
+            : AppStrings.Format("Learn_Availability_Ready", course.AuthoredLessonCount);
         CatalogProgress.Minimum = 0;
         CatalogProgress.Maximum = course.TargetLessonCount;
         CatalogProgress.Value = course.AuthoredLessonCount;
         AuthoredCountText.Text = course.AuthoredLessonCount.ToString();
         PlannedContentText.Text = course.RemainingLessonCount == 0
-            ? "The planned course capacity is fully authored."
-            : $"{course.RemainingLessonCount} more lessons need source work, review, and approval to reach the {course.TargetLessonCount} lesson plan.";
+            ? AppStrings.Get("Learn_CapacityComplete")
+            : AppStrings.Format(
+                "Learn_CapacityRemaining",
+                course.RemainingLessonCount,
+                course.TargetLessonCount);
         UnitsPanel.Children.Clear();
         _lessonsByButton.Clear();
 
@@ -166,13 +172,13 @@ public partial class LearnView : UserControl
         var title = new StackPanel { Spacing = 3 };
         title.Children.Add(new TextBlock
         {
-            Text = Clean(unit.Title),
+            Text = AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Title"),
             FontSize = 21,
             FontWeight = FontWeight.SemiBold,
         });
         title.Children.Add(new TextBlock
         {
-            Text = Clean(unit.Description),
+            Text = AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Description"),
             TextWrapping = TextWrapping.Wrap,
             Opacity = 0.72,
         });
@@ -209,7 +215,7 @@ public partial class LearnView : UserControl
         };
         var label = new TextBlock
         {
-            Text = $"LESSON {number:00}",
+            Text = AppStrings.Format("Learn_LessonNumber", number),
             FontSize = 10,
             FontWeight = FontWeight.Bold,
             LetterSpacing = 1.1,
@@ -226,7 +232,7 @@ public partial class LearnView : UserControl
         });
         copy.Children.Add(new TextBlock
         {
-            Text = $"{lesson.Slides.Count} short cards",
+            Text = AppStrings.Format("Learn_ShortCards", lesson.Slides.Count),
             FontSize = 12,
             Opacity = 0.68,
         });
@@ -240,7 +246,9 @@ public partial class LearnView : UserControl
         };
         button.Classes.Add("lesson-tile");
         button.Classes.Add("lift");
-        AutomationProperties.SetName(button, $"Open lesson {number}. {Clean(lesson.Title)}");
+        AutomationProperties.SetName(
+            button,
+            AppStrings.Format("Learn_OpenLesson", number, Clean(lesson.Title)));
         button.Click += OnLessonClicked;
         _lessonsByButton.Add(button, lesson);
         return button;
@@ -324,12 +332,12 @@ public partial class LearnView : UserControl
             DateTimeOffset.UtcNow));
         SessionStatusText.Text = _canPersistLessonProgress
             ? saved
-                ? $"Your visit to {Clean(completedLesson.Title)} was saved locally. Mastery changes only through assessed practice."
-                : $"You explored {Clean(completedLesson.Title)}, but this visit could not be saved. Mastery was not changed."
-            : $"You explored {Clean(completedLesson.Title)}. This preview did not change mastery.";
+                ? AppStrings.Format("Learn_VisitSaved", Clean(completedLesson.Title))
+                : AppStrings.Format("Learn_VisitNotSaved", Clean(completedLesson.Title))
+            : AppStrings.Format("Learn_PreviewVisit", Clean(completedLesson.Title));
         SessionStatusText.IsVisible = true;
         _resumeLesson = null;
-        StartCourseButton.Content = "Start first lesson";
+        StartCourseButton.Content = AppStrings.Get("Learn_StartFirstLesson");
         CloseLesson();
     }
 
@@ -352,15 +360,20 @@ public partial class LearnView : UserControl
         }
 
         var slide = _activeLesson.Slides[_slideIndex];
-        LessonPositionText.Text = $"Card {_slideIndex + 1} of {_activeLesson.Slides.Count}";
+        LessonPositionText.Text = AppStrings.Format(
+            "Learn_CardPosition",
+            _slideIndex + 1,
+            _activeLesson.Slides.Count);
         LessonLevelText.Text = Clean(_activeLesson.CefrApproximation);
         LessonProgress.Minimum = 0;
         LessonProgress.Maximum = _activeLesson.Slides.Count;
         LessonProgress.Value = _slideIndex + 1;
-        BackButton.Content = _slideIndex == 0 ? "Course map" : "Back";
+        BackButton.Content = _slideIndex == 0
+            ? AppStrings.Get("Learn_CourseMap")
+            : AppStrings.Get("Common_Back");
         ContinueButton.Content = _slideIndex == _activeLesson.Slides.Count - 1
-            ? "Finish lesson"
-            : "Continue";
+            ? AppStrings.Get("Learn_FinishLesson")
+            : AppStrings.Get("Common_Continue");
         LessonTemplateOutcomeText.IsVisible = false;
         SlideHost.Content = CreateSlideCard(slide);
     }
@@ -386,9 +399,13 @@ public partial class LearnView : UserControl
         {
             ColumnDefinitions = new ColumnDefinitions("*,Auto"),
         };
+        var presentedEyebrow = AppStrings.Get($"Learn_Slide_{slide.Kind}_Eyebrow");
+        var presentedTitle = PresentedTitle(slide);
+        var presentedBody = PresentedBody(slide);
+        var presentedSupportingText = PresentedSupportingText(slide);
         var eyebrowText = new TextBlock
         {
-            Text = Clean(slide.Eyebrow).ToUpperInvariant(),
+            Text = presentedEyebrow.ToUpperInvariant(),
             FontSize = 11,
             FontWeight = FontWeight.Bold,
             LetterSpacing = 1.4,
@@ -424,7 +441,7 @@ public partial class LearnView : UserControl
         };
         main.Children.Add(new TextBlock
         {
-            Text = Clean(slide.Title),
+            Text = presentedTitle,
             FontSize = slide.Kind == CourseSlideKind.Example ? 40 : 34,
             FontWeight = FontWeight.SemiBold,
             LineHeight = 44,
@@ -432,7 +449,7 @@ public partial class LearnView : UserControl
         });
         main.Children.Add(new TextBlock
         {
-            Text = Clean(slide.Body),
+            Text = presentedBody,
             FontSize = 19,
             LineHeight = 28,
             TextWrapping = TextWrapping.Wrap,
@@ -447,7 +464,7 @@ public partial class LearnView : UserControl
             BorderThickness = new Thickness(1),
             Child = new TextBlock
             {
-                Text = Clean(slide.SupportingText),
+                Text = presentedSupportingText,
                 TextWrapping = TextWrapping.Wrap,
                 LineHeight = 22,
             },
@@ -460,7 +477,9 @@ public partial class LearnView : UserControl
 
         var card = new Border { Child = content };
         card.Classes.Add(slide.Kind == CourseSlideKind.Activity ? "accent-card" : "hero-card");
-        AutomationProperties.SetName(card, $"{Clean(slide.Eyebrow)}. {Clean(slide.Title)}. {Clean(slide.Body)}");
+        AutomationProperties.SetName(
+            card,
+            $"{presentedEyebrow}. {presentedTitle}. {presentedBody}");
         return card;
     }
 
@@ -469,12 +488,12 @@ public partial class LearnView : UserControl
         LessonTemplateOutcomeText.Text = outcome.State switch
         {
             TemplateOutcomeState.Success =>
-                "Practice result: the deterministic check matched this response.",
+                AppStrings.Get("Learn_Outcome_Success"),
             TemplateOutcomeState.Uncertain =>
-                "Practice result: the deterministic check needs a complete response.",
+                AppStrings.Get("Learn_Outcome_Uncertain"),
             TemplateOutcomeState.Failure =>
-                "Practice result: the deterministic check did not match yet. Try again.",
-            _ => "Practice is ready.",
+                AppStrings.Get("Learn_Outcome_Failure"),
+            _ => AppStrings.Get("Learn_Outcome_Ready"),
         };
         LessonTemplateOutcomeText.IsVisible = true;
     }
@@ -493,6 +512,36 @@ public partial class LearnView : UserControl
         CourseSlideKind.Activity => "→",
         CourseSlideKind.Recap => "✓",
         _ => "•",
+    };
+
+    private static string PresentedTitle(CourseSlide slide) => slide.Kind switch
+    {
+        CourseSlideKind.Explanation => AppStrings.Get("Learn_Slide_Explanation_Title"),
+        CourseSlideKind.Activity when slide.TaskId is null =>
+            AppStrings.Get("Learn_Slide_Recall_Title"),
+        _ => Clean(slide.Title),
+    };
+
+    private static string PresentedBody(CourseSlide slide) =>
+        slide.Kind == CourseSlideKind.Activity && slide.TaskId is null
+            ? AppStrings.Get("Learn_Slide_Recall_Body")
+            : Clean(slide.Body);
+
+    private static string PresentedSupportingText(CourseSlide slide) => slide.Kind switch
+    {
+        CourseSlideKind.Welcome =>
+            AppStrings.Format(
+                "Learn_Slide_Welcome_Supporting",
+                Clean(slide.SupportingText).StartsWith("Level ", StringComparison.Ordinal)
+                    ? Clean(slide.SupportingText)["Level ".Length..]
+                    : Clean(slide.SupportingText)),
+        CourseSlideKind.Explanation =>
+            AppStrings.Get("Learn_Slide_Explanation_Supporting"),
+        CourseSlideKind.Activity when slide.TaskId is null =>
+            AppStrings.Get("Learn_Slide_Recall_Supporting"),
+        CourseSlideKind.Activity => AppStrings.Get("Learn_Slide_Activity_Supporting"),
+        CourseSlideKind.Recap => AppStrings.Get("Learn_Slide_Recap_Supporting"),
+        _ => Clean(slide.SupportingText),
     };
 
     private void ShowError(string message)
@@ -531,8 +580,11 @@ public partial class LearnView : UserControl
             {
                 _resumeLesson = lesson;
                 var resumeSlideIndex = resume.Progress.LastSlideIndex;
-                StartCourseButton.Content = "Resume lesson";
-                SessionStatusText.Text = $"Ready to resume {Clean(lesson.Title)} at card {resumeSlideIndex + 1}.";
+                StartCourseButton.Content = AppStrings.Get("Learn_ResumeLesson");
+                SessionStatusText.Text = AppStrings.Format(
+                    "Learn_ResumeReady",
+                    Clean(lesson.Title),
+                    resumeSlideIndex + 1);
                 SessionStatusText.IsVisible = true;
             }
         }
@@ -541,7 +593,7 @@ public partial class LearnView : UserControl
                 InvalidOperationException or ArgumentException)
         {
             _canPersistLessonProgress = false;
-            SessionStatusText.Text = "Local lesson progress is unavailable. Lessons remain usable in this session.";
+            SessionStatusText.Text = AppStrings.Get("Learn_ProgressUnavailable");
             SessionStatusText.IsVisible = true;
         }
         finally
@@ -597,7 +649,7 @@ public partial class LearnView : UserControl
             exception is LearnerStoreException or CurriculumValidationException or
                 InvalidOperationException or ArgumentException)
         {
-            SessionStatusText.Text = "This lesson remains open, but local progress could not be saved.";
+            SessionStatusText.Text = AppStrings.Get("Learn_ProgressSaveFailed");
             SessionStatusText.IsVisible = true;
             return false;
         }
