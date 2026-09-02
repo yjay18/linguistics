@@ -276,6 +276,52 @@ public static class TemplateInteractionEvaluator
             : new TemplateOutcome(TemplateOutcomeState.Success, match.Id);
     }
 
+    public static TemplateOutcome EvaluateTextFields(
+        IReadOnlyList<TemplateOption> expectedFields,
+        IReadOnlyDictionary<string, string> responses)
+    {
+        ArgumentNullException.ThrowIfNull(expectedFields);
+        ArgumentNullException.ThrowIfNull(responses);
+
+        var fieldIds = ValidateOptionIds(expectedFields, nameof(expectedFields));
+        var expectedById = expectedFields.ToDictionary(
+            field => field.Id,
+            field => NormalizeDictation(field.Label),
+            StringComparer.Ordinal);
+        if (expectedById.Values.Any(string.IsNullOrWhiteSpace))
+        {
+            throw new ArgumentException(
+                "Expected field values must normalize to nonempty text.",
+                nameof(expectedFields));
+        }
+
+        if (responses.Keys.Any(id => !expectedById.ContainsKey(id)))
+        {
+            throw new ArgumentException(
+                "A response field ID is not declared by the expected fields.",
+                nameof(responses));
+        }
+
+        var completedFieldIds = fieldIds
+            .Where(id => responses.TryGetValue(id, out var response) &&
+                         !string.IsNullOrWhiteSpace(response))
+            .ToArray();
+        if (completedFieldIds.Length != fieldIds.Length)
+        {
+            return new TemplateOutcome(
+                TemplateOutcomeState.Uncertain,
+                OrderedOptionIds: completedFieldIds);
+        }
+
+        var isCorrect = fieldIds.All(id => string.Equals(
+            expectedById[id],
+            NormalizeDictation(responses[id]),
+            StringComparison.Ordinal));
+        return new TemplateOutcome(
+            isCorrect ? TemplateOutcomeState.Success : TemplateOutcomeState.Failure,
+            OrderedOptionIds: fieldIds);
+    }
+
     public static TemplateOutcome EvaluatePronunciationAssessment(
         PronunciationAssessmentOutcome assessment) =>
         new(assessment switch

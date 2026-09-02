@@ -623,6 +623,55 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void FormFillReturnsOnlyAuthoredFieldIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("form-fill")));
+        var expected = new[]
+        {
+            new TemplateOption("name", "Mina Weber"),
+            new TemplateOption("origin", "Berlin"),
+            new TemplateOption("address", "Marktstraße 5"),
+        };
+
+        var success = TemplateInteractionEvaluator.EvaluateTextFields(
+            expected,
+            new Dictionary<string, string>
+            {
+                ["name"] = "mina weber",
+                ["origin"] = "Berlin.",
+                ["address"] = "Marktstraße 5",
+            });
+        var failure = TemplateInteractionEvaluator.EvaluateTextFields(
+            expected,
+            new Dictionary<string, string>
+            {
+                ["name"] = "Mina Weber",
+                ["origin"] = "Hamburg",
+                ["address"] = "Marktstraße 5",
+            });
+        var incomplete = TemplateInteractionEvaluator.EvaluateTextFields(
+            expected,
+            new Dictionary<string, string>
+            {
+                ["name"] = "Mina Weber",
+            });
+
+        Assert.AreEqual(TemplateOutcomeState.Success, success.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, failure.State);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        CollectionAssert.AreEqual(
+            new[] { "name", "origin", "address" },
+            success.OrderedOptionIds!.ToArray());
+        CollectionAssert.AreEqual(new[] { "name" }, incomplete.OrderedOptionIds!.ToArray());
+        Assert.IsFalse(success.OrderedOptionIds!.Contains("Mina Weber", StringComparer.Ordinal));
+        Assert.ThrowsExactly<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateTextFields(
+                expected,
+                new Dictionary<string, string> { ["unknown"] = "value" }));
+    }
+
+    [TestMethod]
     public void ListenRouteUsesOnlyTheAuthoredStopOrder()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

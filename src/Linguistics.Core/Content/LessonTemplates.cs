@@ -597,6 +597,17 @@ public static class LessonTemplateSchemas
                 new("answer", TemplateParameterKind.Text, IsRequired: true),
                 new("sign-asset", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("form-fill"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("form-title", TemplateParameterKind.Text, IsRequired: true),
+                new("prompt", TemplateParameterKind.Text, IsRequired: true),
+                new("fields", TemplateParameterKind.OptionList, IsRequired: true),
+                new("answers", TemplateParameterKind.OptionList, IsRequired: true),
+            ]),
     ];
 }
 

@@ -1286,5 +1286,42 @@ internal static class TemplateGalleryFixtures
                     ]),
                 ["answer"] = new(TemplateParameterKind.Text, Text: "customers"),
             })),
+        new(
+            new TemplateId("form-fill"),
+            "Form fill",
+            "Writing · synthetic paper form · deterministic field checks",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Copy the three synthetic details into their matching German form fields.",
+                        ["hi"] = "तीन कृत्रिम विवरणों को उनके मिलते जर्मन फ़ॉर्म क्षेत्रों में लिखें।",
+                    }),
+                ["form-title"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Anmeldeformular"),
+                ["prompt"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Name: Mina Weber. Herkunft: Berlin. Adresse: Marktstraße 5."),
+                ["fields"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("name", "Name"),
+                        new("origin", "Herkunft"),
+                        new("address", "Adresse"),
+                    ]),
+                ["answers"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("name", "Mina Weber"),
+                        new("origin", "Berlin"),
+                        new("address", "Marktstraße 5"),
+                    ]),
+            })),
     ];
 }

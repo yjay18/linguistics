@@ -700,6 +700,56 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void FormFillKeepsSyntheticResponsesLocalAndReportsFieldIds()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("form-fill"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var descendants = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var inputs = descendants
+            .OfType<TextBox>()
+            .ToDictionary(
+                input => AutomationProperties.GetAutomationId(input)!,
+                StringComparer.Ordinal);
+        var buttons = descendants.OfType<Button>().ToArray();
+        var check = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "FormFillCheck");
+        var clear = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "FormFillClear");
+
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        inputs["FormFillField_name"].Text = "Mina Weber";
+        inputs["FormFillField_origin"].Text = "Hamburg";
+        inputs["FormFillField_address"].Text = "Marktstraße 5";
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        inputs["FormFillField_origin"].Text = "Berlin";
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(3, reported);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, reported[0].State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[1].State);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[2].State);
+        CollectionAssert.AreEqual(
+            new[] { "name", "origin", "address" },
+            reported[2].OrderedOptionIds!.ToArray());
+        Assert.IsFalse(reported[2].OrderedOptionIds!.Contains("Mina Weber", StringComparer.Ordinal));
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "FormFillReplay"));
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "FormFillSkip"));
+
+        clear.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsTrue(inputs.Values.All(input => string.IsNullOrEmpty(input.Text)));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

@@ -292,6 +292,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("sign-reading"),
             SignReadingRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("form-fill"),
+            FormFillRenderer.Render),
     ]);
 
     public Control Render(
