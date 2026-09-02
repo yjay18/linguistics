@@ -29,7 +29,14 @@ public partial class TodayView : UserControl
         LocalDiagnosticLog? diagnosticLog = null)
         : this()
     {
-        var graph = contentCatalog?.CreateRuntimeConceptGraph(profile.TargetLanguage);
+        var instructionLanguage = contentCatalog?
+            .SelectInstructionLanguage(profile)
+            .SelectedLanguage;
+        var graph = instructionLanguage is null
+            ? null
+            : contentCatalog!.CreateRuntimeConceptGraph(
+                profile.TargetLanguage,
+                instructionLanguage.Value);
         _controller = new ReviewController(profileOwner, graph, diagnosticLog: diagnosticLog);
         _navigate = navigate;
     }

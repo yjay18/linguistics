@@ -40,11 +40,22 @@ public partial class ReviewView : UserControl
         _contentError = contentError;
         if (contentCatalog is not null)
         {
-            _graph = contentCatalog.CreateRuntimeConceptGraph(profile.TargetLanguage);
-            _cafeDefinition = contentCatalog.CreateRuntimeCafeOrderDefinition();
-            _utterances = contentCatalog
-                .CreateRuntimePronunciationUtterances(profile.TargetLanguage)
-                .ToDictionary(item => item.Id, StringComparer.Ordinal);
+            var selection = contentCatalog.SelectInstructionLanguage(profile);
+            if (selection.SelectedLanguage is { } instructionLanguage)
+            {
+                _graph = contentCatalog.CreateRuntimeConceptGraph(
+                    profile.TargetLanguage,
+                    instructionLanguage);
+                _cafeDefinition = contentCatalog.CreateRuntimeCafeOrderDefinition(
+                    instructionLanguage);
+                _utterances = contentCatalog
+                    .CreateRuntimePronunciationUtterances(profile.TargetLanguage)
+                    .ToDictionary(item => item.Id, StringComparer.Ordinal);
+            }
+            else if (string.IsNullOrWhiteSpace(_contentError))
+            {
+                _contentError = selection.Explanation.Summary;
+            }
         }
 
         _controller = new ReviewController(profileOwner, _graph, diagnosticLog: diagnosticLog);

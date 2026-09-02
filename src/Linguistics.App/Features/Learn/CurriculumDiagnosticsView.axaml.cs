@@ -25,12 +25,14 @@ public partial class CurriculumDiagnosticsView : UserControl
         LearnerProfile profile,
         ValidatedContentCatalog? contentCatalog,
         string? contentError,
-        LearnerProfileOwner? profileOwner = null)
+        LearnerProfileOwner? profileOwner = null,
+        InstructionLanguageSelectionResult? instructionLanguageSelection = null)
         : this()
     {
         ArgumentNullException.ThrowIfNull(profile);
         _profileOwner = profileOwner;
         ShowContentPreview(contentCatalog, contentError);
+        ShowInstructionLanguageSelection(instructionLanguageSelection);
         ShowDiagnostics(BuildDiagnostics(profile, DateTimeOffset.UtcNow));
     }
 
@@ -74,14 +76,16 @@ public partial class CurriculumDiagnosticsView : UserControl
             $"Validated {catalog.Packs.Count} packs, {_concepts.Length} concepts, " +
             $"{tasks.Length} tasks, and {_mappings.Length} transfer records. " +
             $"{pendingLicenses} pack licenses and all linguistic claims remain pending approval.";
-        ConceptList.ItemsSource = _concepts.Select(concept => $"{concept.Id}: {concept.Title}").ToArray();
+        ConceptList.ItemsSource = _concepts
+            .Select(concept => $"{concept.Id}: {Localized(concept.Title)}")
+            .ToArray();
         TransferList.ItemsSource = _mappings
             .Select(mapping => $"{mapping.SourceLanguage} → {mapping.TargetLanguage}: {mapping.Relation}, {mapping.TargetConceptId}")
             .ToArray();
         TaskSummaryText.Text = string.Join(
             Environment.NewLine,
             tasks.Select(task =>
-                $"• {task.Goal} ({task.Domain}; {task.States.Count} states, " +
+                $"• {Localized(task.Goal)} ({task.Domain}; {task.States.Count} states, " +
                 $"{task.Transitions.Count} transitions, {task.SuccessConditions.Count} success contract)"));
         ContractInspectionText.Text = string.Join(
             Environment.NewLine,
@@ -109,6 +113,27 @@ public partial class CurriculumDiagnosticsView : UserControl
         {
             TransferList.SelectedIndex = 0;
         }
+    }
+
+    private void ShowInstructionLanguageSelection(
+        InstructionLanguageSelectionResult? selection)
+    {
+        if (selection is null)
+        {
+            InstructionLanguageText.Text = "Instruction-language routing was unavailable because no catalog was loaded.";
+            return;
+        }
+
+        var candidates = selection.Explanation.Candidates.Count == 0
+            ? "none"
+            : string.Join(
+                ", ",
+                selection.Explanation.Candidates.Select(candidate =>
+                    $"{candidate.Language}=" +
+                    (candidate.Eligible ? "eligible" : candidate.RejectionReason.ToString())));
+        InstructionLanguageText.Text =
+            $"Instruction language: {selection.SelectedLanguage?.Value ?? "unavailable"}. " +
+            $"{selection.Explanation.Summary} Candidates: {candidates}.";
     }
 
     private async Task LoadStoredInspectionAsync()
@@ -174,10 +199,10 @@ public partial class CurriculumDiagnosticsView : UserControl
 
         var concept = _concepts[ConceptList.SelectedIndex];
         ConceptDetailText.Text =
-            $"{concept.Title} ({concept.CefrApproximation}, {concept.Type})\n" +
-            $"{concept.Description}\n" +
+            $"{Localized(concept.Title)} ({concept.CefrApproximation}, {concept.Type})\n" +
+            $"{Localized(concept.Description)}\n" +
             $"Prerequisites: {(concept.PrerequisiteIds.Count == 0 ? "none" : string.Join(", ", concept.PrerequisiteIds))}\n" +
-            $"Examples: {string.Join(" | ", concept.Examples.Select(example => $"{example.Text}: {example.Meaning}"))}\n" +
+            $"Examples: {string.Join(" | ", concept.Examples.Select(example => $"{example.Text}: {Localized(example.Meaning)}"))}\n" +
             $"Review: {concept.Review.Status}; human reviewer not recorded.";
     }
 
@@ -192,10 +217,29 @@ public partial class CurriculumDiagnosticsView : UserControl
         var mapping = _mappings[TransferList.SelectedIndex];
         TransferDetailText.Text =
             $"Draft {mapping.Relation} note for {mapping.TargetConceptId}:\n" +
-            $"{mapping.LearnerExplanation}\n" +
-            $"Risks: {(mapping.NegativeTransferRisks.Count == 0 ? "none recorded" : string.Join(" | ", mapping.NegativeTransferRisks))}\n" +
+            $"{Localized(mapping.LearnerExplanation)}\n" +
+            $"Risks: {Localized(mapping.NegativeTransferRisks)}\n" +
             $"Sources: {string.Join(", ", mapping.SourceIds)}; review: {mapping.Review.Status}.";
     }
+
+    private static string Localized(IReadOnlyDictionary<string, string> values) =>
+        string.Join(
+            " | ",
+            values
+                .OrderBy(pair => pair.Key, StringComparer.Ordinal)
+                .Select(pair => $"{pair.Key}: {pair.Value}"));
+
+    private static string Localized(
+        IReadOnlyDictionary<string, IReadOnlyList<string>> values) =>
+        values.Count == 0
+            ? "none recorded"
+            : string.Join(
+                " | ",
+                values
+                    .OrderBy(pair => pair.Key, StringComparer.Ordinal)
+                    .Select(pair =>
+                        $"{pair.Key}: " +
+                        (pair.Value.Count == 0 ? "none recorded" : string.Join("; ", pair.Value))));
 
     private void ShowDiagnostics(CurriculumDiagnostic diagnostic)
     {

@@ -54,6 +54,7 @@ public sealed record CourseUnit(
 
 public sealed record CourseCatalog(
     LanguageCode TargetLanguage,
+    LanguageCode InstructionLanguage,
     VersionId Version,
     CoursePublicationState PublicationState,
     int TargetLessonCount,
@@ -113,6 +114,7 @@ internal static class CourseCatalogBuilder
         IReadOnlyList<ContentPackDocument> packs,
         ContentLoadPolicy policy,
         LanguageCode targetLanguage,
+        LanguageCode instructionLanguage,
         CourseCatalogConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(packs);
@@ -125,7 +127,11 @@ internal static class CourseCatalogBuilder
         }
 
         var targetPacks = packs
-            .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)
+            .Where(pack =>
+                pack.Manifest.Kind == ContentPackKind.TargetLanguage &&
+                pack.Manifest.Languages.Contains(
+                    targetLanguage.Value,
+                    StringComparer.Ordinal))
             .ToArray();
         var entries = targetPacks
             .SelectMany(pack => pack.Concepts.Select(concept => new CourseConcept(
@@ -139,11 +145,20 @@ internal static class CourseCatalogBuilder
             throw new InvalidOperationException($"No course content exists for language '{targetLanguage}'.");
         }
 
-        var instructionLanguage = new LanguageCode(entries
-            .OrderBy(entry => entry.Manifest.Id, StringComparer.Ordinal)
-            .First()
-            .Manifest
-            .InstructionLanguages[0]);
+        var unsupportedPacks = targetPacks
+            .Where(pack => !pack.Manifest.InstructionLanguages.Contains(
+                instructionLanguage.Value,
+                StringComparer.Ordinal))
+            .Select(pack => pack.Manifest.Id)
+            .Distinct(StringComparer.Ordinal)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
+        if (unsupportedPacks.Length > 0)
+        {
+            throw new InvalidOperationException(
+                $"Instruction language '{instructionLanguage}' is unavailable for target language " +
+                $"'{targetLanguage}' in pack(s): {string.Join(", ", unsupportedPacks)}.");
+        }
 
         var depthById = new Dictionary<string, int>(StringComparer.Ordinal);
         var entryById = entries.ToDictionary(entry => entry.Concept.Id, StringComparer.Ordinal);
@@ -193,6 +208,7 @@ internal static class CourseCatalogBuilder
 
         return new CourseCatalog(
             targetLanguage,
+            instructionLanguage,
             configuration.Version,
             policy == ContentLoadPolicy.Runtime
                 ? CoursePublicationState.Ready

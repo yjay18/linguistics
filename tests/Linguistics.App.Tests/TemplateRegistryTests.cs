@@ -66,6 +66,34 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void LocalizedTemplateTextUsesOnlyTheSelectedInstructionLanguage()
+    {
+        var parameters = new ResolvedTemplateParameters(
+            new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Choose one.",
+                        ["hi"] = "एक चुनें।",
+                    }),
+            });
+
+        Assert.AreEqual(
+            "एक चुनें।",
+            TemplateRendering.Localized(
+                parameters,
+                "instruction",
+                new LanguageCode("hi")));
+        Assert.ThrowsExactly<KeyNotFoundException>(() =>
+            TemplateRendering.Localized(
+                parameters,
+                "instruction",
+                new LanguageCode("fr")));
+    }
+
+    [TestMethod]
     public void DefaultRegistryMatchesTheRegisteredTemplateSchemas()
     {
         CollectionAssert.AreEqual(

@@ -41,20 +41,7 @@ internal static class TemplateRendering
             throw new InvalidOperationException($"Template parameter '{name}' has no resolved language map.");
         }
 
-        if (value.TextByLanguage.TryGetValue(instructionLanguage.Value, out var localized))
-        {
-            return localized;
-        }
-
-        if (value.TextByLanguage.TryGetValue("en", out var english))
-        {
-            return english;
-        }
-
-        return value.TextByLanguage
-            .OrderBy(pair => pair.Key, StringComparer.Ordinal)
-            .Select(pair => pair.Value)
-            .First();
+        return InstructionText.Resolve(value.TextByLanguage, instructionLanguage);
     }
 
     public static IReadOnlyList<TemplateOption> Options(

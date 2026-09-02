@@ -98,8 +98,14 @@ public sealed class CafeScenarioController
         ArgumentNullException.ThrowIfNull(runtimeCatalog);
 
         var german = new LanguageCode("de");
+        var instructionSelection = runtimeCatalog.SelectInstructionLanguage(profile);
+        var instructionLanguage = instructionSelection.SelectedLanguage ??
+            throw new InvalidOperationException(instructionSelection.Explanation.Summary);
         var transferNotes = profile.KnownLanguages
-            .SelectMany(language => runtimeCatalog.CreateRuntimeTransferNotes(language.Language, german))
+            .SelectMany(language => runtimeCatalog.CreateRuntimeTransferNotes(
+                language.Language,
+                german,
+                instructionLanguage))
             .GroupBy(note => note.Mapping.Id)
             .Select(group => group.Single())
             .OrderBy(note => note.Mapping.Id.Value, StringComparer.Ordinal)
@@ -107,8 +113,8 @@ public sealed class CafeScenarioController
         return new CafeScenarioController(
             profile,
             profileOwner,
-            runtimeCatalog.CreateRuntimeConceptGraph(german),
-            runtimeCatalog.CreateRuntimeCafeOrderDefinition(),
+            runtimeCatalog.CreateRuntimeConceptGraph(german, instructionLanguage),
+            runtimeCatalog.CreateRuntimeCafeOrderDefinition(instructionLanguage),
             transferNotes,
             languageModelProvider,
             clock,

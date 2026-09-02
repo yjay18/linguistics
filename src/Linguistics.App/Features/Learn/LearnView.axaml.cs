@@ -53,11 +53,12 @@ public partial class LearnView : UserControl
             speechRecognitionProvider,
             pronunciationAssessmentProvider,
             profile.Settings.Microphone != MicrophonePreference.Never);
-        _instructionLanguage = SelectInstructionLanguage(profile);
         _shouldReduceMotion = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion);
         SlideHost.PageTransition = _shouldReduceMotion
             ? null
             : new CrossFade(TimeSpan.FromMilliseconds(220));
+
+        var instructionSelection = contentCatalog?.SelectInstructionLanguage(profile);
 
         if (showDeveloperDetails)
         {
@@ -66,7 +67,8 @@ public partial class LearnView : UserControl
                 profile,
                 contentCatalog,
                 contentError,
-                profileOwner);
+                profileOwner,
+                instructionSelection);
         }
 
         if (contentCatalog is null)
@@ -77,9 +79,21 @@ public partial class LearnView : UserControl
             return;
         }
 
+        if (instructionSelection?.SelectedLanguage is not { } instructionLanguage)
+        {
+            ShowError(
+                instructionSelection?.Explanation.Summary ??
+                "No instruction language is available for this course.");
+            return;
+        }
+
+        _instructionLanguage = instructionLanguage;
+
         try
         {
-            var course = contentCatalog.CreateCourseCatalog(profile.TargetLanguage);
+            var course = contentCatalog.CreateCourseCatalog(
+                profile.TargetLanguage,
+                instructionLanguage);
             RenderCourse(course);
             _canPersistLessonProgress =
                 course.PublicationState == CoursePublicationState.Ready && profileOwner is not null;
@@ -470,22 +484,6 @@ public partial class LearnView : UserControl
             .Replace('-', ' ')
             .Replace('–', ' ')
             .Replace('—', ' ');
-
-    private static LanguageCode SelectInstructionLanguage(LearnerProfile profile)
-    {
-        if (profile.Settings.PreferredExplanationLanguage is { } preferred &&
-            profile.KnownLanguages.Any(language =>
-                language.Language == preferred &&
-                language.AllowExplanations &&
-                language.ComfortableReading))
-        {
-            return preferred;
-        }
-
-        return profile.KnownLanguages
-            .FirstOrDefault(language => language.AllowExplanations && language.ComfortableReading)
-            ?.Language ?? profile.TargetLanguage;
-    }
 
     private static string Symbol(CourseSlideKind kind) => kind switch
     {

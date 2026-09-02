@@ -321,25 +321,68 @@ public sealed class ValidatedContentCatalog
 
     public ContentLoadPolicy Policy { get; }
 
+    public IReadOnlyList<LanguageCode> GetInstructionLanguages(LanguageCode targetLanguage)
+    {
+        var manifests = Packs
+            .Where(pack =>
+                pack.Manifest.Kind == ContentPackKind.TargetLanguage &&
+                pack.Manifest.Languages.Contains(
+                    targetLanguage.Value,
+                    StringComparer.Ordinal))
+            .Select(pack => pack.Manifest)
+            .OrderBy(manifest => manifest.Id, StringComparer.Ordinal)
+            .ToArray();
+        if (manifests.Length == 0)
+        {
+            return [];
+        }
+
+        return manifests[0].InstructionLanguages
+            .Where(language => manifests.All(manifest =>
+                manifest.InstructionLanguages.Contains(language, StringComparer.Ordinal)))
+            .Distinct(StringComparer.Ordinal)
+            .Order(StringComparer.Ordinal)
+            .Select(language => new LanguageCode(language))
+            .ToArray();
+    }
+
+    public InstructionLanguageSelectionResult SelectInstructionLanguage(LearnerProfile profile)
+    {
+        ArgumentNullException.ThrowIfNull(profile);
+
+        return InstructionLanguageSelector.Select(
+            profile,
+            GetInstructionLanguages(profile.TargetLanguage));
+    }
+
     public CourseCatalog CreateCourseCatalog(
         LanguageCode targetLanguage,
+        LanguageCode instructionLanguage,
         CourseCatalogConfiguration? configuration = null) =>
         CourseCatalogBuilder.Build(
             Packs,
             Policy,
             targetLanguage,
+            instructionLanguage,
             configuration ?? CourseCatalogConfiguration.Default);
 
-    public ConceptGraph CreateRuntimeConceptGraph(LanguageCode targetLanguage)
+    public ConceptGraph CreateRuntimeConceptGraph(
+        LanguageCode targetLanguage,
+        LanguageCode instructionLanguage)
     {
         EnsureRuntimePolicy();
+        EnsureInstructionLanguage(targetLanguage, instructionLanguage);
 
         var concepts = Packs
-            .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)
+            .Where(pack =>
+                pack.Manifest.Kind == ContentPackKind.TargetLanguage &&
+                pack.Manifest.Languages.Contains(
+                    targetLanguage.Value,
+                    StringComparer.Ordinal))
             .SelectMany(pack => pack.Concepts.Select(concept => ToConceptNode(
                 pack.Manifest,
                 concept,
-                DefaultInstructionLanguage(pack.Manifest))))
+                instructionLanguage)))
             .Where(concept => concept.TargetLanguage == targetLanguage)
             .ToArray();
 
@@ -364,20 +407,21 @@ public sealed class ValidatedContentCatalog
 
     public IReadOnlyList<TransferNote> CreateRuntimeTransferNotes(
         LanguageCode sourceLanguage,
-        LanguageCode targetLanguage)
+        LanguageCode targetLanguage,
+        LanguageCode instructionLanguage)
     {
         EnsureRuntimePolicy();
 
         return Packs
-            .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
+            .Where(pack =>
+                pack.Manifest.Kind == ContentPackKind.Transfer &&
+                pack.Manifest.InstructionLanguages.Contains(
+                    instructionLanguage.Value,
+                    StringComparer.Ordinal))
             .SelectMany(pack => pack.TransferMappings.Select(mapping => new TransferNote(
                 ToTransferMapping(pack.Manifest, mapping),
-                InstructionText.Resolve(
-                    mapping.LearnerExplanation,
-                    DefaultInstructionLanguage(pack.Manifest)),
-                InstructionText.Resolve(
-                    mapping.NegativeTransferRisks,
-                    DefaultInstructionLanguage(pack.Manifest)))))
+                InstructionText.Resolve(mapping.LearnerExplanation, instructionLanguage),
+                InstructionText.Resolve(mapping.NegativeTransferRisks, instructionLanguage))))
             .Where(note =>
                 note.Mapping.SourceLanguage == sourceLanguage &&
                 note.Mapping.TargetLanguage == targetLanguage)
@@ -385,13 +429,14 @@ public sealed class ValidatedContentCatalog
             .ToArray();
     }
 
-    public CafeOrderDefinition CreateRuntimeCafeOrderDefinition()
+    public CafeOrderDefinition CreateRuntimeCafeOrderDefinition(
+        LanguageCode instructionLanguage)
     {
         EnsureRuntimePolicy();
 
         var pack = Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        EnsureInstructionLanguage(pack.Manifest, instructionLanguage);
         var task = pack.Tasks.Single(task => task.Id == "de.task.cafe.order-one-item");
-        var instructionLanguage = DefaultInstructionLanguage(pack.Manifest);
         var states = task.States.ToDictionary(state => state.Id, StringComparer.Ordinal);
         var feedback = pack.FeedbackTemplates.ToDictionary(template => template.Id, StringComparer.Ordinal);
         var vocabulary = pack.Lexicon
@@ -491,9 +536,6 @@ public sealed class ValidatedContentCatalog
             concept.TaskTags,
             PackVersion(manifest));
 
-    private static LanguageCode DefaultInstructionLanguage(ContentPackManifest manifest) =>
-        new(manifest.InstructionLanguages[0]);
-
     private static TransferMapping ToTransferMapping(
         ContentPackManifest manifest,
         TransferMappingContent mapping) =>
@@ -516,6 +558,30 @@ public sealed class ValidatedContentCatalog
         {
             throw new InvalidOperationException(
                 "Only a runtime-approved content catalog can create teaching-domain objects.");
+        }
+    }
+
+    private void EnsureInstructionLanguage(
+        LanguageCode targetLanguage,
+        LanguageCode instructionLanguage)
+    {
+        if (!GetInstructionLanguages(targetLanguage).Contains(instructionLanguage))
+        {
+            throw new InvalidOperationException(
+                $"Instruction language '{instructionLanguage}' is unavailable for target language '{targetLanguage}'.");
+        }
+    }
+
+    private static void EnsureInstructionLanguage(
+        ContentPackManifest manifest,
+        LanguageCode instructionLanguage)
+    {
+        if (!manifest.InstructionLanguages.Contains(
+                instructionLanguage.Value,
+                StringComparer.Ordinal))
+        {
+            throw new InvalidOperationException(
+                $"Instruction language '{instructionLanguage}' is unavailable in pack '{manifest.Id}'.");
         }
     }
 }

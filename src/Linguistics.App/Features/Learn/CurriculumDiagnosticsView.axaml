@@ -20,6 +20,9 @@
                            TextWrapping="Wrap"
                            AutomationProperties.LiveSetting="Polite"
                            AutomationProperties.AutomationId="ContentPreviewStatus" />
+                <TextBlock x:Name="InstructionLanguageText"
+                           TextWrapping="Wrap"
+                           AutomationProperties.AutomationId="InstructionLanguageDiagnostic" />
             </StackPanel>
         </Border>
 

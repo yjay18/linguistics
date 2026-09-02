@@ -175,14 +175,17 @@ public sealed class ContentPackTests
         try
         {
             var runtime = ContentPackLoader.LoadDirectory(directory, ContentLoadPolicy.Runtime);
-            var graph = runtime.CreateRuntimeConceptGraph(new LanguageCode("de"));
+            var graph = runtime.CreateRuntimeConceptGraph(
+                new LanguageCode("de"),
+                new LanguageCode("en"));
             var english = runtime.CreateRuntimeTransferMappings(
                 new LanguageCode("en"),
                 new LanguageCode("de"));
             var hindiNotes = runtime.CreateRuntimeTransferNotes(
                 new LanguageCode("hi"),
-                new LanguageCode("de"));
-            var cafe = runtime.CreateRuntimeCafeOrderDefinition();
+                new LanguageCode("de"),
+                new LanguageCode("en"));
+            var cafe = runtime.CreateRuntimeCafeOrderDefinition(new LanguageCode("en"));
             var pronunciation = runtime.CreateRuntimePronunciationUtterances(
                 new LanguageCode("de"));
 
@@ -211,7 +214,9 @@ public sealed class ContentPackTests
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
 
         Assert.ThrowsExactly<InvalidOperationException>(() =>
-            catalog.CreateRuntimeConceptGraph(new LanguageCode("de")));
+            catalog.CreateRuntimeConceptGraph(
+                new LanguageCode("de"),
+                new LanguageCode("en")));
         Assert.ThrowsExactly<InvalidOperationException>(() =>
             catalog.CreateRuntimeTransferMappings(new LanguageCode("en"), new LanguageCode("de")));
     }
@@ -234,9 +239,9 @@ public sealed class ContentPackTests
     public void AuthoringContentBecomesDeterministicPreviewLessons()
     {
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview)
-            .CreateCourseCatalog(new LanguageCode("de"));
+            .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
         var repeated = LoadBundled(ContentLoadPolicy.AuthoringPreview)
-            .CreateCourseCatalog(new LanguageCode("de"));
+            .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
 
         Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
         Assert.AreEqual(450, catalog.TargetLessonCount);
@@ -264,6 +269,48 @@ public sealed class ContentPackTests
         CollectionAssert.AreEqual(
             PresentationIds(catalog),
             PresentationIds(repeated));
+    }
+
+    [TestMethod]
+    public void CourseProjectionIsExplicitAndDeterministicPerInstructionLanguage()
+    {
+        var directory = WritePacks([TwoLanguageTargetFixture()]);
+        try
+        {
+            var catalog = ContentPackLoader.LoadDirectory(
+                directory,
+                ContentLoadPolicy.AuthoringPreview);
+            var german = new LanguageCode("de");
+            var english = catalog.CreateCourseCatalog(german, new LanguageCode("en"));
+            var hindi = catalog.CreateCourseCatalog(german, new LanguageCode("hi"));
+            var repeatedHindi = catalog.CreateCourseCatalog(german, new LanguageCode("hi"));
+
+            CollectionAssert.AreEqual(
+                new[] { new LanguageCode("en"), new LanguageCode("hi") },
+                catalog.GetInstructionLanguages(german).ToArray());
+            Assert.AreEqual(new LanguageCode("en"), english.InstructionLanguage);
+            Assert.AreEqual(new LanguageCode("hi"), hindi.InstructionLanguage);
+            Assert.AreEqual("Greet someone", english.Units[0].Lessons[0].Title);
+            Assert.AreEqual("किसी का अभिवादन करें", hindi.Units[0].Lessons[0].Title);
+            CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hindi));
+            CollectionAssert.AreEqual(PresentationIds(hindi), PresentationIds(repeatedHindi));
+
+            var englishExample = english.Units[0].Lessons[0].Slides
+                .First(slide => slide.Kind == CourseSlideKind.Example);
+            var hindiExample = hindi.Units[0].Lessons[0].Slides
+                .First(slide => slide.Kind == CourseSlideKind.Example);
+            Assert.AreEqual("Hallo!", englishExample.Title);
+            Assert.AreEqual(englishExample.Title, hindiExample.Title);
+            Assert.AreEqual("Hello!", englishExample.Body);
+            Assert.AreEqual("नमस्ते", hindiExample.Body);
+
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                catalog.CreateCourseCatalog(german, new LanguageCode("fr")));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
     }
 
     [TestMethod]
@@ -299,10 +346,10 @@ public sealed class ContentPackTests
         {
             var first = ContentPackLoader
                 .LoadDirectory(directory, ContentLoadPolicy.AuthoringPreview)
-                .CreateCourseCatalog(new LanguageCode("de"));
+                .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
             var repeated = ContentPackLoader
                 .LoadDirectory(directory, ContentLoadPolicy.AuthoringPreview)
-                .CreateCourseCatalog(new LanguageCode("de"));
+                .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
             var authored = first.Units
                 .SelectMany(unit => unit.Lessons)
                 .Single(lesson => lesson.Id == lessonId);
@@ -355,7 +402,7 @@ public sealed class ContentPackTests
         {
             var course = ContentPackLoader
                 .LoadDirectory(directory, ContentLoadPolicy.Runtime)
-                .CreateCourseCatalog(new LanguageCode("de"));
+                .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
 
             Assert.AreEqual(CoursePublicationState.Ready, course.PublicationState);
             Assert.IsTrue(course.Units.SelectMany(unit => unit.Lessons).All(lesson =>
@@ -381,7 +428,7 @@ public sealed class ContentPackTests
         {
             var course = ContentPackLoader
                 .LoadDirectory(directory, ContentLoadPolicy.AuthoringPreview)
-                .CreateCourseCatalog(new LanguageCode("de"));
+                .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
 
             Assert.AreEqual(500, course.AuthoredLessonCount);
             Assert.HasCount(25, course.Units);
