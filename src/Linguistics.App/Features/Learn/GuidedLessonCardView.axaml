@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Linguistics.App.Controls"
+             x:Class="Linguistics.App.Features.Learn.GuidedLessonCardView">
+    <controls:PaperCard x:Name="Card"
+                        Padding="28"
+                        AutomationProperties.AutomationId="GuidedLessonCard">
+        <Grid RowDefinitions="Auto,*,Auto"
+              MinHeight="340">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock x:Name="EyebrowText"
+                           Classes="lesson-label"
+                           FontSize="11"
+                           FontWeight="Bold"
+                           LetterSpacing="1.4" />
+                <controls:PaperStamp x:Name="SymbolStamp"
+                                     Grid.Column="1"
+                                     Width="48"
+                                     Height="48"
+                                     FontSize="16"
+                                     Angle="2"
+                                     AutomationProperties.AccessibilityView="Raw" />
+            </Grid>
+
+            <StackPanel Grid.Row="1"
+                        Spacing="18"
+                        Margin="0,20"
+                        VerticalAlignment="Center"
+                        MaxWidth="680"
+                        HorizontalAlignment="Left">
+                <TextBlock x:Name="TitleText"
+                           FontSize="34"
+                           FontWeight="SemiBold"
+                           LineHeight="44"
+                           TextWrapping="Wrap"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock x:Name="BodyText"
+                           FontSize="19"
+                           LineHeight="28"
+                           TextWrapping="Wrap"
+                           Opacity="0.84" />
+            </StackPanel>
+
+            <controls:PaperCard Grid.Row="2"
+                                Classes="soft"
+                                Padding="16,13">
+                <TextBlock x:Name="SupportingText"
+                           TextWrapping="Wrap"
+                           LineHeight="22" />
+            </controls:PaperCard>
+        </Grid>
+    </controls:PaperCard>
+</UserControl>

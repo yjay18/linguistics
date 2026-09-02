@@ -1,4 +1,7 @@
+using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Linguistics.App.Content;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
@@ -12,6 +15,11 @@ internal delegate Control TemplateRendererFactory(
     LanguageCode instructionLanguage,
     bool shouldReduceMotion,
     Action<TemplateOutcome> reportOutcome);
+
+internal sealed record PlayerTemplate(
+    Control Content,
+    Action Replay,
+    Action Skip);
 
 internal sealed class TemplateRegistry
 {
@@ -355,5 +363,45 @@ internal sealed class TemplateRegistry
         }
 
         return renderer(_imageCache, parameters, instructionLanguage, shouldReduceMotion, reportOutcome);
+    }
+
+    public PlayerTemplate RenderForPlayer(
+        TemplateId templateId,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        var content = Render(
+            templateId,
+            parameters,
+            instructionLanguage,
+            shouldReduceMotion,
+            reportOutcome);
+        var buttons = content
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Select(button => new
+            {
+                Button = button,
+                Id = AutomationProperties.GetAutomationId(button),
+            })
+            .ToArray();
+        var replay = buttons.SingleOrDefault(item =>
+            item.Id?.EndsWith("Replay", StringComparison.Ordinal) == true)?.Button;
+        var skip = buttons.SingleOrDefault(item =>
+            item.Id?.EndsWith("Skip", StringComparison.Ordinal) == true)?.Button;
+        if (replay is null || skip is null)
+        {
+            throw new InvalidOperationException(
+                $"Template '{templateId}' does not expose replay and skip choreography controls.");
+        }
+
+        replay.IsVisible = false;
+        skip.IsVisible = false;
+        return new PlayerTemplate(
+            content,
+            () => replay.RaiseEvent(new RoutedEventArgs(Button.ClickEvent)),
+            () => skip.RaiseEvent(new RoutedEventArgs(Button.ClickEvent)));
     }
 }

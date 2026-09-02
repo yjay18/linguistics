@@ -1048,4 +1048,7 @@
   <data name="Learn_Journey_Remaining" xml:space="preserve"><value>{0} नियोजित पाठ अभी लिखे नहीं गए हैं।</value></data>
   <data name="Learn_Journey_Unit" xml:space="preserve"><value>इकाई {0}</value></data>
   <data name="Learn_Journey_UnitAutomation" xml:space="preserve"><value>इकाई {0}। {1}।</value></data>
+  <data name="Learn_Player_Progress" xml:space="preserve"><value>पाठ की राह</value></data>
+  <data name="Learn_Player_Replay" xml:space="preserve"><value>दृश्य फिर चलाएँ</value></data>
+  <data name="Learn_Player_Skip" xml:space="preserve"><value>प्रवेश छोड़ें</value></data>
 </root>

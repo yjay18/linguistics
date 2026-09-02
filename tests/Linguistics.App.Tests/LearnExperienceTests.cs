@@ -1,4 +1,8 @@
+using Avalonia.Automation;
+using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Linguistics.App.Features.Learn;
+using Linguistics.App.Features.Learn.Templates;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
 using Linguistics.Core.Profiles;
@@ -8,6 +12,55 @@ namespace Linguistics.App.Tests;
 [TestClass]
 public sealed class LearnExperienceTests
 {
+    [TestMethod]
+    public void EveryRegisteredTemplateExposesPlayerReplayAndSkipControls()
+    {
+        var registry = TemplateRegistry.CreateDefault();
+
+        foreach (var fixture in TemplateGalleryFixtures.All)
+        {
+            var rendered = registry.RenderForPlayer(
+                fixture.TemplateId,
+                fixture.Parameters,
+                fixture.InstructionLanguage,
+                shouldReduceMotion: true,
+                _ => { });
+            var choreographyButtons = rendered.Content
+                .GetLogicalDescendants()
+                .OfType<Button>()
+                .Where(button =>
+                    AutomationProperties.GetAutomationId(button)?.EndsWith(
+                        "Replay",
+                        StringComparison.Ordinal) == true ||
+                    AutomationProperties.GetAutomationId(button)?.EndsWith(
+                        "Skip",
+                        StringComparison.Ordinal) == true)
+                .ToArray();
+
+            Assert.HasCount(2, choreographyButtons, fixture.TemplateId.Value);
+            Assert.IsTrue(choreographyButtons.All(button => !button.IsVisible));
+            rendered.Skip();
+            rendered.Replay();
+        }
+    }
+
+    [TestMethod]
+    public void LearnViewKeepsLayoutConstructionInAxamlControls()
+    {
+        var code = File.ReadAllText(Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Linguistics.App",
+            "Features",
+            "Learn",
+            "LearnView.axaml.cs"));
+
+        foreach (var control in new[] { "Grid", "StackPanel", "Border", "TextBlock", "Button", "WrapPanel" })
+        {
+            Assert.DoesNotContain($"new {control}", code, $"{control} layout belongs in AXAML.");
+        }
+    }
+
     [TestMethod]
     public void CourseJourneyPreservesUnitAndLessonOrderWithOneDeterministicNextStep()
     {
@@ -67,4 +120,12 @@ public sealed class LearnExperienceTests
                 TaskId: null,
                 template)]);
     }
+
+    private static string RepositoryRoot => Path.GetFullPath(Path.Combine(
+        AppContext.BaseDirectory,
+        "..",
+        "..",
+        "..",
+        "..",
+        ".."));
 }

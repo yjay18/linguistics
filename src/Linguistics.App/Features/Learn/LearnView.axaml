@@ -278,8 +278,35 @@
                 </Border>
             </Grid>
 
-            <ProgressBar x:Name="LessonProgress"
-                         AutomationProperties.Name="{loc:Localize Learn_LessonProgress}" />
+            <controls:PaperCard Classes="soft"
+                                Padding="14,11"
+                                AutomationProperties.AutomationId="LessonProgressStrip">
+                <Grid ColumnDefinitions="Auto,*,Auto"
+                      ColumnSpacing="14">
+                    <controls:PaperTape Content="{loc:Localize Learn_Player_Progress}"
+                                        Classes="compact"
+                                        Angle="-1"
+                                        FontSize="10" />
+                    <ProgressBar x:Name="LessonProgress"
+                                 Grid.Column="1"
+                                 VerticalAlignment="Center"
+                                 AutomationProperties.Name="{loc:Localize Learn_LessonProgress}" />
+                    <StackPanel x:Name="TemplateActionsPanel"
+                                Grid.Column="2"
+                                Orientation="Horizontal"
+                                Spacing="8"
+                                IsVisible="False">
+                        <Button Content="{loc:Localize Learn_Player_Replay}"
+                                Classes="quiet"
+                                Click="OnReplayTemplateClicked"
+                                AutomationProperties.AutomationId="LessonReplayTemplate" />
+                        <Button Content="{loc:Localize Learn_Player_Skip}"
+                                Classes="quiet"
+                                Click="OnSkipTemplateClicked"
+                                AutomationProperties.AutomationId="LessonSkipTemplate" />
+                    </StackPanel>
+                </Grid>
+            </controls:PaperCard>
 
             <TransitioningContentControl x:Name="SlideHost"
                                          MinHeight="390"

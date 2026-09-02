@@ -1,9 +1,5 @@
-using Avalonia;
 using Avalonia.Animation;
-using Avalonia.Automation;
 using Avalonia.Controls;
-using Avalonia.Layout;
-using Avalonia.Media;
 using Linguistics.App.Content;
 using Linguistics.App.Features.Learn.Templates;
 using Linguistics.App.Localization;
@@ -45,6 +41,8 @@ public partial class LearnView : UserControl
     private int _slideIndex;
     private bool _canPersistLessonProgress;
     private bool _historyLoadStarted;
+    private Action? _replayTemplate;
+    private Action? _skipTemplate;
 
     public LearnView()
     {
@@ -72,10 +70,6 @@ public partial class LearnView : UserControl
             pronunciationAssessmentProvider,
             profile.Settings.Microphone != MicrophonePreference.Never);
         _shouldReduceMotion = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion);
-        SlideHost.PageTransition = _shouldReduceMotion
-            ? null
-            : new CrossFade(TimeSpan.FromMilliseconds(220));
-
         var instructionSelection = contentCatalog?.SelectInstructionLanguage(profile);
 
         if (showDeveloperDetails)
@@ -316,113 +310,38 @@ public partial class LearnView : UserControl
             ? AppStrings.Get("Learn_FinishLesson")
             : AppStrings.Get("Common_Continue");
         LessonTemplateOutcomeText.IsVisible = false;
-        SlideHost.Content = CreateSlideCard(slide);
-    }
-
-    private Control CreateSlideCard(CourseSlide slide)
-    {
         if (slide.TemplateInstance is { } template)
         {
-            return _templateRegistry.Render(
+            var rendered = _templateRegistry.RenderForPlayer(
                 template.TemplateId,
                 template.Parameters,
                 _instructionLanguage,
                 _shouldReduceMotion,
                 OnTemplateOutcome);
+            SlideHost.PageTransition = null;
+            SlideHost.Content = rendered.Content;
+            _replayTemplate = rendered.Replay;
+            _skipTemplate = rendered.Skip;
+            TemplateActionsPanel.IsVisible = true;
+            return;
         }
 
-        var content = new Grid
-        {
-            RowDefinitions = new RowDefinitions("Auto,*,Auto"),
-            MinHeight = 340,
-        };
-        var eyebrow = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
-        };
-        var presentedEyebrow = AppStrings.Get($"Learn_Slide_{slide.Kind}_Eyebrow");
-        var presentedTitle = PresentedTitle(slide);
-        var presentedBody = PresentedBody(slide);
-        var presentedSupportingText = PresentedSupportingText(slide);
-        var eyebrowText = new TextBlock
-        {
-            Text = presentedEyebrow.ToUpperInvariant(),
-            FontSize = 11,
-            FontWeight = FontWeight.Bold,
-            LetterSpacing = 1.4,
-        };
-        eyebrowText.Classes.Add("lesson-label");
-        eyebrow.Children.Add(eyebrowText);
-        var symbol = new Border
-        {
-            Width = 46,
-            Height = 46,
-            CornerRadius = new CornerRadius(23),
-            Child = new TextBlock
-            {
-                Text = Symbol(slide.Kind),
-                FontSize = 18,
-                FontWeight = FontWeight.Bold,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-            },
-        };
-        symbol.Classes.Add("lesson-symbol");
-        ((TextBlock)symbol.Child).Classes.Add("on-accent");
-        AutomationProperties.SetAccessibilityView(symbol, AccessibilityView.Raw);
-        Grid.SetColumn(symbol, 1);
-        eyebrow.Children.Add(symbol);
-
-        var main = new StackPanel
-        {
-            Spacing = 18,
-            VerticalAlignment = VerticalAlignment.Center,
-            MaxWidth = 680,
-            HorizontalAlignment = HorizontalAlignment.Left,
-        };
-        main.Children.Add(new TextBlock
-        {
-            Text = presentedTitle,
-            FontSize = slide.Kind == CourseSlideKind.Example ? 40 : 34,
-            FontWeight = FontWeight.SemiBold,
-            LineHeight = 44,
-            TextWrapping = TextWrapping.Wrap,
-        });
-        main.Children.Add(new TextBlock
-        {
-            Text = presentedBody,
-            FontSize = 19,
-            LineHeight = 28,
-            TextWrapping = TextWrapping.Wrap,
-            Opacity = 0.84,
-        });
-        Grid.SetRow(main, 1);
-
-        var supporting = new Border
-        {
-            Padding = new Thickness(16, 13),
-            CornerRadius = new CornerRadius(13),
-            BorderThickness = new Thickness(1),
-            Child = new TextBlock
-            {
-                Text = presentedSupportingText,
-                TextWrapping = TextWrapping.Wrap,
-                LineHeight = 22,
-            },
-        };
-        supporting.Classes.Add("lesson-supporting");
-        Grid.SetRow(supporting, 2);
-        content.Children.Add(eyebrow);
-        content.Children.Add(main);
-        content.Children.Add(supporting);
-
-        var card = new Border { Child = content };
-        card.Classes.Add(slide.Kind == CourseSlideKind.Activity ? "accent-card" : "hero-card");
-        AutomationProperties.SetName(
-            card,
-            $"{presentedEyebrow}. {presentedTitle}. {presentedBody}");
-        return card;
+        _replayTemplate = null;
+        _skipTemplate = null;
+        TemplateActionsPanel.IsVisible = false;
+        SlideHost.PageTransition = _shouldReduceMotion
+            ? null
+            : new CrossFade(TimeSpan.FromMilliseconds(220));
+        SlideHost.Content = new GuidedLessonCardView(slide);
     }
+
+    private void OnReplayTemplateClicked(
+        object? sender,
+        Avalonia.Interactivity.RoutedEventArgs args) => _replayTemplate?.Invoke();
+
+    private void OnSkipTemplateClicked(
+        object? sender,
+        Avalonia.Interactivity.RoutedEventArgs args) => _skipTemplate?.Invoke();
 
     private void OnTemplateOutcome(TemplateOutcome outcome)
     {
@@ -444,46 +363,6 @@ public partial class LearnView : UserControl
             .Replace('-', ' ')
             .Replace('–', ' ')
             .Replace('—', ' ');
-
-    private static string Symbol(CourseSlideKind kind) => kind switch
-    {
-        CourseSlideKind.Welcome => "01",
-        CourseSlideKind.Explanation => "✦",
-        CourseSlideKind.Example => "Aa",
-        CourseSlideKind.Activity => "→",
-        CourseSlideKind.Recap => "✓",
-        _ => "•",
-    };
-
-    private static string PresentedTitle(CourseSlide slide) => slide.Kind switch
-    {
-        CourseSlideKind.Explanation => AppStrings.Get("Learn_Slide_Explanation_Title"),
-        CourseSlideKind.Activity when slide.TaskId is null =>
-            AppStrings.Get("Learn_Slide_Recall_Title"),
-        _ => Clean(slide.Title),
-    };
-
-    private static string PresentedBody(CourseSlide slide) =>
-        slide.Kind == CourseSlideKind.Activity && slide.TaskId is null
-            ? AppStrings.Get("Learn_Slide_Recall_Body")
-            : Clean(slide.Body);
-
-    private static string PresentedSupportingText(CourseSlide slide) => slide.Kind switch
-    {
-        CourseSlideKind.Welcome =>
-            AppStrings.Format(
-                "Learn_Slide_Welcome_Supporting",
-                Clean(slide.SupportingText).StartsWith("Level ", StringComparison.Ordinal)
-                    ? Clean(slide.SupportingText)["Level ".Length..]
-                    : Clean(slide.SupportingText)),
-        CourseSlideKind.Explanation =>
-            AppStrings.Get("Learn_Slide_Explanation_Supporting"),
-        CourseSlideKind.Activity when slide.TaskId is null =>
-            AppStrings.Get("Learn_Slide_Recall_Supporting"),
-        CourseSlideKind.Activity => AppStrings.Get("Learn_Slide_Activity_Supporting"),
-        CourseSlideKind.Recap => AppStrings.Get("Learn_Slide_Recap_Supporting"),
-        _ => Clean(slide.SupportingText),
-    };
 
     private void ShowError(string message)
     {
