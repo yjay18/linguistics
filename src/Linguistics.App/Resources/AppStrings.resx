@@ -108,6 +108,12 @@
   <data name="Common_Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common_TryAgain" xml:space="preserve">
+    <value>Try again</value>
+  </data>
   <data name="Learn_Availability_Preview" xml:space="preserve">
     <value>{0} lessons are available in this local preview.</value>
   </data>
@@ -296,5 +302,44 @@
   </data>
   <data name="Learn_VisitSaved" xml:space="preserve">
     <value>Your visit to {0} was saved locally. Mastery changes only through assessed practice.</value>
+  </data>
+  <data name="Startup_ConfirmRecovery_Action" xml:space="preserve">
+    <value>Confirm preserve and start fresh</value>
+  </data>
+  <data name="Startup_ConfirmRecovery_Body" xml:space="preserve">
+    <value>Linguistics will preserve the original bytes in Recovery, then allow a new local profile. The copy is not deleted or reinterpreted.</value>
+  </data>
+  <data name="Startup_ConfirmRecovery_Title" xml:space="preserve">
+    <value>Preserve the unreadable file?</value>
+  </data>
+  <data name="Startup_ContinueSetup" xml:space="preserve">
+    <value>Continue to setup</value>
+  </data>
+  <data name="Startup_Eyebrow" xml:space="preserve">
+    <value>LOCAL FIRST GERMAN</value>
+  </data>
+  <data name="Startup_LoadingProfile" xml:space="preserve">
+    <value>Loading your local learning profile.</value>
+  </data>
+  <data name="Startup_OpenFailed_Title" xml:space="preserve">
+    <value>Your learning data could not be opened</value>
+  </data>
+  <data name="Startup_OpeningTitle" xml:space="preserve">
+    <value>Opening Linguistics</value>
+  </data>
+  <data name="Startup_PreserveAndRestart" xml:space="preserve">
+    <value>Preserve unreadable data and start fresh</value>
+  </data>
+  <data name="Startup_RecoveryFailed_Title" xml:space="preserve">
+    <value>Recovery could not be completed</value>
+  </data>
+  <data name="Startup_RecoveryPreserved_Body" xml:space="preserve">
+    <value>Preserved {0} recovery files as {1}. Continue with a new local profile. The copy remains available for manual recovery.</value>
+  </data>
+  <data name="Startup_RecoveryPreserved_Title" xml:space="preserve">
+    <value>Recovery copy preserved</value>
+  </data>
+  <data name="Startup_TryPreservationAgain" xml:space="preserve">
+    <value>Try preservation again</value>
   </data>
 </root>

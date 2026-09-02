@@ -108,6 +108,12 @@
   <data name="Common_Continue" xml:space="preserve">
     <value>आगे बढ़ें</value>
   </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>रद्द करें</value>
+  </data>
+  <data name="Common_TryAgain" xml:space="preserve">
+    <value>फिर कोशिश करें</value>
+  </data>
   <data name="Learn_Availability_Preview" xml:space="preserve">
     <value>इस स्थानीय पूर्वावलोकन में {0} पाठ उपलब्ध हैं।</value>
   </data>
@@ -296,5 +302,44 @@
   </data>
   <data name="Learn_VisitSaved" xml:space="preserve">
     <value>{0} की आपकी यात्रा स्थानीय रूप से सहेजी गई। निपुणता केवल आकलित अभ्यास से बदलती है।</value>
+  </data>
+  <data name="Startup_ConfirmRecovery_Action" xml:space="preserve">
+    <value>सुरक्षित रखने की पुष्टि करें और नई शुरुआत करें</value>
+  </data>
+  <data name="Startup_ConfirmRecovery_Body" xml:space="preserve">
+    <value>Linguistics मूल बाइट्स को Recovery में सुरक्षित रखेगा, फिर नई स्थानीय प्रोफ़ाइल बनाने देगा। प्रति को मिटाया या दोबारा समझा नहीं जाएगा।</value>
+  </data>
+  <data name="Startup_ConfirmRecovery_Title" xml:space="preserve">
+    <value>अपठनीय फ़ाइल सुरक्षित रखें?</value>
+  </data>
+  <data name="Startup_ContinueSetup" xml:space="preserve">
+    <value>सेटअप जारी रखें</value>
+  </data>
+  <data name="Startup_Eyebrow" xml:space="preserve">
+    <value>स्थानीय जर्मन शिक्षण</value>
+  </data>
+  <data name="Startup_LoadingProfile" xml:space="preserve">
+    <value>आपकी स्थानीय शिक्षार्थी प्रोफ़ाइल लोड हो रही है।</value>
+  </data>
+  <data name="Startup_OpenFailed_Title" xml:space="preserve">
+    <value>आपका शिक्षण डेटा खोला नहीं जा सका</value>
+  </data>
+  <data name="Startup_OpeningTitle" xml:space="preserve">
+    <value>Linguistics खुल रहा है</value>
+  </data>
+  <data name="Startup_PreserveAndRestart" xml:space="preserve">
+    <value>अपठनीय डेटा सुरक्षित रखें और नई शुरुआत करें</value>
+  </data>
+  <data name="Startup_RecoveryFailed_Title" xml:space="preserve">
+    <value>डेटा सुरक्षित नहीं रखा जा सका</value>
+  </data>
+  <data name="Startup_RecoveryPreserved_Body" xml:space="preserve">
+    <value>{0} Recovery फ़ाइलें {1} के रूप में सुरक्षित हैं। नई स्थानीय प्रोफ़ाइल बनाएँ। प्रति हाथ से पुनर्प्राप्ति के लिए उपलब्ध रहेगी।</value>
+  </data>
+  <data name="Startup_RecoveryPreserved_Title" xml:space="preserve">
+    <value>Recovery प्रति सुरक्षित है</value>
+  </data>
+  <data name="Startup_TryPreservationAgain" xml:space="preserve">
+    <value>फिर सुरक्षित रखने की कोशिश करें</value>
   </data>
 </root>

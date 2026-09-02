@@ -3,6 +3,7 @@ using Linguistics.App.Diagnostics;
 using Linguistics.App.Content;
 using Linguistics.App.Features.Onboarding;
 using Linguistics.App.Features.Shell;
+using Linguistics.App.Localization;
 using Linguistics.App.Persistence;
 using Linguistics.App.Speech;
 using Linguistics.Core.Content;
@@ -95,11 +96,10 @@ public partial class MainWindow : Window
         if (!_recoveryConfirmationPending)
         {
             _recoveryConfirmationPending = true;
-            StartupTitle.Text = "Preserve the unreadable file?";
-            StartupMessage.Text =
-                "Linguistics will move the original bytes into its Recovery folder, then allow a new local profile. The recovery copy is not deleted or reinterpreted.";
-            RecoveryButton.Content = "Confirm preserve and start fresh";
-            RetryButton.Content = "Cancel";
+            StartupTitle.Text = AppStrings.Get("Startup_ConfirmRecovery_Title");
+            StartupMessage.Text = AppStrings.Get("Startup_ConfirmRecovery_Body");
+            RecoveryButton.Content = AppStrings.Get("Startup_ConfirmRecovery_Action");
+            RetryButton.Content = AppStrings.Get("Common_Cancel");
             RetryButton.IsVisible = true;
             return;
         }
@@ -116,11 +116,13 @@ public partial class MainWindow : Window
                 DiagnosticOutcome.Succeeded);
             _recoveryConfirmationPending = false;
             StartupProgress.IsVisible = false;
-            StartupTitle.Text = "Recovery copy preserved";
-            StartupMessage.Text =
-                $"Preserved {result.PreservedFileCount} file(s) as {result.RecoveryFileName}. Continue to create a new local profile; the copy remains available for manual recovery.";
+            StartupTitle.Text = AppStrings.Get("Startup_RecoveryPreserved_Title");
+            StartupMessage.Text = AppStrings.Format(
+                "Startup_RecoveryPreserved_Body",
+                result.PreservedFileCount,
+                result.RecoveryFileName);
             RecoveryButton.IsVisible = false;
-            RetryButton.Content = "Continue to setup";
+            RetryButton.Content = AppStrings.Get("Startup_ContinueSetup");
             RetryButton.IsEnabled = true;
             RetryButton.IsVisible = true;
         }
@@ -130,11 +132,11 @@ public partial class MainWindow : Window
         catch (LearnerStoreException exception)
         {
             StartupProgress.IsVisible = false;
-            StartupTitle.Text = "Recovery could not be completed";
+            StartupTitle.Text = AppStrings.Get("Startup_RecoveryFailed_Title");
             StartupMessage.Text = exception.Message;
-            RecoveryButton.Content = "Try preservation again";
+            RecoveryButton.Content = AppStrings.Get("Startup_TryPreservationAgain");
             RecoveryButton.IsEnabled = true;
-            RetryButton.Content = "Cancel";
+            RetryButton.Content = AppStrings.Get("Common_Cancel");
             RetryButton.IsEnabled = true;
             RetryButton.IsVisible = true;
         }
@@ -185,7 +187,7 @@ public partial class MainWindow : Window
                 DiagnosticEventCode.ProfileLoadFailed,
                 DiagnosticOutcome.Failed);
             StartupProgress.IsVisible = false;
-            StartupTitle.Text = "Your learning data could not be opened";
+            StartupTitle.Text = AppStrings.Get("Startup_OpenFailed_Title");
             StartupMessage.Text = exception.Message;
             RetryButton.IsVisible = true;
             RecoveryButton.IsVisible = _recoverLearnerStore is not null;
@@ -196,12 +198,12 @@ public partial class MainWindow : Window
     {
         StartupStatus.IsVisible = true;
         StartupProgress.IsVisible = true;
-        StartupTitle.Text = "Opening Linguistics";
-        StartupMessage.Text = "Loading your local learning profile.";
-        RetryButton.Content = "Try again";
+        StartupTitle.Text = AppStrings.Get("Startup_OpeningTitle");
+        StartupMessage.Text = AppStrings.Get("Startup_LoadingProfile");
+        RetryButton.Content = AppStrings.Get("Common_TryAgain");
         RetryButton.IsEnabled = true;
         RetryButton.IsVisible = false;
-        RecoveryButton.Content = "Preserve unreadable data and start fresh";
+        RecoveryButton.Content = AppStrings.Get("Startup_PreserveAndRestart");
         RecoveryButton.IsEnabled = true;
         RecoveryButton.IsVisible = false;
         _recoveryConfirmationPending = false;
@@ -214,6 +216,7 @@ public partial class MainWindow : Window
             return;
         }
 
+        ApplyAppLanguage(profile);
         ApplyMotionPreference(profile.Settings.ReduceMotion);
         RootContent.Content = new ShellView(
             profile,
@@ -252,6 +255,15 @@ public partial class MainWindow : Window
 
     private void ApplyMotionPreference(bool savedPreference) =>
         Classes.Set("motion-enabled", !MotionPreferences.ShouldReduce(savedPreference));
+
+    private void ApplyAppLanguage(LearnerProfile profile)
+    {
+        var catalog = _runtimeContentCatalog ?? _authoringContentCatalog;
+        var instructionLanguage = catalog?
+            .SelectInstructionLanguage(profile)
+            .SelectedLanguage;
+        AppStrings.UseLanguage(AppLanguageSelector.Select(profile, instructionLanguage));
+    }
 
     private async Task TryLogAsync(
         DiagnosticCategory category,
