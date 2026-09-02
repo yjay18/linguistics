@@ -107,8 +107,7 @@ public partial class ShellView : UserControl
         }
 
         var destination = GetDestination(item);
-        PageTitle.Text = destination;
-        PageDescription.Text = item.Tag?.ToString() ?? "This area is not available yet.";
+        RefreshPageHeader(destination);
 
         if (_profile is null || _profileOwner is null)
         {
@@ -201,7 +200,7 @@ public partial class ShellView : UserControl
                     _speechRecordingStore,
                     _imageCache?.Assets));
                 break;
-            case "Template gallery" when DeveloperModeEnabled():
+            case "TemplateGallery" when DeveloperModeEnabled():
                 ShowPage(new TemplateGalleryView(
                     TemplateRegistry.CreateDefault(
                         _imageCache,
@@ -213,7 +212,7 @@ public partial class ShellView : UserControl
                     MotionPreferences.ShouldReduce(_profile.Settings.ReduceMotion),
                     _imageCache));
                 break;
-            case "Paper stage" when DeveloperModeEnabled():
+            case "PaperStage" when DeveloperModeEnabled():
                 ShowPage(new PaperStageSandboxView(_imageCache));
                 break;
             default:
@@ -226,6 +225,10 @@ public partial class ShellView : UserControl
     {
         _profile = await _profileOwner!.UpdateAsync(profile);
         ApplyAppLanguage();
+        if (NavigationList.SelectedItem is ListBoxItem item)
+        {
+            RefreshPageHeader(GetDestination(item));
+        }
         ApplyMotionPreference();
         return _profile;
     }
@@ -317,8 +320,23 @@ public partial class ShellView : UserControl
                 .ToUpperInvariant()
             : null;
 
+    private void RefreshPageHeader(string destination)
+    {
+        if (destination is "TemplateGallery" or "PaperStage")
+        {
+            PageTitle.Text = destination == "TemplateGallery"
+                ? "Template gallery"
+                : "Paper stage";
+            PageDescription.Text = destination == "TemplateGallery"
+                ? "Inspect template outcomes, motion settings, and text only presentation."
+                : "Inspect stage layers, anchor lines, themes, and motion paths.";
+            return;
+        }
+
+        PageTitle.Text = AppStrings.Get($"Nav_{destination}_Title");
+        PageDescription.Text = AppStrings.Get($"Nav_{destination}_Description");
+    }
+
     private static string GetDestination(ListBoxItem item) =>
-        item.Content is TextBlock label && !string.IsNullOrWhiteSpace(label.Text)
-            ? label.Text
-            : item.Content?.ToString() ?? "Linguistics";
+        item.Tag?.ToString() ?? "Today";
 }

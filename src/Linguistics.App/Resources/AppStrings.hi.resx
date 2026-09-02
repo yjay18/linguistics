@@ -30,4 +30,76 @@
   <data name="Settings_AppLanguage_Title" xml:space="preserve">
     <value>ऐप की भाषा</value>
   </data>
+  <data name="Nav_Languages_Description" xml:space="preserve">
+    <value>अपनी स्थानीय शिक्षार्थी प्रोफ़ाइल की भाषाएँ देखें और बदलें।</value>
+  </data>
+  <data name="Nav_Languages_Title" xml:space="preserve">
+    <value>भाषाएँ</value>
+  </data>
+  <data name="Nav_Learn_Description" xml:space="preserve">
+    <value>अपने पाठ्यक्रम में छोटे लक्ष्य, उदाहरण, गतिविधियाँ और पुनरावृत्ति देखें।</value>
+  </data>
+  <data name="Nav_Learn_Title" xml:space="preserve">
+    <value>सीखें</value>
+  </data>
+  <data name="Nav_Progress_Description" xml:space="preserve">
+    <value>व्यावहारिक क्षमताएँ पहले और अवधारणा के प्रमाण सहायक विवरण के रूप में देखें।</value>
+  </data>
+  <data name="Nav_Progress_Title" xml:space="preserve">
+    <value>प्रगति</value>
+  </data>
+  <data name="Nav_Pronunciation_Description" xml:space="preserve">
+    <value>सिस्टम प्लेबैक और ईमानदार स्थानीय पहचान प्रमाण के साथ जाँचे गए वाक्यांशों का अभ्यास करें।</value>
+  </data>
+  <data name="Nav_Pronunciation_Title" xml:space="preserve">
+    <value>उच्चारण</value>
+  </data>
+  <data name="Nav_Review_Description" xml:space="preserve">
+    <value>निर्धारित वाक्यांशों, अवधारणाओं, उच्चारण लक्ष्यों और दोहराए जाने वाले रूपों को याद करें।</value>
+  </data>
+  <data name="Nav_Review_Title" xml:space="preserve">
+    <value>दोहराएँ</value>
+  </data>
+  <data name="Nav_Scenarios_Description" xml:space="preserve">
+    <value>नियतात्मक प्रतिक्रिया और स्थानीय प्रगति के साथ पूरा कैफ़े संवाद अभ्यास करें।</value>
+  </data>
+  <data name="Nav_Scenarios_Title" xml:space="preserve">
+    <value>परिस्थितियाँ</value>
+  </data>
+  <data name="Nav_Settings_Description" xml:space="preserve">
+    <value>निजता, प्राथमिकताएँ और चित्र श्रेय देखें या अपनी स्थानीय प्रोफ़ाइल मिटाएँ।</value>
+  </data>
+  <data name="Nav_Settings_Title" xml:space="preserve">
+    <value>सेटिंग्स</value>
+  </data>
+  <data name="Nav_Today_Description" xml:space="preserve">
+    <value>अपने स्थानीय सीखने के प्रमाण से अगला सरल कदम चुनें।</value>
+  </data>
+  <data name="Nav_Today_Title" xml:space="preserve">
+    <value>आज</value>
+  </data>
+  <data name="Shell_BrandSubtitle" xml:space="preserve">
+    <value>जर्मन, आपके डिवाइस पर</value>
+  </data>
+  <data name="Shell_MainNavigation" xml:space="preserve">
+    <value>मुख्य नेविगेशन</value>
+  </data>
+  <data name="Shell_PrivateAutomation" xml:space="preserve">
+    <value>डिवाइस पर निजी</value>
+  </data>
+  <data name="Shell_PrivateTape" xml:space="preserve">
+    <value>डिवाइस पर · निजी</value>
+  </data>
+  <data name="Shell_StudioAutomation" xml:space="preserve">
+    <value>आपका स्थानीय शिक्षण स्टूडियो</value>
+  </data>
+  <data name="Shell_StudioTape" xml:space="preserve">
+    <value>आपका स्थानीय शिक्षण स्टूडियो</value>
+  </data>
+  <data name="Shell_Unavailable_Body" xml:space="preserve">
+    <value>यह मार्ग शिक्षण सामग्री और क्षमता सीमाओं की समीक्षा के बाद खुलेगा। आपके अन्य स्थानीय साधन उपलब्ध रहेंगे।</value>
+  </data>
+  <data name="Shell_Unavailable_Title" xml:space="preserve">
+    <value>समीक्षा द्वार से सुरक्षित</value>
+  </data>
 </root>

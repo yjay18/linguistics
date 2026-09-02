@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Linguistics.App.Controls"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -45,7 +46,7 @@
                                    LetterSpacing="1.25"
                                    Foreground="{DynamicResource AppNavTextBrush}"
                                    AutomationProperties.HeadingLevel="1" />
-                        <TextBlock Text="German, locally"
+                        <TextBlock Text="{loc:Localize Shell_BrandSubtitle}"
                                    FontSize="13"
                                    Foreground="{DynamicResource AppNavMutedBrush}" />
                     </StackPanel>
@@ -54,52 +55,52 @@
                          Grid.Row="1"
                          Classes="nav"
                          SelectionMode="Single"
-                         AutomationProperties.Name="Main navigation"
+                         AutomationProperties.Name="{loc:Localize Shell_MainNavigation}"
                          AutomationProperties.AutomationId="MainNavigation">
                     <ListBoxItem x:Name="TodayNavItem"
-                                 Tag="Choose one calm next step from your local learning evidence."
+                                 Tag="Today"
                                  AutomationProperties.AutomationId="NavToday">
-                        <TextBlock Classes="nav-label" Text="Today" />
+                        <TextBlock Classes="nav-label" Text="{loc:Localize Nav_Today_Title}" />
                     </ListBoxItem>
                     <ListBoxItem x:Name="LearnNavItem"
-                                 Tag="Explore a course path built from short goals, examples, activities, and recaps."
+                                 Tag="Learn"
                                  AutomationProperties.AutomationId="NavLearn">
-                        <TextBlock Classes="nav-label" Text="Learn" />
+                        <TextBlock Classes="nav-label" Text="{loc:Localize Nav_Learn_Title}" />
                     </ListBoxItem>
-                    <ListBoxItem Tag="Practice one complete café exchange with deterministic feedback and local progress."
+                    <ListBoxItem Tag="Scenarios"
                                  AutomationProperties.AutomationId="NavScenarios">
-                        <TextBlock Classes="nav-label" Text="Scenarios" />
+                        <TextBlock Classes="nav-label" Text="{loc:Localize Nav_Scenarios_Title}" />
                     </ListBoxItem>
-                    <ListBoxItem Tag="Practice one approved phrase with system playback and honest local word recognition evidence."
+                    <ListBoxItem Tag="Pronunciation"
                                  AutomationProperties.AutomationId="NavPronunciation">
-                        <TextBlock Classes="nav-label" Text="Pronunciation" />
+                        <TextBlock Classes="nav-label" Text="{loc:Localize Nav_Pronunciation_Title}" />
                     </ListBoxItem>
-                    <ListBoxItem Tag="Retrieve due phrases, concepts, pronunciation targets, and recurring forms."
+                    <ListBoxItem Tag="Review"
                                  AutomationProperties.AutomationId="NavReview">
-                        <TextBlock Classes="nav-label" Text="Review" />
+                        <TextBlock Classes="nav-label" Text="{loc:Localize Nav_Review_Title}" />
                     </ListBoxItem>
                     <ListBoxItem x:Name="ProgressNavItem"
-                                 Tag="See practical capabilities first, with concept evidence as supporting detail."
+                                 Tag="Progress"
                                  AutomationProperties.AutomationId="NavProgress">
-                        <TextBlock Classes="nav-label" Text="Progress" />
+                        <TextBlock Classes="nav-label" Text="{loc:Localize Nav_Progress_Title}" />
                     </ListBoxItem>
-                    <ListBoxItem Tag="Review and edit the languages in your local learner profile."
+                    <ListBoxItem Tag="Languages"
                                  AutomationProperties.AutomationId="NavLanguages">
-                        <TextBlock Classes="nav-label" Text="Languages" />
+                        <TextBlock Classes="nav-label" Text="{loc:Localize Nav_Languages_Title}" />
                     </ListBoxItem>
                     <ListBoxItem x:Name="SettingsNavItem"
-                                 Tag="Review privacy, preferences, bundled image credits, or delete your local learner profile."
+                                 Tag="Settings"
                                  AutomationProperties.AutomationId="NavSettings">
-                        <TextBlock Classes="nav-label" Text="Settings" />
+                        <TextBlock Classes="nav-label" Text="{loc:Localize Nav_Settings_Title}" />
                     </ListBoxItem>
                     <ListBoxItem x:Name="TemplateGalleryNavItem"
-                                 Tag="Inspect validated pack images across template outcomes, motion settings, and text only presentation."
+                                 Tag="TemplateGallery"
                                  IsVisible="False"
                                  AutomationProperties.AutomationId="NavTemplateGallery">
                         <TextBlock Classes="nav-label" Text="Template gallery" />
                     </ListBoxItem>
                     <ListBoxItem x:Name="PaperStageNavItem"
-                                 Tag="Inspect the fixed layers, anchor lines, transforms, themes, and motion paths."
+                                 Tag="PaperStage"
                                  IsVisible="False"
                                  AutomationProperties.AutomationId="NavPaperStage">
                         <TextBlock Classes="nav-label" Text="Paper stage" />
@@ -107,11 +108,11 @@
                 </ListBox>
                 <controls:PaperTape Grid.Row="2"
                                     Margin="4,24,4,0"
-                                    Content="ON DEVICE · PRIVATE"
+                                    Content="{loc:Localize Shell_PrivateTape}"
                                     Classes="compact"
                                     Angle="-0.8"
                                     FontSize="10"
-                                    AutomationProperties.Name="Private on device" />
+                                    AutomationProperties.Name="{loc:Localize Shell_PrivateAutomation}" />
                 </Grid>
             </Grid>
         </Border>
@@ -144,11 +145,11 @@
                             HorizontalAlignment="Left"
                             Spacing="28">
                     <StackPanel Spacing="8">
-                        <controls:PaperTape Content="YOUR LOCAL LEARNING STUDIO"
+                        <controls:PaperTape Content="{loc:Localize Shell_StudioTape}"
                                             Classes="compact"
                                             Angle="-0.6"
                                             HorizontalAlignment="Left"
-                                            AutomationProperties.Name="Your local learning studio" />
+                                            AutomationProperties.Name="{loc:Localize Shell_StudioAutomation}" />
                         <TextBlock x:Name="PageTitle"
                                    Classes="display"
                                    AutomationProperties.HeadingLevel="1"
@@ -177,10 +178,10 @@
                                            VerticalAlignment="Center" />
                             </Border>
                             <StackPanel Grid.Column="1" Spacing="7">
-                                <TextBlock Text="Protected by a review gate"
+                                <TextBlock Text="{loc:Localize Shell_Unavailable_Title}"
                                            Classes="section-title"
                                            AutomationProperties.HeadingLevel="2" />
-                                <TextBlock Text="This route opens only when its required teaching content and capability boundaries are approved. Your other local tools remain available."
+                                <TextBlock Text="{loc:Localize Shell_Unavailable_Body}"
                                            TextWrapping="Wrap"
                                            LineHeight="22" />
                             </StackPanel>

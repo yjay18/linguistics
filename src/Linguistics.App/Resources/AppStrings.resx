@@ -30,4 +30,76 @@
   <data name="Settings_AppLanguage_Title" xml:space="preserve">
     <value>App language</value>
   </data>
+  <data name="Nav_Languages_Description" xml:space="preserve">
+    <value>Review and edit the languages in your local learner profile.</value>
+  </data>
+  <data name="Nav_Languages_Title" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="Nav_Learn_Description" xml:space="preserve">
+    <value>Explore short goals, examples, activities, and recaps in your course path.</value>
+  </data>
+  <data name="Nav_Learn_Title" xml:space="preserve">
+    <value>Learn</value>
+  </data>
+  <data name="Nav_Progress_Description" xml:space="preserve">
+    <value>See practical capabilities first, with concept evidence as supporting detail.</value>
+  </data>
+  <data name="Nav_Progress_Title" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="Nav_Pronunciation_Description" xml:space="preserve">
+    <value>Practice reviewed phrases with system playback and honest local recognition evidence.</value>
+  </data>
+  <data name="Nav_Pronunciation_Title" xml:space="preserve">
+    <value>Pronunciation</value>
+  </data>
+  <data name="Nav_Review_Description" xml:space="preserve">
+    <value>Retrieve due phrases, concepts, pronunciation targets, and recurring forms.</value>
+  </data>
+  <data name="Nav_Review_Title" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="Nav_Scenarios_Description" xml:space="preserve">
+    <value>Practice a complete café exchange with deterministic feedback and local progress.</value>
+  </data>
+  <data name="Nav_Scenarios_Title" xml:space="preserve">
+    <value>Scenarios</value>
+  </data>
+  <data name="Nav_Settings_Description" xml:space="preserve">
+    <value>Review privacy, preferences, image credits, or delete your local learner profile.</value>
+  </data>
+  <data name="Nav_Settings_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Nav_Today_Description" xml:space="preserve">
+    <value>Choose one calm next step from your local learning evidence.</value>
+  </data>
+  <data name="Nav_Today_Title" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Shell_BrandSubtitle" xml:space="preserve">
+    <value>German, locally</value>
+  </data>
+  <data name="Shell_MainNavigation" xml:space="preserve">
+    <value>Main navigation</value>
+  </data>
+  <data name="Shell_PrivateAutomation" xml:space="preserve">
+    <value>Private on device</value>
+  </data>
+  <data name="Shell_PrivateTape" xml:space="preserve">
+    <value>ON DEVICE · PRIVATE</value>
+  </data>
+  <data name="Shell_StudioAutomation" xml:space="preserve">
+    <value>Your local learning studio</value>
+  </data>
+  <data name="Shell_StudioTape" xml:space="preserve">
+    <value>YOUR LOCAL LEARNING STUDIO</value>
+  </data>
+  <data name="Shell_Unavailable_Body" xml:space="preserve">
+    <value>This route opens after its teaching content and capability boundaries pass review. Your other local tools remain available.</value>
+  </data>
+  <data name="Shell_Unavailable_Title" xml:space="preserve">
+    <value>Protected by a review gate</value>
+  </data>
 </root>
