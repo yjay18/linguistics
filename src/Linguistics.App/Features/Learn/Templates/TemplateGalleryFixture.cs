@@ -1755,6 +1755,47 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.AssetReference,
                     AssetReferenceId: "asset.de.stage.learner"),
             })),
+        new(
+            new TemplateId("review-flash"),
+            "Review flash",
+            "Review · recall reveal · stable review-v1 rating",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Recall the complete request before revealing the reviewed answer.",
+                        ["hi"] = "समीक्षा उत्तर दिखाने से पहले पूरा अनुरोध याद करें।",
+                    }),
+                ["prompt"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Ask politely for one coffee."),
+                ["answer"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Ich möchte einen Kaffee, bitte."),
+                ["details"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("frame", "Frame begins with Ich möchte."),
+                        new("item", "Item: einen Kaffee"),
+                        new("politeness", "Politeness: bitte"),
+                    ]),
+                ["ratings"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("again", "Again"),
+                        new("hard", "Hard"),
+                        new("good", "Good"),
+                        new("easy", "Easy"),
+                    ]),
+                ["configuration-version"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "review-v1"),
+            })),
     ];
 
     private static TaskTemplateContent ScenarioTask() => new(

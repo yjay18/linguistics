@@ -83,6 +83,45 @@ public static class TemplateInteractionEvaluator
             selectedActionId);
     }
 
+    public static TemplateOutcome EvaluateReviewRating(
+        IReadOnlyList<TemplateOption> ratings,
+        string? selectedRatingId)
+    {
+        ArgumentNullException.ThrowIfNull(ratings);
+        var ratingIds = ValidateOptionIds(ratings, nameof(ratings));
+        var requiredRatingIds = new[] { "again", "hard", "good", "easy" };
+        if (ratingIds.Length != requiredRatingIds.Length ||
+            requiredRatingIds.Any(required =>
+                !ratingIds.Contains(required, StringComparer.Ordinal)))
+        {
+            throw new ArgumentException(
+                "Review ratings must declare again, hard, good, and easy exactly once.",
+                nameof(ratings));
+        }
+
+        if (selectedRatingId is null)
+        {
+            return new TemplateOutcome(TemplateOutcomeState.Uncertain);
+        }
+
+        if (!ratingIds.Contains(selectedRatingId, StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "The review rating must be declared by the template.",
+                nameof(selectedRatingId));
+        }
+
+        return new TemplateOutcome(
+            selectedRatingId switch
+            {
+                "again" => TemplateOutcomeState.Failure,
+                "hard" => TemplateOutcomeState.Uncertain,
+                "good" or "easy" => TemplateOutcomeState.Success,
+                _ => throw new InvalidOperationException("The validated review rating is unsupported."),
+            },
+            selectedRatingId);
+    }
+
     public static TemplateOutcome EvaluatePictureMatch(
         IReadOnlyList<TemplateOption> options,
         string answerId,

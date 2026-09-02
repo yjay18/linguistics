@@ -820,6 +820,42 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void ReviewFlashMapsOnlyTheFourStableRatingIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("review-flash")));
+        var ratings = new[]
+        {
+            new TemplateOption("again", "Again"),
+            new TemplateOption("hard", "Hard"),
+            new TemplateOption("good", "Good"),
+            new TemplateOption("easy", "Easy"),
+        };
+
+        var incomplete = TemplateInteractionEvaluator.EvaluateReviewRating(ratings, null);
+        var again = TemplateInteractionEvaluator.EvaluateReviewRating(ratings, "again");
+        var hard = TemplateInteractionEvaluator.EvaluateReviewRating(ratings, "hard");
+        var good = TemplateInteractionEvaluator.EvaluateReviewRating(ratings, "good");
+        var easy = TemplateInteractionEvaluator.EvaluateReviewRating(ratings, "easy");
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, again.State);
+        Assert.AreEqual("again", again.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, hard.State);
+        Assert.AreEqual("hard", hard.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, good.State);
+        Assert.AreEqual("good", good.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, easy.State);
+        Assert.AreEqual("easy", easy.ResponseId);
+        Assert.Throws<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateReviewRating(ratings, "Again"));
+        Assert.Throws<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateReviewRating(
+                ratings.Where(rating => rating.Id != "easy").ToArray(),
+                "good"));
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

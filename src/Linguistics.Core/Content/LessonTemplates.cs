@@ -744,6 +744,18 @@ public static class LessonTemplateSchemas
                 new("subject-asset", TemplateParameterKind.AssetReference, IsRequired: false),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("review-flash"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("prompt", TemplateParameterKind.Text, IsRequired: true),
+                new("answer", TemplateParameterKind.Text, IsRequired: true),
+                new("details", TemplateParameterKind.OptionList, IsRequired: true),
+                new("ratings", TemplateParameterKind.OptionList, IsRequired: true),
+                new("configuration-version", TemplateParameterKind.Text, IsRequired: true),
+            ]),
     ];
 }
 

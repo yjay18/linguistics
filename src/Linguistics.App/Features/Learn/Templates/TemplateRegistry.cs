@@ -325,6 +325,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("consequence-verdict"),
             ConsequenceVerdictRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("review-flash"),
+            ReviewFlashRenderer.Render),
     ]);
 
     public Control Render(

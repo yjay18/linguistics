@@ -1157,6 +1157,54 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void ReviewFlashRevealsBeforeReportingStableRatingIds()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("review-flash"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        Assert.IsTrue(byId["ReviewFlashFront"].IsVisible);
+        Assert.IsFalse(byId["ReviewFlashBack"].IsVisible);
+        Assert.IsFalse(byId["ReviewFlashRatings"].IsVisible);
+        Assert.IsFalse(byId["ReviewFlashRating_again"].IsEnabled);
+        byId["ReviewFlashReveal"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Assert.IsFalse(byId["ReviewFlashFront"].IsVisible);
+        Assert.IsTrue(byId["ReviewFlashBack"].IsVisible);
+        Assert.IsTrue(byId["ReviewFlashRatings"].IsVisible);
+        Assert.IsTrue(byId["ReviewFlashRating_again"].IsEnabled);
+
+        byId["ReviewFlashRating_again"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        byId["ReviewFlashRating_good"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[0].State);
+        Assert.AreEqual("again", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[1].State);
+        Assert.AreEqual("good", reported[1].ResponseId);
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["ReviewFlashBack"]),
+            "Ich möchte einen Kaffee, bitte");
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["ReviewFlashConfiguration"]),
+            "review-v1");
+        Assert.IsTrue(byId.ContainsKey("ReviewFlashReplay"));
+        Assert.IsTrue(byId.ContainsKey("ReviewFlashSkip"));
+        Assert.IsTrue(byId.ContainsKey("ReviewFlashStatus"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(
