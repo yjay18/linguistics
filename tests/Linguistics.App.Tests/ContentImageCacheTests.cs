@@ -46,7 +46,7 @@ public sealed class ContentImageCacheTests
         Assert.Contains("foreach (var asset in assets", settingsSource, StringComparison.Ordinal);
         Assert.Contains("CreateAssetCreditCard(asset)", settingsSource, StringComparison.Ordinal);
         Assert.Contains("AssetCreditsPanel", settingsMarkup, StringComparison.Ordinal);
-        Assert.Contains("All bundled images remain Preview", settingsMarkup, StringComparison.Ordinal);
+        Assert.Contains("Settings_Images_Disclaimer", settingsMarkup, StringComparison.Ordinal);
     }
 
     [TestMethod]

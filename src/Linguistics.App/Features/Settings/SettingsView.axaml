@@ -34,39 +34,39 @@
 
         <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
-            <TextBlock Text="Multilingual shortcuts"
+            <TextBlock Text="{loc:Localize Settings_Shortcuts_Title}"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
-            <TextBlock Text="Choose whether reviewed language comparisons may appear. Every switch remains visible and attributable."
+            <TextBlock Text="{loc:Localize Settings_Shortcuts_Body}"
                        TextWrapping="Wrap"
                        Opacity="0.78" />
             <RadioButton x:Name="ShortcutAutomatic"
-                         Content="Automatic. Show a reviewed comparison when it is useful"
+                         Content="{loc:Localize Settings_Shortcuts_Automatic}"
                          GroupName="SettingsShortcutMode"
                          IsCheckedChanged="OnShortcutChoiceChanged" />
             <RadioButton x:Name="ShortcutAskFirst"
-                         Content="Ask first. Let me approve each language switch"
+                         Content="{loc:Localize Settings_Shortcuts_AskFirst}"
                          GroupName="SettingsShortcutMode"
                          IsCheckedChanged="OnShortcutChoiceChanged" />
             <RadioButton x:Name="ShortcutPreferred"
-                         Content="Use one preferred explanation language"
+                         Content="{loc:Localize Settings_Shortcuts_Preferred}"
                          GroupName="SettingsShortcutMode"
                          IsCheckedChanged="OnShortcutChoiceChanged" />
             <RadioButton x:Name="ShortcutNever"
-                         Content="Never. Keep explanations in the target language experience"
+                         Content="{loc:Localize Settings_Shortcuts_Never}"
                          GroupName="SettingsShortcutMode"
                          IsCheckedChanged="OnShortcutChoiceChanged" />
             <StackPanel x:Name="PreferredLanguagePanel"
                         Margin="24,4,0,0"
                         Spacing="8"
                         IsVisible="False">
-                <TextBlock Text="Preferred explanation language" />
+                <TextBlock Text="{loc:Localize Settings_PreferredLanguage}" />
                 <ComboBox x:Name="PreferredLanguage"
-                          AutomationProperties.Name="Preferred explanation language"
+                          AutomationProperties.Name="{loc:Localize Settings_PreferredLanguage}"
                           AutomationProperties.AutomationId="SettingsPreferredLanguage">
-                    <ComboBoxItem x:Name="PreferredEnglish" Content="English" Tag="en" />
-                    <ComboBoxItem x:Name="PreferredHindi" Content="Hindi" Tag="hi" />
+                    <ComboBoxItem x:Name="PreferredEnglish" Content="{loc:Localize Language_English}" Tag="en" />
+                    <ComboBoxItem x:Name="PreferredHindi" Content="{loc:Localize Language_Hindi}" Tag="hi" />
                 </ComboBox>
             </StackPanel>
             </StackPanel>
@@ -74,15 +74,15 @@
 
         <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
-            <TextBlock Text="Local conversation model"
+            <TextBlock Text="{loc:Localize Settings_LocalModel_Title}"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
-            <TextBlock Text="Ollama is optional. Linguistics checks only the loopback service, blocks cloud aliases, and never downloads a model. Scripted practice remains complete without it."
+            <TextBlock Text="{loc:Localize Settings_LocalModel_Body}"
                        TextWrapping="Wrap"
                        Opacity="0.78" />
             <Button x:Name="CheckOllamaButton"
-                    Content="Check local Ollama"
+                    Content="{loc:Localize Settings_LocalModel_Check}"
                     Classes="quiet"
                     HorizontalAlignment="Left"
                     Click="OnCheckOllamaClicked"
@@ -91,17 +91,17 @@
                        TextWrapping="Wrap"
                        AutomationProperties.LiveSetting="Polite"
                        AutomationProperties.AutomationId="LocalModelServiceStatus" />
-            <TextBlock Text="Conversation model" />
+            <TextBlock Text="{loc:Localize Settings_LocalModel_Field}" />
             <ComboBox x:Name="ModelSelection"
                       MinWidth="360"
                       SelectionChanged="OnModelSelectionChanged"
-                      AutomationProperties.Name="Local conversation model"
+                      AutomationProperties.Name="{loc:Localize Settings_LocalModel_Title}"
                       AutomationProperties.AutomationId="LocalModelSelection" />
             <TextBlock x:Name="ModelDetailsText"
                        TextWrapping="Wrap"
                        Opacity="0.76"
                        AutomationProperties.AutomationId="LocalModelDetails" />
-            <TextBlock Text="Selecting a model is not a compatibility or license recommendation. Model suitability, performance, and redistribution remain unverified until tested and reviewed."
+            <TextBlock Text="{loc:Localize Settings_LocalModel_Disclaimer}"
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             </StackPanel>
@@ -109,15 +109,15 @@
 
         <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
-            <TextBlock Text="Local speech"
+            <TextBlock Text="{loc:Localize Settings_Speech_Title}"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
-            <TextBlock Text="Playback uses installed system voices. Microphone transcription uses an explicitly configured local whisper.cpp process and model. Neither is required for text practice."
+            <TextBlock Text="{loc:Localize Settings_Speech_Body}"
                        TextWrapping="Wrap"
                        Opacity="0.78" />
             <Button x:Name="CheckSpeechButton"
-                    Content="Check local speech"
+                    Content="{loc:Localize Settings_Speech_Check}"
                     Classes="quiet"
                     HorizontalAlignment="Left"
                     Click="OnCheckSpeechClicked"
@@ -136,20 +136,20 @@
 
         <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
-            <TextBlock Text="Microphone"
+            <TextBlock Text="{loc:Localize Settings_Microphone_Title}"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
             <RadioButton x:Name="MicrophoneNow"
-                         Content="Use the microphone for local speech practice"
+                         Content="{loc:Localize Settings_Microphone_Now}"
                          GroupName="SettingsMicrophonePreference" />
             <RadioButton x:Name="MicrophoneLater"
-                         Content="Decide later"
+                         Content="{loc:Localize Settings_Microphone_Later}"
                          GroupName="SettingsMicrophonePreference" />
             <RadioButton x:Name="MicrophoneNever"
-                         Content="Never use the microphone"
+                         Content="{loc:Localize Settings_Microphone_Never}"
                          GroupName="SettingsMicrophonePreference" />
-            <TextBlock Text="Changing this preference does not request system permission. Permission is requested only after you choose a speech action and confirm its local processing disclosure."
+            <TextBlock Text="{loc:Localize Settings_Microphone_Body}"
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             </StackPanel>
@@ -157,15 +157,15 @@
 
         <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
-            <TextBlock Text="Legacy audio cleanup"
+            <TextBlock Text="{loc:Localize Settings_LegacyAudio_Title}"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
-            <TextBlock Text="New microphone audio is never retained. Remove any legacy or interrupted audio files here."
+            <TextBlock Text="{loc:Localize Settings_LegacyAudio_Body}"
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             <Button x:Name="DeleteSpeechRecordingsButton"
-                    Content="Delete legacy audio files"
+                    Content="{loc:Localize Settings_LegacyAudio_Delete}"
                     Classes="quiet"
                     HorizontalAlignment="Left"
                     Click="OnDeleteSpeechRecordingsClicked"
@@ -180,14 +180,14 @@
 
         <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
-            <TextBlock Text="Motion and focus"
+            <TextBlock Text="{loc:Localize Settings_Motion_Title}"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
             <CheckBox x:Name="ReduceMotion"
-                      Content="Reduce interface motion"
+                      Content="{loc:Localize Settings_Motion_Reduce}"
                       AutomationProperties.AutomationId="SettingsReduceMotion" />
-            <TextBlock Text="Removes page fades, lifts, and animated state changes. Color, focus, text, and live status cues remain available. Set LINGUISTICS_REDUCED_MOTION=1 to reduce motion before a profile exists."
+            <TextBlock Text="{loc:Localize Settings_Motion_Body}"
                        TextWrapping="Wrap"
                        Opacity="0.72" />
             </StackPanel>
@@ -205,7 +205,7 @@
                    AutomationProperties.LiveSetting="Polite"
                    AutomationProperties.AutomationId="SettingsStatus" />
         <Button x:Name="SaveButton"
-                Content="Save settings"
+                Content="{loc:Localize Settings_Save}"
                 Classes="primary lift"
                 HorizontalAlignment="Left"
                 Click="OnSaveClicked"
@@ -214,16 +214,16 @@
         <controls:PaperCard Classes="settings-sheet soft"
                             AutomationProperties.AutomationId="ImageCreditsCard">
             <StackPanel Spacing="12">
-                <TextBlock Text="Image credits"
+                <TextBlock Text="{loc:Localize Settings_Images_Title}"
                            FontSize="22"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
                 <TextBlock x:Name="AssetCreditsSummary"
-                           Text="No validated pack images are available in this build."
+                           Text="{loc:Localize Settings_Images_None}"
                            TextWrapping="Wrap"
                            Opacity="0.78"
                            AutomationProperties.AutomationId="ImageCreditsSummary" />
-                <TextBlock Text="All bundled images remain Preview. Attribution is complete, but license, content, modification, and redistribution review are still required before release."
+                <TextBlock Text="{loc:Localize Settings_Images_Disclaimer}"
                            TextWrapping="Wrap"
                            Opacity="0.72" />
                 <StackPanel x:Name="AssetCreditsPanel"
@@ -234,14 +234,16 @@
 
         <controls:PaperCard Classes="danger">
             <StackPanel Spacing="12">
-                <TextBlock Text="Delete local learning data"
+                <TextBlock Text="{loc:Localize Settings_Delete_Title}"
                            FontSize="20"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="Linguistics stores your profile and learning history locally, with recovery copies owned by the app, a redacted diagnostic log, and any app owned legacy audio files. Deletion removes all of those learner data classes from this device. It preserves unrelated files, installed models, and content packs."
+                <TextBlock Text="{loc:Localize Settings_Delete_BodyOne}"
+                           TextWrapping="Wrap" />
+                <TextBlock Text="{loc:Localize Settings_Delete_BodyTwo}"
                            TextWrapping="Wrap" />
                 <Button x:Name="ShowDeleteConfirmationButton"
-                        Content="Delete all learning data"
+                        Content="{loc:Localize Settings_Delete_Action}"
                         Classes="danger"
                         HorizontalAlignment="Left"
                         Click="OnShowDeleteConfirmationClicked"
@@ -250,18 +252,18 @@
                             IsVisible="False"
                             Spacing="10"
                             AutomationProperties.AutomationId="DeleteConfirmation">
-                    <TextBlock Text="Delete all local learner history, recovery copies, diagnostics, and legacy audio files now? This cannot be undone. Linguistics will return to setup."
+                    <TextBlock Text="{loc:Localize Settings_Delete_Confirm}"
                                FontWeight="SemiBold"
                                TextWrapping="Wrap"
                                AutomationProperties.LiveSetting="Assertive" />
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <Button x:Name="ConfirmDeleteButton"
-                                Content="Delete profile now"
+                                Content="{loc:Localize Settings_Delete_ConfirmAction}"
                                 Classes="danger"
                                 Click="OnConfirmDeleteClicked"
                                 AutomationProperties.AutomationId="ConfirmDeleteProfile" />
                         <Button x:Name="CancelDeleteButton"
-                                Content="Cancel"
+                                Content="{loc:Localize Common_Cancel}"
                                 Classes="quiet"
                                 Click="OnCancelDeleteClicked"
                                 AutomationProperties.AutomationId="CancelDeleteProfile" />

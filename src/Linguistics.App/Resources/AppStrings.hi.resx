@@ -30,6 +30,183 @@
   <data name="Settings_AppLanguage_Title" xml:space="preserve">
     <value>ऐप की भाषा</value>
   </data>
+  <data name="Settings_Delete_Action" xml:space="preserve">
+    <value>सीखने का सारा डेटा मिटाएँ</value>
+  </data>
+  <data name="Settings_Delete_BodyOne" xml:space="preserve">
+    <value>Linguistics आपकी प्रोफ़ाइल, सीखने का इतिहास, Recovery प्रतियाँ, संशोधित निदान और ऐप के पुराने ऑडियो को स्थानीय रूप से रखता है।</value>
+  </data>
+  <data name="Settings_Delete_BodyTwo" xml:space="preserve">
+    <value>मिटाने पर ये शिक्षार्थी रिकॉर्ड हटेंगे। असंबंधित फ़ाइलें, इंस्टॉल किए मॉडल और सामग्री पैक सुरक्षित रहेंगे।</value>
+  </data>
+  <data name="Settings_Delete_Confirm" xml:space="preserve">
+    <value>स्थानीय इतिहास, Recovery प्रतियाँ, निदान और पुराने ऑडियो अभी मिटाएँ? इसे वापस नहीं किया जा सकता। Linguistics सेटअप पर लौटेगा।</value>
+  </data>
+  <data name="Settings_Delete_ConfirmAction" xml:space="preserve">
+    <value>प्रोफ़ाइल अभी मिटाएँ</value>
+  </data>
+  <data name="Settings_Delete_Title" xml:space="preserve">
+    <value>स्थानीय सीखने का डेटा मिटाएँ</value>
+  </data>
+  <data name="Settings_Images_CountMany" xml:space="preserve">
+    <value>बंडल की गई {0} Preview तस्वीरों के स्थानीय श्रेय और उद्गम रिकॉर्ड हैं।</value>
+  </data>
+  <data name="Settings_Images_CountOne" xml:space="preserve">
+    <value>बंडल की गई {0} Preview तस्वीर का स्थानीय श्रेय और उद्गम रिकॉर्ड है।</value>
+  </data>
+  <data name="Settings_Images_Disclaimer" xml:space="preserve">
+    <value>बंडल की गई तस्वीरें Preview हैं। रिलीज़ से पहले लाइसेंस, सामग्री, बदलाव और पुनर्वितरण की समीक्षा आवश्यक है।</value>
+  </data>
+  <data name="Settings_Images_None" xml:space="preserve">
+    <value>इस बिल्ड में कोई सत्यापित पैक तस्वीर उपलब्ध नहीं है।</value>
+  </data>
+  <data name="Settings_Images_Title" xml:space="preserve">
+    <value>तस्वीरों का श्रेय</value>
+  </data>
+  <data name="Settings_LegacyAudio_Body" xml:space="preserve">
+    <value>नया माइक्रोफ़ोन ऑडियो कभी नहीं रखा जाता। पुराने या बाधित ऑडियो यहाँ हटाएँ।</value>
+  </data>
+  <data name="Settings_LegacyAudio_Delete" xml:space="preserve">
+    <value>पुरानी ऑडियो फ़ाइलें मिटाएँ</value>
+  </data>
+  <data name="Settings_LegacyAudio_Deleted" xml:space="preserve">
+    <value>ऐप की {0} पुरानी ऑडियो फ़ाइलें मिटाई गईं।</value>
+  </data>
+  <data name="Settings_LegacyAudio_DeletePartial" xml:space="preserve">
+    <value>ऐप की {0} पुरानी ऑडियो फ़ाइलें मिटाई गईं। {1} हटाई नहीं जा सकीं।</value>
+  </data>
+  <data name="Settings_LegacyAudio_NoneFound" xml:space="preserve">
+    <value>ऐप की कोई पुरानी ऑडियो फ़ाइल नहीं मिली।</value>
+  </data>
+  <data name="Settings_LegacyAudio_Title" xml:space="preserve">
+    <value>पुराना ऑडियो साफ़ करें</value>
+  </data>
+  <data name="Settings_LocalModel_Body" xml:space="preserve">
+    <value>Ollama वैकल्पिक है। Linguistics केवल loopback जाँचता, cloud alias रोकता और मॉडल डाउनलोड नहीं करता। स्क्रिप्ट अभ्यास पूरा रहता है।</value>
+  </data>
+  <data name="Settings_LocalModel_Cancelled" xml:space="preserve">
+    <value>स्थानीय Ollama जाँच रद्द की गई।</value>
+  </data>
+  <data name="Settings_LocalModel_Check" xml:space="preserve">
+    <value>स्थानीय Ollama जाँचें</value>
+  </data>
+  <data name="Settings_LocalModel_ChoiceDetails" xml:space="preserve">
+    <value>{0}: {1}; {2}; {3}</value>
+  </data>
+  <data name="Settings_LocalModel_ChoiceUnavailable" xml:space="preserve">
+    <value>{0}: सहेजा गया, अभी उपलब्ध नहीं</value>
+  </data>
+  <data name="Settings_LocalModel_Details" xml:space="preserve">
+    <value>{0}&#xA;क्षमताएँ: {1}।&#xA;{2}&#xA;स्रोत और संग्रह: आपका स्थानीय Ollama इंस्टॉल। Linguistics मॉडल डाउनलोड नहीं करता।</value>
+  </data>
+  <data name="Settings_LocalModel_Disclaimer" xml:space="preserve">
+    <value>चयन संगतता या लाइसेंस की सलाह नहीं है। उपयुक्तता, प्रदर्शन और पुनर्वितरण जाँच और समीक्षा तक अप्रमाणित हैं।</value>
+  </data>
+  <data name="Settings_LocalModel_Field" xml:space="preserve">
+    <value>संवाद मॉडल</value>
+  </data>
+  <data name="Settings_LocalModel_LicenseExcerpt" xml:space="preserve">
+    <value>बताया गया लाइसेंस अंश: {0}</value>
+  </data>
+  <data name="Settings_LocalModel_LicenseMissing" xml:space="preserve">
+    <value>लाइसेंस पाठ नहीं बताया गया।</value>
+  </data>
+  <data name="Settings_LocalModel_Saved" xml:space="preserve">
+    <value>सहेजा स्थानीय मॉडल: {0}। वर्तमान उपलब्धता के लिए Ollama जाँचें।</value>
+  </data>
+  <data name="Settings_LocalModel_ScriptedActive" xml:space="preserve">
+    <value>स्क्रिप्ट अभ्यास सक्रिय है। Ollama जाँचना वैकल्पिक है।</value>
+  </data>
+  <data name="Settings_LocalModel_ScriptedOnly" xml:space="preserve">
+    <value>केवल स्क्रिप्ट। कोई मॉडल नहीं चुना</value>
+  </data>
+  <data name="Settings_LocalModel_Title" xml:space="preserve">
+    <value>स्थानीय संवाद मॉडल</value>
+  </data>
+  <data name="Settings_LocalModel_Unavailable" xml:space="preserve">
+    <value>इस बिल्ड में स्थानीय मॉडल प्रदाता उपलब्ध नहीं है।</value>
+  </data>
+  <data name="Settings_Microphone_Body" xml:space="preserve">
+    <value>यह चुनाव अनुमति नहीं माँगता। अनुमति केवल भाषण चुनने और स्थानीय प्रसंस्करण सूचना स्वीकारने के बाद माँगी जाती है।</value>
+  </data>
+  <data name="Settings_Microphone_Later" xml:space="preserve">
+    <value>बाद में तय करें</value>
+  </data>
+  <data name="Settings_Microphone_Never" xml:space="preserve">
+    <value>माइक्रोफ़ोन कभी उपयोग न करें</value>
+  </data>
+  <data name="Settings_Microphone_Now" xml:space="preserve">
+    <value>स्थानीय बोलने के अभ्यास में माइक्रोफ़ोन उपयोग करें</value>
+  </data>
+  <data name="Settings_Microphone_Title" xml:space="preserve">
+    <value>माइक्रोफ़ोन</value>
+  </data>
+  <data name="Settings_Motion_Body" xml:space="preserve">
+    <value>फ़ेड, उठाव और एनिमेटेड बदलाव हटाता है। अन्य संकेत रहते हैं। LINGUISTICS_REDUCED_MOTION=1 सेटअप से पहले काम करता है।</value>
+  </data>
+  <data name="Settings_Motion_Reduce" xml:space="preserve">
+    <value>इंटरफ़ेस की गति घटाएँ</value>
+  </data>
+  <data name="Settings_Motion_Title" xml:space="preserve">
+    <value>गति और फ़ोकस</value>
+  </data>
+  <data name="Settings_PreferredLanguage" xml:space="preserve">
+    <value>स्पष्टीकरण की पसंदीदा भाषा</value>
+  </data>
+  <data name="Settings_PreferredLanguage_Error" xml:space="preserve">
+    <value>स्पष्टीकरण के लिए स्वीकृत ज्ञात भाषा चुनें, या कोई दूसरा शॉर्टकट मोड चुनें।</value>
+  </data>
+  <data name="Settings_Save" xml:space="preserve">
+    <value>सेटिंग्स सहेजें</value>
+  </data>
+  <data name="Settings_Saved" xml:space="preserve">
+    <value>सेटिंग्स स्थानीय रूप से सहेजी गईं।</value>
+  </data>
+  <data name="Settings_Shortcuts_AskFirst" xml:space="preserve">
+    <value>पहले पूछें। हर भाषा बदलाव को मेरी अनुमति चाहिए</value>
+  </data>
+  <data name="Settings_Shortcuts_Automatic" xml:space="preserve">
+    <value>अपने आप। उपयोगी होने पर जाँची गई तुलना दिखाएँ</value>
+  </data>
+  <data name="Settings_Shortcuts_Body" xml:space="preserve">
+    <value>चुनें कि जाँची गई भाषा तुलनाएँ दिख सकती हैं या नहीं। हर बदलाव दिखाई देगा और उसका स्रोत बताया जाएगा।</value>
+  </data>
+  <data name="Settings_Shortcuts_Never" xml:space="preserve">
+    <value>कभी नहीं। स्पष्टीकरण लक्ष्य भाषा अनुभव में रखें</value>
+  </data>
+  <data name="Settings_Shortcuts_Preferred" xml:space="preserve">
+    <value>स्पष्टीकरण की एक पसंदीदा भाषा उपयोग करें</value>
+  </data>
+  <data name="Settings_Shortcuts_Title" xml:space="preserve">
+    <value>बहुभाषी शॉर्टकट</value>
+  </data>
+  <data name="Settings_Speech_Body" xml:space="preserve">
+    <value>प्लेबैक इंस्टॉल आवाज़ें उपयोग करता है। ट्रांसक्रिप्शन स्पष्ट रूप से कॉन्फ़िगर स्थानीय whisper.cpp प्रक्रिया उपयोग करता है। पाठ अभ्यास को दोनों की आवश्यकता नहीं।</value>
+  </data>
+  <data name="Settings_Speech_Check" xml:space="preserve">
+    <value>स्थानीय भाषण जाँचें</value>
+  </data>
+  <data name="Settings_Speech_InitialStatus" xml:space="preserve">
+    <value>प्लेबैक और स्थानीय ट्रांसक्रिप्शन केवल आपके कहने पर जाँचे जाते हैं। कोई भाषण मॉडल अपने आप डाउनलोड नहीं होता।</value>
+  </data>
+  <data name="Settings_Speech_ModelDetails" xml:space="preserve">
+    <value>कॉन्फ़िगर मॉडल: {0} • {1} • {2}&#xA;स्रोत: {3}&#xA;लाइसेंस: {4}&#xA;स्ट्रीम अडैप्टर माइक्रोफ़ोन ऑडियो नहीं रखता।</value>
+  </data>
+  <data name="Settings_Speech_ModelMissing" xml:space="preserve">
+    <value>whisper.cpp स्पष्ट रूप से इंस्टॉल करें और LINGUISTICS_WHISPER_MODEL को जाँचे मॉडल पर सेट करें। Linguistics इसे डाउनलोड या पुनर्वितरित नहीं करता।</value>
+  </data>
+  <data name="Settings_Speech_Status" xml:space="preserve">
+    <value>प्लेबैक: {0} इंस्टॉल जर्मन आवाज़ें।&#xA;पहचान: {1}&#xA;पुरानी ऑडियो फ़ाइलें: {2}, {3}।</value>
+  </data>
+  <data name="Settings_Speech_Title" xml:space="preserve">
+    <value>स्थानीय भाषण</value>
+  </data>
+  <data name="Settings_Speech_Unavailable" xml:space="preserve">
+    <value>इस बिल्ड में स्थानीय भाषण प्रदाता उपलब्ध नहीं हैं।</value>
+  </data>
+  <data name="Common_NotReported" xml:space="preserve">
+    <value>नहीं बताया गया</value>
+  </data>
   <data name="Nav_Languages_Description" xml:space="preserve">
     <value>अपनी स्थानीय शिक्षार्थी प्रोफ़ाइल की भाषाएँ देखें और बदलें।</value>
   </data>

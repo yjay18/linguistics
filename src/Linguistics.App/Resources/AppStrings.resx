@@ -30,6 +30,183 @@
   <data name="Settings_AppLanguage_Title" xml:space="preserve">
     <value>App language</value>
   </data>
+  <data name="Settings_Delete_Action" xml:space="preserve">
+    <value>Delete all learning data</value>
+  </data>
+  <data name="Settings_Delete_BodyOne" xml:space="preserve">
+    <value>Linguistics stores your profile, learning history, recovery copies, redacted diagnostics, and app-owned legacy audio locally.</value>
+  </data>
+  <data name="Settings_Delete_BodyTwo" xml:space="preserve">
+    <value>Deletion removes those learner records. It preserves unrelated files, installed models, and content packs.</value>
+  </data>
+  <data name="Settings_Delete_Confirm" xml:space="preserve">
+    <value>Delete local learner history, recovery copies, diagnostics, and legacy audio now? This cannot be undone. Linguistics will return to setup.</value>
+  </data>
+  <data name="Settings_Delete_ConfirmAction" xml:space="preserve">
+    <value>Delete profile now</value>
+  </data>
+  <data name="Settings_Delete_Title" xml:space="preserve">
+    <value>Delete local learning data</value>
+  </data>
+  <data name="Settings_Images_CountMany" xml:space="preserve">
+    <value>{0} bundled Preview images have local attribution and provenance records.</value>
+  </data>
+  <data name="Settings_Images_CountOne" xml:space="preserve">
+    <value>{0} bundled Preview image has a local attribution and provenance record.</value>
+  </data>
+  <data name="Settings_Images_Disclaimer" xml:space="preserve">
+    <value>Bundled images remain Preview. License, content, modification, and redistribution review are required before release.</value>
+  </data>
+  <data name="Settings_Images_None" xml:space="preserve">
+    <value>No validated pack images are available in this build.</value>
+  </data>
+  <data name="Settings_Images_Title" xml:space="preserve">
+    <value>Image credits</value>
+  </data>
+  <data name="Settings_LegacyAudio_Body" xml:space="preserve">
+    <value>New microphone audio is never retained. Remove legacy or interrupted audio files here.</value>
+  </data>
+  <data name="Settings_LegacyAudio_Delete" xml:space="preserve">
+    <value>Delete legacy audio files</value>
+  </data>
+  <data name="Settings_LegacyAudio_Deleted" xml:space="preserve">
+    <value>Deleted {0} app-owned legacy audio files.</value>
+  </data>
+  <data name="Settings_LegacyAudio_DeletePartial" xml:space="preserve">
+    <value>Deleted {0} app-owned legacy audio files. {1} could not be removed.</value>
+  </data>
+  <data name="Settings_LegacyAudio_NoneFound" xml:space="preserve">
+    <value>No app-owned legacy audio files were found.</value>
+  </data>
+  <data name="Settings_LegacyAudio_Title" xml:space="preserve">
+    <value>Legacy audio cleanup</value>
+  </data>
+  <data name="Settings_LocalModel_Body" xml:space="preserve">
+    <value>Ollama is optional. Linguistics checks only loopback, blocks cloud aliases, and never downloads models. Scripted practice remains complete.</value>
+  </data>
+  <data name="Settings_LocalModel_Cancelled" xml:space="preserve">
+    <value>The local Ollama check was cancelled.</value>
+  </data>
+  <data name="Settings_LocalModel_Check" xml:space="preserve">
+    <value>Check local Ollama</value>
+  </data>
+  <data name="Settings_LocalModel_ChoiceDetails" xml:space="preserve">
+    <value>{0}: {1}; {2}; {3}</value>
+  </data>
+  <data name="Settings_LocalModel_ChoiceUnavailable" xml:space="preserve">
+    <value>{0}: saved, currently unavailable</value>
+  </data>
+  <data name="Settings_LocalModel_Details" xml:space="preserve">
+    <value>{0}&#xA;Capabilities: {1}.&#xA;{2}&#xA;Source and storage: your local Ollama installation. Linguistics never downloads the model.</value>
+  </data>
+  <data name="Settings_LocalModel_Disclaimer" xml:space="preserve">
+    <value>Selection is not a compatibility or license recommendation. Suitability, performance, and redistribution remain unverified until tested and reviewed.</value>
+  </data>
+  <data name="Settings_LocalModel_Field" xml:space="preserve">
+    <value>Conversation model</value>
+  </data>
+  <data name="Settings_LocalModel_LicenseExcerpt" xml:space="preserve">
+    <value>Reported license excerpt: {0}</value>
+  </data>
+  <data name="Settings_LocalModel_LicenseMissing" xml:space="preserve">
+    <value>License text not reported.</value>
+  </data>
+  <data name="Settings_LocalModel_Saved" xml:space="preserve">
+    <value>Saved local model: {0}. Check Ollama to verify current availability.</value>
+  </data>
+  <data name="Settings_LocalModel_ScriptedActive" xml:space="preserve">
+    <value>Scripted practice is active. Checking Ollama is optional.</value>
+  </data>
+  <data name="Settings_LocalModel_ScriptedOnly" xml:space="preserve">
+    <value>Scripted only. No model selected</value>
+  </data>
+  <data name="Settings_LocalModel_Title" xml:space="preserve">
+    <value>Local conversation model</value>
+  </data>
+  <data name="Settings_LocalModel_Unavailable" xml:space="preserve">
+    <value>The local model provider is not available in this build.</value>
+  </data>
+  <data name="Settings_Microphone_Body" xml:space="preserve">
+    <value>This choice does not request permission. Permission follows only after you choose speech and confirm the local processing disclosure.</value>
+  </data>
+  <data name="Settings_Microphone_Later" xml:space="preserve">
+    <value>Decide later</value>
+  </data>
+  <data name="Settings_Microphone_Never" xml:space="preserve">
+    <value>Never use the microphone</value>
+  </data>
+  <data name="Settings_Microphone_Now" xml:space="preserve">
+    <value>Use the microphone for local speech practice</value>
+  </data>
+  <data name="Settings_Microphone_Title" xml:space="preserve">
+    <value>Microphone</value>
+  </data>
+  <data name="Settings_Motion_Body" xml:space="preserve">
+    <value>Removes fades, lifts, and animated changes. Other cues remain. LINGUISTICS_REDUCED_MOTION=1 works before setup.</value>
+  </data>
+  <data name="Settings_Motion_Reduce" xml:space="preserve">
+    <value>Reduce interface motion</value>
+  </data>
+  <data name="Settings_Motion_Title" xml:space="preserve">
+    <value>Motion and focus</value>
+  </data>
+  <data name="Settings_PreferredLanguage" xml:space="preserve">
+    <value>Preferred explanation language</value>
+  </data>
+  <data name="Settings_PreferredLanguage_Error" xml:space="preserve">
+    <value>Choose a known language allowed for explanations, or select another shortcut mode.</value>
+  </data>
+  <data name="Settings_Save" xml:space="preserve">
+    <value>Save settings</value>
+  </data>
+  <data name="Settings_Saved" xml:space="preserve">
+    <value>Settings saved locally.</value>
+  </data>
+  <data name="Settings_Shortcuts_AskFirst" xml:space="preserve">
+    <value>Ask first. Let me approve each language switch</value>
+  </data>
+  <data name="Settings_Shortcuts_Automatic" xml:space="preserve">
+    <value>Automatic. Show a reviewed comparison when useful</value>
+  </data>
+  <data name="Settings_Shortcuts_Body" xml:space="preserve">
+    <value>Choose whether reviewed language comparisons may appear. Every switch remains visible and attributable.</value>
+  </data>
+  <data name="Settings_Shortcuts_Never" xml:space="preserve">
+    <value>Never. Keep explanations in the target language experience</value>
+  </data>
+  <data name="Settings_Shortcuts_Preferred" xml:space="preserve">
+    <value>Use one preferred explanation language</value>
+  </data>
+  <data name="Settings_Shortcuts_Title" xml:space="preserve">
+    <value>Multilingual shortcuts</value>
+  </data>
+  <data name="Settings_Speech_Body" xml:space="preserve">
+    <value>Playback uses installed voices. Transcription uses an explicitly configured local whisper.cpp process. Neither is required for text practice.</value>
+  </data>
+  <data name="Settings_Speech_Check" xml:space="preserve">
+    <value>Check local speech</value>
+  </data>
+  <data name="Settings_Speech_InitialStatus" xml:space="preserve">
+    <value>Playback and local transcription are checked only when requested. No speech model is downloaded automatically.</value>
+  </data>
+  <data name="Settings_Speech_ModelDetails" xml:space="preserve">
+    <value>Configured model: {0} • {1} • {2}&#xA;Source: {3}&#xA;License: {4}&#xA;The stream adapter does not retain microphone audio.</value>
+  </data>
+  <data name="Settings_Speech_ModelMissing" xml:space="preserve">
+    <value>Install whisper.cpp explicitly and set LINGUISTICS_WHISPER_MODEL to a reviewed model. Linguistics does not download or redistribute it.</value>
+  </data>
+  <data name="Settings_Speech_Status" xml:space="preserve">
+    <value>Playback: {0} installed German voices.&#xA;Recognition: {1}&#xA;Legacy audio files: {2}, {3}.</value>
+  </data>
+  <data name="Settings_Speech_Title" xml:space="preserve">
+    <value>Local speech</value>
+  </data>
+  <data name="Settings_Speech_Unavailable" xml:space="preserve">
+    <value>Local speech providers are unavailable in this build.</value>
+  </data>
+  <data name="Common_NotReported" xml:space="preserve">
+    <value>not reported</value>
+  </data>
   <data name="Nav_Languages_Description" xml:space="preserve">
     <value>Review and edit the languages in your local learner profile.</value>
   </data>

@@ -4,6 +4,7 @@ using Linguistics.Core.Providers;
 using Linguistics.Core.Profiles;
 using Linguistics.App.Speech;
 using Linguistics.App.Features.Learn.Templates;
+using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Speech;
 
@@ -54,8 +55,10 @@ public partial class SettingsView : UserControl
     {
         AssetCreditsPanel.Children.Clear();
         AssetCreditsSummary.Text = assets.Count == 0
-            ? "No validated pack images are available in this build."
-            : $"{assets.Count} bundled Preview {(assets.Count == 1 ? "image has" : "images have")} local attribution and provenance records.";
+            ? AppStrings.Get("Settings_Images_None")
+            : AppStrings.Format(
+                assets.Count == 1 ? "Settings_Images_CountOne" : "Settings_Images_CountMany",
+                assets.Count);
         foreach (var asset in assets.OrderBy(asset => asset.Record.Id, StringComparer.Ordinal))
         {
             AssetCreditsPanel.Children.Add(TemplateRendering.CreateAssetCreditCard(asset));
@@ -91,17 +94,18 @@ public partial class SettingsView : UserControl
         PreferredLanguagePanel.IsVisible = ShortcutPreferred.IsChecked == true;
         SetModelChoices([], profile.Settings.SelectedLocalModel);
         ModelServiceStatus.Text = profile.Settings.SelectedLocalModel is null
-            ? "Scripted practice is active. Checking Ollama is optional."
-            : $"Saved local model: {profile.Settings.SelectedLocalModel}. Check Ollama to verify current availability.";
-        SpeechServiceStatus.Text =
-            "System playback and local microphone transcription are checked only when you ask. No speech model is downloaded automatically.";
+            ? AppStrings.Get("Settings_LocalModel_ScriptedActive")
+            : AppStrings.Format(
+                "Settings_LocalModel_Saved",
+                profile.Settings.SelectedLocalModel);
+        SpeechServiceStatus.Text = AppStrings.Get("Settings_Speech_InitialStatus");
     }
 
     private async void OnCheckOllamaClicked(object? sender, RoutedEventArgs args)
     {
         if (_modelBusy || _languageModelProvider is null)
         {
-            ModelServiceStatus.Text = "The local model provider is not available in this build.";
+            ModelServiceStatus.Text = AppStrings.Get("Settings_LocalModel_Unavailable");
             return;
         }
 
@@ -119,7 +123,7 @@ public partial class SettingsView : UserControl
         }
         catch (OperationCanceledException)
         {
-            ModelServiceStatus.Text = "The local Ollama check was cancelled.";
+            ModelServiceStatus.Text = AppStrings.Get("Settings_LocalModel_Cancelled");
         }
         finally
         {
@@ -151,14 +155,18 @@ public partial class SettingsView : UserControl
             }
 
             var capabilities = details.Capabilities.Count == 0
-                ? "not reported"
+                ? AppStrings.Get("Common_NotReported")
                 : string.Join(", ", details.Capabilities);
             var license = string.IsNullOrWhiteSpace(details.LicenseText)
-                ? "License text not reported."
-                : $"Reported license excerpt: {Excerpt(details.LicenseText)}";
-            ModelDetailsText.Text =
-                $"{details.Message}\nCapabilities: {capabilities}.\n{license}\n" +
-                "Source and storage: your local Ollama installation. Linguistics never downloads the model.";
+                ? AppStrings.Get("Settings_LocalModel_LicenseMissing")
+                : AppStrings.Format(
+                    "Settings_LocalModel_LicenseExcerpt",
+                    Excerpt(details.LicenseText));
+            ModelDetailsText.Text = AppStrings.Format(
+                "Settings_LocalModel_Details",
+                details.Message,
+                capabilities,
+                license);
         }
         catch (OperationCanceledException)
         {
@@ -182,7 +190,7 @@ public partial class SettingsView : UserControl
             _speechSynthesisProvider is null ||
             _speechRecognitionProvider is null)
         {
-            SpeechServiceStatus.Text = "Local speech providers are unavailable in this build.";
+            SpeechServiceStatus.Text = AppStrings.Get("Settings_Speech_Unavailable");
             return;
         }
 
@@ -198,15 +206,21 @@ public partial class SettingsView : UserControl
             var recognition = await recognitionTask;
             var recordings = await recordingsTask;
             var germanVoices = synthesis.Voices.Count(voice => voice.Language == new LanguageCode("de"));
-            SpeechServiceStatus.Text =
-                $"Playback: {germanVoices} installed German voice(s).\n" +
-                $"Recognition: {recognition.Message}\n" +
-                $"Legacy audio files: {recordings.FileCount} file(s), {FormatBytes(recordings.TotalBytes)}.";
+            SpeechServiceStatus.Text = AppStrings.Format(
+                "Settings_Speech_Status",
+                germanVoices,
+                recognition.Message,
+                recordings.FileCount,
+                FormatBytes(recordings.TotalBytes));
             SpeechModelDetailsText.Text = recognition.Model is { } model
-                ? $"Configured model: {model.Name} • {FormatBytes(model.SizeBytes)} • {model.ProviderVersion}\n" +
-                  $"Source: {model.Source}\nLicense: {model.License}\n" +
-                  "The current stream adapter does not retain microphone audio."
-                : "To enable transcription, explicitly install whisper.cpp and set LINGUISTICS_WHISPER_MODEL to a model whose size, source, and terms you reviewed. Linguistics does not download or redistribute it.";
+                ? AppStrings.Format(
+                    "Settings_Speech_ModelDetails",
+                    model.Name,
+                    FormatBytes(model.SizeBytes),
+                    model.ProviderVersion,
+                    model.Source,
+                    model.License)
+                : AppStrings.Get("Settings_Speech_ModelMissing");
         }
         finally
         {
@@ -225,7 +239,16 @@ public partial class SettingsView : UserControl
         try
         {
             var result = await _speechRecordingStore.DeleteAllAsync();
-            SpeechDeletionStatusText.Text = result.Message;
+            SpeechDeletionStatusText.Text = result.DeletedFileCount == 0 && result.FailedFileCount == 0
+                ? AppStrings.Get("Settings_LegacyAudio_NoneFound")
+                : result.FailedFileCount == 0
+                    ? AppStrings.Format(
+                        "Settings_LegacyAudio_Deleted",
+                        result.DeletedFileCount)
+                    : AppStrings.Format(
+                        "Settings_LegacyAudio_DeletePartial",
+                        result.DeletedFileCount,
+                        result.FailedFileCount);
             SpeechDeletionStatusText.IsVisible = true;
         }
         finally
@@ -246,7 +269,7 @@ public partial class SettingsView : UserControl
         if (ShortcutPreferred.IsChecked == true && preferred is null)
         {
             ShowError(
-                "Choose a known language that is allowed for explanations, or select another shortcut mode.");
+                AppStrings.Get("Settings_PreferredLanguage_Error"));
             return;
         }
 
@@ -262,7 +285,7 @@ public partial class SettingsView : UserControl
                 ReduceMotion: ReduceMotion.IsChecked == true,
                 AppLanguageOverride: SelectedAppLanguageOverride());
             _profile = await _saveProfile(_profile with { Settings = settings });
-            StatusText.Text = "Settings saved locally.";
+            StatusText.Text = AppStrings.Get("Settings_Saved");
             StatusText.IsVisible = true;
         }
         catch (Exception exception) when (
@@ -410,15 +433,22 @@ public partial class SettingsView : UserControl
     {
         var choices = new List<ModelChoice>
         {
-            new(null, "Scripted only. No model selected"),
+            new(null, AppStrings.Get("Settings_LocalModel_ScriptedOnly")),
         };
         choices.AddRange(models.Select(model => new ModelChoice(
             model.Name,
-            $"{model.Name}: {FormatBytes(model.SizeBytes)}; {TextOrUnknown(model.ParameterSize)}; {TextOrUnknown(model.Quantization)}")));
+            AppStrings.Format(
+                "Settings_LocalModel_ChoiceDetails",
+                model.Name,
+                FormatBytes(model.SizeBytes),
+                TextOrUnknown(model.ParameterSize),
+                TextOrUnknown(model.Quantization)))));
 
         if (selectedModel is not null && choices.All(choice => choice.Name != selectedModel))
         {
-            choices.Add(new ModelChoice(selectedModel, $"{selectedModel}: saved, currently unavailable"));
+            choices.Add(new ModelChoice(
+                selectedModel,
+                AppStrings.Format("Settings_LocalModel_ChoiceUnavailable", selectedModel)));
         }
 
         ModelSelection.ItemsSource = choices;
@@ -434,7 +464,7 @@ public partial class SettingsView : UserControl
             : $"{bytes / 1_048_576d:0} MiB";
 
     private static string TextOrUnknown(string value) =>
-        string.IsNullOrWhiteSpace(value) ? "not reported" : value;
+        string.IsNullOrWhiteSpace(value) ? AppStrings.Get("Common_NotReported") : value;
 
     private static string Excerpt(string value)
     {
