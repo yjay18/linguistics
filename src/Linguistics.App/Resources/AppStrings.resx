@@ -945,4 +945,37 @@
   <data name="Template_WrittenTarget_NoVoice" xml:space="preserve"><value>Written target: {0}. No matching local voice is installed.</value></data>
   <data name="Template_WrittenTarget_Playback" xml:space="preserve"><value>Written target: {0}. Optional playback uses no microphone.</value></data>
   <data name="Template_WrittenTarget_Unavailable" xml:space="preserve"><value>Written target: {0}. Local playback is unavailable.</value></data>
+  <data name="Language_German" xml:space="preserve"><value>German</value></data>
+  <data name="Languages_Target_Title" xml:space="preserve"><value>Target language</value></data>
+  <data name="Languages_Target_Body" xml:space="preserve"><value>German is fixed while the first reviewed content pack is being built.</value></data>
+  <data name="Languages_Known_Title" xml:space="preserve"><value>Known languages</value></data>
+  <data name="Languages_Known_Body" xml:space="preserve"><value>Choose languages that may support learning. Each has separate reading, listening, and explanation choices.</value></data>
+  <data name="Languages_EnglishPreferences" xml:space="preserve"><value>English preferences</value></data>
+  <data name="Languages_HindiPreferences" xml:space="preserve"><value>Hindi preferences</value></data>
+  <data name="Languages_Proficiency" xml:space="preserve"><value>Approximate proficiency</value></data>
+  <data name="Languages_EnglishProficiency" xml:space="preserve"><value>English proficiency</value></data>
+  <data name="Languages_HindiProficiency" xml:space="preserve"><value>Hindi proficiency</value></data>
+  <data name="Languages_Proficiency_Beginner" xml:space="preserve"><value>Beginner</value></data>
+  <data name="Languages_Proficiency_Intermediate" xml:space="preserve"><value>Intermediate</value></data>
+  <data name="Languages_Proficiency_Advanced" xml:space="preserve"><value>Advanced</value></data>
+  <data name="Languages_Proficiency_Native" xml:space="preserve"><value>Native or nearly native</value></data>
+  <data name="Languages_EnglishReading" xml:space="preserve"><value>I am comfortable reading English</value></data>
+  <data name="Languages_EnglishListening" xml:space="preserve"><value>I am comfortable hearing English</value></data>
+  <data name="Languages_EnglishExplanations" xml:space="preserve"><value>English may be used for explanations</value></data>
+  <data name="Languages_HindiReading" xml:space="preserve"><value>I am comfortable reading Hindi</value></data>
+  <data name="Languages_HindiListening" xml:space="preserve"><value>I am comfortable hearing Hindi</value></data>
+  <data name="Languages_HindiExplanations" xml:space="preserve"><value>Hindi may be used for explanations</value></data>
+  <data name="Languages_Instruction_Title" xml:space="preserve"><value>Lesson instruction language</value></data>
+  <data name="Languages_Instruction_Body" xml:space="preserve"><value>Choose the language used for lesson directions, meanings, and explanations.</value></data>
+  <data name="Languages_Instruction_Label" xml:space="preserve"><value>Preferred lesson instruction language</value></data>
+  <data name="Languages_Instruction_Automatic" xml:space="preserve"><value>Automatic</value></data>
+  <data name="Languages_Instruction_Fallback" xml:space="preserve"><value>Automatic uses permitted, comfortable reading languages in stable code order. An unavailable preference falls back to another eligible language.</value></data>
+  <data name="Languages_Instruction_Ineligible" xml:space="preserve"><value>Select this language above, allow explanations, and confirm comfortable reading before preferring it.</value></data>
+  <data name="Languages_Instruction_NoCatalog" xml:space="preserve"><value>Save preferences now. Instruction routing applies when validated content is available.</value></data>
+  <data name="Languages_Instruction_None" xml:space="preserve"><value>no available instruction language</value></data>
+  <data name="Languages_Instruction_Unavailable" xml:space="preserve"><value>No loaded instruction language matches your reading and explanation choices.</value></data>
+  <data name="Languages_Instruction_UsingAutomatic" xml:space="preserve"><value>Lessons will use {0}. Automatic routing follows your reading and explanation choices.</value></data>
+  <data name="Languages_Instruction_UsingPreferred" xml:space="preserve"><value>Lessons will use your preferred language, {0}.</value></data>
+  <data name="Languages_Save" xml:space="preserve"><value>Save language preferences</value></data>
+  <data name="Languages_Saved" xml:space="preserve"><value>Saved locally. New lessons now use {0}; validated content stayed loaded.</value></data>
 </root>

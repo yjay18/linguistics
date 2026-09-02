@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Linguistics.App.Localization;
+using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App.Features.Languages;
@@ -8,6 +10,7 @@ public partial class LanguagesView : UserControl
 {
     private LearnerProfile? _profile;
     private Func<LearnerProfile, Task<LearnerProfile>>? _saveProfile;
+    private ValidatedContentCatalog? _contentCatalog;
     private bool _saving;
 
     public LanguagesView()
@@ -17,11 +20,13 @@ public partial class LanguagesView : UserControl
 
     public LanguagesView(
         LearnerProfile profile,
-        Func<LearnerProfile, Task<LearnerProfile>> saveProfile)
+        Func<LearnerProfile, Task<LearnerProfile>> saveProfile,
+        ValidatedContentCatalog? contentCatalog)
         : this()
     {
         _profile = profile;
         _saveProfile = saveProfile;
+        _contentCatalog = contentCatalog;
         LoadProfile(profile);
     }
 
@@ -45,6 +50,11 @@ public partial class LanguagesView : UserControl
             HindiReading,
             HindiListening,
             HindiExplanations);
+        InstructionLanguage.SelectedItem =
+            profile.Settings.ShortcutMode == MultilingualShortcutMode.PreferredLanguage
+                ? InstructionItem(profile.Settings.PreferredExplanationLanguage)
+                : InstructionAutomatic;
+        RefreshInstructionStatus();
     }
 
     private static void LoadLanguage(
@@ -77,6 +87,16 @@ public partial class LanguagesView : UserControl
         EnglishDetails.IsVisible = EnglishSelected.IsChecked == true;
         HindiDetails.IsVisible = HindiSelected.IsChecked == true;
         ClearMessages();
+        RefreshInstructionStatus();
+    }
+
+    private void OnLanguageDetailsChanged(object? sender, RoutedEventArgs args) =>
+        RefreshInstructionStatus();
+
+    private void OnInstructionLanguageChanged(object? sender, SelectionChangedEventArgs args)
+    {
+        ClearMessages();
+        RefreshInstructionStatus();
     }
 
     private async void OnSaveClicked(object? sender, RoutedEventArgs args)
@@ -88,19 +108,34 @@ public partial class LanguagesView : UserControl
 
         ClearMessages();
         var languages = BuildKnownLanguages();
-        if (!PreferredLanguageRemainsEligible(languages))
+        var preferred = SelectedInstructionLanguage();
+        if (preferred is { } selected && !IsEligible(languages, selected))
         {
-            ShowError(
-                "Your preferred explanation language must remain selected and allowed for explanations. Change the shortcut mode in Settings first.");
+            ShowError(AppStrings.Get("Languages_Instruction_Ineligible"));
             return;
         }
+
+        var settings = _profile.Settings with
+        {
+            ShortcutMode = preferred is null
+                ? MultilingualShortcutMode.Automatic
+                : MultilingualShortcutMode.PreferredLanguage,
+            PreferredExplanationLanguage = preferred,
+        };
 
         _saving = true;
         SaveButton.IsEnabled = false;
         try
         {
-            _profile = await _saveProfile(_profile with { KnownLanguages = languages });
-            StatusText.Text = "Language preferences saved locally.";
+            _profile = await _saveProfile(_profile with
+            {
+                KnownLanguages = languages,
+                Settings = settings,
+            });
+            RefreshInstructionStatus();
+            StatusText.Text = AppStrings.Format(
+                "Languages_Saved",
+                SelectedInstructionName(_profile));
             StatusText.IsVisible = true;
         }
         catch (Exception exception) when (
@@ -161,17 +196,83 @@ public partial class LanguagesView : UserControl
             explanations.IsChecked == true));
     }
 
-    private bool PreferredLanguageRemainsEligible(IReadOnlyList<KnownLanguage> languages)
+    private void RefreshInstructionStatus()
     {
-        if (_profile!.Settings.ShortcutMode != MultilingualShortcutMode.PreferredLanguage)
+        if (_profile is null || InstructionLanguage is null)
         {
-            return true;
+            return;
         }
 
-        var preferred = _profile.Settings.PreferredExplanationLanguage;
-        return preferred is not null && languages.Any(language =>
-            language.Language == preferred.Value && language.AllowExplanations);
+        var languages = BuildKnownLanguages();
+        var preferred = SelectedInstructionLanguage();
+        if (preferred is { } selected && !IsEligible(languages, selected))
+        {
+            InstructionStatus.Text = AppStrings.Get("Languages_Instruction_Ineligible");
+            return;
+        }
+
+        var candidate = _profile with
+        {
+            KnownLanguages = languages,
+            Settings = _profile.Settings with
+            {
+                ShortcutMode = preferred is null
+                    ? MultilingualShortcutMode.Automatic
+                    : MultilingualShortcutMode.PreferredLanguage,
+                PreferredExplanationLanguage = preferred,
+            },
+        };
+        InstructionStatus.Text = _contentCatalog is null
+            ? AppStrings.Get("Languages_Instruction_NoCatalog")
+            : SelectionCopy(_contentCatalog.SelectInstructionLanguage(candidate));
     }
+
+    private LanguageCode? SelectedInstructionLanguage() =>
+        InstructionLanguage.SelectedItem is ComboBoxItem { Tag: string code } && code != "auto"
+            ? new LanguageCode(code)
+            : null;
+
+    private ComboBoxItem InstructionItem(LanguageCode? language) => language?.Value switch
+    {
+        "en" => InstructionEnglish,
+        "hi" => InstructionHindi,
+        _ => InstructionAutomatic,
+    };
+
+    private static bool IsEligible(
+        IReadOnlyList<KnownLanguage> languages,
+        LanguageCode language) =>
+        languages.Any(candidate =>
+            candidate.Language == language &&
+            candidate.AllowExplanations &&
+            candidate.ComfortableReading);
+
+    private static string SelectionCopy(InstructionLanguageSelectionResult selection)
+    {
+        if (selection.SelectedLanguage is not { } selected)
+        {
+            return AppStrings.Get("Languages_Instruction_Unavailable");
+        }
+
+        var name = LanguageName(selected);
+        return selection.Explanation.SelectionReason ==
+            InstructionLanguageSelectionReason.PreferredLanguage
+            ? AppStrings.Format("Languages_Instruction_UsingPreferred", name)
+            : AppStrings.Format("Languages_Instruction_UsingAutomatic", name);
+    }
+
+    private string SelectedInstructionName(LearnerProfile profile) =>
+        _contentCatalog?.SelectInstructionLanguage(profile).SelectedLanguage is { } selected
+            ? LanguageName(selected)
+            : AppStrings.Get("Languages_Instruction_None");
+
+    private static string LanguageName(LanguageCode language) => language.Value switch
+    {
+        "en" => AppStrings.Get("Language_English"),
+        "hi" => AppStrings.Get("Language_Hindi"),
+        "de" => AppStrings.Get("Language_German"),
+        _ => language.Value,
+    };
 
     private static LanguageProficiency SelectedProficiency(ComboBox comboBox)
     {

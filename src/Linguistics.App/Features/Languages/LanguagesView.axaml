@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -9,83 +10,121 @@
     <StackPanel Spacing="20">
         <Border Classes="hero-card">
             <StackPanel Spacing="8">
-                <TextBlock Text="Target language"
+                <TextBlock Text="{loc:Localize Languages_Target_Title}"
                            FontSize="18"
                            FontWeight="SemiBold"
                            AutomationProperties.HeadingLevel="2" />
-                <TextBlock Text="German" FontSize="16" />
-                <TextBlock Text="German is fixed while the first reviewed content pack is being built."
+                <TextBlock Text="{loc:Localize Language_German}" FontSize="16" />
+                <TextBlock Text="{loc:Localize Languages_Target_Body}"
                            TextWrapping="Wrap"
                            Opacity="0.72" />
             </StackPanel>
         </Border>
 
         <StackPanel Spacing="12">
-            <TextBlock Text="Known languages"
+            <TextBlock Text="{loc:Localize Languages_Known_Title}"
                        FontSize="22"
                        FontWeight="SemiBold"
                        AutomationProperties.HeadingLevel="2" />
-            <TextBlock Text="Choose any that may support learning. Each language has its own proficiency and explanation preferences."
+            <TextBlock Text="{loc:Localize Languages_Known_Body}"
                        TextWrapping="Wrap"
                        Opacity="0.78" />
             <CheckBox x:Name="EnglishSelected"
-                      Content="English"
+                      Content="{loc:Localize Language_English}"
                       IsCheckedChanged="OnLanguageSelectionChanged"
                       AutomationProperties.AutomationId="LanguagesEnglish" />
             <Border x:Name="EnglishDetails"
                     Margin="24,0,0,0"
                     Classes="soft-card">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="English preferences"
+                    <TextBlock Text="{loc:Localize Languages_EnglishPreferences}"
                                FontSize="18"
                                FontWeight="SemiBold"
                                AutomationProperties.HeadingLevel="3" />
-                    <TextBlock Text="Approximate proficiency" />
+                    <TextBlock Text="{loc:Localize Languages_Proficiency}" />
                     <ComboBox x:Name="EnglishProficiency"
-                              AutomationProperties.Name="English proficiency">
-                        <ComboBoxItem Content="Beginner" Tag="Beginner" />
-                        <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
-                        <ComboBoxItem Content="Advanced" Tag="Advanced" />
-                        <ComboBoxItem Content="Native or nearly native" Tag="NativeOrNearNative" />
+                              AutomationProperties.Name="{loc:Localize Languages_EnglishProficiency}">
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Beginner}" Tag="Beginner" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Intermediate}" Tag="Intermediate" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Advanced}" Tag="Advanced" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Native}" Tag="NativeOrNearNative" />
                     </ComboBox>
                     <CheckBox x:Name="EnglishReading"
-                              Content="I am comfortable reading English" />
+                              Content="{loc:Localize Languages_EnglishReading}"
+                              IsCheckedChanged="OnLanguageDetailsChanged" />
                     <CheckBox x:Name="EnglishListening"
-                              Content="I am comfortable hearing English" />
+                              Content="{loc:Localize Languages_EnglishListening}" />
                     <CheckBox x:Name="EnglishExplanations"
-                              Content="English may be used for explanations" />
+                              Content="{loc:Localize Languages_EnglishExplanations}"
+                              IsCheckedChanged="OnLanguageDetailsChanged" />
                 </StackPanel>
             </Border>
 
             <CheckBox x:Name="HindiSelected"
-                      Content="Hindi"
+                      Content="{loc:Localize Language_Hindi}"
                       IsCheckedChanged="OnLanguageSelectionChanged"
                       AutomationProperties.AutomationId="LanguagesHindi" />
             <Border x:Name="HindiDetails"
                     Margin="24,0,0,0"
                     Classes="soft-card">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Hindi preferences"
+                    <TextBlock Text="{loc:Localize Languages_HindiPreferences}"
                                FontSize="18"
                                FontWeight="SemiBold"
                                AutomationProperties.HeadingLevel="3" />
-                    <TextBlock Text="Approximate proficiency" />
+                    <TextBlock Text="{loc:Localize Languages_Proficiency}" />
                     <ComboBox x:Name="HindiProficiency"
-                              AutomationProperties.Name="Hindi proficiency">
-                        <ComboBoxItem Content="Beginner" Tag="Beginner" />
-                        <ComboBoxItem Content="Intermediate" Tag="Intermediate" />
-                        <ComboBoxItem Content="Advanced" Tag="Advanced" />
-                        <ComboBoxItem Content="Native or nearly native" Tag="NativeOrNearNative" />
+                              AutomationProperties.Name="{loc:Localize Languages_HindiProficiency}">
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Beginner}" Tag="Beginner" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Intermediate}" Tag="Intermediate" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Advanced}" Tag="Advanced" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Native}" Tag="NativeOrNearNative" />
                     </ComboBox>
                     <CheckBox x:Name="HindiReading"
-                              Content="I am comfortable reading Hindi" />
+                              Content="{loc:Localize Languages_HindiReading}"
+                              IsCheckedChanged="OnLanguageDetailsChanged" />
                     <CheckBox x:Name="HindiListening"
-                              Content="I am comfortable hearing Hindi" />
+                              Content="{loc:Localize Languages_HindiListening}" />
                     <CheckBox x:Name="HindiExplanations"
-                              Content="Hindi may be used for explanations" />
+                              Content="{loc:Localize Languages_HindiExplanations}"
+                              IsCheckedChanged="OnLanguageDetailsChanged" />
                 </StackPanel>
             </Border>
         </StackPanel>
+
+        <Border Classes="hero-card">
+            <StackPanel Spacing="10">
+                <TextBlock Text="{loc:Localize Languages_Instruction_Title}"
+                           FontSize="22"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="{loc:Localize Languages_Instruction_Body}"
+                           TextWrapping="Wrap"
+                           Opacity="0.78" />
+                <ComboBox x:Name="InstructionLanguage"
+                          MinWidth="300"
+                          SelectionChanged="OnInstructionLanguageChanged"
+                          AutomationProperties.Name="{loc:Localize Languages_Instruction_Label}"
+                          AutomationProperties.AutomationId="LanguagesInstructionLanguage">
+                    <ComboBoxItem x:Name="InstructionAutomatic"
+                                  Content="{loc:Localize Languages_Instruction_Automatic}"
+                                  Tag="auto" />
+                    <ComboBoxItem x:Name="InstructionEnglish"
+                                  Content="{loc:Localize Language_English}"
+                                  Tag="en" />
+                    <ComboBoxItem x:Name="InstructionHindi"
+                                  Content="{loc:Localize Language_Hindi}"
+                                  Tag="hi" />
+                </ComboBox>
+                <TextBlock x:Name="InstructionStatus"
+                           TextWrapping="Wrap"
+                           AutomationProperties.LiveSetting="Polite"
+                           AutomationProperties.AutomationId="LanguagesInstructionStatus" />
+                <TextBlock Text="{loc:Localize Languages_Instruction_Fallback}"
+                           TextWrapping="Wrap"
+                           Opacity="0.72" />
+            </StackPanel>
+        </Border>
 
         <TextBlock x:Name="ErrorText"
                    IsVisible="False"
@@ -99,7 +138,7 @@
                    AutomationProperties.LiveSetting="Polite"
                    AutomationProperties.AutomationId="LanguagesStatus" />
         <Button x:Name="SaveButton"
-                Content="Save language preferences"
+                Content="{loc:Localize Languages_Save}"
                 Classes="primary lift"
                 HorizontalAlignment="Left"
                 Click="OnSaveClicked"

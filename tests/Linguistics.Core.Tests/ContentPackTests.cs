@@ -321,6 +321,50 @@ public sealed class ContentPackTests
     }
 
     [TestMethod]
+    public void PreferenceChangeReroutesTheAlreadyLoadedCatalog()
+    {
+        var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
+        var profile = new LearnerProfile(
+            Guid.Parse("4beb45c3-57ed-47ee-ac8e-41f202e729d7"),
+            new LanguageCode("de"),
+            [
+                new KnownLanguage(
+                    new LanguageCode("en"),
+                    LanguageProficiency.Advanced,
+                    ComfortableReading: true,
+                    ComfortableListening: true,
+                    AllowExplanations: true),
+                new KnownLanguage(
+                    new LanguageCode("hi"),
+                    LanguageProficiency.Advanced,
+                    ComfortableReading: true,
+                    ComfortableListening: true,
+                    AllowExplanations: true),
+            ],
+            new LearnerSettings(
+                MultilingualShortcutMode.Automatic,
+                PreferredExplanationLanguage: null,
+                MicrophonePreference.Later,
+                RetainSpeechRecordings: false));
+
+        var automatic = catalog.SelectInstructionLanguage(profile);
+        var preferred = catalog.SelectInstructionLanguage(profile with
+        {
+            Settings = profile.Settings with
+            {
+                ShortcutMode = MultilingualShortcutMode.PreferredLanguage,
+                PreferredExplanationLanguage = new LanguageCode("hi"),
+            },
+        });
+
+        Assert.AreEqual(new LanguageCode("en"), automatic.SelectedLanguage);
+        Assert.AreEqual(new LanguageCode("hi"), preferred.SelectedLanguage);
+        var english = catalog.CreateCourseCatalog(profile.TargetLanguage, automatic.SelectedLanguage!.Value);
+        var hindi = catalog.CreateCourseCatalog(profile.TargetLanguage, preferred.SelectedLanguage!.Value);
+        CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hindi));
+    }
+
+    [TestMethod]
     public void CourseProjectionIsExplicitAndDeterministicPerInstructionLanguage()
     {
         var directory = WritePacks([TwoLanguageTargetFixture()]);

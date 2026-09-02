@@ -945,4 +945,37 @@
   <data name="Template_WrittenTarget_NoVoice" xml:space="preserve"><value>लिखा लक्ष्य: {0}। मेल खाने वाली स्थानीय आवाज़ इंस्टॉल नहीं है।</value></data>
   <data name="Template_WrittenTarget_Playback" xml:space="preserve"><value>लिखा लक्ष्य: {0}। वैकल्पिक प्लेबैक में माइक्रोफ़ोन उपयोग नहीं होता।</value></data>
   <data name="Template_WrittenTarget_Unavailable" xml:space="preserve"><value>लिखा लक्ष्य: {0}। स्थानीय प्लेबैक उपलब्ध नहीं है।</value></data>
+  <data name="Language_German" xml:space="preserve"><value>जर्मन</value></data>
+  <data name="Languages_Target_Title" xml:space="preserve"><value>लक्ष्य भाषा</value></data>
+  <data name="Languages_Target_Body" xml:space="preserve"><value>पहला जाँचा सामग्री पैक बनते समय जर्मन लक्ष्य निश्चित है।</value></data>
+  <data name="Languages_Known_Title" xml:space="preserve"><value>ज्ञात भाषाएँ</value></data>
+  <data name="Languages_Known_Body" xml:space="preserve"><value>सीखने में सहायक भाषाएँ चुनें। हर भाषा के लिए पढ़ने, सुनने और स्पष्टीकरण के अलग विकल्प हैं।</value></data>
+  <data name="Languages_EnglishPreferences" xml:space="preserve"><value>अंग्रेज़ी प्राथमिकताएँ</value></data>
+  <data name="Languages_HindiPreferences" xml:space="preserve"><value>हिंदी प्राथमिकताएँ</value></data>
+  <data name="Languages_Proficiency" xml:space="preserve"><value>अनुमानित दक्षता</value></data>
+  <data name="Languages_EnglishProficiency" xml:space="preserve"><value>अंग्रेज़ी दक्षता</value></data>
+  <data name="Languages_HindiProficiency" xml:space="preserve"><value>हिंदी दक्षता</value></data>
+  <data name="Languages_Proficiency_Beginner" xml:space="preserve"><value>शुरुआती</value></data>
+  <data name="Languages_Proficiency_Intermediate" xml:space="preserve"><value>मध्यम</value></data>
+  <data name="Languages_Proficiency_Advanced" xml:space="preserve"><value>उन्नत</value></data>
+  <data name="Languages_Proficiency_Native" xml:space="preserve"><value>मूल या लगभग मूल वक्ता</value></data>
+  <data name="Languages_EnglishReading" xml:space="preserve"><value>मैं अंग्रेज़ी पढ़ने में सहज हूँ</value></data>
+  <data name="Languages_EnglishListening" xml:space="preserve"><value>मैं अंग्रेज़ी सुनने में सहज हूँ</value></data>
+  <data name="Languages_EnglishExplanations" xml:space="preserve"><value>स्पष्टीकरण के लिए अंग्रेज़ी प्रयोग हो सकती है</value></data>
+  <data name="Languages_HindiReading" xml:space="preserve"><value>मैं हिंदी पढ़ने में सहज हूँ</value></data>
+  <data name="Languages_HindiListening" xml:space="preserve"><value>मैं हिंदी सुनने में सहज हूँ</value></data>
+  <data name="Languages_HindiExplanations" xml:space="preserve"><value>स्पष्टीकरण के लिए हिंदी प्रयोग हो सकती है</value></data>
+  <data name="Languages_Instruction_Title" xml:space="preserve"><value>पाठ निर्देश की भाषा</value></data>
+  <data name="Languages_Instruction_Body" xml:space="preserve"><value>पाठ के निर्देशों, अर्थों और स्पष्टीकरणों में प्रयोग होने वाली भाषा चुनें।</value></data>
+  <data name="Languages_Instruction_Label" xml:space="preserve"><value>पसंदीदा पाठ निर्देश भाषा</value></data>
+  <data name="Languages_Instruction_Automatic" xml:space="preserve"><value>स्वचालित</value></data>
+  <data name="Languages_Instruction_Fallback" xml:space="preserve"><value>स्वचालित विकल्प अनुमत और सहज-पठन भाषाएँ स्थिर कोड क्रम में लेता है। अनुपलब्ध पसंद पर दूसरी योग्य भाषा मिलती है।</value></data>
+  <data name="Languages_Instruction_Ineligible" xml:space="preserve"><value>इस भाषा को ऊपर चुनें, स्पष्टीकरण की अनुमति दें और पसंद बनाने से पहले सहज पठन की पुष्टि करें।</value></data>
+  <data name="Languages_Instruction_NoCatalog" xml:space="preserve"><value>अभी प्राथमिकताएँ सहेजें। जाँची सामग्री उपलब्ध होने पर निर्देश मार्ग लागू होगा।</value></data>
+  <data name="Languages_Instruction_None" xml:space="preserve"><value>कोई उपलब्ध निर्देश भाषा नहीं</value></data>
+  <data name="Languages_Instruction_Unavailable" xml:space="preserve"><value>लोड की गई कोई निर्देश भाषा आपकी पठन और स्पष्टीकरण पसंद से मेल नहीं खाती।</value></data>
+  <data name="Languages_Instruction_UsingAutomatic" xml:space="preserve"><value>पाठ {0} में होंगे। स्वचालित मार्ग आपकी पठन और स्पष्टीकरण पसंद मानता है।</value></data>
+  <data name="Languages_Instruction_UsingPreferred" xml:space="preserve"><value>पाठ आपकी पसंदीदा भाषा {0} में होंगे।</value></data>
+  <data name="Languages_Save" xml:space="preserve"><value>भाषा प्राथमिकताएँ सहेजें</value></data>
+  <data name="Languages_Saved" xml:space="preserve"><value>स्थानीय रूप से सहेजा। नए पाठ अब {0} में हैं; जाँची सामग्री लोड रही।</value></data>
 </root>

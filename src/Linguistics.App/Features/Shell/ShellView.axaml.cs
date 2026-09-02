@@ -126,7 +126,10 @@ public partial class ShellView : UserControl
                     _diagnosticLog));
                 break;
             case "Languages":
-                ShowPage(new LanguagesView(_profile, SaveProfileAsync));
+                ShowPage(new LanguagesView(
+                    _profile,
+                    SaveProfileAsync,
+                    _runtimeContentCatalog ?? _authoringContentCatalog));
                 break;
             case "Learn" when _runtimeContentCatalog is not null:
                 ShowPage(new LearnView(
