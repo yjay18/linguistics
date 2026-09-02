@@ -894,7 +894,12 @@ internal static class ReadAloudCardRenderer
         PaperStage.SetAnchorOffsetY(readingCard, -12);
         stage.Children.Add(readingCard);
 
-        var limitStamp = new PaperStamp { Content = "INTELLIGIBILITY ONLY", Angle = -2 };
+        var limitStamp = new PaperStamp
+        {
+            Content = "INTELLIGIBILITY ONLY",
+            Angle = -2,
+            Width = 188,
+        };
         limitStamp.Classes.Add("rectangle");
         AutomationProperties.SetName(limitStamp, "Intelligibility only assessment stamp");
         PaperStage.SetLayer(limitStamp, PaperStageLayer.VerdictCard);
@@ -1343,7 +1348,12 @@ internal static class SyllableClapRenderer
 
         PaperStage.SetLayer(beatPanel, PaperStageLayer.Subject);
         stage.Children.Add(beatPanel);
-        var noMicrophoneStamp = new PaperStamp { Content = "NO MICROPHONE", Angle = 1.8 };
+        var noMicrophoneStamp = new PaperStamp
+        {
+            Content = "NO MICROPHONE",
+            Angle = 1.8,
+            Width = 160,
+        };
         noMicrophoneStamp.Classes.Add("rectangle");
         AutomationProperties.SetName(noMicrophoneStamp, "This rhythm activity uses no microphone");
         PaperStage.SetLayer(noMicrophoneStamp, PaperStageLayer.VerdictCard);
@@ -1682,7 +1692,12 @@ internal static class LongShortVowelRenderer
 
         PaperStage.SetLayer(bandPanel, PaperStageLayer.Subject);
         stage.Children.Add(bandPanel);
-        var honestyStamp = new PaperStamp { Content = "NO PHONEME SCORE", Angle = -1.7 };
+        var honestyStamp = new PaperStamp
+        {
+            Content = "NO PHONEME SCORE",
+            Angle = -1.7,
+            Width = 188,
+        };
         honestyStamp.Classes.Add("rectangle");
         AutomationProperties.SetName(
             honestyStamp,
