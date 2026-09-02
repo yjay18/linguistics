@@ -651,6 +651,50 @@ Gate: the same lesson plays correctly in English-taught and Hindi-taught modes; 
 is deterministic and explained in developer mode; validator enforces coverage; no
 target-language content is duplicated per source language.
 
+**Status (2026-09-02): complete with named unverified evidence.** P5.1–P5.6 are
+implemented. Content schema 3 separates instruction-language maps from single-copy
+target-language text and validates complete declared-language coverage. The pure
+`InstructionLanguageSelector` records each candidate and rejection, uses stable
+language-code ordering, and covers preferred, eligible-known, target, and unavailable
+branches. Catalog, template, scenario, review, Today, and Progress paths receive the
+selected instruction language explicitly; identical inputs retain identical lesson,
+slide, template, and target-content IDs.
+
+English and Hindi .NET resources now cover learner-facing shell, startup, recovery,
+course, lesson, Today, Progress, Review, Settings, privacy, café, pronunciation,
+Languages, onboarding, the three pack-authored templates, and shared image-credit
+chrome. A persisted Settings override can separate app chrome from lesson instruction.
+Languages changes update the saved preference and reroute the already-loaded validated
+catalog. Onboarding explains automatic ordering, preferred-language behavior, and the
+unavailable state before saving.
+
+The German target pack declares English and Hindi instruction. Every learner-facing map
+has both entries while German examples, option labels, speech text, and IDs remain
+single-copy. The existing Hindi-to-German transfer pack provides Hindi-scripted learner
+explanations, example notes, and negative-transfer warnings. These remain
+machine-validated Preview drafts pending competent review; no content or asset is
+described as approved.
+
+Locked restore, zero-warning Release build, all 371 tests (133 app and 238 core),
+formatter verification, publish, JSON duplicate-key checks, complete instruction-map
+coverage checks, resource parity, em-dash checks, and the 25-word learner-copy audit
+pass. Native macOS interaction used an isolated profile and covered mouse and keyboard
+onboarding, English plus Hindi selection, a Hindi-taught German proving lesson,
+Devanagari labels and automation names, deterministic outcome reporting, replay, skip,
+and reduced-motion final state. The same German `Kaffee` target and template remained
+visible while instruction and chrome changed between Hindi and English. Relaunch showed
+the saved English selection without reloading or rewriting content packs.
+
+Named evidence gaps: native QA found stale XAML labels during an in-place language
+switch. The binding mechanism was replaced with version-driven reevaluation and its
+automated gate passes, but the Mac locked before the final post-fix native switch could
+be repeated. That exact interaction remains unverified on the final build. Direct
+VoiceOver, Windows native interaction, and a fresh Phase 5 light-theme pass are also
+unverified. Developer-only gallery and diagnostics fixture copy remains English and is
+not learner-facing. Competent Hindi, German, bilingual transfer, pedagogical, cultural,
+content, license, modification, and redistribution review remains pending. With these
+named evidence gaps, Phase 5 is complete but not fully verified.
+
 ### Phase 6 — Learn experience redesign
 
 - **P6.1** Course map redesign: the unit list becomes a paper journey — units as
