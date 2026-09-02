@@ -49,6 +49,12 @@ public static class TemplateInteractionEvaluator
         string? selectedOptionId) =>
         EvaluateSingleSelection(options, answerId, selectedOptionId);
 
+    public static TemplateOutcome EvaluateScenarioChoice(
+        IReadOnlyList<TemplateOption> responses,
+        string answerId,
+        string? selectedResponseId) =>
+        EvaluateSingleSelection(responses, answerId, selectedResponseId);
+
     public static TemplateOutcome EvaluateSingleSelection(
         IReadOnlyList<TemplateOption> options,
         string answerId,

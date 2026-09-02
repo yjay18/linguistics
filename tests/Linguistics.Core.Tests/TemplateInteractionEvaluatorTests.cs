@@ -741,6 +741,38 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void ScenarioTheatreMapsOnlyStableAuthoredResponseIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("scenario-theatre")));
+        var responses = new[]
+        {
+            new TemplateOption("frame-only", "Ich möchte."),
+            new TemplateOption("full-request", "Ich möchte einen Kaffee, bitte."),
+        };
+
+        var incomplete = TemplateInteractionEvaluator.EvaluateScenarioChoice(
+            responses,
+            "full-request",
+            null);
+        var failure = TemplateInteractionEvaluator.EvaluateScenarioChoice(
+            responses,
+            "full-request",
+            "frame-only");
+        var success = TemplateInteractionEvaluator.EvaluateScenarioChoice(
+            responses,
+            "full-request",
+            "full-request");
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, failure.State);
+        Assert.AreEqual("frame-only", failure.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, success.State);
+        Assert.AreEqual("full-request", success.ResponseId);
+        Assert.AreNotEqual("Ich möchte einen Kaffee, bitte.", success.ResponseId);
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

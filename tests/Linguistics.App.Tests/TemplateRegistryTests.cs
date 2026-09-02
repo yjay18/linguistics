@@ -1074,6 +1074,47 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void ScenarioTheatreProjectsTaskDataAndReportsOnlyResponseIds()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("scenario-theatre"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        byId["ScenarioTheatreResponse_frame-only"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Assert.IsTrue(byId["ScenarioTheatreRetry"].IsVisible);
+        byId["ScenarioTheatreRetry"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Assert.IsFalse(byId["ScenarioTheatreRetry"].IsVisible);
+        byId["ScenarioTheatreResponse_full-request"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[0].State);
+        Assert.AreEqual("frame-only", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[1].State);
+        Assert.AreEqual("full-request", reported[1].ResponseId);
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["ScenarioTheatreGoal"]),
+            "Request one available drink politely");
+        Assert.AreEqual(
+            "NPC puppet. Café worker",
+            AutomationProperties.GetName(byId["ScenarioTheatreNpc"]));
+        Assert.IsTrue(byId.ContainsKey("ScenarioTheatreReplay"));
+        Assert.IsTrue(byId.ContainsKey("ScenarioTheatreSkip"));
+        Assert.IsTrue(byId.ContainsKey("ScenarioTheatreTextEquivalent"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

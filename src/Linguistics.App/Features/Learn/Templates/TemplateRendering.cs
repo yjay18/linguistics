@@ -74,6 +74,11 @@ internal static class TemplateRendering
     public static string? AssetReference(ResolvedTemplateParameters parameters, string name) =>
         parameters.Values.TryGetValue(name, out var value) ? value.AssetReferenceId : null;
 
+    public static TaskTemplateContent TaskReference(ResolvedTemplateParameters parameters, string name) =>
+        parameters.Values.TryGetValue(name, out var value) && value.Task is { } task
+            ? task
+            : throw new InvalidOperationException($"Template parameter '{name}' has no resolved task.");
+
     public static PaperStage CreateStage(double height, string accessibleName)
     {
         var stage = new PaperStage

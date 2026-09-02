@@ -319,6 +319,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("contrast-panes"),
             ContrastPanesRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("scenario-theatre"),
+            ScenarioTheatreRenderer.Render),
     ]);
 
     public Control Render(

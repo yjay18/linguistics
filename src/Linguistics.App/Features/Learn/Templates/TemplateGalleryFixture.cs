@@ -1658,5 +1658,93 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "dismiss-comparison"),
             })),
+        new(
+            new TemplateId("scenario-theatre"),
+            "Scenario theatre",
+            "Scenario · projected café task · deterministic response check",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Read the mission, then answer the café worker from the authored choices.",
+                        ["hi"] = "मिशन पढ़ें, फिर लिखे हुए विकल्पों से कैफ़े कर्मचारी को उत्तर दें।",
+                    }),
+                ["task"] = new(
+                    TemplateParameterKind.TaskReference,
+                    Task: ScenarioTask()),
+                ["state-label"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "At the counter"),
+                ["npc-line"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Guten Tag! Was möchten Sie?"),
+                ["responses"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("frame-only", "Ich möchte."),
+                        new("full-request", "Ich möchte einen Kaffee, bitte."),
+                    ]),
+                ["answer"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "full-request"),
+                ["retry-hint"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Name one available drink and keep the complete request frame."),
+            })),
     ];
+
+    private static TaskTemplateContent ScenarioTask() => new(
+        "de.task.cafe.order-one-item",
+        "de",
+        "cafe",
+        "A1",
+        "Request one available drink politely.",
+        "At a café counter, choose Kaffee, Tee, or Wasser.",
+        "Customer",
+        "Café worker",
+        ["de.function.order-polite"],
+        ["de.lexicon.cafe-items"],
+        "de.state.order.waiting",
+        ["de.state.order.complete"],
+        [
+            new TaskStateContent(
+                "de.state.order.waiting",
+                ["requestItem"],
+                ["Guten Tag! Was möchten Sie?"]),
+            new TaskStateContent(
+                "de.state.order.complete",
+                ["continue", "exit"],
+                ["Gern. Einen Moment, bitte."]),
+        ],
+        [
+            new TaskTransitionContent(
+                "de.state.order.waiting",
+                "de.state.order.complete",
+                "de.eval.order-full-request"),
+        ],
+        [
+            new TaskEvaluatorContent(
+                "de.eval.order-full-request",
+                TaskEvaluatorKind.RequiredTokenSequence,
+                ["ich", "möchte", "einen", "kaffee"]),
+            new TaskEvaluatorContent(
+                "de.eval.order-complete",
+                TaskEvaluatorKind.StateReached,
+                ["de.state.order.complete"]),
+        ],
+        [
+            new TaskSuccessCondition(
+                "de.eval.order-complete",
+                "Reach the complete state with the request frame and one available drink."),
+        ],
+        ["source.de.dib-2017"],
+        new ContentReview(
+            ContentReviewStatus.MachineValidated,
+            Reviewer: null,
+            ReviewedOn: null,
+            "Synthetic gallery projection. Competent review remains pending."));
 }

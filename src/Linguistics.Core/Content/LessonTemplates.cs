@@ -713,6 +713,21 @@ public static class LessonTemplateSchemas
                 new("acknowledgement", TemplateParameterKind.Text, IsRequired: true),
                 new("dismissal", TemplateParameterKind.Text, IsRequired: true),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("scenario-theatre"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("task", TemplateParameterKind.TaskReference, IsRequired: true),
+                new("state-label", TemplateParameterKind.Text, IsRequired: true),
+                new("npc-line", TemplateParameterKind.Text, IsRequired: true),
+                new("responses", TemplateParameterKind.OptionList, IsRequired: true),
+                new("answer", TemplateParameterKind.Text, IsRequired: true),
+                new("retry-hint", TemplateParameterKind.Text, IsRequired: true),
+                new("npc-asset", TemplateParameterKind.AssetReference, IsRequired: false),
+                new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 
