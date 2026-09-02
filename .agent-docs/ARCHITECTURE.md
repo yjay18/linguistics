@@ -213,6 +213,15 @@ IDs, intelligibility-only assessment outcomes, or bounded in-memory tap interval
 the deterministic core; raw transcripts and timing values never leave through the
 template callback. Production without supported evidence stays explicitly unscored.
 
+Reading and writing renderers also keep all document, field, note, selection, and tile
+state transient. Synthetic forms never write their entered values; the core receives only
+authored field IDs and determines completeness and equality. Note checks use authored
+required phrases and return only matched criterion IDs after deterministic normalization.
+Menu and schedule extraction submit stable authored answer IDs, while spelling submits a
+complete ordered tile-ID sequence to the existing word-order evaluator. Renderers never
+inspect learner history, persistence, mastery, or transfer routing. An unavailable sign
+photograph becomes the complete authored sign rather than a fabricated or remote asset.
+
 The developer gallery supplies fixed parameters backed by the validated pack and cycles presentation states
 without reading learner history. Bundled machine-validated lesson instances are preview
 only: finishing one returns to the course map without creating mastery evidence or a

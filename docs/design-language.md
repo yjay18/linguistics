@@ -49,6 +49,13 @@ route, and text-only mode removes scenic imagery without removing prompt, contro
 outcome meaning. Tap intervals and authored response choices still go to the deterministic
 core; the visual stretch, stamp press, and puppet motion remain presentation only.
 
+The Wave F reading and writing catalog treats signs, forms, stationery, menus, schedules,
+and letter tiles as shallow paper documents. Labels, prompts, prices, times, and letter
+names remain real text in both themes. Missing photography becomes a named authored-text
+state, never an empty frame. Form and note inputs use restrained stationery surfaces;
+selected spelling tiles use the existing accent family. Document movement stays bounded
+and optional, while authored field, criterion, answer, and tile IDs go to the core.
+
 ## Motion
 
 Motion is presentation-only and never gates state. `SteppedEasing` supplies deterministic low-frame-rate puppet movement, while `PaperChoreography` sequences bounded stages, supports replay and synchronous skip-to-final behavior, and rejects timelines of four seconds or longer. Tape settles, stamps press, and the sandbox scene establishes, enters, reacts, and resolves in under four seconds.

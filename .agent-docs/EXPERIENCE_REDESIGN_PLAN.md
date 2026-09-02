@@ -489,6 +489,35 @@ pending. No approval, distribution, or release claim is made.
 - **P4.T48** spelling-tiles — spell with letter tiles; alphabet and letter-name
   lessons.
 
+**Wave F status (2026-09-02): complete with named unverified evidence in the current
+Phase 4 checkpoint.** P4.T43–P4.T48 have typed schemas, strict per-kind validator
+fixtures, registered Avalonia renderers, all-outcome gallery fixtures, bounded replay and
+skip choreography, reduced-motion instant states, keyboard names and live regions,
+complete text-only presentation, callback-only outcomes, and deterministic core mapping
+tests. Sign Reading renders its complete authored sign when no validated photograph is
+available. Form Fill keeps synthetic field values inside the renderer and submits only
+authored field IDs. Note Write submits only matched authored criterion IDs after bounded
+normalization. Menu Read and Schedule Read submit stable answer IDs from explicitly
+synthetic source cards. Spelling Tiles exposes written German letter names and submits
+only the ordered authored tile IDs.
+
+Locked restore, formatter, zero-warning Release build, publish inspection, and all 325
+tests pass. The published app contains all 12 validated German Preview images and no
+AssetPipeline binary. Fresh macOS inspection covered every Wave F template. Real mouse
+and keyboard interaction on Sign Reading, Form Fill, and Spelling Tiles covered
+deterministic success and failure paths, field entry, tile add/reset/order behavior,
+replay, skip, all four gallery outcomes, text-only routes, reduced-motion and
+motion-enabled final states, and light and dark themes. The fresh diagnostic log contains
+only successful app-open and profile-load events. An independent visual review passed all
+10 final all-template, interaction, theme, and text-only captures. Final captures are
+under `artifacts/phase4-wave-f/screenshots/`.
+
+Named evidence gaps: direct VoiceOver and Windows native interaction remain unverified.
+Sign Reading still needs a suitable validated Commons sign photograph and therefore uses
+its designed authored text-only equivalent. Competent linguistic, cultural, content,
+license, modification, and redistribution review remains pending. No approval,
+distribution, or release claim is made.
+
 **Wave G — Transfer and explanation** (all consume the existing `TransferRouter`
 output; they render bridges, never choose them)
 - **P4.T49** bridge-note — the reusable transfer note as a taped margin note with
