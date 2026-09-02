@@ -222,6 +222,14 @@ complete ordered tile-ID sequence to the existing word-order evaluator. Renderer
 inspect learner history, persistence, mastery, or transfer routing. An unavailable sign
 photograph becomes the complete authored sign rather than a fabricated or remote asset.
 
+Transfer and explanation renderers receive already projected `TransferRouter` output and
+never invoke routing themselves. Their acknowledgement and dismissal choices remain
+advisory presentation actions mapped by the pure evaluator from stable authored IDs.
+`TransferNoteCardView` is the reusable Avalonia composition shared by the gallery Bridge
+Note renderer and the café scenario. The scenario controller may own the selected bridge
+and decide whether a dismissal keeps it available for that session; the shared control
+does not read or write learner state, mastery, routing, or persistence.
+
 The developer gallery supplies fixed parameters backed by the validated pack and cycles presentation states
 without reading learner history. Bundled machine-validated lesson instances are preview
 only: finishing one returns to the course map without creating mastery evidence or a

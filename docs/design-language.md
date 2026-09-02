@@ -56,6 +56,14 @@ state, never an empty frame. Form and note inputs use restrained stationery surf
 selected spelling tiles use the existing accent family. Document movement stays bounded
 and optional, while authored field, criterion, answer, and tile IDs go to the core.
 
+The Wave G transfer catalog presents already routed explanations as paper marginalia,
+warning stamps, connecting thread, and paired comparison sheets. The shared transfer note
+keeps its source badge, caution, confirmation, and dismissal on one taped surface. Warning
+stamps may overlap a paper edge but never obscure the authored form; comparison hinges
+reserve enough width for their complete label. These renderers show the routed bridge and
+report only authored advisory action IDs. They never choose a source language, infer a
+relationship, or touch mastery and persistence.
+
 ## Motion
 
 Motion is presentation-only and never gates state. `SteppedEasing` supplies deterministic low-frame-rate puppet movement, while `PaperChoreography` sequences bounded stages, supports replay and synchronous skip-to-final behavior, and rejects timelines of four seconds or longer. Tape settles, stamps press, and the sandbox scene establishes, enters, reacts, and resolves in under four seconds.

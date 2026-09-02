@@ -529,6 +529,42 @@ output; they render bridges, never choose them)
   target word.
 - **P4.T52** contrast-panes — side-by-side known-versus-target structure comparison.
 
+**Wave G status (2026-09-02): complete with named unverified evidence in the current
+Phase 4 checkpoint.** P4.T49–P4.T52 have typed schemas, strict per-kind validator
+fixtures, registered Avalonia renderers, all-outcome gallery fixtures, bounded replay and
+skip choreography, reduced-motion instant states, keyboard names and live regions,
+complete intrinsic text-only presentation, callback-only outcomes, and deterministic
+core mapping tests. All four consume already projected transfer data; no renderer calls
+`TransferRouter`, chooses a bridge, reads learner state, or writes persistence. Bridge
+Note reuses `TransferNoteCardView` with the café surface, keeps source, explanation,
+caution, explicit confirmation, and dismissal together, and reports only authored action
+IDs. False Friend Alarm uses the existing machine-validated noun-capitalization
+interference cue rather than inventing a lexical false friend. Cognate Thread keeps the
+authored target-frame boundary visible, while Contrast Panes explicitly separates what
+transfers from what changes.
+
+Locked restore, formatter, zero-warning Release build, publish inspection, and all 334
+tests pass. The published app contains all 12 validated German Preview images and no
+AssetPipeline binary. Fresh macOS inspection covered every Wave G template. Real mouse
+interaction on Bridge Note and keyboard-only interaction on Contrast Panes covered
+acknowledgement, dismissal, replay, skip, callback outcomes, and live-region updates. The
+gallery cycled Ready, Success, Uncertain, and Failure. Text-only mode removed all 70
+image-role nodes without removing any Wave G content or controls. Reduced-motion replay
+and skip showed the complete state immediately, and both light and dark themes were
+captured. A first independent visual review identified an obscuring warning stamp and a
+clipped comparison label. Both were corrected, protected by renderer tests, and a fresh
+light/dark review passed with no regression. Final captures are under
+`artifacts/phase4-wave-g/screenshots/`; the isolated diagnostic log contains only
+successful app-open and profile-load events.
+
+Named evidence gaps: direct VoiceOver and Windows native interaction remain unverified.
+The café runtime is correctly unavailable while the bundled content and asset licenses
+remain Preview, so native interaction with the shared note inside that runtime path was
+not claimable; its controller and view composition are covered by tests. Competent
+linguistic, cultural, content, license, modification, and redistribution review remains
+pending. Wave G required no additional asset. No approval, distribution, or release
+claim is made.
+
 **Wave H — Scenario, review, and progress**
 - **P4.T53** scenario-theatre — the full communicative task scene: goal card, paper
   set, NPC puppet, conversation, retry; wraps the existing café task engine and any
