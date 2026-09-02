@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Language_English" xml:space="preserve">
+    <value>अंग्रेज़ी</value>
+  </data>
+  <data name="Language_FollowInstruction" xml:space="preserve">
+    <value>पाठ के स्पष्टीकरण की भाषा अपनाएँ</value>
+  </data>
+  <data name="Language_Hindi" xml:space="preserve">
+    <value>हिन्दी</value>
+  </data>
+  <data name="Settings_AppLanguage_Description" xml:space="preserve">
+    <value>पाठ के स्पष्टीकरण की भाषा अपनाएँ, या ऐप के नियंत्रण एक भाषा में रखें।</value>
+  </data>
+  <data name="Settings_AppLanguage_Label" xml:space="preserve">
+    <value>ऐप की भाषा चुनें</value>
+  </data>
+  <data name="Settings_AppLanguage_Title" xml:space="preserve">
+    <value>ऐप की भाषा</value>
+  </data>
+</root>

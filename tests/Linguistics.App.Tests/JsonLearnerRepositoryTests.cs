@@ -15,7 +15,7 @@ public sealed class JsonLearnerRepositoryTests
         new(2026, 8, 19, 12, 0, 0, TimeSpan.Zero);
 
     [TestMethod]
-    public async Task CompleteLearningStateRoundTripsThroughSchemaSixStore()
+    public async Task CompleteLearningStateRoundTripsThroughSchemaSevenStore()
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
@@ -53,7 +53,7 @@ public sealed class JsonLearnerRepositoryTests
             CollectionAssert.AreEqual(review.Schedules.ToArray(), restoredState.Review.Schedules.ToArray());
             CollectionAssert.AreEqual(review.Attempts.ToArray(), restoredState.Review.Attempts.ToArray());
             CollectionAssert.AreEqual(lessons.Lessons.ToArray(), restoredState.Lessons.Lessons.ToArray());
-            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 6");
+            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 7");
         });
     }
 
@@ -78,7 +78,7 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveCurriculumAsync(profile.Id, curriculum);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 6");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 7");
             Assert.AreEqual(profile.Id, (await repository.LoadAsync())?.Id);
             AssertCurriculumEqual(curriculum, await repository.LoadCurriculumAsync(profile.Id));
             AssertTaskHistoryEqual(
@@ -111,7 +111,7 @@ public sealed class JsonLearnerRepositoryTests
                     tasks,
                     Linguistics.Core.Speech.PronunciationHistory.Empty));
 
-            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 6");
+            StringAssert.Contains(await File.ReadAllTextAsync(filePath), "\"schemaVersion\": 7");
             AssertTaskHistoryEqual(
                 tasks,
                 (await repository.LoadLearningStateAsync(profile.Id)).Tasks);
@@ -139,7 +139,7 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveLearningStateAsync(profile.Id, restored);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 6");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 7");
             StringAssert.Contains(upgraded, "\"pronunciation\"");
             StringAssert.Contains(upgraded, "\"review\"");
         });
@@ -169,7 +169,7 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveLearningStateAsync(profile.Id, restored);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 6");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 7");
             StringAssert.Contains(upgraded, "\"review\"");
         });
     }
@@ -195,7 +195,7 @@ public sealed class JsonLearnerRepositoryTests
             await repository.SaveLearningStateAsync(profile.Id, restored);
 
             var upgraded = await File.ReadAllTextAsync(filePath);
-            StringAssert.Contains(upgraded, "\"schemaVersion\": 6");
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 7");
             StringAssert.Contains(upgraded, "\"lessons\"");
         });
     }
@@ -257,20 +257,53 @@ public sealed class JsonLearnerRepositoryTests
     }
 
     [TestMethod]
-    public async Task ReducedMotionRoundTripsAndMissingSchemaSixSettingDefaultsOffWithoutRewrite()
+    public async Task SchemaSixLoadsWithoutRewriteAndAddsAppLanguageOverrideOnSave()
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
             var profile = CreateProfile();
             await repository.SaveAsync(profile);
-            var previousSchemaSix = (await File.ReadAllTextAsync(filePath))
+            var schemaSix = (await File.ReadAllTextAsync(filePath))
+                .Replace("\"schemaVersion\": 7", "\"schemaVersion\": 6", StringComparison.Ordinal)
+                .Replace(",\n    \"appLanguageOverride\": null", string.Empty, StringComparison.Ordinal);
+            await File.WriteAllTextAsync(filePath, schemaSix);
+
+            var restored = await repository.LoadAsync();
+
+            Assert.IsNull(restored?.Settings.AppLanguageOverride);
+            Assert.AreEqual(schemaSix, await File.ReadAllTextAsync(filePath));
+
+            await repository.SaveAsync(restored! with
+            {
+                Settings = restored.Settings with
+                {
+                    AppLanguageOverride = new LanguageCode("hi"),
+                },
+            });
+
+            var upgraded = await File.ReadAllTextAsync(filePath);
+            StringAssert.Contains(upgraded, "\"schemaVersion\": 7");
+            Assert.AreEqual(
+                new LanguageCode("hi"),
+                (await repository.LoadAsync())?.Settings.AppLanguageOverride);
+        });
+    }
+
+    [TestMethod]
+    public async Task ReducedMotionRoundTripsAndMissingSchemaSevenSettingDefaultsOffWithoutRewrite()
+    {
+        await WithStoreAsync(async (repository, filePath) =>
+        {
+            var profile = CreateProfile();
+            await repository.SaveAsync(profile);
+            var previousSchemaSeven = (await File.ReadAllTextAsync(filePath))
                 .Replace(",\n    \"reduceMotion\": false", string.Empty, StringComparison.Ordinal);
-            await File.WriteAllTextAsync(filePath, previousSchemaSix);
+            await File.WriteAllTextAsync(filePath, previousSchemaSeven);
 
             var restored = await repository.LoadAsync();
 
             Assert.IsFalse(restored?.Settings.ReduceMotion);
-            Assert.AreEqual(previousSchemaSix, await File.ReadAllTextAsync(filePath));
+            Assert.AreEqual(previousSchemaSeven, await File.ReadAllTextAsync(filePath));
 
             await repository.SaveAsync(restored! with
             {
@@ -286,13 +319,13 @@ public sealed class JsonLearnerRepositoryTests
     {
         await WithStoreAsync(async (repository, filePath) =>
         {
-            const string unsupported = "{\"schemaVersion\":7,\"profile\":null}";
+            const string unsupported = "{\"schemaVersion\":8,\"profile\":null}";
             await File.WriteAllTextAsync(filePath, unsupported);
 
             var exception = await Assert.ThrowsExactlyAsync<LearnerStoreException>(
                 () => repository.LoadAsync());
 
-            StringAssert.Contains(exception.Message, "schema 7 is unsupported");
+            StringAssert.Contains(exception.Message, "schema 8 is unsupported");
             Assert.AreEqual(unsupported, await File.ReadAllTextAsync(filePath));
         });
     }

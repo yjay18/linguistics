@@ -76,6 +76,12 @@ public static class LearnerProfileValidator
                 errors.Add("The selected local model identifier is invalid.");
             }
 
+            if (profile.Settings.AppLanguageOverride is { } appLanguage &&
+                string.IsNullOrWhiteSpace(appLanguage.Value))
+            {
+                errors.Add("The app language override is invalid.");
+            }
+
             ValidatePreferredLanguage(profile, errors);
         }
 

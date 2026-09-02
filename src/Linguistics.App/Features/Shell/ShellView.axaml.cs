@@ -15,6 +15,7 @@ using Linguistics.App.Features.Review;
 using Linguistics.App.Features.Scenarios;
 using Linguistics.App.Features.Settings;
 using Linguistics.App.Features.Today;
+using Linguistics.App.Localization;
 using Linguistics.App.Speech;
 using Linguistics.Core.Content;
 using Linguistics.Core.Providers;
@@ -90,6 +91,7 @@ public partial class ShellView : UserControl
         _speechRecordingStore = speechRecordingStore;
         _diagnosticLog = diagnosticLog;
         _imageCache = imageCache;
+        ApplyAppLanguage();
         ApplyMotionPreference();
         ShowSelectedPage();
     }
@@ -223,8 +225,24 @@ public partial class ShellView : UserControl
     private async Task<LearnerProfile> SaveProfileAsync(LearnerProfile profile)
     {
         _profile = await _profileOwner!.UpdateAsync(profile);
+        ApplyAppLanguage();
         ApplyMotionPreference();
         return _profile;
+    }
+
+    private void ApplyAppLanguage()
+    {
+        if (_profile is null)
+        {
+            AppStrings.UseLanguage(new LanguageCode("en"));
+            return;
+        }
+
+        var catalog = _runtimeContentCatalog ?? _authoringContentCatalog;
+        var instructionLanguage = catalog?
+            .SelectInstructionLanguage(_profile)
+            .SelectedLanguage;
+        AppStrings.UseLanguage(AppLanguageSelector.Select(_profile, instructionLanguage));
     }
 
     private async Task DeleteProfileAsync()

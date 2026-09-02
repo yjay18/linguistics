@@ -91,6 +91,24 @@ public sealed class LearnerProfileTests
     }
 
     [TestMethod]
+    public void ValidationRejectsDefaultAppLanguageOverride()
+    {
+        var profile = Profile(
+            [Known("en", allowExplanations: true)],
+            new LearnerSettings(
+                MultilingualShortcutMode.AskFirst,
+                null,
+                MicrophonePreference.Later,
+                false,
+                AppLanguageOverride: default(LanguageCode)));
+
+        var exception = Assert.ThrowsExactly<LearnerProfileValidationException>(() =>
+            LearnerProfileValidator.Validate(profile));
+
+        StringAssert.Contains(exception.Message, "app language override is invalid");
+    }
+
+    [TestMethod]
     public async Task OwnerCreatesRestoresAndDeletesAValidatedProfile()
     {
         var repository = new InMemoryLearnerRepository();

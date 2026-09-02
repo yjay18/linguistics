@@ -8,7 +8,8 @@ namespace Linguistics.App.Persistence;
 
 public sealed class JsonLearnerRepository : ILearnerRepository
 {
-    public const int CurrentSchemaVersion = 6;
+    public const int CurrentSchemaVersion = 7;
+    private const int LessonHistorySchemaVersion = 6;
     private const int ReviewSchemaVersion = 5;
     private const int PronunciationSchemaVersion = 4;
     private const int TaskHistorySchemaVersion = 3;
@@ -359,7 +360,8 @@ public sealed class JsonLearnerRepository : ILearnerRepository
                 TaskHistorySchemaVersion => MigrateSchemaThree(document.RootElement),
                 PronunciationSchemaVersion => MigrateSchemaFour(document.RootElement),
                 ReviewSchemaVersion => MigrateSchemaFive(document.RootElement),
-                CurrentSchemaVersion => ReadSchemaSix(document.RootElement),
+                LessonHistorySchemaVersion => MigrateSchemaSix(document.RootElement),
+                CurrentSchemaVersion => ReadCurrentSchema(document.RootElement),
                 _ => throw new LearnerStoreException(
                     $"Learner store schema {schemaVersion} is unsupported; expected {CurrentSchemaVersion}."),
             };
@@ -500,7 +502,16 @@ public sealed class JsonLearnerRepository : ILearnerRepository
             LessonHistory.Empty);
     }
 
-    private static LearnerStoreEnvelope ReadSchemaSix(JsonElement root)
+    private static LearnerStoreEnvelope MigrateSchemaSix(JsonElement root)
+    {
+        var envelope = ReadAndValidateCurrentEnvelope(root);
+        return envelope with { SchemaVersion = CurrentSchemaVersion };
+    }
+
+    private static LearnerStoreEnvelope ReadCurrentSchema(JsonElement root) =>
+        ReadAndValidateCurrentEnvelope(root);
+
+    private static LearnerStoreEnvelope ReadAndValidateCurrentEnvelope(JsonElement root)
     {
         var envelope = root.Deserialize<LearnerStoreEnvelope>(JsonOptions)
             ?? throw new LearnerStoreException("The learner store is empty or invalid.");

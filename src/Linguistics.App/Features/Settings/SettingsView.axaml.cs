@@ -77,6 +77,12 @@ public partial class SettingsView : UserControl
         MicrophoneLater.IsChecked = profile.Settings.Microphone == MicrophonePreference.Later;
         MicrophoneNever.IsChecked = profile.Settings.Microphone == MicrophonePreference.Never;
         ReduceMotion.IsChecked = profile.Settings.ReduceMotion;
+        AppLanguageOverride.SelectedItem = profile.Settings.AppLanguageOverride?.Value switch
+        {
+            "en" => AppLanguageEnglish,
+            "hi" => AppLanguageHindi,
+            _ => FollowInstructionLanguage,
+        };
 
         RefreshPreferredLanguageOptions();
         PreferredLanguage.SelectedItem = profile.Settings.PreferredExplanationLanguage is { } preferred
@@ -252,8 +258,9 @@ public partial class SettingsView : UserControl
                 preferred,
                 SelectedMicrophonePreference(),
                 RetainSpeechRecordings: false,
-                SelectedModelName(),
-                ReduceMotion.IsChecked == true);
+                SelectedLocalModel: SelectedModelName(),
+                ReduceMotion: ReduceMotion.IsChecked == true,
+                AppLanguageOverride: SelectedAppLanguageOverride());
             _profile = await _saveProfile(_profile with { Settings = settings });
             StatusText.Text = "Settings saved locally.";
             StatusText.IsVisible = true;
@@ -365,6 +372,14 @@ public partial class SettingsView : UserControl
             ? MicrophonePreference.Never
             : MicrophonePreference.Later;
     }
+
+    private LanguageCode? SelectedAppLanguageOverride() =>
+        AppLanguageOverride.SelectedItem switch
+        {
+            { } item when ReferenceEquals(item, AppLanguageEnglish) => new LanguageCode("en"),
+            { } item when ReferenceEquals(item, AppLanguageHindi) => new LanguageCode("hi"),
+            _ => null,
+        };
 
     private void SetBusy(bool busy)
     {

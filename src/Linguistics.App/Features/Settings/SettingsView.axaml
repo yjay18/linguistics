@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Linguistics.App.Controls"
+             xmlns:loc="using:Linguistics.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -8,6 +9,29 @@
              d:DesignHeight="900"
              x:Class="Linguistics.App.Features.Settings.SettingsView">
     <StackPanel Spacing="24">
+        <controls:PaperCard Classes="settings-sheet soft">
+            <StackPanel Spacing="12">
+                <TextBlock Text="{loc:Localize Settings_AppLanguage_Title}"
+                           FontSize="22"
+                           FontWeight="SemiBold"
+                           AutomationProperties.HeadingLevel="2" />
+                <TextBlock Text="{loc:Localize Settings_AppLanguage_Description}"
+                           TextWrapping="Wrap"
+                           Opacity="0.78" />
+                <ComboBox x:Name="AppLanguageOverride"
+                          MinWidth="300"
+                          AutomationProperties.Name="{loc:Localize Settings_AppLanguage_Label}"
+                          AutomationProperties.AutomationId="SettingsAppLanguage">
+                    <ComboBoxItem x:Name="FollowInstructionLanguage"
+                                  Content="{loc:Localize Language_FollowInstruction}" />
+                    <ComboBoxItem x:Name="AppLanguageEnglish"
+                                  Content="{loc:Localize Language_English}" />
+                    <ComboBoxItem x:Name="AppLanguageHindi"
+                                  Content="{loc:Localize Language_Hindi}" />
+                </ComboBox>
+            </StackPanel>
+        </controls:PaperCard>
+
         <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
             <TextBlock Text="Multilingual shortcuts"
