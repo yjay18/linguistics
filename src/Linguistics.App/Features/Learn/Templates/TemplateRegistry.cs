@@ -328,6 +328,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("review-flash"),
             ReviewFlashRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("recap-scrapbook"),
+            RecapScrapbookRenderer.Render),
     ]);
 
     public Control Render(

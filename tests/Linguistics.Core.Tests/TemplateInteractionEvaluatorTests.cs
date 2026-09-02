@@ -856,6 +856,38 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void RecapScrapbookReportsOnlyAuthoredAdvisoryActionIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("recap-scrapbook")));
+        var actions = new[]
+        {
+            new TemplateOption("finish-recap", "I reviewed these pieces"),
+            new TemplateOption("keep-open", "Keep spread open"),
+        };
+
+        var incomplete = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "finish-recap",
+            null);
+        var finished = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "finish-recap",
+            "finish-recap");
+        var keptOpen = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "finish-recap",
+            "keep-open");
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Success, finished.State);
+        Assert.AreEqual("finish-recap", finished.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, keptOpen.State);
+        Assert.AreEqual("keep-open", keptOpen.ResponseId);
+        Assert.AreNotEqual("I reviewed these pieces", finished.ResponseId);
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

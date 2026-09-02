@@ -1205,6 +1205,58 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void RecapScrapbookKeepsAuthoredPieceOrderAndReportsOnlyActionIds()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("recap-scrapbook"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        var pieceIds = controls
+            .Select(AutomationProperties.GetAutomationId)
+            .Where(id => id?.StartsWith("RecapScrapbookPiece_", StringComparison.Ordinal) == true)
+            .ToArray();
+        CollectionAssert.AreEqual(
+            new[]
+            {
+                "RecapScrapbookPiece_goal",
+                "RecapScrapbookPiece_frame",
+                "RecapScrapbookPiece_choice",
+                "RecapScrapbookPiece_repair",
+            },
+            pieceIds);
+        byId["RecapScrapbookAction_keep-open"].RaiseEvent(
+            new RoutedEventArgs(Button.ClickEvent));
+        byId["RecapScrapbookAction_finish-recap"].RaiseEvent(
+            new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Ready, reported[0].State);
+        Assert.AreEqual("keep-open", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[1].State);
+        Assert.AreEqual("finish-recap", reported[1].ResponseId);
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["RecapScrapbookClosing"]),
+            "full request frame");
+        Assert.IsTrue(byId.ContainsKey("RecapScrapbookSpread"));
+        Assert.IsTrue(byId.ContainsKey("RecapScrapbookReplay"));
+        Assert.IsTrue(byId.ContainsKey("RecapScrapbookSkip"));
+        Assert.IsTrue(byId.ContainsKey("RecapScrapbookTextEquivalent"));
+        Assert.IsTrue(byId.ContainsKey("RecapScrapbookStatus"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

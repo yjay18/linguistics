@@ -756,6 +756,18 @@ public static class LessonTemplateSchemas
                 new("ratings", TemplateParameterKind.OptionList, IsRequired: true),
                 new("configuration-version", TemplateParameterKind.Text, IsRequired: true),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("recap-scrapbook"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("title", TemplateParameterKind.Text, IsRequired: true),
+                new("pieces", TemplateParameterKind.OptionList, IsRequired: true),
+                new("closing", TemplateParameterKind.Text, IsRequired: true),
+                new("actions", TemplateParameterKind.OptionList, IsRequired: true),
+                new("acknowledgement", TemplateParameterKind.Text, IsRequired: true),
+            ]),
     ];
 }
 

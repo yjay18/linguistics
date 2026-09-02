@@ -1796,6 +1796,46 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "review-v1"),
             })),
+        new(
+            new TemplateId("recap-scrapbook"),
+            "Recap scrapbook",
+            "Review · ordered lesson pieces · paper spread",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Gather the lesson pieces into one café request recap.",
+                        ["hi"] = "पाठ के हिस्सों को एक कैफ़े अनुरोध पुनरावलोकन में जोड़ें।",
+                    }),
+                ["title"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Café request recap"),
+                ["pieces"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("goal", "Goal: order one available drink politely."),
+                        new("frame", "Frame: Ich möchte plus one café item."),
+                        new("choice", "Choice: Kaffee, Tee, or Wasser."),
+                        new("repair", "Repair: name an item before trying again."),
+                    ]),
+                ["closing"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Keep the full request frame and one available drink together."),
+                ["actions"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("finish-recap", "I reviewed these pieces"),
+                        new("keep-open", "Keep spread open"),
+                    ]),
+                ["acknowledgement"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "finish-recap"),
+            })),
     ];
 
     private static TaskTemplateContent ScenarioTask() => new(
