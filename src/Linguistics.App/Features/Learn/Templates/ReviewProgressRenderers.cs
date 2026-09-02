@@ -812,7 +812,7 @@ internal static class UnitCapstoneRenderer
         PaperStage.SetLayer(route, PaperStageLayer.Subject);
         PaperStage.SetAnchor(route, PaperAnchorLine.Foot);
         PaperStage.SetAnchorX(route, 0.5);
-        PaperStage.SetAnchorOffsetY(route, -14);
+        PaperStage.SetAnchorOffsetY(route, 34);
         stage.Children.Add(route);
 
         var modeText = new TextBlock
@@ -1151,7 +1151,7 @@ internal static class ProgressShelfRenderer
                                 Content = statusLabel,
                                 Angle = index % 2 == 0 ? -2 : 1.6,
                                 HorizontalAlignment = HorizontalAlignment.Left,
-                                Classes = { "compact" },
+                                Classes = { "rectangle" },
                             },
                             new TextBlock
                             {
