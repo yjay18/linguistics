@@ -322,6 +322,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("scenario-theatre"),
             ScenarioTheatreRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("consequence-verdict"),
+            ConsequenceVerdictRenderer.Render),
     ]);
 
     public Control Render(

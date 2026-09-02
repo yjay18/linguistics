@@ -728,6 +728,22 @@ public static class LessonTemplateSchemas
                 new("npc-asset", TemplateParameterKind.AssetReference, IsRequired: false),
                 new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("consequence-verdict"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("subject", TemplateParameterKind.Text, IsRequired: true),
+                new("state-label", TemplateParameterKind.Text, IsRequired: true),
+                new("verdicts", TemplateParameterKind.OptionList, IsRequired: true),
+                new("consequences", TemplateParameterKind.OptionList, IsRequired: true),
+                new("report-lines", TemplateParameterKind.OptionList, IsRequired: true),
+                new("actions", TemplateParameterKind.OptionList, IsRequired: true),
+                new("retry-action", TemplateParameterKind.Text, IsRequired: true),
+                new("subject-asset", TemplateParameterKind.AssetReference, IsRequired: false),
+                new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 

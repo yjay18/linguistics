@@ -43,6 +43,46 @@ public static class TemplateInteractionEvaluator
             selectedActionId);
     }
 
+    public static TemplateOutcome EvaluateConsequenceAction(
+        IReadOnlyList<TemplateOption> actions,
+        string retryActionId,
+        TemplateOutcomeState projectedOutcome,
+        string? selectedActionId)
+    {
+        ArgumentNullException.ThrowIfNull(actions);
+        ArgumentException.ThrowIfNullOrWhiteSpace(retryActionId);
+        if (!Enum.IsDefined(projectedOutcome))
+        {
+            throw new ArgumentOutOfRangeException(nameof(projectedOutcome));
+        }
+
+        var actionIds = ValidateOptionIds(actions, nameof(actions));
+        if (actionIds.Length < 2 || !actionIds.Contains(retryActionId, StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "Consequence actions must include a retry and another declared action.",
+                nameof(actions));
+        }
+
+        if (selectedActionId is null)
+        {
+            return new TemplateOutcome(TemplateOutcomeState.Uncertain);
+        }
+
+        if (!actionIds.Contains(selectedActionId, StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "The consequence action must be declared by the template.",
+                nameof(selectedActionId));
+        }
+
+        return new TemplateOutcome(
+            string.Equals(selectedActionId, retryActionId, StringComparison.Ordinal)
+                ? TemplateOutcomeState.Ready
+                : projectedOutcome,
+            selectedActionId);
+    }
+
     public static TemplateOutcome EvaluatePictureMatch(
         IReadOnlyList<TemplateOption> options,
         string answerId,

@@ -1115,6 +1115,48 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void ConsequenceVerdictPreservesProjectionAndReportsOnlyActionIds()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("consequence-verdict"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters with { PreviewOutcome = TemplateOutcomeState.Failure },
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        byId["ConsequenceVerdictAction_continue"].RaiseEvent(
+            new RoutedEventArgs(Button.ClickEvent));
+        byId["ConsequenceVerdictAction_retry"].RaiseEvent(
+            new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[0].State);
+        Assert.AreEqual("continue", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, reported[1].State);
+        Assert.AreEqual("retry", reported[1].ResponseId);
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["ConsequenceVerdictCard"]),
+            "Request needs another turn");
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["ConsequenceVerdictReport"]),
+            "deterministic task outcome");
+        Assert.IsTrue(byId.ContainsKey("ConsequenceVerdictPuppet"));
+        Assert.IsTrue(byId.ContainsKey("ConsequenceVerdictClearingLabel"));
+        Assert.IsTrue(byId.ContainsKey("ConsequenceVerdictReplay"));
+        Assert.IsTrue(byId.ContainsKey("ConsequenceVerdictSkip"));
+        Assert.IsTrue(byId.ContainsKey("ConsequenceVerdictTextEquivalent"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

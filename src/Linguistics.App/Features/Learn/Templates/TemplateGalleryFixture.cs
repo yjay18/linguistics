@@ -1695,6 +1695,66 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "Name one available drink and keep the complete request frame."),
             })),
+        new(
+            new TemplateId("consequence-verdict"),
+            "Consequence verdict",
+            "Scenario · projected outcome · detailed static report",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Watch the projected task consequence, then use the detailed static report.",
+                        ["hi"] = "दिखाए गए कार्य परिणाम को देखें, फिर विस्तृत स्थिर रिपोर्ट का उपयोग करें।",
+                    }),
+                ["subject"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Learner puppet"),
+                ["state-label"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Order pending"),
+                ["verdicts"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("ready", "Ready for the result"),
+                        new("success", "Order understood"),
+                        new("uncertain", "One detail needs checking"),
+                        new("failure", "Request needs another turn"),
+                    ]),
+                ["consequences"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("ready", "The puppet waits at the counter."),
+                        new("success", "The puppet lifts the cup token."),
+                        new("uncertain", "The puppet pauses beside the order card."),
+                        new("failure", "The order card returns to the counter."),
+                    ]),
+                ["report-lines"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("goal", "Goal: request one drink politely."),
+                        new("evidence", "Evidence: deterministic task outcome only."),
+                        new("boundary", "Typed practice creates no pronunciation score."),
+                    ]),
+                ["actions"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("continue", "Continue"),
+                        new("retry", "Retry task"),
+                    ]),
+                ["retry-action"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "retry"),
+                ["subject-asset"] = new(
+                    TemplateParameterKind.AssetReference,
+                    AssetReferenceId: "asset.de.stage.learner"),
+            })),
     ];
 
     private static TaskTemplateContent ScenarioTask() => new(

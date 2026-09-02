@@ -773,6 +773,53 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void ConsequenceVerdictPreservesProjectedOutcomeAndOnlyReportsActionIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("consequence-verdict")));
+        var actions = new[]
+        {
+            new TemplateOption("continue", "Continue"),
+            new TemplateOption("retry", "Retry task"),
+        };
+
+        var incomplete = TemplateInteractionEvaluator.EvaluateConsequenceAction(
+            actions,
+            "retry",
+            TemplateOutcomeState.Success,
+            null);
+        var success = TemplateInteractionEvaluator.EvaluateConsequenceAction(
+            actions,
+            "retry",
+            TemplateOutcomeState.Success,
+            "continue");
+        var failure = TemplateInteractionEvaluator.EvaluateConsequenceAction(
+            actions,
+            "retry",
+            TemplateOutcomeState.Failure,
+            "continue");
+        var retry = TemplateInteractionEvaluator.EvaluateConsequenceAction(
+            actions,
+            "retry",
+            TemplateOutcomeState.Failure,
+            "retry");
+
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        Assert.AreEqual(TemplateOutcomeState.Success, success.State);
+        Assert.AreEqual("continue", success.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Failure, failure.State);
+        Assert.AreEqual("continue", failure.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, retry.State);
+        Assert.AreEqual("retry", retry.ResponseId);
+        Assert.Throws<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateConsequenceAction(
+                actions,
+                "retry",
+                TemplateOutcomeState.Success,
+                "Order understood"));
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
