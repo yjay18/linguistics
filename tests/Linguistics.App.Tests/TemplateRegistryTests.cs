@@ -953,6 +953,44 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void FalseFriendAlarmStampsTheTemptingFormAndReportsAdvisoryActions()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("false-friend-alarm"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        byId["FalseFriendAlarmAcknowledge"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        byId["FalseFriendAlarmDismiss"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(2, reported);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[0].State);
+        Assert.AreEqual("notice-capital", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, reported[1].State);
+        Assert.AreEqual("dismiss-alarm", reported[1].ResponseId);
+        Assert.AreEqual("WATCH", ((Linguistics.App.Controls.PaperStamp)byId["FalseFriendAlarmStamp"]).Content);
+        Assert.AreEqual(
+            "English habit: kaffee",
+            AutomationProperties.GetName(byId["TemptingFormCard"]));
+        Assert.AreEqual(
+            "German target form: Kaffee",
+            AutomationProperties.GetName(byId["TargetFormCard"]));
+        Assert.IsTrue(byId.ContainsKey("FalseFriendAlarmReplay"));
+        Assert.IsTrue(byId.ContainsKey("FalseFriendAlarmSkip"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

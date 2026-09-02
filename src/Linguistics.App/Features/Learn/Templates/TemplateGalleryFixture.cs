@@ -1522,5 +1522,48 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "dismiss-bridge"),
             })),
+        new(
+            new TemplateId("false-friend-alarm"),
+            "False friend alarm",
+            "Transfer · routed interference warning · text complete",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Compare the tempting English-shaped form with the authored German noun.",
+                        ["hi"] = "अंग्रेज़ी जैसे दिखने वाले रूप की लिखे हुए जर्मन संज्ञा से तुलना करें।",
+                    }),
+                ["source-language"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "English"),
+                ["tempting-form"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "kaffee"),
+                ["target-form"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Kaffee"),
+                ["explanation"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "English normally writes common nouns such as coffee in lowercase. German writes Kaffee with a capital K."),
+                ["risk"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Do not generalize this noun-capitalization cue to every kind of German word."),
+                ["actions"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("notice-capital", "I noticed the capital"),
+                        new("dismiss-alarm", "Dismiss alert"),
+                    ]),
+                ["acknowledgement"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "notice-capital"),
+                ["dismissal"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "dismiss-alarm"),
+            })),
     ];
 }

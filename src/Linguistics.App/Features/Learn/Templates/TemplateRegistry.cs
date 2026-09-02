@@ -310,6 +310,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("bridge-note"),
             BridgeNoteRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("false-friend-alarm"),
+            FalseFriendAlarmRenderer.Render),
     ]);
 
     public Control Render(

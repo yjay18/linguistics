@@ -660,6 +660,33 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void FalseFriendAlarmReportsOnlyAuthoredAdvisoryActionIds()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("false-friend-alarm")));
+        var actions = new[]
+        {
+            new TemplateOption("notice-capital", "I noticed the capital"),
+            new TemplateOption("dismiss-alarm", "Dismiss alert"),
+        };
+
+        var acknowledged = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "notice-capital",
+            "notice-capital");
+        var dismissed = TemplateInteractionEvaluator.EvaluateAdvisoryChoice(
+            actions,
+            "notice-capital",
+            "dismiss-alarm");
+
+        Assert.AreEqual(TemplateOutcomeState.Success, acknowledged.State);
+        Assert.AreEqual("notice-capital", acknowledged.ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Ready, dismissed.State);
+        Assert.AreEqual("dismiss-alarm", dismissed.ResponseId);
+        Assert.AreNotEqual("kaffee", dismissed.ResponseId);
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
