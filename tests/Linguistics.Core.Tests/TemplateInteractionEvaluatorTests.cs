@@ -888,6 +888,65 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void UnitCapstoneAdvancesOnlyThroughTheAuthoredTemplateChain()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("unit-capstone")));
+        var steps = new[]
+        {
+            new TemplateOption("notice-item", "Notice the café item."),
+            new TemplateOption("build-request", "Build the request."),
+            new TemplateOption("answer-worker", "Answer the worker."),
+        };
+        var chain = new[]
+        {
+            new TemplateOption("notice-item", "object-spotlight"),
+            new TemplateOption("build-request", "word-order-train"),
+            new TemplateOption("answer-worker", "scenario-theatre"),
+        };
+
+        var ready = TemplateInteractionEvaluator.EvaluateCapstoneStep(steps, chain, [], null);
+        var first = TemplateInteractionEvaluator.EvaluateCapstoneStep(
+            steps,
+            chain,
+            [],
+            "notice-item");
+        var outOfOrder = TemplateInteractionEvaluator.EvaluateCapstoneStep(
+            steps,
+            chain,
+            ["notice-item"],
+            "answer-worker");
+        var second = TemplateInteractionEvaluator.EvaluateCapstoneStep(
+            steps,
+            chain,
+            ["notice-item"],
+            "build-request");
+        var complete = TemplateInteractionEvaluator.EvaluateCapstoneStep(
+            steps,
+            chain,
+            ["notice-item", "build-request"],
+            "answer-worker");
+
+        Assert.AreEqual(TemplateOutcomeState.Ready, ready.State);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, first.State);
+        CollectionAssert.AreEqual(new[] { "notice-item" }, first.OrderedOptionIds!.ToArray());
+        Assert.AreEqual(TemplateOutcomeState.Failure, outOfOrder.State);
+        CollectionAssert.AreEqual(new[] { "notice-item" }, outOfOrder.OrderedOptionIds!.ToArray());
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, second.State);
+        Assert.AreEqual(TemplateOutcomeState.Success, complete.State);
+        Assert.AreEqual("answer-worker", complete.ResponseId);
+        CollectionAssert.AreEqual(
+            new[] { "notice-item", "build-request", "answer-worker" },
+            complete.OrderedOptionIds!.ToArray());
+        Assert.Throws<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                steps,
+                chain.Reverse().ToArray(),
+                [],
+                "notice-item"));
+    }
+
+    [TestMethod]
     public void FormFillReturnsOnlyAuthoredFieldIds()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

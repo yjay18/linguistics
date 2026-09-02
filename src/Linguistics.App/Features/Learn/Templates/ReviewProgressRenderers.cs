@@ -632,3 +632,332 @@ internal static class RecapScrapbookRenderer
         _ => "Ready: review the assembled lesson pieces.",
     };
 }
+
+internal static class UnitCapstoneRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var unitLabel = TemplateRendering.Text(parameters, "unit-label");
+        var goal = TemplateRendering.Text(parameters, "goal");
+        var steps = TemplateRendering.Options(parameters, "steps");
+        var templateChain = TemplateRendering.Options(parameters, "template-chain");
+        var backdropAssetId = TemplateRendering.AssetReference(parameters, "backdrop");
+        _ = TemplateInteractionEvaluator.EvaluateCapstoneStep(steps, templateChain, [], null);
+
+        var replayButton = new Button { Content = "Replay mission", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(replayButton, "UnitCapstoneReplay");
+        AutomationProperties.SetName(replayButton, "Replay the mission board entrance");
+        var skipButton = new Button { Content = "Skip entrance", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(skipButton, "UnitCapstoneSkip");
+        AutomationProperties.SetName(skipButton, "Skip to the completed mission board entrance");
+        var instructionText = new TextBlock
+        {
+            Text = instruction,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetName(instructionText, $"Capstone instruction. {instruction}");
+        var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        headerActions.Children.Add(replayButton);
+        headerActions.Children.Add(skipButton);
+        var header = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        header.Children.Add(instructionText);
+        Grid.SetColumn(headerActions, 1);
+        header.Children.Add(headerActions);
+
+        var stage = TemplateRendering.CreateStage(
+            422,
+            $"{unitLabel}. Mission goal: {goal}. Complete {steps.Count} authored activities in order.");
+        var hasBackdrop = !parameters.UseTextOnlyFallback &&
+                          TemplateRendering.AddBackdrop(stage, imageCache, backdropAssetId);
+        if (parameters.UseTextOnlyFallback)
+        {
+            TemplateRendering.AddBackdrop(stage, imageCache: null, assetReferenceId: null);
+        }
+
+        var missionStamp = new PaperTape
+        {
+            Content = unitLabel.ToUpperInvariant(),
+            Angle = -1.8,
+            Classes = { "compact" },
+        };
+        AutomationProperties.SetAutomationId(missionStamp, "UnitCapstoneLabel");
+        AutomationProperties.SetName(missionStamp, unitLabel);
+        PaperStage.SetLayer(missionStamp, PaperStageLayer.TapedLabel);
+        PaperStage.SetAnchor(missionStamp, PaperAnchorLine.Head);
+        PaperStage.SetAnchorX(missionStamp, 0.22);
+        PaperStage.SetAnchorOffsetY(missionStamp, 9);
+        stage.Children.Add(missionStamp);
+
+        var goalCard = new PaperCard
+        {
+            Width = 620,
+            Padding = new Thickness(18, 14),
+            Content = new StackPanel
+            {
+                Spacing = 6,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = "ONE MISSION GOAL",
+                        FontSize = 11,
+                        FontWeight = FontWeight.Bold,
+                    },
+                    new TextBlock
+                    {
+                        Text = goal,
+                        FontSize = 18,
+                        FontWeight = FontWeight.SemiBold,
+                        TextWrapping = TextWrapping.Wrap,
+                    },
+                },
+            },
+        };
+        goalCard.Classes.Add("settings-sheet");
+        AutomationProperties.SetAutomationId(goalCard, "UnitCapstoneGoal");
+        AutomationProperties.SetName(goalCard, $"Mission goal. {goal}");
+        PaperStage.SetLayer(goalCard, PaperStageLayer.AmbientPieces);
+        PaperStage.SetAnchor(goalCard, PaperAnchorLine.Head);
+        PaperStage.SetAnchorX(goalCard, 0.54);
+        PaperStage.SetAnchorOffsetY(goalCard, 34);
+        stage.Children.Add(goalCard);
+
+        var stepCards = new List<PaperCard>();
+        var stepButtons = new List<Button>();
+        var stepStatuses = new List<TextBlock>();
+        var route = new WrapPanel
+        {
+            Width = 700,
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
+        for (var index = 0; index < steps.Count; index++)
+        {
+            var step = steps[index];
+            var templateSurface = templateChain[index].Label.Replace('-', ' ').ToUpperInvariant();
+            var statusLabel = new TextBlock
+            {
+                Text = index == 0 ? "CURRENT" : "WAITING",
+                FontSize = 11,
+                FontWeight = FontWeight.Bold,
+                Classes = { "muted" },
+            };
+            var completeButton = new Button
+            {
+                Content = index == 0 ? "Complete this step" : "Waiting",
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                IsEnabled = index == 0,
+                Classes = { index == 0 ? "primary" : "quiet" },
+            };
+            AutomationProperties.SetAutomationId(completeButton, $"UnitCapstoneStep_{step.Id}");
+            var card = new PaperCard
+            {
+                Width = 218,
+                Height = 208,
+                Margin = new Thickness(7),
+                Padding = new Thickness(14, 12),
+                Content = new StackPanel
+                {
+                    Spacing = 9,
+                    Children =
+                    {
+                        new PaperTape
+                        {
+                            Content = $"STEP {index + 1}",
+                            Angle = index % 2 == 0 ? -1.2 : 1.1,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            Classes = { "compact" },
+                        },
+                        new TextBlock
+                        {
+                            Text = step.Label,
+                            FontSize = 14,
+                            FontWeight = FontWeight.SemiBold,
+                            TextWrapping = TextWrapping.Wrap,
+                        },
+                        new TextBlock
+                        {
+                            Text = templateSurface,
+                            FontSize = 10,
+                            TextWrapping = TextWrapping.Wrap,
+                            Classes = { "muted" },
+                        },
+                        statusLabel,
+                        completeButton,
+                    },
+                },
+            };
+            card.Classes.Add(index == 0 ? "settings-sheet" : "soft");
+            AutomationProperties.SetAutomationId(card, $"UnitCapstoneCard_{step.Id}");
+            AutomationProperties.SetName(
+                card,
+                $"Mission step {index + 1}. {step.Label}. Template surface {templateChain[index].Label}.");
+            stepCards.Add(card);
+            stepButtons.Add(completeButton);
+            stepStatuses.Add(statusLabel);
+            route.Children.Add(card);
+        }
+
+        AutomationProperties.SetAutomationId(route, "UnitCapstoneRoute");
+        AutomationProperties.SetName(route, "Ordered capstone activity chain");
+        PaperStage.SetLayer(route, PaperStageLayer.Subject);
+        PaperStage.SetAnchor(route, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(route, 0.5);
+        PaperStage.SetAnchorOffsetY(route, -14);
+        stage.Children.Add(route);
+
+        var modeText = new TextBlock
+        {
+            Text = parameters.UseTextOnlyFallback
+                ? "Text-only mission mode is active. Goal, activity order, and controls remain complete."
+                : hasBackdrop
+                    ? "Validated local backdrop active. Every mission step remains fully text labelled."
+                    : "Authored paper mission board active. Every activity remains fully text labelled.",
+            FontSize = 13,
+            TextWrapping = TextWrapping.Wrap,
+            Classes = { "muted" },
+        };
+        AutomationProperties.SetAutomationId(modeText, "UnitCapstoneTextEquivalent");
+
+        var status = new TextBlock
+        {
+            Text = $"Mission ready. Start with {steps[0].Label}",
+            FontSize = 13,
+            TextWrapping = TextWrapping.Wrap,
+            Classes = { "muted" },
+        };
+        AutomationProperties.SetAutomationId(status, "UnitCapstoneStatus");
+        AutomationProperties.SetName(status, "Unit mission progress");
+        AutomationProperties.SetLiveSetting(status, AutomationLiveSetting.Polite);
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+        IReadOnlyList<string> completedStepIds = [];
+
+        void RefreshStepState()
+        {
+            for (var index = 0; index < steps.Count; index++)
+            {
+                var isComplete = index < completedStepIds.Count;
+                var isCurrent = index == completedStepIds.Count && completedStepIds.Count < steps.Count;
+                var card = stepCards[index];
+                card.Classes.Remove("settings-sheet");
+                card.Classes.Remove("soft");
+                card.Classes.Add(isComplete || isCurrent ? "settings-sheet" : "soft");
+                stepStatuses[index].Text = isComplete ? "COMPLETE" : isCurrent ? "CURRENT" : "WAITING";
+                stepButtons[index].Content = isComplete
+                    ? "Step complete"
+                    : isCurrent
+                        ? "Complete this step"
+                        : "Waiting";
+                stepButtons[index].IsEnabled = isCurrent;
+                AutomationProperties.SetName(
+                    stepButtons[index],
+                    isComplete
+                        ? $"Step {index + 1} complete. {steps[index].Label}"
+                        : isCurrent
+                            ? $"Complete step {index + 1}. {steps[index].Label}"
+                            : $"Step {index + 1} waits for earlier activities. {steps[index].Label}");
+            }
+        }
+
+        for (var index = 0; index < stepButtons.Count; index++)
+        {
+            var selectedIndex = index;
+            stepButtons[index].Click += (_, _) =>
+            {
+                var selected = steps[selectedIndex];
+                var outcome = TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                    steps,
+                    templateChain,
+                    completedStepIds,
+                    selected.Id);
+                if (outcome.State != TemplateOutcomeState.Failure)
+                {
+                    completedStepIds = outcome.OrderedOptionIds ?? completedStepIds;
+                    RefreshStepState();
+                }
+
+                status.Text = outcome.State switch
+                {
+                    TemplateOutcomeState.Success => "Mission chain complete.",
+                    TemplateOutcomeState.Failure => "That activity is out of order. Continue from the current card.",
+                    _ => $"Step {completedStepIds.Count} complete. Continue with {steps[completedStepIds.Count].Label}",
+                };
+                TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+                reportOutcome(outcome);
+            };
+        }
+
+        RefreshStepState();
+        var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,*"), ColumnSpacing = 12 };
+        footer.Children.Add(status);
+        Grid.SetColumn(outcomePanel, 1);
+        footer.Children.Add(outcomePanel);
+        var root = new StackPanel { Spacing = 14 };
+        root.Children.Add(header);
+        root.Children.Add(stage);
+        root.Children.Add(modeText);
+        root.Children.Add(footer);
+        if (!parameters.UseTextOnlyFallback && hasBackdrop &&
+            TemplateRendering.CreateCreditsDisclosure(
+                imageCache,
+                [backdropAssetId],
+                "UnitCapstoneImageCredits") is { } credits)
+        {
+            root.Children.Add(credits);
+        }
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            var midpoint = (stepCards.Count + 1) / 2;
+            TemplateRendering.Prepare(
+                shouldReduceMotion,
+                [missionStamp, goalCard, modeText, footer, .. stepCards]);
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(160), missionStamp, goalCard),
+                TemplateRendering.Reveal(
+                    TimeSpan.FromMilliseconds(260),
+                    [.. stepCards.Take(midpoint)]),
+                TemplateRendering.Reveal(
+                    TimeSpan.FromMilliseconds(260),
+                    [.. stepCards.Skip(midpoint)]),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(180), modeText, footer),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) => scene?.Skip();
+        return root;
+    }
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "Mission complete. Every authored activity is finished in order.",
+        TemplateOutcomeState.Uncertain => "Mission in progress. Continue with the next authored activity.",
+        TemplateOutcomeState.Failure => "That activity is out of order. Return to the current mission card.",
+        _ => "Ready: begin with the first mission activity.",
+    };
+}

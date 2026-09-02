@@ -768,6 +768,18 @@ public static class LessonTemplateSchemas
                 new("actions", TemplateParameterKind.OptionList, IsRequired: true),
                 new("acknowledgement", TemplateParameterKind.Text, IsRequired: true),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("unit-capstone"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("unit-label", TemplateParameterKind.Text, IsRequired: true),
+                new("goal", TemplateParameterKind.Text, IsRequired: true),
+                new("steps", TemplateParameterKind.OptionList, IsRequired: true),
+                new("template-chain", TemplateParameterKind.OptionList, IsRequired: true),
+                new("backdrop", TemplateParameterKind.AssetReference, IsRequired: false),
+            ]),
     ];
 }
 

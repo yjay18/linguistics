@@ -331,6 +331,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("recap-scrapbook"),
             RecapScrapbookRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("unit-capstone"),
+            UnitCapstoneRenderer.Render),
     ]);
 
     public Control Render(

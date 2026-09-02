@@ -1257,6 +1257,58 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void UnitCapstoneUnlocksTheAuthoredTemplateChainInOrder()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("unit-capstone"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var byId = controls
+            .Where(control => AutomationProperties.GetAutomationId(control) is not null)
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                StringComparer.Ordinal);
+
+        Assert.IsTrue(byId["UnitCapstoneStep_notice-item"].IsEnabled);
+        Assert.IsFalse(byId["UnitCapstoneStep_build-request"].IsEnabled);
+        Assert.IsFalse(byId["UnitCapstoneStep_answer-worker"].IsEnabled);
+        byId["UnitCapstoneStep_notice-item"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Assert.IsFalse(byId["UnitCapstoneStep_notice-item"].IsEnabled);
+        Assert.IsTrue(byId["UnitCapstoneStep_build-request"].IsEnabled);
+        byId["UnitCapstoneStep_build-request"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Assert.IsTrue(byId["UnitCapstoneStep_answer-worker"].IsEnabled);
+        byId["UnitCapstoneStep_answer-worker"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(3, reported);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, reported[0].State);
+        Assert.AreEqual("notice-item", reported[0].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, reported[1].State);
+        Assert.AreEqual("build-request", reported[1].ResponseId);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[2].State);
+        Assert.AreEqual("answer-worker", reported[2].ResponseId);
+        CollectionAssert.AreEqual(
+            new[] { "notice-item", "build-request", "answer-worker" },
+            reported[2].OrderedOptionIds!.ToArray());
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["UnitCapstoneGoal"]),
+            "Order one café drink politely");
+        StringAssert.Contains(
+            AutomationProperties.GetName(byId["UnitCapstoneCard_notice-item"]),
+            "object-spotlight");
+        Assert.IsTrue(byId.ContainsKey("UnitCapstoneRoute"));
+        Assert.IsTrue(byId.ContainsKey("UnitCapstoneReplay"));
+        Assert.IsTrue(byId.ContainsKey("UnitCapstoneSkip"));
+        Assert.IsTrue(byId.ContainsKey("UnitCapstoneTextEquivalent"));
+        Assert.IsTrue(byId.ContainsKey("UnitCapstoneStatus"));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(

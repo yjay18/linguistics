@@ -122,6 +122,65 @@ public static class TemplateInteractionEvaluator
             selectedRatingId);
     }
 
+    public static TemplateOutcome EvaluateCapstoneStep(
+        IReadOnlyList<TemplateOption> steps,
+        IReadOnlyList<TemplateOption> templateChain,
+        IReadOnlyList<string> completedStepIds,
+        string? selectedStepId)
+    {
+        ArgumentNullException.ThrowIfNull(steps);
+        ArgumentNullException.ThrowIfNull(templateChain);
+        ArgumentNullException.ThrowIfNull(completedStepIds);
+        var stepIds = ValidateOptionIds(steps, nameof(steps));
+        var chainIds = ValidateOptionIds(templateChain, nameof(templateChain));
+        if (stepIds.Length < 2 || !stepIds.SequenceEqual(chainIds, StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "Capstone steps and template chain must contain the same ordered IDs.",
+                nameof(templateChain));
+        }
+
+        if (completedStepIds.Count > stepIds.Length ||
+            !completedStepIds.SequenceEqual(stepIds.Take(completedStepIds.Count), StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "Completed capstone steps must be an exact prefix of the authored chain.",
+                nameof(completedStepIds));
+        }
+
+        var completed = completedStepIds.ToArray();
+        if (selectedStepId is null)
+        {
+            return new TemplateOutcome(
+                completed.Length == 0 ? TemplateOutcomeState.Ready : TemplateOutcomeState.Uncertain,
+                OrderedOptionIds: completed);
+        }
+
+        if (!stepIds.Contains(selectedStepId, StringComparer.Ordinal))
+        {
+            throw new ArgumentException(
+                "The capstone step must be declared by the template.",
+                nameof(selectedStepId));
+        }
+
+        if (completed.Length == stepIds.Length ||
+            !string.Equals(selectedStepId, stepIds[completed.Length], StringComparison.Ordinal))
+        {
+            return new TemplateOutcome(
+                TemplateOutcomeState.Failure,
+                selectedStepId,
+                completed);
+        }
+
+        var updated = completed.Append(selectedStepId).ToArray();
+        return new TemplateOutcome(
+            updated.Length == stepIds.Length
+                ? TemplateOutcomeState.Success
+                : TemplateOutcomeState.Uncertain,
+            selectedStepId,
+            updated);
+    }
+
     public static TemplateOutcome EvaluatePictureMatch(
         IReadOnlyList<TemplateOption> options,
         string answerId,

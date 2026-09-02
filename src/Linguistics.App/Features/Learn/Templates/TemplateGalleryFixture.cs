@@ -1836,6 +1836,43 @@ internal static class TemplateGalleryFixtures
                     TemplateParameterKind.Text,
                     Text: "finish-recap"),
             })),
+        new(
+            new TemplateId("unit-capstone"),
+            "Unit capstone",
+            "Scenario · authored template chain · one mission goal",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Complete each authored activity in order to finish the café mission.",
+                        ["hi"] = "कैफ़े मिशन पूरा करने के लिए हर लिखी गतिविधि क्रम से पूरी करें।",
+                    }),
+                ["unit-label"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Unit 1 mission"),
+                ["goal"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Order one café drink politely and recover if the first request is incomplete."),
+                ["steps"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("notice-item", "Notice the café item and its article."),
+                        new("build-request", "Build the complete request frame."),
+                        new("answer-worker", "Choose the response that completes the order."),
+                    ]),
+                ["template-chain"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("notice-item", "object-spotlight"),
+                        new("build-request", "word-order-train"),
+                        new("answer-worker", "scenario-theatre"),
+                    ]),
+            })),
     ];
 
     private static TaskTemplateContent ScenarioTask() => new(
