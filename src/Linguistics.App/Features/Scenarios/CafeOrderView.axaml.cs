@@ -3,7 +3,9 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Linguistics.App.Content;
 using Linguistics.App.Controls;
+using Linguistics.App.Features.Learn.Templates;
 using Linguistics.App.Localization;
 using Linguistics.Core.Content;
 using Linguistics.Core.Curriculum;
@@ -20,6 +22,9 @@ public partial class CafeOrderView : UserControl
     private readonly ISpeechRecognitionProvider? _speechRecognitionProvider;
     private readonly bool _microphoneAllowed;
     private readonly string? _runtimeContentError;
+    private readonly ContentImageCache? _imageCache;
+    private readonly bool _shouldReduceMotion;
+    private readonly LanguageCode _instructionLanguage = new("en");
     private CancellationTokenSource? _turnCancellation;
     private CancellationTokenSource? _recognitionCancellation;
     private CancellationTokenSource? _playbackCancellation;
@@ -46,15 +51,21 @@ public partial class CafeOrderView : UserControl
         string? runtimeContentError,
         ILanguageModelProvider? languageModelProvider = null,
         ISpeechSynthesisProvider? speechSynthesisProvider = null,
-        ISpeechRecognitionProvider? speechRecognitionProvider = null)
+        ISpeechRecognitionProvider? speechRecognitionProvider = null,
+        ContentImageCache? imageCache = null)
         : this()
     {
         _runtimeContentError = runtimeContentError;
         _speechSynthesisProvider = speechSynthesisProvider;
         _speechRecognitionProvider = speechRecognitionProvider;
+        _imageCache = imageCache;
         _microphoneAllowed = profile.Settings.Microphone != MicrophonePreference.Never;
+        _shouldReduceMotion = MotionPreferences.ShouldReduce(profile.Settings.ReduceMotion);
         if (runtimeCatalog is not null)
         {
+            _instructionLanguage = runtimeCatalog
+                .SelectInstructionLanguage(profile)
+                .SelectedLanguage ?? AppStrings.CurrentLanguage;
             _controller = CafeScenarioController.Create(
                 profile,
                 profileOwner,
@@ -183,9 +194,11 @@ public partial class CafeOrderView : UserControl
         {
             ResetTaskSurface();
             var opening = _controller.Start(_bridgeNote?.IsConfirmed == true);
+            ScenarioOverviewPanel.IsVisible = false;
             ReadyPanel.IsVisible = false;
             ActiveScenarioPanel.IsVisible = true;
             AddConversationMessage(AppStrings.Get("Scenario_Server"), opening, isLearner: false);
+            RenderScenarioTheatre(opening);
             TurnStatusText.Text = AppStrings.Get("Scenario_DialogueReady");
             LearnerInput.Focus();
         }
@@ -267,6 +280,7 @@ public partial class CafeOrderView : UserControl
         if (outcome.NpcResponse is { } npcResponse)
         {
             AddConversationMessage(AppStrings.Get("Scenario_Server"), npcResponse, isLearner: false);
+            RenderScenarioTheatre(npcResponse);
         }
 
         if (outcome.Evaluation.PrimaryIntervention is { } primary)
@@ -315,6 +329,7 @@ public partial class CafeOrderView : UserControl
     private void ShowCompletion(CafeScenarioTurnOutcome outcome)
     {
         InputPanel.IsVisible = false;
+        ScenarioTheatreHost.IsVisible = false;
         CompletionPanel.IsVisible = true;
         var evidence = outcome.Evaluation.Evidence!;
         var pronunciationText = outcome.PronunciationAssessment is { } pronunciation
@@ -323,17 +338,16 @@ public partial class CafeOrderView : UserControl
                 pronunciation.Evidence.MatchedWordCount,
                 pronunciation.Evidence.ExpectedWordCount)
             : AppStrings.Get("Scenario_Evidence_PronunciationNotMeasured");
-        EvidenceText.Text = AppStrings.Format(
-            "Scenario_Evidence",
-            Percent(evidence.LinguisticAccuracy),
-            Percent(evidence.Fluency),
-            Percent(evidence.TargetConceptPerformance),
-            pronunciationText);
+        ConsequenceVerdictHost.Content = ConsequenceVerdictRenderer.Render(
+            _imageCache,
+            CreateConsequenceParameters(evidence, pronunciationText),
+            _instructionLanguage,
+            _shouldReduceMotion,
+            OnConsequenceAction);
         PersistenceStatusText.Text = outcome.Persisted
             ? AppStrings.Get("Scenario_PersistenceSaved")
             : outcome.PersistenceError;
         RetrySaveButton.IsVisible = !outcome.Persisted;
-        PracticeAgainButton.IsVisible = outcome.Persisted;
     }
 
     private async void OnRetrySaveClicked(object? sender, RoutedEventArgs args)
@@ -351,15 +365,12 @@ public partial class CafeOrderView : UserControl
                 ? AppStrings.Get("Scenario_PersistenceSaved")
                 : result.Message;
             RetrySaveButton.IsVisible = !result.Persisted;
-            PracticeAgainButton.IsVisible = result.Persisted;
         }
         finally
         {
             SetBusy(false);
         }
     }
-
-    private void OnPracticeAgainClicked(object? sender, RoutedEventArgs args) => StartScenario();
 
     private void OnCancelResponseClicked(object? sender, RoutedEventArgs args)
     {
@@ -377,6 +388,7 @@ public partial class CafeOrderView : UserControl
         CancelActiveSpeechRequest();
         _controller.Exit();
         ActiveScenarioPanel.IsVisible = false;
+        ScenarioOverviewPanel.IsVisible = true;
         ReadyPanel.IsVisible = true;
         ReadyStatusText.Text = AppStrings.Get("Scenario_Exited");
         StartButton.Focus();
@@ -589,15 +601,150 @@ public partial class CafeOrderView : UserControl
             recognition.Message);
     }
 
+    private void RenderScenarioTheatre(string npcLine)
+    {
+        if (_controller is null)
+        {
+            return;
+        }
+
+        var definition = _controller.Definition;
+        ScenarioTheatreHost.Content = ScenarioTheatreRenderer.RenderLive(
+            _imageCache,
+            new ScenarioTheatreLivePresentation(
+                AppStrings.Get("ScenarioTheatre_LiveInstruction"),
+                definition.Goal,
+                definition.Context,
+                definition.NpcRole,
+                definition.SuccessCriteria,
+                ScenarioStateLabel(definition),
+                npcLine),
+            _shouldReduceMotion);
+    }
+
+    private string ScenarioStateLabel(CafeOrderDefinition definition) =>
+        _controller?.Session?.StateId switch
+        {
+            var state when state == definition.FrameStateId =>
+                AppStrings.Get("ScenarioTheatre_StateChooseItem"),
+            var state when state == definition.CompleteStateId =>
+                AppStrings.Get("Scenario_Completed_Title"),
+            _ => AppStrings.Get("Scenario_AtCounter"),
+        };
+
+    private ResolvedTemplateParameters CreateConsequenceParameters(
+        LearningEvidence evidence,
+        string pronunciationText) => new(
+        new Dictionary<string, ResolvedTemplateParameter>
+        {
+            ["instruction"] = new(
+                TemplateParameterKind.TextByLanguage,
+                TextByLanguage: new Dictionary<string, string>
+                {
+                    [_instructionLanguage.Value] = AppStrings.Get("ConsequenceVerdict_Instruction"),
+                }),
+            ["subject"] = new(
+                TemplateParameterKind.Text,
+                Text: AppStrings.Get("ConsequenceVerdict_Learner")),
+            ["state-label"] = new(
+                TemplateParameterKind.Text,
+                Text: AppStrings.Get("ConsequenceVerdict_StateComplete")),
+            ["verdicts"] = new(
+                TemplateParameterKind.OptionList,
+                Options:
+                [
+                    new("ready", AppStrings.Get("ConsequenceVerdict_VerdictReady")),
+                    new("success", AppStrings.Get("Scenario_Completed_Title")),
+                    new("uncertain", AppStrings.Get("ConsequenceVerdict_VerdictUncertain")),
+                    new("failure", AppStrings.Get("ConsequenceVerdict_VerdictFailure")),
+                ]),
+            ["consequences"] = new(
+                TemplateParameterKind.OptionList,
+                Options:
+                [
+                    new("ready", AppStrings.Get("ConsequenceVerdict_ConsequenceReady")),
+                    new("success", AppStrings.Get("ConsequenceVerdict_ConsequenceSuccess")),
+                    new("uncertain", AppStrings.Get("ConsequenceVerdict_ConsequenceUncertain")),
+                    new("failure", AppStrings.Get("ConsequenceVerdict_ConsequenceFailure")),
+                ]),
+            ["report-lines"] = new(
+                TemplateParameterKind.OptionList,
+                Options:
+                [
+                    new("goal", AppStrings.Get("ConsequenceVerdict_ReportGoal")),
+                    new(
+                        "accuracy",
+                        AppStrings.Format(
+                            "ConsequenceVerdict_ReportAccuracy",
+                            Percent(evidence.LinguisticAccuracy))),
+                    new(
+                        "fluency",
+                        AppStrings.Format(
+                            "ConsequenceVerdict_ReportFluency",
+                            Percent(evidence.Fluency))),
+                    new(
+                        "concept",
+                        AppStrings.Format(
+                            "ConsequenceVerdict_ReportConcept",
+                            Percent(evidence.TargetConceptPerformance))),
+                    new("pronunciation", pronunciationText),
+                ]),
+            ["actions"] = new(
+                TemplateParameterKind.OptionList,
+                Options:
+                [
+                    new("continue", AppStrings.Get("ConsequenceVerdict_Continue")),
+                    new("retry", AppStrings.Get("Scenario_PracticeAgain")),
+                ]),
+            ["retry-action"] = new(
+                TemplateParameterKind.Text,
+                Text: "retry"),
+        },
+        PreviewOutcome: TemplateOutcomeState.Success,
+        UseTextOnlyFallback: true);
+
+    private void OnConsequenceAction(TemplateOutcome outcome)
+    {
+        if (_controller is null || _busy)
+        {
+            return;
+        }
+
+        if (RetrySaveButton.IsVisible)
+        {
+            PersistenceStatusText.Text = AppStrings.Get("ConsequenceVerdict_SaveBeforeAction");
+            RetrySaveButton.Focus();
+            return;
+        }
+
+        if (string.Equals(outcome.ResponseId, "retry", StringComparison.Ordinal))
+        {
+            StartScenario();
+            return;
+        }
+
+        if (string.Equals(outcome.ResponseId, "continue", StringComparison.Ordinal))
+        {
+            _controller.Exit();
+            ActiveScenarioPanel.IsVisible = false;
+            ScenarioOverviewPanel.IsVisible = true;
+            ReadyPanel.IsVisible = true;
+            ReadyStatusText.Text = AppStrings.Get("ConsequenceVerdict_ReadyAgain");
+            StartButton.Focus();
+        }
+    }
+
     private void ResetTaskSurface()
     {
         ConversationPanel.Children.Clear();
+        ScenarioTheatreHost.Content = null;
+        ScenarioTheatreHost.IsVisible = true;
+        ConsequenceVerdictHost.Content = null;
         FeedbackPanel.IsVisible = false;
         OtherObservationsExpander.IsVisible = false;
         CompletionPanel.IsVisible = false;
         InputPanel.IsVisible = true;
         RetrySaveButton.IsVisible = false;
-        PracticeAgainButton.IsVisible = false;
         SupportText.IsVisible = false;
         TurnStatusText.Text = string.Empty;
         SpeechDisclosurePanel.IsVisible = false;
@@ -655,7 +802,6 @@ public partial class CafeOrderView : UserControl
         ExitButton.IsEnabled = !busy;
         CancelResponseButton.IsVisible = busy;
         RetrySaveButton.IsEnabled = !busy;
-        PracticeAgainButton.IsEnabled = !busy;
         RecordReplyButton.IsEnabled = !busy && _microphoneAllowed && _recognitionAvailable;
         TurnStatusText.Text = busy
             ? AppStrings.Get("Scenario_CheckingTask")

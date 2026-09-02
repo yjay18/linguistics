@@ -1,6 +1,7 @@
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
+using Linguistics.App.Controls;
 using Linguistics.App.Features.Learn;
 using Linguistics.App.Features.Learn.Templates;
 using Linguistics.Core.Content;
@@ -91,6 +92,58 @@ public sealed class LearnExperienceTests
             journey[0].Lessons[0].PresentationKind,
             journey[0].Lessons[1].PresentationKind);
         Assert.IsTrue(journey[0].Lessons.All(item => !string.IsNullOrWhiteSpace(item.ReviewState)));
+    }
+
+    [TestMethod]
+    public void LiveScenarioTheatreKeepsTheFullTextSceneAndMotionControls()
+    {
+        var rendered = ScenarioTheatreRenderer.RenderLive(
+            imageCache: null,
+            new ScenarioTheatreLivePresentation(
+                "Listen, then reply.",
+                "Order one drink.",
+                "You are at a café counter.",
+                "Café worker",
+                ["Use the complete request frame."],
+                "At the counter",
+                "Guten Tag! Was möchten Sie?"),
+            shouldReduceMotion: true);
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+
+        Assert.HasCount(1, controls.OfType<PaperStage>());
+        Assert.IsTrue(controls.Any(control =>
+            AutomationProperties.GetAutomationId(control) == "CafeScenarioTheatreGoal"));
+        Assert.IsTrue(controls.Any(control =>
+            AutomationProperties.GetAutomationId(control) == "CafeScenarioTheatreTextEquivalent"));
+        Assert.IsTrue(controls.Any(control =>
+            AutomationProperties.GetAutomationId(control) == "CafeScenarioTheatreReplay"));
+        Assert.IsTrue(controls.Any(control =>
+            AutomationProperties.GetAutomationId(control) == "CafeScenarioTheatreSkip"));
+    }
+
+    [TestMethod]
+    public void CafeViewComposesTheProvenScenarioAndConsequenceRenderers()
+    {
+        var code = File.ReadAllText(Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Linguistics.App",
+            "Features",
+            "Scenarios",
+            "CafeOrderView.axaml.cs"));
+        var axaml = File.ReadAllText(Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Linguistics.App",
+            "Features",
+            "Scenarios",
+            "CafeOrderView.axaml"));
+
+        Assert.Contains("ScenarioTheatreRenderer.RenderLive", code);
+        Assert.Contains("ConsequenceVerdictRenderer.Render", code);
+        Assert.Contains("CafeScenarioTheatreHost", axaml);
+        Assert.Contains("CafeConsequenceVerdictHost", axaml);
+        Assert.DoesNotContain("Scenario_Completed_Title", axaml);
     }
 
     private static CourseLesson Lesson(string id, string title, bool templateAuthored)

@@ -1051,4 +1051,62 @@
   <data name="Learn_Player_Progress" xml:space="preserve"><value>Lesson path</value></data>
   <data name="Learn_Player_Replay" xml:space="preserve"><value>Replay scene</value></data>
   <data name="Learn_Player_Skip" xml:space="preserve"><value>Skip entrance</value></data>
+  <data name="Scenario_Transcript" xml:space="preserve"><value>Conversation transcript</value></data>
+  <data name="ScenarioTheatre_Replay" xml:space="preserve"><value>Replay scene</value></data>
+  <data name="ScenarioTheatre_ReplayName" xml:space="preserve"><value>Replay the café scene entrance</value></data>
+  <data name="ScenarioTheatre_Skip" xml:space="preserve"><value>Skip entrance</value></data>
+  <data name="ScenarioTheatre_SkipName" xml:space="preserve"><value>Skip to the complete café scene</value></data>
+  <data name="ScenarioTheatre_InstructionName" xml:space="preserve"><value>Scenario instruction. {0}</value></data>
+  <data name="ScenarioTheatre_MissionGoal" xml:space="preserve"><value>MISSION GOAL</value></data>
+  <data name="ScenarioTheatre_SuccessLooksLike" xml:space="preserve"><value>SUCCESS LOOKS LIKE</value></data>
+  <data name="ScenarioTheatre_GoalName" xml:space="preserve"><value>Scenario goal. {0} Context. {1}</value></data>
+  <data name="ScenarioTheatre_StageName" xml:space="preserve"><value>Paper café scene. {0} says {1}</value></data>
+  <data name="ScenarioTheatre_CafeCounter" xml:space="preserve"><value>CAFÉ COUNTER</value></data>
+  <data name="ScenarioTheatre_PaperSetActive" xml:space="preserve"><value>The complete authored paper set is active.</value></data>
+  <data name="ScenarioTheatre_SetName" xml:space="preserve"><value>Paper café counter set</value></data>
+  <data name="ScenarioTheatre_NpcPuppet" xml:space="preserve"><value>CAFÉ PUPPET</value></data>
+  <data name="ScenarioTheatre_TextCharacter" xml:space="preserve"><value>Authored text-only character</value></data>
+  <data name="ScenarioTheatre_NpcName" xml:space="preserve"><value>Café puppet. {0}</value></data>
+  <data name="ScenarioTheatre_NpcLineName" xml:space="preserve"><value>{0} says {1}</value></data>
+  <data name="ScenarioTheatre_TextMode" xml:space="preserve"><value>Authored text-only scene. Goal, dialogue, and controls remain complete.</value></data>
+  <data name="ScenarioTheatre_LiveInstruction" xml:space="preserve"><value>Listen at the counter, then reply by text or optional local speech.</value></data>
+  <data name="ScenarioTheatre_StateChooseItem" xml:space="preserve"><value>Choosing an item</value></data>
+  <data name="ConsequenceVerdict_Instruction" xml:space="preserve"><value>Review the task consequence and its detailed evidence.</value></data>
+  <data name="ConsequenceVerdict_Learner" xml:space="preserve"><value>Learner</value></data>
+  <data name="ConsequenceVerdict_StateComplete" xml:space="preserve"><value>Order complete</value></data>
+  <data name="ConsequenceVerdict_VerdictReady" xml:space="preserve"><value>Ready for the result</value></data>
+  <data name="ConsequenceVerdict_VerdictUncertain" xml:space="preserve"><value>One detail needs checking</value></data>
+  <data name="ConsequenceVerdict_VerdictFailure" xml:space="preserve"><value>Request needs another turn</value></data>
+  <data name="ConsequenceVerdict_ConsequenceReady" xml:space="preserve"><value>The learner waits at the counter.</value></data>
+  <data name="ConsequenceVerdict_ConsequenceSuccess" xml:space="preserve"><value>The learner lifts the completed order card.</value></data>
+  <data name="ConsequenceVerdict_ConsequenceUncertain" xml:space="preserve"><value>The learner pauses beside the order card.</value></data>
+  <data name="ConsequenceVerdict_ConsequenceFailure" xml:space="preserve"><value>The order card returns to the counter.</value></data>
+  <data name="ConsequenceVerdict_ReportGoal" xml:space="preserve"><value>Communicative goal: achieved</value></data>
+  <data name="ConsequenceVerdict_ReportAccuracy" xml:space="preserve"><value>Linguistic accuracy: {0}</value></data>
+  <data name="ConsequenceVerdict_ReportFluency" xml:space="preserve"><value>Fluency: {0}</value></data>
+  <data name="ConsequenceVerdict_ReportConcept" xml:space="preserve"><value>Target concept: {0}</value></data>
+  <data name="ConsequenceVerdict_Continue" xml:space="preserve"><value>Return to scenarios</value></data>
+  <data name="ConsequenceVerdict_SaveBeforeAction" xml:space="preserve"><value>Retry the local save before leaving or practising again.</value></data>
+  <data name="ConsequenceVerdict_ReadyAgain" xml:space="preserve"><value>Saved locally. The café task is ready to practise again.</value></data>
+  <data name="ConsequenceVerdict_Replay" xml:space="preserve"><value>Replay verdict</value></data>
+  <data name="ConsequenceVerdict_ReplayName" xml:space="preserve"><value>Replay the consequence and verdict entrance</value></data>
+  <data name="ConsequenceVerdict_Skip" xml:space="preserve"><value>Skip entrance</value></data>
+  <data name="ConsequenceVerdict_SkipName" xml:space="preserve"><value>Skip to the complete consequence report</value></data>
+  <data name="ConsequenceVerdict_InstructionName" xml:space="preserve"><value>Consequence instruction. {0}</value></data>
+  <data name="ConsequenceVerdict_StateName" xml:space="preserve"><value>Clearing state label. {0}</value></data>
+  <data name="ConsequenceVerdict_CutoutName" xml:space="preserve"><value>{0} cutout</value></data>
+  <data name="ConsequenceVerdict_Puppet" xml:space="preserve"><value>PUPPET</value></data>
+  <data name="ConsequenceVerdict_TextSubject" xml:space="preserve"><value>Authored text-only subject</value></data>
+  <data name="ConsequenceVerdict_PuppetName" xml:space="preserve"><value>Outcome puppet. {0}. {1}</value></data>
+  <data name="ConsequenceVerdict_VerdictName" xml:space="preserve"><value>Verdict. {0}. {1}</value></data>
+  <data name="ConsequenceVerdict_ReportHeading" xml:space="preserve"><value>DETAILED STATIC REPORT</value></data>
+  <data name="ConsequenceVerdict_ReportName" xml:space="preserve"><value>Detailed static outcome report. {0}</value></data>
+  <data name="ConsequenceVerdict_TextMode" xml:space="preserve"><value>Text-only outcome. The consequence, verdict, and report remain complete.</value></data>
+  <data name="ConsequenceVerdict_ArtMode" xml:space="preserve"><value>Validated local scene art is active. The full static report remains available.</value></data>
+  <data name="ConsequenceVerdict_AbsentArtMode" xml:space="preserve"><value>Absent scene art is replaced by the complete authored paper outcome.</value></data>
+  <data name="ConsequenceVerdict_OutcomeSuccess" xml:space="preserve"><value>Success is preserved. Continue when the static report is clear.</value></data>
+  <data name="ConsequenceVerdict_OutcomeUncertain" xml:space="preserve"><value>Uncertainty is preserved. Review the static report before continuing.</value></data>
+  <data name="ConsequenceVerdict_OutcomeFailure" xml:space="preserve"><value>Failure is preserved. Retry remains available with the report visible.</value></data>
+  <data name="ConsequenceVerdict_OutcomeReady" xml:space="preserve"><value>Ready. The projected outcome and report are available.</value></data>
+  <data name="ConsequenceVerdict_StageName" xml:space="preserve"><value>Outcome consequence for {0}. {1}. {2}</value></data>
 </root>

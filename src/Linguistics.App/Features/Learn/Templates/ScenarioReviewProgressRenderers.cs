@@ -5,14 +5,340 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Linguistics.App.Content;
 using Linguistics.App.Controls;
+using Linguistics.App.Localization;
 using Linguistics.App.Motion;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
 
 namespace Linguistics.App.Features.Learn.Templates;
 
+internal sealed record ScenarioTheatreLivePresentation(
+    string Instruction,
+    string Goal,
+    string Context,
+    string NpcRole,
+    IReadOnlyList<string> SuccessCriteria,
+    string StateLabel,
+    string NpcLine);
+
 internal static class ScenarioTheatreRenderer
 {
+    public static Control RenderLive(
+        ContentImageCache? imageCache,
+        ScenarioTheatreLivePresentation presentation,
+        bool shouldReduceMotion)
+    {
+        ArgumentNullException.ThrowIfNull(presentation);
+
+        var replayButton = new Button
+        {
+            Content = AppStrings.Get("ScenarioTheatre_Replay"),
+            Classes = { "quiet" },
+        };
+        AutomationProperties.SetAutomationId(replayButton, "CafeScenarioTheatreReplay");
+        AutomationProperties.SetName(replayButton, AppStrings.Get("ScenarioTheatre_ReplayName"));
+        var skipButton = new Button
+        {
+            Content = AppStrings.Get("ScenarioTheatre_Skip"),
+            Classes = { "quiet" },
+        };
+        AutomationProperties.SetAutomationId(skipButton, "CafeScenarioTheatreSkip");
+        AutomationProperties.SetName(skipButton, AppStrings.Get("ScenarioTheatre_SkipName"));
+        var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        actions.Children.Add(replayButton);
+        actions.Children.Add(skipButton);
+        var instruction = new TextBlock
+        {
+            Text = presentation.Instruction,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetName(
+            instruction,
+            AppStrings.Format("ScenarioTheatre_InstructionName", presentation.Instruction));
+        var header = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            ColumnSpacing = 12,
+        };
+        header.Children.Add(instruction);
+        Grid.SetColumn(actions, 1);
+        header.Children.Add(actions);
+
+        var criteria = new StackPanel { Spacing = 5 };
+        foreach (var criterion in presentation.SuccessCriteria)
+        {
+            criteria.Children.Add(new TextBlock
+            {
+                Text = $"• {criterion}",
+                FontSize = 13,
+                TextWrapping = TextWrapping.Wrap,
+            });
+        }
+
+        var goalContent = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("2*,3*"),
+            ColumnSpacing = 18,
+        };
+        goalContent.Children.Add(new StackPanel
+        {
+            Spacing = 7,
+            Children =
+            {
+                new PaperTape
+                {
+                    Content = AppStrings.Get("ScenarioTheatre_MissionGoal"),
+                    Angle = -1,
+                    Classes = { "compact" },
+                },
+                new TextBlock
+                {
+                    Text = presentation.Goal,
+                    FontSize = 20,
+                    FontWeight = FontWeight.Bold,
+                    TextWrapping = TextWrapping.Wrap,
+                },
+                new TextBlock
+                {
+                    Text = presentation.Context,
+                    FontSize = 13,
+                    TextWrapping = TextWrapping.Wrap,
+                    Classes = { "muted" },
+                },
+            },
+        });
+        var criteriaPanel = new StackPanel
+        {
+            Spacing = 6,
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = AppStrings.Get("ScenarioTheatre_SuccessLooksLike"),
+                    FontSize = 11,
+                    FontWeight = FontWeight.Bold,
+                },
+                criteria,
+            },
+        };
+        Grid.SetColumn(criteriaPanel, 1);
+        goalContent.Children.Add(criteriaPanel);
+        var goalCard = new PaperCard
+        {
+            Padding = new Thickness(18, 14),
+            Content = goalContent,
+        };
+        AutomationProperties.SetAutomationId(goalCard, "CafeScenarioTheatreGoal");
+        AutomationProperties.SetName(
+            goalCard,
+            AppStrings.Format(
+                "ScenarioTheatre_GoalName",
+                presentation.Goal,
+                presentation.Context));
+
+        var stage = TemplateRendering.CreateStage(
+            310,
+            AppStrings.Format(
+                "ScenarioTheatre_StageName",
+                presentation.NpcRole,
+                presentation.NpcLine));
+        var stateTape = new PaperTape
+        {
+            Content = presentation.StateLabel.ToUpperInvariant(),
+            Angle = -1.3,
+            Classes = { "compact" },
+        };
+        PaperStage.SetLayer(stateTape, PaperStageLayer.TapedLabel);
+        PaperStage.SetAnchor(stateTape, PaperAnchorLine.Head);
+        PaperStage.SetAnchorX(stateTape, 0.22);
+        PaperStage.SetAnchorOffsetY(stateTape, -22);
+        stage.Children.Add(stateTape);
+
+        var counter = new PaperCard
+        {
+            Width = 590,
+            Height = 76,
+            Padding = new Thickness(18, 12),
+            Content = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = AppStrings.Get("ScenarioTheatre_CafeCounter"),
+                        FontSize = 13,
+                        FontWeight = FontWeight.Bold,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                    },
+                    new TextBlock
+                    {
+                        Text = AppStrings.Get("ScenarioTheatre_PaperSetActive"),
+                        FontSize = 12,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Classes = { "muted" },
+                    },
+                },
+            },
+        };
+        counter.Classes.Add("soft");
+        AutomationProperties.SetAutomationId(counter, "CafeScenarioTheatreSet");
+        AutomationProperties.SetName(counter, AppStrings.Get("ScenarioTheatre_SetName"));
+        PaperStage.SetLayer(counter, PaperStageLayer.ForegroundSilhouettes);
+        PaperStage.SetAnchor(counter, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(counter, 0.5);
+        PaperStage.SetAnchorOffsetY(counter, 14);
+        stage.Children.Add(counter);
+
+        var npc = new CutoutFrame
+        {
+            Width = 202,
+            Height = 188,
+            Padding = new Thickness(12),
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                VerticalAlignment = VerticalAlignment.Center,
+                Children =
+                {
+                    new PaperTape
+                    {
+                        Content = AppStrings.Get("ScenarioTheatre_NpcPuppet"),
+                        Angle = 1.1,
+                        Classes = { "compact" },
+                    },
+                    new TextBlock
+                    {
+                        Text = presentation.NpcRole,
+                        FontSize = 20,
+                        FontWeight = FontWeight.Bold,
+                        TextAlignment = TextAlignment.Center,
+                        TextWrapping = TextWrapping.Wrap,
+                    },
+                    new TextBlock
+                    {
+                        Text = AppStrings.Get("ScenarioTheatre_TextCharacter"),
+                        FontSize = 12,
+                        FontWeight = FontWeight.SemiBold,
+                        Opacity = 0.72,
+                        TextAlignment = TextAlignment.Center,
+                    },
+                },
+            },
+            RenderTransformOrigin = new RelativePoint(0.5, 1, RelativeUnit.Relative),
+        };
+        npc.Classes.Add("tilt-right");
+        AutomationProperties.SetAutomationId(npc, "CafeScenarioTheatreNpc");
+        AutomationProperties.SetName(
+            npc,
+            AppStrings.Format("ScenarioTheatre_NpcName", presentation.NpcRole));
+        PaperStage.SetLayer(npc, PaperStageLayer.Subject);
+        PaperStage.SetAnchor(npc, PaperAnchorLine.Foot);
+        PaperStage.SetAnchorX(npc, 0.77);
+        PaperStage.SetAnchorOffsetY(npc, -28);
+        stage.Children.Add(npc);
+
+        var npcLine = new TextBlock
+        {
+            Text = presentation.NpcLine,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+        };
+        AutomationProperties.SetLiveSetting(npcLine, AutomationLiveSetting.Polite);
+        var npcSpeech = new PaperCard
+        {
+            Width = 350,
+            Padding = new Thickness(16, 13),
+            Content = new StackPanel
+            {
+                Spacing = 7,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = presentation.NpcRole.ToUpperInvariant(),
+                        FontSize = 11,
+                        FontWeight = FontWeight.Bold,
+                    },
+                    npcLine,
+                },
+            },
+        };
+        npcSpeech.Classes.Add("soft");
+        AutomationProperties.SetAutomationId(npcSpeech, "CafeScenarioTheatreNpcLine");
+        AutomationProperties.SetName(
+            npcSpeech,
+            AppStrings.Format(
+                "ScenarioTheatre_NpcLineName",
+                presentation.NpcRole,
+                presentation.NpcLine));
+        PaperStage.SetLayer(npcSpeech, PaperStageLayer.VerdictCard);
+        PaperStage.SetAnchor(npcSpeech, PaperAnchorLine.Shoulder);
+        PaperStage.SetAnchorX(npcSpeech, 0.34);
+        PaperStage.SetAnchorOffsetY(npcSpeech, 4);
+        stage.Children.Add(npcSpeech);
+
+        var modeText = new TextBlock
+        {
+            Text = AppStrings.Get("ScenarioTheatre_TextMode"),
+            FontSize = 13,
+            TextWrapping = TextWrapping.Wrap,
+            Classes = { "muted" },
+        };
+        AutomationProperties.SetAutomationId(modeText, "CafeScenarioTheatreTextEquivalent");
+
+        var root = new StackPanel { Spacing = 14 };
+        root.Children.Add(header);
+        root.Children.Add(goalCard);
+        root.Children.Add(stage);
+        root.Children.Add(modeText);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            TemplateRendering.Prepare(
+                shouldReduceMotion,
+                goalCard,
+                stateTape,
+                counter,
+                npc,
+                npcSpeech,
+                modeText);
+            if (!shouldReduceMotion)
+            {
+                npc.RenderTransform = TemplateRendering.Transform(10, 0, 1.2, 0.98);
+                npcSpeech.RenderTransform = TemplateRendering.Transform(-8, 0, -0.8, 0.98);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(180), goalCard, stateTape),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(180), counter),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(240), npc),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), npcSpeech),
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(180), modeText),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) => scene?.Skip();
+        return root;
+    }
+
     public static Control Render(
         ContentImageCache? imageCache,
         ResolvedTemplateParameters parameters,
@@ -463,12 +789,22 @@ internal static class ConsequenceVerdictRenderer
         var verdict = verdicts.Single(option => option.Id == outcomeKey).Label;
         var consequence = consequences.Single(option => option.Id == outcomeKey).Label;
 
-        var replayButton = new Button { Content = "Replay verdict", Classes = { "quiet" } };
+        var replayButton = new Button
+        {
+            Content = AppStrings.Get("ConsequenceVerdict_Replay"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(replayButton, "ConsequenceVerdictReplay");
-        AutomationProperties.SetName(replayButton, "Replay the consequence and verdict entrance");
-        var skipButton = new Button { Content = "Skip entrance", Classes = { "quiet" } };
+        AutomationProperties.SetName(
+            replayButton,
+            AppStrings.Get("ConsequenceVerdict_ReplayName"));
+        var skipButton = new Button
+        {
+            Content = AppStrings.Get("ConsequenceVerdict_Skip"),
+            Classes = { "quiet" },
+        };
         AutomationProperties.SetAutomationId(skipButton, "ConsequenceVerdictSkip");
-        AutomationProperties.SetName(skipButton, "Skip to the completed consequence report");
+        AutomationProperties.SetName(skipButton, AppStrings.Get("ConsequenceVerdict_SkipName"));
         var instructionText = new TextBlock
         {
             Text = instruction,
@@ -477,7 +813,9 @@ internal static class ConsequenceVerdictRenderer
             TextWrapping = TextWrapping.Wrap,
             VerticalAlignment = VerticalAlignment.Center,
         };
-        AutomationProperties.SetName(instructionText, $"Consequence instruction. {instruction}");
+        AutomationProperties.SetName(
+            instructionText,
+            AppStrings.Format("ConsequenceVerdict_InstructionName", instruction));
         var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
         headerActions.Children.Add(replayButton);
         headerActions.Children.Add(skipButton);
@@ -488,7 +826,11 @@ internal static class ConsequenceVerdictRenderer
 
         var stage = TemplateRendering.CreateStage(
             320,
-            $"Outcome consequence for {subject}. {verdict}. {consequence}");
+            AppStrings.Format(
+                "ConsequenceVerdict_StageName",
+                subject,
+                verdict,
+                consequence));
         var hasBackdrop = !parameters.UseTextOnlyFallback &&
                           TemplateRendering.AddBackdrop(stage, imageCache, backdropAssetId);
         var pendingLabel = new PaperTape
@@ -498,7 +840,9 @@ internal static class ConsequenceVerdictRenderer
             Classes = { "compact" },
         };
         AutomationProperties.SetAutomationId(pendingLabel, "ConsequenceVerdictClearingLabel");
-        AutomationProperties.SetName(pendingLabel, $"Clearing state label. {stateLabel}");
+        AutomationProperties.SetName(
+            pendingLabel,
+            AppStrings.Format("ConsequenceVerdict_StateName", stateLabel));
         PaperStage.SetLayer(pendingLabel, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(pendingLabel, PaperAnchorLine.Head);
         PaperStage.SetAnchorX(pendingLabel, 0.5);
@@ -511,7 +855,9 @@ internal static class ConsequenceVerdictRenderer
             : TemplateRendering.CreateContentImage(imageCache, subjectAssetId, 178);
         if (subjectImage is not null)
         {
-            AutomationProperties.SetName(subjectImage, $"{subject} cutout");
+            AutomationProperties.SetName(
+                subjectImage,
+                AppStrings.Format("ConsequenceVerdict_CutoutName", subject));
             subjectContent = subjectImage;
         }
         else
@@ -522,7 +868,12 @@ internal static class ConsequenceVerdictRenderer
                 VerticalAlignment = VerticalAlignment.Center,
                 Children =
                 {
-                    new PaperTape { Content = "PUPPET", Angle = 1, Classes = { "compact" } },
+                    new PaperTape
+                    {
+                        Content = AppStrings.Get("ConsequenceVerdict_Puppet"),
+                        Angle = 1,
+                        Classes = { "compact" },
+                    },
                     new TextBlock
                     {
                         Text = subject,
@@ -533,7 +884,7 @@ internal static class ConsequenceVerdictRenderer
                     },
                     new TextBlock
                     {
-                        Text = "Authored text-only subject",
+                        Text = AppStrings.Get("ConsequenceVerdict_TextSubject"),
                         FontSize = 12,
                         TextAlignment = TextAlignment.Center,
                         Classes = { "muted" },
@@ -552,7 +903,9 @@ internal static class ConsequenceVerdictRenderer
         };
         puppet.Classes.Add("tilt-left");
         AutomationProperties.SetAutomationId(puppet, "ConsequenceVerdictPuppet");
-        AutomationProperties.SetName(puppet, $"Outcome puppet. {subject}. {consequence}");
+        AutomationProperties.SetName(
+            puppet,
+            AppStrings.Format("ConsequenceVerdict_PuppetName", subject, consequence));
         PaperStage.SetLayer(puppet, PaperStageLayer.Subject);
         PaperStage.SetAnchor(puppet, PaperAnchorLine.Foot);
         PaperStage.SetAnchorX(puppet, 0.3);
@@ -586,7 +939,9 @@ internal static class ConsequenceVerdictRenderer
         };
         verdictCard.Classes.Add("soft");
         AutomationProperties.SetAutomationId(verdictCard, "ConsequenceVerdictCard");
-        AutomationProperties.SetName(verdictCard, $"Verdict. {verdict}. {consequence}");
+        AutomationProperties.SetName(
+            verdictCard,
+            AppStrings.Format("ConsequenceVerdict_VerdictName", verdict, consequence));
         PaperStage.SetLayer(verdictCard, PaperStageLayer.VerdictCard);
         PaperStage.SetAnchor(verdictCard, PaperAnchorLine.Shoulder);
         PaperStage.SetAnchorX(verdictCard, 0.7);
@@ -614,7 +969,7 @@ internal static class ConsequenceVerdictRenderer
                 {
                     new TextBlock
                     {
-                        Text = "DETAILED STATIC REPORT",
+                        Text = AppStrings.Get("ConsequenceVerdict_ReportHeading"),
                         FontSize = 11,
                         FontWeight = FontWeight.Bold,
                     },
@@ -626,15 +981,17 @@ internal static class ConsequenceVerdictRenderer
         AutomationProperties.SetAutomationId(reportCard, "ConsequenceVerdictReport");
         AutomationProperties.SetName(
             reportCard,
-            $"Detailed static outcome report. {string.Join(" ", reportLines.Select(line => line.Label))}");
+            AppStrings.Format(
+                "ConsequenceVerdict_ReportName",
+                string.Join(" ", reportLines.Select(line => line.Label))));
 
         var modeText = new TextBlock
         {
             Text = parameters.UseTextOnlyFallback
-                ? "Text-only outcome mode is active. The consequence, verdict, and report remain complete."
+                ? AppStrings.Get("ConsequenceVerdict_TextMode")
                 : hasBackdrop && subjectImage is not null
-                    ? "Validated local scene art is active. The full static report remains available."
-                    : "Absent scene art is replaced by the complete authored paper outcome scene.",
+                    ? AppStrings.Get("ConsequenceVerdict_ArtMode")
+                    : AppStrings.Get("ConsequenceVerdict_AbsentArtMode"),
             FontSize = 13,
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
@@ -782,9 +1139,9 @@ internal static class ConsequenceVerdictRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "Success outcome preserved. Continue when the static report is clear.",
-        TemplateOutcomeState.Uncertain => "Uncertain outcome preserved. Review the static report before continuing.",
-        TemplateOutcomeState.Failure => "Failure outcome preserved. Retry remains available without hiding the report.",
-        _ => "Ready: the projected outcome and its report are available.",
+        TemplateOutcomeState.Success => AppStrings.Get("ConsequenceVerdict_OutcomeSuccess"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("ConsequenceVerdict_OutcomeUncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("ConsequenceVerdict_OutcomeFailure"),
+        _ => AppStrings.Get("ConsequenceVerdict_OutcomeReady"),
     };
 }

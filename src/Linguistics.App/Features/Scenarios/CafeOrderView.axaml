@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:loc="using:Linguistics.App.Localization"
+             xmlns:controls="using:Linguistics.App.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
@@ -39,7 +40,8 @@
         <StackPanel x:Name="ScenarioPanel"
                     IsVisible="False"
                     Spacing="18">
-            <Border Classes="hero-card">
+            <Border x:Name="ScenarioOverviewPanel"
+                    Classes="hero-card">
                 <StackPanel Spacing="12">
                     <TextBlock Text="{loc:Localize Scenario_Eyebrow}"
                                Classes="eyebrow" />
@@ -91,41 +93,50 @@
             <StackPanel x:Name="ActiveScenarioPanel"
                         IsVisible="False"
                         Spacing="16">
-                <Border Classes="card">
+                <ContentControl x:Name="ScenarioTheatreHost"
+                                HorizontalContentAlignment="Stretch"
+                                AutomationProperties.AutomationId="CafeScenarioTheatreHost" />
+
+                <controls:PaperCard Classes="soft">
                     <StackPanel Spacing="14">
-                        <TextBlock Text="{loc:Localize Scenario_AtCounter}"
+                        <TextBlock Text="{loc:Localize Scenario_Transcript}"
                                    FontSize="20"
                                    FontWeight="SemiBold"
                                    AutomationProperties.HeadingLevel="2" />
                         <StackPanel x:Name="ConversationPanel"
                                     Spacing="10"
-                                    AutomationProperties.AutomationId="CafeConversation" />
-                        <StackPanel Orientation="Horizontal"
-                                    Spacing="8">
+                                    AutomationProperties.AutomationId="CafeConversation"
+                                    AutomationProperties.LiveSetting="Polite" />
+                        <WrapPanel Orientation="Horizontal">
                             <Button Content="{loc:Localize Scenario_Translation}"
                                     Classes="quiet"
+                                    Margin="0,0,8,8"
                                     Click="OnTranslationClicked"
                                     AutomationProperties.AutomationId="CafeTranslation" />
                             <Button Content="{loc:Localize Scenario_Hint}"
                                     Classes="quiet"
+                                    Margin="0,0,8,8"
                                     Click="OnHintClicked"
                                     AutomationProperties.AutomationId="CafeHint" />
                             <Button x:Name="RepeatButton"
                                     Content="{loc:Localize Scenario_PlayCaption}"
                                     Classes="quiet"
+                                    Margin="0,0,8,8"
                                     Click="OnRepeatClicked"
                                     AutomationProperties.AutomationId="CafeRepeat" />
                             <Button x:Name="SlowerButton"
                                     Content="{loc:Localize Scenario_Slower}"
                                     Classes="quiet"
+                                    Margin="0,0,8,8"
                                     Click="OnSlowerClicked"
                                     AutomationProperties.AutomationId="CafeRepeatSlower" />
                             <Button x:Name="StopPlaybackButton"
                                     Content="{loc:Localize Scenario_Stop}"
                                     Classes="quiet"
+                                    Margin="0,0,8,8"
                                     Click="OnStopPlaybackClicked"
                                     AutomationProperties.AutomationId="CafeStopPlayback" />
-                        </StackPanel>
+                        </WrapPanel>
                         <TextBlock x:Name="SupportText"
                                    IsVisible="False"
                                    TextWrapping="Wrap"
@@ -133,7 +144,7 @@
                                    AutomationProperties.LiveSetting="Polite"
                                    AutomationProperties.AutomationId="CafeSupportText" />
                     </StackPanel>
-                </Border>
+                </controls:PaperCard>
 
                 <Border x:Name="FeedbackPanel"
                         IsVisible="False"
@@ -238,40 +249,28 @@
                                AutomationProperties.AutomationId="CafeTurnStatus" />
                 </StackPanel>
 
-                <Border x:Name="CompletionPanel"
-                        IsVisible="False"
-                        Classes="hero-card"
-                        AutomationProperties.AutomationId="CafeCompletion">
-                    <StackPanel Spacing="10">
-                        <TextBlock Text="{loc:Localize Scenario_Completed_Title}"
-                                   FontSize="24"
-                                   FontWeight="SemiBold"
-                                   AutomationProperties.HeadingLevel="2" />
-                        <TextBlock Text="{loc:Localize Scenario_Completed_Body}"
-                                   TextWrapping="Wrap"
-                                   LineHeight="22" />
-                        <TextBlock x:Name="EvidenceText"
-                                   TextWrapping="Wrap"
-                                   AutomationProperties.AutomationId="CafeEvidence" />
-                        <TextBlock x:Name="PersistenceStatusText"
-                                   TextWrapping="Wrap"
-                                   AutomationProperties.LiveSetting="Assertive"
-                                   AutomationProperties.AutomationId="CafePersistenceStatus" />
-                        <StackPanel Orientation="Horizontal" Spacing="9">
+                <StackPanel x:Name="CompletionPanel"
+                            IsVisible="False"
+                            Spacing="12"
+                            AutomationProperties.AutomationId="CafeCompletion">
+                    <ContentControl x:Name="ConsequenceVerdictHost"
+                                    HorizontalContentAlignment="Stretch"
+                                    AutomationProperties.AutomationId="CafeConsequenceVerdictHost" />
+                    <controls:PaperCard Classes="soft">
+                        <StackPanel Spacing="10">
+                            <TextBlock x:Name="PersistenceStatusText"
+                                       TextWrapping="Wrap"
+                                       AutomationProperties.LiveSetting="Assertive"
+                                       AutomationProperties.AutomationId="CafePersistenceStatus" />
                             <Button x:Name="RetrySaveButton"
                                     Content="{loc:Localize Scenario_RetrySave}"
                                     IsVisible="False"
+                                    HorizontalAlignment="Left"
                                     Click="OnRetrySaveClicked"
                                     AutomationProperties.AutomationId="RetryCafeSave" />
-                            <Button x:Name="PracticeAgainButton"
-                                    Content="{loc:Localize Scenario_PracticeAgain}"
-                                    Classes="primary lift"
-                                    IsVisible="False"
-                                    Click="OnPracticeAgainClicked"
-                                    AutomationProperties.AutomationId="PracticeCafeAgain" />
                         </StackPanel>
-                    </StackPanel>
-                </Border>
+                    </controls:PaperCard>
+                </StackPanel>
 
                 <Expander x:Name="DeveloperPanel"
                           IsVisible="False"

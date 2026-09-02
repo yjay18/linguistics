@@ -1051,4 +1051,62 @@
   <data name="Learn_Player_Progress" xml:space="preserve"><value>पाठ की राह</value></data>
   <data name="Learn_Player_Replay" xml:space="preserve"><value>दृश्य फिर चलाएँ</value></data>
   <data name="Learn_Player_Skip" xml:space="preserve"><value>प्रवेश छोड़ें</value></data>
+  <data name="Scenario_Transcript" xml:space="preserve"><value>बातचीत का लिखित रूप</value></data>
+  <data name="ScenarioTheatre_Replay" xml:space="preserve"><value>दृश्य फिर चलाएँ</value></data>
+  <data name="ScenarioTheatre_ReplayName" xml:space="preserve"><value>कैफ़े दृश्य का प्रवेश फिर चलाएँ</value></data>
+  <data name="ScenarioTheatre_Skip" xml:space="preserve"><value>प्रवेश छोड़ें</value></data>
+  <data name="ScenarioTheatre_SkipName" xml:space="preserve"><value>सीधे पूरे कैफ़े दृश्य पर जाएँ</value></data>
+  <data name="ScenarioTheatre_InstructionName" xml:space="preserve"><value>परिदृश्य निर्देश। {0}</value></data>
+  <data name="ScenarioTheatre_MissionGoal" xml:space="preserve"><value>मिशन लक्ष्य</value></data>
+  <data name="ScenarioTheatre_SuccessLooksLike" xml:space="preserve"><value>सफलता ऐसी होगी</value></data>
+  <data name="ScenarioTheatre_GoalName" xml:space="preserve"><value>परिदृश्य लक्ष्य। {0} संदर्भ। {1}</value></data>
+  <data name="ScenarioTheatre_StageName" xml:space="preserve"><value>काग़ज़ का कैफ़े दृश्य। {0} कहते हैं {1}</value></data>
+  <data name="ScenarioTheatre_CafeCounter" xml:space="preserve"><value>कैफ़े काउंटर</value></data>
+  <data name="ScenarioTheatre_PaperSetActive" xml:space="preserve"><value>पूरा लिखा काग़ज़ सेट सक्रिय है।</value></data>
+  <data name="ScenarioTheatre_SetName" xml:space="preserve"><value>काग़ज़ का कैफ़े काउंटर सेट</value></data>
+  <data name="ScenarioTheatre_NpcPuppet" xml:space="preserve"><value>कैफ़े कठपुतली</value></data>
+  <data name="ScenarioTheatre_TextCharacter" xml:space="preserve"><value>लिखा हुआ केवल-पाठ पात्र</value></data>
+  <data name="ScenarioTheatre_NpcName" xml:space="preserve"><value>कैफ़े कठपुतली। {0}</value></data>
+  <data name="ScenarioTheatre_NpcLineName" xml:space="preserve"><value>{0} कहते हैं {1}</value></data>
+  <data name="ScenarioTheatre_TextMode" xml:space="preserve"><value>लिखा हुआ केवल-पाठ दृश्य। लक्ष्य, संवाद और नियंत्रण पूरे हैं।</value></data>
+  <data name="ScenarioTheatre_LiveInstruction" xml:space="preserve"><value>काउंटर पर सुनें, फिर पाठ या वैकल्पिक स्थानीय आवाज़ से उत्तर दें।</value></data>
+  <data name="ScenarioTheatre_StateChooseItem" xml:space="preserve"><value>वस्तु चुन रहे हैं</value></data>
+  <data name="ConsequenceVerdict_Instruction" xml:space="preserve"><value>कार्य का परिणाम और विस्तृत प्रमाण देखें।</value></data>
+  <data name="ConsequenceVerdict_Learner" xml:space="preserve"><value>सीखने वाला</value></data>
+  <data name="ConsequenceVerdict_StateComplete" xml:space="preserve"><value>ऑर्डर पूरा</value></data>
+  <data name="ConsequenceVerdict_VerdictReady" xml:space="preserve"><value>परिणाम के लिए तैयार</value></data>
+  <data name="ConsequenceVerdict_VerdictUncertain" xml:space="preserve"><value>एक बात जाँचनी है</value></data>
+  <data name="ConsequenceVerdict_VerdictFailure" xml:space="preserve"><value>अनुरोध के लिए एक और प्रयास चाहिए</value></data>
+  <data name="ConsequenceVerdict_ConsequenceReady" xml:space="preserve"><value>सीखने वाला काउंटर पर प्रतीक्षा करता है।</value></data>
+  <data name="ConsequenceVerdict_ConsequenceSuccess" xml:space="preserve"><value>सीखने वाला पूरा ऑर्डर कार्ड उठाता है।</value></data>
+  <data name="ConsequenceVerdict_ConsequenceUncertain" xml:space="preserve"><value>सीखने वाला ऑर्डर कार्ड के पास रुकता है।</value></data>
+  <data name="ConsequenceVerdict_ConsequenceFailure" xml:space="preserve"><value>ऑर्डर कार्ड काउंटर पर लौटता है।</value></data>
+  <data name="ConsequenceVerdict_ReportGoal" xml:space="preserve"><value>संवाद लक्ष्य: पूरा</value></data>
+  <data name="ConsequenceVerdict_ReportAccuracy" xml:space="preserve"><value>भाषाई शुद्धता: {0}</value></data>
+  <data name="ConsequenceVerdict_ReportFluency" xml:space="preserve"><value>प्रवाह: {0}</value></data>
+  <data name="ConsequenceVerdict_ReportConcept" xml:space="preserve"><value>लक्ष्य अवधारणा: {0}</value></data>
+  <data name="ConsequenceVerdict_Continue" xml:space="preserve"><value>परिदृश्यों पर लौटें</value></data>
+  <data name="ConsequenceVerdict_SaveBeforeAction" xml:space="preserve"><value>बाहर जाने या फिर अभ्यास से पहले स्थानीय सहेजना दोबारा आज़माएँ।</value></data>
+  <data name="ConsequenceVerdict_ReadyAgain" xml:space="preserve"><value>स्थानीय रूप से सहेजा। कैफ़े कार्य फिर अभ्यास के लिए तैयार है।</value></data>
+  <data name="ConsequenceVerdict_Replay" xml:space="preserve"><value>निर्णय फिर चलाएँ</value></data>
+  <data name="ConsequenceVerdict_ReplayName" xml:space="preserve"><value>परिणाम और निर्णय का प्रवेश फिर चलाएँ</value></data>
+  <data name="ConsequenceVerdict_Skip" xml:space="preserve"><value>प्रवेश छोड़ें</value></data>
+  <data name="ConsequenceVerdict_SkipName" xml:space="preserve"><value>सीधे पूरे परिणाम विवरण पर जाएँ</value></data>
+  <data name="ConsequenceVerdict_InstructionName" xml:space="preserve"><value>परिणाम निर्देश। {0}</value></data>
+  <data name="ConsequenceVerdict_StateName" xml:space="preserve"><value>हटता स्थिति लेबल। {0}</value></data>
+  <data name="ConsequenceVerdict_CutoutName" xml:space="preserve"><value>{0} कटआउट</value></data>
+  <data name="ConsequenceVerdict_Puppet" xml:space="preserve"><value>कठपुतली</value></data>
+  <data name="ConsequenceVerdict_TextSubject" xml:space="preserve"><value>लिखा हुआ केवल-पाठ विषय</value></data>
+  <data name="ConsequenceVerdict_PuppetName" xml:space="preserve"><value>परिणाम कठपुतली। {0}। {1}</value></data>
+  <data name="ConsequenceVerdict_VerdictName" xml:space="preserve"><value>निर्णय। {0}। {1}</value></data>
+  <data name="ConsequenceVerdict_ReportHeading" xml:space="preserve"><value>विस्तृत स्थिर विवरण</value></data>
+  <data name="ConsequenceVerdict_ReportName" xml:space="preserve"><value>विस्तृत स्थिर परिणाम विवरण। {0}</value></data>
+  <data name="ConsequenceVerdict_TextMode" xml:space="preserve"><value>केवल-पाठ परिणाम। प्रभाव, निर्णय और विवरण पूरे हैं।</value></data>
+  <data name="ConsequenceVerdict_ArtMode" xml:space="preserve"><value>जाँची स्थानीय दृश्य कला सक्रिय है। पूरा स्थिर विवरण उपलब्ध है।</value></data>
+  <data name="ConsequenceVerdict_AbsentArtMode" xml:space="preserve"><value>अनुपलब्ध दृश्य कला की जगह पूरा लिखा काग़ज़ परिणाम है।</value></data>
+  <data name="ConsequenceVerdict_OutcomeSuccess" xml:space="preserve"><value>सफलता सुरक्षित है। स्थिर विवरण स्पष्ट होने पर आगे बढ़ें।</value></data>
+  <data name="ConsequenceVerdict_OutcomeUncertain" xml:space="preserve"><value>अनिश्चितता सुरक्षित है। आगे बढ़ने से पहले स्थिर विवरण देखें।</value></data>
+  <data name="ConsequenceVerdict_OutcomeFailure" xml:space="preserve"><value>असफलता सुरक्षित है। विवरण दिखाते हुए फिर प्रयास उपलब्ध है।</value></data>
+  <data name="ConsequenceVerdict_OutcomeReady" xml:space="preserve"><value>तैयार। दिखाया परिणाम और विवरण उपलब्ध हैं।</value></data>
+  <data name="ConsequenceVerdict_StageName" xml:space="preserve"><value>{0} के लिए परिणाम। {1}। {2}</value></data>
 </root>
