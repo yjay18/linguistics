@@ -2,7 +2,38 @@
 
 ## Status
 
-Milestones 2–6 are committed and pushed through `61e60ad`; Milestone 7 review/progress is `d182749`, local-data/release hardening is `34d84fd`, and the final-design slice is `f8cde75`. Paper design system v2 Phases 1 and 2 are committed on `main` through `48fd5a4`. Phase 3 and Phase 4 Waves A–G are implemented and verified as of 2026-09-02. Phase 3 supplies the validated local 12-image asset pipeline and attribution surfaces. Waves A–G expand the exact template registry to 52 schemas/renderers, P4.T1–P4.T52. Every entry has strict typed validation, deterministic outcome mapping, all-outcome synthetic fixtures, bounded replay/skip choreography, reduced-motion completion, keyboard names/live regions, and complete text-only behavior. Construction, listening, speaking, reading, and writing templates submit only authored IDs, mappings, ordered selections, normalized text, or bounded timing evidence to the pure core evaluator; renderers retain transient presentation and input state only. Transfer renderers consume already selected `TransferRouter` output, keep advisory state local, and return only authored action IDs through the callback. Audio-led templates optionally play complete authored text through the installed-system-voice provider without a microphone. Speech-led templates keep a complete typed or non-microphone route, use only explicitly configured local recognition, and do not claim phoneme, accent, or native-likeness scoring. The bundled German lesson, generated fixture copy, and all assets remain machine-validated Preview material; visits do not change mastery, and competent linguistic, cultural, content, license, modification, and redistribution review is still required before release. Locked restore, formatter, zero-warning Release build, all 334 automated tests, publish inspection, and fresh native macOS gallery evidence are clean. Direct VoiceOver, Windows native interaction, real microphone capture, configured local recognition, and drag-specific macOS automation remain unverified. Culture Plate still needs a suitable validated Commons artifact; Sign Reading still needs a suitable validated Commons photograph; both render designed authored text-only equivalents. The last committed CI baseline remains GitHub Actions run `32342596021` for `f8cde752309e50fe3bc3d1a7a4c490562e497c29`; local commits and remote synchronization do not imply approval, distribution, or release.
+Milestones 2–6 are committed and pushed through `61e60ad`; Milestone 7
+review/progress is `d182749`, local-data/release hardening is `34d84fd`, and the
+final-design slice is `f8cde75`. Paper design system v2 Phases 1 and 2 are committed on
+`main` through `48fd5a4`. Phase 3 and all Phase 4 Waves A–H are implemented and
+verified as of 2026-09-02. Phase 3 supplies the validated local 12-image asset pipeline
+and attribution surfaces. The exact template catalog now contains 58 schemas,
+renderers, and synthetic gallery fixtures, P4.T1–P4.T58. Every entry has strict typed
+validation, deterministic outcome mapping, all-outcome fixtures, bounded replay/skip
+choreography, reduced-motion completion, keyboard names/live regions, and complete
+text-only behavior. Construction, listening, speaking, reading, writing, scenario,
+review, and progress templates submit only stable authored IDs, mappings, ordered
+selections, normalized text, or bounded timing evidence to the pure core evaluator;
+renderers retain transient presentation and input state only. Transfer renderers consume
+already selected `TransferRouter` output and return only authored advisory actions.
+Review Flash never schedules review, Unit Capstone never selects or runs its chained
+templates, and Progress Shelf never reads mastery or persistence. Audio-led templates
+optionally play complete authored text through the installed-system-voice provider
+without a microphone. Speech-led templates keep a complete typed or non-microphone route
+and do not claim phoneme, accent, or native-likeness scoring. The bundled German lesson,
+generated fixture copy, and all assets remain machine-validated Preview material;
+visits do not change mastery, and competent linguistic, cultural, content, license,
+modification, and redistribution review is still required before release. Locked
+restore, formatter, zero-warning Release build, all 347 automated tests, publish
+inspection, and fresh native macOS gallery evidence are clean. Direct VoiceOver,
+Windows native interaction, real microphone capture, configured local recognition, and
+drag-specific macOS automation remain unverified. Culture Plate still needs a suitable
+validated Commons artifact, Sign Reading still needs a suitable validated Commons
+photograph, and Wave H still needs a validated café-worker puppet and café-interior
+backdrop; all use designed authored text-only equivalents where media is absent. The
+last committed CI baseline remains GitHub Actions run `32342596021` for
+`f8cde752309e50fe3bc3d1a7a4c490562e497c29`; local commits and remote synchronization do
+not imply approval, distribution, or release.
 
 These documents turn the founding product brief into durable implementation guidance. They describe intended behavior, not verified implementation. A statement becomes an implementation fact only when repository code and evidence demonstrate it.
 

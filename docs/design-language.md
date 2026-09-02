@@ -64,6 +64,15 @@ reserve enough width for their complete label. These renderers show the routed b
 report only authored advisory action IDs. They never choose a source language, infer a
 relationship, or touch mastery and persistence.
 
+The Wave H scenario, review, and progress catalog closes the 58-template set with a
+communicative paper stage, consequence report, recall card, scrapbook spread, ordered
+mission board, and calm capability shelf. Scenic labels occupy their own anchor space so
+tape never hides dialogue or mission copy. Shelf stamps name projected evidence without
+scores, XP, or streak pressure, and each paper situation keeps a clearly visible action
+label. Review ratings, scenario choices, capstone steps, and shelf selections are visual
+controls for stable core-owned outcomes; the paper arrangement never schedules review,
+chooses a template, or infers mastery.
+
 ## Motion
 
 Motion is presentation-only and never gates state. `SteppedEasing` supplies deterministic low-frame-rate puppet movement, while `PaperChoreography` sequences bounded stages, supports replay and synchronous skip-to-final behavior, and rejects timelines of four seconds or longer. Tape settles, stamps press, and the sandbox scene establishes, enters, reacts, and resolves in under four seconds.

@@ -66,12 +66,12 @@ Changes can affect application startup, relaunch routing, onboarding accessibili
 
 ## Last reconciled
 
-Phase 4 Wave G on 2026-09-02. The developer gallery now renders the exact 52-template
-registry without learner persistence. Real macOS evidence covers all four Wave G
-templates, mouse and keyboard replay/skip/acknowledgement/dismissal paths on Bridge Note
-and Contrast Panes, all four gallery outcomes, complete text-only presentation,
+Phase 4 Wave H on 2026-09-02. The developer gallery now renders the exact 58-template
+registry without learner persistence. Fresh macOS evidence covers all six Wave H
+templates, mouse failure/retry/success on Scenario Theatre, keyboard reveal/rating on
+Review Flash, replay, skip, all four gallery outcomes, image-free text-only presentation,
 reduced-motion and motion-enabled final states, and light and dark themes. The native
-accessibility tree exposes named transfer notes, warnings, connections, comparison panes,
-controls, and live result text. Direct VoiceOver, Windows native interaction, real
-microphone capture, configured local recognition, and a completed synthesized native
-drag gesture remain unverified.
+accessibility tree exposes named goals, NPC dialogue, verdict reports, review ratings,
+recap pieces, capstone steps, capability situations, controls, and live result text.
+Direct VoiceOver, Windows native interaction, real microphone capture, configured local
+recognition, and a completed synthesized native drag gesture remain unverified.

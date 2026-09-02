@@ -230,6 +230,17 @@ Note renderer and the café scenario. The scenario controller may own the select
 and decide whether a dismissal keeps it available for that session; the shared control
 does not read or write learner state, mastery, routing, or persistence.
 
+Scenario, review, recap, capstone, and progress renderers retain the same boundary.
+Scenario Theatre sends one selected response ID to the pure evaluator and keeps retry
+state inside its control tree. Consequence Verdict sends only an authored action ID.
+Review Flash reveals authored content and reports one enumerated `review-v1` rating; it
+does not receive or invoke `ReviewScheduler`. Recap Scrapbook reports an advisory action.
+Unit Capstone validates an authored step/template-chain pair and submits an ordered step
+prefix without choosing, instantiating, or running the chained templates. Progress Shelf
+renders already projected evidence groups and submits a selected capability ID; it does
+not receive a profile, mastery service, progress store, XP, or streak state. None of these
+renderers can persist an outcome or elevate Preview content.
+
 The developer gallery supplies fixed parameters backed by the validated pack and cycles presentation states
 without reading learner history. Bundled machine-validated lesson instances are preview
 only: finishing one returns to the course map without creating mastery evidence or a

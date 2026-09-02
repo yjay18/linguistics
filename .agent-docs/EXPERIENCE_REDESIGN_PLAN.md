@@ -582,6 +582,42 @@ claim is made.
   can handle rendered as collected paper objects on a shelf (no XP, no streak
   pressure).
 
+**Wave H status (2026-09-02): complete with named unverified evidence in the current
+Phase 4 checkpoint.** P4.T53–P4.T58 have typed schemas, strict per-kind validator
+fixtures, registered Avalonia renderers, all-outcome gallery fixtures, bounded replay and
+skip choreography, reduced-motion instant states, keyboard names and live regions,
+complete authored text-only presentation, callback-only outcomes, and deterministic core
+mapping tests. Scenario Theatre submits one stable authored response ID and keeps retry
+local. Consequence Verdict projects an authored result and submits only the selected
+action. Review Flash reveals first, then submits an enumerated `review-v1` rating without
+calling the scheduler. Recap Scrapbook reports only an authored advisory action. Unit
+Capstone validates the authored template chain and ordered prefix without selecting or
+running templates. Progress Shelf renders projected evidence groups without reading
+profile, mastery, XP, streak, or persistence state.
+
+Locked restore, formatter, zero-warning Release build, publish inspection, and all 347
+tests pass (126 app and 221 core). The published app contains all 12 validated German
+Preview images and no AssetPipeline binary. Fresh macOS inspection covered every Wave H
+template. Real mouse interaction on Scenario Theatre covered failure, retry, success,
+replay, and skip. Real keyboard interaction on Review Flash covered reveal and `Again`
+then `Good` ratings with visible focus and live status. The gallery cycled Ready,
+Success, Uncertain, and Failure. Text-only mode removed all 71 image-role nodes while
+retaining every Wave H control. Reduced-motion replay and skip reached complete states
+immediately, and both light and dark themes were captured. Native inspection found
+scenario-label, capstone-goal, and shelf-label readability defects; all were corrected.
+A fresh independent visual review passed all six templates and the light, reduced-motion,
+mouse-success, and keyboard-success variants. Final captures are under
+`artifacts/phase4-wave-h/screenshots/`; the isolated diagnostic log contains only
+successful app-open and profile-load events.
+
+Named follow-ups and evidence gaps: no validated café-worker puppet or café-interior
+backdrop is bundled, so Scenario Theatre and Consequence Verdict use their designed
+authored paper-text equivalents where that art is absent. Direct VoiceOver and Windows
+native interaction remain unverified. Competent linguistic, cultural, content, license,
+modification, and redistribution review remains pending. All learner-visible content is
+still machine-validated Preview material. No approval, distribution, or release claim is
+made. With those named evidence gaps, the 58-template Phase 4 catalog is complete.
+
 Gate per wave: all definition-of-done points for every template; gallery complete;
 determinism and validator suites green; two templates per wave verified by real
 interaction on macOS (Windows evidence named if unavailable).
