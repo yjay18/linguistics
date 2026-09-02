@@ -295,6 +295,9 @@ internal sealed class TemplateRegistry
         new KeyValuePair<TemplateId, TemplateRendererFactory>(
             new TemplateId("form-fill"),
             FormFillRenderer.Render),
+        new KeyValuePair<TemplateId, TemplateRendererFactory>(
+            new TemplateId("note-write"),
+            NoteWriteRenderer.Render),
     ]);
 
     public Control Render(

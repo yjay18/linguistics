@@ -533,3 +533,209 @@ internal static class FormFillRenderer
         _ => "Ready: copy each synthetic detail into its matching field.",
     };
 }
+
+internal static class NoteWriteRenderer
+{
+    public static Control Render(
+        ContentImageCache? imageCache,
+        ResolvedTemplateParameters parameters,
+        LanguageCode instructionLanguage,
+        bool shouldReduceMotion,
+        Action<TemplateOutcome> reportOutcome)
+    {
+        _ = imageCache;
+        var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
+        var stationeryTitle = TemplateRendering.Text(parameters, "stationery-title");
+        var prompt = TemplateRendering.Text(parameters, "prompt");
+        var requiredContent = TemplateRendering.Options(parameters, "required-content");
+        if (requiredContent.Count == 0)
+        {
+            throw new InvalidOperationException("Note writing requires at least one content check.");
+        }
+
+        var replayButton = new Button { Content = "Replay note", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(replayButton, "NoteWriteReplay");
+        AutomationProperties.SetName(replayButton, "Replay the stationery entrance");
+        var skipButton = new Button { Content = "Skip note", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(skipButton, "NoteWriteSkip");
+        AutomationProperties.SetName(skipButton, "Skip to the completed stationery");
+        var instructionText = new TextBlock
+        {
+            Text = instruction,
+            FontSize = 18,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        AutomationProperties.SetName(instructionText, $"Writing instruction. {instruction}");
+        var headerActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        headerActions.Children.Add(replayButton);
+        headerActions.Children.Add(skipButton);
+        var header = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
+        header.Children.Add(instructionText);
+        Grid.SetColumn(headerActions, 1);
+        header.Children.Add(headerActions);
+
+        var promptCard = new PaperCard
+        {
+            Padding = new Thickness(14, 10),
+            Content = new StackPanel
+            {
+                Spacing = 5,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = "NOTE BRIEF",
+                        FontSize = 12,
+                        FontWeight = FontWeight.Bold,
+                        Classes = { "muted" },
+                    },
+                    new TextBlock
+                    {
+                        Text = prompt,
+                        FontSize = 17,
+                        FontWeight = FontWeight.SemiBold,
+                        TextWrapping = TextWrapping.Wrap,
+                    },
+                },
+            },
+        };
+        promptCard.Classes.Add("soft");
+        AutomationProperties.SetName(promptCard, $"Note brief. {prompt}");
+
+        var stationeryTape = new PaperTape { Content = stationeryTitle.ToUpperInvariant(), Angle = -1.1 };
+        AutomationProperties.SetName(stationeryTape, $"Stationery title. {stationeryTitle}");
+        var checks = new TextBlock
+        {
+            Text = $"Include: {string.Join(" · ", requiredContent.Select(item => item.Label))}",
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+        };
+        AutomationProperties.SetName(
+            checks,
+            $"Required content. {string.Join(". ", requiredContent.Select(item => item.Label))}");
+        var noteInput = new TextBox
+        {
+            AcceptsReturn = true,
+            MinHeight = 132,
+            TextWrapping = TextWrapping.Wrap,
+            PlaceholderText = "Write your note in German",
+        };
+        AutomationProperties.SetAutomationId(noteInput, "NoteWriteInput");
+        AutomationProperties.SetName(noteInput, "German note text");
+        var stationeryContent = new StackPanel { Spacing = 12 };
+        stationeryContent.Children.Add(stationeryTape);
+        stationeryContent.Children.Add(checks);
+        stationeryContent.Children.Add(noteInput);
+        var stationeryCard = new PaperCard
+        {
+            Padding = new Thickness(20, 18),
+            Content = stationeryContent,
+            RenderTransformOrigin = new RelativePoint(0.5, 1, RelativeUnit.Relative),
+        };
+        stationeryCard.Classes.Add("settings-sheet");
+        AutomationProperties.SetName(
+            stationeryCard,
+            $"Paper stationery. {stationeryTitle}. Write one short German note.");
+
+        var checkButton = new Button { Content = "Check note", Classes = { "primary", "lift" } };
+        AutomationProperties.SetAutomationId(checkButton, "NoteWriteCheck");
+        AutomationProperties.SetName(checkButton, "Check the note for required content");
+        var clearButton = new Button { Content = "Clear note", Classes = { "quiet" } };
+        AutomationProperties.SetAutomationId(clearButton, "NoteWriteClear");
+        AutomationProperties.SetName(clearButton, "Clear the note text");
+        var actions = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 8,
+            Children = { checkButton, clearButton },
+        };
+        var actionsCard = new PaperCard { Padding = new Thickness(12, 9), Content = actions };
+        actionsCard.Classes.Add("soft");
+        AutomationProperties.SetName(actionsCard, "Note actions");
+
+        var outcomePanel = TemplateRendering.CreateOutcomePanel(
+            parameters.PreviewOutcome,
+            OutcomeCopy,
+            out var outcomeText);
+        checkButton.Click += (_, _) =>
+        {
+            var outcome = TemplateInteractionEvaluator.EvaluateRequiredContent(
+                requiredContent,
+                noteInput.Text ?? string.Empty);
+            TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
+            reportOutcome(outcome);
+        };
+        clearButton.Click += (_, _) =>
+        {
+            noteInput.Text = string.Empty;
+            TemplateRendering.ApplyOutcome(
+                outcomePanel,
+                outcomeText,
+                TemplateOutcomeState.Ready,
+                OutcomeCopy);
+        };
+
+        var root = new StackPanel { Spacing = 12 };
+        root.Children.Add(header);
+        if (parameters.UseTextOnlyFallback)
+        {
+            root.Children.Add(new TextBlock
+            {
+                Text = "Text-only stationery mode is active. The brief, checks, and writing field remain available.",
+                Classes = { "muted" },
+                TextWrapping = TextWrapping.Wrap,
+            });
+        }
+
+        root.Children.Add(promptCard);
+        root.Children.Add(stationeryCard);
+        root.Children.Add(actionsCard);
+        root.Children.Add(outcomePanel);
+
+        PaperChoreography? scene = null;
+        async Task PlayAsync()
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            TemplateRendering.Prepare(shouldReduceMotion, promptCard, stationeryCard, actionsCard);
+            if (!shouldReduceMotion)
+            {
+                stationeryCard.RenderTransform = TemplateRendering.Transform(0, 12, -1.2, 0.98);
+                actionsCard.RenderTransform = TemplateRendering.Transform(0, 8, 0, 0.98);
+            }
+
+            scene = new PaperChoreography(
+            [
+                TemplateRendering.Reveal(TimeSpan.FromMilliseconds(220), promptCard),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(460), stationeryCard, 0, 0, 0, 1),
+                TemplateRendering.Move(TimeSpan.FromMilliseconds(280), actionsCard, 0, 0, 0, 1),
+            ]);
+            await scene.PlayAsync(shouldReduceMotion);
+        }
+
+        root.AttachedToVisualTree += async (_, _) => await PlayAsync();
+        root.DetachedFromVisualTree += (_, _) =>
+        {
+            scene?.Skip();
+            scene?.Dispose();
+            scene = null;
+        };
+        replayButton.Click += async (_, _) => await PlayAsync();
+        skipButton.Click += (_, _) =>
+        {
+            scene?.Skip();
+            stationeryTape.SkipEntrance();
+        };
+        return root;
+    }
+
+    private static string OutcomeCopy(TemplateOutcomeState state) => state switch
+    {
+        TemplateOutcomeState.Success => "The note includes both required details.",
+        TemplateOutcomeState.Uncertain => "Write a short note before checking it.",
+        TemplateOutcomeState.Failure => "Add every required detail, then check the note again.",
+        _ => "Ready: write a short note using every listed detail.",
+    };
+}

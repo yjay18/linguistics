@@ -1323,5 +1323,33 @@ internal static class TemplateGalleryFixtures
                         new("address", "Marktstraße 5"),
                     ]),
             })),
+        new(
+            new TemplateId("note-write"),
+            "Note write",
+            "Writing · paper stationery · deterministic content checks",
+            new LanguageCode("en"),
+            new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
+            {
+                ["instruction"] = new(
+                    TemplateParameterKind.TextByLanguage,
+                    TextByLanguage: new Dictionary<string, string>
+                    {
+                        ["en"] = "Write the short German note using both required details.",
+                        ["hi"] = "दोनों आवश्यक विवरणों का उपयोग करके छोटा जर्मन नोट लिखें।",
+                    }),
+                ["stationery-title"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "Für Sam"),
+                ["prompt"] = new(
+                    TemplateParameterKind.Text,
+                    Text: "You are at the market and will return at six. Leave your host a note."),
+                ["required-content"] = new(
+                    TemplateParameterKind.OptionList,
+                    Options:
+                    [
+                        new("location", "auf dem Markt"),
+                        new("return-time", "um sechs Uhr"),
+                    ]),
+            })),
     ];
 }

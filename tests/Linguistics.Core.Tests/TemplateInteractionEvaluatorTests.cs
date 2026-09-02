@@ -672,6 +672,41 @@ public sealed class TemplateInteractionEvaluatorTests
     }
 
     [TestMethod]
+    public void NoteWriteMatchesAuthoredContentWithoutReportingLearnerText()
+    {
+        Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>
+            schema.Id == new TemplateId("note-write")));
+        var requiredContent = new[]
+        {
+            new TemplateOption("location", "auf dem Markt"),
+            new TemplateOption("return-time", "um sechs Uhr"),
+        };
+
+        var success = TemplateInteractionEvaluator.EvaluateRequiredContent(
+            requiredContent,
+            "Hallo Sam! Ich bin auf dem MARKT; ich komme um sechs Uhr zurück.");
+        var failure = TemplateInteractionEvaluator.EvaluateRequiredContent(
+            requiredContent,
+            "Ich bin auf dem Markt.");
+        var incomplete = TemplateInteractionEvaluator.EvaluateRequiredContent(
+            requiredContent,
+            "!!!");
+
+        Assert.AreEqual(TemplateOutcomeState.Success, success.State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, failure.State);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, incomplete.State);
+        CollectionAssert.AreEqual(
+            new[] { "location", "return-time" },
+            success.OrderedOptionIds!.ToArray());
+        CollectionAssert.AreEqual(new[] { "location" }, failure.OrderedOptionIds!.ToArray());
+        Assert.IsFalse(success.OrderedOptionIds!.Contains("auf dem Markt", StringComparer.Ordinal));
+        Assert.ThrowsExactly<ArgumentException>(() =>
+            TemplateInteractionEvaluator.EvaluateRequiredContent(
+                Array.Empty<TemplateOption>(),
+                "Text"));
+    }
+
+    [TestMethod]
     public void ListenRouteUsesOnlyTheAuthoredStopOrder()
     {
         Assert.IsTrue(LessonTemplateSchemas.All.Any(schema =>

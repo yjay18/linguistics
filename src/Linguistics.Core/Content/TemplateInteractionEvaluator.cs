@@ -322,6 +322,46 @@ public static class TemplateInteractionEvaluator
             OrderedOptionIds: fieldIds);
     }
 
+    public static TemplateOutcome EvaluateRequiredContent(
+        IReadOnlyList<TemplateOption> requiredContent,
+        string response)
+    {
+        ArgumentNullException.ThrowIfNull(requiredContent);
+        ArgumentNullException.ThrowIfNull(response);
+
+        var criterionIds = ValidateOptionIds(requiredContent, nameof(requiredContent));
+        var phrasesById = requiredContent.ToDictionary(
+            criterion => criterion.Id,
+            criterion => NormalizeContentCheck(criterion.Label),
+            StringComparer.Ordinal);
+        if (phrasesById.Values.Any(string.IsNullOrWhiteSpace))
+        {
+            throw new ArgumentException(
+                "Required content must normalize to nonempty text.",
+                nameof(requiredContent));
+        }
+
+        var normalizedResponse = NormalizeContentCheck(response);
+        if (string.IsNullOrWhiteSpace(normalizedResponse))
+        {
+            return new TemplateOutcome(
+                TemplateOutcomeState.Uncertain,
+                OrderedOptionIds: Array.Empty<string>());
+        }
+
+        var searchableResponse = $" {normalizedResponse} ";
+        var matchedCriterionIds = criterionIds
+            .Where(id => searchableResponse.Contains(
+                $" {phrasesById[id]} ",
+                StringComparison.Ordinal))
+            .ToArray();
+        return new TemplateOutcome(
+            matchedCriterionIds.Length == criterionIds.Length
+                ? TemplateOutcomeState.Success
+                : TemplateOutcomeState.Failure,
+            OrderedOptionIds: matchedCriterionIds);
+    }
+
     public static TemplateOutcome EvaluatePronunciationAssessment(
         PronunciationAssessmentOutcome assessment) =>
         new(assessment switch
@@ -449,6 +489,22 @@ public static class TemplateInteractionEvaluator
                     (char[]?)null,
                     StringSplitOptions.RemoveEmptyEntries))
             .ToLowerInvariant();
+    }
+
+    private static string NormalizeContentCheck(string value)
+    {
+        var normalized = value.Normalize(NormalizationForm.FormKC).ToLowerInvariant();
+        var words = new StringBuilder(normalized.Length);
+        foreach (var character in normalized)
+        {
+            words.Append(char.IsLetterOrDigit(character) ? character : ' ');
+        }
+
+        return string.Join(
+            ' ',
+            words.ToString().Split(
+                (char[]?)null,
+                StringSplitOptions.RemoveEmptyEntries));
     }
 
     private static int OutcomeRank(TemplateOutcomeState state) => state switch

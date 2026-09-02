@@ -608,6 +608,16 @@ public static class LessonTemplateSchemas
                 new("fields", TemplateParameterKind.OptionList, IsRequired: true),
                 new("answers", TemplateParameterKind.OptionList, IsRequired: true),
             ]),
+        new LessonTemplateSchema(
+            new TemplateId("note-write"),
+            1,
+            [
+                new("instruction", TemplateParameterKind.TextByLanguage, IsRequired: true),
+                new("concept", TemplateParameterKind.ConceptReference, IsRequired: true),
+                new("stationery-title", TemplateParameterKind.Text, IsRequired: true),
+                new("prompt", TemplateParameterKind.Text, IsRequired: true),
+                new("required-content", TemplateParameterKind.OptionList, IsRequired: true),
+            ]),
     ];
 }
 

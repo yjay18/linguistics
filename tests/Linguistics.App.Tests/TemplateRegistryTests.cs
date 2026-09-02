@@ -750,6 +750,51 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void NoteWriteReportsOnlyMatchedAuthoredCriteria()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("note-write"));
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            reported.Add);
+        var descendants = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var input = descendants.OfType<TextBox>().Single(textBox =>
+            AutomationProperties.GetAutomationId(textBox) == "NoteWriteInput");
+        var buttons = descendants.OfType<Button>().ToArray();
+        var check = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "NoteWriteCheck");
+        var clear = buttons.Single(button =>
+            AutomationProperties.GetAutomationId(button) == "NoteWriteClear");
+
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        input.Text = "Ich bin auf dem Markt.";
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        input.Text = "Ich bin auf dem Markt und komme um sechs Uhr zurück.";
+        check.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.HasCount(3, reported);
+        Assert.AreEqual(TemplateOutcomeState.Uncertain, reported[0].State);
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[1].State);
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[2].State);
+        CollectionAssert.AreEqual(
+            new[] { "location", "return-time" },
+            reported[2].OrderedOptionIds!.ToArray());
+        Assert.IsFalse(reported[2].OrderedOptionIds!.Contains("Markt", StringComparer.Ordinal));
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "NoteWriteReplay"));
+        Assert.IsTrue(buttons.Any(button =>
+            AutomationProperties.GetAutomationId(button) == "NoteWriteSkip"));
+
+        clear.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+        Assert.IsTrue(string.IsNullOrEmpty(input.Text));
+    }
+
+    [TestMethod]
     public void TemplateSourcesContainNoEmDash()
     {
         var templatesDirectory = Path.Combine(
