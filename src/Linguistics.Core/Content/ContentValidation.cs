@@ -267,7 +267,7 @@ public static class ContentPackLoader
 
 public static class ContentPackValidator
 {
-    public const int SupportedSchemaVersion = 2;
+    public const int SupportedSchemaVersion = 3;
     public const int SupportedPackVersion = 1;
 
     private static readonly HashSet<string> AllowedCefr = new(StringComparer.Ordinal)
@@ -430,6 +430,11 @@ public static class ContentPackValidator
         }
 
         ValidateLanguages(pack.Manifest.Languages, packId, "manifest.languages", errors);
+        ValidateLanguages(
+            pack.Manifest.InstructionLanguages,
+            packId,
+            "manifest.instructionLanguages",
+            errors);
         ValidateDependenciesShape(pack.Manifest.Dependencies, packId, errors);
         ValidateLicense(pack.Manifest.License, packId, "manifest.license", policy, errors);
         ValidateReview(pack.Manifest.Review, packId, "manifest.review", policy, errors);
@@ -446,20 +451,23 @@ public static class ContentPackValidator
             }
         }
 
+        var instructionLanguages = Items(pack.Manifest.InstructionLanguages)
+            .ToHashSet(StringComparer.Ordinal);
+
         ValidateCollections(pack, packId, errors);
         foreach (var (concept, itemIndex) in Items(pack.Concepts).Select((item, itemIndex) => (item, itemIndex)))
         {
-            ValidateConcept(concept, itemIndex, packId, policy, errors);
+            ValidateConcept(concept, itemIndex, packId, policy, instructionLanguages, errors);
         }
 
         foreach (var (entry, itemIndex) in Items(pack.Lexicon).Select((item, itemIndex) => (item, itemIndex)))
         {
-            ValidateLexicalEntry(entry, itemIndex, packId, policy, errors);
+            ValidateLexicalEntry(entry, itemIndex, packId, policy, instructionLanguages, errors);
         }
 
         foreach (var (task, itemIndex) in Items(pack.Tasks).Select((item, itemIndex) => (item, itemIndex)))
         {
-            ValidateTask(task, itemIndex, packId, policy, errors);
+            ValidateTask(task, itemIndex, packId, policy, instructionLanguages, errors);
         }
 
         foreach (var (rule, itemIndex) in Items(pack.ErrorRules).Select((item, itemIndex) => (item, itemIndex)))
@@ -469,7 +477,7 @@ public static class ContentPackValidator
 
         foreach (var (template, itemIndex) in Items(pack.FeedbackTemplates).Select((item, itemIndex) => (item, itemIndex)))
         {
-            ValidateFeedback(template, itemIndex, packId, policy, errors);
+            ValidateFeedback(template, itemIndex, packId, policy, instructionLanguages, errors);
         }
 
         foreach (var (rubric, itemIndex) in Items(pack.Rubrics).Select((item, itemIndex) => (item, itemIndex)))
@@ -484,7 +492,7 @@ public static class ContentPackValidator
 
         foreach (var (mapping, itemIndex) in Items(pack.TransferMappings).Select((item, itemIndex) => (item, itemIndex)))
         {
-            ValidateTransferMapping(mapping, itemIndex, packId, policy, errors);
+            ValidateTransferMapping(mapping, itemIndex, packId, policy, instructionLanguages, errors);
         }
 
         ValidateLessons(pack, packId, errors);
@@ -657,7 +665,7 @@ public static class ContentPackValidator
 
         foreach (var pack in packs)
         {
-            var instructionLanguages = RequiredInstructionLanguages(packs, pack);
+            var instructionLanguages = RequiredInstructionLanguages(pack);
             foreach (var (lesson, lessonIndex) in Items(pack.Lessons).Select((lesson, index) => (lesson, index)))
             {
                 if (lesson is null)
@@ -1086,24 +1094,8 @@ public static class ContentPackValidator
         }
     }
 
-    private static IReadOnlySet<string> RequiredInstructionLanguages(
-        IReadOnlyList<ContentPackDocument> packs,
-        ContentPackDocument pack)
-    {
-        if (pack.Manifest.Kind != ContentPackKind.TargetLanguage || pack.Manifest.Languages.Count != 1)
-        {
-            return new HashSet<string>(StringComparer.Ordinal);
-        }
-
-        var targetLanguage = pack.Manifest.Languages[0];
-        return packs
-            .Where(candidate =>
-                candidate.Manifest.Kind == ContentPackKind.Transfer &&
-                candidate.Manifest.Languages.Count == 2 &&
-                candidate.Manifest.Languages[1] == targetLanguage)
-            .Select(candidate => candidate.Manifest.Languages[0])
-            .ToHashSet(StringComparer.Ordinal);
-    }
+    private static IReadOnlySet<string> RequiredInstructionLanguages(ContentPackDocument pack) =>
+        Items(pack.Manifest.InstructionLanguages).ToHashSet(StringComparer.Ordinal);
 
     private static bool IsCanonicalLanguage(string language)
     {
@@ -1149,6 +1141,7 @@ public static class ContentPackValidator
         int index,
         string packId,
         ContentLoadPolicy policy,
+        IReadOnlySet<string> instructionLanguages,
         ICollection<ContentValidationError> errors)
     {
         var path = $"concepts[{index}]";
@@ -1166,13 +1159,25 @@ public static class ContentPackValidator
         }
 
         ValidateCefr(concept.CefrApproximation, packId, $"{path}.cefrApproximation", errors);
-        RequireText(concept.Title, "concept.text", packId, $"{path}.title", "A title is required.", errors);
-        RequireText(concept.Description, "concept.text", packId, $"{path}.description", "A description is required.", errors);
+        ValidateInstructionText(concept.Title, packId, $"{path}.title", instructionLanguages, errors);
+        ValidateInstructionText(concept.Description, packId, $"{path}.description", instructionLanguages, errors);
         ValidateIdList(concept.PrerequisiteIds, packId, $"{path}.prerequisiteIds", errors);
         ValidateIdList(concept.ErrorRuleIds, packId, $"{path}.errorRuleIds", errors);
         ValidateTextList(concept.TaskTags, packId, $"{path}.taskTags", allowEmpty: false, errors);
-        ValidateExamples(concept.Examples, packId, $"{path}.examples", allowEmpty: false, errors);
-        ValidateExamples(concept.Counterexamples, packId, $"{path}.counterexamples", allowEmpty: true, errors);
+        ValidateExamples(
+            concept.Examples,
+            packId,
+            $"{path}.examples",
+            allowEmpty: false,
+            instructionLanguages,
+            errors);
+        ValidateExamples(
+            concept.Counterexamples,
+            packId,
+            $"{path}.counterexamples",
+            allowEmpty: true,
+            instructionLanguages,
+            errors);
         ValidateSourceIds(concept.SourceIds, packId, $"{path}.sourceIds", errors);
         ValidateReview(concept.Review, packId, $"{path}.review", policy, errors);
 
@@ -1205,6 +1210,7 @@ public static class ContentPackValidator
         int index,
         string packId,
         ContentLoadPolicy policy,
+        IReadOnlySet<string> instructionLanguages,
         ICollection<ContentValidationError> errors)
     {
         var path = $"lexicon[{index}]";
@@ -1217,14 +1223,20 @@ public static class ContentPackValidator
         ValidateId(entry.Id, packId, $"{path}.id", errors);
         ValidateLanguage(entry.Language, packId, $"{path}.language", errors);
         RequireText(entry.Lemma, "lexicon.text", packId, $"{path}.lemma", "A lemma is required.", errors);
-        RequireText(entry.Meaning, "lexicon.text", packId, $"{path}.meaning", "A meaning is required.", errors);
+        ValidateInstructionText(entry.Meaning, packId, $"{path}.meaning", instructionLanguages, errors);
         if (entry.Article is { } article && string.IsNullOrWhiteSpace(article))
         {
             Add(errors, "lexicon.text", packId, $"{path}.article", "An article must be null or non-empty.");
         }
 
         ValidateIdList(entry.ConceptIds, packId, $"{path}.conceptIds", errors, allowEmpty: false);
-        ValidateExamples(entry.Examples, packId, $"{path}.examples", allowEmpty: false, errors);
+        ValidateExamples(
+            entry.Examples,
+            packId,
+            $"{path}.examples",
+            allowEmpty: false,
+            instructionLanguages,
+            errors);
         ValidateSourceIds(entry.SourceIds, packId, $"{path}.sourceIds", errors);
         ValidateReview(entry.Review, packId, $"{path}.review", policy, errors);
     }
@@ -1234,6 +1246,7 @@ public static class ContentPackValidator
         int index,
         string packId,
         ContentLoadPolicy policy,
+        IReadOnlySet<string> instructionLanguages,
         ICollection<ContentValidationError> errors)
     {
         var path = $"tasks[{index}]";
@@ -1247,10 +1260,10 @@ public static class ContentPackValidator
         ValidateLanguage(task.Language, packId, $"{path}.language", errors);
         ValidateCefr(task.CefrApproximation, packId, $"{path}.cefrApproximation", errors);
         RequireText(task.Domain, "task.text", packId, $"{path}.domain", "A task domain is required.", errors);
-        RequireText(task.Goal, "task.text", packId, $"{path}.goal", "A task goal is required.", errors);
-        RequireText(task.Context, "task.text", packId, $"{path}.context", "Task context is required.", errors);
-        RequireText(task.LearnerRole, "task.text", packId, $"{path}.learnerRole", "The learner role is required.", errors);
-        RequireText(task.NpcRole, "task.text", packId, $"{path}.npcRole", "The NPC role is required.", errors);
+        ValidateInstructionText(task.Goal, packId, $"{path}.goal", instructionLanguages, errors);
+        ValidateInstructionText(task.Context, packId, $"{path}.context", instructionLanguages, errors);
+        ValidateInstructionText(task.LearnerRole, packId, $"{path}.learnerRole", instructionLanguages, errors);
+        ValidateInstructionText(task.NpcRole, packId, $"{path}.npcRole", instructionLanguages, errors);
         ValidateIdList(task.RequiredFunctionIds, packId, $"{path}.requiredFunctionIds", errors, allowEmpty: false);
         ValidateIdList(task.EligibleConceptIds, packId, $"{path}.eligibleConceptIds", errors, allowEmpty: false);
         ValidateSourceIds(task.SourceIds, packId, $"{path}.sourceIds", errors);
@@ -1376,7 +1389,12 @@ public static class ContentPackValidator
                 continue;
             }
 
-            RequireText(condition.Description, "task.success", packId, $"{conditionPath}.description", "A success description is required.", errors);
+            ValidateInstructionText(
+                condition.Description,
+                packId,
+                $"{conditionPath}.description",
+                instructionLanguages,
+                errors);
             if (!evaluatorById.TryGetValue(condition.EvaluatorId, out var evaluator))
             {
                 Add(errors, "evaluator.coverage", packId, $"{conditionPath}.evaluatorId", $"Success evaluator '{condition.EvaluatorId}' does not resolve.");
@@ -1498,6 +1516,7 @@ public static class ContentPackValidator
         int index,
         string packId,
         ContentLoadPolicy policy,
+        IReadOnlySet<string> instructionLanguages,
         ICollection<ContentValidationError> errors)
     {
         var path = $"feedbackTemplates[{index}]";
@@ -1509,8 +1528,8 @@ public static class ContentPackValidator
 
         ValidateId(template.Id, packId, $"{path}.id", errors);
         ValidateLanguage(template.Language, packId, $"{path}.language", errors);
-        RequireText(template.Message, "explanation.missing", packId, $"{path}.message", "Learner feedback is required.", errors);
-        RequireText(template.RetryPrompt, "explanation.missing", packId, $"{path}.retryPrompt", "A retry prompt is required.", errors);
+        ValidateInstructionText(template.Message, packId, $"{path}.message", instructionLanguages, errors);
+        ValidateInstructionText(template.RetryPrompt, packId, $"{path}.retryPrompt", instructionLanguages, errors);
         ValidateSourceIds(template.SourceIds, packId, $"{path}.sourceIds", errors);
         ValidateReview(template.Review, packId, $"{path}.review", policy, errors);
     }
@@ -1608,6 +1627,7 @@ public static class ContentPackValidator
         int index,
         string packId,
         ContentLoadPolicy policy,
+        IReadOnlySet<string> instructionLanguages,
         ICollection<ContentValidationError> errors)
     {
         var path = $"transferMappings[{index}]";
@@ -1637,19 +1657,26 @@ public static class ContentPackValidator
         }
 
         ValidateTextList(mapping.BridgeConcepts, packId, $"{path}.bridgeConcepts", allowEmpty: mapping.Relation is TransferRelation.Neutral or TransferRelation.Unknown, errors);
-        RequireText(mapping.LearnerExplanation, "explanation.missing", packId, $"{path}.learnerExplanation", "A learner explanation or explicit no-bridge reason is required.", errors);
+        ValidateInstructionText(
+            mapping.LearnerExplanation,
+            packId,
+            $"{path}.learnerExplanation",
+            instructionLanguages,
+            errors);
         RequireText(mapping.TeacherNotes, "mapping.notes", packId, $"{path}.teacherNotes", "Authoring notes are required.", errors);
         ValidateExamples(
             mapping.PositiveExamples,
             packId,
             $"{path}.positiveExamples",
             allowEmpty: mapping.Relation is TransferRelation.Neutral or TransferRelation.Unknown,
+            instructionLanguages,
             errors);
-        ValidateTextList(
+        ValidateInstructionTextList(
             mapping.NegativeTransferRisks,
             packId,
             $"{path}.negativeTransferRisks",
             allowEmpty: mapping.Relation == TransferRelation.Facilitative,
+            instructionLanguages,
             errors);
         ValidateSourceIds(mapping.SourceIds, packId, $"{path}.sourceIds", errors);
         ValidateReview(mapping.Review, packId, $"{path}.review", policy, errors);
@@ -2382,11 +2409,82 @@ public static class ContentPackValidator
         }
     }
 
+    private static void ValidateInstructionText(
+        IReadOnlyDictionary<string, string> values,
+        string packId,
+        string path,
+        IReadOnlySet<string> instructionLanguages,
+        ICollection<ContentValidationError> errors)
+    {
+        if (values is null || values.Count == 0)
+        {
+            Add(errors, "explanation.missing", packId, path, "Instruction text is required.");
+            return;
+        }
+
+        foreach (var (language, value) in values)
+        {
+            ValidateLanguage(language, packId, $"{path}.{language}", errors);
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                Add(
+                    errors,
+                    "explanation.missing",
+                    packId,
+                    $"{path}.{language}",
+                    $"Instruction text for '{language}' is required.");
+            }
+        }
+
+        foreach (var language in instructionLanguages.Where(language =>
+                     !values.TryGetValue(language, out var value) || string.IsNullOrWhiteSpace(value)))
+        {
+            Add(
+                errors,
+                "instruction.coverage",
+                packId,
+                path,
+                $"Instruction text for declared language '{language}' is missing.");
+        }
+    }
+
+    private static void ValidateInstructionTextList(
+        IReadOnlyDictionary<string, IReadOnlyList<string>> values,
+        string packId,
+        string path,
+        bool allowEmpty,
+        IReadOnlySet<string> instructionLanguages,
+        ICollection<ContentValidationError> errors)
+    {
+        if (values is null || values.Count == 0)
+        {
+            Add(errors, "explanation.missing", packId, path, "Instruction text is required.");
+            return;
+        }
+
+        foreach (var (language, items) in values)
+        {
+            ValidateLanguage(language, packId, $"{path}.{language}", errors);
+            ValidateTextList(items, packId, $"{path}.{language}", allowEmpty, errors);
+        }
+
+        foreach (var language in instructionLanguages.Where(language => !values.ContainsKey(language)))
+        {
+            Add(
+                errors,
+                "instruction.coverage",
+                packId,
+                path,
+                $"Instruction text for declared language '{language}' is missing.");
+        }
+    }
+
     private static void ValidateExamples(
         IReadOnlyList<ContentExample> examples,
         string packId,
         string path,
         bool allowEmpty,
+        IReadOnlySet<string> instructionLanguages,
         ICollection<ContentValidationError> errors)
     {
         if (examples is null)
@@ -2402,13 +2500,29 @@ public static class ContentPackValidator
 
         foreach (var (example, index) in examples.Select((example, index) => (example, index)))
         {
-            if (example is null || string.IsNullOrWhiteSpace(example.Text) || string.IsNullOrWhiteSpace(example.Meaning))
+            if (example is null || string.IsNullOrWhiteSpace(example.Text))
             {
-                Add(errors, "example.invalid", packId, $"{path}[{index}]", "An example needs text and meaning.");
+                Add(errors, "example.invalid", packId, $"{path}[{index}]", "An example needs target-language text.");
             }
-            else if (example.Id is { } exampleId)
+            else
             {
-                ValidateId(exampleId, packId, $"{path}[{index}].id", errors);
+                ValidateInstructionText(
+                    example.Meaning,
+                    packId,
+                    $"{path}[{index}].meaning",
+                    instructionLanguages,
+                    errors);
+                ValidateInstructionText(
+                    example.Note,
+                    packId,
+                    $"{path}[{index}].note",
+                    instructionLanguages,
+                    errors);
+
+                if (example.Id is { } exampleId)
+                {
+                    ValidateId(exampleId, packId, $"{path}[{index}].id", errors);
+                }
             }
         }
     }

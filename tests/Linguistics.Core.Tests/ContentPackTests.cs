@@ -31,7 +31,7 @@ public sealed class ContentPackTests
         Assert.HasCount(5, german.ErrorRules);
         Assert.HasCount(4, german.Rubrics);
         Assert.HasCount(4, german.PronunciationUtterances);
-        Assert.IsTrue(catalog.Packs.All(pack => pack.Manifest.SchemaVersion == 2));
+        Assert.IsTrue(catalog.Packs.All(pack => pack.Manifest.SchemaVersion == 3));
         Assert.HasCount(1, german.Lessons);
         Assert.HasCount(3, german.Lessons[0].TemplateInstances);
         Assert.IsTrue(catalog.Packs
@@ -39,6 +39,66 @@ public sealed class ContentPackTests
             .All(pack => pack.Lessons.Count == 0));
         Assert.IsTrue(german.PronunciationUtterances.All(utterance =>
             utterance.AssessmentMode == PronunciationAssessmentMode.None));
+    }
+
+    [TestMethod]
+    public void CompleteTwoLanguageLearnerTextMapsValidate()
+    {
+        var pack = TwoLanguageTargetFixture();
+
+        var errors = ContentPackValidator.Validate(
+            [pack],
+            ContentLoadPolicy.AuthoringPreview);
+
+        Assert.IsEmpty(errors, string.Join(Environment.NewLine, errors));
+        CollectionAssert.AreEqual(
+            new[] { "en", "hi" },
+            pack.Manifest.InstructionLanguages.ToArray());
+        Assert.AreEqual("Hallo!", pack.Concepts[0].Examples[0].Text);
+    }
+
+    [TestMethod]
+    public void DeclaredInstructionLanguageNeedsCoverageOnEveryLearnerField()
+    {
+        var pack = TwoLanguageTargetFixture();
+        pack = ReplaceConcept(
+            pack,
+            0,
+            pack.Concepts[0] with
+            {
+                Title = new Dictionary<string, string>
+                {
+                    ["en"] = pack.Concepts[0].Title["en"],
+                },
+            });
+
+        var errors = ContentPackValidator.Validate(
+            [pack],
+            ContentLoadPolicy.AuthoringPreview);
+        var error = errors.Single(candidate => candidate.Code == "instruction.coverage");
+
+        Assert.AreEqual("language.de.core", error.PackId);
+        Assert.AreEqual("concepts[0].title", error.Path);
+        StringAssert.Contains(error.Message, "'hi'");
+    }
+
+    [TestMethod]
+    public void PackNeedsAnInstructionLanguageDeclaration()
+    {
+        var pack = TwoLanguageTargetFixture();
+        pack = pack with
+        {
+            Manifest = pack.Manifest with { InstructionLanguages = [] },
+        };
+
+        var errors = ContentPackValidator.Validate(
+            [pack],
+            ContentLoadPolicy.AuthoringPreview);
+        var error = errors.Single(candidate =>
+            candidate.Code == "language.missing" &&
+            candidate.Path == "manifest.instructionLanguages");
+
+        Assert.AreEqual("language.de.core", error.PackId);
     }
 
     [TestMethod]
@@ -493,7 +553,10 @@ public sealed class ContentPackTests
                     TransferMappings = Replace(
                         english.TransferMappings,
                         0,
-                        english.TransferMappings[0] with { LearnerExplanation = "" }),
+                        english.TransferMappings[0] with
+                        {
+                            LearnerExplanation = new Dictionary<string, string>(),
+                        }),
                 };
                 break;
             case "missing-dependency":
@@ -725,7 +788,10 @@ public sealed class ContentPackTests
             .Select(index => seed with
             {
                 Id = $"de.synthetic.lesson{index:000}",
-                Title = $"Synthetic lesson {index}",
+                Title = new Dictionary<string, string>
+                {
+                    ["en"] = $"Synthetic lesson {index}",
+                },
                 PrerequisiteIds = [],
                 SuccessCriteria = seed.SuccessCriteria with { RequiredEvaluatorIds = [] },
                 ErrorRuleIds = [],
@@ -744,6 +810,54 @@ public sealed class ContentPackTests
             Lessons = [],
         };
     }
+
+    private static ContentPackDocument TwoLanguageTargetFixture()
+    {
+        var source = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        var concept = source.Concepts[0];
+        concept = concept with
+        {
+            Title = AddHindi(concept.Title, "किसी का अभिवादन करें"),
+            Description = AddHindi(
+                concept.Description,
+                "Hallo या Guten Tag से रोज़मर्रा की छोटी बातचीत शुरू करें।"),
+            Examples = concept.Examples
+                .Select(example => example with
+                {
+                    Meaning = AddHindi(example.Meaning, "नमस्ते"),
+                    Note = AddHindi(example.Note, "सामान्य अभिवादन।"),
+                })
+                .ToArray(),
+            Counterexamples = concept.Counterexamples
+                .Select(example => example with
+                {
+                    Meaning = AddHindi(example.Meaning, "उदाहरण"),
+                    Note = AddHindi(example.Note, "स्पष्टीकरण।"),
+                })
+                .ToArray(),
+        };
+
+        return source with
+        {
+            Manifest = source.Manifest with { InstructionLanguages = ["en", "hi"] },
+            Concepts = [concept],
+            Lexicon = [],
+            Tasks = [],
+            ErrorRules = [],
+            FeedbackTemplates = [],
+            Rubrics = [],
+            PronunciationUtterances = [],
+            Lessons = [],
+        };
+    }
+
+    private static IReadOnlyDictionary<string, string> AddHindi(
+        IReadOnlyDictionary<string, string> values,
+        string hindi) =>
+        values
+            .Append(new KeyValuePair<string, string>("hi", hindi))
+            .ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
 
     private static string WritePacks(
         IEnumerable<ContentPackDocument> packs,

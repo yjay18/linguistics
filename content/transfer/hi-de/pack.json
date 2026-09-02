@@ -2,9 +2,10 @@
   "manifest": {
     "id": "transfer.hi-de.core",
     "version": 1,
-    "schemaVersion": 2,
+    "schemaVersion": 3,
     "kind": "transfer",
     "languages": ["hi", "de"],
+    "instructionLanguages": ["en"],
     "dependencies": [{ "packId": "language.de.core", "minimumVersion": 1, "maximumVersion": 1 }],
     "license": {
       "identifier": "LicenseRef-Linguistics-Internal-Draft",
@@ -96,10 +97,10 @@
       "relation": "facilitative",
       "strength": 0.85,
       "bridgeConcepts": ["Hindi आप and German Sie both provide a respectful address choice in the cited beginner contexts."],
-      "learnerExplanation": "Hindi आप can remind you to make a respectful address choice. German uses capitalized Sie; learn its German verb form with it rather than copying Hindi agreement.",
+      "learnerExplanation": {"en": "Hindi आप can remind you to make a respectful address choice. German uses capitalized Sie; learn its German verb form with it rather than copying Hindi agreement."},
       "teacherNotes": "Use only as a pragmatic memory bridge. The forms, social distributions, and agreement systems are not identical.",
-      "positiveExamples": [{ "text": "आप ... हैं → Sie ...", "meaning": "respectful address cue", "note": "Conceptual cue only, not a word-for-word grammar mapping." }],
-      "negativeTransferRisks": ["Do not map Hindi verb agreement or every social context directly onto German Sie."],
+      "positiveExamples": [{ "text": "आप ... हैं → Sie ...", "meaning": {"en": "respectful address cue"}, "note": {"en": "Conceptual cue only, not a word-for-word grammar mapping."} }],
+      "negativeTransferRisks": {"en": ["Do not map Hindi verb agreement or every social context directly onto German Sie."]},
       "sourceIds": ["source.hi-de.basic-hindi-2021", "source.hi-de.dib-2017"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Social range, agreement caveat, Hindi script, and usefulness need competent bilingual review." }
     },
@@ -111,10 +112,10 @@
       "relation": "partiallyFacilitative",
       "strength": 0.65,
       "bridgeConcepts": ["Both Hindi and German organize nouns with grammatical gender, but the systems differ."],
-      "learnerExplanation": "Hindi experience with grammatical gender can make the idea familiar. German has three noun genders in this reference, so learn each German noun with its article; do not transfer a Hindi noun's gender.",
+      "learnerExplanation": {"en": "Hindi experience with grammatical gender can make the idea familiar. German has three noun genders in this reference, so learn each German noun with its article; do not transfer a Hindi noun's gender."},
       "teacherNotes": "The bridge is category-level only. Hindi is described by the cited beginner source as gendered; German distinguishes masculine, feminine, and neuter. Item-level gender correspondence is not claimed.",
-      "positiveExamples": [{ "text": "gendered noun category → der / die / das entry", "meaning": "category-level bridge", "note": "Use the prior concept, not a direct gender assignment." }],
-      "negativeTransferRisks": ["Specific Hindi and German noun genders need not match; never infer a German article from the Hindi translation."],
+      "positiveExamples": [{ "text": "gendered noun category → der / die / das entry", "meaning": {"en": "category-level bridge"}, "note": {"en": "Use the prior concept, not a direct gender assignment."} }],
+      "negativeTransferRisks": {"en": ["Specific Hindi and German noun genders need not match; never infer a German article from the Hindi translation."]},
       "sourceIds": ["source.hi-de.basic-hindi-2021", "source.hi-de.grimm-grammar"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Category comparison and counterexample boundary need competent bilingual review." }
     }

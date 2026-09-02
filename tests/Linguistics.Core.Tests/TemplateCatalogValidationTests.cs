@@ -161,7 +161,7 @@ public sealed class TemplateCatalogValidationTests
         TemplateParameterKind.Text => new(kind, Value: " "),
         TemplateParameterKind.TextByLanguage => new(
             kind,
-            TextByLanguage: new Dictionary<string, string> { ["en"] = "English only." }),
+            TextByLanguage: new Dictionary<string, string> { ["hi"] = "केवल हिन्दी।" }),
         TemplateParameterKind.ConceptReference => new(kind, Value: "de.concept.missing"),
         TemplateParameterKind.ExampleReference => new(kind, Value: "de.example.missing"),
         TemplateParameterKind.AssetReference => new(kind, Value: "preview.asset.missing"),

@@ -1,4 +1,5 @@
 using Linguistics.Core.Content;
+using Linguistics.Core.Profiles;
 
 namespace Linguistics.Core.Tests;
 
@@ -108,7 +109,7 @@ public sealed class LessonTemplateValidationTests
             case "instruction-language-coverage":
                 parameters["instruction"] = new TemplateParameterValue(
                     TemplateParameterKind.TextByLanguage,
-                    TextByLanguage: new Dictionary<string, string> { ["en"] = "Choose one." });
+                    TextByLanguage: new Dictionary<string, string> { ["hi"] = "एक चुनें।" });
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(corruption));
@@ -172,7 +173,9 @@ public sealed class LessonTemplateValidationTests
                             Schema.Version,
                             new Dictionary<string, TemplateParameterValue>
                             {
-                                ["title"] = new(TemplateParameterKind.Text, Value: concept.Title),
+                                ["title"] = new(
+                                    TemplateParameterKind.Text,
+                                    Value: InstructionText.Resolve(concept.Title, new LanguageCode("en"))),
                                 ["instruction"] = new(
                                     TemplateParameterKind.TextByLanguage,
                                     TextByLanguage: new Dictionary<string, string>

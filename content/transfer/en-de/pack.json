@@ -2,9 +2,10 @@
   "manifest": {
     "id": "transfer.en-de.core",
     "version": 1,
-    "schemaVersion": 2,
+    "schemaVersion": 3,
     "kind": "transfer",
     "languages": ["en", "de"],
+    "instructionLanguages": ["en"],
     "dependencies": [{ "packId": "language.de.core", "minimumVersion": 1, "maximumVersion": 1 }],
     "license": {
       "identifier": "LicenseRef-Linguistics-Internal-Draft",
@@ -96,10 +97,10 @@
       "relation": "facilitative",
       "strength": 0.75,
       "bridgeConcepts": ["English name and German Name provide a visible memory cue."],
-      "learnerExplanation": "English name can help you remember German Name. Keep the German capital letter and learn the full frame Ich heiße ...",
+      "learnerExplanation": {"en": "English name can help you remember German Name. Keep the German capital letter and learn the full frame Ich heiße ..."},
       "teacherNotes": "Treat this only as a surface-form memory cue; do not imply identical pronunciation or complete phrase structure.",
-      "positiveExamples": [{ "text": "name → Name", "meaning": "name", "note": "Written-form cue; German noun capitalization still applies." }],
-      "negativeTransferRisks": [],
+      "positiveExamples": [{ "text": "name → Name", "meaning": {"en": "name"}, "note": {"en": "Written-form cue; German noun capitalization still applies."} }],
+      "negativeTransferRisks": {"en": []},
       "sourceIds": ["source.en-de.dib-2017", "source.en-de.grimm-grammar"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Cognate status, pronunciation caveat, and usefulness need competent bilingual review." }
     },
@@ -111,10 +112,10 @@
       "relation": "interfering",
       "strength": 0.9,
       "bridgeConcepts": ["English and German use different default capitalization for common nouns."],
-      "learnerExplanation": "Watch the capital letter: English normally writes common nouns such as coffee in lowercase, while German writes Kaffee with a capital K.",
+      "learnerExplanation": {"en": "Watch the capital letter: English normally writes common nouns such as coffee in lowercase, while German writes Kaffee with a capital K."},
       "teacherNotes": "Present as a written-language contrast, not as a prediction that every English-speaking learner will make this error.",
-      "positiveExamples": [{ "text": "coffee → Kaffee", "meaning": "coffee", "note": "The German noun begins with a capital." }],
-      "negativeTransferRisks": ["An English lowercase habit may produce kaffee in German writing; do not generalize this to proper nouns or sentence-initial words."],
+      "positiveExamples": [{ "text": "coffee → Kaffee", "meaning": {"en": "coffee"}, "note": {"en": "The German noun begins with a capital."} }],
+      "negativeTransferRisks": {"en": ["An English lowercase habit may produce kaffee in German writing; do not generalize this to proper nouns or sentence-initial words."]},
       "sourceIds": ["source.en-de.english-capitalization", "source.en-de.grimm-grammar"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Contrast and non-universal learner framing need competent bilingual review." }
     },
@@ -126,10 +127,10 @@
       "relation": "neutral",
       "strength": 0,
       "bridgeConcepts": [],
-      "learnerExplanation": "No English shortcut is shown here. In the cited beginner examples, both German du and Sie translate as you, so the German relationship choice must be learned directly.",
+      "learnerExplanation": {"en": "No English shortcut is shown here. In the cited beginner examples, both German du and Sie translate as you, so the German relationship choice must be learned directly."},
       "teacherNotes": "This is an intentional no-bridge record. It must never be promoted into a displayable similarity by the router.",
       "positiveExamples": [],
-      "negativeTransferRisks": ["Do not use English you alone to choose between German du and Sie."],
+      "negativeTransferRisks": {"en": ["Do not use English you alone to choose between German du and Sie."]},
       "sourceIds": ["source.en-de.dib-2017"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Scope and sociolinguistic framing need competent bilingual review." }
     }

@@ -102,6 +102,7 @@ public sealed record ContentPackManifest(
     int SchemaVersion,
     ContentPackKind Kind,
     IReadOnlyList<string> Languages,
+    IReadOnlyList<string> InstructionLanguages,
     IReadOnlyList<PackDependency> Dependencies,
     ContentLicense License,
     ContentReview Review);
@@ -117,8 +118,8 @@ public sealed record SourceRecord(
 
 public sealed record ContentExample(
     string Text,
-    string Meaning,
-    string Note,
+    IReadOnlyDictionary<string, string> Meaning,
+    IReadOnlyDictionary<string, string> Note,
     string? Id = null);
 
 public sealed record ConceptSuccessCriteria(
@@ -131,8 +132,8 @@ public sealed record TargetConceptContent(
     string Language,
     ConceptType Type,
     string CefrApproximation,
-    string Title,
-    string Description,
+    IReadOnlyDictionary<string, string> Title,
+    IReadOnlyDictionary<string, string> Description,
     IReadOnlyList<string> PrerequisiteIds,
     ConceptSuccessCriteria SuccessCriteria,
     IReadOnlyList<string> ErrorRuleIds,
@@ -147,7 +148,7 @@ public sealed record LexicalEntryContent(
     string Language,
     string Lemma,
     string? Article,
-    string Meaning,
+    IReadOnlyDictionary<string, string> Meaning,
     IReadOnlyList<string> ConceptIds,
     IReadOnlyList<ContentExample> Examples,
     IReadOnlyList<string> SourceIds,
@@ -170,17 +171,17 @@ public sealed record TaskEvaluatorContent(
 
 public sealed record TaskSuccessCondition(
     string EvaluatorId,
-    string Description);
+    IReadOnlyDictionary<string, string> Description);
 
 public sealed record TaskTemplateContent(
     string Id,
     string Language,
     string Domain,
     string CefrApproximation,
-    string Goal,
-    string Context,
-    string LearnerRole,
-    string NpcRole,
+    IReadOnlyDictionary<string, string> Goal,
+    IReadOnlyDictionary<string, string> Context,
+    IReadOnlyDictionary<string, string> LearnerRole,
+    IReadOnlyDictionary<string, string> NpcRole,
     IReadOnlyList<string> RequiredFunctionIds,
     IReadOnlyList<string> EligibleConceptIds,
     string InitialStateId,
@@ -211,8 +212,8 @@ public sealed record ErrorRuleContent(
 public sealed record FeedbackTemplateContent(
     string Id,
     string Language,
-    string Message,
-    string RetryPrompt,
+    IReadOnlyDictionary<string, string> Message,
+    IReadOnlyDictionary<string, string> RetryPrompt,
     IReadOnlyList<string> SourceIds,
     ContentReview Review);
 
@@ -255,10 +256,10 @@ public sealed record TransferMappingContent(
     TransferRelation Relation,
     double Strength,
     IReadOnlyList<string> BridgeConcepts,
-    string LearnerExplanation,
+    IReadOnlyDictionary<string, string> LearnerExplanation,
     string TeacherNotes,
     IReadOnlyList<ContentExample> PositiveExamples,
-    IReadOnlyList<string> NegativeTransferRisks,
+    IReadOnlyDictionary<string, IReadOnlyList<string>> NegativeTransferRisks,
     IReadOnlyList<string> SourceIds,
     ContentReview Review);
 
@@ -274,6 +275,33 @@ public sealed record ContentPackDocument(
     IReadOnlyList<PronunciationUtteranceContent> PronunciationUtterances,
     IReadOnlyList<LessonTemplateContent> Lessons,
     IReadOnlyList<TransferMappingContent> TransferMappings);
+
+public static class InstructionText
+{
+    public static string Resolve(
+        IReadOnlyDictionary<string, string> values,
+        LanguageCode language)
+    {
+        ArgumentNullException.ThrowIfNull(values);
+
+        return values.TryGetValue(language.Value, out var value) && !string.IsNullOrWhiteSpace(value)
+            ? value
+            : throw new KeyNotFoundException(
+                $"Instruction text for language '{language}' is unavailable.");
+    }
+
+    public static IReadOnlyList<string> Resolve(
+        IReadOnlyDictionary<string, IReadOnlyList<string>> values,
+        LanguageCode language)
+    {
+        ArgumentNullException.ThrowIfNull(values);
+
+        return values.TryGetValue(language.Value, out var value)
+            ? value
+            : throw new KeyNotFoundException(
+                $"Instruction text for language '{language}' is unavailable.");
+    }
+}
 
 public sealed class ValidatedContentCatalog
 {
@@ -308,7 +336,10 @@ public sealed class ValidatedContentCatalog
 
         var concepts = Packs
             .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)
-            .SelectMany(pack => pack.Concepts.Select(concept => ToConceptNode(pack.Manifest, concept)))
+            .SelectMany(pack => pack.Concepts.Select(concept => ToConceptNode(
+                pack.Manifest,
+                concept,
+                DefaultInstructionLanguage(pack.Manifest))))
             .Where(concept => concept.TargetLanguage == targetLanguage)
             .ToArray();
 
@@ -341,8 +372,12 @@ public sealed class ValidatedContentCatalog
             .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
             .SelectMany(pack => pack.TransferMappings.Select(mapping => new TransferNote(
                 ToTransferMapping(pack.Manifest, mapping),
-                mapping.LearnerExplanation,
-                mapping.NegativeTransferRisks)))
+                InstructionText.Resolve(
+                    mapping.LearnerExplanation,
+                    DefaultInstructionLanguage(pack.Manifest)),
+                InstructionText.Resolve(
+                    mapping.NegativeTransferRisks,
+                    DefaultInstructionLanguage(pack.Manifest)))))
             .Where(note =>
                 note.Mapping.SourceLanguage == sourceLanguage &&
                 note.Mapping.TargetLanguage == targetLanguage)
@@ -356,6 +391,7 @@ public sealed class ValidatedContentCatalog
 
         var pack = Packs.Single(pack => pack.Manifest.Id == "language.de.core");
         var task = pack.Tasks.Single(task => task.Id == "de.task.cafe.order-one-item");
+        var instructionLanguage = DefaultInstructionLanguage(pack.Manifest);
         var states = task.States.ToDictionary(state => state.Id, StringComparer.Ordinal);
         var feedback = pack.FeedbackTemplates.ToDictionary(template => template.Id, StringComparer.Ordinal);
         var vocabulary = pack.Lexicon
@@ -373,8 +409,8 @@ public sealed class ValidatedContentCatalog
             return new FocusIntervention(
                 errorRuleId,
                 priority,
-                template.Message,
-                template.RetryPrompt);
+                InstructionText.Resolve(template.Message, instructionLanguage),
+                InstructionText.Resolve(template.RetryPrompt, instructionLanguage));
         }
 
         return new CafeOrderDefinition(
@@ -383,10 +419,12 @@ public sealed class ValidatedContentCatalog
             new VersionId("cafe-order-evaluator-v1"),
             new ConceptId("de.function.order-polite"),
             new ConceptId("de.noun.gender-basic"),
-            task.Goal,
-            task.Context,
-            task.NpcRole,
-            task.SuccessConditions.Select(condition => condition.Description).ToArray(),
+            InstructionText.Resolve(task.Goal, instructionLanguage),
+            InstructionText.Resolve(task.Context, instructionLanguage),
+            InstructionText.Resolve(task.NpcRole, instructionLanguage),
+            task.SuccessConditions
+                .Select(condition => InstructionText.Resolve(condition.Description, instructionLanguage))
+                .ToArray(),
             task.InitialStateId,
             "de.state.order.frame",
             task.SuccessStateIds.Single(),
@@ -435,13 +473,14 @@ public sealed class ValidatedContentCatalog
 
     private static ConceptNode ToConceptNode(
         ContentPackManifest manifest,
-        TargetConceptContent concept) =>
+        TargetConceptContent concept,
+        LanguageCode instructionLanguage) =>
         new(
             new ConceptId(concept.Id),
             new LanguageCode(concept.Language),
             concept.Type,
-            concept.Title,
-            concept.Description,
+            InstructionText.Resolve(concept.Title, instructionLanguage),
+            InstructionText.Resolve(concept.Description, instructionLanguage),
             concept.CefrApproximation,
             concept.PrerequisiteIds.Select(id => new ConceptId(id)).ToArray(),
             [
@@ -451,6 +490,9 @@ public sealed class ValidatedContentCatalog
             concept.ErrorRuleIds,
             concept.TaskTags,
             PackVersion(manifest));
+
+    private static LanguageCode DefaultInstructionLanguage(ContentPackManifest manifest) =>
+        new(manifest.InstructionLanguages[0]);
 
     private static TransferMapping ToTransferMapping(
         ContentPackManifest manifest,

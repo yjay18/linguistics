@@ -22,6 +22,9 @@ internal static class ScenarioTheatreRenderer
     {
         var instruction = TemplateRendering.Localized(parameters, "instruction", instructionLanguage);
         var task = TemplateRendering.TaskReference(parameters, "task");
+        var taskGoal = InstructionText.Resolve(task.Goal, instructionLanguage);
+        var taskContext = InstructionText.Resolve(task.Context, instructionLanguage);
+        var npcRole = InstructionText.Resolve(task.NpcRole, instructionLanguage);
         var stateLabel = TemplateRendering.Text(parameters, "state-label");
         var npcLine = TemplateRendering.Text(parameters, "npc-line");
         var responses = TemplateRendering.Options(parameters, "responses");
@@ -58,7 +61,7 @@ internal static class ScenarioTheatreRenderer
         {
             successCriteria.Children.Add(new TextBlock
             {
-                Text = $"• {condition.Description}",
+                Text = $"• {InstructionText.Resolve(condition.Description, instructionLanguage)}",
                 FontSize = 13,
                 TextWrapping = TextWrapping.Wrap,
             });
@@ -81,14 +84,14 @@ internal static class ScenarioTheatreRenderer
                             new PaperTape { Content = "MISSION GOAL", Angle = -1, Classes = { "compact" } },
                             new TextBlock
                             {
-                                Text = task.Goal,
+                                Text = taskGoal,
                                 FontSize = 20,
                                 FontWeight = FontWeight.Bold,
                                 TextWrapping = TextWrapping.Wrap,
                             },
                             new TextBlock
                             {
-                                Text = task.Context,
+                                Text = taskContext,
                                 FontSize = 13,
                                 TextWrapping = TextWrapping.Wrap,
                                 Classes = { "muted" },
@@ -116,11 +119,11 @@ internal static class ScenarioTheatreRenderer
         AutomationProperties.SetAutomationId(goalCard, "ScenarioTheatreGoal");
         AutomationProperties.SetName(
             goalCard,
-            $"Scenario goal. {task.Goal} Context. {task.Context}");
+            $"Scenario goal. {taskGoal} Context. {taskContext}");
 
         var stage = TemplateRendering.CreateStage(
             310,
-            $"Paper scenario for task {task.Id}. {task.NpcRole} says {npcLine}");
+            $"Paper scenario for task {task.Id}. {npcRole} says {npcLine}");
         var hasBackdrop = !parameters.UseTextOnlyFallback &&
                           TemplateRendering.AddBackdrop(stage, imageCache, backdropAssetId);
         var stateTape = new PaperTape
@@ -177,7 +180,7 @@ internal static class ScenarioTheatreRenderer
             : TemplateRendering.CreateContentImage(imageCache, npcAssetId, 146);
         if (npcImage is not null)
         {
-            AutomationProperties.SetName(npcImage, $"{task.NpcRole} scene cutout");
+            AutomationProperties.SetName(npcImage, $"{npcRole} scene cutout");
             npcContent = npcImage;
         }
         else
@@ -191,7 +194,7 @@ internal static class ScenarioTheatreRenderer
                     new PaperTape { Content = "NPC PUPPET", Angle = 1.1, Classes = { "compact" } },
                     new TextBlock
                     {
-                        Text = task.NpcRole,
+                        Text = npcRole,
                         FontSize = 20,
                         FontWeight = FontWeight.Bold,
                         TextAlignment = TextAlignment.Center,
@@ -219,7 +222,7 @@ internal static class ScenarioTheatreRenderer
         };
         npc.Classes.Add("tilt-right");
         AutomationProperties.SetAutomationId(npc, "ScenarioTheatreNpc");
-        AutomationProperties.SetName(npc, $"NPC puppet. {task.NpcRole}");
+        AutomationProperties.SetName(npc, $"NPC puppet. {npcRole}");
         PaperStage.SetLayer(npc, PaperStageLayer.Subject);
         PaperStage.SetAnchor(npc, PaperAnchorLine.Foot);
         PaperStage.SetAnchorX(npc, 0.77);
@@ -237,7 +240,7 @@ internal static class ScenarioTheatreRenderer
                 {
                     new TextBlock
                     {
-                        Text = task.NpcRole.ToUpperInvariant(),
+                        Text = npcRole.ToUpperInvariant(),
                         FontSize = 11,
                         FontWeight = FontWeight.Bold,
                     },
@@ -253,7 +256,7 @@ internal static class ScenarioTheatreRenderer
         };
         npcSpeech.Classes.Add("soft");
         AutomationProperties.SetAutomationId(npcSpeech, "ScenarioTheatreNpcLine");
-        AutomationProperties.SetName(npcSpeech, $"{task.NpcRole} says {npcLine}");
+        AutomationProperties.SetName(npcSpeech, $"{npcRole} says {npcLine}");
         PaperStage.SetLayer(npcSpeech, PaperStageLayer.VerdictCard);
         PaperStage.SetAnchor(npcSpeech, PaperAnchorLine.Shoulder);
         PaperStage.SetAnchorX(npcSpeech, 0.34);

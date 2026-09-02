@@ -1922,10 +1922,26 @@ internal static class TemplateGalleryFixtures
         "de",
         "cafe",
         "A1",
-        "Request one available drink politely.",
-        "At a café counter, choose Kaffee, Tee, or Wasser.",
-        "Customer",
-        "Café worker",
+        new Dictionary<string, string>
+        {
+            ["en"] = "Request one available drink politely.",
+            ["hi"] = "उपलब्ध पेय में से एक को विनम्रता से माँगें।",
+        },
+        new Dictionary<string, string>
+        {
+            ["en"] = "At a café counter, choose Kaffee, Tee, or Wasser.",
+            ["hi"] = "कैफ़े काउंटर पर Kaffee, Tee या Wasser चुनें।",
+        },
+        new Dictionary<string, string>
+        {
+            ["en"] = "Customer",
+            ["hi"] = "ग्राहक",
+        },
+        new Dictionary<string, string>
+        {
+            ["en"] = "Café worker",
+            ["hi"] = "कैफ़े कर्मचारी",
+        },
         ["de.function.order-polite"],
         ["de.lexicon.cafe-items"],
         "de.state.order.waiting",
@@ -1959,7 +1975,11 @@ internal static class TemplateGalleryFixtures
         [
             new TaskSuccessCondition(
                 "de.eval.order-complete",
-                "Reach the complete state with the request frame and one available drink."),
+                new Dictionary<string, string>
+                {
+                    ["en"] = "Reach the complete state with the request frame and one available drink.",
+                    ["hi"] = "अनुरोध वाक्य और एक उपलब्ध पेय के साथ पूरा चरण प्राप्त करें।",
+                }),
         ],
         ["source.de.dib-2017"],
         new ContentReview(

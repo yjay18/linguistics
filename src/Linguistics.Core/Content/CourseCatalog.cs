@@ -139,6 +139,12 @@ internal static class CourseCatalogBuilder
             throw new InvalidOperationException($"No course content exists for language '{targetLanguage}'.");
         }
 
+        var instructionLanguage = new LanguageCode(entries
+            .OrderBy(entry => entry.Manifest.Id, StringComparer.Ordinal)
+            .First()
+            .Manifest
+            .InstructionLanguages[0]);
+
         var depthById = new Dictionary<string, int>(StringComparer.Ordinal);
         var entryById = entries.ToDictionary(entry => entry.Concept.Id, StringComparer.Ordinal);
         int Depth(CourseConcept entry)
@@ -176,6 +182,7 @@ internal static class CourseCatalogBuilder
             .Chunk(configuration.LessonsPerUnit)
             .Select((chunk, index) => CreateUnit(
                 targetLanguage,
+                instructionLanguage,
                 index + 1,
                 chunk,
                 tasks,
@@ -196,6 +203,7 @@ internal static class CourseCatalogBuilder
 
     private static CourseUnit CreateUnit(
         LanguageCode targetLanguage,
+        LanguageCode instructionLanguage,
         int number,
         IReadOnlyList<CourseConcept> entries,
         IReadOnlyList<TaskTemplateContent> tasks,
@@ -218,6 +226,7 @@ internal static class CourseCatalogBuilder
             copy.Description,
             entries.Select(entry => CreateLesson(
                 entry,
+                instructionLanguage,
                 tasks,
                 conceptsById,
                 examplesById,
@@ -226,6 +235,7 @@ internal static class CourseCatalogBuilder
 
     private static CourseLesson CreateLesson(
         CourseConcept entry,
+        LanguageCode instructionLanguage,
         IReadOnlyList<TaskTemplateContent> tasks,
         IReadOnlyDictionary<string, TargetConceptContent> conceptsById,
         IReadOnlyDictionary<string, ContentExample> examplesById,
@@ -242,17 +252,18 @@ internal static class CourseCatalogBuilder
                     index + 1,
                     concept,
                     instance,
+                    instructionLanguage,
                     conceptsById,
                     examplesById,
                     tasksById))
                 .ToList()
-            : CreateFallbackSlides(lessonId, concept, task);
+            : CreateFallbackSlides(lessonId, concept, task, instructionLanguage);
 
         return new CourseLesson(
             lessonId,
             new ConceptId(concept.Id),
-            concept.Title,
-            concept.Description,
+            InstructionText.Resolve(concept.Title, instructionLanguage),
+            InstructionText.Resolve(concept.Description, instructionLanguage),
             concept.CefrApproximation,
             concept.Review.Status,
             new VersionId($"{entry.Manifest.Id}.v{entry.Manifest.Version}"),
@@ -262,7 +273,8 @@ internal static class CourseCatalogBuilder
     private static List<CourseSlide> CreateFallbackSlides(
         string lessonId,
         TargetConceptContent concept,
-        TaskTemplateContent? task)
+        TaskTemplateContent? task,
+        LanguageCode instructionLanguage)
     {
         var slides = new List<CourseSlide>
         {
@@ -271,8 +283,8 @@ internal static class CourseCatalogBuilder
                 1,
                 CourseSlideKind.Welcome,
                 "Lesson goal",
-                concept.Title,
-                concept.Description,
+                InstructionText.Resolve(concept.Title, instructionLanguage),
+                InstructionText.Resolve(concept.Description, instructionLanguage),
                 $"Level {concept.CefrApproximation}"),
             Slide(
                 lessonId,
@@ -280,7 +292,7 @@ internal static class CourseCatalogBuilder
                 CourseSlideKind.Explanation,
                 "Notice",
                 "Meet the idea",
-                concept.Description,
+                InstructionText.Resolve(concept.Description, instructionLanguage),
                 "Move at your own pace. You can revisit every card."),
         };
         var slideNumber = 3;
@@ -292,8 +304,8 @@ internal static class CourseCatalogBuilder
                 CourseSlideKind.Example,
                 "Example",
                 example.Text,
-                example.Meaning,
-                example.Note));
+                InstructionText.Resolve(example.Meaning, instructionLanguage),
+                InstructionText.Resolve(example.Note, instructionLanguage)));
         }
 
         slides.Add(task is null
@@ -310,8 +322,8 @@ internal static class CourseCatalogBuilder
                 slideNumber++,
                 CourseSlideKind.Activity,
                 "Your turn",
-                task.Goal,
-                task.Context,
+                InstructionText.Resolve(task.Goal, instructionLanguage),
+                InstructionText.Resolve(task.Context, instructionLanguage),
                 "The app checks the task with deterministic rules.",
                 task.Id));
         slides.Add(Slide(
@@ -319,8 +331,8 @@ internal static class CourseCatalogBuilder
             slideNumber,
             CourseSlideKind.Recap,
             "Recap",
-            concept.Title,
-            concept.Description,
+            InstructionText.Resolve(concept.Title, instructionLanguage),
+            InstructionText.Resolve(concept.Description, instructionLanguage),
             "Completing this lesson records a visit. Mastery still requires assessed evidence."));
         return slides;
     }
@@ -330,6 +342,7 @@ internal static class CourseCatalogBuilder
         int number,
         TargetConceptContent concept,
         TemplateInstance instance,
+        LanguageCode instructionLanguage,
         IReadOnlyDictionary<string, TargetConceptContent> conceptsById,
         IReadOnlyDictionary<string, ContentExample> examplesById,
         IReadOnlyDictionary<string, TaskTemplateContent> tasksById) =>
@@ -337,8 +350,8 @@ internal static class CourseCatalogBuilder
             $"{lessonId}.slide.{number:00}",
             CourseSlideKind.Template,
             "Lesson",
-            concept.Title,
-            concept.Description,
+            InstructionText.Resolve(concept.Title, instructionLanguage),
+            InstructionText.Resolve(concept.Description, instructionLanguage),
             "Authored presentation",
             instance.Parameters.Values
                 .FirstOrDefault(value => value.Kind == TemplateParameterKind.TaskReference)
