@@ -56,8 +56,8 @@ public sealed class ContentPackTests
         Assert.IsEmpty(german.Lessons);
         Assert.HasCount(10, unitOne.Lessons);
         Assert.AreEqual(79, unitOne.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
-        Assert.HasCount(5, unitTwo.Lessons);
-        Assert.AreEqual(40, unitTwo.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
+        Assert.HasCount(10, unitTwo.Lessons);
+        Assert.AreEqual(80, unitTwo.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
         Assert.HasCount(1, unitOne.CourseUnits!);
         Assert.HasCount(1, unitTwo.CourseUnits!);
         Assert.IsTrue(catalog.Packs
@@ -294,8 +294,8 @@ public sealed class ContentPackTests
 
         Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
         Assert.AreEqual(450, catalog.TargetLessonCount);
-        Assert.AreEqual(15, catalog.AuthoredLessonCount);
-        Assert.AreEqual(435, catalog.RemainingLessonCount);
+        Assert.AreEqual(20, catalog.AuthoredLessonCount);
+        Assert.AreEqual(430, catalog.RemainingLessonCount);
         Assert.AreEqual("Meet and greet", catalog.Units[0].Title);
         Assert.AreEqual("Greet for the time of day", catalog.Units[0].Lessons[0].Title);
         Assert.AreEqual("Learn in German", catalog.Units[1].Title);
@@ -319,6 +319,11 @@ public sealed class ContentPackTests
                 "lesson.de.a1.u02.say-have-object",
                 "lesson.de.a1.u02.follow-instructions",
                 "lesson.de.a1.u02.request-repetition",
+                "lesson.de.a1.u02.state-understanding",
+                "lesson.de.a1.u02.hear-letter-names",
+                "lesson.de.a1.u02.read-labels",
+                "lesson.de.a1.u02.mediate-instruction",
+                "lesson.de.a1.u02.classroom-mission",
             },
             lessons.Select(lesson => lesson.Id).ToArray());
         Assert.IsTrue(lessons.All(lesson => lesson.Slides.Count >= 7));
@@ -488,7 +493,7 @@ public sealed class ContentPackTests
     }
 
     [TestMethod]
-    public void UnitTwoFirstSliceAnswersMapDeterministically()
+    public void UnitTwoActivityAnswersMapDeterministically()
     {
         var unit = LoadBundled(ContentLoadPolicy.AuthoringPreview)
             .Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit02");
@@ -508,6 +513,19 @@ public sealed class ContentPackTests
             .Single(instance => instance.TemplateId == new TemplateId("listen-type"));
         var repetitionScenario = repetition.TemplateInstances
             .Single(instance => instance.TemplateId == new TemplateId("scenario-theatre"));
+        var understanding = unit.Lessons[5].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("negation-strike"));
+        var letterChoice = unit.Lessons[6].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("minimal-pair-doors"));
+        var signChoice = unit.Lessons[7].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("sign-reading"));
+        var mediationChoice = unit.Lessons[8].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("dialogue-eavesdrop"));
+        var mission = unit.Lessons[9];
+        var missionScenario = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("scenario-theatre"));
+        var missionCapstone = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("unit-capstone"));
 
         var articleOptions = article.Parameters["options"].Options!;
         var articleAnswer = article.Parameters["answer"].Value!;
@@ -611,6 +629,113 @@ public sealed class ContentPackTests
                 responses,
                 responseAnswer,
                 "thanks").State);
+
+        var negators = understanding.Parameters["negators"].Options!;
+        var slots = understanding.Parameters["slots"].Options!;
+        var expectedNegator = understanding.Parameters["answer-negator"].Value!;
+        var expectedSlot = understanding.Parameters["answer-slot"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSelectionPair(
+                negators,
+                slots,
+                expectedNegator,
+                expectedSlot,
+                "nicht",
+                "after-object").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSelectionPair(
+                negators,
+                slots,
+                expectedNegator,
+                expectedSlot,
+                "kein",
+                "before-object").State);
+
+        var letterOptions = letterChoice.Parameters["options"].Options!;
+        var letterAnswer = letterChoice.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                letterOptions,
+                letterAnswer,
+                "letter-b").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                letterOptions,
+                letterAnswer,
+                "letter-p").State);
+
+        var signOptions = signChoice.Parameters["options"].Options!;
+        var signAnswer = signChoice.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                signOptions,
+                signAnswer,
+                "write").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                signOptions,
+                signAnswer,
+                "read").State);
+
+        var mediationOptions = mediationChoice.Parameters["options"].Options!;
+        var mediationAnswer = mediationChoice.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                mediationOptions,
+                mediationAnswer,
+                "write").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                mediationOptions,
+                mediationAnswer,
+                "listen").State);
+
+        var missionResponses = missionScenario.Parameters["responses"].Options!;
+        var missionAnswer = missionScenario.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                missionResponses,
+                missionAnswer,
+                "repeat").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                missionResponses,
+                missionAnswer,
+                "item").State);
+
+        var missionSteps = missionCapstone.Parameters["steps"].Options!;
+        var missionChain = missionCapstone.Parameters["template-chain"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                [],
+                "identify").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                ["identify"],
+                "clarify").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                ["identify", "request", "clarify"],
+                "confirm").State);
     }
 
     [TestMethod]

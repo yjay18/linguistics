@@ -4735,6 +4735,1923 @@
           }
         }
       ]
+    },
+    {
+      "id": "lesson.de.a1.u02.state-understanding",
+      "courseOrder": 16,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.state-understanding.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Nach der Erklärung"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Say honestly whether the instruction is clear.",
+                "hi": "ईमानदारी से बताएँ कि निर्देश साफ है या नहीं।",
+                "hi-latn": "Honestly batayein ki instruction clear hai ya nahin."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.state-understanding"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.state-understanding.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read one clear and one unclear response.",
+                "hi": "एक समझ और एक नासमझी वाला उत्तर पढ़ें।",
+                "hi-latn": "Ek clear aur ek unclear response padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.state-understanding"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Verstehen Sie?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Ich verstehe das nicht."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.state-understanding.template.03",
+          "templateId": "object-anatomy",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "Ich verstehe das nicht."
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Inspect the parts of the negative understanding frame.",
+                "hi": "न समझने वाले वाक्य के भाग देखें।",
+                "hi-latn": "Not-understanding frame ke parts dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.state-understanding"
+            },
+            "parts": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "person",
+                  "label": "Ich: person"
+                },
+                {
+                  "id": "verb",
+                  "label": "verstehe: action"
+                },
+                {
+                  "id": "object",
+                  "label": "das: that"
+                },
+                {
+                  "id": "negation",
+                  "label": "nicht: not"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.state-understanding.template.04",
+          "templateId": "negation-strike",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose nicht and place it after das.",
+                "hi": "nicht चुनें और उसे das के बाद रखें।",
+                "hi-latn": "nicht chunein aur use das ke baad rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.state-understanding"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u02.state-understanding.no"
+            },
+            "sentence-start": {
+              "kind": "text",
+              "value": "Ich verstehe"
+            },
+            "object": {
+              "kind": "text",
+              "value": "das"
+            },
+            "sentence-end": {
+              "kind": "text",
+              "value": "."
+            },
+            "negators": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "nicht",
+                  "label": "nicht"
+                },
+                {
+                  "id": "kein",
+                  "label": "kein"
+                }
+              ]
+            },
+            "slots": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "before-object",
+                  "label": "Before das"
+                },
+                {
+                  "id": "after-object",
+                  "label": "After das"
+                }
+              ]
+            },
+            "answer-negator": {
+              "kind": "text",
+              "value": "nicht"
+            },
+            "answer-slot": {
+              "kind": "text",
+              "value": "after-object"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.state-understanding.template.05",
+          "templateId": "sentence-fold",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Unfold the negative sentence one part at a time.",
+                "hi": "नकारात्मक वाक्य को एक बार में एक भाग खोलें।",
+                "hi-latn": "Negative sentence ko ek part at a time unfold karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.state-understanding"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u02.state-understanding.no"
+            },
+            "segments": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "person",
+                  "label": "Ich"
+                },
+                {
+                  "id": "verb",
+                  "label": "verstehe"
+                },
+                {
+                  "id": "object",
+                  "label": "das"
+                },
+                {
+                  "id": "negation",
+                  "label": "nicht."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.state-understanding.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the honest response.",
+                "hi": "सुनें या पढ़ें, फिर ईमानदार उत्तर टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir honest response type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.state-understanding"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Ich verstehe das nicht."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "no",
+                  "label": "Ich verstehe das nicht."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.state-understanding.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type whether you understand.",
+                "hi": "बोलें या टाइप करें कि आप समझते हैं या नहीं।",
+                "hi-latn": "Bolein ya type karein ki aap samajhte hain ya nahin."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.state-understanding"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Verstehen Sie?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "yes",
+                  "label": "Ich verstehe."
+                },
+                {
+                  "id": "no",
+                  "label": "Ich verstehe das nicht."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.state-understanding.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review both honest understanding responses.",
+                "hi": "समझ और नासमझी के दोनों उत्तर दोहराएँ।",
+                "hi-latn": "Understanding ke dono honest responses review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.state-understanding"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Verstehen"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "yes",
+                  "label": "Ich verstehe."
+                },
+                {
+                  "id": "no",
+                  "label": "Ich verstehe das nicht."
+                },
+                {
+                  "id": "repair",
+                  "label": "Noch einmal, bitte."
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Eine ehrliche Antwort öffnet den nächsten Schritt."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u02.hear-letter-names",
+      "courseOrder": 17,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.hear-letter-names.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Beim Buchstabieren"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Compare easily confused letter names inside short spelling frames.",
+                "hi": "छोटे स्पेलिंग वाक्यों में मिलते अक्षर नाम अलग सुनें।",
+                "hi-latn": "Short spelling frames mein similar letter names compare karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.hear-letter-names"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.hear-letter-names.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read how an anchor word confirms a letter.",
+                "hi": "पढ़ें कि सहायक शब्द अक्षर की पुष्टि कैसे करता है।",
+                "hi-latn": "Padhein ki anchor word letter ko kaise confirm karta hai."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.hear-letter-names"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "B wie Buch."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "P wie Papier?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.hear-letter-names.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through three text-only letter cards.",
+                "hi": "तीन टेक्स्ट अक्षर कार्ड देखें।",
+                "hi-latn": "Teen text-only letter cards dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.hear-letter-names"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Buchstabierkarten"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "letter-b",
+                  "label": "B wie Buch"
+                },
+                {
+                  "id": "letter-p",
+                  "label": "P wie Papier"
+                },
+                {
+                  "id": "letter-k",
+                  "label": "K wie Kreide"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.hear-letter-names.template.04",
+          "templateId": "minimal-pair-doors",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then choose the letter named in the frame.",
+                "hi": "सुनें या पढ़ें, फिर वाक्य में बोला अक्षर चुनें।",
+                "hi-latn": "Sunein ya padhein, phir frame mein bola letter chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.hear-letter-names"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "B wie Buch."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "letter-b",
+                  "label": "B"
+                },
+                {
+                  "id": "letter-p",
+                  "label": "P"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "letter-b"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.hear-letter-names.template.05",
+          "templateId": "listen-order",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then place the letter cards in order.",
+                "hi": "सुनें या पढ़ें, फिर अक्षर कार्ड सही क्रम में रखें।",
+                "hi-latn": "Sunein ya padhein, phir letter cards sahi order mein rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.hear-letter-names"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "D, T, G, K."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "events": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "letter-d",
+                  "label": "D"
+                },
+                {
+                  "id": "letter-t",
+                  "label": "T"
+                },
+                {
+                  "id": "letter-g",
+                  "label": "G"
+                },
+                {
+                  "id": "letter-k",
+                  "label": "K"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.hear-letter-names.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the complete spelling frame.",
+                "hi": "सुनें या पढ़ें, फिर पूरा स्पेलिंग वाक्य टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir complete spelling frame type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.hear-letter-names"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "B wie Buch."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "b-book",
+                  "label": "B wie Buch."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.hear-letter-names.template.07",
+          "templateId": "spelling-tiles",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Arrange the written letters for Buch.",
+                "hi": "Buch के लिखित अक्षर सही क्रम में लगाएँ।",
+                "hi-latn": "Buch ke written letters sahi order mein lagayein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.hear-letter-names"
+            },
+            "word": {
+              "kind": "text",
+              "value": "Buch"
+            },
+            "meaning": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "book",
+                "hi": "किताब",
+                "hi-latn": "kitaab"
+              }
+            },
+            "letters": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "letter-b",
+                  "label": "B"
+                },
+                {
+                  "id": "letter-u",
+                  "label": "U"
+                },
+                {
+                  "id": "letter-c",
+                  "label": "C"
+                },
+                {
+                  "id": "letter-h",
+                  "label": "H"
+                }
+              ]
+            },
+            "letter-names": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "b-name",
+                  "label": "B: be"
+                },
+                {
+                  "id": "u-name",
+                  "label": "U: u"
+                },
+                {
+                  "id": "c-name",
+                  "label": "C: tse"
+                },
+                {
+                  "id": "h-name",
+                  "label": "H: ha"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.hear-letter-names.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review three letter and anchor-word frames.",
+                "hi": "तीन अक्षर और सहायक शब्द वाक्य दोहराएँ।",
+                "hi-latn": "Teen letter aur anchor-word frames review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.hear-letter-names"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Buchstabieren"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "letter-b",
+                  "label": "B wie Buch"
+                },
+                {
+                  "id": "letter-p",
+                  "label": "P wie Papier"
+                },
+                {
+                  "id": "letter-k",
+                  "label": "K wie Kreide"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Das Ankerwort bestätigt den Buchstaben."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u02.read-labels",
+      "courseOrder": 18,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.read-labels.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "An den Lernstationen"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Use written labels to find the right classroom station.",
+                "hi": "लिखित लेबल से सही कक्षा स्थान खोजें।",
+                "hi-latn": "Written labels se sahi classroom station dhoondhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.read-labels"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.read-labels.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a short exchange beside a classroom sign.",
+                "hi": "कक्षा संकेत के पास छोटी बातचीत पढ़ें।",
+                "hi-latn": "Classroom sign ke paas short exchange padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.read-labels"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Hier: LESEN."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Ich lese hier."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.read-labels.template.03",
+          "templateId": "sign-reading",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the sign and choose the matching activity.",
+                "hi": "संकेत पढ़ें और सही गतिविधि चुनें।",
+                "hi-latn": "Sign padhein aur matching activity chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.read-labels"
+            },
+            "sign-text": {
+              "kind": "text",
+              "value": "SCHREIBEN"
+            },
+            "context": {
+              "kind": "text",
+              "value": "A paper sign hangs above one learning station."
+            },
+            "question": {
+              "kind": "text",
+              "value": "Was machen Sie hier?"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "write",
+                  "label": "Ich schreibe."
+                },
+                {
+                  "id": "read",
+                  "label": "Ich lese."
+                },
+                {
+                  "id": "listen",
+                  "label": "Ich höre."
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "write"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.read-labels.template.04",
+          "templateId": "label-the-scene",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Place the LESEN label on the text-described reading station.",
+                "hi": "LESEN लेबल को लिखित पढ़ने वाले स्थान पर रखें।",
+                "hi-latn": "LESEN label ko described reading station par rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.read-labels"
+            },
+            "target-label": {
+              "kind": "text",
+              "value": "LESEN"
+            },
+            "hotspots": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "books",
+                  "label": "Table with open books"
+                },
+                {
+                  "id": "audio",
+                  "label": "Desk with headphones"
+                },
+                {
+                  "id": "paper",
+                  "label": "Desk with blank paper"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "books"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.read-labels.template.05",
+          "templateId": "word-match",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the action printed on the reading sign.",
+                "hi": "पढ़ने वाले संकेत पर लिखी क्रिया चुनें।",
+                "hi-latn": "Reading sign par printed action chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.read-labels"
+            },
+            "subject-description": {
+              "kind": "text",
+              "value": "A station sign reads LESEN"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "lesen",
+                  "label": "lesen"
+                },
+                {
+                  "id": "hoeren",
+                  "label": "hören"
+                },
+                {
+                  "id": "schreiben",
+                  "label": "schreiben"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "lesen"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.read-labels.template.06",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the text-only card for a writing station.",
+                "hi": "लिखने वाले स्थान का टेक्स्ट कार्ड चुनें।",
+                "hi-latn": "Writing station ka text-only card chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.read-labels"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "LESEN: open books"
+                },
+                {
+                  "id": "listen",
+                  "label": "HÖREN: headphones"
+                },
+                {
+                  "id": "write",
+                  "label": "SCHREIBEN: paper and pen"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "write"
+            },
+            "spoken-text": {
+              "kind": "text",
+              "value": "Schreiben"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.read-labels.template.07",
+          "templateId": "note-write",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Type the exact label for the reading station.",
+                "hi": "पढ़ने वाले स्थान का सही लेबल टाइप करें।",
+                "hi-latn": "Reading station ka exact label type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.read-labels"
+            },
+            "stationery-title": {
+              "kind": "text",
+              "value": "Stationsschild"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Schreibe das Wort für die Lesestation."
+            },
+            "required-content": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "label",
+                  "label": "LESEN"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.read-labels.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the three classroom station labels.",
+                "hi": "कक्षा के तीन स्थान लेबल दोहराएँ।",
+                "hi-latn": "Teen classroom station labels review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.read-labels"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Lernstationen"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "LESEN"
+                },
+                {
+                  "id": "listen",
+                  "label": "HÖREN"
+                },
+                {
+                  "id": "write",
+                  "label": "SCHREIBEN"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Das Schild nennt die Handlung."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u02.mediate-instruction",
+      "courseOrder": 19,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.mediate-instruction.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Zu zweit"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Help a classmate understand one short German instruction.",
+                "hi": "सहपाठी को एक छोटा जर्मन निर्देश समझने में मदद करें।",
+                "hi-latn": "Classmate ko ek short German instruction samajhne mein help karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.mediate-instruction"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.mediate-instruction.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a German instruction and a concise English relay.",
+                "hi": "जर्मन निर्देश और उसका छोटा अंग्रेजी रूप पढ़ें।",
+                "hi-latn": "German instruction aur uska short English relay padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.mediate-instruction"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Lesen Sie bitte."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Please read."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.mediate-instruction.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through three matched instruction cards.",
+                "hi": "तीन मिलते हुए निर्देश कार्ड देखें।",
+                "hi-latn": "Teen matching instruction cards dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.mediate-instruction"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Hilfekarten"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "Lesen Sie bitte. / Please read. / कृपया पढ़ें।"
+                },
+                {
+                  "id": "listen",
+                  "label": "Hören Sie bitte. / Please listen. / कृपया सुनें।"
+                },
+                {
+                  "id": "write",
+                  "label": "Schreiben Sie bitte. / Please write. / कृपया लिखें।"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.mediate-instruction.template.04",
+          "templateId": "listen-pick-image",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then choose the matching multilingual text card.",
+                "hi": "सुनें या पढ़ें, फिर सही बहुभाषी टेक्स्ट कार्ड चुनें।",
+                "hi-latn": "Sunein ya padhein, phir matching multilingual text card chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.mediate-instruction"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Hören Sie bitte."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "Please read. / कृपया पढ़ें।"
+                },
+                {
+                  "id": "listen",
+                  "label": "Please listen. / कृपया सुनें।"
+                },
+                {
+                  "id": "write",
+                  "label": "Please write. / कृपया लिखें।"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "listen"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.mediate-instruction.template.05",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the card that keeps the meaning of Lesen.",
+                "hi": "वह कार्ड चुनें जो Lesen का अर्थ समान रखता है।",
+                "hi-latn": "Woh card chunein jo Lesen ka meaning same rakhta hai."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.mediate-instruction"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "Please read. / कृपया पढ़ें।"
+                },
+                {
+                  "id": "listen",
+                  "label": "Please listen. / कृपया सुनें।"
+                },
+                {
+                  "id": "write",
+                  "label": "Please write. / कृपया लिखें।"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "read"
+            },
+            "spoken-text": {
+              "kind": "text",
+              "value": "Lesen Sie bitte."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.mediate-instruction.template.06",
+          "templateId": "dialogue-eavesdrop",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then identify the relayed action.",
+                "hi": "सुनें या पढ़ें, फिर बताई गई क्रिया पहचानें।",
+                "hi-latn": "Sunein ya padhein, phir relayed action pehchanein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.mediate-instruction"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Schreiben Sie bitte."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Please write."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "question": {
+              "kind": "text",
+              "value": "Welche Handlung bleibt gleich?"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "write",
+                  "label": "schreiben / write"
+                },
+                {
+                  "id": "read",
+                  "label": "lesen / read"
+                },
+                {
+                  "id": "listen",
+                  "label": "hören / listen"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "write"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.mediate-instruction.template.07",
+          "templateId": "note-write",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Write the known-language meaning of Lesen Sie bitte.",
+                "hi": "Lesen Sie bitte. का परिचित भाषा अर्थ लिखें।",
+                "hi-latn": "Lesen Sie bitte. ka known-language meaning likhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.mediate-instruction"
+            },
+            "stationery-title": {
+              "kind": "text",
+              "value": "Hilfenotiz"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Lesen Sie bitte. bedeutet ..."
+            },
+            "required-content": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "english",
+                  "label": "Please read"
+                },
+                {
+                  "id": "hindi",
+                  "label": "कृपया पढ़ें"
+                },
+                {
+                  "id": "hinglish",
+                  "label": "Kripya padhein"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.mediate-instruction.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review three matched classroom instructions.",
+                "hi": "तीन मिलते हुए कक्षा निर्देश दोहराएँ।",
+                "hi-latn": "Teen matching classroom instructions review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.mediate-instruction"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Hilfe geben"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "lesen / read / पढ़ें"
+                },
+                {
+                  "id": "listen",
+                  "label": "hören / listen / सुनें"
+                },
+                {
+                  "id": "write",
+                  "label": "schreiben / write / लिखें"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Die Handlung bleibt in beiden Sprachen gleich."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u02.classroom-mission",
+      "courseOrder": 20,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.classroom-mission.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Vor dem Kurs"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Request one item and clarify the teacher's instruction.",
+                "hi": "एक वस्तु माँगें और शिक्षक का निर्देश स्पष्ट कराएँ।",
+                "hi-latn": "Ek item maangein aur teacher ka instruction clarify karayein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-mission"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-mission.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the opening item request and response.",
+                "hi": "शुरू का वस्तु अनुरोध और उत्तर पढ़ें।",
+                "hi-latn": "Opening item request aur response padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-mission"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Ein Buch, bitte."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Gern. Lesen Sie bitte."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-mission.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the three authored mission steps.",
+                "hi": "मिशन के तीन लिखे चरण देखें।",
+                "hi-latn": "Mission ke teen authored steps review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-mission"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Klassenauftrag"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "item",
+                  "label": "1. Ein Buch, bitte."
+                },
+                {
+                  "id": "unclear",
+                  "label": "2. Ich verstehe das nicht."
+                },
+                {
+                  "id": "repair",
+                  "label": "3. Noch einmal, bitte."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-mission.template.04",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the polite request for one book.",
+                "hi": "एक किताब का विनम्र अनुरोध चुनें।",
+                "hi-latn": "Ek book ka polite request chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-mission"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "book",
+                  "label": "Ein Buch, bitte."
+                },
+                {
+                  "id": "abrupt",
+                  "label": "Buch!"
+                },
+                {
+                  "id": "repeat",
+                  "label": "Noch einmal, bitte."
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "book"
+            },
+            "spoken-text": {
+              "kind": "text",
+              "value": "Ein Buch, bitte."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-mission.template.05",
+          "templateId": "scenario-theatre",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the response that clarifies the instruction.",
+                "hi": "वह उत्तर चुनें जो निर्देश स्पष्ट कराता है।",
+                "hi-latn": "Woh response chunein jo instruction clarify karata hai."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-mission"
+            },
+            "task": {
+              "kind": "taskReference",
+              "value": "de.a1.u02.task.classroom-help"
+            },
+            "state-label": {
+              "kind": "text",
+              "value": "2 von 3: Klären"
+            },
+            "npc-line": {
+              "kind": "text",
+              "value": "Lesen Sie bitte."
+            },
+            "responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "repeat",
+                  "label": "Noch einmal, bitte."
+                },
+                {
+                  "id": "item",
+                  "label": "Ein Buch, bitte."
+                },
+                {
+                  "id": "goodbye",
+                  "label": "Auf Wiedersehen!"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "repeat"
+            },
+            "retry-hint": {
+              "kind": "text",
+              "value": "Bitten Sie darum, die Anweisung noch einmal zu hören."
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-mission.template.06",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Complete the mission aloud or with the typed path.",
+                "hi": "मिशन को बोलकर या टाइप करके पूरा करें।",
+                "hi-latn": "Mission ko bolkar ya typed path se complete karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-mission"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Was brauchen Sie?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "book",
+                  "label": "Ein Buch, bitte."
+                },
+                {
+                  "id": "pencil",
+                  "label": "Einen Bleistift, bitte."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-mission.template.07",
+          "templateId": "unit-capstone",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Complete each authored classroom step in order.",
+                "hi": "कक्षा का हर लिखा चरण सही क्रम में पूरा करें।",
+                "hi-latn": "Har authored classroom step sahi order mein complete karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-mission"
+            },
+            "unit-label": {
+              "kind": "text",
+              "value": "Einheit 2"
+            },
+            "goal": {
+              "kind": "text",
+              "value": "Einen Gegenstand bekommen und eine Anweisung klären."
+            },
+            "steps": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "identify",
+                  "label": "Gegenstand erkennen"
+                },
+                {
+                  "id": "request",
+                  "label": "Gegenstand erbitten"
+                },
+                {
+                  "id": "clarify",
+                  "label": "Anweisung klären"
+                },
+                {
+                  "id": "confirm",
+                  "label": "Verstehen bestätigen"
+                }
+              ]
+            },
+            "template-chain": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "identify",
+                  "label": "picture-match"
+                },
+                {
+                  "id": "request",
+                  "label": "prompt-respond"
+                },
+                {
+                  "id": "clarify",
+                  "label": "scenario-theatre"
+                },
+                {
+                  "id": "confirm",
+                  "label": "recap-scrapbook"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-mission.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the item request and repair phrases.",
+                "hi": "वस्तु अनुरोध और सुधार वाक्य दोहराएँ।",
+                "hi-latn": "Item request aur repair phrases review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-mission"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Klassenmission"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "item",
+                  "label": "Ein Buch, bitte."
+                },
+                {
+                  "id": "unclear",
+                  "label": "Ich verstehe das nicht."
+                },
+                {
+                  "id": "repeat",
+                  "label": "Noch einmal, bitte."
+                },
+                {
+                  "id": "complete",
+                  "label": "Ich verstehe. Danke."
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Bitte und Reparatur bringen die Aufgabe ans Ziel."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
     }
   ],
   "transferMappings": [],
