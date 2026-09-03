@@ -28,24 +28,32 @@ public sealed class ContentPackTests
         var german = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.core");
         var unitOne = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit01");
         Assert.HasCount(13, german.Concepts);
-        Assert.HasCount(5, unitOne.Concepts);
+        Assert.HasCount(10, unitOne.Concepts);
+        Assert.HasCount(26, unitOne.Lexicon);
         Assert.HasCount(4, german.Tasks);
+        Assert.HasCount(1, unitOne.Tasks);
         Assert.HasCount(5, german.ErrorRules);
+        Assert.HasCount(10, unitOne.ErrorRules);
+        Assert.HasCount(10, unitOne.FeedbackTemplates);
         Assert.HasCount(4, german.Rubrics);
+        Assert.HasCount(1, unitOne.Rubrics);
         Assert.HasCount(4, german.PronunciationUtterances);
+        Assert.HasCount(10, unitOne.PronunciationUtterances);
         Assert.AreEqual(4, german.Manifest.SchemaVersion);
         Assert.AreEqual(4, unitOne.Manifest.SchemaVersion);
         Assert.IsTrue(catalog.Packs
             .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
             .All(pack => pack.Manifest.SchemaVersion == 3));
         Assert.IsEmpty(german.Lessons);
-        Assert.HasCount(5, unitOne.Lessons);
-        Assert.AreEqual(38, unitOne.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
+        Assert.HasCount(10, unitOne.Lessons);
+        Assert.AreEqual(79, unitOne.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
         Assert.HasCount(1, unitOne.CourseUnits!);
         Assert.IsTrue(catalog.Packs
             .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
             .All(pack => pack.Lessons.Count == 0));
         Assert.IsTrue(german.PronunciationUtterances.All(utterance =>
+            utterance.AssessmentMode == PronunciationAssessmentMode.None));
+        Assert.IsTrue(unitOne.PronunciationUtterances.All(utterance =>
             utterance.AssessmentMode == PronunciationAssessmentMode.None));
     }
 
@@ -144,13 +152,13 @@ public sealed class ContentPackTests
     }
 
     [TestMethod]
-    public void FourTasksHaveReachableDeterministicSuccessContractsAndFallbacks()
+    public void FiveTasksHaveReachableDeterministicSuccessContractsAndFallbacks()
     {
         var tasks = LoadBundled(ContentLoadPolicy.AuthoringPreview)
             .Packs.SelectMany(pack => pack.Tasks)
             .ToArray();
 
-        Assert.HasCount(4, tasks);
+        Assert.HasCount(5, tasks);
         Assert.IsTrue(tasks.All(task => task.Transitions.Count > 0));
         Assert.IsTrue(tasks.All(task => task.SuccessConditions.Count > 0));
         Assert.IsTrue(tasks.All(task => task.States.All(state => state.ScriptedFallback.Count > 0)));
@@ -203,7 +211,7 @@ public sealed class ContentPackTests
             var pronunciation = runtime.CreateRuntimePronunciationUtterances(
                 new LanguageCode("de"));
 
-            Assert.HasCount(18, graph.Nodes);
+            Assert.HasCount(23, graph.Nodes);
             Assert.HasCount(3, english);
             Assert.IsTrue(english.All(mapping => mapping.ReviewStatus == TransferReviewStatus.Approved));
             Assert.IsTrue(hindiNotes.Any(note =>
@@ -221,10 +229,10 @@ public sealed class ContentPackTests
             Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
             Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
             Assert.AreEqual("Ich möchte einen Kaffee, bitte.", cafe.PronunciationTargetText);
-            Assert.HasCount(9, pronunciation);
+            Assert.HasCount(14, pronunciation);
             Assert.HasCount(4, pronunciation.Where(utterance =>
                 utterance.ContentVersion == new VersionId("language.de.core.v2")));
-            Assert.HasCount(5, pronunciation.Where(utterance =>
+            Assert.HasCount(10, pronunciation.Where(utterance =>
                 utterance.ContentVersion == new VersionId("language.de.a1.unit01.v1")));
         }
         finally
@@ -270,8 +278,8 @@ public sealed class ContentPackTests
 
         Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
         Assert.AreEqual(450, catalog.TargetLessonCount);
-        Assert.AreEqual(5, catalog.AuthoredLessonCount);
-        Assert.AreEqual(445, catalog.RemainingLessonCount);
+        Assert.AreEqual(10, catalog.AuthoredLessonCount);
+        Assert.AreEqual(440, catalog.RemainingLessonCount);
         Assert.AreEqual("Meet and greet", catalog.Units[0].Title);
         Assert.AreEqual("Greet for the time of day", catalog.Units[0].Lessons[0].Title);
         var lessons = catalog.Units.SelectMany(unit => unit.Lessons).ToArray();
@@ -283,9 +291,18 @@ public sealed class ContentPackTests
                 "lesson.de.a1.u01.ask-name-informal",
                 "lesson.de.a1.u01.ask-name-formal",
                 "lesson.de.a1.u01.say-origin",
+                "lesson.de.a1.u01.say-languages",
+                "lesson.de.a1.u01.hear-introductions",
+                "lesson.de.a1.u01.spell-name",
+                "lesson.de.a1.u01.introduce-two-people",
+                "lesson.de.a1.u01.first-meeting-mission",
             },
             lessons.Select(lesson => lesson.Id).ToArray());
         Assert.IsTrue(lessons.All(lesson => lesson.Slides.Count >= 7));
+        Assert.IsTrue(lessons.All(lesson =>
+            lesson.Slides[0].TemplateInstance!.TemplateId == new TemplateId("scene-establish")));
+        Assert.IsTrue(lessons.All(lesson =>
+            lesson.Slides[^1].TemplateInstance!.TemplateId == new TemplateId("recap-scrapbook")));
         Assert.IsTrue(lessons.SelectMany(lesson => lesson.Slides).All(slide =>
             slide.Kind == CourseSlideKind.Template));
         CollectionAssert.AreEqual(
@@ -310,6 +327,17 @@ public sealed class ContentPackTests
             .Single(instance => instance.TemplateId == new TemplateId("listen-type"));
         var origin = unit.Lessons[4].TemplateInstances
             .Single(instance => instance.TemplateId == new TemplateId("note-write"));
+        var languages = unit.Lessons[5].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("word-order-train"));
+        var spelling = unit.Lessons[7].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("spelling-tiles"));
+        var introduction = unit.Lessons[8].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("picture-match"));
+        var meeting = unit.Lessons[9];
+        var scenario = meeting.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("scenario-theatre"));
+        var capstone = meeting.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("unit-capstone"));
 
         var greetingOptions = greeting.Parameters["options"].Options!;
         var greetingAnswer = greeting.Parameters["answer"].Value!;
@@ -348,6 +376,91 @@ public sealed class ContentPackTests
             TemplateInteractionEvaluator.EvaluateRequiredContent(
                 requiredOrigin,
                 "Indien")
+                .State);
+
+        var languageOptions = languages.Parameters["options"].Options!;
+        var languageOrder = languageOptions.Select(option => option.Id).ToArray();
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateWordOrder(languageOptions, languageOrder).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateWordOrder(
+                languageOptions,
+                languageOrder.Reverse().ToArray())
+                .State);
+
+        var letterOptions = spelling.Parameters["letters"].Options!;
+        var letterOrder = letterOptions.Select(option => option.Id).ToArray();
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateWordOrder(letterOptions, letterOrder).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateWordOrder(
+                letterOptions,
+                [letterOrder[1], letterOrder[0], letterOrder[2], letterOrder[3]])
+                .State);
+
+        var introductionOptions = introduction.Parameters["options"].Options!;
+        var introductionAnswer = introduction.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluatePictureMatch(
+                introductionOptions,
+                introductionAnswer,
+                "introduce-omar")
+                .State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluatePictureMatch(
+                introductionOptions,
+                introductionAnswer,
+                "self-introduction")
+                .State);
+
+        var responses = scenario.Parameters["responses"].Options!;
+        var responseAnswer = scenario.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                responses,
+                responseAnswer,
+                "greeting-name")
+                .State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                responses,
+                responseAnswer,
+                "name-only")
+                .State);
+
+        var steps = capstone.Parameters["steps"].Options!;
+        var chain = capstone.Parameters["template-chain"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                steps,
+                chain,
+                [],
+                "greeting")
+                .State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                steps,
+                chain,
+                ["greeting"],
+                "detail")
+                .State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                steps,
+                chain,
+                ["greeting", "name", "detail"],
+                "farewell")
                 .State);
     }
 

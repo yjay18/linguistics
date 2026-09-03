@@ -333,6 +333,221 @@
       ],
       "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary", "source.de.a1.u01.goethe-speaking"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country-name government and article exceptions are outside this slice and need later review." }
+    },
+    {
+      "id": "de.a1.u01.say-languages",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Say which languages you speak",
+        "hi": "बताएँ कि आप कौन सी भाषाएँ बोलते हैं",
+        "hi-latn": "Batayein ki aap kaun si languages bolte hain"
+      },
+      "description": {
+        "en": "Use Ich spreche to name one or two familiar languages.",
+        "hi": "एक या दो परिचित भाषाएँ बताने के लिए Ich spreche प्रयोग करें।",
+        "hi-latn": "Ek ya do familiar languages batane ke liye Ich spreche use karein."
+      },
+      "prerequisiteIds": ["de.a1.u01.say-origin"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.language-frame"],
+      "taskTags": ["introductions", "languages", "speaking"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.languages.two",
+          "text": "Ich spreche Hindi und Englisch.",
+          "meaning": { "en": "I speak Hindi and English.", "hi": "मैं हिंदी और अंग्रेज़ी बोलता हूँ।", "hi-latn": "Main Hindi aur English bolta hoon." },
+          "note": { "en": "Und joins two language names.", "hi": "Und दो भाषाओं के नाम जोड़ता है।", "hi-latn": "Und do language names ko jodta hai." }
+        },
+        {
+          "id": "example.de.a1.u01.languages.little",
+          "text": "Ich spreche ein bisschen Deutsch.",
+          "meaning": { "en": "I speak a little German.", "hi": "मैं थोड़ी जर्मन बोलता हूँ।", "hi-latn": "Main thodi German bolta hoon." },
+          "note": { "en": "Ein bisschen limits the amount claimed.", "hi": "Ein bisschen बताई गई मात्रा को सीमित करता है।", "hi-latn": "Ein bisschen batayi gayi amount ko limit karta hai." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Ich sprechen Deutsch.",
+          "meaning": { "en": "I to speak German.", "hi": "मैं जर्मन बोलना।", "hi-latn": "Main German bolna." },
+          "note": { "en": "With ich, the practiced form is spreche.", "hi": "Ich के साथ अभ्यास वाला रूप spreche है।", "hi-latn": "Ich ke saath practice wala form spreche hai." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Language names, naturalness, and inflection need competent German review." }
+    },
+    {
+      "id": "de.a1.u01.hear-introductions",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Hear names and countries",
+        "hi": "नाम और देश सुनकर पहचानें",
+        "hi-latn": "Naam aur countries sunkar pehchanein"
+      },
+      "description": {
+        "en": "Identify a name and country in two short introductions, with captions always available.",
+        "hi": "दो छोटे परिचयों में नाम और देश पहचानें। कैप्शन हमेशा उपलब्ध हैं।",
+        "hi-latn": "Do chhote introductions mein naam aur country pehchanein. Captions hamesha available hain."
+      },
+      "prerequisiteIds": ["de.a1.u01.say-languages"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.introduction-details"],
+      "taskTags": ["introductions", "listening", "detail"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.hear.nora",
+          "text": "Ich heiße Nora. Ich komme aus Österreich.",
+          "meaning": { "en": "My name is Nora. I come from Austria.", "hi": "मेरा नाम नोरा है। मैं ऑस्ट्रिया से हूँ।", "hi-latn": "Mera naam Nora hai. Main Austria se hoon." },
+          "note": { "en": "The name follows heiße and the country follows aus.", "hi": "नाम heiße के बाद और देश aus के बाद आता है।", "hi-latn": "Naam heiße ke baad aur country aus ke baad aati hai." }
+        },
+        {
+          "id": "example.de.a1.u01.hear.sami",
+          "text": "Ich bin Sami. Ich komme aus Kanada.",
+          "meaning": { "en": "I am Sami. I come from Canada.", "hi": "मैं सामी हूँ। मैं कनाडा से हूँ।", "hi-latn": "Main Sami hoon. Main Canada se hoon." },
+          "note": { "en": "Bin introduces the name; aus introduces the country.", "hi": "Bin नाम और aus देश का परिचय देता है।", "hi-latn": "Bin naam aur aus country introduce karta hai." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Nora kommt aus Kanada.",
+          "meaning": { "en": "Nora comes from Canada.", "hi": "नोरा कनाडा से है।", "hi-latn": "Nora Canada se hai." },
+          "note": { "en": "This does not match the first authored introduction.", "hi": "यह पहले लिखे गए परिचय से मेल नहीं खाता।", "hi-latn": "Yeh pehle authored introduction se match nahin karta." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary", "source.de.a1.u01.cefr-2020"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Listening load and distractor fairness need competent pedagogical review." }
+    },
+    {
+      "id": "de.a1.u01.spell-name",
+      "language": "de",
+      "type": "phonological",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Spell a name clearly",
+        "hi": "नाम को साफ़-साफ़ अक्षरों में बताएँ",
+        "hi-latn": "Naam ko saaf letters mein batayein"
+      },
+      "description": {
+        "en": "Spell a short name with German letter names and repeat it after a repair request.",
+        "hi": "जर्मन अक्षर नामों से छोटा नाम बताएँ और दोहराने के अनुरोध पर फिर कहें।",
+        "hi-latn": "German letter names se chhota naam batayein aur repair request par phir bolein."
+      },
+      "prerequisiteIds": ["de.a1.u01.hear-introductions"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.spelling-sequence"],
+      "taskTags": ["introductions", "spelling", "repair"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.spelling.lea",
+          "text": "Lea: L, E, A.",
+          "meaning": { "en": "Lea: L, E, A.", "hi": "लेआ: L, E, A।", "hi-latn": "Lea: L, E, A." },
+          "note": { "en": "The written letters preserve the name's order.", "hi": "लिखे अक्षर नाम का क्रम रखते हैं।", "hi-latn": "Likhe letters naam ka order rakhte hain." }
+        },
+        {
+          "id": "example.de.a1.u01.spelling.kaya",
+          "text": "Kaya: K, A, Y, A.",
+          "meaning": { "en": "Kaya: K, A, Y, A.", "hi": "काया: K, A, Y, A।", "hi-latn": "Kaya: K, A, Y, A." },
+          "note": { "en": "Y is named Ypsilon in the authored German script.", "hi": "लिखी जर्मन स्क्रिप्ट में Y का नाम Ypsilon है।", "hi-latn": "Authored German script mein Y ka naam Ypsilon hai." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Kaya: K, E, Y, A.",
+          "meaning": { "en": "Kaya: K, E, Y, A.", "hi": "काया: K, E, Y, A।", "hi-latn": "Kaya: K, E, Y, A." },
+          "note": { "en": "The second letter does not match the written name.", "hi": "दूसरा अक्षर लिखे नाम से मेल नहीं खाता।", "hi-latn": "Doosra letter likhe naam se match nahin karta." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-alphabet", "source.de.a1.u01.cefr-2020"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Letter-name captions and repair rhythm need competent German pronunciation review." }
+    },
+    {
+      "id": "de.a1.u01.introduce-two-people",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Introduce two people",
+        "hi": "दो लोगों का परिचय कराएँ",
+        "hi-latn": "Do logon ka introduction karayein"
+      },
+      "description": {
+        "en": "Relay a name and one identity detail when introducing one person to another.",
+        "hi": "एक व्यक्ति का दूसरे से परिचय कराते समय नाम और एक पहचान विवरण बताएँ।",
+        "hi-latn": "Ek vyakti ko doosre se milate waqt naam aur ek identity detail batayein."
+      },
+      "prerequisiteIds": ["de.a1.u01.spell-name"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.introduce-other"],
+      "taskTags": ["introductions", "mediation", "identity"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.introduce.omar",
+          "text": "Lea, das ist Omar.",
+          "meaning": { "en": "Lea, this is Omar.", "hi": "लेआ, यह ओमर है।", "hi-latn": "Lea, yeh Omar hai." },
+          "note": { "en": "Das ist introduces the other person.", "hi": "Das ist दूसरे व्यक्ति का परिचय देता है।", "hi-latn": "Das ist doosre vyakti ko introduce karta hai." }
+        },
+        {
+          "id": "example.de.a1.u01.introduce.detail",
+          "text": "Omar kommt aus Kanada und spricht Englisch.",
+          "meaning": { "en": "Omar comes from Canada and speaks English.", "hi": "ओमर कनाडा से है और अंग्रेज़ी बोलता है।", "hi-latn": "Omar Canada se hai aur English bolta hai." },
+          "note": { "en": "This relays two authored identity details.", "hi": "यह पहचान के दो लिखे हुए विवरण बताता है।", "hi-latn": "Yeh do authored identity details relay karta hai." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Ich heiße Omar.",
+          "meaning": { "en": "My name is Omar.", "hi": "मेरा नाम ओमर है।", "hi-latn": "Mera naam Omar hai." },
+          "note": { "en": "This introduces the speaker, not another person.", "hi": "यह बोलने वाले का परिचय देता है, दूसरे व्यक्ति का नहीं।", "hi-latn": "Yeh speaker ko introduce karta hai, doosre vyakti ko nahin." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.cefr-2020"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Mediation scope, gender references, and naturalness need competent review." }
+    },
+    {
+      "id": "de.a1.u01.first-meeting-mission",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Complete a first meeting",
+        "hi": "पहली मुलाकात पूरी करें",
+        "hi-latn": "Pehli mulaqat complete karein"
+      },
+      "description": {
+        "en": "Complete a greeting, name, origin or language detail, and farewell in one bounded meeting.",
+        "hi": "एक सीमित मुलाकात में अभिवादन, नाम, मूल स्थान या भाषा और विदाई पूरी करें।",
+        "hi-latn": "Ek bounded mulaqat mein greeting, naam, origin ya language detail, aur farewell complete karein."
+      },
+      "prerequisiteIds": ["de.a1.u01.introduce-two-people"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": ["de.a1.u01.eval.meeting-complete"] },
+      "errorRuleIds": ["de.a1.u01.error.first-meeting-sequence"],
+      "taskTags": ["introductions", "capstone", "interaction"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.mission.formal",
+          "text": "Guten Tag! Ich heiße Mina. Ich komme aus Indien. Auf Wiedersehen!",
+          "meaning": { "en": "Hello! My name is Mina. I come from India. Goodbye!", "hi": "नमस्ते! मेरा नाम मीना है। मैं भारत से हूँ। फिर मिलेंगे!", "hi-latn": "Namaste! Mera naam Mina hai. Main Bharat se hoon. Phir milenge!" },
+          "note": { "en": "A compact formal-leaning meeting sequence.", "hi": "औपचारिक शैली की छोटी मुलाकात का क्रम।", "hi-latn": "Formal style ki chhoti meeting sequence." }
+        },
+        {
+          "id": "example.de.a1.u01.mission.informal",
+          "text": "Hallo! Ich bin Omar. Ich spreche Hindi und Englisch. Tschüss!",
+          "meaning": { "en": "Hello! I am Omar. I speak Hindi and English. Bye!", "hi": "नमस्ते! मैं ओमर हूँ। मैं हिंदी और अंग्रेज़ी बोलता हूँ। अलविदा!", "hi-latn": "Namaste! Main Omar hoon. Main Hindi aur English bolta hoon. Alvida!" },
+          "note": { "en": "A compact informal meeting sequence.", "hi": "अनौपचारिक शैली की छोटी मुलाकात का क्रम।", "hi-latn": "Informal style ki chhoti meeting sequence." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Ich Mina. Indien.",
+          "meaning": { "en": "I Mina. India.", "hi": "मैं मीना। भारत।", "hi-latn": "Main Mina. Bharat." },
+          "note": { "en": "The greeting and complete identity frames are missing.", "hi": "अभिवादन और पूरे पहचान ढाँचे गायब हैं।", "hi-latn": "Greeting aur complete identity frames missing hain." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-speaking", "source.de.a1.u01.cefr-2020"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Sequence, task validity, and register choices need competent German and pedagogical review." }
     }
   ],
   "lexicon": [
@@ -504,9 +719,298 @@
       ],
       "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country naming needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.sprechen",
+      "language": "de",
+      "lemma": "sprechen",
+      "article": null,
+      "meaning": { "en": "to speak", "hi": "बोलना", "hi-latn": "bolna" },
+      "conceptIds": ["de.a1.u01.say-languages"],
+      "examples": [
+        { "text": "Ich spreche Deutsch.", "meaning": { "en": "I speak German.", "hi": "मैं जर्मन बोलता हूँ।", "hi-latn": "Main German bolta hoon." }, "note": { "en": "Spreche is the practiced ich form.", "hi": "Spreche अभ्यास वाला ich रूप है।", "hi-latn": "Spreche practice wala ich form hai." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Only the bounded first-person form is taught here." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.hindi",
+      "language": "de",
+      "lemma": "Hindi",
+      "article": null,
+      "meaning": { "en": "Hindi", "hi": "हिंदी", "hi-latn": "Hindi" },
+      "conceptIds": ["de.a1.u01.say-languages"],
+      "examples": [
+        { "text": "Ich spreche Hindi.", "meaning": { "en": "I speak Hindi.", "hi": "मैं हिंदी बोलता हूँ।", "hi-latn": "Main Hindi bolta hoon." }, "note": { "en": "Language name in the practiced frame.", "hi": "अभ्यास वाले ढाँचे में भाषा का नाम।", "hi-latn": "Practice wale frame mein language name." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "German language naming needs competent review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.englisch",
+      "language": "de",
+      "lemma": "Englisch",
+      "article": null,
+      "meaning": { "en": "English", "hi": "अंग्रेज़ी", "hi-latn": "English" },
+      "conceptIds": ["de.a1.u01.say-languages"],
+      "examples": [
+        { "text": "Ich spreche Englisch.", "meaning": { "en": "I speak English.", "hi": "मैं अंग्रेज़ी बोलता हूँ।", "hi-latn": "Main English bolta hoon." }, "note": { "en": "Language name in the practiced frame.", "hi": "अभ्यास वाले ढाँचे में भाषा का नाम।", "hi-latn": "Practice wale frame mein language name." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "German language naming needs competent review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.deutsch",
+      "language": "de",
+      "lemma": "Deutsch",
+      "article": null,
+      "meaning": { "en": "German", "hi": "जर्मन", "hi-latn": "German" },
+      "conceptIds": ["de.a1.u01.say-languages"],
+      "examples": [
+        { "text": "Ich spreche ein bisschen Deutsch.", "meaning": { "en": "I speak a little German.", "hi": "मैं थोड़ी जर्मन बोलता हूँ।", "hi-latn": "Main thodi German bolta hoon." }, "note": { "en": "Language name with a limited claim.", "hi": "सीमित दावे के साथ भाषा का नाम।", "hi-latn": "Limited claim ke saath language name." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "German language naming needs competent review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.und",
+      "language": "de",
+      "lemma": "und",
+      "article": null,
+      "meaning": { "en": "and", "hi": "और", "hi-latn": "aur" },
+      "conceptIds": ["de.a1.u01.say-languages", "de.a1.u01.introduce-two-people"],
+      "examples": [
+        { "text": "Hindi und Englisch", "meaning": { "en": "Hindi and English", "hi": "हिंदी और अंग्रेज़ी", "hi-latn": "Hindi aur English" }, "note": { "en": "Joins two items.", "hi": "दो वस्तुओं को जोड़ता है।", "hi-latn": "Do items ko jodta hai." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Bounded conjunction use needs review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.ein-bisschen",
+      "language": "de",
+      "lemma": "ein bisschen",
+      "article": null,
+      "meaning": { "en": "a little", "hi": "थोड़ा", "hi-latn": "thoda" },
+      "conceptIds": ["de.a1.u01.say-languages"],
+      "examples": [
+        { "text": "ein bisschen Deutsch", "meaning": { "en": "a little German", "hi": "थोड़ी जर्मन", "hi-latn": "thodi German" }, "note": { "en": "Limits the amount claimed.", "hi": "बताई गई मात्रा को सीमित करता है।", "hi-latn": "Batayi gayi amount ko limit karta hai." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Pragmatic interpretation needs bilingual review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.oesterreich",
+      "language": "de",
+      "lemma": "Österreich",
+      "article": null,
+      "meaning": { "en": "Austria", "hi": "ऑस्ट्रिया", "hi-latn": "Austria" },
+      "conceptIds": ["de.a1.u01.hear-introductions"],
+      "examples": [
+        { "text": "Ich komme aus Österreich.", "meaning": { "en": "I come from Austria.", "hi": "मैं ऑस्ट्रिया से हूँ।", "hi-latn": "Main Austria se hoon." }, "note": { "en": "Country in the authored introduction.", "hi": "लिखे हुए परिचय में देश।", "hi-latn": "Authored introduction mein country." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary", "source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country naming needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.buchstabieren",
+      "language": "de",
+      "lemma": "buchstabieren",
+      "article": null,
+      "meaning": { "en": "to spell", "hi": "अक्षर बताना", "hi-latn": "letters batana" },
+      "conceptIds": ["de.a1.u01.spell-name"],
+      "examples": [
+        { "text": "Bitte buchstabieren.", "meaning": { "en": "Please spell it.", "hi": "कृपया अक्षर बताएँ।", "hi-latn": "Please letters batayein." }, "note": { "en": "Short repair request.", "hi": "दोहराने का छोटा अनुरोध।", "hi-latn": "Chhoti repair request." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-alphabet"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Request form and register need competent review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.noch-einmal",
+      "language": "de",
+      "lemma": "noch einmal",
+      "article": null,
+      "meaning": { "en": "once again", "hi": "एक बार फिर", "hi-latn": "ek baar phir" },
+      "conceptIds": ["de.a1.u01.spell-name"],
+      "examples": [
+        { "text": "Noch einmal, bitte.", "meaning": { "en": "Once again, please.", "hi": "एक बार फिर, कृपया।", "hi-latn": "Ek baar phir, please." }, "note": { "en": "Requests repetition.", "hi": "दोहराने का अनुरोध।", "hi-latn": "Repeat karne ki request." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Register and punctuation need competent review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.das-ist",
+      "language": "de",
+      "lemma": "das ist",
+      "article": null,
+      "meaning": { "en": "this is", "hi": "यह है", "hi-latn": "yeh hai" },
+      "conceptIds": ["de.a1.u01.introduce-two-people"],
+      "examples": [
+        { "text": "Das ist Omar.", "meaning": { "en": "This is Omar.", "hi": "यह ओमर है।", "hi-latn": "Yeh Omar hai." }, "note": { "en": "Introduces another person.", "hi": "दूसरे व्यक्ति का परिचय देता है।", "hi-latn": "Doosre vyakti ko introduce karta hai." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Pragmatic use needs competent review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.vorstellen",
+      "language": "de",
+      "lemma": "vorstellen",
+      "article": null,
+      "meaning": { "en": "to introduce", "hi": "परिचय कराना", "hi-latn": "introduction karana" },
+      "conceptIds": ["de.a1.u01.introduce-two-people"],
+      "examples": [
+        { "text": "Darf ich vorstellen?", "meaning": { "en": "May I introduce someone?", "hi": "क्या मैं परिचय करा सकता हूँ?", "hi-latn": "Kya main introduction kara sakta hoon?" }, "note": { "en": "Optional formal-leaning introduction phrase.", "hi": "औपचारिक शैली का वैकल्पिक परिचय वाक्यांश।", "hi-latn": "Formal style ka optional introduction phrase." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Register and ellipsis need competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.tschuess",
+      "language": "de",
+      "lemma": "Tschüss",
+      "article": null,
+      "meaning": { "en": "bye", "hi": "अलविदा", "hi-latn": "alvida" },
+      "conceptIds": ["de.a1.u01.first-meeting-mission"],
+      "examples": [
+        { "text": "Tschüss!", "meaning": { "en": "Bye!", "hi": "अलविदा!", "hi-latn": "Alvida!" }, "note": { "en": "Common informal farewell in this draft.", "hi": "इस प्रारूप में सामान्य अनौपचारिक विदाई।", "hi-latn": "Is draft mein common informal farewell." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Regional and relationship use needs competent review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.auf-wiedersehen",
+      "language": "de",
+      "lemma": "Auf Wiedersehen",
+      "article": null,
+      "meaning": { "en": "goodbye", "hi": "फिर मिलेंगे", "hi-latn": "phir milenge" },
+      "conceptIds": ["de.a1.u01.first-meeting-mission"],
+      "examples": [
+        { "text": "Auf Wiedersehen!", "meaning": { "en": "Goodbye!", "hi": "फिर मिलेंगे!", "hi-latn": "Phir milenge!" }, "note": { "en": "Formal-leaning farewell in this draft.", "hi": "इस प्रारूप में औपचारिक शैली की विदाई।", "hi-latn": "Is draft mein formal style ki farewell." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Register and regional use need competent review." }
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "id": "de.a1.u01.task.first-meeting",
+      "language": "de",
+      "domain": "first-meeting",
+      "cefrApproximation": "A1",
+      "goal": {
+        "en": "Complete a greeting, name, one personal detail, and farewell.",
+        "hi": "अभिवादन, नाम, एक व्यक्तिगत विवरण और विदाई पूरी करें।",
+        "hi-latn": "Greeting, naam, ek personal detail, aur farewell complete karein."
+      },
+      "context": {
+        "en": "A bounded first meeting with one new person.",
+        "hi": "एक नए व्यक्ति के साथ सीमित पहली मुलाकात।",
+        "hi-latn": "Ek naye vyakti ke saath bounded pehli mulaqat."
+      },
+      "learnerRole": {
+        "en": "You introduce yourself and close the exchange.",
+        "hi": "आप अपना परिचय देते हैं और बातचीत समाप्त करते हैं।",
+        "hi-latn": "Aap apna introduction dete hain aur baat close karte hain."
+      },
+      "npcRole": {
+        "en": "The other person prompts each authored step.",
+        "hi": "दूसरा व्यक्ति हर लिखे हुए चरण का संकेत देता है।",
+        "hi-latn": "Doosra vyakti har authored step ka prompt deta hai."
+      },
+      "requiredFunctionIds": [
+        "de.a1.u01.greetings-by-time",
+        "de.a1.u01.say-name",
+        "de.a1.u01.say-origin",
+        "de.a1.u01.say-languages"
+      ],
+      "eligibleConceptIds": [
+        "de.a1.u01.greetings-by-time",
+        "de.a1.u01.say-name",
+        "de.a1.u01.ask-name-informal",
+        "de.a1.u01.ask-name-formal",
+        "de.a1.u01.say-origin",
+        "de.a1.u01.say-languages",
+        "de.a1.u01.hear-introductions",
+        "de.a1.u01.spell-name",
+        "de.a1.u01.introduce-two-people",
+        "de.a1.u01.first-meeting-mission"
+      ],
+      "initialStateId": "de.a1.u01.state.meeting.greeting",
+      "successStateIds": ["de.a1.u01.state.meeting.complete"],
+      "states": [
+        {
+          "id": "de.a1.u01.state.meeting.greeting",
+          "allowedIntents": ["greet"],
+          "scriptedFallback": ["Guten Tag!", "Beginnen Sie mit einem Gruß."]
+        },
+        {
+          "id": "de.a1.u01.state.meeting.name",
+          "allowedIntents": ["provideName"],
+          "scriptedFallback": ["Wie heißen Sie?", "Sagen Sie: Ich heiße ..."]
+        },
+        {
+          "id": "de.a1.u01.state.meeting.detail",
+          "allowedIntents": ["provideOrigin", "provideLanguage"],
+          "scriptedFallback": ["Woher kommen Sie?", "Welche Sprachen sprechen Sie?"]
+        },
+        {
+          "id": "de.a1.u01.state.meeting.complete",
+          "allowedIntents": ["farewell", "exit"],
+          "scriptedFallback": ["Freut mich. Auf Wiedersehen!"]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStateId": "de.a1.u01.state.meeting.greeting",
+          "toStateId": "de.a1.u01.state.meeting.name",
+          "evaluatorId": "de.a1.u01.eval.meeting-greeting"
+        },
+        {
+          "fromStateId": "de.a1.u01.state.meeting.name",
+          "toStateId": "de.a1.u01.state.meeting.detail",
+          "evaluatorId": "de.a1.u01.eval.meeting-name"
+        },
+        {
+          "fromStateId": "de.a1.u01.state.meeting.detail",
+          "toStateId": "de.a1.u01.state.meeting.complete",
+          "evaluatorId": "de.a1.u01.eval.meeting-detail"
+        }
+      ],
+      "evaluators": [
+        {
+          "id": "de.a1.u01.eval.meeting-greeting",
+          "kind": "anyAllowedToken",
+          "expectedValues": ["hallo", "guten tag", "guten morgen", "guten abend"]
+        },
+        {
+          "id": "de.a1.u01.eval.meeting-name",
+          "kind": "anyAllowedToken",
+          "expectedValues": ["heiße", "bin"]
+        },
+        {
+          "id": "de.a1.u01.eval.meeting-detail",
+          "kind": "anyAllowedToken",
+          "expectedValues": ["aus", "spreche"]
+        },
+        {
+          "id": "de.a1.u01.eval.meeting-complete",
+          "kind": "stateReached",
+          "expectedValues": ["de.a1.u01.state.meeting.complete"]
+        }
+      ],
+      "successConditions": [
+        {
+          "evaluatorId": "de.a1.u01.eval.meeting-complete",
+          "description": {
+            "en": "The complete state follows a greeting, name, and one accepted detail.",
+            "hi": "अभिवादन, नाम और एक स्वीकार्य विवरण के बाद पूर्ण स्थिति आती है।",
+            "hi-latn": "Greeting, naam, aur ek accepted detail ke baad complete state aati hai."
+          }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.cefr-2020", "source.de.a1.u01.goethe-speaking", "source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "State sequence, evaluator coverage, and fallback naturalness need competent review." }
+    }
+  ],
   "errorRules": [
     {
       "id": "de.a1.u01.error.greeting-context",
@@ -567,6 +1071,66 @@
       "counterexamples": ["Ich komme Indien."],
       "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country article exceptions are outside this narrow rule and need review." }
+    },
+    {
+      "id": "de.a1.u01.error.language-frame",
+      "targetConceptId": "de.a1.u01.say-languages",
+      "pattern": { "kind": "requiredTokenSequence", "values": ["ich", "spreche"] },
+      "expectedProperty": "The practiced language statement contains ich spreche.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u01.feedback.language-frame",
+      "examples": ["Ich spreche Hindi.", "Ich spreche Englisch."],
+      "counterexamples": ["Ich sprechen Deutsch."],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Inflection trigger and normalization need competent review." }
+    },
+    {
+      "id": "de.a1.u01.error.introduction-details",
+      "targetConceptId": "de.a1.u01.hear-introductions",
+      "pattern": { "kind": "requiredTokenSequence", "values": ["nora", "österreich"] },
+      "expectedProperty": "The bounded first listening item preserves Nora and Österreich in order.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u01.feedback.introduction-details",
+      "examples": ["Nora, Österreich"],
+      "counterexamples": ["Nora, Kanada"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "This item-specific detail rule is not a general linguistic error rule." }
+    },
+    {
+      "id": "de.a1.u01.error.spelling-sequence",
+      "targetConceptId": "de.a1.u01.spell-name",
+      "pattern": { "kind": "requiredTokenSequence", "values": ["k", "a", "y", "a"] },
+      "expectedProperty": "The authored spelling of Kaya keeps K, A, Y, A in order.",
+      "severity": "communicationBlocking",
+      "feedbackTemplateId": "de.a1.u01.feedback.spelling-sequence",
+      "examples": ["K, A, Y, A"],
+      "counterexamples": ["K, E, Y, A"],
+      "sourceIds": ["source.de.a1.u01.dib-alphabet"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Tokenization and letter-name equivalence need competent review." }
+    },
+    {
+      "id": "de.a1.u01.error.introduce-other",
+      "targetConceptId": "de.a1.u01.introduce-two-people",
+      "pattern": { "kind": "requiredTokenSequence", "values": ["das", "ist"] },
+      "expectedProperty": "The practiced introduction of another person contains das ist.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u01.feedback.introduce-other",
+      "examples": ["Das ist Omar."],
+      "counterexamples": ["Ich heiße Omar."],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Alternative introduction forms remain outside this narrow trigger." }
+    },
+    {
+      "id": "de.a1.u01.error.first-meeting-sequence",
+      "targetConceptId": "de.a1.u01.first-meeting-mission",
+      "pattern": { "kind": "requiredToken", "values": ["ich"] },
+      "expectedProperty": "The bounded self-introduction includes the first-person marker ich.",
+      "severity": "communicationBlocking",
+      "feedbackTemplateId": "de.a1.u01.feedback.first-meeting-sequence",
+      "examples": ["Guten Tag! Ich heiße Mina."],
+      "counterexamples": ["Guten Tag! Mina."],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "This rule checks one bounded mission property, not overall communicative quality." }
     }
   ],
   "feedbackTemplates": [
@@ -609,9 +1173,61 @@
       "retryPrompt": { "en": "Say your origin once more.", "hi": "अपना मूल स्थान फिर बताएँ।", "hi-latn": "Apna origin phir batayein." },
       "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording needs German, Hindi, and Hinglish review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.language-frame",
+      "language": "de",
+      "message": { "en": "Use Ich spreche before the language name.", "hi": "भाषा के नाम से पहले Ich spreche प्रयोग करें।", "hi-latn": "Language name se pehle Ich spreche use karein." },
+      "retryPrompt": { "en": "Build the language sentence again.", "hi": "भाषा वाला वाक्य फिर बनाएँ।", "hi-latn": "Language wala sentence phir banayein." },
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording needs German, Hindi, and Hinglish review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.introduction-details",
+      "language": "de",
+      "message": { "en": "Listen for the name after heiße and the country after aus.", "hi": "Heiße के बाद नाम और aus के बाद देश सुनें।", "hi-latn": "Heiße ke baad naam aur aus ke baad country sunein." },
+      "retryPrompt": { "en": "Replay or reread the caption, then choose again.", "hi": "कैप्शन फिर चलाएँ या पढ़ें, फिर चुनें।", "hi-latn": "Caption replay ya reread karke phir chunein." },
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording and listening strategy need review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.spelling-sequence",
+      "language": "de",
+      "message": { "en": "Keep the written letter order K, A, Y, A.", "hi": "लिखे अक्षरों का क्रम K, A, Y, A रखें।", "hi-latn": "Likhe letters ka order K, A, Y, A rakhein." },
+      "retryPrompt": { "en": "Move through the name one letter at a time.", "hi": "नाम में एक बार में एक अक्षर आगे बढ़ें।", "hi-latn": "Naam mein ek baar mein ek letter aage badhein." },
+      "sourceIds": ["source.de.a1.u01.dib-alphabet"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Letter-name support needs competent pronunciation review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.introduce-other",
+      "language": "de",
+      "message": { "en": "Use Das ist plus the other person's name.", "hi": "दूसरे व्यक्ति के नाम से पहले Das ist प्रयोग करें।", "hi-latn": "Doosre vyakti ke naam se pehle Das ist use karein." },
+      "retryPrompt": { "en": "Introduce Omar once more.", "hi": "ओमर का परिचय फिर कराएँ।", "hi-latn": "Omar ka introduction phir karayein." },
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording and mediation scope need review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.first-meeting-sequence",
+      "language": "de",
+      "message": { "en": "Include a complete self-introduction with ich.", "hi": "Ich के साथ अपना पूरा परिचय दें।", "hi-latn": "Ich ke saath apna complete introduction dein." },
+      "retryPrompt": { "en": "Begin with a greeting, then give your name.", "hi": "अभिवादन से शुरू करें, फिर अपना नाम बताएँ।", "hi-latn": "Greeting se shuru karein, phir apna naam batayein." },
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording and mission sequence need review." }
     }
   ],
-  "rubrics": [],
+  "rubrics": [
+    {
+      "id": "de.a1.u01.rubric.first-meeting",
+      "taskId": "de.a1.u01.task.first-meeting",
+      "dimensions": [
+        { "dimension": "communicativeSuccess", "evaluatorId": "de.a1.u01.eval.meeting-complete" },
+        { "dimension": "linguisticAccuracy", "evaluatorId": "de.a1.u01.eval.meeting-name" },
+        { "dimension": "targetConceptPerformance", "evaluatorId": "de.a1.u01.eval.meeting-detail" }
+      ],
+      "sourceIds": ["source.de.a1.u01.cefr-2020", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Dimension mapping and threshold interpretation need competent assessment review." }
+    }
+  ],
   "pronunciationUtterances": [
     {
       "id": "de.a1.u01.utterance.guten-morgen",
@@ -667,6 +1283,61 @@
       "conceptIds": ["de.a1.u01.say-origin"],
       "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Speech practice has a typed path and no pronunciation score." }
+    },
+    {
+      "id": "de.a1.u01.utterance.languages",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Ich spreche Hindi und Englisch.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.say-languages"],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Speech practice has a typed path and no pronunciation score." }
+    },
+    {
+      "id": "de.a1.u01.utterance.introduction-details",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Ich heiße Nora. Ich komme aus Österreich.",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.hear-introductions"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Captions provide the complete non-audio path." }
+    },
+    {
+      "id": "de.a1.u01.utterance.spelling-kaya",
+      "language": "de",
+      "locale": "de-de",
+      "text": "K, A, Y, A.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.spell-name"],
+      "sourceIds": ["source.de.a1.u01.dib-alphabet"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored letter script only. Letter-name naturalness needs review; no pronunciation score exists." }
+    },
+    {
+      "id": "de.a1.u01.utterance.introduce-omar",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Lea, das ist Omar.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.introduce-two-people"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Speech practice has a typed path and no pronunciation score." }
+    },
+    {
+      "id": "de.a1.u01.utterance.first-meeting",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Guten Tag! Ich heiße Mina. Ich komme aus Indien. Auf Wiedersehen!",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.first-meeting-mission"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Mission evaluation is lexical and state-based, not pronunciation scoring." }
     }
   ],
   "lessons": [
@@ -1674,6 +2345,1144 @@
               ]
             },
             "closing": { "kind": "text", "value": "Aus verbindet den Herkunftsrahmen mit dem Ort." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.say-languages",
+      "courseOrder": 6,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.say-languages.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Sprachentreffen" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "New people compare which languages they speak.",
+                "hi": "नए लोग बताते हैं कि वे कौन सी भाषाएँ बोलते हैं।",
+                "hi-latn": "Naye log batate hain ki woh kaun si languages bolte hain."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-languages" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "mina", "label": "Mina" },
+                { "id": "omar", "label": "Omar" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-languages.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the language question and answer.",
+                "hi": "भाषा वाला प्रश्न और उत्तर पढ़ें।",
+                "hi-latn": "Language wala sawaal aur jawab padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-languages" },
+            "speaker-one": { "kind": "text", "value": "Mina" },
+            "line-one": { "kind": "text", "value": "Welche Sprachen sprichst du?" },
+            "speaker-two": { "kind": "text", "value": "Omar" },
+            "line-two": { "kind": "text", "value": "Ich spreche Hindi und Englisch." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-languages.template.03",
+          "templateId": "object-spotlight",
+          "templateVersion": 1,
+          "parameters": {
+            "word": { "kind": "text", "value": "sprechen" },
+            "meaning": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "to speak",
+                "hi": "बोलना",
+                "hi-latn": "bolna"
+              }
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Notice spreche in the complete language frame.",
+                "hi": "भाषा के पूरे ढाँचे में spreche देखें।",
+                "hi-latn": "Complete language frame mein spreche dekhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-languages" },
+            "example": { "kind": "exampleReference", "value": "example.de.a1.u01.languages.two" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-languages.template.04",
+          "templateId": "word-order-train",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Build the two-language sentence in order.",
+                "hi": "दो भाषाओं वाला वाक्य सही क्रम में बनाएँ।",
+                "hi-latn": "Do languages wala sentence sahi order mein banayein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-languages" },
+            "example": { "kind": "exampleReference", "value": "example.de.a1.u01.languages.two" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "ich", "label": "Ich" },
+                { "id": "spreche", "label": "spreche" },
+                { "id": "hindi", "label": "Hindi" },
+                { "id": "und", "label": "und" },
+                { "id": "englisch", "label": "Englisch." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-languages.template.05",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the sentence naming Hindi and English.",
+                "hi": "हिंदी और अंग्रेज़ी बताने वाला वाक्य चुनें।",
+                "hi-latn": "Hindi aur English batane wala sentence chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-languages" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "two", "label": "Ich spreche Hindi und Englisch." },
+                { "id": "german", "label": "Ich spreche ein bisschen Deutsch." },
+                { "id": "origin", "label": "Ich komme aus Indien." }
+              ]
+            },
+            "answer": { "kind": "text", "value": "two" },
+            "spoken-text": { "kind": "text", "value": "Ich spreche Hindi und Englisch." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-languages.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the two languages.",
+                "hi": "सुनें या पढ़ें, फिर दोनों भाषाएँ टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir dono languages type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-languages" },
+            "utterance": { "kind": "text", "value": "Ich spreche Hindi und Englisch." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                { "id": "languages", "label": "Hindi und Englisch" },
+                { "id": "sentence", "label": "Ich spreche Hindi und Englisch." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-languages.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type one accepted language sentence.",
+                "hi": "भाषा का एक स्वीकार्य वाक्य बोलें या टाइप करें।",
+                "hi-latn": "Language ka ek accepted sentence bolein ya type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-languages" },
+            "speaker": { "kind": "text", "value": "Mina" },
+            "prompt": { "kind": "text", "value": "Welche Sprachen sprichst du?" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "two", "label": "Ich spreche Hindi und Englisch." },
+                { "id": "german", "label": "Ich spreche ein bisschen Deutsch." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-languages.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the language question and answer frames.",
+                "hi": "भाषा वाले प्रश्न और उत्तर के ढाँचे दोहराएँ।",
+                "hi-latn": "Language wale sawaal aur jawab frames review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-languages" },
+            "title": { "kind": "text", "value": "Meine Sprachen" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "question", "label": "Welche Sprachen sprichst du?" },
+                { "id": "frame", "label": "Ich spreche ..." },
+                { "id": "limit", "label": "ein bisschen Deutsch" }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Und verbindet zwei Sprachennamen." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.hear-introductions",
+      "courseOrder": 7,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.hear-introductions.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Vorstellungsrunde" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen for names and countries. Every line also has text.",
+                "hi": "नाम और देश सुनें। हर पंक्ति का पाठ भी उपलब्ध है।",
+                "hi-latn": "Naam aur countries sunein. Har line ka text bhi available hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.hear-introductions" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "nora", "label": "Nora" },
+                { "id": "sami", "label": "Sami" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.hear-introductions.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read both compact introductions.",
+                "hi": "दोनों छोटे परिचय पढ़ें।",
+                "hi-latn": "Dono chhote introductions padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.hear-introductions" },
+            "speaker-one": { "kind": "text", "value": "Nora" },
+            "line-one": { "kind": "text", "value": "Ich heiße Nora. Ich komme aus Österreich." },
+            "speaker-two": { "kind": "text", "value": "Sami" },
+            "line-two": { "kind": "text", "value": "Ich bin Sami. Ich komme aus Kanada." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.hear-introductions.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Name und Land" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Pair each authored name with its country.",
+                "hi": "हर लिखे नाम को उसके देश से जोड़ें।",
+                "hi-latn": "Har authored naam ko uski country se jodein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.hear-introductions" },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                { "id": "nora", "label": "Nora: Österreich" },
+                { "id": "sami", "label": "Sami: Kanada" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.hear-introductions.template.04",
+          "templateId": "listen-pick-image",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then choose the matching identity card.",
+                "hi": "सुनें या पढ़ें, फिर सही पहचान कार्ड चुनें।",
+                "hi-latn": "Sunein ya padhein, phir sahi identity card chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.hear-introductions" },
+            "utterance": { "kind": "text", "value": "Ich heiße Nora. Ich komme aus Österreich." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "nora-austria", "label": "Nora, Österreich" },
+                { "id": "nora-canada", "label": "Nora, Kanada" },
+                { "id": "sami-austria", "label": "Sami, Österreich" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "nora-austria" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.hear-introductions.template.05",
+          "templateId": "dialogue-eavesdrop",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then recover Nora's country.",
+                "hi": "सुनें या पढ़ें, फिर नोरा का देश पहचानें।",
+                "hi-latn": "Sunein ya padhein, phir Nora ki country pehchanein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.hear-introductions" },
+            "speaker-one": { "kind": "text", "value": "Lea" },
+            "line-one": { "kind": "text", "value": "Woher kommst du, Nora?" },
+            "speaker-two": { "kind": "text", "value": "Nora" },
+            "line-two": { "kind": "text", "value": "Ich komme aus Österreich." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "question": { "kind": "text", "value": "Woher kommt Nora?" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "austria", "label": "aus Österreich" },
+                { "id": "canada", "label": "aus Kanada" },
+                { "id": "india", "label": "aus Indien" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "austria" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.hear-introductions.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type Nora's country.",
+                "hi": "सुनें या पढ़ें, फिर नोरा का देश टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir Nora ki country type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.hear-introductions" },
+            "utterance": { "kind": "text", "value": "Ich komme aus Österreich." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                { "id": "country", "label": "Österreich" },
+                { "id": "sentence", "label": "Ich komme aus Österreich." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.hear-introductions.template.07",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose Sami's authored identity card.",
+                "hi": "सामी का लिखा हुआ पहचान कार्ड चुनें।",
+                "hi-latn": "Sami ka authored identity card chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.hear-introductions" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "sami-canada", "label": "Sami, Kanada" },
+                { "id": "sami-india", "label": "Sami, Indien" },
+                { "id": "nora-canada", "label": "Nora, Kanada" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "sami-canada" },
+            "spoken-text": { "kind": "text", "value": "Ich bin Sami. Ich komme aus Kanada." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.hear-introductions.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the two detail cues.",
+                "hi": "दोनों विवरण संकेत दोहराएँ।",
+                "hi-latn": "Dono detail cues review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.hear-introductions" },
+            "title": { "kind": "text", "value": "Hörspuren" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "name", "label": "heiße oder bin: Name" },
+                { "id": "country", "label": "aus: Land" },
+                { "id": "caption", "label": "Text bleibt sichtbar" }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Name und Land bleiben getrennte Details." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.spell-name",
+      "courseOrder": 8,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.spell-name.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Anmeldung" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "A name was unclear. Ask for it once more.",
+                "hi": "नाम साफ़ नहीं था। उसे एक बार फिर पूछें।",
+                "hi-latn": "Naam clear nahin tha. Use ek baar phir poochhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.spell-name" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "kaya", "label": "Kaya" },
+                { "id": "reception", "label": "Empfang" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.spell-name.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the spelling repair exchange.",
+                "hi": "अक्षर दोहराने वाली बातचीत पढ़ें।",
+                "hi-latn": "Letters repeat karne wali baatcheet padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.spell-name" },
+            "speaker-one": { "kind": "text", "value": "Empfang" },
+            "line-one": { "kind": "text", "value": "Noch einmal, bitte. Wie schreibt man Kaya?" },
+            "speaker-two": { "kind": "text", "value": "Kaya" },
+            "line-two": { "kind": "text", "value": "K, A, Y, A." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.spell-name.template.03",
+          "templateId": "object-anatomy",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Kaya" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Keep every letter in its written position.",
+                "hi": "हर अक्षर को उसकी लिखी जगह पर रखें।",
+                "hi-latn": "Har letter ko uski written position par rakhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.spell-name" },
+            "parts": {
+              "kind": "optionList",
+              "options": [
+                { "id": "letter-k", "label": "1: K" },
+                { "id": "a-one", "label": "2: A" },
+                { "id": "letter-y", "label": "3: Y" },
+                { "id": "a-two", "label": "4: A" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.spell-name.template.04",
+          "templateId": "spelling-tiles",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Arrange the written letters for Kaya.",
+                "hi": "Kaya के लिखे अक्षर सही क्रम में लगाएँ।",
+                "hi-latn": "Kaya ke written letters sahi order mein lagayein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.spell-name" },
+            "word": { "kind": "text", "value": "Kaya" },
+            "meaning": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "practice name",
+                "hi": "अभ्यास का नाम",
+                "hi-latn": "practice name"
+              }
+            },
+            "letters": {
+              "kind": "optionList",
+              "options": [
+                { "id": "letter-k", "label": "K" },
+                { "id": "a-one", "label": "A" },
+                { "id": "letter-y", "label": "Y" },
+                { "id": "a-two", "label": "A" }
+              ]
+            },
+            "letter-names": {
+              "kind": "optionList",
+              "options": [
+                { "id": "k-name", "label": "K: ka" },
+                { "id": "a-one-name", "label": "A: a" },
+                { "id": "y-name", "label": "Y: Ypsilon" },
+                { "id": "a-two-name", "label": "A: a" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.spell-name.template.05",
+          "templateId": "listen-order",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then place the letters in order.",
+                "hi": "सुनें या पढ़ें, फिर अक्षर सही क्रम में रखें।",
+                "hi-latn": "Sunein ya padhein, phir letters sahi order mein rakhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.spell-name" },
+            "utterance": { "kind": "text", "value": "K, A, Y, A." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "events": {
+              "kind": "optionList",
+              "options": [
+                { "id": "letter-k", "label": "K" },
+                { "id": "a-one", "label": "A" },
+                { "id": "letter-y", "label": "Y" },
+                { "id": "a-two", "label": "A" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.spell-name.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the letter sequence.",
+                "hi": "सुनें या पढ़ें, फिर अक्षरों का क्रम टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir letter sequence type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.spell-name" },
+            "utterance": { "kind": "text", "value": "K, A, Y, A." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                { "id": "letters", "label": "K A Y A" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.spell-name.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Reply aloud or type the complete spelling.",
+                "hi": "पूरा अक्षर क्रम बोलें या टाइप करें।",
+                "hi-latn": "Complete letter order bolein ya type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.spell-name" },
+            "speaker": { "kind": "text", "value": "Empfang" },
+            "prompt": { "kind": "text", "value": "Wie schreibt man Kaya?" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "letters", "label": "K, A, Y, A." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.spell-name.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the spelling and repair phrases.",
+                "hi": "अक्षर और दोहराने वाले वाक्यांश दोहराएँ।",
+                "hi-latn": "Spelling aur repair phrases review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.spell-name" },
+            "title": { "kind": "text", "value": "Name buchstabieren" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "request", "label": "Noch einmal, bitte." },
+                { "id": "question", "label": "Wie schreibt man Kaya?" },
+                { "id": "letters", "label": "K, A, Y, A." }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Die Buchstaben bleiben in fester Reihenfolge." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.introduce-two-people",
+      "courseOrder": 9,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Kennenlernen" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Mina introduces Lea and Omar at a first meeting.",
+                "hi": "मीना पहली मुलाकात में लेआ और ओमर का परिचय कराती है।",
+                "hi-latn": "Mina pehli mulaqat mein Lea aur Omar ka introduction karati hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "mina", "label": "Mina" },
+                { "id": "lea", "label": "Lea" },
+                { "id": "omar", "label": "Omar" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a short introduction between two people.",
+                "hi": "दो लोगों के बीच छोटा परिचय पढ़ें।",
+                "hi-latn": "Do logon ke beech chhota introduction padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "speaker-one": { "kind": "text", "value": "Mina" },
+            "line-one": { "kind": "text", "value": "Lea, das ist Omar." },
+            "speaker-two": { "kind": "text", "value": "Lea" },
+            "line-two": { "kind": "text", "value": "Hallo, Omar!" },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Zwei Personen" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read one authored identity detail for each person.",
+                "hi": "हर व्यक्ति की एक लिखी हुई पहचान जानकारी पढ़ें।",
+                "hi-latn": "Har person ki ek authored identity detail padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                { "id": "lea", "label": "Lea: Deutschland, Deutsch" },
+                { "id": "omar", "label": "Omar: Kanada, Englisch" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.04",
+          "templateId": "object-anatomy",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Lea, das ist Omar." },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Notice who is addressed and who is introduced.",
+                "hi": "ध्यान दें कि किससे बात होती है और किसका परिचय होता है।",
+                "hi-latn": "Dekhein kis se baat hoti hai aur kiska introduction hota hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "parts": {
+              "kind": "optionList",
+              "options": [
+                { "id": "addressee", "label": "Lea: angesprochene Person" },
+                { "id": "frame", "label": "das ist: Vorstellungsrahmen" },
+                { "id": "person", "label": "Omar: vorgestellte Person" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.05",
+          "templateId": "word-order-train",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Build the sentence that introduces Omar to Lea.",
+                "hi": "वह वाक्य बनाएँ जो लेआ से ओमर का परिचय कराता है।",
+                "hi-latn": "Woh sentence banayein jo Lea se Omar ka introduction karata hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "example": { "kind": "exampleReference", "value": "example.de.a1.u01.introduce.omar" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "lea", "label": "Lea," },
+                { "id": "das", "label": "das" },
+                { "id": "ist", "label": "ist" },
+                { "id": "omar", "label": "Omar." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.06",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the sentence that introduces Omar.",
+                "hi": "वह वाक्य चुनें जो ओमर का परिचय कराता है।",
+                "hi-latn": "Woh sentence chunein jo Omar ka introduction karata hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "introduce-omar", "label": "Lea, das ist Omar." },
+                { "id": "self-introduction", "label": "Ich heiße Omar." },
+                { "id": "ask-name", "label": "Wie heißt du?" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "introduce-omar" },
+            "spoken-text": { "kind": "text", "value": "Lea, das ist Omar." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.07",
+          "templateId": "dialogue-eavesdrop",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then identify both details about Omar.",
+                "hi": "सुनें या पढ़ें, फिर ओमर की दोनों जानकारियाँ पहचानें।",
+                "hi-latn": "Sunein ya padhein, phir Omar ki dono details pehchanein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "speaker-one": { "kind": "text", "value": "Mina" },
+            "line-one": { "kind": "text", "value": "Das ist Omar." },
+            "speaker-two": { "kind": "text", "value": "Mina" },
+            "line-two": { "kind": "text", "value": "Omar kommt aus Kanada und spricht Englisch." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "question": { "kind": "text", "value": "Welche zwei Angaben hören oder lesen Sie?" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "country-language", "label": "Kanada und Englisch" },
+                { "id": "country-german", "label": "Kanada und Deutsch" },
+                { "id": "india-language", "label": "Indien und Englisch" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "country-language" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.08",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Reply aloud or type an introduction for Omar.",
+                "hi": "ओमर का परिचय बोलकर या टाइप करके दें।",
+                "hi-latn": "Omar ka introduction bolkar ya type karke dein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "speaker": { "kind": "text", "value": "Mina" },
+            "prompt": { "kind": "text", "value": "Wer ist das?" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "introduce-omar", "label": "Das ist Omar." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.introduce-two-people.template.09",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the introduction frame and identity details.",
+                "hi": "परिचय का ढाँचा और पहचान की जानकारियाँ दोहराएँ।",
+                "hi-latn": "Introduction frame aur identity details review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.introduce-two-people" },
+            "title": { "kind": "text", "value": "Das ist Omar" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "frame", "label": "Lea, das ist Omar." },
+                { "id": "origin", "label": "Omar kommt aus Kanada." },
+                { "id": "language", "label": "Omar spricht Englisch." }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Name und Detail bilden eine kurze Vorstellung." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.first-meeting-mission",
+      "courseOrder": 10,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.first-meeting-mission.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Erstes Treffen" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Complete one bounded first meeting with Herr Weber.",
+                "hi": "हेर वेबर के साथ एक सीमित पहली मुलाकात पूरी करें।",
+                "hi-latn": "Herr Weber ke saath ek bounded pehli mulaqat complete karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.first-meeting-mission" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "mina", "label": "Mina" },
+                { "id": "herr-weber", "label": "Herr Weber" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.first-meeting-mission.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the opening and one complete identity reply.",
+                "hi": "शुरुआत और पहचान का एक पूरा उत्तर पढ़ें।",
+                "hi-latn": "Opening aur identity ka ek complete jawab padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.first-meeting-mission" },
+            "speaker-one": { "kind": "text", "value": "Herr Weber" },
+            "line-one": { "kind": "text", "value": "Guten Tag! Wie heißen Sie?" },
+            "speaker-two": { "kind": "text", "value": "Mina" },
+            "line-two": { "kind": "text", "value": "Guten Tag! Ich heiße Mina. Ich komme aus Indien." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.first-meeting-mission.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Vier Schritte" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Preview the four authored steps in the meeting.",
+                "hi": "मुलाकात के चार लिखे हुए चरण पहले देखें।",
+                "hi-latn": "Mulaqat ke chaar authored steps pehle dekhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.first-meeting-mission" },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                { "id": "greeting", "label": "1. Guten Tag!" },
+                { "id": "name", "label": "2. Ich heiße Mina." },
+                { "id": "detail", "label": "3. Ich komme aus Indien." },
+                { "id": "farewell", "label": "4. Auf Wiedersehen!" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.first-meeting-mission.template.04",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the complete response to the formal name question.",
+                "hi": "औपचारिक नाम के प्रश्न का पूरा उत्तर चुनें।",
+                "hi-latn": "Formal name question ka complete jawab chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.first-meeting-mission" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "greeting-name", "label": "Guten Tag! Ich heiße Mina." },
+                { "id": "farewell", "label": "Auf Wiedersehen!" },
+                { "id": "question", "label": "Wie heißen Sie?" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "greeting-name" },
+            "spoken-text": { "kind": "text", "value": "Guten Tag! Wie heißen Sie?" },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.first-meeting-mission.template.05",
+          "templateId": "scenario-theatre",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the response that greets and gives your name.",
+                "hi": "वह उत्तर चुनें जो अभिवादन और आपका नाम दोनों देता है।",
+                "hi-latn": "Woh jawab chunein jo greeting aur aapka naam dono deta hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.first-meeting-mission" },
+            "task": { "kind": "taskReference", "value": "de.a1.u01.task.first-meeting" },
+            "state-label": { "kind": "text", "value": "1 von 4: Begrüßen" },
+            "npc-line": { "kind": "text", "value": "Guten Tag! Wie heißen Sie?" },
+            "responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "greeting-name", "label": "Guten Tag! Ich heiße Mina." },
+                { "id": "name-only", "label": "Ich heiße Mina." },
+                { "id": "farewell", "label": "Auf Wiedersehen!" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "greeting-name" },
+            "retry-hint": { "kind": "text", "value": "Beginnen Sie mit einem Gruß und nennen Sie Ihren Namen." }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.first-meeting-mission.template.06",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Reply aloud or type one complete origin detail.",
+                "hi": "मूल स्थान की एक पूरी जानकारी बोलकर या टाइप करके दें।",
+                "hi-latn": "Origin ki ek complete detail bolkar ya type karke dein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.first-meeting-mission" },
+            "speaker": { "kind": "text", "value": "Herr Weber" },
+            "prompt": { "kind": "text", "value": "Woher kommen Sie?" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "origin-india", "label": "Ich komme aus Indien." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.first-meeting-mission.template.07",
+          "templateId": "unit-capstone",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Complete each authored meeting step in order.",
+                "hi": "मुलाकात का हर लिखा हुआ चरण सही क्रम में पूरा करें।",
+                "hi-latn": "Mulaqat ka har authored step sahi order mein complete karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.first-meeting-mission" },
+            "unit-label": { "kind": "text", "value": "Einheit 1" },
+            "goal": { "kind": "text", "value": "Ein erstes Treffen vollständig abschließen." },
+            "steps": {
+              "kind": "optionList",
+              "options": [
+                { "id": "greeting", "label": "Begrüßen" },
+                { "id": "name", "label": "Namen nennen" },
+                { "id": "detail", "label": "Ein Detail nennen" },
+                { "id": "farewell", "label": "Verabschieden" }
+              ]
+            },
+            "template-chain": {
+              "kind": "optionList",
+              "options": [
+                { "id": "greeting", "label": "scene-establish" },
+                { "id": "name", "label": "paper-dialogue" },
+                { "id": "detail", "label": "prompt-respond" },
+                { "id": "farewell", "label": "scenario-theatre" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.first-meeting-mission.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the complete first-meeting sequence.",
+                "hi": "पहली मुलाकात का पूरा क्रम दोहराएँ।",
+                "hi-latn": "Pehli mulaqat ka complete sequence review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.first-meeting-mission" },
+            "title": { "kind": "text", "value": "Erstes Treffen" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "greeting", "label": "Guten Tag!" },
+                { "id": "name", "label": "Ich heiße Mina." },
+                { "id": "detail", "label": "Ich komme aus Indien." },
+                { "id": "farewell", "label": "Auf Wiedersehen!" }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Gruß, Name, Detail und Abschied bilden die Mission." },
             "actions": {
               "kind": "optionList",
               "options": [
