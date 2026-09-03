@@ -13,7 +13,20 @@
 
 ## Responsibility
 
-Application assembly creates the concrete local repository, profile owner, providers, recording store, and fixed-field diagnostic log. The main window restores local learner data, offers byte-preserving recovery for corrupt or unfinished stores, and routes either to onboarding or the desktop shell. Onboarding saves only at explicit completion. Languages and Settings submit edited profile candidates through the same owner. The shell owns navigation across Today, Learn, Practice, Scenario, Review, Progress, Languages, and Settings, and returns to onboarding after confirmed all-data deletion. Shell, onboarding, Today, Progress, and Settings share the Paper design-system controls. Learn presents the validated course as a map and a focused card/template player. In explicit developer mode, the shell can reveal deterministic diagnostics, a PaperStage sandbox, and a synthetic template gallery that reads no learner data and saves nothing.
+Application assembly creates the concrete local repository, profile owner, providers,
+recording store, and fixed-field diagnostic log. The main window restores local learner
+data, offers byte-preserving recovery for corrupt or unfinished stores, and routes either
+to onboarding or the desktop shell. Onboarding saves only at explicit completion.
+Languages and Settings submit edited profile candidates through the same owner. The
+shell owns navigation across Today, Learn, Practice, Scenario, Review, Progress,
+Languages, and Settings, and returns to onboarding after confirmed all-data deletion.
+Shell and learner destinations share the Paper design-system controls. Learn presents
+the validated course as a paper journey and focused card/template player. Scenario,
+Review, and Progress compose the catalog's Scenario Theatre, Consequence Verdict, Review
+Flash, and Progress Shelf renderers around their existing deterministic controllers and
+projected state. In explicit developer mode, the shell can reveal deterministic
+diagnostics, a PaperStage sandbox, and a synthetic template gallery that reads no learner
+data and saves nothing.
 
 ## Important entry points
 
@@ -21,7 +34,9 @@ Application assembly creates the concrete local repository, profile owner, provi
 - `MainWindow.LoadProfileAsync`: startup restore and onboarding/shell routing.
 - `OnboardingView.CompleteAsync`: converts reviewed UI choices into a new-profile input and delegates completion to `LearnerProfileOwner`.
 - `MainWindow.OnRecoveryClicked`: requires a second confirmation, moves unreadable bytes to the app-owned Recovery folder, and continues to setup without reinterpreting them.
-- `ShellView.ShowSelectedPage`: assembles and presents each implemented learner destination.
+- `ShellView.ShowSelectedPage`: assembles and presents each implemented learner
+  destination, passing the read-only image cache and selected instruction language to
+  Phase 6 renderer hosts.
 - `LearnView`: renders course capacity honestly, opens authored lessons, delegates template slides through the app registry, reports deterministic practice outcomes locally, and returns to the course map without writing preview mastery.
 - `TemplateGalleryView`: renders every registered template from fixed synthetic fixtures, cycles preview outcomes, and exercises text-only and effective motion settings without learner state.
 - `CurriculumDiagnosticsView`: renders deterministic configuration and bounded persisted aggregates without learner utterances, transcripts, audio, prompt bodies, or paths.
@@ -66,12 +81,14 @@ Changes can affect application startup, relaunch routing, onboarding accessibili
 
 ## Last reconciled
 
-Phase 4 Wave H on 2026-09-02. The developer gallery now renders the exact 58-template
-registry without learner persistence. Fresh macOS evidence covers all six Wave H
-templates, mouse failure/retry/success on Scenario Theatre, keyboard reveal/rating on
-Review Flash, replay, skip, all four gallery outcomes, image-free text-only presentation,
-reduced-motion and motion-enabled final states, and light and dark themes. The native
-accessibility tree exposes named goals, NPC dialogue, verdict reports, review ratings,
-recap pieces, capstone steps, capability situations, controls, and live result text.
-Direct VoiceOver, Windows native interaction, real microphone capture, configured local
-recognition, and a completed synthesized native drag gesture remain unverified.
+Phase 6 on 2026-09-03. The shell routes the production paper journey, template player,
+café theatre, review flash, Today paper surface, and capability shelf without moving
+evaluation or persistence authority into a view or renderer. Locked restore, a
+zero-warning Release build, all 378 tests, formatter verification, publish, and publish
+inspection pass. Fresh macOS evidence covers onboarding with microphone set to Never,
+reduced motion, keyboard and mouse navigation, both themes, two window sizes, lesson and
+template outcomes, scenario retry/success, review reveal/rating, and progress selection.
+The accessibility tree exposes named goals, controls, text alternatives, live outcomes,
+ratings, and capability status. Production Scenario and Review correctly remain behind
+the machine-validated Preview gate. Direct VoiceOver is unverified, and Windows native
+work is intentionally deferred under the current macOS-only scope.

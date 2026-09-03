@@ -717,6 +717,48 @@ Gate: complete learner journey (onboard → course map → scenic lesson → sce
 review → progress) plays through the new experience with reduced-motion, keyboard, and
 screen-reader verification and no regression in the persistence and evaluation suites.
 
+**Status (2026-09-03): complete with named unverified evidence.** P6.1–P6.5 are
+implemented. Learn now presents the 13 available Preview lessons as a paper journey with
+a deterministic next marker, scrapbook unit spreads, a visible authored-template label,
+and an honest 437-lesson planned path. The focused lesson player has one progress strip,
+centralized replay and skip controls, shared-stage scenic transitions, and AXAML-backed
+guided cards. Preview visits still write no mastery, and existing resume and persistence
+boundaries are unchanged.
+
+The production café view composes Scenario Theatre for the live authored exchange and
+Consequence Verdict for its deterministic result. Missing café-worker and interior art
+uses the complete authored text-only paper set and character card. Retry, fallback,
+speech, transfer, evaluation, and atomic-save authority remain in the existing controller
+and core. Review composes Review Flash, maps only its stable rating IDs to the existing
+`ReviewRating` contract, and leaves scheduling to `ReviewController`. Progress projects
+the existing `LearningProgressOverview` into Progress Shelf status groups; the renderer
+does not read or infer mastery. Today keeps capability-first paper materials and wraps its
+evidence row at narrower widths.
+
+Locked restore, a zero-warning Release build, all 378 tests (140 app and 238 core),
+formatter verification, publish, and publish inspection pass. The publish contains the
+12 validated local Preview images and no AssetPipeline binary. Fresh native macOS
+interaction used an isolated profile and covered mouse and keyboard onboarding, a
+microphone setting of Never, reduced motion, the course map at two window sizes, guided
+and authored lesson cards, centralized replay and keyboard skip, deterministic failure
+and success outcomes, the Today route, and Progress Shelf selection. Developer gallery
+interaction covered Scenario Theatre failure, retry, and success plus Review Flash
+replay, keyboard skip, reveal, and Good rating. Learn and Progress were inspected in both
+light and dark themes. The macOS accessibility tree exposed named navigation, lesson
+progress, goals, controls, text alternatives, live outcome text, review choices, and
+capability status.
+
+Named evidence gaps: the installed German content and assets remain machine-validated
+Preview material, so the production Scenario and Review routes correctly fail closed.
+The complete production onboarding-to-scenario-to-review journey cannot be exercised
+until competent linguistic and license approval exists; the developer fixtures verify
+the composed renderer interactions without claiming persistence. Direct VoiceOver is
+unverified. Windows native work is intentionally deferred under the current macOS-only
+scope. A validated café-worker puppet and café-interior backdrop remain named asset
+follow-ups. Competent German, Hindi, bilingual-transfer, pedagogical, cultural, content,
+license, modification, and redistribution review remains pending. With these named
+evidence gaps, Phase 6 is complete but not fully verified.
+
 ### Phase 7 — Content production at scale
 
 Turn `content/plans/german-course-plan.md` (450 lessons) into authored template
