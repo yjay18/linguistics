@@ -15,7 +15,7 @@ public sealed class ContentImageCacheTests
 
         Assert.HasCount(12, cache.Assets);
         Assert.IsTrue(cache.TryGetAsset("asset.de.cafe.coffee", out var asset));
-        Assert.AreEqual("language.de.core.v1:asset.de.cafe.coffee", asset!.CacheKey);
+        Assert.AreEqual("language.de.core.v2:asset.de.cafe.coffee", asset!.CacheKey);
         Assert.IsTrue(cache.TryGetAsset("asset.de.cafe.coffee", out var repeated));
         Assert.AreSame(asset, repeated);
         Assert.IsFalse(cache.TryGetAsset("asset.de.missing", out var missing));

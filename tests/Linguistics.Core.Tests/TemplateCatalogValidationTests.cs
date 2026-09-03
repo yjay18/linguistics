@@ -88,6 +88,7 @@ public sealed class TemplateCatalogValidationTests
                 Path.Combine(AppContext.BaseDirectory, "Content"),
                 ContentLoadPolicy.AuthoringPreview)
             .Packs
+            .Where(pack => pack.Manifest.Id != "language.de.a1.unit01")
             .ToArray();
         var targetIndex = Array.FindIndex(
             packs,
@@ -102,7 +103,9 @@ public sealed class TemplateCatalogValidationTests
         };
         target = target with
         {
+            Manifest = target.Manifest with { SchemaVersion = 3 },
             Concepts = Replace(target.Concepts, 0, concept),
+            CourseUnits = null,
         };
         var parameters = schema.Parameters.ToDictionary(
             definition => definition.Name,

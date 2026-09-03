@@ -6,7 +6,7 @@
     "kind": "transfer",
     "languages": ["en", "de"],
     "instructionLanguages": ["en"],
-    "dependencies": [{ "packId": "language.de.core", "minimumVersion": 1, "maximumVersion": 1 }],
+    "dependencies": [{ "packId": "language.de.core", "minimumVersion": 2, "maximumVersion": 2 }],
     "license": {
       "identifier": "LicenseRef-Linguistics-Internal-Draft",
       "copyrightHolder": "Linguistics project contributors",

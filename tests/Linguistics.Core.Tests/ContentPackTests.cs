@@ -24,16 +24,24 @@ public sealed class ContentPackTests
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
 
         Assert.AreEqual(ContentLoadPolicy.AuthoringPreview, catalog.Policy);
-        Assert.HasCount(3, catalog.Packs);
+        Assert.HasCount(4, catalog.Packs);
         var german = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        var unitOne = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit01");
         Assert.HasCount(13, german.Concepts);
+        Assert.HasCount(5, unitOne.Concepts);
         Assert.HasCount(4, german.Tasks);
         Assert.HasCount(5, german.ErrorRules);
         Assert.HasCount(4, german.Rubrics);
         Assert.HasCount(4, german.PronunciationUtterances);
-        Assert.IsTrue(catalog.Packs.All(pack => pack.Manifest.SchemaVersion == 3));
-        Assert.HasCount(1, german.Lessons);
-        Assert.HasCount(3, german.Lessons[0].TemplateInstances);
+        Assert.AreEqual(4, german.Manifest.SchemaVersion);
+        Assert.AreEqual(4, unitOne.Manifest.SchemaVersion);
+        Assert.IsTrue(catalog.Packs
+            .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
+            .All(pack => pack.Manifest.SchemaVersion == 3));
+        Assert.IsEmpty(german.Lessons);
+        Assert.HasCount(5, unitOne.Lessons);
+        Assert.AreEqual(38, unitOne.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
+        Assert.HasCount(1, unitOne.CourseUnits!);
         Assert.IsTrue(catalog.Packs
             .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
             .All(pack => pack.Lessons.Count == 0));
@@ -105,9 +113,11 @@ public sealed class ContentPackTests
     public void TargetAndTransferOwnershipRemainIndependent()
     {
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
-        var german = catalog.Packs.Single(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage);
+        var targets = catalog.Packs.Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage).ToArray();
+        var german = targets.Single(pack => pack.Manifest.Id == "language.de.core");
         var transfers = catalog.Packs.Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer).ToArray();
 
+        Assert.HasCount(2, targets);
         Assert.HasCount(13, german.Concepts);
         Assert.HasCount(2, transfers);
         Assert.IsTrue(transfers.All(pack => pack.Concepts.Count == 0));
@@ -193,7 +203,7 @@ public sealed class ContentPackTests
             var pronunciation = runtime.CreateRuntimePronunciationUtterances(
                 new LanguageCode("de"));
 
-            Assert.HasCount(13, graph.Nodes);
+            Assert.HasCount(18, graph.Nodes);
             Assert.HasCount(3, english);
             Assert.IsTrue(english.All(mapping => mapping.ReviewStatus == TransferReviewStatus.Approved));
             Assert.IsTrue(hindiNotes.Any(note =>
@@ -211,9 +221,11 @@ public sealed class ContentPackTests
             Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
             Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
             Assert.AreEqual("Ich möchte einen Kaffee, bitte.", cafe.PronunciationTargetText);
-            Assert.HasCount(4, pronunciation);
-            Assert.IsTrue(pronunciation.All(utterance =>
-                utterance.ContentVersion == new VersionId("language.de.core.v1")));
+            Assert.HasCount(9, pronunciation);
+            Assert.HasCount(4, pronunciation.Where(utterance =>
+                utterance.ContentVersion == new VersionId("language.de.core.v2")));
+            Assert.HasCount(5, pronunciation.Where(utterance =>
+                utterance.ContentVersion == new VersionId("language.de.a1.unit01.v1")));
         }
         finally
         {
@@ -258,21 +270,24 @@ public sealed class ContentPackTests
 
         Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
         Assert.AreEqual(450, catalog.TargetLessonCount);
-        Assert.AreEqual(13, catalog.AuthoredLessonCount);
-        Assert.AreEqual(437, catalog.RemainingLessonCount);
-        Assert.AreEqual("Greet someone", catalog.Units[0].Lessons[0].Title);
+        Assert.AreEqual(5, catalog.AuthoredLessonCount);
+        Assert.AreEqual(445, catalog.RemainingLessonCount);
+        Assert.AreEqual("Meet and greet", catalog.Units[0].Title);
+        Assert.AreEqual("Greet for the time of day", catalog.Units[0].Lessons[0].Title);
         var lessons = catalog.Units.SelectMany(unit => unit.Lessons).ToArray();
-        var provingLesson = lessons.Single(lesson => lesson.Id == "lesson.de.lexicon.cafe-items");
-        Assert.HasCount(3, provingLesson.Slides);
-        Assert.IsTrue(provingLesson.Slides.All(slide => slide.Kind == CourseSlideKind.Template));
         CollectionAssert.AreEqual(
-            new[] { "object-spotlight", "picture-match", "word-order-train" },
-            provingLesson.Slides
-                .Select(slide => slide.TemplateInstance!.TemplateId.Value)
-                .ToArray());
-        Assert.IsTrue(lessons
-            .Where(lesson => lesson != provingLesson)
-            .All(lesson => lesson.Slides.Count >= 5));
+            new[]
+            {
+                "lesson.de.a1.u01.greetings-by-time",
+                "lesson.de.a1.u01.say-name",
+                "lesson.de.a1.u01.ask-name-informal",
+                "lesson.de.a1.u01.ask-name-formal",
+                "lesson.de.a1.u01.say-origin",
+            },
+            lessons.Select(lesson => lesson.Id).ToArray());
+        Assert.IsTrue(lessons.All(lesson => lesson.Slides.Count >= 7));
+        Assert.IsTrue(lessons.SelectMany(lesson => lesson.Slides).All(slide =>
+            slide.Kind == CourseSlideKind.Template));
         CollectionAssert.AreEqual(
             catalog.Units.SelectMany(unit => unit.Lessons).Select(lesson => lesson.Id).ToArray(),
             repeated.Units.SelectMany(unit => unit.Lessons).Select(lesson => lesson.Id).ToArray());
@@ -282,6 +297,58 @@ public sealed class ContentPackTests
         CollectionAssert.AreEqual(
             PresentationIds(catalog),
             PresentationIds(repeated));
+    }
+
+    [TestMethod]
+    public void UnitOneActivityAnswersMapDeterministically()
+    {
+        var unit = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit01");
+        var greeting = unit.Lessons[0].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("picture-match"));
+        var name = unit.Lessons[1].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("listen-type"));
+        var origin = unit.Lessons[4].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("note-write"));
+
+        var greetingOptions = greeting.Parameters["options"].Options!;
+        var greetingAnswer = greeting.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator
+                .EvaluatePictureMatch(greetingOptions, greetingAnswer, "evening")
+                .State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator
+                .EvaluatePictureMatch(greetingOptions, greetingAnswer, "morning")
+                .State);
+
+        var acceptedNames = name.Parameters["accepted-answers"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateDictation(
+                acceptedNames,
+                "Ich heiße Mina.")
+                .State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluateDictation(acceptedNames, " ")
+                .State);
+
+        var requiredOrigin = origin.Parameters["required-content"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateRequiredContent(
+                requiredOrigin,
+                "Ich komme aus Indien.")
+                .State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateRequiredContent(
+                requiredOrigin,
+                "Indien")
+                .State);
     }
 
     [TestMethod]
@@ -441,58 +508,34 @@ public sealed class ContentPackTests
     [TestMethod]
     public void SchemaFourRejectsMissingAndDuplicateCourseOrder()
     {
-        var target = LoadBundled(ContentLoadPolicy.AuthoringPreview)
-            .Packs.Single(pack => pack.Manifest.Id == "language.de.core");
-        var second = target.Lessons[0] with
-        {
-            Id = "lesson.de.function.greeting-basic",
-            TemplateInstances = target.Lessons[0].TemplateInstances
-                .Select(instance => instance with
-                {
-                    Id = instance.Id.Replace(
-                        "lesson.de.lexicon.cafe-items",
-                        "lesson.de.function.greeting-basic",
-                        StringComparison.Ordinal),
-                })
-                .ToArray(),
-            CourseOrder = 1,
-        };
+        var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
+        var core = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        var target = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit01");
         target = target with
         {
-            Manifest = target.Manifest with { SchemaVersion = 4 },
-            CourseUnits = [CourseUnitFixture(target)],
             Lessons =
             [
                 target.Lessons[0] with { CourseOrder = 1 },
-                second,
+                target.Lessons[1] with { CourseOrder = 1 },
             ],
         };
+        var assetIds = catalog.Assets.Select(asset => asset.Record.Id).ToArray();
 
         var duplicate = ContentPackValidator.Validate(
-            [target],
+            [core, target],
             ContentLoadPolicy.AuthoringPreview,
             LessonTemplateSchemas.All,
-            [
-                "asset.de.cafe.coffee",
-                "asset.de.cafe.tea",
-                "asset.de.cafe.water",
-                "asset.de.stage.market-backdrop",
-            ]);
+            assetIds);
         var missing = ContentPackValidator.Validate(
-            [target with
+            [core, target with
             {
                 Lessons = [target.Lessons[0] with { CourseOrder = null }],
             }],
             ContentLoadPolicy.AuthoringPreview,
             LessonTemplateSchemas.All,
-            [
-                "asset.de.cafe.coffee",
-                "asset.de.cafe.tea",
-                "asset.de.cafe.water",
-                "asset.de.stage.market-backdrop",
-            ]);
+            assetIds);
         var empty = ContentPackValidator.Validate(
-            [target with { Lessons = [] }],
+            [core, target with { Lessons = [] }],
             ContentLoadPolicy.AuthoringPreview);
 
         Assert.HasCount(2, duplicate.Where(error => error.Code == "course.order.duplicate"));
@@ -522,12 +565,12 @@ public sealed class ContentPackTests
         Assert.AreEqual(CoursePublicationState.Preview, hinglish.PublicationState);
         CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hindi));
         CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hinglish));
-        Assert.AreEqual("Greet someone", english.Units[0].Lessons[0].Title);
-        Assert.AreEqual("किसी का अभिवादन करें", hindi.Units[0].Lessons[0].Title);
-        Assert.AreEqual("Kisi ko greet karein", hinglish.Units[0].Lessons[0].Title);
+        Assert.AreEqual("Greet for the time of day", english.Units[0].Lessons[0].Title);
+        Assert.AreEqual("दिन के समय के अनुसार अभिवादन करें", hindi.Units[0].Lessons[0].Title);
+        Assert.AreEqual("Din ke samay ke hisaab se greet karein", hinglish.Units[0].Lessons[0].Title);
 
         var englishLesson = english.Units.SelectMany(unit => unit.Lessons)
-            .Single(lesson => lesson.Id == "lesson.de.lexicon.cafe-items");
+            .Single(lesson => lesson.Id == "lesson.de.a1.u01.greetings-by-time");
         var hindiLesson = hindi.Units.SelectMany(unit => unit.Lessons)
             .Single(lesson => lesson.Id == englishLesson.Id);
         var hinglishLesson = hinglish.Units.SelectMany(unit => unit.Lessons)
@@ -543,23 +586,23 @@ public sealed class ContentPackTests
             englishTemplates.Select(template => template.TemplateId.Value).ToArray(),
             hinglishTemplates.Select(template => template.TemplateId.Value).ToArray());
         Assert.AreEqual(
-            englishTemplates[0].Parameters.Values["word"].Text,
-            hindiTemplates[0].Parameters.Values["word"].Text);
+            englishTemplates[0].Parameters.Values["location"].Text,
+            hindiTemplates[0].Parameters.Values["location"].Text);
         Assert.AreNotEqual(
             englishTemplates[0].Parameters.Values["instruction"].TextByLanguage!["en"],
             hindiTemplates[0].Parameters.Values["instruction"].TextByLanguage!["hi"]);
         Assert.AreEqual(
-            "Shabd, article aur meaning ko saath mein dekhein.",
+            "Do logon se milein aur dekhein ki greeting time ke saath kaise badalti hai.",
             hinglishTemplates[0].Parameters.Values["instruction"].TextByLanguage!["hi-latn"]);
         CollectionAssert.AreEqual(
-            englishTemplates[1].Parameters.Values["options"].Options!
+            englishTemplates[0].Parameters.Values["cast"].Options!
                 .Select(option => option.Label).ToArray(),
-            hindiTemplates[1].Parameters.Values["options"].Options!
+            hindiTemplates[0].Parameters.Values["cast"].Options!
                 .Select(option => option.Label).ToArray());
         CollectionAssert.AreEqual(
-            englishTemplates[2].Parameters.Values["options"].Options!
+            englishTemplates[3].Parameters.Values["options"].Options!
                 .Select(option => option.Label).ToArray(),
-            hindiTemplates[2].Parameters.Values["options"].Options!
+            hindiTemplates[3].Parameters.Values["options"].Options!
                 .Select(option => option.Label).ToArray());
     }
 
@@ -658,9 +701,8 @@ public sealed class ContentPackTests
     [TestMethod]
     public void AuthoredTemplatesReplaceFallbackInPackOrderAndResolveReferences()
     {
-        var packs = LoadBundled(ContentLoadPolicy.AuthoringPreview).Packs.ToArray();
-        var targetIndex = Array.FindIndex(packs, pack => pack.Manifest.Id == "language.de.core");
-        var target = packs[targetIndex];
+        var target = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.core");
         var concept = target.Concepts[0] with
         {
             Examples = Replace(
@@ -672,6 +714,8 @@ public sealed class ContentPackTests
         var lessonId = $"lesson.{concept.Id}";
         target = target with
         {
+            Manifest = target.Manifest with { SchemaVersion = 3 },
+            CourseUnits = null,
             Lessons =
             [
                 new LessonTemplateContent(
@@ -682,8 +726,7 @@ public sealed class ContentPackTests
                     ]),
             ],
         };
-        packs[targetIndex] = target;
-        var directory = WritePacks(packs);
+        var directory = WritePacks([target]);
         try
         {
             var first = ContentPackLoader
@@ -803,7 +846,7 @@ public sealed class ContentPackTests
     [DataRow("missing-dependency", "dependency.missing")]
     [DataRow("missing-lessons", "lesson.collection")]
     [DataRow("missing-lesson", "lesson.missing")]
-    [DataRow("broken-lesson-binding", "lesson.reference")]
+    [DataRow("broken-lesson-binding", "reference.broken")]
     [DataRow("duplicate-lesson-id", "id.duplicate")]
     [DataRow("empty-template-instances", "template.collection")]
     [DataRow("missing-template-instance", "template.instance")]
@@ -1217,6 +1260,7 @@ public sealed class ContentPackTests
 
         return source with
         {
+            Manifest = source.Manifest with { SchemaVersion = 3 },
             Concepts = concepts,
             Lexicon = [],
             Tasks = [],
@@ -1225,6 +1269,7 @@ public sealed class ContentPackTests
             Rubrics = [],
             PronunciationUtterances = [],
             Lessons = [],
+            CourseUnits = null,
         };
     }
 
@@ -1257,7 +1302,11 @@ public sealed class ContentPackTests
 
         return source with
         {
-            Manifest = source.Manifest with { InstructionLanguages = ["en", "hi"] },
+            Manifest = source.Manifest with
+            {
+                SchemaVersion = 3,
+                InstructionLanguages = ["en", "hi"],
+            },
             Concepts = [concept],
             Lexicon = [],
             Tasks = [],
@@ -1266,6 +1315,7 @@ public sealed class ContentPackTests
             Rubrics = [],
             PronunciationUtterances = [],
             Lessons = [],
+            CourseUnits = null,
         };
     }
 

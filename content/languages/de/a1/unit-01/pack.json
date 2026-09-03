@@ -1,0 +1,1710 @@
+{
+  "manifest": {
+    "id": "language.de.a1.unit01",
+    "version": 1,
+    "schemaVersion": 4,
+    "kind": "targetLanguage",
+    "languages": ["de"],
+    "instructionLanguages": ["en", "hi", "hi-latn"],
+    "dependencies": [
+      { "packId": "language.de.core", "minimumVersion": 2, "maximumVersion": 2 }
+    ],
+    "license": {
+      "identifier": "LicenseRef-Linguistics-Internal-Draft",
+      "copyrightHolder": "Linguistics project contributors",
+      "licenseTextLocation": "Content/content-license.md",
+      "intendedUse": "Local development and competent linguistic review only.",
+      "modificationReviewed": false,
+      "redistributionReviewed": false,
+      "requiredAttribution": "See the claim-level source records in this pack.",
+      "reviewStatus": "pending"
+    },
+    "review": {
+      "status": "machineValidated",
+      "reviewer": null,
+      "reviewedOn": null,
+      "notes": "Directly authored Preview draft. Competent German, Hindi, Hinglish, pedagogical, cultural, and licensing review is required."
+    }
+  },
+  "sources": [
+    {
+      "id": "source.de.a1.u01.cefr-2020",
+      "title": "Common European Framework of Reference for Languages: Companion volume",
+      "citation": "Council of Europe (2020), CEFR Companion Volume, Council of Europe Publishing.",
+      "url": "https://rm.coe.int/cefr-companion-volume-with-new-descriptors-2020/16809ea0d4",
+      "claim": "Supports the approximate A1 scope of simple greetings, introductions, personal questions, and short exchanges. No descriptor wording is copied.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Council of Europe",
+        "licenseTextLocation": "https://rm.coe.int/cefr-companion-volume-with-new-descriptors-2020/16809ea0d4",
+        "intendedUse": "Citation and reference only. Source wording is not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Council of Europe (2020), CEFR Companion Volume.",
+        "reviewStatus": "pending"
+      },
+      "notes": "A1 alignment remains an internal approximation pending pedagogical review."
+    },
+    {
+      "id": "source.de.a1.u01.dib-vocabulary",
+      "title": "Deutsch im Blick: Kapitel Eins vocabulary",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin, Deutsch im Blick, Kapitel 1.",
+      "url": "https://coerll.utexas.edu/dib/voc.php?k=1&s=8",
+      "claim": "Supports greeting, name, informal and formal address, origin, country, language, introduction, and farewell forms used in original lesson wording.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://www.coerll.utexas.edu/dib/pdfs/DeutschImBlick-textbook.pdf",
+        "intendedUse": "Reference for original compact teaching text with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Deutsch im Blick, COERLL, University of Texas at Austin, CC BY 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source exercise, recording, image, or extended passage is bundled."
+    },
+    {
+      "id": "source.de.a1.u01.dib-alphabet",
+      "title": "Deutsch im Blick: Kapitel Eins pronunciation, Das Alphabet",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin, Deutsch im Blick, Kapitel 1 pronunciation.",
+      "url": "https://coerll.utexas.edu/dib/pho.php?k=1",
+      "claim": "Supports the German letter-name sequence used in the original name-spelling lesson.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://www.coerll.utexas.edu/dib/pdfs/DeutschImBlick-textbook.pdf",
+        "intendedUse": "Reference for original compact teaching text with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Deutsch im Blick, COERLL, University of Texas at Austin, CC BY 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source audio or exercise is bundled. Letter-name scripts need competent pronunciation review."
+    },
+    {
+      "id": "source.de.a1.u01.goethe-glossary",
+      "title": "Deutsch Online A1 glossary, Chapter 1",
+      "citation": "Goethe-Institut, Deutsch Online A1, Glossary, Chapter 1.",
+      "url": "https://lernen.goethe.de/deutschonline/A1/PDF/EN/A1_deutschonline_course_vocabulary_1.pdf",
+      "claim": "Supports the beginner forms for names, origin, countries, languages, sein, heißen, kommen, and sprechen used in original examples.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Goethe-Institut e.V.",
+        "licenseTextLocation": "https://www.goethe.de/en/imp.html",
+        "intendedUse": "Citation and reference only. Exercises and source wording are not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Goethe-Institut, Deutsch Online A1 glossary, Chapter 1.",
+        "reviewStatus": "pending"
+      },
+      "notes": "The pack contains short independently authored examples, not copied exercises."
+    },
+    {
+      "id": "source.de.a1.u01.goethe-speaking",
+      "title": "Goethe-Zertifikat A1: Sprechen",
+      "citation": "Goethe-Institut, Goethe-Zertifikat A1 Start Deutsch 1, speaking model.",
+      "url": "https://bfu.goethe.de/a1_sd1/sprechen.php",
+      "claim": "Supports practicing self-introduction categories such as name, country, and languages plus simple requests for and provision of information.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Goethe-Institut e.V.",
+        "licenseTextLocation": "https://www.goethe.de/en/imp.html",
+        "intendedUse": "Citation and reference only. Exam tasks and source wording are not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Goethe-Institut, Goethe-Zertifikat A1 speaking model.",
+        "reviewStatus": "pending"
+      },
+      "notes": "The unit is not an exam simulation and makes no certification claim."
+    }
+  ],
+  "concepts": [
+    {
+      "id": "de.a1.u01.greetings-by-time",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Greet for the time of day",
+        "hi": "दिन के समय के अनुसार अभिवादन करें",
+        "hi-latn": "Din ke samay ke hisaab se greet karein"
+      },
+      "description": {
+        "en": "Choose and say a greeting that fits morning, daytime, or evening.",
+        "hi": "सुबह, दिन या शाम के अनुसार सही अभिवादन चुनें और कहें।",
+        "hi-latn": "Subah, din, ya shaam ke liye sahi greeting chunein aur bolein."
+      },
+      "prerequisiteIds": ["de.function.greeting-basic"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.greeting-context"],
+      "taskTags": ["introductions", "greetings", "time-of-day"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.greetings.morning",
+          "text": "Guten Morgen!",
+          "meaning": { "en": "Good morning!", "hi": "सुप्रभात!", "hi-latn": "Good morning!" },
+          "note": { "en": "Use this in the morning.", "hi": "इसे सुबह प्रयोग करें।", "hi-latn": "Ise subah use karein." }
+        },
+        {
+          "id": "example.de.a1.u01.greetings.evening",
+          "text": "Guten Abend!",
+          "meaning": { "en": "Good evening!", "hi": "शुभ संध्या!", "hi-latn": "Good evening!" },
+          "note": { "en": "Use this as an evening greeting.", "hi": "इसे शाम के अभिवादन में प्रयोग करें।", "hi-latn": "Ise shaam ki greeting mein use karein." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Gute Nacht!",
+          "meaning": { "en": "Good night!", "hi": "शुभ रात्रि!", "hi-latn": "Good night!" },
+          "note": { "en": "This is normally a parting before sleep, not a daytime greeting.", "hi": "यह आम तौर पर सोने से पहले विदाई है, दिन का अभिवादन नहीं।", "hi-latn": "Yeh aam taur par sone se pehle farewell hai, daytime greeting nahin." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.cefr-2020"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Time ranges and regional greeting choices need competent German and cultural review." }
+    },
+    {
+      "id": "de.a1.u01.say-name",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Say your name",
+        "hi": "अपना नाम बताएँ",
+        "hi-latn": "Apna naam batayein"
+      },
+      "description": {
+        "en": "Introduce yourself with Ich heiße or Ich bin followed by your name.",
+        "hi": "Ich heiße या Ich bin के बाद अपना नाम लगाकर परिचय दें।",
+        "hi-latn": "Ich heiße ya Ich bin ke baad apna naam bolkar introduction dein."
+      },
+      "prerequisiteIds": ["de.a1.u01.greetings-by-time", "de.function.state-name"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.name-frame"],
+      "taskTags": ["introductions", "names", "speaking"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.name.heisse",
+          "text": "Ich heiße Mina.",
+          "meaning": { "en": "My name is Mina.", "hi": "मेरा नाम मीना है।", "hi-latn": "Mera naam Mina hai." },
+          "note": { "en": "A direct beginner name frame.", "hi": "नाम बताने का सीधा शुरुआती ढाँचा।", "hi-latn": "Naam batane ka seedha beginner frame." }
+        },
+        {
+          "id": "example.de.a1.u01.name.bin",
+          "text": "Ich bin Omar.",
+          "meaning": { "en": "I am Omar.", "hi": "मैं ओमर हूँ।", "hi-latn": "Main Omar hoon." },
+          "note": { "en": "A second short way to introduce your name.", "hi": "अपना नाम बताने का दूसरा छोटा तरीका।", "hi-latn": "Apna naam batane ka doosra chhota tareeka." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Ich Mina.",
+          "meaning": { "en": "I Mina.", "hi": "मैं मीना।", "hi-latn": "Main Mina." },
+          "note": { "en": "The practiced frame needs heiße or bin.", "hi": "अभ्यास वाले ढाँचे में heiße या bin चाहिए।", "hi-latn": "Practice frame mein heiße ya bin chahiye." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Naturalness, spelling, and register need competent German review." }
+    },
+    {
+      "id": "de.a1.u01.ask-name-informal",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Ask a name informally",
+        "hi": "अनौपचारिक रूप से नाम पूछें",
+        "hi-latn": "Informally naam poochhein"
+      },
+      "description": {
+        "en": "Ask one person Wie heißt du? and respond in a short informal exchange.",
+        "hi": "एक व्यक्ति से Wie heißt du? पूछें और छोटी अनौपचारिक बातचीत में उत्तर दें।",
+        "hi-latn": "Ek vyakti se Wie heisst du? poochhein aur chhoti informal baat mein jawab dein."
+      },
+      "prerequisiteIds": ["de.a1.u01.say-name"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.ask-name-informal"],
+      "taskTags": ["introductions", "names", "informal-address"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.ask-name-informal.question",
+          "text": "Wie heißt du?",
+          "meaning": { "en": "What is your name?", "hi": "तुम्हारा नाम क्या है?", "hi-latn": "Tumhara naam kya hai?" },
+          "note": { "en": "Use du when informal address fits the relationship.", "hi": "जब संबंध अनौपचारिक हो तब du प्रयोग करें।", "hi-latn": "Jab relationship informal ho tab du use karein." }
+        },
+        {
+          "id": "example.de.a1.u01.ask-name-informal.exchange",
+          "text": "Ich heiße Leo. Und du?",
+          "meaning": { "en": "My name is Leo. And you?", "hi": "मेरा नाम लियो है। और तुम्हारा?", "hi-latn": "Mera naam Leo hai. Aur tumhara?" },
+          "note": { "en": "Und du? returns the same informal question briefly.", "hi": "Und du? वही अनौपचारिक प्रश्न संक्षेप में लौटाता है।", "hi-latn": "Und du? wahi informal sawaal chhote roop mein lautata hai." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Wie heißen Sie?",
+          "meaning": { "en": "What is your name?", "hi": "आपका नाम क्या है?", "hi-latn": "Aapka naam kya hai?" },
+          "note": { "en": "This is formal, not wrong. Choose it for a formal relationship.", "hi": "यह औपचारिक है, गलत नहीं। औपचारिक संबंध में इसे चुनें।", "hi-latn": "Yeh formal hai, galat nahin. Formal relationship mein ise chunein." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary", "source.de.a1.u01.cefr-2020"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Relationship and regional register guidance need competent German and cultural review." }
+    },
+    {
+      "id": "de.a1.u01.ask-name-formal",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Ask a name formally",
+        "hi": "औपचारिक रूप से नाम पूछें",
+        "hi-latn": "Formally naam poochhein"
+      },
+      "description": {
+        "en": "Use Wie heißen Sie? to ask a name with formal address.",
+        "hi": "औपचारिक संबोधन में नाम पूछने के लिए Wie heißen Sie? प्रयोग करें।",
+        "hi-latn": "Formal address mein naam poochhne ke liye Wie heißen Sie? use karein."
+      },
+      "prerequisiteIds": ["de.a1.u01.ask-name-informal", "de.question.ask-name-formal"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.ask-name-formal"],
+      "taskTags": ["introductions", "names", "formal-address"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.ask-name-formal.question",
+          "text": "Wie heißen Sie?",
+          "meaning": { "en": "What is your name?", "hi": "आपका नाम क्या है?", "hi-latn": "Aapka naam kya hai?" },
+          "note": { "en": "Sie marks formal address and is capitalized.", "hi": "Sie औपचारिक संबोधन दिखाता है और बड़े अक्षर से लिखा जाता है।", "hi-latn": "Sie formal address dikhata hai aur capital letter se likha jata hai." }
+        },
+        {
+          "id": "example.de.a1.u01.ask-name-formal.reply",
+          "text": "Ich heiße Frau Kaya.",
+          "meaning": { "en": "My name is Ms Kaya.", "hi": "मेरा नाम श्रीमती काया है।", "hi-latn": "Mera naam Frau Kaya hai." },
+          "note": { "en": "A short reply within a formal exchange.", "hi": "औपचारिक बातचीत में छोटा उत्तर।", "hi-latn": "Formal baatcheet mein chhota jawab." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Wie heißt Sie?",
+          "meaning": { "en": "What is your name?", "hi": "आपका नाम क्या है?", "hi-latn": "Aapka naam kya hai?" },
+          "note": { "en": "Formal Sie takes heißen in this question.", "hi": "इस प्रश्न में औपचारिक Sie के साथ heißen आता है।", "hi-latn": "Is sawaal mein formal Sie ke saath heißen aata hai." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Formal-address guidance and example naturalness need competent German review." }
+    },
+    {
+      "id": "de.a1.u01.say-origin",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Say where you come from",
+        "hi": "बताएँ कि आप कहाँ से हैं",
+        "hi-latn": "Batayein ki aap kahan se hain"
+      },
+      "description": {
+        "en": "Use Ich komme aus followed by a familiar place.",
+        "hi": "Ich komme aus के बाद परिचित स्थान लगाकर अपना मूल स्थान बताएँ।",
+        "hi-latn": "Ich komme aus ke baad familiar place bolkar apna origin batayein."
+      },
+      "prerequisiteIds": ["de.a1.u01.ask-name-formal", "de.function.state-origin"],
+      "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
+      "errorRuleIds": ["de.a1.u01.error.origin-frame"],
+      "taskTags": ["introductions", "origin", "countries"],
+      "examples": [
+        {
+          "id": "example.de.a1.u01.origin.india",
+          "text": "Ich komme aus Indien.",
+          "meaning": { "en": "I come from India.", "hi": "मैं भारत से हूँ।", "hi-latn": "Main Bharat se hoon." },
+          "note": { "en": "The frame uses aus before Indien.", "hi": "इस ढाँचे में Indien से पहले aus आता है।", "hi-latn": "Is frame mein Indien se pehle aus aata hai." }
+        },
+        {
+          "id": "example.de.a1.u01.origin.germany",
+          "text": "Ich komme aus Deutschland.",
+          "meaning": { "en": "I come from Germany.", "hi": "मैं जर्मनी से हूँ।", "hi-latn": "Main Germany se hoon." },
+          "note": { "en": "The same frame works with Deutschland.", "hi": "यही ढाँचा Deutschland के साथ भी चलता है।", "hi-latn": "Yahi frame Deutschland ke saath bhi kaam karta hai." }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Ich komme Indien.",
+          "meaning": { "en": "I come India.", "hi": "मैं भारत आता हूँ।", "hi-latn": "Main India aata hoon." },
+          "note": { "en": "The practiced origin frame needs aus.", "hi": "अभ्यास वाले मूल स्थान के ढाँचे में aus चाहिए।", "hi-latn": "Practice wale origin frame mein aus chahiye." }
+        }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country-name government and article exceptions are outside this slice and need later review." }
+    }
+  ],
+  "lexicon": [
+    {
+      "id": "de.a1.u01.lexeme.guten-morgen",
+      "language": "de",
+      "lemma": "Guten Morgen",
+      "article": null,
+      "meaning": { "en": "good morning", "hi": "सुप्रभात", "hi-latn": "good morning" },
+      "conceptIds": ["de.a1.u01.greetings-by-time"],
+      "examples": [
+        { "text": "Guten Morgen!", "meaning": { "en": "Good morning!", "hi": "सुप्रभात!", "hi-latn": "Good morning!" }, "note": { "en": "Morning greeting.", "hi": "सुबह का अभिवादन।", "hi-latn": "Subah ki greeting." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Usage range needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.guten-tag",
+      "language": "de",
+      "lemma": "Guten Tag",
+      "article": null,
+      "meaning": { "en": "hello; good day", "hi": "नमस्ते; शुभ दिन", "hi-latn": "hello; good day" },
+      "conceptIds": ["de.a1.u01.greetings-by-time"],
+      "examples": [
+        { "text": "Guten Tag!", "meaning": { "en": "Hello!", "hi": "नमस्ते!", "hi-latn": "Namaste!" }, "note": { "en": "Daytime greeting.", "hi": "दिन का अभिवादन।", "hi-latn": "Din ki greeting." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Usage range needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.guten-abend",
+      "language": "de",
+      "lemma": "Guten Abend",
+      "article": null,
+      "meaning": { "en": "good evening", "hi": "शुभ संध्या", "hi-latn": "good evening" },
+      "conceptIds": ["de.a1.u01.greetings-by-time"],
+      "examples": [
+        { "text": "Guten Abend!", "meaning": { "en": "Good evening!", "hi": "शुभ संध्या!", "hi-latn": "Good evening!" }, "note": { "en": "Evening greeting.", "hi": "शाम का अभिवादन।", "hi-latn": "Shaam ki greeting." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Usage range needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.gute-nacht",
+      "language": "de",
+      "lemma": "Gute Nacht",
+      "article": null,
+      "meaning": { "en": "good night", "hi": "शुभ रात्रि", "hi-latn": "good night" },
+      "conceptIds": ["de.a1.u01.greetings-by-time"],
+      "examples": [
+        { "text": "Gute Nacht!", "meaning": { "en": "Good night!", "hi": "शुभ रात्रि!", "hi-latn": "Good night!" }, "note": { "en": "Usually a parting before sleep.", "hi": "आम तौर पर सोने से पहले विदाई।", "hi-latn": "Aam taur par sone se pehle farewell." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Pragmatic scope needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.sein",
+      "language": "de",
+      "lemma": "sein",
+      "article": null,
+      "meaning": { "en": "to be", "hi": "होना", "hi-latn": "hona" },
+      "conceptIds": ["de.a1.u01.say-name"],
+      "examples": [
+        { "text": "Ich bin Omar.", "meaning": { "en": "I am Omar.", "hi": "मैं ओमर हूँ।", "hi-latn": "Main Omar hoon." }, "note": { "en": "Bin is the ich form used here.", "hi": "यहाँ bin, ich के साथ आने वाला रूप है।", "hi-latn": "Yahan bin, ich ke saath aane wala form hai." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Only the bounded ich form is taught in this lesson." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.wie",
+      "language": "de",
+      "lemma": "wie",
+      "article": null,
+      "meaning": { "en": "how; here, what", "hi": "कैसे; यहाँ, क्या", "hi-latn": "kaise; yahan, kya" },
+      "conceptIds": ["de.a1.u01.ask-name-informal", "de.a1.u01.ask-name-formal"],
+      "examples": [
+        { "text": "Wie heißt du?", "meaning": { "en": "What is your name?", "hi": "तुम्हारा नाम क्या है?", "hi-latn": "Tumhara naam kya hai?" }, "note": { "en": "A fixed beginner question frame.", "hi": "शुरुआती निश्चित प्रश्न ढाँचा।", "hi-latn": "Fixed beginner question frame." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "The contextual gloss needs bilingual review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.du",
+      "language": "de",
+      "lemma": "du",
+      "article": null,
+      "meaning": { "en": "you, informal singular", "hi": "तुम, अनौपचारिक एकवचन", "hi-latn": "tum, informal singular" },
+      "conceptIds": ["de.a1.u01.ask-name-informal"],
+      "examples": [
+        { "text": "Und du?", "meaning": { "en": "And you?", "hi": "और तुम?", "hi-latn": "Aur tum?" }, "note": { "en": "Informal address to one person.", "hi": "एक व्यक्ति के लिए अनौपचारिक संबोधन।", "hi-latn": "Ek vyakti ke liye informal address." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Social use needs competent German and cultural review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.sie-formal",
+      "language": "de",
+      "lemma": "Sie",
+      "article": null,
+      "meaning": { "en": "you, formal", "hi": "आप, औपचारिक", "hi-latn": "aap, formal" },
+      "conceptIds": ["de.a1.u01.ask-name-formal"],
+      "examples": [
+        { "text": "Wie heißen Sie?", "meaning": { "en": "What is your name?", "hi": "आपका नाम क्या है?", "hi-latn": "Aapka naam kya hai?" }, "note": { "en": "Formal Sie is capitalized.", "hi": "औपचारिक Sie बड़े अक्षर से लिखा जाता है।", "hi-latn": "Formal Sie capital letter se likha jata hai." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Register guidance needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.woher",
+      "language": "de",
+      "lemma": "woher",
+      "article": null,
+      "meaning": { "en": "from where", "hi": "कहाँ से", "hi-latn": "kahan se" },
+      "conceptIds": ["de.a1.u01.say-origin"],
+      "examples": [
+        { "text": "Woher kommen Sie?", "meaning": { "en": "Where do you come from?", "hi": "आप कहाँ से हैं?", "hi-latn": "Aap kahan se hain?" }, "note": { "en": "Formal question about origin.", "hi": "मूल स्थान के बारे में औपचारिक प्रश्न।", "hi-latn": "Origin ke baare mein formal sawaal." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Meaning and register need bilingual review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.aus",
+      "language": "de",
+      "lemma": "aus",
+      "article": null,
+      "meaning": { "en": "from", "hi": "से", "hi-latn": "se" },
+      "conceptIds": ["de.a1.u01.say-origin"],
+      "examples": [
+        { "text": "aus Indien", "meaning": { "en": "from India", "hi": "भारत से", "hi-latn": "Bharat se" }, "note": { "en": "Part of the practiced origin frame.", "hi": "अभ्यास वाले मूल स्थान के ढाँचे का भाग।", "hi-latn": "Practice wale origin frame ka hissa." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "This entry covers only the unit's origin frame." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.indien",
+      "language": "de",
+      "lemma": "Indien",
+      "article": null,
+      "meaning": { "en": "India", "hi": "भारत", "hi-latn": "Bharat" },
+      "conceptIds": ["de.a1.u01.say-origin"],
+      "examples": [
+        { "text": "Ich komme aus Indien.", "meaning": { "en": "I come from India.", "hi": "मैं भारत से हूँ।", "hi-latn": "Main Bharat se hoon." }, "note": { "en": "Country in the practiced origin frame.", "hi": "अभ्यास वाले मूल स्थान के ढाँचे में देश।", "hi-latn": "Practice wale origin frame mein country." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country naming needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.deutschland",
+      "language": "de",
+      "lemma": "Deutschland",
+      "article": null,
+      "meaning": { "en": "Germany", "hi": "जर्मनी", "hi-latn": "Germany" },
+      "conceptIds": ["de.a1.u01.say-origin"],
+      "examples": [
+        { "text": "Ich komme aus Deutschland.", "meaning": { "en": "I come from Germany.", "hi": "मैं जर्मनी से हूँ।", "hi-latn": "Main Germany se hoon." }, "note": { "en": "Country in the practiced origin frame.", "hi": "अभ्यास वाले मूल स्थान के ढाँचे में देश।", "hi-latn": "Practice wale origin frame mein country." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country naming needs competent German review." }
+    },
+    {
+      "id": "de.a1.u01.lexeme.kanada",
+      "language": "de",
+      "lemma": "Kanada",
+      "article": null,
+      "meaning": { "en": "Canada", "hi": "कनाडा", "hi-latn": "Canada" },
+      "conceptIds": ["de.a1.u01.say-origin"],
+      "examples": [
+        { "text": "Ich komme aus Kanada.", "meaning": { "en": "I come from Canada.", "hi": "मैं कनाडा से हूँ।", "hi-latn": "Main Canada se hoon." }, "note": { "en": "Country in the practiced origin frame.", "hi": "अभ्यास वाले मूल स्थान के ढाँचे में देश।", "hi-latn": "Practice wale origin frame mein country." } }
+      ],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country naming needs competent German review." }
+    }
+  ],
+  "tasks": [],
+  "errorRules": [
+    {
+      "id": "de.a1.u01.error.greeting-context",
+      "targetConceptId": "de.a1.u01.greetings-by-time",
+      "pattern": { "kind": "forbiddenToken", "values": ["nacht"] },
+      "expectedProperty": "The bounded daytime-greeting activity does not use Gute Nacht.",
+      "severity": "minor",
+      "feedbackTemplateId": "de.a1.u01.feedback.greeting-context",
+      "examples": ["Guten Morgen!", "Guten Tag!", "Guten Abend!"],
+      "counterexamples": ["Gute Nacht!"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "This narrow activity rule is not a universal judgment. Pragmatic scope needs review." }
+    },
+    {
+      "id": "de.a1.u01.error.name-frame",
+      "targetConceptId": "de.a1.u01.say-name",
+      "pattern": { "kind": "requiredTokenSequence", "values": ["ich", "heiße"] },
+      "expectedProperty": "The primary name practice contains the sequence ich heiße.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u01.feedback.name-frame",
+      "examples": ["Ich heiße Mina."],
+      "counterexamples": ["Ich Mina."],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Ich bin remains accepted in authored activities. Trigger scope needs review." }
+    },
+    {
+      "id": "de.a1.u01.error.ask-name-informal",
+      "targetConceptId": "de.a1.u01.ask-name-informal",
+      "pattern": { "kind": "requiredTokenSequence", "values": ["heißt", "du"] },
+      "expectedProperty": "The informal question contains the sequence heißt du.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u01.feedback.ask-name-informal",
+      "examples": ["Wie heißt du?"],
+      "counterexamples": ["Wie heißen du?"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Token matching and relationship guidance need competent review." }
+    },
+    {
+      "id": "de.a1.u01.error.ask-name-formal",
+      "targetConceptId": "de.a1.u01.ask-name-formal",
+      "pattern": { "kind": "requiredTokenSequence", "values": ["heißen", "sie"] },
+      "expectedProperty": "The formal question contains the sequence heißen Sie.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u01.feedback.ask-name-formal",
+      "examples": ["Wie heißen Sie?"],
+      "counterexamples": ["Wie heißt Sie?"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Case handling and formal-address guidance need competent review." }
+    },
+    {
+      "id": "de.a1.u01.error.origin-frame",
+      "targetConceptId": "de.a1.u01.say-origin",
+      "pattern": { "kind": "requiredToken", "values": ["aus"] },
+      "expectedProperty": "The practiced origin statement contains aus.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u01.feedback.origin-frame",
+      "examples": ["Ich komme aus Indien."],
+      "counterexamples": ["Ich komme Indien."],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country article exceptions are outside this narrow rule and need review." }
+    }
+  ],
+  "feedbackTemplates": [
+    {
+      "id": "de.a1.u01.feedback.greeting-context",
+      "language": "de",
+      "message": { "en": "Match the greeting to morning, daytime, or evening.", "hi": "अभिवादन को सुबह, दिन या शाम से मिलाएँ।", "hi-latn": "Greeting ko subah, din, ya shaam se match karein." },
+      "retryPrompt": { "en": "Check the time card and choose again.", "hi": "समय का कार्ड देखकर फिर चुनें।", "hi-latn": "Time card dekhkar phir chunein." },
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording needs German, Hindi, and Hinglish review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.name-frame",
+      "language": "de",
+      "message": { "en": "Use Ich heiße plus your name in this practice.", "hi": "इस अभ्यास में Ich heiße के बाद अपना नाम लगाएँ।", "hi-latn": "Is practice mein Ich heiße ke baad apna naam boliye." },
+      "retryPrompt": { "en": "Try the complete name frame again.", "hi": "नाम का पूरा ढाँचा फिर आज़माएँ।", "hi-latn": "Naam ka complete frame phir try karein." },
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording needs German, Hindi, and Hinglish review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.ask-name-informal",
+      "language": "de",
+      "message": { "en": "For this informal exchange, use Wie heißt du?", "hi": "इस अनौपचारिक बातचीत में Wie heißt du? प्रयोग करें।", "hi-latn": "Is informal baat mein Wie heisst du? use karein." },
+      "retryPrompt": { "en": "Build the informal question once more.", "hi": "अनौपचारिक प्रश्न फिर बनाएँ।", "hi-latn": "Informal sawaal phir banayein." },
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording and relationship guidance need review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.ask-name-formal",
+      "language": "de",
+      "message": { "en": "For formal address, use Wie heißen Sie?", "hi": "औपचारिक संबोधन में Wie heißen Sie? प्रयोग करें।", "hi-latn": "Formal address mein Wie heißen Sie? use karein." },
+      "retryPrompt": { "en": "Build the formal question once more.", "hi": "औपचारिक प्रश्न फिर बनाएँ।", "hi-latn": "Formal sawaal phir banayein." },
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording and formal-address guidance need review." }
+    },
+    {
+      "id": "de.a1.u01.feedback.origin-frame",
+      "language": "de",
+      "message": { "en": "Keep aus in the frame: Ich komme aus ...", "hi": "ढाँचे में aus रखें: Ich komme aus ...", "hi-latn": "Frame mein aus rakhein: Ich komme aus ..." },
+      "retryPrompt": { "en": "Say your origin once more.", "hi": "अपना मूल स्थान फिर बताएँ।", "hi-latn": "Apna origin phir batayein." },
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner wording needs German, Hindi, and Hinglish review." }
+    }
+  ],
+  "rubrics": [],
+  "pronunciationUtterances": [
+    {
+      "id": "de.a1.u01.utterance.guten-morgen",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Guten Morgen!",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.greetings-by-time"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. No recording or pronunciation score is approved." }
+    },
+    {
+      "id": "de.a1.u01.utterance.name",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Ich heiße Mina.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.say-name"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Speech practice has a typed path and no pronunciation score." }
+    },
+    {
+      "id": "de.a1.u01.utterance.ask-name-informal",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Wie heißt du?",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.ask-name-informal"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Speech practice has a typed path and no pronunciation score." }
+    },
+    {
+      "id": "de.a1.u01.utterance.ask-name-formal",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Wie heißen Sie?",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.ask-name-formal"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Speech practice has a typed path and no pronunciation score." }
+    },
+    {
+      "id": "de.a1.u01.utterance.origin",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Ich komme aus Indien.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": ["de.a1.u01.say-origin"],
+      "sourceIds": ["source.de.a1.u01.dib-vocabulary", "source.de.a1.u01.goethe-glossary"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. Speech practice has a typed path and no pronunciation score." }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson.de.a1.u01.greetings-by-time",
+      "courseOrder": 1,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.greetings-by-time.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Erstes Treffen" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Meet two people and notice how the greeting follows the time.",
+                "hi": "दो लोगों से मिलें और देखें कि अभिवादन समय के अनुसार कैसे बदलता है।",
+                "hi-latn": "Do logon se milein aur dekhein ki greeting time ke saath kaise badalti hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.greetings-by-time" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "mina", "label": "Mina" },
+                { "id": "noah", "label": "Noah" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.greetings-by-time.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the short morning greeting.",
+                "hi": "सुबह का छोटा अभिवादन पढ़ें।",
+                "hi-latn": "Subah ki chhoti greeting padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.greetings-by-time" },
+            "speaker-one": { "kind": "text", "value": "Mina" },
+            "line-one": { "kind": "text", "value": "Guten Morgen!" },
+            "speaker-two": { "kind": "text", "value": "Noah" },
+            "line-two": { "kind": "text", "value": "Guten Morgen!" },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.greetings-by-time.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Grüße im Tageslauf" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through three useful greetings.",
+                "hi": "तीन उपयोगी अभिवादन देखें।",
+                "hi-latn": "Teen useful greetings dekhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.greetings-by-time" },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                { "id": "morning", "label": "Morgen: Guten Morgen!" },
+                { "id": "day", "label": "Tag: Guten Tag!" },
+                { "id": "evening", "label": "Abend: Guten Abend!" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.greetings-by-time.template.04",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "It is evening. Choose the fitting greeting.",
+                "hi": "शाम है। सही अभिवादन चुनें।",
+                "hi-latn": "Shaam hai. Sahi greeting chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.greetings-by-time" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "morning", "label": "Guten Morgen!" },
+                { "id": "day", "label": "Guten Tag!" },
+                { "id": "evening", "label": "Guten Abend!" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "evening" },
+            "spoken-text": { "kind": "text", "value": "Guten Abend!" },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.greetings-by-time.template.05",
+          "templateId": "listen-pick-image",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then choose the matching time card.",
+                "hi": "सुनें या पढ़ें, फिर सही समय का कार्ड चुनें।",
+                "hi-latn": "Sunein ya padhein, phir sahi time card chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.greetings-by-time" },
+            "utterance": { "kind": "text", "value": "Guten Morgen!" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "morning", "label": "Morgen" },
+                { "id": "day", "label": "Tag" },
+                { "id": "evening", "label": "Abend" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "morning" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.greetings-by-time.template.06",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Reply aloud or type one suitable greeting.",
+                "hi": "एक सही अभिवादन बोलें या टाइप करें।",
+                "hi-latn": "Ek sahi greeting bolein ya type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.greetings-by-time" },
+            "speaker": { "kind": "text", "value": "Mina" },
+            "prompt": { "kind": "text", "value": "Guten Tag!" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "guten-tag", "label": "Guten Tag!" },
+                { "id": "hallo", "label": "Hallo!" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.greetings-by-time.template.07",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the greetings visited in this lesson.",
+                "hi": "इस पाठ में देखे गए अभिवादनों को दोहराएँ।",
+                "hi-latn": "Is lesson mein dekhi greetings ko review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.greetings-by-time" },
+            "title": { "kind": "text", "value": "Grußkarten" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "morning", "label": "Guten Morgen!" },
+                { "id": "day", "label": "Guten Tag!" },
+                { "id": "evening", "label": "Guten Abend!" }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Der passende Gruß folgt der Situation." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.say-name",
+      "courseOrder": 2,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.say-name.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Namensschild" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "You have just met. Share your name.",
+                "hi": "आप अभी मिले हैं। अपना नाम बताएँ।",
+                "hi-latn": "Aap abhi mile hain. Apna naam batayein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-name" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "mina", "label": "Mina" },
+                { "id": "omar", "label": "Omar" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-name.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Notice two short name frames.",
+                "hi": "नाम बताने के दो छोटे ढाँचे देखें।",
+                "hi-latn": "Naam batane ke do chhote frames dekhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-name" },
+            "speaker-one": { "kind": "text", "value": "Mina" },
+            "line-one": { "kind": "text", "value": "Ich heiße Mina." },
+            "speaker-two": { "kind": "text", "value": "Omar" },
+            "line-two": { "kind": "text", "value": "Ich bin Omar." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-name.template.03",
+          "templateId": "object-anatomy",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Ich heiße Mina." },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "See how the name frame is built.",
+                "hi": "देखें कि नाम का ढाँचा कैसे बनता है।",
+                "hi-latn": "Dekhein ki naam ka frame kaise banta hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-name" },
+            "parts": {
+              "kind": "optionList",
+              "options": [
+                { "id": "person", "label": "Ich: Person" },
+                { "id": "frame", "label": "heiße: Namensform" },
+                { "id": "name", "label": "Mina: Name" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-name.template.04",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Drei Vorstellungen" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Compare three complete name introductions.",
+                "hi": "नाम बताने वाले तीन पूरे परिचय देखें।",
+                "hi-latn": "Naam batane wale teen complete introductions dekhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-name" },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                { "id": "mina", "label": "Ich heiße Mina." },
+                { "id": "omar", "label": "Ich bin Omar." },
+                { "id": "lea", "label": "Mein Name ist Lea." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-name.template.05",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the sentence that gives a name.",
+                "hi": "वह वाक्य चुनें जो नाम बताता है।",
+                "hi-latn": "Woh sentence chunein jo naam batata hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-name" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "name", "label": "Ich heiße Mina." },
+                { "id": "greeting", "label": "Guten Abend!" },
+                { "id": "origin", "label": "Ich komme aus Indien." }
+              ]
+            },
+            "answer": { "kind": "text", "value": "name" },
+            "spoken-text": { "kind": "text", "value": "Ich heiße Mina." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-name.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the complete sentence.",
+                "hi": "सुनें या पढ़ें, फिर पूरा वाक्य टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir complete sentence type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-name" },
+            "utterance": { "kind": "text", "value": "Ich heiße Mina." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                { "id": "name-heisse", "label": "Ich heiße Mina." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-name.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type a complete name sentence.",
+                "hi": "नाम का पूरा वाक्य बोलें या टाइप करें।",
+                "hi-latn": "Naam ka complete sentence bolein ya type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-name" },
+            "speaker": { "kind": "text", "value": "Omar" },
+            "prompt": { "kind": "text", "value": "Wie heißen Sie?" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "heisse", "label": "Ich heiße Mina." },
+                { "id": "bin", "label": "Ich bin Mina." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-name.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Collect the two practiced name frames.",
+                "hi": "नाम बताने के दोनों अभ्यास वाले ढाँचे जोड़ें।",
+                "hi-latn": "Naam batane ke dono practice frames jodein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-name" },
+            "title": { "kind": "text", "value": "Mein Name" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "heisse", "label": "Ich heiße ..." },
+                { "id": "bin", "label": "Ich bin ..." }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Beide Sätze stellen einen Namen vor." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.ask-name-informal",
+      "courseOrder": 3,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.ask-name-informal.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Neue Gruppe" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Two peers meet and use informal address.",
+                "hi": "दो साथी मिलते हैं और अनौपचारिक संबोधन प्रयोग करते हैं।",
+                "hi-latn": "Do saathi milte hain aur informal address use karte hain."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-informal" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "lea", "label": "Lea" },
+                { "id": "leo", "label": "Leo" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-informal.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the informal name exchange.",
+                "hi": "अनौपचारिक नाम वाली बातचीत पढ़ें।",
+                "hi-latn": "Informal naam wali baatcheet padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-informal" },
+            "speaker-one": { "kind": "text", "value": "Lea" },
+            "line-one": { "kind": "text", "value": "Wie heißt du?" },
+            "speaker-two": { "kind": "text", "value": "Leo" },
+            "line-two": { "kind": "text", "value": "Ich heiße Leo. Und du?" },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-informal.template.03",
+          "templateId": "question-flip",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Flip the name statement into an informal question.",
+                "hi": "नाम वाले कथन को अनौपचारिक प्रश्न में बदलें।",
+                "hi-latn": "Naam wale statement ko informal question mein badlein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-informal" },
+            "example": { "kind": "exampleReference", "value": "example.de.a1.u01.ask-name-informal.question" },
+            "statement": { "kind": "text", "value": "Du heißt Leo." },
+            "question": { "kind": "text", "value": "Wie heißt du?" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-informal.template.04",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the informal name question.",
+                "hi": "अनौपचारिक नाम वाला प्रश्न चुनें।",
+                "hi-latn": "Informal naam wala sawaal chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-informal" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "informal", "label": "Wie heißt du?" },
+                { "id": "formal", "label": "Wie heißen Sie?" },
+                { "id": "origin", "label": "Woher kommst du?" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "informal" },
+            "spoken-text": { "kind": "text", "value": "Wie heißt du?" },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-informal.template.05",
+          "templateId": "dialogue-eavesdrop",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then identify the name.",
+                "hi": "सुनें या पढ़ें, फिर नाम पहचानें।",
+                "hi-latn": "Sunein ya padhein, phir naam pehchanein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-informal" },
+            "speaker-one": { "kind": "text", "value": "Lea" },
+            "line-one": { "kind": "text", "value": "Wie heißt du?" },
+            "speaker-two": { "kind": "text", "value": "Leo" },
+            "line-two": { "kind": "text", "value": "Ich heiße Leo." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "question": { "kind": "text", "value": "Wie heißt die zweite Person?" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "lea", "label": "Lea" },
+                { "id": "leo", "label": "Leo" },
+                { "id": "mina", "label": "Mina" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "leo" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-informal.template.06",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type your practice name.",
+                "hi": "अभ्यास वाला नाम बोलें या टाइप करें।",
+                "hi-latn": "Practice wala naam bolein ya type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-informal" },
+            "speaker": { "kind": "text", "value": "Lea" },
+            "prompt": { "kind": "text", "value": "Wie heißt du?" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "heisse-leo", "label": "Ich heiße Leo." },
+                { "id": "bin-leo", "label": "Ich bin Leo." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-informal.template.07",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the informal question and answer.",
+                "hi": "अनौपचारिक प्रश्न और उत्तर दोहराएँ।",
+                "hi-latn": "Informal sawaal aur jawab review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-informal" },
+            "title": { "kind": "text", "value": "Du und Name" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "question", "label": "Wie heißt du?" },
+                { "id": "answer", "label": "Ich heiße ..." },
+                { "id": "return", "label": "Und du?" }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Du passt zu einer informellen Beziehung." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.ask-name-formal",
+      "courseOrder": 4,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.ask-name-formal.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Empfang" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "At a reception, begin with formal address.",
+                "hi": "रिसेप्शन पर औपचारिक संबोधन से शुरुआत करें।",
+                "hi-latn": "Reception par formal address se shuru karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-formal" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "frau-kaya", "label": "Frau Kaya" },
+                { "id": "herr-weber", "label": "Herr Weber" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-formal.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the formal name exchange.",
+                "hi": "औपचारिक नाम वाली बातचीत पढ़ें।",
+                "hi-latn": "Formal naam wali baatcheet padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-formal" },
+            "speaker-one": { "kind": "text", "value": "Herr Weber" },
+            "line-one": { "kind": "text", "value": "Wie heißen Sie?" },
+            "speaker-two": { "kind": "text", "value": "Frau Kaya" },
+            "line-two": { "kind": "text", "value": "Ich heiße Frau Kaya." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-formal.template.03",
+          "templateId": "question-flip",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Flip the name statement into a formal question.",
+                "hi": "नाम वाले कथन को औपचारिक प्रश्न में बदलें।",
+                "hi-latn": "Naam wale statement ko formal question mein badlein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-formal" },
+            "example": { "kind": "exampleReference", "value": "example.de.a1.u01.ask-name-formal.question" },
+            "statement": { "kind": "text", "value": "Sie heißen Frau Kaya." },
+            "question": { "kind": "text", "value": "Wie heißen Sie?" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-formal.template.04",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the formal name question.",
+                "hi": "औपचारिक नाम वाला प्रश्न चुनें।",
+                "hi-latn": "Formal naam wala sawaal chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-formal" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "informal", "label": "Wie heißt du?" },
+                { "id": "formal", "label": "Wie heißen Sie?" },
+                { "id": "origin", "label": "Woher kommen Sie?" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "formal" },
+            "spoken-text": { "kind": "text", "value": "Wie heißen Sie?" },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-formal.template.05",
+          "templateId": "dialogue-eavesdrop",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then identify the formal reply.",
+                "hi": "सुनें या पढ़ें, फिर औपचारिक उत्तर पहचानें।",
+                "hi-latn": "Sunein ya padhein, phir formal jawab pehchanein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-formal" },
+            "speaker-one": { "kind": "text", "value": "Herr Weber" },
+            "line-one": { "kind": "text", "value": "Wie heißen Sie?" },
+            "speaker-two": { "kind": "text", "value": "Frau Kaya" },
+            "line-two": { "kind": "text", "value": "Ich heiße Frau Kaya." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "question": { "kind": "text", "value": "Welche Antwort passt?" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "name", "label": "Ich heiße Frau Kaya." },
+                { "id": "greeting", "label": "Guten Morgen!" },
+                { "id": "origin", "label": "Ich komme aus Kanada." }
+              ]
+            },
+            "answer": { "kind": "text", "value": "name" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-formal.template.06",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type a formal name reply.",
+                "hi": "औपचारिक नाम का उत्तर बोलें या टाइप करें।",
+                "hi-latn": "Formal naam ka jawab bolein ya type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-formal" },
+            "speaker": { "kind": "text", "value": "Herr Weber" },
+            "prompt": { "kind": "text", "value": "Wie heißen Sie?" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "heisse-kaya", "label": "Ich heiße Frau Kaya." },
+                { "id": "name-kaya", "label": "Mein Name ist Kaya." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.ask-name-formal.template.07",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the formal question and reply.",
+                "hi": "औपचारिक प्रश्न और उत्तर दोहराएँ।",
+                "hi-latn": "Formal sawaal aur jawab review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.ask-name-formal" },
+            "title": { "kind": "text", "value": "Sie und Name" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "question", "label": "Wie heißen Sie?" },
+                { "id": "answer", "label": "Ich heiße ..." },
+                { "id": "capital", "label": "Sie mit Großbuchstaben" }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Sie markiert hier die formelle Anrede." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u01.say-origin",
+      "courseOrder": 5,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": { "kind": "text", "value": "Willkommensrunde" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "The group shares where each person comes from.",
+                "hi": "समूह में हर व्यक्ति बताता है कि वह कहाँ से है।",
+                "hi-latn": "Group mein har vyakti batata hai ki woh kahan se hai."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                { "id": "mina", "label": "Mina" },
+                { "id": "omar", "label": "Omar" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the origin question and answer.",
+                "hi": "मूल स्थान का प्रश्न और उत्तर पढ़ें।",
+                "hi-latn": "Origin ka sawaal aur jawab padhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "speaker-one": { "kind": "text", "value": "Omar" },
+            "line-one": { "kind": "text", "value": "Woher kommst du?" },
+            "speaker-two": { "kind": "text", "value": "Mina" },
+            "line-two": { "kind": "text", "value": "Ich komme aus Indien." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Drei Herkunftsorte" },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through three complete origin sentences.",
+                "hi": "मूल स्थान बताने वाले तीन पूरे वाक्य देखें।",
+                "hi-latn": "Origin batane wale teen complete sentences dekhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                { "id": "india", "label": "Ich komme aus Indien." },
+                { "id": "germany", "label": "Ich komme aus Deutschland." },
+                { "id": "canada", "label": "Ich komme aus Kanada." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.04",
+          "templateId": "object-anatomy",
+          "templateVersion": 1,
+          "parameters": {
+            "title": { "kind": "text", "value": "Ich komme aus Indien." },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "See the three parts of the origin frame.",
+                "hi": "मूल स्थान के ढाँचे के तीन भाग देखें।",
+                "hi-latn": "Origin frame ke teen parts dekhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "parts": {
+              "kind": "optionList",
+              "options": [
+                { "id": "person", "label": "Ich: Person" },
+                { "id": "frame", "label": "komme aus: Herkunft" },
+                { "id": "place", "label": "Indien: Ort" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.05",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the place named in the sentence.",
+                "hi": "वाक्य में बताए गए स्थान को चुनें।",
+                "hi-latn": "Sentence mein batayi jagah chunein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                { "id": "india", "label": "Indien" },
+                { "id": "germany", "label": "Deutschland" },
+                { "id": "canada", "label": "Kanada" }
+              ]
+            },
+            "answer": { "kind": "text", "value": "india" },
+            "spoken-text": { "kind": "text", "value": "Ich komme aus Indien." },
+            "speech-language": { "kind": "text", "value": "de" }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the place.",
+                "hi": "सुनें या पढ़ें, फिर स्थान टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir jagah type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "utterance": { "kind": "text", "value": "Ich komme aus Deutschland." },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                { "id": "deutschland", "label": "Deutschland" },
+                { "id": "full", "label": "Ich komme aus Deutschland." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.07",
+          "templateId": "note-write",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Write one complete origin sentence.",
+                "hi": "मूल स्थान का एक पूरा वाक्य लिखें।",
+                "hi-latn": "Origin ka ek complete sentence likhein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "stationery-title": { "kind": "text", "value": "Meine Herkunft" },
+            "prompt": { "kind": "text", "value": "Schreibe: Ich komme aus ..." },
+            "required-content": {
+              "kind": "optionList",
+              "options": [
+                { "id": "frame", "label": "Ich komme aus" },
+                { "id": "place", "label": "Indien" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.08",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type one complete origin sentence.",
+                "hi": "मूल स्थान का एक पूरा वाक्य बोलें या टाइप करें।",
+                "hi-latn": "Origin ka ek complete sentence bolein ya type karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "speaker": { "kind": "text", "value": "Omar" },
+            "prompt": { "kind": "text", "value": "Woher kommst du?" },
+            "speech-language": { "kind": "text", "value": "de" },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                { "id": "india", "label": "Ich komme aus Indien." },
+                { "id": "germany", "label": "Ich komme aus Deutschland." },
+                { "id": "canada", "label": "Ich komme aus Kanada." }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u01.say-origin.template.09",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the origin question and answer frame.",
+                "hi": "मूल स्थान का प्रश्न और उत्तर वाला ढाँचा दोहराएँ।",
+                "hi-latn": "Origin ka sawaal aur jawab wala frame review karein."
+              }
+            },
+            "concept": { "kind": "conceptReference", "value": "de.a1.u01.say-origin" },
+            "title": { "kind": "text", "value": "Woher?" },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                { "id": "question", "label": "Woher kommst du?" },
+                { "id": "frame", "label": "Ich komme aus ..." },
+                { "id": "place", "label": "Indien, Deutschland, Kanada" }
+              ]
+            },
+            "closing": { "kind": "text", "value": "Aus verbindet den Herkunftsrahmen mit dem Ort." },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                { "id": "review", "label": "Noch einmal" },
+                { "id": "finish", "label": "Fertig" }
+              ]
+            },
+            "acknowledgement": { "kind": "text", "value": "Fertig" }
+          }
+        }
+      ]
+    }
+  ],
+  "transferMappings": [],
+  "courseUnits": [
+    {
+      "id": "unit.de.a1.01",
+      "number": 1,
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Meet and greet",
+        "hi": "मिलें और अभिवादन करें",
+        "hi-latn": "Milein aur greet karein"
+      },
+      "description": {
+        "en": "Exchange basic greetings and personal information in an informal or formal first meeting.",
+        "hi": "पहली अनौपचारिक या औपचारिक मुलाकात में बुनियादी अभिवादन और व्यक्तिगत जानकारी साझा करें।",
+        "hi-latn": "Pehli informal ya formal mulaqat mein basic greetings aur personal information share karein."
+      },
+      "sourceIds": ["source.de.a1.u01.cefr-2020", "source.de.a1.u01.goethe-speaking"],
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Unit sequence and A1 approximation need competent pedagogical review." }
+    }
+  ]
+}

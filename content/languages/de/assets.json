@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "packId": "language.de.core",
-  "packVersion": 1,
+  "packVersion": 2,
   "assets": [
     {
       "id": "asset.de.cafe.coffee",

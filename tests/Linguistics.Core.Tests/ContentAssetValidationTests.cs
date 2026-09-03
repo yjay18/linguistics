@@ -31,7 +31,7 @@ public sealed class ContentAssetValidationTests
                 ContentLoadPolicy.AuthoringPreview);
 
             var asset = catalog.Assets.Single(candidate => candidate.Record.Id == AssetId);
-            Assert.AreEqual("language.de.core.v1:asset.de.fixture", asset.CacheKey);
+            Assert.AreEqual("language.de.core.v2:asset.de.fixture", asset.CacheKey);
             Assert.IsTrue(File.Exists(asset.AbsoluteFilePath));
             Assert.AreEqual(ContentAssetProvenance.WikimediaCommons, asset.Record.Provenance);
             Assert.AreEqual(ContentReviewStatus.MachineValidated, asset.Record.Review.Status);
@@ -59,13 +59,17 @@ public sealed class ContentAssetValidationTests
             var error = exception.Errors.FirstOrDefault(candidate => candidate.Code == expectedCode);
 
             Assert.IsNotNull(error, string.Join(Environment.NewLine, exception.Errors));
-            Assert.AreEqual("language.de.core", error.PackId);
+            Assert.AreEqual(
+                corruption == "dangling-reference"
+                    ? "language.de.a1.unit01"
+                    : "language.de.core",
+                error.PackId);
             Assert.IsFalse(string.IsNullOrWhiteSpace(error.Path));
             StringAssert.Contains(error.Message, corruption == "dangling-reference" ? "asset.de.missing" : AssetId);
             if (corruption == "dangling-reference")
             {
-                Assert.AreEqual("lesson.de.lexicon.cafe-items", error.LessonId);
-                Assert.AreEqual("asset", error.Parameter);
+                Assert.AreEqual("lesson.de.a1.u01.greetings-by-time", error.LessonId);
+                Assert.AreEqual("backdrop", error.Parameter);
             }
         }
         finally
@@ -107,8 +111,8 @@ public sealed class ContentAssetValidationTests
                 ContentPackLoader.LoadDirectory(directory, ContentLoadPolicy.AuthoringPreview));
             var error = exception.Errors.Single(candidate => candidate.Code == "template.asset.budget");
 
-            Assert.AreEqual("language.de.core", error.PackId);
-            Assert.AreEqual("lesson.de.lexicon.cafe-items", error.LessonId);
+            Assert.AreEqual("language.de.a1.unit01", error.PackId);
+            Assert.AreEqual("lesson.de.a1.u01.greetings-by-time", error.LessonId);
             Assert.AreEqual("assets", error.Parameter);
             StringAssert.Contains(error.Message, AssetId);
             StringAssert.Contains(error.Message, SecondAssetId);
@@ -127,15 +131,16 @@ public sealed class ContentAssetValidationTests
             .Packs
             .Select(WithoutAssetReferences)
             .ToArray();
-        var targetIndex = Array.FindIndex(packs, pack => pack.Manifest.Id == "language.de.core");
+        var targetIndex = Array.FindIndex(packs, pack => pack.Manifest.Id == "language.de.a1.unit01");
         var target = packs[targetIndex];
-        var lesson = target.Lessons.Single(item => item.Id == "lesson.de.lexicon.cafe-items");
-        var objectSpotlight = lesson.TemplateInstances[0];
-        var parameters = objectSpotlight.Parameters.ToDictionary(
+        var lesson = target.Lessons.Single(item =>
+            item.Id == "lesson.de.a1.u01.greetings-by-time");
+        var scene = lesson.TemplateInstances[0];
+        var parameters = scene.Parameters.ToDictionary(
             pair => pair.Key,
             pair => pair.Value,
             StringComparer.Ordinal);
-        parameters["asset"] = new TemplateParameterValue(
+        parameters["backdrop"] = new TemplateParameterValue(
             TemplateParameterKind.AssetReference,
             Value: corruption == "dangling-reference" ? "asset.de.missing" : AssetId);
         if (corruption == "template-budget")
@@ -143,9 +148,17 @@ public sealed class ContentAssetValidationTests
             parameters["backdrop"] = new TemplateParameterValue(
                 TemplateParameterKind.AssetReference,
                 Value: SecondAssetId);
+            parameters["cast"] = parameters["cast"] with
+            {
+                Options =
+                [
+                    parameters["cast"].Options![0] with { AssetReferenceId = AssetId },
+                    .. parameters["cast"].Options!.Skip(1),
+                ],
+            };
         }
 
-        objectSpotlight = objectSpotlight with { Parameters = parameters };
+        scene = scene with { Parameters = parameters };
         target = target with
         {
             Lessons =
@@ -154,7 +167,7 @@ public sealed class ContentAssetValidationTests
                 {
                     TemplateInstances =
                     [
-                        objectSpotlight,
+                        scene,
                         .. lesson.TemplateInstances.Skip(1),
                     ],
                 },
@@ -238,7 +251,7 @@ public sealed class ContentAssetValidationTests
         var manifest = new ContentAssetManifest(
             1,
             "language.de.core",
-            1,
+            2,
             records);
         File.WriteAllText(
             Path.Combine(targetDirectory, "assets.json"),

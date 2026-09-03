@@ -145,6 +145,7 @@ public sealed class LessonTemplateValidationTests
                 Path.Combine(AppContext.BaseDirectory, "Content"),
                 ContentLoadPolicy.AuthoringPreview)
             .Packs
+            .Where(pack => pack.Manifest.Id != "language.de.a1.unit01")
             .ToArray();
         var targetIndex = Array.FindIndex(packs, pack => pack.Manifest.Id == "language.de.core");
         var target = packs[targetIndex];
@@ -157,7 +158,9 @@ public sealed class LessonTemplateValidationTests
         };
         target = target with
         {
+            Manifest = target.Manifest with { SchemaVersion = 3 },
             Concepts = Replace(target.Concepts, 0, concept),
+            CourseUnits = null,
         };
         var lessonId = $"lesson.{concept.Id}";
         target = target with

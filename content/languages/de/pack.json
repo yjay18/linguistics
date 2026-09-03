@@ -1,8 +1,8 @@
 {
   "manifest": {
     "id": "language.de.core",
-    "version": 1,
-    "schemaVersion": 3,
+    "version": 2,
+    "schemaVersion": 4,
     "kind": "targetLanguage",
     "languages": ["de"],
     "instructionLanguages": ["en", "hi", "hi-latn"],
@@ -21,7 +21,7 @@
       "status": "machineValidated",
       "reviewer": null,
       "reviewedOn": null,
-      "notes": "Structurally validated AI-authored draft; competent German and pedagogical review is required."
+      "notes": "Structurally validated agent-authored draft; competent German and pedagogical review is required."
     }
   },
   "sources": [
@@ -526,91 +526,7 @@
     { "id": "de.utterance.origin", "language": "de", "locale": "de-de", "text": "Ich komme aus Indien.", "purpose": "production", "assessmentMode": "none", "conceptIds": ["de.function.state-origin"], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Text metadata only; no voice or pronunciation score is approved." } },
     { "id": "de.utterance.order", "language": "de", "locale": "de-de", "text": "Ich möchte einen Kaffee, bitte.", "purpose": "production", "assessmentMode": "none", "conceptIds": ["de.function.order-polite"], "sourceIds": ["source.de.dib-2017", "source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Text metadata only; no voice or pronunciation score is approved." } }
   ],
-  "lessons": [
-    {
-      "id": "lesson.de.lexicon.cafe-items",
-      "templateInstances": [
-        {
-          "id": "lesson.de.lexicon.cafe-items.template.01",
-          "templateId": "object-spotlight",
-          "templateVersion": 1,
-          "parameters": {
-            "word": { "kind": "text", "value": "Kaffee" },
-            "article": { "kind": "text", "value": "der" },
-            "meaning": {
-              "kind": "textByLanguage",
-              "textByLanguage": { "en": "coffee", "hi": "कॉफ़ी", "hi-latn": "coffee" }
-            },
-            "instruction": {
-              "kind": "textByLanguage",
-              "textByLanguage": {
-                "en": "Notice the word, article, and meaning together.",
-                "hi": "शब्द, लेख और अर्थ को एक साथ देखें।",
-                "hi-latn": "Shabd, article aur meaning ko saath mein dekhein."
-              }
-            },
-            "concept": { "kind": "conceptReference", "value": "de.lexicon.cafe-items" },
-            "example": { "kind": "exampleReference", "value": "example.de.cafe-items.kaffee" },
-            "asset": { "kind": "assetReference", "value": "asset.de.cafe.coffee" },
-            "backdrop": { "kind": "assetReference", "value": "asset.de.stage.market-backdrop" }
-          }
-        },
-        {
-          "id": "lesson.de.lexicon.cafe-items.template.02",
-          "templateId": "picture-match",
-          "templateVersion": 1,
-          "parameters": {
-            "prompt": {
-              "kind": "textByLanguage",
-              "textByLanguage": { "en": "Choose Kaffee.", "hi": "Kaffee चुनें।", "hi-latn": "Kaffee chunein." }
-            },
-            "concept": { "kind": "conceptReference", "value": "de.lexicon.cafe-items" },
-            "options": {
-              "kind": "optionList",
-              "options": [
-                { "id": "kaffee", "label": "Kaffee", "assetReferenceId": "asset.de.cafe.coffee" },
-                { "id": "tee", "label": "Tee", "assetReferenceId": "asset.de.cafe.tea" },
-                { "id": "wasser", "label": "Wasser", "assetReferenceId": "asset.de.cafe.water" }
-              ]
-            },
-            "answer": { "kind": "text", "value": "kaffee" },
-            "spoken-text": { "kind": "text", "value": "Kaffee" },
-            "speech-language": { "kind": "text", "value": "de" },
-            "backdrop": { "kind": "assetReference", "value": "asset.de.stage.market-backdrop" }
-          }
-        },
-        {
-          "id": "lesson.de.lexicon.cafe-items.template.03",
-          "templateId": "word-order-train",
-          "templateVersion": 1,
-          "parameters": {
-            "prompt": {
-              "kind": "textByLanguage",
-              "textByLanguage": {
-                "en": "Build the complete café request.",
-                "hi": "कैफ़े का पूरा अनुरोध सही क्रम में बनाएँ।",
-                "hi-latn": "Cafe ki complete request sahi order mein banayein."
-              }
-            },
-            "concept": { "kind": "conceptReference", "value": "de.function.order-polite" },
-            "example": { "kind": "exampleReference", "value": "example.de.order-polite.kaffee" },
-            "options": {
-              "kind": "optionList",
-              "options": [
-                { "id": "ich", "label": "Ich" },
-                { "id": "moechte", "label": "möchte" },
-                { "id": "einen", "label": "einen" },
-                { "id": "kaffee", "label": "Kaffee," },
-                { "id": "bitte", "label": "bitte." }
-              ]
-            },
-            "task": { "kind": "taskReference", "value": "de.task.cafe.order-one-item" },
-            "asset": { "kind": "assetReference", "value": "asset.de.cafe.coffee" },
-            "backdrop": { "kind": "assetReference", "value": "asset.de.stage.market-backdrop" }
-          }
-        }
-      ]
-    }
-  ],
-  "transferMappings": []
+  "lessons": [],
+  "transferMappings": [],
+  "courseUnits": []
 }
