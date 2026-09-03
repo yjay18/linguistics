@@ -1,0 +1,4769 @@
+{
+  "manifest": {
+    "id": "language.de.a1.unit02",
+    "version": 1,
+    "schemaVersion": 4,
+    "kind": "targetLanguage",
+    "languages": [
+      "de"
+    ],
+    "instructionLanguages": [
+      "en",
+      "hi",
+      "hi-latn"
+    ],
+    "dependencies": [
+      {
+        "packId": "language.de.core",
+        "minimumVersion": 2,
+        "maximumVersion": 2
+      },
+      {
+        "packId": "language.de.a1.unit01",
+        "minimumVersion": 1,
+        "maximumVersion": 1
+      }
+    ],
+    "license": {
+      "identifier": "LicenseRef-Linguistics-Internal-Draft",
+      "copyrightHolder": "Linguistics project contributors",
+      "licenseTextLocation": "Content/content-license.md",
+      "intendedUse": "Local development and competent linguistic review only.",
+      "modificationReviewed": false,
+      "redistributionReviewed": false,
+      "requiredAttribution": "See the claim-level source records in this pack.",
+      "reviewStatus": "pending"
+    },
+    "review": {
+      "status": "machineValidated",
+      "reviewer": null,
+      "reviewedOn": null,
+      "notes": "Directly authored Preview draft. German, Hindi, Hinglish, pedagogical, cultural, and licensing review is required."
+    }
+  },
+  "sources": [
+    {
+      "id": "source.de.a1.u02.cefr-2020",
+      "title": "Common European Framework of Reference for Languages: Companion volume",
+      "citation": "Council of Europe (2020), CEFR Companion Volume, Council of Europe Publishing.",
+      "url": "https://rm.coe.int/cefr-companion-volume-with-new-descriptors-2020/16809ea0d4",
+      "claim": "Supports the approximate A1 scope of simple instructions, clarification requests, basic mediation, and short classroom exchanges. No descriptor wording is copied.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Council of Europe",
+        "licenseTextLocation": "https://rm.coe.int/cefr-companion-volume-with-new-descriptors-2020/16809ea0d4",
+        "intendedUse": "Citation and reference only. Source wording is not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Council of Europe (2020), CEFR Companion Volume.",
+        "reviewStatus": "pending"
+      },
+      "notes": "A1 alignment remains an internal approximation pending pedagogical review."
+    },
+    {
+      "id": "source.de.a1.u02.goethe-glossary",
+      "title": "Deutsch Online A1 glossary, Chapter 2",
+      "citation": "Goethe-Institut, Deutsch Online A1, Glossary, Chapter 2.",
+      "url": "https://lernen.goethe.de/deutschonline/A1/PDF/EN/A1_deutschonline_course_vocabulary_2.pdf",
+      "claim": "Supports beginner classroom objects and repair phrases used in independently authored examples.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Goethe-Institut e.V.",
+        "licenseTextLocation": "https://www.goethe.de/en/imp.html",
+        "intendedUse": "Citation and reference only. Exercises and source wording are not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Goethe-Institut, Deutsch Online A1 glossary, Chapter 2.",
+        "reviewStatus": "pending"
+      },
+      "notes": "The pack contains short original examples, not copied exercises, recordings, or images."
+    },
+    {
+      "id": "source.de.a1.u02.dib-vocabulary",
+      "title": "Deutsch im Blick: Kapitel Zwei vocabulary",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin, Deutsch im Blick, Kapitel 2.",
+      "url": "https://coerll.utexas.edu/dib/voc.php?k=2",
+      "claim": "Supports classroom nouns and basic instruction verbs used in original lesson wording.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://www.coerll.utexas.edu/dib/pdfs/DeutschImBlick-textbook.pdf",
+        "intendedUse": "Reference for original compact teaching text with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Deutsch im Blick, COERLL, University of Texas at Austin, CC BY 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source exercise, recording, image, or extended passage is bundled."
+    },
+    {
+      "id": "source.de.a1.u02.dib-alphabet",
+      "title": "Deutsch im Blick: Kapitel Eins pronunciation, Das Alphabet",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin, Deutsch im Blick, Kapitel 1 pronunciation.",
+      "url": "https://coerll.utexas.edu/dib/pho.php?k=1",
+      "claim": "Supports the German letter-name practice used in the original classroom spelling lesson.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://www.coerll.utexas.edu/dib/pdfs/DeutschImBlick-textbook.pdf",
+        "intendedUse": "Reference for original compact teaching text with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Deutsch im Blick, COERLL, University of Texas at Austin, CC BY 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source audio is bundled. Letter-name scripts need competent pronunciation review."
+    }
+  ],
+  "concepts": [
+    {
+      "id": "de.a1.u02.classroom-objects",
+      "language": "de",
+      "type": "lexical",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Recognize classroom objects",
+        "hi": "कक्षा की वस्तुएँ पहचानें",
+        "hi-latn": "Classroom ki cheezein pehchanein"
+      },
+      "description": {
+        "en": "Connect common classroom nouns with their definite articles.",
+        "hi": "कक्षा की सामान्य संज्ञाओं को उनके निश्चित आर्टिकल से जोड़ें।",
+        "hi-latn": "Common classroom nouns ko unke definite articles se jodein."
+      },
+      "prerequisiteIds": [
+        "de.noun.gender-basic",
+        "de.orthography.noun-capitalization"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.classroom-objects"
+      ],
+      "taskTags": [
+        "classroom",
+        "objects",
+        "articles"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.classroom-objects.book",
+          "text": "das Buch",
+          "meaning": {
+            "en": "the book",
+            "hi": "किताब",
+            "hi-latn": "kitaab"
+          },
+          "note": {
+            "en": "Learn the article with the noun.",
+            "hi": "संज्ञा के साथ आर्टिकल सीखें।",
+            "hi-latn": "Noun ke saath article seekhein."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.classroom-objects.pencil",
+          "text": "der Bleistift",
+          "meaning": {
+            "en": "the pencil",
+            "hi": "पेंसिल",
+            "hi-latn": "pencil"
+          },
+          "note": {
+            "en": "The noun begins with a capital letter.",
+            "hi": "संज्ञा बड़े अक्षर से शुरू होती है।",
+            "hi-latn": "Noun capital letter se shuru hota hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Buch",
+          "meaning": {
+            "en": "book without its article",
+            "hi": "आर्टिकल के बिना किताब",
+            "hi-latn": "article ke bina kitaab"
+          },
+          "note": {
+            "en": "This activity asks for the noun and its article together.",
+            "hi": "इस गतिविधि में संज्ञा और आर्टिकल साथ चाहिए।",
+            "hi-latn": "Is activity mein noun aur article saath chahiye."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.ask-object-name",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Ask what something is",
+        "hi": "पूछें कि कोई वस्तु क्या है",
+        "hi-latn": "Poochhein ki koi cheez kya hai"
+      },
+      "description": {
+        "en": "Use Was ist das? and understand a short object answer.",
+        "hi": "Was ist das? का प्रयोग करें और छोटा उत्तर समझें।",
+        "hi-latn": "Was ist das? use karein aur chhota answer samjhein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.ask-object-name"
+      ],
+      "taskTags": [
+        "classroom",
+        "questions",
+        "objects"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.ask-object-name.question",
+          "text": "Was ist das?",
+          "meaning": {
+            "en": "What is that?",
+            "hi": "वह क्या है?",
+            "hi-latn": "Woh kya hai?"
+          },
+          "note": {
+            "en": "Use this to ask for an object name.",
+            "hi": "वस्तु का नाम पूछने के लिए इसे प्रयोग करें।",
+            "hi-latn": "Object ka naam poochhne ke liye ise use karein."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.ask-object-name.answer",
+          "text": "Das ist ein Buch.",
+          "meaning": {
+            "en": "That is a book.",
+            "hi": "वह एक किताब है।",
+            "hi-latn": "Woh ek kitaab hai."
+          },
+          "note": {
+            "en": "The answer names one object.",
+            "hi": "उत्तर एक वस्तु का नाम बताता है।",
+            "hi-latn": "Answer ek object ka naam batata hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Was das ist?",
+          "meaning": {
+            "en": "Intended: What is that?",
+            "hi": "अर्थ: वह क्या है?",
+            "hi-latn": "Matlab: Woh kya hai?"
+          },
+          "note": {
+            "en": "The authored question keeps ist before das.",
+            "hi": "लिखे प्रश्न में ist, das से पहले आता है।",
+            "hi-latn": "Authored question mein ist, das se pehle aata hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.say-have-object",
+      "language": "de",
+      "type": "grammatical",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Say what you have",
+        "hi": "बताएँ कि आपके पास क्या है",
+        "hi-latn": "Batayein ki aapke paas kya hai"
+      },
+      "description": {
+        "en": "Use ich habe with one classroom object.",
+        "hi": "एक कक्षा वस्तु के साथ ich habe का प्रयोग करें।",
+        "hi-latn": "Ek classroom object ke saath ich habe use karein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.say-have-object"
+      ],
+      "taskTags": [
+        "classroom",
+        "haben",
+        "articles"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.say-have-object.book",
+          "text": "Ich habe ein Buch.",
+          "meaning": {
+            "en": "I have a book.",
+            "hi": "मेरे पास एक किताब है।",
+            "hi-latn": "Mere paas ek kitaab hai."
+          },
+          "note": {
+            "en": "Use ein with Buch here.",
+            "hi": "यहाँ Buch के साथ ein प्रयोग करें।",
+            "hi-latn": "Yahaan Buch ke saath ein use karein."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.say-have-object.pencil",
+          "text": "Ich habe einen Bleistift.",
+          "meaning": {
+            "en": "I have a pencil.",
+            "hi": "मेरे पास एक पेंसिल है।",
+            "hi-latn": "Mere paas ek pencil hai."
+          },
+          "note": {
+            "en": "The masculine object uses einen here.",
+            "hi": "पुल्लिंग कर्म के साथ यहाँ einen आता है।",
+            "hi-latn": "Masculine object ke saath yahaan einen aata hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Ich haben ein Buch.",
+          "meaning": {
+            "en": "Intended: I have a book.",
+            "hi": "अर्थ: मेरे पास एक किताब है।",
+            "hi-latn": "Matlab: Mere paas ek kitaab hai."
+          },
+          "note": {
+            "en": "Ich uses habe in this frame.",
+            "hi": "इस ढाँचे में Ich के साथ habe आता है।",
+            "hi-latn": "Is frame mein Ich ke saath habe aata hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.follow-instructions",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Follow simple instructions",
+        "hi": "सरल निर्देश मानें",
+        "hi-latn": "Simple instructions follow karein"
+      },
+      "description": {
+        "en": "Respond to short requests to read, listen, write, or repeat.",
+        "hi": "पढ़ने, सुनने, लिखने या दोहराने के छोटे अनुरोध समझें।",
+        "hi-latn": "Read, listen, write, ya repeat karne ke short requests samjhein."
+      },
+      "prerequisiteIds": [
+        "de.pronoun.sie-formal"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.follow-instructions"
+      ],
+      "taskTags": [
+        "classroom",
+        "instructions",
+        "listening"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.follow-instructions.read",
+          "text": "Lesen Sie bitte.",
+          "meaning": {
+            "en": "Please read.",
+            "hi": "कृपया पढ़ें।",
+            "hi-latn": "Kripya padhein."
+          },
+          "note": {
+            "en": "This is a polite classroom instruction.",
+            "hi": "यह विनम्र कक्षा निर्देश है।",
+            "hi-latn": "Yeh polite classroom instruction hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.follow-instructions.listen",
+          "text": "Hören Sie bitte.",
+          "meaning": {
+            "en": "Please listen.",
+            "hi": "कृपया सुनें।",
+            "hi-latn": "Kripya sunein."
+          },
+          "note": {
+            "en": "Listen for the action word first.",
+            "hi": "पहले क्रिया शब्द सुनें।",
+            "hi-latn": "Pehle action word sunein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Lesen bitte Sie.",
+          "meaning": {
+            "en": "Intended: Please read.",
+            "hi": "अर्थ: कृपया पढ़ें।",
+            "hi-latn": "Matlab: Kripya padhein."
+          },
+          "note": {
+            "en": "The authored instruction keeps Sie after the verb.",
+            "hi": "लिखे निर्देश में Sie क्रिया के बाद आता है।",
+            "hi-latn": "Authored instruction mein Sie verb ke baad aata hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-vocabulary",
+        "source.de.a1.u02.goethe-glossary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.request-repetition",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Ask for repetition",
+        "hi": "दोहराने के लिए कहें",
+        "hi-latn": "Repeat karne ke liye kahein"
+      },
+      "description": {
+        "en": "Use a short or full polite phrase when you need to hear something again.",
+        "hi": "फिर सुनने के लिए छोटा या पूरा विनम्र वाक्य प्रयोग करें।",
+        "hi-latn": "Dobara sunne ke liye short ya full polite phrase use karein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.follow-instructions"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.request-repetition"
+      ],
+      "taskTags": [
+        "classroom",
+        "repair",
+        "politeness"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.request-repetition.short",
+          "text": "Noch einmal, bitte.",
+          "meaning": {
+            "en": "Once again, please.",
+            "hi": "एक बार फिर, कृपया।",
+            "hi-latn": "Ek baar phir, please."
+          },
+          "note": {
+            "en": "Use this compact repair phrase.",
+            "hi": "यह छोटा सुधार वाक्य प्रयोग करें।",
+            "hi-latn": "Yeh short repair phrase use karein."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.request-repetition.full",
+          "text": "Können Sie das bitte wiederholen?",
+          "meaning": {
+            "en": "Could you please repeat that?",
+            "hi": "क्या आप कृपया इसे दोहरा सकते हैं?",
+            "hi-latn": "Kya aap please ise repeat kar sakte hain?"
+          },
+          "note": {
+            "en": "This is the fuller polite request.",
+            "hi": "यह पूरा विनम्र अनुरोध है।",
+            "hi-latn": "Yeh full polite request hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Wiederholen!",
+          "meaning": {
+            "en": "Repeat!",
+            "hi": "दोहराएँ!",
+            "hi-latn": "Repeat!"
+          },
+          "note": {
+            "en": "This can sound abrupt in the bounded exchange.",
+            "hi": "इस बातचीत में यह रूखा लग सकता है।",
+            "hi-latn": "Is exchange mein yeh abrupt lag sakta hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.cefr-2020"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.state-understanding",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Say what you understand",
+        "hi": "बताएँ कि आप क्या समझते हैं",
+        "hi-latn": "Batayein ki aap kya samajhte hain"
+      },
+      "description": {
+        "en": "Say honestly that you understand or do not understand.",
+        "hi": "ईमानदारी से बताएँ कि आप समझते हैं या नहीं।",
+        "hi-latn": "Honestly batayein ki aap samajhte hain ya nahin."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.request-repetition"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.state-understanding"
+      ],
+      "taskTags": [
+        "classroom",
+        "understanding",
+        "repair"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.state-understanding.yes",
+          "text": "Ich verstehe.",
+          "meaning": {
+            "en": "I understand.",
+            "hi": "मैं समझता या समझती हूँ।",
+            "hi-latn": "Main samajhta ya samajhti hoon."
+          },
+          "note": {
+            "en": "Use this when the instruction is clear.",
+            "hi": "निर्देश साफ हो तो यह कहें।",
+            "hi-latn": "Instruction clear ho to yeh kahein."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.state-understanding.no",
+          "text": "Ich verstehe das nicht.",
+          "meaning": {
+            "en": "I do not understand that.",
+            "hi": "मैं वह नहीं समझता या समझती हूँ।",
+            "hi-latn": "Main woh nahin samajhta ya samajhti hoon."
+          },
+          "note": {
+            "en": "Use this before asking for help.",
+            "hi": "मदद माँगने से पहले यह कहें।",
+            "hi-latn": "Help maangne se pehle yeh kahein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Ich nicht verstehe.",
+          "meaning": {
+            "en": "Intended: I do not understand.",
+            "hi": "अर्थ: मैं नहीं समझता या समझती हूँ।",
+            "hi-latn": "Matlab: Main nahin samajhta ya samajhti hoon."
+          },
+          "note": {
+            "en": "The authored main clause keeps verstehe in second position.",
+            "hi": "लिखे मुख्य वाक्य में verstehe दूसरे स्थान पर है।",
+            "hi-latn": "Authored main clause mein verstehe second position par hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.cefr-2020"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.hear-letter-names",
+      "language": "de",
+      "type": "phonological",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Hear letters in context",
+        "hi": "संदर्भ में अक्षर सुनें",
+        "hi-latn": "Context mein letters sunein"
+      },
+      "description": {
+        "en": "Distinguish selected German letter names inside short spelling frames.",
+        "hi": "छोटे स्पेलिंग वाक्यों में चुने जर्मन अक्षर नाम अलग पहचानें।",
+        "hi-latn": "Short spelling frames mein selected German letter names alag pehchanein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.request-repetition"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.hear-letter-names"
+      ],
+      "taskTags": [
+        "alphabet",
+        "listening",
+        "spelling"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.hear-letter-names.b",
+          "text": "B wie Buch.",
+          "meaning": {
+            "en": "B as in Buch.",
+            "hi": "B जैसे Buch।",
+            "hi-latn": "B jaise Buch."
+          },
+          "note": {
+            "en": "The word anchors the letter name.",
+            "hi": "शब्द अक्षर नाम को सहारा देता है।",
+            "hi-latn": "Word letter name ko anchor karta hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.hear-letter-names.p",
+          "text": "P wie Papier.",
+          "meaning": {
+            "en": "P as in Papier.",
+            "hi": "P जैसे Papier।",
+            "hi-latn": "P jaise Papier."
+          },
+          "note": {
+            "en": "Compare this carefully with B.",
+            "hi": "इसे B से ध्यान से अलग सुनें।",
+            "hi-latn": "Ise B se dhyan se alag sunein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Buch wie B.",
+          "meaning": {
+            "en": "Intended spelling frame",
+            "hi": "अर्थ: स्पेलिंग का ढाँचा",
+            "hi-latn": "Matlab: spelling frame"
+          },
+          "note": {
+            "en": "The authored frame names the letter first.",
+            "hi": "लिखे ढाँचे में अक्षर पहले आता है।",
+            "hi-latn": "Authored frame mein letter pehle aata hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-alphabet",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.read-labels",
+      "language": "de",
+      "type": "lexical",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Read labels and signs",
+        "hi": "लेबल और संकेत पढ़ें",
+        "hi-latn": "Labels aur signs padhein"
+      },
+      "description": {
+        "en": "Identify familiar classroom actions from short written labels.",
+        "hi": "छोटे लिखित लेबल से परिचित कक्षा क्रियाएँ पहचानें।",
+        "hi-latn": "Short written labels se familiar classroom actions pehchanein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.follow-instructions"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.read-labels"
+      ],
+      "taskTags": [
+        "classroom",
+        "reading",
+        "signs"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.read-labels.read",
+          "text": "LESEN",
+          "meaning": {
+            "en": "READ",
+            "hi": "पढ़ें",
+            "hi-latn": "PADHEIN"
+          },
+          "note": {
+            "en": "This sign points to a reading station.",
+            "hi": "यह संकेत पढ़ने के स्थान को दिखाता है।",
+            "hi-latn": "Yeh sign reading station dikhata hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.read-labels.write",
+          "text": "SCHREIBEN",
+          "meaning": {
+            "en": "WRITE",
+            "hi": "लिखें",
+            "hi-latn": "LIKHEIN"
+          },
+          "note": {
+            "en": "This sign points to a writing station.",
+            "hi": "यह संकेत लिखने के स्थान को दिखाता है।",
+            "hi-latn": "Yeh sign writing station dikhata hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "LEESEN",
+          "meaning": {
+            "en": "Misspelling of LESEN",
+            "hi": "LESEN की गलत वर्तनी",
+            "hi-latn": "LESEN ki galat spelling"
+          },
+          "note": {
+            "en": "The classroom label has one e after L.",
+            "hi": "कक्षा लेबल में L के बाद एक e है।",
+            "hi-latn": "Classroom label mein L ke baad ek e hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.mediate-instruction",
+      "language": "de",
+      "type": "discourse",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Help a classmate",
+        "hi": "सहपाठी की मदद करें",
+        "hi-latn": "Classmate ki help karein"
+      },
+      "description": {
+        "en": "Relay one short classroom instruction in a language the classmate knows.",
+        "hi": "एक छोटा कक्षा निर्देश सहपाठी की परिचित भाषा में बताएँ।",
+        "hi-latn": "Ek short classroom instruction classmate ki known language mein batayein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.follow-instructions",
+        "de.a1.u02.state-understanding"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.mediate-instruction"
+      ],
+      "taskTags": [
+        "classroom",
+        "mediation",
+        "instructions"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.mediate-instruction.read",
+          "text": "Lesen Sie bitte. / Please read.",
+          "meaning": {
+            "en": "A matched instruction",
+            "hi": "मिलता हुआ निर्देश",
+            "hi-latn": "Matching instruction"
+          },
+          "note": {
+            "en": "The meaning stays the same across both parts.",
+            "hi": "दोनों भागों में अर्थ समान रहता है।",
+            "hi-latn": "Dono parts mein meaning same rehta hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.mediate-instruction.write",
+          "text": "Schreiben Sie bitte. / कृपया लिखें।",
+          "meaning": {
+            "en": "A matched instruction",
+            "hi": "मिलता हुआ निर्देश",
+            "hi-latn": "Matching instruction"
+          },
+          "note": {
+            "en": "The second part helps a Hindi-speaking classmate.",
+            "hi": "दूसरा भाग हिंदी बोलने वाले सहपाठी की मदद करता है।",
+            "hi-latn": "Second part Hindi-speaking classmate ki help karta hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Lesen Sie bitte. / Please listen.",
+          "meaning": {
+            "en": "Mismatched instruction",
+            "hi": "असमान निर्देश",
+            "hi-latn": "Mismatched instruction"
+          },
+          "note": {
+            "en": "Read and listen name different actions.",
+            "hi": "पढ़ना और सुनना अलग क्रियाएँ हैं।",
+            "hi-latn": "Read aur listen alag actions hain."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u02.classroom-mission",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Complete the classroom mission",
+        "hi": "कक्षा मिशन पूरा करें",
+        "hi-latn": "Classroom mission complete karein"
+      },
+      "description": {
+        "en": "Obtain one classroom item and clarify one instruction.",
+        "hi": "कक्षा की एक वस्तु लें और एक निर्देश स्पष्ट कराएँ।",
+        "hi-latn": "Ek classroom item lein aur ek instruction clarify karayein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.classroom-objects",
+        "de.a1.u02.request-repetition",
+        "de.a1.u02.state-understanding"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u02.error.classroom-mission"
+      ],
+      "taskTags": [
+        "classroom",
+        "mission",
+        "repair"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u02.classroom-mission.item",
+          "text": "Ein Buch, bitte.",
+          "meaning": {
+            "en": "A book, please.",
+            "hi": "एक किताब, कृपया।",
+            "hi-latn": "Ek kitaab, please."
+          },
+          "note": {
+            "en": "This requests one classroom item.",
+            "hi": "यह कक्षा की एक वस्तु माँगता है।",
+            "hi-latn": "Yeh ek classroom item maangta hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u02.classroom-mission.repair",
+          "text": "Noch einmal, bitte.",
+          "meaning": {
+            "en": "Once again, please.",
+            "hi": "एक बार फिर, कृपया।",
+            "hi-latn": "Ek baar phir, please."
+          },
+          "note": {
+            "en": "This asks for the instruction again.",
+            "hi": "यह निर्देश फिर से माँगता है।",
+            "hi-latn": "Yeh instruction dobara maangta hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Buch!",
+          "meaning": {
+            "en": "Book!",
+            "hi": "किताब!",
+            "hi-latn": "Kitaab!"
+          },
+          "note": {
+            "en": "The bounded mission expects a polite request.",
+            "hi": "इस मिशन में विनम्र अनुरोध चाहिए।",
+            "hi-latn": "Is mission mein polite request chahiye."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    }
+  ],
+  "lexicon": [
+    {
+      "id": "de.a1.u02.lexeme.bleistift",
+      "language": "de",
+      "lemma": "Bleistift",
+      "article": "der",
+      "meaning": {
+        "en": "pencil",
+        "hi": "पेंसिल",
+        "hi-latn": "pencil"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Der Bleistift ist hier.",
+          "meaning": {
+            "en": "pencil",
+            "hi": "पेंसिल",
+            "hi-latn": "pencil"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.buch",
+      "language": "de",
+      "lemma": "Buch",
+      "article": "das",
+      "meaning": {
+        "en": "book",
+        "hi": "किताब",
+        "hi-latn": "kitaab"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Das Buch ist hier.",
+          "meaning": {
+            "en": "book",
+            "hi": "किताब",
+            "hi-latn": "kitaab"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.kugelschreiber",
+      "language": "de",
+      "lemma": "Kugelschreiber",
+      "article": "der",
+      "meaning": {
+        "en": "ballpoint pen",
+        "hi": "बॉलपेन",
+        "hi-latn": "ballpoint pen"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Der Kugelschreiber ist hier.",
+          "meaning": {
+            "en": "ballpoint pen",
+            "hi": "बॉलपेन",
+            "hi-latn": "ballpoint pen"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.arbeitsheft",
+      "language": "de",
+      "lemma": "Arbeitsheft",
+      "article": "das",
+      "meaning": {
+        "en": "workbook",
+        "hi": "अभ्यास पुस्तिका",
+        "hi-latn": "workbook"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Das Arbeitsheft ist hier.",
+          "meaning": {
+            "en": "workbook",
+            "hi": "अभ्यास पुस्तिका",
+            "hi-latn": "workbook"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.kreide",
+      "language": "de",
+      "lemma": "Kreide",
+      "article": "die",
+      "meaning": {
+        "en": "chalk",
+        "hi": "चॉक",
+        "hi-latn": "chalk"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Die Kreide ist hier.",
+          "meaning": {
+            "en": "chalk",
+            "hi": "चॉक",
+            "hi-latn": "chalk"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.computer",
+      "language": "de",
+      "lemma": "Computer",
+      "article": "der",
+      "meaning": {
+        "en": "computer",
+        "hi": "कंप्यूटर",
+        "hi-latn": "computer"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Der Computer ist hier.",
+          "meaning": {
+            "en": "computer",
+            "hi": "कंप्यूटर",
+            "hi-latn": "computer"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.maus",
+      "language": "de",
+      "lemma": "Maus",
+      "article": "die",
+      "meaning": {
+        "en": "computer mouse",
+        "hi": "कंप्यूटर माउस",
+        "hi-latn": "computer mouse"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Die Maus ist hier.",
+          "meaning": {
+            "en": "computer mouse",
+            "hi": "कंप्यूटर माउस",
+            "hi-latn": "computer mouse"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.schreibtisch",
+      "language": "de",
+      "lemma": "Schreibtisch",
+      "article": "der",
+      "meaning": {
+        "en": "desk",
+        "hi": "डेस्क",
+        "hi-latn": "desk"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Der Schreibtisch ist hier.",
+          "meaning": {
+            "en": "desk",
+            "hi": "डेस्क",
+            "hi-latn": "desk"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.stuhl",
+      "language": "de",
+      "lemma": "Stuhl",
+      "article": "der",
+      "meaning": {
+        "en": "chair",
+        "hi": "कुर्सी",
+        "hi-latn": "chair"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Der Stuhl ist hier.",
+          "meaning": {
+            "en": "chair",
+            "hi": "कुर्सी",
+            "hi-latn": "chair"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.klassenzimmer",
+      "language": "de",
+      "lemma": "Klassenzimmer",
+      "article": "das",
+      "meaning": {
+        "en": "classroom",
+        "hi": "कक्षा",
+        "hi-latn": "classroom"
+      },
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "examples": [
+        {
+          "text": "Das Klassenzimmer ist hier.",
+          "meaning": {
+            "en": "classroom",
+            "hi": "कक्षा",
+            "hi-latn": "classroom"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.was",
+      "language": "de",
+      "lemma": "was",
+      "article": null,
+      "meaning": {
+        "en": "what",
+        "hi": "क्या",
+        "hi-latn": "kya"
+      },
+      "conceptIds": [
+        "de.a1.u02.ask-object-name"
+      ],
+      "examples": [
+        {
+          "text": "Was ist das?",
+          "meaning": {
+            "en": "what",
+            "hi": "क्या",
+            "hi-latn": "kya"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.sein",
+      "language": "de",
+      "lemma": "sein",
+      "article": null,
+      "meaning": {
+        "en": "to be",
+        "hi": "होना",
+        "hi-latn": "hona"
+      },
+      "conceptIds": [
+        "de.a1.u02.ask-object-name"
+      ],
+      "examples": [
+        {
+          "text": "Das ist ein Buch.",
+          "meaning": {
+            "en": "to be",
+            "hi": "होना",
+            "hi-latn": "hona"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.haben",
+      "language": "de",
+      "lemma": "haben",
+      "article": null,
+      "meaning": {
+        "en": "to have",
+        "hi": "पास होना",
+        "hi-latn": "paas hona"
+      },
+      "conceptIds": [
+        "de.a1.u02.say-have-object"
+      ],
+      "examples": [
+        {
+          "text": "Ich habe ein Buch.",
+          "meaning": {
+            "en": "to have",
+            "hi": "पास होना",
+            "hi-latn": "paas hona"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.lesen",
+      "language": "de",
+      "lemma": "lesen",
+      "article": null,
+      "meaning": {
+        "en": "to read",
+        "hi": "पढ़ना",
+        "hi-latn": "padhna"
+      },
+      "conceptIds": [
+        "de.a1.u02.follow-instructions"
+      ],
+      "examples": [
+        {
+          "text": "Lesen Sie bitte.",
+          "meaning": {
+            "en": "to read",
+            "hi": "पढ़ना",
+            "hi-latn": "padhna"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.hoeren",
+      "language": "de",
+      "lemma": "hören",
+      "article": null,
+      "meaning": {
+        "en": "to listen",
+        "hi": "सुनना",
+        "hi-latn": "sunna"
+      },
+      "conceptIds": [
+        "de.a1.u02.follow-instructions"
+      ],
+      "examples": [
+        {
+          "text": "Hören Sie bitte.",
+          "meaning": {
+            "en": "to listen",
+            "hi": "सुनना",
+            "hi-latn": "sunna"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.schreiben",
+      "language": "de",
+      "lemma": "schreiben",
+      "article": null,
+      "meaning": {
+        "en": "to write",
+        "hi": "लिखना",
+        "hi-latn": "likhna"
+      },
+      "conceptIds": [
+        "de.a1.u02.follow-instructions"
+      ],
+      "examples": [
+        {
+          "text": "Schreiben Sie bitte.",
+          "meaning": {
+            "en": "to write",
+            "hi": "लिखना",
+            "hi-latn": "likhna"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.sprechen",
+      "language": "de",
+      "lemma": "sprechen",
+      "article": null,
+      "meaning": {
+        "en": "to speak",
+        "hi": "बोलना",
+        "hi-latn": "bolna"
+      },
+      "conceptIds": [
+        "de.a1.u02.follow-instructions"
+      ],
+      "examples": [
+        {
+          "text": "Sprechen Sie bitte.",
+          "meaning": {
+            "en": "to speak",
+            "hi": "बोलना",
+            "hi-latn": "bolna"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.wiederholen",
+      "language": "de",
+      "lemma": "wiederholen",
+      "article": null,
+      "meaning": {
+        "en": "to repeat",
+        "hi": "दोहराना",
+        "hi-latn": "dobara kehna"
+      },
+      "conceptIds": [
+        "de.a1.u02.request-repetition"
+      ],
+      "examples": [
+        {
+          "text": "Können Sie das bitte wiederholen?",
+          "meaning": {
+            "en": "to repeat",
+            "hi": "दोहराना",
+            "hi-latn": "dobara kehna"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.bitte",
+      "language": "de",
+      "lemma": "bitte",
+      "article": null,
+      "meaning": {
+        "en": "please",
+        "hi": "कृपया",
+        "hi-latn": "please"
+      },
+      "conceptIds": [
+        "de.a1.u02.request-repetition"
+      ],
+      "examples": [
+        {
+          "text": "Noch einmal, bitte.",
+          "meaning": {
+            "en": "please",
+            "hi": "कृपया",
+            "hi-latn": "please"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.noch-einmal",
+      "language": "de",
+      "lemma": "noch einmal",
+      "article": null,
+      "meaning": {
+        "en": "once again",
+        "hi": "एक बार फिर",
+        "hi-latn": "ek baar phir"
+      },
+      "conceptIds": [
+        "de.a1.u02.request-repetition"
+      ],
+      "examples": [
+        {
+          "text": "Noch einmal, bitte.",
+          "meaning": {
+            "en": "once again",
+            "hi": "एक बार फिर",
+            "hi-latn": "ek baar phir"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.verstehen",
+      "language": "de",
+      "lemma": "verstehen",
+      "article": null,
+      "meaning": {
+        "en": "to understand",
+        "hi": "समझना",
+        "hi-latn": "samajhna"
+      },
+      "conceptIds": [
+        "de.a1.u02.state-understanding"
+      ],
+      "examples": [
+        {
+          "text": "Ich verstehe.",
+          "meaning": {
+            "en": "to understand",
+            "hi": "समझना",
+            "hi-latn": "samajhna"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.nicht",
+      "language": "de",
+      "lemma": "nicht",
+      "article": null,
+      "meaning": {
+        "en": "not",
+        "hi": "नहीं",
+        "hi-latn": "nahin"
+      },
+      "conceptIds": [
+        "de.a1.u02.state-understanding"
+      ],
+      "examples": [
+        {
+          "text": "Ich verstehe das nicht.",
+          "meaning": {
+            "en": "not",
+            "hi": "नहीं",
+            "hi-latn": "nahin"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.buchstabieren",
+      "language": "de",
+      "lemma": "buchstabieren",
+      "article": null,
+      "meaning": {
+        "en": "to spell",
+        "hi": "वर्तनी बताना",
+        "hi-latn": "spelling batana"
+      },
+      "conceptIds": [
+        "de.a1.u02.hear-letter-names"
+      ],
+      "examples": [
+        {
+          "text": "Bitte buchstabieren Sie das.",
+          "meaning": {
+            "en": "to spell",
+            "hi": "वर्तनी बताना",
+            "hi-latn": "spelling batana"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.ein",
+      "language": "de",
+      "lemma": "ein",
+      "article": null,
+      "meaning": {
+        "en": "a, neuter or masculine",
+        "hi": "एक, नपुंसकलिंग या पुल्लिंग",
+        "hi-latn": "ek, neuter ya masculine"
+      },
+      "conceptIds": [
+        "de.a1.u02.say-have-object"
+      ],
+      "examples": [
+        {
+          "text": "Ich habe ein Buch.",
+          "meaning": {
+            "en": "a, neuter or masculine",
+            "hi": "एक, नपुंसकलिंग या पुल्लिंग",
+            "hi-latn": "ek, neuter ya masculine"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.eine",
+      "language": "de",
+      "lemma": "eine",
+      "article": null,
+      "meaning": {
+        "en": "a, feminine",
+        "hi": "एक, स्त्रीलिंग",
+        "hi-latn": "ek, feminine"
+      },
+      "conceptIds": [
+        "de.a1.u02.say-have-object"
+      ],
+      "examples": [
+        {
+          "text": "Ich habe eine Maus.",
+          "meaning": {
+            "en": "a, feminine",
+            "hi": "एक, स्त्रीलिंग",
+            "hi-latn": "ek, feminine"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.lexeme.einen",
+      "language": "de",
+      "lemma": "einen",
+      "article": null,
+      "meaning": {
+        "en": "a, masculine object",
+        "hi": "एक, पुल्लिंग कर्म",
+        "hi-latn": "ek, masculine object"
+      },
+      "conceptIds": [
+        "de.a1.u02.say-have-object"
+      ],
+      "examples": [
+        {
+          "text": "Ich habe einen Bleistift.",
+          "meaning": {
+            "en": "a, masculine object",
+            "hi": "एक, पुल्लिंग कर्म",
+            "hi-latn": "ek, masculine object"
+          },
+          "note": {
+            "en": "Authored classroom example.",
+            "hi": "लिखा हुआ कक्षा उदाहरण।",
+            "hi-latn": "Authored classroom example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "de.a1.u02.task.classroom-help",
+      "language": "de",
+      "domain": "classroom-help",
+      "cefrApproximation": "A1",
+      "goal": {
+        "en": "Request one classroom item and clarify one instruction.",
+        "hi": "कक्षा की एक वस्तु माँगें और एक निर्देश स्पष्ट कराएँ।",
+        "hi-latn": "Ek classroom item maangein aur ek instruction clarify karayein."
+      },
+      "context": {
+        "en": "A bounded exchange with a teacher before an activity.",
+        "hi": "गतिविधि से पहले शिक्षक के साथ सीमित बातचीत।",
+        "hi-latn": "Activity se pehle teacher ke saath bounded exchange."
+      },
+      "learnerRole": {
+        "en": "You request an item and ask to hear the instruction again.",
+        "hi": "आप वस्तु माँगते हैं और निर्देश फिर सुनने को कहते हैं।",
+        "hi-latn": "Aap item maangte hain aur instruction dobara sunne ko kehte hain."
+      },
+      "npcRole": {
+        "en": "The teacher supplies the item and repeats the authored instruction.",
+        "hi": "शिक्षक वस्तु देते हैं और लिखा निर्देश दोहराते हैं।",
+        "hi-latn": "Teacher item dete hain aur authored instruction repeat karte hain."
+      },
+      "requiredFunctionIds": [
+        "de.a1.u02.classroom-objects",
+        "de.a1.u02.request-repetition"
+      ],
+      "eligibleConceptIds": [
+        "de.a1.u02.classroom-objects",
+        "de.a1.u02.ask-object-name",
+        "de.a1.u02.say-have-object",
+        "de.a1.u02.follow-instructions",
+        "de.a1.u02.request-repetition",
+        "de.a1.u02.state-understanding",
+        "de.a1.u02.hear-letter-names",
+        "de.a1.u02.read-labels",
+        "de.a1.u02.mediate-instruction",
+        "de.a1.u02.classroom-mission"
+      ],
+      "initialStateId": "de.a1.u02.state.classroom.item",
+      "successStateIds": [
+        "de.a1.u02.state.classroom.complete"
+      ],
+      "states": [
+        {
+          "id": "de.a1.u02.state.classroom.item",
+          "allowedIntents": [
+            "requestItem"
+          ],
+          "scriptedFallback": [
+            "Was brauchen Sie?",
+            "Sagen Sie: Ein Buch, bitte."
+          ]
+        },
+        {
+          "id": "de.a1.u02.state.classroom.clarification",
+          "allowedIntents": [
+            "requestRepetition",
+            "stateNonUnderstanding"
+          ],
+          "scriptedFallback": [
+            "Lesen Sie bitte.",
+            "Sagen Sie: Noch einmal, bitte."
+          ]
+        },
+        {
+          "id": "de.a1.u02.state.classroom.complete",
+          "allowedIntents": [
+            "acknowledge",
+            "exit"
+          ],
+          "scriptedFallback": [
+            "Gern. Lesen Sie bitte.",
+            "Danke."
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStateId": "de.a1.u02.state.classroom.item",
+          "toStateId": "de.a1.u02.state.classroom.clarification",
+          "evaluatorId": "de.a1.u02.eval.classroom-item"
+        },
+        {
+          "fromStateId": "de.a1.u02.state.classroom.clarification",
+          "toStateId": "de.a1.u02.state.classroom.complete",
+          "evaluatorId": "de.a1.u02.eval.classroom-repair"
+        }
+      ],
+      "evaluators": [
+        {
+          "id": "de.a1.u02.eval.classroom-item",
+          "kind": "anyAllowedToken",
+          "expectedValues": [
+            "buch",
+            "bleistift",
+            "kugelschreiber"
+          ]
+        },
+        {
+          "id": "de.a1.u02.eval.classroom-repair",
+          "kind": "anyAllowedToken",
+          "expectedValues": [
+            "noch einmal",
+            "wiederholen",
+            "verstehe das nicht"
+          ]
+        },
+        {
+          "id": "de.a1.u02.eval.classroom-complete",
+          "kind": "stateReached",
+          "expectedValues": [
+            "de.a1.u02.state.classroom.complete"
+          ]
+        }
+      ],
+      "successConditions": [
+        {
+          "evaluatorId": "de.a1.u02.eval.classroom-complete",
+          "description": {
+            "en": "The complete state follows an accepted item request and repair phrase.",
+            "hi": "स्वीकार्य वस्तु अनुरोध और सुधार वाक्य के बाद पूर्ण स्थिति आती है।",
+            "hi-latn": "Accepted item request aur repair phrase ke baad complete state aati hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "State sequence, evaluator coverage, register, and fallback naturalness need competent review."
+      }
+    }
+  ],
+  "errorRules": [
+    {
+      "id": "de.a1.u02.error.classroom-objects",
+      "targetConceptId": "de.a1.u02.classroom-objects",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "das"
+        ]
+      },
+      "expectedProperty": "The bounded book-label activity includes das before Buch.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u02.feedback.classroom-objects",
+      "examples": [
+        "das Buch"
+      ],
+      "counterexamples": [
+        "der Buch",
+        "Buch"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to the authored das Buch activity and needs German review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.ask-object-name",
+      "targetConceptId": "de.a1.u02.ask-object-name",
+      "pattern": {
+        "kind": "requiredTokenSequence",
+        "values": [
+          "was",
+          "ist",
+          "das"
+        ]
+      },
+      "expectedProperty": "The authored object question keeps Was ist das in sequence.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u02.feedback.ask-object-name",
+      "examples": [
+        "Was ist das?"
+      ],
+      "counterexamples": [
+        "Was das ist?"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The narrow question-frame rule needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.say-have-object",
+      "targetConceptId": "de.a1.u02.say-have-object",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "habe"
+        ]
+      },
+      "expectedProperty": "The authored first-person frame uses habe.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u02.feedback.say-have-object",
+      "examples": [
+        "Ich habe ein Buch."
+      ],
+      "counterexamples": [
+        "Ich haben ein Buch."
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Agreement and article choices need competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.follow-instructions",
+      "targetConceptId": "de.a1.u02.follow-instructions",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "bitte"
+        ]
+      },
+      "expectedProperty": "The bounded polite-instruction activity includes bitte.",
+      "severity": "minor",
+      "feedbackTemplateId": "de.a1.u02.feedback.follow-instructions",
+      "examples": [
+        "Lesen Sie bitte.",
+        "Hören Sie bitte."
+      ],
+      "counterexamples": [
+        "Lesen!"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-vocabulary",
+        "source.de.a1.u02.goethe-glossary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Politeness and classroom register need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.request-repetition",
+      "targetConceptId": "de.a1.u02.request-repetition",
+      "pattern": {
+        "kind": "requiredTokenSequence",
+        "values": [
+          "noch",
+          "einmal"
+        ]
+      },
+      "expectedProperty": "The compact repair phrase keeps noch einmal together.",
+      "severity": "communicationBlocking",
+      "feedbackTemplateId": "de.a1.u02.feedback.request-repetition",
+      "examples": [
+        "Noch einmal, bitte."
+      ],
+      "counterexamples": [
+        "Einmal noch bitte."
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.cefr-2020"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Repair phrase naturalness needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.state-understanding",
+      "targetConceptId": "de.a1.u02.state-understanding",
+      "pattern": {
+        "kind": "requiredTokenSequence",
+        "values": [
+          "verstehe",
+          "das",
+          "nicht"
+        ]
+      },
+      "expectedProperty": "The authored negative frame keeps verstehe das nicht in sequence.",
+      "severity": "communicationBlocking",
+      "feedbackTemplateId": "de.a1.u02.feedback.state-understanding",
+      "examples": [
+        "Ich verstehe das nicht."
+      ],
+      "counterexamples": [
+        "Ich nicht verstehe das."
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.cefr-2020"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Negation placement and learner wording need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.hear-letter-names",
+      "targetConceptId": "de.a1.u02.hear-letter-names",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "wie"
+        ]
+      },
+      "expectedProperty": "The bounded spelling frame links a letter and word with wie.",
+      "severity": "intelligibility",
+      "feedbackTemplateId": "de.a1.u02.feedback.hear-letter-names",
+      "examples": [
+        "B wie Buch."
+      ],
+      "counterexamples": [
+        "B Buch."
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-alphabet",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Letter-name perception and transcription need competent pronunciation review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.read-labels",
+      "targetConceptId": "de.a1.u02.read-labels",
+      "pattern": {
+        "kind": "forbiddenToken",
+        "values": [
+          "leesen"
+        ]
+      },
+      "expectedProperty": "The authored label spells LESEN with one e after L.",
+      "severity": "minor",
+      "feedbackTemplateId": "de.a1.u02.feedback.read-labels",
+      "examples": [
+        "LESEN"
+      ],
+      "counterexamples": [
+        "LEESEN"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Orthographic scope and label choices need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.mediate-instruction",
+      "targetConceptId": "de.a1.u02.mediate-instruction",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "read"
+        ]
+      },
+      "expectedProperty": "The bounded mediation card maps Lesen to read.",
+      "severity": "communicationBlocking",
+      "feedbackTemplateId": "de.a1.u02.feedback.mediate-instruction",
+      "examples": [
+        "Lesen Sie bitte. / Please read."
+      ],
+      "counterexamples": [
+        "Lesen Sie bitte. / Please listen."
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Mediation scope and all translations need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.error.classroom-mission",
+      "targetConceptId": "de.a1.u02.classroom-mission",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "bitte"
+        ]
+      },
+      "expectedProperty": "The bounded classroom request includes bitte.",
+      "severity": "communicationBlocking",
+      "feedbackTemplateId": "de.a1.u02.feedback.classroom-mission",
+      "examples": [
+        "Ein Buch, bitte.",
+        "Noch einmal, bitte."
+      ],
+      "counterexamples": [
+        "Buch!"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Mission thresholds and pragmatic naturalness need competent review."
+      }
+    }
+  ],
+  "feedbackTemplates": [
+    {
+      "id": "de.a1.u02.feedback.classroom-objects",
+      "language": "de",
+      "message": {
+        "en": "Keep the article with the classroom noun.",
+        "hi": "कक्षा की संज्ञा के साथ आर्टिकल रखें।",
+        "hi-latn": "Classroom noun ke saath article rakhein."
+      },
+      "retryPrompt": {
+        "en": "Check the noun card and choose its article again.",
+        "hi": "संज्ञा कार्ड देखकर आर्टिकल फिर चुनें।",
+        "hi-latn": "Noun card dekhkar article phir chunein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.ask-object-name",
+      "language": "de",
+      "message": {
+        "en": "Keep the question in the order Was ist das?",
+        "hi": "प्रश्न का क्रम Was ist das? रखें।",
+        "hi-latn": "Question ka order Was ist das? rakhein."
+      },
+      "retryPrompt": {
+        "en": "Put ist between Was and das.",
+        "hi": "ist को Was और das के बीच रखें।",
+        "hi-latn": "ist ko Was aur das ke beech rakhein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.say-have-object",
+      "language": "de",
+      "message": {
+        "en": "Use habe after Ich in this frame.",
+        "hi": "इस ढाँचे में Ich के बाद habe रखें।",
+        "hi-latn": "Is frame mein Ich ke baad habe rakhein."
+      },
+      "retryPrompt": {
+        "en": "Choose the first-person form and rebuild the sentence.",
+        "hi": "पहले व्यक्ति का रूप चुनकर वाक्य फिर बनाएँ।",
+        "hi-latn": "First-person form chun kar sentence phir banayein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.follow-instructions",
+      "language": "de",
+      "message": {
+        "en": "Listen for the action word and the polite cue.",
+        "hi": "क्रिया शब्द और विनम्र संकेत सुनें।",
+        "hi-latn": "Action word aur polite cue sunein."
+      },
+      "retryPrompt": {
+        "en": "Read the transcript, then choose the matching action.",
+        "hi": "ट्रांसक्रिप्ट पढ़कर सही क्रिया चुनें।",
+        "hi-latn": "Transcript padhkar matching action chunein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.dib-vocabulary",
+        "source.de.a1.u02.goethe-glossary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.request-repetition",
+      "language": "de",
+      "message": {
+        "en": "Use Noch einmal, bitte to ask for another hearing.",
+        "hi": "फिर सुनने के लिए Noch einmal, bitte कहें।",
+        "hi-latn": "Dobara sunne ke liye Noch einmal, bitte kahein."
+      },
+      "retryPrompt": {
+        "en": "Build the short repair phrase in order.",
+        "hi": "छोटा सुधार वाक्य सही क्रम में बनाएँ।",
+        "hi-latn": "Short repair phrase sahi order mein banayein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.cefr-2020"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.state-understanding",
+      "language": "de",
+      "message": {
+        "en": "Keep verstehe before das nicht.",
+        "hi": "verstehe को das nicht से पहले रखें।",
+        "hi-latn": "verstehe ko das nicht se pehle rakhein."
+      },
+      "retryPrompt": {
+        "en": "Rebuild the sentence with the verb after Ich.",
+        "hi": "Ich के बाद क्रिया रखकर वाक्य फिर बनाएँ।",
+        "hi-latn": "Ich ke baad verb rakhkar sentence phir banayein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.cefr-2020"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.hear-letter-names",
+      "language": "de",
+      "message": {
+        "en": "Use the anchor word to confirm the letter.",
+        "hi": "अक्षर की पुष्टि के लिए सहायक शब्द प्रयोग करें।",
+        "hi-latn": "Letter confirm karne ke liye anchor word use karein."
+      },
+      "retryPrompt": {
+        "en": "Read the transcript, then compare the two letter cards.",
+        "hi": "ट्रांसक्रिप्ट पढ़कर दोनों अक्षर कार्ड तुलना करें।",
+        "hi-latn": "Transcript padhkar dono letter cards compare karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.dib-alphabet",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.read-labels",
+      "language": "de",
+      "message": {
+        "en": "Look closely at the complete written action.",
+        "hi": "पूरी लिखी क्रिया को ध्यान से देखें।",
+        "hi-latn": "Complete written action ko dhyan se dekhein."
+      },
+      "retryPrompt": {
+        "en": "Match every letter before choosing the sign.",
+        "hi": "संकेत चुनने से पहले हर अक्षर मिलाएँ।",
+        "hi-latn": "Sign chunne se pehle har letter match karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.mediate-instruction",
+      "language": "de",
+      "message": {
+        "en": "Keep the action meaning the same for your classmate.",
+        "hi": "सहपाठी के लिए क्रिया का अर्थ समान रखें।",
+        "hi-latn": "Classmate ke liye action meaning same rakhein."
+      },
+      "retryPrompt": {
+        "en": "Compare the German action with the known-language card.",
+        "hi": "जर्मन क्रिया को परिचित भाषा कार्ड से मिलाएँ।",
+        "hi-latn": "German action ko known-language card se match karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u02.feedback.classroom-mission",
+      "language": "de",
+      "message": {
+        "en": "Complete the request with bitte.",
+        "hi": "अनुरोध को bitte के साथ पूरा करें।",
+        "hi-latn": "Request ko bitte ke saath complete karein."
+      },
+      "retryPrompt": {
+        "en": "Choose the item or repair phrase that includes bitte.",
+        "hi": "bitte वाला वस्तु या सुधार वाक्य चुनें।",
+        "hi-latn": "bitte wala item ya repair phrase chunein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    }
+  ],
+  "rubrics": [
+    {
+      "id": "de.a1.u02.rubric.classroom-help",
+      "taskId": "de.a1.u02.task.classroom-help",
+      "dimensions": [
+        {
+          "dimension": "communicativeSuccess",
+          "evaluatorId": "de.a1.u02.eval.classroom-complete"
+        },
+        {
+          "dimension": "linguisticAccuracy",
+          "evaluatorId": "de.a1.u02.eval.classroom-item"
+        },
+        {
+          "dimension": "targetConceptPerformance",
+          "evaluatorId": "de.a1.u02.eval.classroom-repair"
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Dimension mapping and threshold interpretation need competent assessment review."
+      }
+    }
+  ],
+  "pronunciationUtterances": [
+    {
+      "id": "de.a1.u02.utterance.classroom-objects",
+      "language": "de",
+      "locale": "de-de",
+      "text": "das Buch",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.ask-object-name",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Was ist das?",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.ask-object-name"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.say-have-object",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Ich habe einen Bleistift.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.say-have-object"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.follow-instructions",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Lesen Sie bitte.",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.follow-instructions"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.request-repetition",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Noch einmal, bitte.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.request-repetition"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.state-understanding",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Ich verstehe das nicht.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.state-understanding"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.goethe-glossary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.hear-letter-names",
+      "language": "de",
+      "locale": "de-de",
+      "text": "B wie Buch.",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.hear-letter-names"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-alphabet"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.read-labels",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Schreiben",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.read-labels"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.mediate-instruction",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Lesen Sie bitte.",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.mediate-instruction"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u02.utterance.classroom-mission",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Ein Buch, bitte.",
+      "purpose": "production",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u02.classroom-mission"
+      ],
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.goethe-glossary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson.de.a1.u02.classroom-objects",
+      "courseOrder": 11,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.classroom-objects.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Im Deutschraum"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the classroom and notice each noun with its article.",
+                "hi": "कक्षा में जाएँ और हर संज्ञा को उसके आर्टिकल के साथ देखें।",
+                "hi-latn": "Classroom mein jaayein aur har noun ko uske article ke saath dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-objects"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-objects.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read how a teacher names two classroom objects.",
+                "hi": "पढ़ें कि शिक्षक दो कक्षा वस्तुओं के नाम कैसे बताते हैं।",
+                "hi-latn": "Padhein ki teacher do classroom objects ke naam kaise batate hain."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-objects"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Das ist das Buch."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Und das ist der Bleistift."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-objects.template.03",
+          "templateId": "object-spotlight",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Inspect the book together with its article and meaning.",
+                "hi": "किताब को उसके आर्टिकल और अर्थ के साथ देखें।",
+                "hi-latn": "Book ko uske article aur meaning ke saath dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-objects"
+            },
+            "word": {
+              "kind": "text",
+              "value": "Buch"
+            },
+            "article": {
+              "kind": "text",
+              "value": "das"
+            },
+            "meaning": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "book",
+                "hi": "किताब",
+                "hi-latn": "kitaab"
+              }
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u02.classroom-objects.book"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-objects.template.04",
+          "templateId": "article-stamp",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Stamp the correct article beside Buch.",
+                "hi": "Buch के पास सही आर्टिकल लगाएँ।",
+                "hi-latn": "Buch ke paas sahi article lagayein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-objects"
+            },
+            "noun": {
+              "kind": "text",
+              "value": "Buch"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "der",
+                  "label": "der"
+                },
+                {
+                  "id": "die",
+                  "label": "die"
+                },
+                {
+                  "id": "das",
+                  "label": "das"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "das"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-objects.template.05",
+          "templateId": "word-match",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the noun that matches a text description of a book.",
+                "hi": "किताब के लिखित वर्णन से मिलने वाली संज्ञा चुनें।",
+                "hi-latn": "Book ke text description se matching noun chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-objects"
+            },
+            "subject-description": {
+              "kind": "text",
+              "value": "A bound set of pages used for reading"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "buch",
+                  "label": "das Buch"
+                },
+                {
+                  "id": "stuhl",
+                  "label": "der Stuhl"
+                },
+                {
+                  "id": "kreide",
+                  "label": "die Kreide"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "buch"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-objects.template.06",
+          "templateId": "sort-into-baskets",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Sort each noun into its der, die, or das basket.",
+                "hi": "हर संज्ञा को der, die या das की टोकरी में रखें।",
+                "hi-latn": "Har noun ko der, die, ya das basket mein rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-objects"
+            },
+            "items": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "bleistift",
+                  "label": "Bleistift"
+                },
+                {
+                  "id": "kreide",
+                  "label": "Kreide"
+                },
+                {
+                  "id": "buch",
+                  "label": "Buch"
+                }
+              ]
+            },
+            "baskets": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "der",
+                  "label": "der"
+                },
+                {
+                  "id": "die",
+                  "label": "die"
+                },
+                {
+                  "id": "das",
+                  "label": "das"
+                }
+              ]
+            },
+            "answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "bleistift",
+                  "label": "der"
+                },
+                {
+                  "id": "kreide",
+                  "label": "die"
+                },
+                {
+                  "id": "buch",
+                  "label": "das"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-objects.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type the complete noun phrase.",
+                "hi": "पूरा संज्ञा वाक्यांश बोलें या टाइप करें।",
+                "hi-latn": "Complete noun phrase bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-objects"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Was ist das? Ein Buch."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "das-buch",
+                  "label": "das Buch"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.classroom-objects.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review three classroom nouns with their articles.",
+                "hi": "तीन कक्षा संज्ञाओं को उनके आर्टिकल के साथ दोहराएँ।",
+                "hi-latn": "Teen classroom nouns ko unke articles ke saath review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.classroom-objects"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Dinge im Deutschraum"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "book",
+                  "label": "das Buch"
+                },
+                {
+                  "id": "pencil",
+                  "label": "der Bleistift"
+                },
+                {
+                  "id": "chalk",
+                  "label": "die Kreide"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Artikel und Nomen bleiben zusammen."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u02.ask-object-name",
+      "courseOrder": 12,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.ask-object-name.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Am Materialtisch"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Ask for the name of an unfamiliar classroom object.",
+                "hi": "कक्षा की अनजान वस्तु का नाम पूछें।",
+                "hi-latn": "Unknown classroom object ka naam poochhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.ask-object-name"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.ask-object-name.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the question and its short answer.",
+                "hi": "प्रश्न और उसका छोटा उत्तर पढ़ें।",
+                "hi-latn": "Question aur uska short answer padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.ask-object-name"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Was ist das?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Das ist ein Arbeitsheft."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.ask-object-name.template.03",
+          "templateId": "question-flip",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Flip the statement and inspect the authored object question.",
+                "hi": "कथन पलटकर लिखा हुआ वस्तु प्रश्न देखें।",
+                "hi-latn": "Statement flip karke authored object question dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.ask-object-name"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u02.ask-object-name.question"
+            },
+            "statement": {
+              "kind": "text",
+              "value": "Das ist ein Buch."
+            },
+            "question": {
+              "kind": "text",
+              "value": "Was ist das?"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.ask-object-name.template.04",
+          "templateId": "word-order-train",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Build the object question from left to right.",
+                "hi": "वस्तु प्रश्न को बाएँ से दाएँ बनाएँ।",
+                "hi-latn": "Object question ko left se right banayein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.ask-object-name"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u02.ask-object-name.question"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "was",
+                  "label": "Was"
+                },
+                {
+                  "id": "ist",
+                  "label": "ist"
+                },
+                {
+                  "id": "das",
+                  "label": "das?"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.ask-object-name.template.05",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the answer that names the book.",
+                "hi": "वह उत्तर चुनें जो किताब का नाम बताता है।",
+                "hi-latn": "Woh answer chunein jo book ka naam batata hai."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.ask-object-name"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "book",
+                  "label": "Das ist ein Buch."
+                },
+                {
+                  "id": "chair",
+                  "label": "Das ist ein Stuhl."
+                },
+                {
+                  "id": "chalk",
+                  "label": "Das ist Kreide."
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "book"
+            },
+            "spoken-text": {
+              "kind": "text",
+              "value": "Das ist ein Buch."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.ask-object-name.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the complete question.",
+                "hi": "सुनें या पढ़ें, फिर पूरा प्रश्न टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir complete question type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.ask-object-name"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Was ist das?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "question",
+                  "label": "Was ist das?"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.ask-object-name.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type one complete object sentence.",
+                "hi": "एक पूरा वस्तु वाक्य बोलें या टाइप करें।",
+                "hi-latn": "Ek complete object sentence bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.ask-object-name"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Was ist das?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "book",
+                  "label": "Das ist ein Buch."
+                },
+                {
+                  "id": "pencil",
+                  "label": "Das ist ein Bleistift."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.ask-object-name.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the object question and two useful answers.",
+                "hi": "वस्तु प्रश्न और दो उपयोगी उत्तर दोहराएँ।",
+                "hi-latn": "Object question aur do useful answers review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.ask-object-name"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Was ist das?"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "question",
+                  "label": "Was ist das?"
+                },
+                {
+                  "id": "book",
+                  "label": "Das ist ein Buch."
+                },
+                {
+                  "id": "pencil",
+                  "label": "Das ist ein Bleistift."
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Frage und Antwort benennen das Ding."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u02.say-have-object",
+      "courseOrder": 13,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.say-have-object.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Vor der Übung"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Check which classroom items you have before the activity.",
+                "hi": "गतिविधि से पहले देखें कि आपके पास कौन सी वस्तुएँ हैं।",
+                "hi-latn": "Activity se pehle dekhein ki aapke paas kaun se items hain."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.say-have-object"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.say-have-object.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read two ways to say which item you have.",
+                "hi": "वस्तु बताने के दो तरीके पढ़ें।",
+                "hi-latn": "Item batane ke do tareeqe padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.say-have-object"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Haben Sie ein Buch?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Ja. Ich habe ein Buch."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.say-have-object.template.03",
+          "templateId": "object-anatomy",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "Ich habe ein Buch."
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "See how the have sentence is built.",
+                "hi": "देखें कि haben वाला वाक्य कैसे बनता है।",
+                "hi-latn": "Dekhein ki haben wala sentence kaise banta hai."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.say-have-object"
+            },
+            "parts": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "person",
+                  "label": "Ich: Person"
+                },
+                {
+                  "id": "verb",
+                  "label": "habe: Verb"
+                },
+                {
+                  "id": "object",
+                  "label": "ein Buch: Gegenstand"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.say-have-object.template.04",
+          "templateId": "article-stamp",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the article form before Bleistift in this sentence.",
+                "hi": "इस वाक्य में Bleistift से पहले सही आर्टिकल रूप चुनें।",
+                "hi-latn": "Is sentence mein Bleistift se pehle sahi article form chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.say-have-object"
+            },
+            "noun": {
+              "kind": "text",
+              "value": "Ich habe ___ Bleistift."
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "ein",
+                  "label": "ein"
+                },
+                {
+                  "id": "eine",
+                  "label": "eine"
+                },
+                {
+                  "id": "einen",
+                  "label": "einen"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "einen"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.say-have-object.template.05",
+          "templateId": "word-order-train",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Build the sentence about having a book.",
+                "hi": "किताब पास होने वाला वाक्य बनाएँ।",
+                "hi-latn": "Book paas hone wala sentence banayein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.say-have-object"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u02.say-have-object.book"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "ich",
+                  "label": "Ich"
+                },
+                {
+                  "id": "habe",
+                  "label": "habe"
+                },
+                {
+                  "id": "ein",
+                  "label": "ein"
+                },
+                {
+                  "id": "buch",
+                  "label": "Buch."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.say-have-object.template.06",
+          "templateId": "gap-card",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Complete the pencil sentence with the correct article form.",
+                "hi": "पेंसिल वाले वाक्य में सही आर्टिकल रूप भरें।",
+                "hi-latn": "Pencil sentence mein sahi article form bharein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.say-have-object"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u02.say-have-object.pencil"
+            },
+            "sentence-before": {
+              "kind": "text",
+              "value": "Ich habe"
+            },
+            "sentence-after": {
+              "kind": "text",
+              "value": "Bleistift."
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "ein",
+                  "label": "ein"
+                },
+                {
+                  "id": "eine",
+                  "label": "eine"
+                },
+                {
+                  "id": "einen",
+                  "label": "einen"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "einen"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.say-have-object.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Say or type one item you have.",
+                "hi": "अपने पास की एक वस्तु बोलें या टाइप करें।",
+                "hi-latn": "Apne paas ka ek item bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.say-have-object"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Was haben Sie?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "book",
+                  "label": "Ich habe ein Buch."
+                },
+                {
+                  "id": "pencil",
+                  "label": "Ich habe einen Bleistift."
+                },
+                {
+                  "id": "mouse",
+                  "label": "Ich habe eine Maus."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.say-have-object.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review three article forms after Ich habe.",
+                "hi": "Ich habe के बाद तीन आर्टिकल रूप दोहराएँ।",
+                "hi-latn": "Ich habe ke baad teen article forms review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.say-have-object"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Ich habe ..."
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "book",
+                  "label": "ein Buch"
+                },
+                {
+                  "id": "mouse",
+                  "label": "eine Maus"
+                },
+                {
+                  "id": "pencil",
+                  "label": "einen Bleistift"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Ich habe nennt einen Gegenstand."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u02.follow-instructions",
+      "courseOrder": 14,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.follow-instructions.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Die erste Aufgabe"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen for the action word in each classroom instruction.",
+                "hi": "हर कक्षा निर्देश में क्रिया शब्द सुनें।",
+                "hi-latn": "Har classroom instruction mein action word sunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.follow-instructions"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.follow-instructions.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read two short classroom instructions.",
+                "hi": "कक्षा के दो छोटे निर्देश पढ़ें।",
+                "hi-latn": "Do short classroom instructions padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.follow-instructions"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Lesen Sie bitte."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Ja. Ich lese."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.follow-instructions.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through four text cards for classroom actions.",
+                "hi": "कक्षा क्रियाओं के चार टेक्स्ट कार्ड देखें।",
+                "hi-latn": "Classroom actions ke chaar text cards dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.follow-instructions"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Vier Arbeitsaufträge"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "LESEN: Lesen Sie bitte."
+                },
+                {
+                  "id": "listen",
+                  "label": "HÖREN: Hören Sie bitte."
+                },
+                {
+                  "id": "write",
+                  "label": "SCHREIBEN: Schreiben Sie bitte."
+                },
+                {
+                  "id": "repeat",
+                  "label": "WIEDERHOLEN: Wiederholen Sie bitte."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.follow-instructions.template.04",
+          "templateId": "listen-order",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then place the four actions in order.",
+                "hi": "सुनें या पढ़ें, फिर चार क्रियाएँ सही क्रम में रखें।",
+                "hi-latn": "Sunein ya padhein, phir chaar actions sahi order mein rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.follow-instructions"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Lesen. Hören. Schreiben. Wiederholen."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "events": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "Lesen"
+                },
+                {
+                  "id": "listen",
+                  "label": "Hören"
+                },
+                {
+                  "id": "write",
+                  "label": "Schreiben"
+                },
+                {
+                  "id": "repeat",
+                  "label": "Wiederholen"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.follow-instructions.template.05",
+          "templateId": "listen-pick-image",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then choose the matching text-only action card.",
+                "hi": "सुनें या पढ़ें, फिर सही टेक्स्ट क्रिया कार्ड चुनें।",
+                "hi-latn": "Sunein ya padhein, phir matching text action card chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.follow-instructions"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Schreiben Sie bitte."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "A person reads a page"
+                },
+                {
+                  "id": "listen",
+                  "label": "A person listens"
+                },
+                {
+                  "id": "write",
+                  "label": "A person writes"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "write"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.follow-instructions.template.06",
+          "templateId": "word-match",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the German action for a card that says to listen.",
+                "hi": "सुनने वाले कार्ड के लिए जर्मन क्रिया चुनें।",
+                "hi-latn": "Listen wale card ke liye German action chunein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.follow-instructions"
+            },
+            "subject-description": {
+              "kind": "text",
+              "value": "A classroom card asks everyone to listen"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "hoeren",
+                  "label": "hören"
+                },
+                {
+                  "id": "lesen",
+                  "label": "lesen"
+                },
+                {
+                  "id": "schreiben",
+                  "label": "schreiben"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "hoeren"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.follow-instructions.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type what action you will do.",
+                "hi": "बोलें या टाइप करें कि आप कौन सी क्रिया करेंगे।",
+                "hi-latn": "Bolein ya type karein ki aap kaunsa action karenge."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.follow-instructions"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Schreiben Sie bitte."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "write",
+                  "label": "Ich schreibe."
+                },
+                {
+                  "id": "yes",
+                  "label": "Ja."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.follow-instructions.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the four classroom action words.",
+                "hi": "कक्षा के चार क्रिया शब्द दोहराएँ।",
+                "hi-latn": "Chaar classroom action words review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.follow-instructions"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Arbeitsaufträge"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "lesen"
+                },
+                {
+                  "id": "listen",
+                  "label": "hören"
+                },
+                {
+                  "id": "write",
+                  "label": "schreiben"
+                },
+                {
+                  "id": "repeat",
+                  "label": "wiederholen"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Das erste Wort nennt die Handlung."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u02.request-repetition",
+      "courseOrder": 15,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u02.request-repetition.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Eine unklare Aufgabe"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Use a repair phrase when the instruction is unclear.",
+                "hi": "निर्देश साफ न हो तो सुधार वाक्य प्रयोग करें।",
+                "hi-latn": "Instruction clear na ho to repair phrase use karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.request-repetition"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "teacher",
+                  "label": "Frau Berg"
+                },
+                {
+                  "id": "learner",
+                  "label": "Noah"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.request-repetition.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a polite request to hear an instruction again.",
+                "hi": "निर्देश फिर सुनने का विनम्र अनुरोध पढ़ें।",
+                "hi-latn": "Instruction dobara sunne ka polite request padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.request-repetition"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Berg"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Lesen Sie bitte."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Noah"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Noch einmal, bitte."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.request-repetition.template.03",
+          "templateId": "object-anatomy",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "Noch einmal, bitte."
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "See how the compact repair phrase is built.",
+                "hi": "देखें कि छोटा सुधार वाक्य कैसे बनता है।",
+                "hi-latn": "Dekhein ki short repair phrase kaise banta hai."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.request-repetition"
+            },
+            "parts": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "again",
+                  "label": "Noch einmal: again"
+                },
+                {
+                  "id": "courtesy",
+                  "label": "bitte: polite cue"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.request-repetition.template.04",
+          "templateId": "sentence-fold",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Unfold the compact repair phrase in order.",
+                "hi": "छोटा सुधार वाक्य सही क्रम में खोलें।",
+                "hi-latn": "Short repair phrase sahi order mein unfold karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.request-repetition"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u02.request-repetition.short"
+            },
+            "segments": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "noch",
+                  "label": "Noch"
+                },
+                {
+                  "id": "einmal",
+                  "label": "einmal,"
+                },
+                {
+                  "id": "bitte",
+                  "label": "bitte."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.request-repetition.template.05",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the short repair phrase.",
+                "hi": "सुनें या पढ़ें, फिर छोटा सुधार वाक्य टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir short repair phrase type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.request-repetition"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Noch einmal, bitte."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "short",
+                  "label": "Noch einmal, bitte."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.request-repetition.template.06",
+          "templateId": "echo-stage",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Repeat aloud or use the typed path for the full request.",
+                "hi": "पूरा अनुरोध बोलें या टाइप करने का रास्ता प्रयोग करें।",
+                "hi-latn": "Full request bolein ya typed path use karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.request-repetition"
+            },
+            "phrase": {
+              "kind": "text",
+              "value": "Können Sie das bitte wiederholen?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-transcripts": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "full",
+                  "label": "Können Sie das bitte wiederholen?"
+                },
+                {
+                  "id": "short",
+                  "label": "Noch einmal, bitte."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.request-repetition.template.07",
+          "templateId": "scenario-theatre",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the response that asks to hear the instruction again.",
+                "hi": "वह उत्तर चुनें जो निर्देश फिर सुनने को कहता है।",
+                "hi-latn": "Woh response chunein jo instruction dobara sunne ko kehta hai."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.request-repetition"
+            },
+            "task": {
+              "kind": "taskReference",
+              "value": "de.a1.u02.task.classroom-help"
+            },
+            "state-label": {
+              "kind": "text",
+              "value": "2 von 3: Klären"
+            },
+            "npc-line": {
+              "kind": "text",
+              "value": "Lesen Sie bitte."
+            },
+            "responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "repeat",
+                  "label": "Noch einmal, bitte."
+                },
+                {
+                  "id": "thanks",
+                  "label": "Danke."
+                },
+                {
+                  "id": "item",
+                  "label": "Ein Buch, bitte."
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "repeat"
+            },
+            "retry-hint": {
+              "kind": "text",
+              "value": "Bitten Sie höflich um eine Wiederholung."
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u02.request-repetition.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the short and full repetition requests.",
+                "hi": "दोहराने के छोटे और पूरे अनुरोध दोहराएँ।",
+                "hi-latn": "Short aur full repetition requests review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u02.request-repetition"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Noch einmal"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "short",
+                  "label": "Noch einmal, bitte."
+                },
+                {
+                  "id": "full",
+                  "label": "Können Sie das bitte wiederholen?"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Eine Reparatur hält das Gespräch offen."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Fertig"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "transferMappings": [],
+  "courseUnits": [
+    {
+      "id": "unit.de.a1.02",
+      "number": 2,
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Learn in German",
+        "hi": "जर्मन में सीखें",
+        "hi-latn": "German mein seekhein"
+      },
+      "description": {
+        "en": "Understand basic classroom language, request help, and manage spelling or comprehension problems.",
+        "hi": "कक्षा की बुनियादी भाषा समझें, मदद माँगें और स्पेलिंग या समझ की समस्या सँभालें।",
+        "hi-latn": "Basic classroom language samjhein, help maangein, aur spelling ya understanding problems handle karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u02.cefr-2020",
+        "source.de.a1.u02.goethe-glossary",
+        "source.de.a1.u02.dib-vocabulary"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Unit sequence and A1 approximation need competent pedagogical review."
+      }
+    }
+  ]
+}

@@ -129,6 +129,9 @@ public sealed class ContentAssetValidationTests
                 Path.Combine(AppContext.BaseDirectory, "Content"),
                 ContentLoadPolicy.AuthoringPreview)
             .Packs
+            .Where(pack =>
+                pack.Manifest.Kind == ContentPackKind.Transfer ||
+                pack.Manifest.Id is "language.de.core" or "language.de.a1.unit01")
             .Select(WithoutAssetReferences)
             .ToArray();
         var targetIndex = Array.FindIndex(packs, pack => pack.Manifest.Id == "language.de.a1.unit01");

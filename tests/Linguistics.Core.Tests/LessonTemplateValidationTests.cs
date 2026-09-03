@@ -145,7 +145,9 @@ public sealed class LessonTemplateValidationTests
                 Path.Combine(AppContext.BaseDirectory, "Content"),
                 ContentLoadPolicy.AuthoringPreview)
             .Packs
-            .Where(pack => pack.Manifest.Id != "language.de.a1.unit01")
+            .Where(pack =>
+                pack.Manifest.Kind == ContentPackKind.Transfer ||
+                pack.Manifest.Id == "language.de.core")
             .ToArray();
         var targetIndex = Array.FindIndex(packs, pack => pack.Manifest.Id == "language.de.core");
         var target = packs[targetIndex];
