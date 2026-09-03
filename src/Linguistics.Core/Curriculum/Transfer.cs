@@ -213,6 +213,17 @@ public static class TransferRouter
                     .ThenBy(candidate => candidate.Mapping.Id.Value, StringComparer.Ordinal)
                     .FirstOrDefault();
 
+            if (selected == default && preferred is not null)
+            {
+                selected = close
+                    .Where(candidate => SameLanguageFamily(
+                        candidate.Mapping.SourceLanguage,
+                        preferred.Value))
+                    .OrderByDescending(candidate => candidate.Decision.Score)
+                    .ThenBy(candidate => candidate.Mapping.Id.Value, StringComparer.Ordinal)
+                    .FirstOrDefault();
+            }
+
             if (selected == default)
             {
                 selected = eligible[0];
@@ -280,8 +291,14 @@ public static class TransferRouter
             return Rejected(mapping.Id, TransferRejectionReason.RelationNotDisplayable);
         }
 
-        var knownLanguage = profile.KnownLanguages.SingleOrDefault(language =>
-            language.Language == mapping.SourceLanguage);
+        var preferredLanguage = profile.Settings.PreferredExplanationLanguage;
+        var knownLanguage = profile.KnownLanguages
+            .Where(language => SameLanguageFamily(language.Language, mapping.SourceLanguage))
+            .OrderByDescending(language => preferredLanguage is not null &&
+                language.Language == preferredLanguage.Value)
+            .ThenByDescending(language => language.Language == mapping.SourceLanguage)
+            .ThenBy(language => language.Language.Value, StringComparer.Ordinal)
+            .FirstOrDefault();
         if (knownLanguage is null)
         {
             return Rejected(mapping.Id, TransferRejectionReason.LanguageNotKnown);
@@ -336,4 +353,13 @@ public static class TransferRouter
         TransferMappingId id,
         TransferRejectionReason reason) =>
         new(id, Eligible: false, Score: 0, reason, Inputs: null);
+
+    private static bool SameLanguageFamily(LanguageCode left, LanguageCode right) =>
+        PrimaryLanguage(left.Value) == PrimaryLanguage(right.Value);
+
+    private static string PrimaryLanguage(string code)
+    {
+        var separator = code.IndexOf('-');
+        return separator < 0 ? code : code[..separator];
+    }
 }

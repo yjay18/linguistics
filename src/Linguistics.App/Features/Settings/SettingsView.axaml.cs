@@ -338,6 +338,7 @@ public partial class SettingsView : UserControl
     {
         PreferredEnglish.IsVisible = IsEligible("en");
         PreferredHindi.IsVisible = IsEligible("hi");
+        PreferredHinglish.IsVisible = IsEligible("hi-latn");
     }
 
     private bool IsEligible(string code) =>
@@ -348,12 +349,14 @@ public partial class SettingsView : UserControl
     {
         "en" when PreferredEnglish.IsVisible => PreferredEnglish,
         "hi" when PreferredHindi.IsVisible => PreferredHindi,
+        "hi-latn" when PreferredHinglish.IsVisible => PreferredHinglish,
         _ => null,
     };
 
     private ComboBoxItem? FirstVisiblePreferredItem() =>
         PreferredEnglish.IsVisible ? PreferredEnglish :
-        PreferredHindi.IsVisible ? PreferredHindi : null;
+        PreferredHindi.IsVisible ? PreferredHindi :
+        PreferredHinglish.IsVisible ? PreferredHinglish : null;
 
     private LanguageCode? SelectedPreferredLanguage()
     {

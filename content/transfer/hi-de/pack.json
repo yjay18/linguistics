@@ -5,7 +5,7 @@
     "schemaVersion": 3,
     "kind": "transfer",
     "languages": ["hi", "de"],
-    "instructionLanguages": ["en", "hi"],
+    "instructionLanguages": ["en", "hi", "hi-latn"],
     "dependencies": [{ "packId": "language.de.core", "minimumVersion": 1, "maximumVersion": 1 }],
     "license": {
       "identifier": "LicenseRef-Linguistics-Internal-Draft",
@@ -97,12 +97,12 @@
       "relation": "facilitative",
       "strength": 0.85,
       "bridgeConcepts": ["Hindi आप and German Sie both provide a respectful address choice in the cited beginner contexts."],
-      "learnerExplanation": {"en": "Hindi आप can remind you to make a respectful address choice. German uses capitalized Sie; learn its German verb form with it rather than copying Hindi agreement.", "hi": "हिंदी का आप आपको सम्मानजनक संबोधन चुनने की याद दिला सकता है। जर्मन में बड़े अक्षर वाला Sie आता है। हिंदी की अन्विति न उतारें, इसके साथ जर्मन क्रिया रूप सीखें।"},
+      "learnerExplanation": {"en": "Hindi आप can remind you to make a respectful address choice. German uses capitalized Sie; learn its German verb form with it rather than copying Hindi agreement.", "hi": "हिंदी का आप आपको सम्मानजनक संबोधन चुनने की याद दिला सकता है। जर्मन में बड़े अक्षर वाला Sie आता है। हिंदी की अन्विति न उतारें, इसके साथ जर्मन क्रिया रूप सीखें।", "hi-latn": "Hindi ka aap respectful address yaad dilata hai. German mein capital Sie aur uska verb form seekhein. Hindi agreement copy na karein."},
       "teacherNotes": "Use only as a pragmatic memory bridge. The forms, social distributions, and agreement systems are not identical.",
-      "positiveExamples": [{ "text": "आप ... हैं → Sie ...", "meaning": {"en": "respectful address cue", "hi": "सम्मानजनक संबोधन संकेत"}, "note": {"en": "Conceptual cue only, not a word-for-word grammar mapping.", "hi": "यह केवल वैचारिक संकेत है, शब्द-दर-शब्द व्याकरण मानचित्र नहीं।"} }],
-      "negativeTransferRisks": {"en": ["Do not map Hindi verb agreement or every social context directly onto German Sie."], "hi": ["हिंदी की क्रिया अन्विति या हर सामाजिक संदर्भ को सीधे जर्मन Sie पर लागू न करें।"]},
+      "positiveExamples": [{ "text": "आप ... हैं → Sie ...", "meaning": {"en": "respectful address cue", "hi": "सम्मानजनक संबोधन संकेत", "hi-latn": "respectful address ka cue"}, "note": {"en": "Conceptual cue only, not a word-for-word grammar mapping.", "hi": "यह केवल वैचारिक संकेत है, शब्द-दर-शब्द व्याकरण मानचित्र नहीं।", "hi-latn": "Yeh sirf concept cue hai, word-for-word grammar mapping nahin."} }],
+      "negativeTransferRisks": {"en": ["Do not map Hindi verb agreement or every social context directly onto German Sie."], "hi": ["हिंदी की क्रिया अन्विति या हर सामाजिक संदर्भ को सीधे जर्मन Sie पर लागू न करें।"], "hi-latn": ["Hindi verb agreement ya har social context ko seedha German Sie par apply na karein."]},
       "sourceIds": ["source.hi-de.basic-hindi-2021", "source.hi-de.dib-2017"],
-      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Social range, agreement caveat, Hindi script, and usefulness need competent bilingual review." }
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Social range, agreement caveat, Hindi and Hinglish wording, and usefulness need competent bilingual review." }
     },
     {
       "id": "hi-de.de.noun.gender-basic.category-bridge",
@@ -112,12 +112,12 @@
       "relation": "partiallyFacilitative",
       "strength": 0.65,
       "bridgeConcepts": ["Both Hindi and German organize nouns with grammatical gender, but the systems differ."],
-      "learnerExplanation": {"en": "Hindi experience with grammatical gender can make the idea familiar. German has three noun genders in this reference, so learn each German noun with its article; do not transfer a Hindi noun's gender.", "hi": "हिंदी में व्याकरणिक लिंग का अनुभव इस विचार को परिचित बना सकता है। इस संदर्भ में जर्मन के तीन संज्ञा लिंग हैं। हर जर्मन संज्ञा को उसके आर्टिकल सहित सीखें और हिंदी संज्ञा का लिंग न उतारें।"},
+      "learnerExplanation": {"en": "Hindi experience with grammatical gender can make the idea familiar. German has three noun genders in this reference, so learn each German noun with its article; do not transfer a Hindi noun's gender.", "hi": "हिंदी में व्याकरणिक लिंग का अनुभव इस विचार को परिचित बना सकता है। इस संदर्भ में जर्मन के तीन संज्ञा लिंग हैं। हर जर्मन संज्ञा को उसके आर्टिकल सहित सीखें और हिंदी संज्ञा का लिंग न उतारें।", "hi-latn": "Hindi ka grammatical gender idea familiar hai. German mein teen noun genders hain. Har German noun article ke saath seekhein; gender copy na karein."},
       "teacherNotes": "The bridge is category-level only. Hindi is described by the cited beginner source as gendered; German distinguishes masculine, feminine, and neuter. Item-level gender correspondence is not claimed.",
-      "positiveExamples": [{ "text": "gendered noun category → der / die / das entry", "meaning": {"en": "category-level bridge", "hi": "श्रेणी-स्तरीय सेतु"}, "note": {"en": "Use the prior concept, not a direct gender assignment.", "hi": "पहले से ज्ञात अवधारणा लें, सीधे लिंग निर्धारित न करें।"} }],
-      "negativeTransferRisks": {"en": ["Specific Hindi and German noun genders need not match; never infer a German article from the Hindi translation."], "hi": ["किसी खास हिंदी और जर्मन संज्ञा का लिंग मिलना आवश्यक नहीं। हिंदी अनुवाद से जर्मन आर्टिकल का अनुमान कभी न लगाएँ।"]},
+      "positiveExamples": [{ "text": "gendered noun category → der / die / das entry", "meaning": {"en": "category-level bridge", "hi": "श्रेणी-स्तरीय सेतु", "hi-latn": "category-level bridge"}, "note": {"en": "Use the prior concept, not a direct gender assignment.", "hi": "पहले से ज्ञात अवधारणा लें, सीधे लिंग निर्धारित न करें।", "hi-latn": "Pehle se pata concept use karein, seedha gender assign na karein."} }],
+      "negativeTransferRisks": {"en": ["Specific Hindi and German noun genders need not match; never infer a German article from the Hindi translation."], "hi": ["किसी खास हिंदी और जर्मन संज्ञा का लिंग मिलना आवश्यक नहीं। हिंदी अनुवाद से जर्मन आर्टिकल का अनुमान कभी न लगाएँ।"], "hi-latn": ["Hindi aur German noun genders zaroori nahin ki match karein. Hindi translation se German article kabhi infer na karein."]},
       "sourceIds": ["source.hi-de.basic-hindi-2021", "source.hi-de.grimm-grammar"],
-      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Category comparison and counterexample boundary need competent bilingual review." }
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Category comparison, Hinglish wording, and counterexample boundary need competent bilingual review." }
     }
   ]
 }

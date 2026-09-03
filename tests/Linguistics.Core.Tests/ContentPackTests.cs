@@ -185,6 +185,10 @@ public sealed class ContentPackTests
                 new LanguageCode("hi"),
                 new LanguageCode("de"),
                 new LanguageCode("hi"));
+            var hinglishNotes = runtime.CreateRuntimeTransferNotes(
+                new LanguageCode("hi"),
+                new LanguageCode("de"),
+                new LanguageCode("hi-latn"));
             var cafe = runtime.CreateRuntimeCafeOrderDefinition(new LanguageCode("en"));
             var pronunciation = runtime.CreateRuntimePronunciationUtterances(
                 new LanguageCode("de"));
@@ -198,6 +202,11 @@ public sealed class ContentPackTests
                 character is >= '\u0900' and <= '\u097f')));
             Assert.IsTrue(hindiNotes.SelectMany(note => note.NegativeTransferRisks).All(risk =>
                 risk.Any(character => character is >= '\u0900' and <= '\u097f')));
+            Assert.HasCount(2, hinglishNotes);
+            Assert.IsTrue(hinglishNotes.All(note =>
+                note.LearnerExplanation.All(character => character is < '\u0900' or > '\u097f')));
+            Assert.IsTrue(hinglishNotes.SelectMany(note => note.NegativeTransferRisks).All(risk =>
+                risk.All(character => character is < '\u0900' or > '\u097f')));
             Assert.AreEqual("de.task.cafe.order-one-item", cafe.TaskId);
             Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
             Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
@@ -276,38 +285,56 @@ public sealed class ContentPackTests
     }
 
     [TestMethod]
-    public void BundledGermanCourseKeepsTargetContentStableAcrossEnglishAndHindi()
+    public void BundledGermanCourseKeepsTargetContentStableAcrossAllInstructionLanguages()
     {
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
         var german = new LanguageCode("de");
         var english = catalog.CreateCourseCatalog(german, new LanguageCode("en"));
         var hindi = catalog.CreateCourseCatalog(german, new LanguageCode("hi"));
+        var hinglish = catalog.CreateCourseCatalog(german, new LanguageCode("hi-latn"));
 
         CollectionAssert.AreEqual(
-            new[] { new LanguageCode("en"), new LanguageCode("hi") },
+            new[]
+            {
+                new LanguageCode("en"),
+                new LanguageCode("hi"),
+                new LanguageCode("hi-latn"),
+            },
             catalog.GetInstructionLanguages(german).ToArray());
         Assert.AreEqual(CoursePublicationState.Preview, english.PublicationState);
         Assert.AreEqual(CoursePublicationState.Preview, hindi.PublicationState);
+        Assert.AreEqual(CoursePublicationState.Preview, hinglish.PublicationState);
         CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hindi));
+        CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hinglish));
         Assert.AreEqual("Greet someone", english.Units[0].Lessons[0].Title);
         Assert.AreEqual("किसी का अभिवादन करें", hindi.Units[0].Lessons[0].Title);
+        Assert.AreEqual("Kisi ko greet karein", hinglish.Units[0].Lessons[0].Title);
 
         var englishLesson = english.Units.SelectMany(unit => unit.Lessons)
             .Single(lesson => lesson.Id == "lesson.de.lexicon.cafe-items");
         var hindiLesson = hindi.Units.SelectMany(unit => unit.Lessons)
             .Single(lesson => lesson.Id == englishLesson.Id);
+        var hinglishLesson = hinglish.Units.SelectMany(unit => unit.Lessons)
+            .Single(lesson => lesson.Id == englishLesson.Id);
         var englishTemplates = englishLesson.Slides.Select(slide => slide.TemplateInstance!).ToArray();
         var hindiTemplates = hindiLesson.Slides.Select(slide => slide.TemplateInstance!).ToArray();
+        var hinglishTemplates = hinglishLesson.Slides.Select(slide => slide.TemplateInstance!).ToArray();
 
         CollectionAssert.AreEqual(
             englishTemplates.Select(template => template.TemplateId.Value).ToArray(),
             hindiTemplates.Select(template => template.TemplateId.Value).ToArray());
+        CollectionAssert.AreEqual(
+            englishTemplates.Select(template => template.TemplateId.Value).ToArray(),
+            hinglishTemplates.Select(template => template.TemplateId.Value).ToArray());
         Assert.AreEqual(
             englishTemplates[0].Parameters.Values["word"].Text,
             hindiTemplates[0].Parameters.Values["word"].Text);
         Assert.AreNotEqual(
             englishTemplates[0].Parameters.Values["instruction"].TextByLanguage!["en"],
             hindiTemplates[0].Parameters.Values["instruction"].TextByLanguage!["hi"]);
+        Assert.AreEqual(
+            "Shabd, article aur meaning ko saath mein dekhein.",
+            hinglishTemplates[0].Parameters.Values["instruction"].TextByLanguage!["hi-latn"]);
         CollectionAssert.AreEqual(
             englishTemplates[1].Parameters.Values["options"].Options!
                 .Select(option => option.Label).ToArray(),
@@ -340,6 +367,12 @@ public sealed class ContentPackTests
                     ComfortableReading: true,
                     ComfortableListening: true,
                     AllowExplanations: true),
+                new KnownLanguage(
+                    new LanguageCode("hi-latn"),
+                    LanguageProficiency.Advanced,
+                    ComfortableReading: true,
+                    ComfortableListening: true,
+                    AllowExplanations: true),
             ],
             new LearnerSettings(
                 MultilingualShortcutMode.Automatic,
@@ -353,15 +386,15 @@ public sealed class ContentPackTests
             Settings = profile.Settings with
             {
                 ShortcutMode = MultilingualShortcutMode.PreferredLanguage,
-                PreferredExplanationLanguage = new LanguageCode("hi"),
+                PreferredExplanationLanguage = new LanguageCode("hi-latn"),
             },
         });
 
         Assert.AreEqual(new LanguageCode("en"), automatic.SelectedLanguage);
-        Assert.AreEqual(new LanguageCode("hi"), preferred.SelectedLanguage);
+        Assert.AreEqual(new LanguageCode("hi-latn"), preferred.SelectedLanguage);
         var english = catalog.CreateCourseCatalog(profile.TargetLanguage, automatic.SelectedLanguage!.Value);
-        var hindi = catalog.CreateCourseCatalog(profile.TargetLanguage, preferred.SelectedLanguage!.Value);
-        CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hindi));
+        var hinglish = catalog.CreateCourseCatalog(profile.TargetLanguage, preferred.SelectedLanguage!.Value);
+        CollectionAssert.AreEqual(PresentationIds(english), PresentationIds(hinglish));
     }
 
     [TestMethod]
@@ -827,6 +860,7 @@ public sealed class ContentPackTests
                     {
                         ["en"] = "greeting",
                         ["hi"] = "अभिवादन",
+                        ["hi-latn"] = "greeting",
                     }),
                 ["instruction"] = new(
                     TemplateParameterKind.TextByLanguage,
@@ -834,6 +868,7 @@ public sealed class ContentPackTests
                     {
                         ["en"] = "Notice this greeting.",
                         ["hi"] = "नमस्ते देखें।",
+                        ["hi-latn"] = "Is greeting ko dekhein.",
                     }),
                 ["concept"] = new(TemplateParameterKind.ConceptReference, Value: concept.Id),
                 ["example"] = new(
@@ -932,6 +967,7 @@ public sealed class ContentPackTests
                 {
                     ["en"] = $"Synthetic lesson {index}",
                     ["hi"] = $"कृत्रिम पाठ {index}",
+                    ["hi-latn"] = $"Synthetic lesson {index}",
                 },
                 PrerequisiteIds = [],
                 SuccessCriteria = seed.SuccessCriteria with { RequiredEvaluatorIds = [] },

@@ -5,7 +5,7 @@
     "schemaVersion": 3,
     "kind": "targetLanguage",
     "languages": ["de"],
-    "instructionLanguages": ["en", "hi"],
+    "instructionLanguages": ["en", "hi", "hi-latn"],
     "dependencies": [],
     "license": {
       "identifier": "LicenseRef-Linguistics-Internal-Draft",
@@ -104,15 +104,15 @@
       "language": "de",
       "type": "pragmatic",
       "cefrApproximation": "A1",
-      "title": {"en": "Greet someone", "hi": "किसी का अभिवादन करें"},
-      "description": {"en": "Open a short everyday exchange with Hallo or Guten Tag.", "hi": "Hallo या Guten Tag से रोज़मर्रा की छोटी बातचीत शुरू करें।"},
+      "title": {"en": "Greet someone", "hi": "किसी का अभिवादन करें", "hi-latn": "Kisi ko greet karein"},
+      "description": {"en": "Open a short everyday exchange with Hallo or Guten Tag.", "hi": "Hallo या Guten Tag से रोज़मर्रा की छोटी बातचीत शुरू करें।", "hi-latn": "Hallo ya Guten Tag se rozmarra ki chhoti baatcheet shuru karein."},
       "prerequisiteIds": [],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
       "errorRuleIds": [],
       "taskTags": ["introductions", "cafe"],
       "examples": [
-        { "text": "Hallo!", "meaning": {"en": "Hello!", "hi": "नमस्ते!"}, "note": {"en": "General greeting.", "hi": "सामान्य अभिवादन।"} },
-        { "text": "Guten Tag!", "meaning": {"en": "Hello / good day!", "hi": "नमस्ते / शुभ दिन!"}, "note": {"en": "Useful in a more formal exchange.", "hi": "अधिक औपचारिक बातचीत में उपयोगी।"} }
+        { "text": "Hallo!", "meaning": {"en": "Hello!", "hi": "नमस्ते!", "hi-latn": "Namaste!"}, "note": {"en": "General greeting.", "hi": "सामान्य अभिवादन।", "hi-latn": "Aam greeting."} },
+        { "text": "Guten Tag!", "meaning": {"en": "Hello / good day!", "hi": "नमस्ते / शुभ दिन!", "hi-latn": "Namaste / shubh din!"}, "note": {"en": "Useful in a more formal exchange.", "hi": "अधिक औपचारिक बातचीत में उपयोगी।", "hi-latn": "Zyada formal baatcheet mein useful."} }
       ],
       "counterexamples": [],
       "sourceIds": ["source.de.dib-2017"],
@@ -123,13 +123,13 @@
       "language": "de",
       "type": "grammatical",
       "cefrApproximation": "A1",
-      "title": {"en": "Use ich for yourself", "hi": "अपने लिए ich प्रयोग करें"},
-      "description": {"en": "Use ich as the first-person singular subject in the slice's introduction and order frames.", "hi": "इस खंड के परिचय और ऑर्डर ढाँचों में ich को प्रथम पुरुष एकवचन कर्ता के रूप में प्रयोग करें।"},
+      "title": {"en": "Use ich for yourself", "hi": "अपने लिए ich प्रयोग करें", "hi-latn": "Apne liye ich use karein"},
+      "description": {"en": "Use ich as the first-person singular subject in the slice's introduction and order frames.", "hi": "इस खंड के परिचय और ऑर्डर ढाँचों में ich को प्रथम पुरुष एकवचन कर्ता के रूप में प्रयोग करें।", "hi-latn": "Introduction aur order frames mein ich ko first-person singular subject ki tarah use karein."},
       "prerequisiteIds": [],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
       "errorRuleIds": [],
       "taskTags": ["introductions", "cafe"],
-      "examples": [{ "text": "Ich heiße Mina.", "meaning": {"en": "My name is Mina.", "hi": "मेरा नाम मीना है।"}, "note": {"en": "Ich is the subject.", "hi": "Ich कर्ता है।"} }],
+      "examples": [{ "text": "Ich heiße Mina.", "meaning": {"en": "My name is Mina.", "hi": "मेरा नाम मीना है।", "hi-latn": "Mera naam Mina hai."}, "note": {"en": "Ich is the subject.", "hi": "Ich कर्ता है।", "hi-latn": "Ich subject hai."} }],
       "counterexamples": [],
       "sourceIds": ["source.de.dib-2017"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "German wording needs competent review." }
@@ -139,14 +139,14 @@
       "language": "de",
       "type": "pragmatic",
       "cefrApproximation": "A1",
-      "title": {"en": "Address someone formally with Sie", "hi": "Sie से किसी को औपचारिक रूप से संबोधित करें"},
-      "description": {"en": "Recognize and use capitalized Sie for respectful or formal address in this slice.", "hi": "इस खंड में सम्मानजनक या औपचारिक संबोधन के लिए बड़े अक्षर वाला Sie पहचानें और प्रयोग करें।"},
+      "title": {"en": "Address someone formally with Sie", "hi": "Sie से किसी को औपचारिक रूप से संबोधित करें", "hi-latn": "Sie se formally address karein"},
+      "description": {"en": "Recognize and use capitalized Sie for respectful or formal address in this slice.", "hi": "इस खंड में सम्मानजनक या औपचारिक संबोधन के लिए बड़े अक्षर वाला Sie पहचानें और प्रयोग करें।", "hi-latn": "Respectful ya formal address ke liye capital Sie ko pehchanein aur use karein."},
       "prerequisiteIds": ["de.function.greeting-basic"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
       "errorRuleIds": [],
       "taskTags": ["introductions", "cafe"],
-      "examples": [{ "text": "Wie heißen Sie?", "meaning": {"en": "What is your name?", "hi": "आपका नाम क्या है?"}, "note": {"en": "Formal address.", "hi": "औपचारिक संबोधन।"} }],
-      "counterexamples": [{ "text": "Wie heißt du?", "meaning": {"en": "What is your name?", "hi": "आपका नाम क्या है?"}, "note": {"en": "This is informal, not wrong; choose it for an appropriate relationship.", "hi": "यह अनौपचारिक है, गलत नहीं। इसे उपयुक्त संबंध में चुनें।"} }],
+      "examples": [{ "text": "Wie heißen Sie?", "meaning": {"en": "What is your name?", "hi": "आपका नाम क्या है?", "hi-latn": "Aapka naam kya hai?"}, "note": {"en": "Formal address.", "hi": "औपचारिक संबोधन।", "hi-latn": "Formal address."} }],
+      "counterexamples": [{ "text": "Wie heißt du?", "meaning": {"en": "What is your name?", "hi": "आपका नाम क्या है?", "hi-latn": "Tumhara naam kya hai?"}, "note": {"en": "This is informal, not wrong; choose it for an appropriate relationship.", "hi": "यह अनौपचारिक है, गलत नहीं। इसे उपयुक्त संबंध में चुनें।", "hi-latn": "Yeh informal hai, galat nahin. Sahi relationship mein ise chunein."} }],
       "sourceIds": ["source.de.dib-2017"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Register guidance needs competent German review." }
     },
@@ -155,14 +155,14 @@
       "language": "de",
       "type": "pragmatic",
       "cefrApproximation": "A1",
-      "title": {"en": "Say your name", "hi": "अपना नाम बताएँ"},
-      "description": {"en": "Give your name with the fixed beginner frame Ich heiße plus a name.", "hi": "शुरुआती निश्चित ढाँचे Ich heiße के बाद नाम लगाकर अपना नाम बताएँ।"},
+      "title": {"en": "Say your name", "hi": "अपना नाम बताएँ", "hi-latn": "Apna naam batayein"},
+      "description": {"en": "Give your name with the fixed beginner frame Ich heiße plus a name.", "hi": "शुरुआती निश्चित ढाँचे Ich heiße के बाद नाम लगाकर अपना नाम बताएँ।", "hi-latn": "Beginner frame Ich heiße ke baad apna naam boliye."},
       "prerequisiteIds": ["de.pronoun.ich"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": ["de.eval.name-pattern"] },
       "errorRuleIds": ["de.error.name-frame"],
       "taskTags": ["introductions"],
-      "examples": [{ "text": "Ich heiße Mina.", "meaning": {"en": "My name is Mina.", "hi": "मेरा नाम मीना है।"}, "note": {"en": "Fixed introduction frame.", "hi": "निश्चित परिचय ढाँचा।"} }],
-      "counterexamples": [{ "text": "Ich Mina.", "meaning": {"en": "I Mina.", "hi": "मैं मीना।"}, "note": {"en": "The naming verb is missing.", "hi": "नाम बताने वाली क्रिया गायब है।"} }],
+      "examples": [{ "text": "Ich heiße Mina.", "meaning": {"en": "My name is Mina.", "hi": "मेरा नाम मीना है।", "hi-latn": "Mera naam Mina hai."}, "note": {"en": "Fixed introduction frame.", "hi": "निश्चित परिचय ढाँचा।", "hi-latn": "Fixed introduction frame."} }],
+      "counterexamples": [{ "text": "Ich Mina.", "meaning": {"en": "I Mina.", "hi": "मैं मीना।", "hi-latn": "Main Mina."}, "note": {"en": "The naming verb is missing.", "hi": "नाम बताने वाली क्रिया गायब है।", "hi-latn": "Naam batane wali verb missing hai."} }],
       "sourceIds": ["source.de.dib-2017"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "German example and feedback need competent review." }
     },
@@ -171,13 +171,13 @@
       "language": "de",
       "type": "pragmatic",
       "cefrApproximation": "A1",
-      "title": {"en": "Ask someone's name formally", "hi": "किसी का नाम औपचारिक रूप से पूछें"},
-      "description": {"en": "Ask Wie heißen Sie? in a formal or respectful introduction.", "hi": "औपचारिक या सम्मानजनक परिचय में Wie heißen Sie? पूछें।"},
+      "title": {"en": "Ask someone's name formally", "hi": "किसी का नाम औपचारिक रूप से पूछें", "hi-latn": "Kisi ka naam formally poochhein"},
+      "description": {"en": "Ask Wie heißen Sie? in a formal or respectful introduction.", "hi": "औपचारिक या सम्मानजनक परिचय में Wie heißen Sie? पूछें।", "hi-latn": "Formal ya respectful introduction mein Wie heißen Sie? poochhein."},
       "prerequisiteIds": ["de.pronoun.sie-formal", "de.function.state-name"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
       "errorRuleIds": [],
       "taskTags": ["introductions"],
-      "examples": [{ "text": "Wie heißen Sie?", "meaning": {"en": "What is your name?", "hi": "आपका नाम क्या है?"}, "note": {"en": "Formal address.", "hi": "औपचारिक संबोधन।"} }],
+      "examples": [{ "text": "Wie heißen Sie?", "meaning": {"en": "What is your name?", "hi": "आपका नाम क्या है?", "hi-latn": "Aapka naam kya hai?"}, "note": {"en": "Formal address.", "hi": "औपचारिक संबोधन।", "hi-latn": "Formal address."} }],
       "counterexamples": [],
       "sourceIds": ["source.de.dib-2017"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "German wording and register need competent review." }
@@ -187,14 +187,14 @@
       "language": "de",
       "type": "pragmatic",
       "cefrApproximation": "A1",
-      "title": {"en": "Say where you come from", "hi": "बताएँ कि आप कहाँ से आते हैं"},
-      "description": {"en": "Use Ich komme aus plus a reviewed place expression.", "hi": "Ich komme aus के बाद जाँची हुई स्थान अभिव्यक्ति लगाएँ।"},
+      "title": {"en": "Say where you come from", "hi": "बताएँ कि आप कहाँ से आते हैं", "hi-latn": "Batayein ki aap kahan se hain"},
+      "description": {"en": "Use Ich komme aus plus a reviewed place expression.", "hi": "Ich komme aus के बाद जाँची हुई स्थान अभिव्यक्ति लगाएँ।", "hi-latn": "Ich komme aus ke baad reviewed place expression lagayein."},
       "prerequisiteIds": ["de.pronoun.ich"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": ["de.eval.origin-pattern"] },
       "errorRuleIds": ["de.error.origin-aus"],
       "taskTags": ["introductions"],
-      "examples": [{ "text": "Ich komme aus Indien.", "meaning": {"en": "I come from India.", "hi": "मैं भारत से आता हूँ।"}, "note": {"en": "Country name without an article in this example.", "hi": "इस उदाहरण में देश का नाम आर्टिकल के बिना है।"} }],
-      "counterexamples": [{ "text": "Ich komme Indien.", "meaning": {"en": "I come India.", "hi": "मैं भारत आता हूँ।"}, "note": {"en": "The preposition aus is missing.", "hi": "संबंधबोधक aus गायब है।"} }],
+      "examples": [{ "text": "Ich komme aus Indien.", "meaning": {"en": "I come from India.", "hi": "मैं भारत से आता हूँ।", "hi-latn": "Main Bharat se aata hoon."}, "note": {"en": "Country name without an article in this example.", "hi": "इस उदाहरण में देश का नाम आर्टिकल के बिना है।", "hi-latn": "Is example mein country name article ke bina hai."} }],
+      "counterexamples": [{ "text": "Ich komme Indien.", "meaning": {"en": "I come India.", "hi": "मैं भारत आता हूँ।", "hi-latn": "Main Bharat aata hoon."}, "note": {"en": "The preposition aus is missing.", "hi": "संबंधबोधक aus गायब है।", "hi-latn": "Preposition aus missing hai."} }],
       "sourceIds": ["source.de.dib-2017"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Place-expression scope and German example need competent review." }
     },
@@ -203,13 +203,13 @@
       "language": "de",
       "type": "pragmatic",
       "cefrApproximation": "A1",
-      "title": {"en": "Ask someone's origin formally", "hi": "किसी का मूल स्थान औपचारिक रूप से पूछें"},
-      "description": {"en": "Ask Woher kommen Sie? in a formal or respectful exchange.", "hi": "औपचारिक या सम्मानजनक बातचीत में Woher kommen Sie? पूछें।"},
+      "title": {"en": "Ask someone's origin formally", "hi": "किसी का मूल स्थान औपचारिक रूप से पूछें", "hi-latn": "Kisi ka origin formally poochhein"},
+      "description": {"en": "Ask Woher kommen Sie? in a formal or respectful exchange.", "hi": "औपचारिक या सम्मानजनक बातचीत में Woher kommen Sie? पूछें।", "hi-latn": "Formal ya respectful baatcheet mein Woher kommen Sie? poochhein."},
       "prerequisiteIds": ["de.pronoun.sie-formal", "de.function.state-origin"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
       "errorRuleIds": [],
       "taskTags": ["introductions"],
-      "examples": [{ "text": "Woher kommen Sie?", "meaning": {"en": "Where do you come from?", "hi": "आप कहाँ से आते हैं?"}, "note": {"en": "Formal address.", "hi": "औपचारिक संबोधन।"} }],
+      "examples": [{ "text": "Woher kommen Sie?", "meaning": {"en": "Where do you come from?", "hi": "आप कहाँ से आते हैं?", "hi-latn": "Aap kahan se aate hain?"}, "note": {"en": "Formal address.", "hi": "औपचारिक संबोधन।", "hi-latn": "Formal address."} }],
       "counterexamples": [],
       "sourceIds": ["source.de.dib-2017"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "German wording and register need competent review." }
@@ -219,14 +219,14 @@
       "language": "de",
       "type": "grammatical",
       "cefrApproximation": "A1",
-      "title": {"en": "Capitalize German nouns", "hi": "जर्मन संज्ञाओं का पहला अक्षर बड़ा लिखें"},
-      "description": {"en": "Write the slice's German nouns with an initial capital letter.", "hi": "इस खंड की जर्मन संज्ञाओं का पहला अक्षर बड़ा लिखें।"},
+      "title": {"en": "Capitalize German nouns", "hi": "जर्मन संज्ञाओं का पहला अक्षर बड़ा लिखें", "hi-latn": "German nouns ko capital letter se likhein"},
+      "description": {"en": "Write the slice's German nouns with an initial capital letter.", "hi": "इस खंड की जर्मन संज्ञाओं का पहला अक्षर बड़ा लिखें।", "hi-latn": "Is section ke German nouns ko capital letter se shuru karein."},
       "prerequisiteIds": [],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
       "errorRuleIds": ["de.error.noun-capitalization"],
       "taskTags": ["introductions", "cafe"],
-      "examples": [{ "text": "der Kaffee", "meaning": {"en": "the coffee", "hi": "वह कॉफ़ी"}, "note": {"en": "Kaffee is a noun and starts with a capital.", "hi": "Kaffee संज्ञा है और बड़े अक्षर से शुरू होता है।"} }],
-      "counterexamples": [{ "text": "der kaffee", "meaning": {"en": "the coffee", "hi": "वह कॉफ़ी"}, "note": {"en": "The noun is incorrectly lowercased.", "hi": "संज्ञा गलत ढंग से छोटे अक्षर में लिखी है।"} }],
+      "examples": [{ "text": "der Kaffee", "meaning": {"en": "the coffee", "hi": "वह कॉफ़ी", "hi-latn": "coffee"}, "note": {"en": "Kaffee is a noun and starts with a capital.", "hi": "Kaffee संज्ञा है और बड़े अक्षर से शुरू होता है।", "hi-latn": "Kaffee noun hai aur capital letter se shuru hota hai."} }],
+      "counterexamples": [{ "text": "der kaffee", "meaning": {"en": "the coffee", "hi": "वह कॉफ़ी", "hi-latn": "coffee"}, "note": {"en": "The noun is incorrectly lowercased.", "hi": "संज्ञा गलत ढंग से छोटे अक्षर में लिखी है।", "hi-latn": "Noun galat tarah lowercase mein likha hai."} }],
       "sourceIds": ["source.de.ids-capitalization", "source.de.grimm-grammar"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Scope and learner wording need competent German review." }
     },
@@ -235,15 +235,15 @@
       "language": "de",
       "type": "grammatical",
       "cefrApproximation": "A1",
-      "title": {"en": "Learn a noun with its article", "hi": "संज्ञा को उसके आर्टिकल के साथ सीखें"},
-      "description": {"en": "Treat the article as part of each noun entry in this slice: der, die, or das.", "hi": "इस खंड में der, die या das को हर संज्ञा प्रविष्टि का भाग मानें।"},
+      "title": {"en": "Learn a noun with its article", "hi": "संज्ञा को उसके आर्टिकल के साथ सीखें", "hi-latn": "Noun ko uske article ke saath seekhein"},
+      "description": {"en": "Treat the article as part of each noun entry in this slice: der, die, or das.", "hi": "इस खंड में der, die या das को हर संज्ञा प्रविष्टि का भाग मानें।", "hi-latn": "Har noun entry mein der, die ya das ko noun ka hissa samjhein."},
       "prerequisiteIds": ["de.orthography.noun-capitalization"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
       "errorRuleIds": [],
       "taskTags": ["cafe"],
       "examples": [
-        { "text": "der Kaffee", "meaning": {"en": "the coffee", "hi": "वह कॉफ़ी"}, "note": {"en": "Masculine noun in this entry.", "hi": "इस प्रविष्टि में पुल्लिंग संज्ञा।"} },
-        { "text": "das Wasser", "meaning": {"en": "the water", "hi": "वह पानी"}, "note": {"en": "Neuter noun in this entry.", "hi": "इस प्रविष्टि में नपुंसकलिंग संज्ञा।"} }
+        { "text": "der Kaffee", "meaning": {"en": "the coffee", "hi": "वह कॉफ़ी", "hi-latn": "coffee"}, "note": {"en": "Masculine noun in this entry.", "hi": "इस प्रविष्टि में पुल्लिंग संज्ञा।", "hi-latn": "Is entry mein masculine noun."} },
+        { "text": "das Wasser", "meaning": {"en": "the water", "hi": "वह पानी", "hi-latn": "paani"}, "note": {"en": "Neuter noun in this entry.", "hi": "इस प्रविष्टि में नपुंसकलिंग संज्ञा।", "hi-latn": "Is entry mein neuter noun."} }
       ],
       "counterexamples": [],
       "sourceIds": ["source.de.grimm-grammar"],
@@ -254,16 +254,16 @@
       "language": "de",
       "type": "lexical",
       "cefrApproximation": "A1",
-      "title": {"en": "Recognize three café items", "hi": "कैफ़े की तीन वस्तुएँ पहचानें"},
-      "description": {"en": "Recognize Kaffee, Tee, and Wasser with their articles for the first ordering task.", "hi": "पहले ऑर्डर कार्य के लिए Kaffee, Tee और Wasser को उनके आर्टिकल सहित पहचानें।"},
+      "title": {"en": "Recognize three café items", "hi": "कैफ़े की तीन वस्तुएँ पहचानें", "hi-latn": "Cafe ki teen cheezein pehchanein"},
+      "description": {"en": "Recognize Kaffee, Tee, and Wasser with their articles for the first ordering task.", "hi": "पहले ऑर्डर कार्य के लिए Kaffee, Tee और Wasser को उनके आर्टिकल सहित पहचानें।", "hi-latn": "Pehle order task ke liye Kaffee, Tee aur Wasser ko articles ke saath pehchanein."},
       "prerequisiteIds": ["de.noun.gender-basic"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": ["de.eval.order-item"] },
       "errorRuleIds": [],
       "taskTags": ["cafe"],
       "examples": [
-        { "id": "example.de.cafe-items.kaffee", "text": "der Kaffee", "meaning": {"en": "coffee", "hi": "कॉफ़ी"}, "note": {"en": "Masculine.", "hi": "पुल्लिंग।"} },
-        { "text": "der Tee", "meaning": {"en": "tea", "hi": "चाय"}, "note": {"en": "Masculine.", "hi": "पुल्लिंग।"} },
-        { "text": "das Wasser", "meaning": {"en": "water", "hi": "पानी"}, "note": {"en": "Neuter.", "hi": "नपुंसकलिंग।"} }
+        { "id": "example.de.cafe-items.kaffee", "text": "der Kaffee", "meaning": {"en": "coffee", "hi": "कॉफ़ी", "hi-latn": "coffee"}, "note": {"en": "Masculine.", "hi": "पुल्लिंग।", "hi-latn": "Masculine."} },
+        { "text": "der Tee", "meaning": {"en": "tea", "hi": "चाय", "hi-latn": "chai"}, "note": {"en": "Masculine.", "hi": "पुल्लिंग।", "hi-latn": "Masculine."} },
+        { "text": "das Wasser", "meaning": {"en": "water", "hi": "पानी", "hi-latn": "paani"}, "note": {"en": "Neuter.", "hi": "नपुंसकलिंग।", "hi-latn": "Neuter."} }
       ],
       "counterexamples": [],
       "sourceIds": ["source.de.grimm-grammar"],
@@ -274,13 +274,13 @@
       "language": "de",
       "type": "grammatical",
       "cefrApproximation": "A1",
-      "title": {"en": "Say what you would like", "hi": "बताएँ कि आपको क्या चाहिए"},
-      "description": {"en": "Use ich möchte as the polite request frame in this café slice.", "hi": "इस कैफ़े खंड में ich möchte को विनम्र अनुरोध ढाँचे के रूप में प्रयोग करें।"},
+      "title": {"en": "Say what you would like", "hi": "बताएँ कि आपको क्या चाहिए", "hi-latn": "Batayein ki aapko kya chahiye"},
+      "description": {"en": "Use ich möchte as the polite request frame in this café slice.", "hi": "इस कैफ़े खंड में ich möchte को विनम्र अनुरोध ढाँचे के रूप में प्रयोग करें।", "hi-latn": "Is cafe section mein ich möchte ko polite request frame ki tarah use karein."},
       "prerequisiteIds": ["de.pronoun.ich"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": ["de.eval.order-frame"] },
       "errorRuleIds": [],
       "taskTags": ["cafe"],
-      "examples": [{ "text": "Ich möchte ...", "meaning": {"en": "I would like ...", "hi": "मुझे ... चाहिए।"}, "note": {"en": "Request frame.", "hi": "अनुरोध ढाँचा।"} }],
+      "examples": [{ "text": "Ich möchte ...", "meaning": {"en": "I would like ...", "hi": "मुझे ... चाहिए।", "hi-latn": "Mujhe ... chahiye."}, "note": {"en": "Request frame.", "hi": "अनुरोध ढाँचा।", "hi-latn": "Request frame."} }],
       "counterexamples": [],
       "sourceIds": ["source.de.grimm-grammar"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Pragmatic framing needs competent German review." }
@@ -290,17 +290,17 @@
       "language": "de",
       "type": "grammatical",
       "cefrApproximation": "A1",
-      "title": {"en": "Use ein or einen for the ordered item", "hi": "मँगाई गई वस्तु के लिए ein या einen प्रयोग करें"},
-      "description": {"en": "In this narrow request frame, use einen with the masculine café nouns and ein with Wasser.", "hi": "इस सीमित अनुरोध ढाँचे में पुल्लिंग कैफ़े संज्ञाओं के साथ einen और Wasser के साथ ein लगाएँ।"},
+      "title": {"en": "Use ein or einen for the ordered item", "hi": "मँगाई गई वस्तु के लिए ein या einen प्रयोग करें", "hi-latn": "Ordered item ke liye ein ya einen use karein"},
+      "description": {"en": "In this narrow request frame, use einen with the masculine café nouns and ein with Wasser.", "hi": "इस सीमित अनुरोध ढाँचे में पुल्लिंग कैफ़े संज्ञाओं के साथ einen और Wasser के साथ ein लगाएँ।", "hi-latn": "Is request frame mein masculine cafe nouns ke saath einen aur Wasser ke saath ein use karein."},
       "prerequisiteIds": ["de.noun.gender-basic"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": [] },
       "errorRuleIds": ["de.error.accusative-masculine"],
       "taskTags": ["cafe"],
       "examples": [
-        { "text": "einen Kaffee", "meaning": {"en": "a coffee", "hi": "एक कॉफ़ी"}, "note": {"en": "Masculine accusative in this request.", "hi": "इस अनुरोध में पुल्लिंग कर्मकारक।"} },
-        { "text": "ein Wasser", "meaning": {"en": "a water", "hi": "एक पानी"}, "note": {"en": "Neuter accusative in this request.", "hi": "इस अनुरोध में नपुंसकलिंग कर्मकारक।"} }
+        { "text": "einen Kaffee", "meaning": {"en": "a coffee", "hi": "एक कॉफ़ी", "hi-latn": "ek coffee"}, "note": {"en": "Masculine accusative in this request.", "hi": "इस अनुरोध में पुल्लिंग कर्मकारक।", "hi-latn": "Is request mein masculine accusative."} },
+        { "text": "ein Wasser", "meaning": {"en": "a water", "hi": "एक पानी", "hi-latn": "ek paani"}, "note": {"en": "Neuter accusative in this request.", "hi": "इस अनुरोध में नपुंसकलिंग कर्मकारक।", "hi-latn": "Is request mein neuter accusative."} }
       ],
-      "counterexamples": [{ "text": "ein Kaffee", "meaning": {"en": "a coffee", "hi": "एक कॉफ़ी"}, "note": {"en": "Not the reviewed masculine accusative form for this frame.", "hi": "यह इस ढाँचे के लिए जाँचा गया पुल्लिंग कर्मकारक रूप नहीं है।"} }],
+      "counterexamples": [{ "text": "ein Kaffee", "meaning": {"en": "a coffee", "hi": "एक कॉफ़ी", "hi-latn": "ek coffee"}, "note": {"en": "Not the reviewed masculine accusative form for this frame.", "hi": "यह इस ढाँचे के लिए जाँचा गया पुल्लिंग कर्मकारक रूप नहीं है।", "hi-latn": "Yeh is frame ka reviewed masculine accusative form nahin hai."} }],
       "sourceIds": ["source.de.grimm-grammar"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Narrow case explanation and examples need competent German review." }
     },
@@ -309,28 +309,28 @@
       "language": "de",
       "type": "pragmatic",
       "cefrApproximation": "A1",
-      "title": {"en": "Order one café item politely", "hi": "कैफ़े की एक वस्तु विनम्रता से मँगाएँ"},
-      "description": {"en": "Combine ich möchte, an approved café item, and bitte into one short request.", "hi": "ich möchte, एक स्वीकृत कैफ़े वस्तु और bitte को एक छोटे अनुरोध में जोड़ें।"},
+      "title": {"en": "Order one café item politely", "hi": "कैफ़े की एक वस्तु विनम्रता से मँगाएँ", "hi-latn": "Cafe ki ek cheez politely order karein"},
+      "description": {"en": "Combine ich möchte, an approved café item, and bitte into one short request.", "hi": "ich möchte, एक स्वीकृत कैफ़े वस्तु और bitte को एक छोटे अनुरोध में जोड़ें।", "hi-latn": "ich möchte, approved cafe item aur bitte ko ek chhoti request mein jodein."},
       "prerequisiteIds": ["de.function.greeting-basic", "de.lexicon.cafe-items", "de.verb.moechten-ich", "de.case.accusative-indefinite-basic"],
       "successCriteria": { "minimumAttempts": 3, "minimumAccuracy": 0.8, "requiredEvaluatorIds": ["de.eval.order-frame", "de.eval.order-item"] },
       "errorRuleIds": ["de.error.order-bitte"],
       "taskTags": ["cafe"],
-      "examples": [{ "id": "example.de.order-polite.kaffee", "text": "Ich möchte einen Kaffee, bitte.", "meaning": {"en": "I would like a coffee, please.", "hi": "मुझे एक कॉफ़ी चाहिए, कृपया।"}, "note": {"en": "Complete request for this slice.", "hi": "इस खंड का पूरा अनुरोध।"} }],
-      "counterexamples": [{ "text": "Kaffee.", "meaning": {"en": "Coffee.", "hi": "कॉफ़ी।"}, "note": {"en": "The item may be understood, but the target request frame is absent.", "hi": "वस्तु समझी जा सकती है, पर लक्ष्य अनुरोध ढाँचा मौजूद नहीं है।"} }],
+      "examples": [{ "id": "example.de.order-polite.kaffee", "text": "Ich möchte einen Kaffee, bitte.", "meaning": {"en": "I would like a coffee, please.", "hi": "मुझे एक कॉफ़ी चाहिए, कृपया।", "hi-latn": "Mujhe ek coffee chahiye, please."}, "note": {"en": "Complete request for this slice.", "hi": "इस खंड का पूरा अनुरोध।", "hi-latn": "Is section ki complete request."} }],
+      "counterexamples": [{ "text": "Kaffee.", "meaning": {"en": "Coffee.", "hi": "कॉफ़ी।", "hi-latn": "Coffee."}, "note": {"en": "The item may be understood, but the target request frame is absent.", "hi": "वस्तु समझी जा सकती है, पर लक्ष्य अनुरोध ढाँचा मौजूद नहीं है।", "hi-latn": "Item samajh aa sakta hai, lekin target request frame missing hai."} }],
       "sourceIds": ["source.de.dib-2017", "source.de.grimm-grammar", "source.de.cefr-2020"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Register, naturalness, and success threshold need competent review." }
     }
   ],
   "lexicon": [
-    { "id": "de.lexeme.hallo", "language": "de", "lemma": "Hallo", "article": null, "meaning": {"en": "hello", "hi": "नमस्ते"}, "conceptIds": ["de.function.greeting-basic"], "examples": [{ "text": "Hallo!", "meaning": {"en": "Hello!", "hi": "नमस्ते!"}, "note": {"en": "Greeting.", "hi": "अभिवादन।"} }], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
-    { "id": "de.lexeme.name", "language": "de", "lemma": "Name", "article": "der", "meaning": {"en": "name", "hi": "नाम"}, "conceptIds": ["de.function.state-name", "de.orthography.noun-capitalization", "de.noun.gender-basic"], "examples": [{ "text": "der Name", "meaning": {"en": "the name", "hi": "वह नाम"}, "note": {"en": "Noun entry.", "hi": "संज्ञा प्रविष्टि।"} }], "sourceIds": ["source.de.dib-2017", "source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
-    { "id": "de.lexeme.heissen", "language": "de", "lemma": "heißen", "article": null, "meaning": {"en": "to be called", "hi": "कहलाना"}, "conceptIds": ["de.function.state-name", "de.question.ask-name-formal"], "examples": [{ "text": "Ich heiße Mina.", "meaning": {"en": "My name is Mina.", "hi": "मेरा नाम मीना है।"}, "note": {"en": "First-person form.", "hi": "प्रथम पुरुष रूप।"} }], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
-    { "id": "de.lexeme.kommen", "language": "de", "lemma": "kommen", "article": null, "meaning": {"en": "to come", "hi": "आना"}, "conceptIds": ["de.function.state-origin", "de.question.ask-origin-formal"], "examples": [{ "text": "Ich komme aus Indien.", "meaning": {"en": "I come from India.", "hi": "मैं भारत से आता हूँ।"}, "note": {"en": "First-person form with aus.", "hi": "aus के साथ प्रथम पुरुष रूप।"} }], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
-    { "id": "de.lexeme.kaffee", "language": "de", "lemma": "Kaffee", "article": "der", "meaning": {"en": "coffee", "hi": "कॉफ़ी"}, "conceptIds": ["de.lexicon.cafe-items", "de.noun.gender-basic"], "examples": [{ "text": "einen Kaffee", "meaning": {"en": "a coffee", "hi": "एक कॉफ़ी"}, "note": {"en": "Ordered item.", "hi": "मँगाई गई वस्तु।"} }], "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
-    { "id": "de.lexeme.tee", "language": "de", "lemma": "Tee", "article": "der", "meaning": {"en": "tea", "hi": "चाय"}, "conceptIds": ["de.lexicon.cafe-items", "de.noun.gender-basic"], "examples": [{ "text": "einen Tee", "meaning": {"en": "a tea", "hi": "एक चाय"}, "note": {"en": "Ordered item.", "hi": "मँगाई गई वस्तु।"} }], "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
-    { "id": "de.lexeme.wasser", "language": "de", "lemma": "Wasser", "article": "das", "meaning": {"en": "water", "hi": "पानी"}, "conceptIds": ["de.lexicon.cafe-items", "de.noun.gender-basic"], "examples": [{ "text": "ein Wasser", "meaning": {"en": "a water", "hi": "एक पानी"}, "note": {"en": "Ordered item in this draft context.", "hi": "इस प्रारूप संदर्भ में मँगाई गई वस्तु।"} }], "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Naturalness and context need German review." } },
-    { "id": "de.lexeme.moechten", "language": "de", "lemma": "möchten", "article": null, "meaning": {"en": "would like", "hi": "चाहेंगे"}, "conceptIds": ["de.verb.moechten-ich", "de.function.order-polite"], "examples": [{ "text": "Ich möchte ...", "meaning": {"en": "I would like ...", "hi": "मुझे ... चाहिए।"}, "note": {"en": "Request frame.", "hi": "अनुरोध ढाँचा।"} }], "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
-    { "id": "de.lexeme.bitte", "language": "de", "lemma": "bitte", "article": null, "meaning": {"en": "please", "hi": "कृपया"}, "conceptIds": ["de.function.order-polite"], "examples": [{ "text": "Einen Kaffee, bitte.", "meaning": {"en": "A coffee, please.", "hi": "एक कॉफ़ी, कृपया।"}, "note": {"en": "Polite request element.", "hi": "विनम्र अनुरोध का अंश।"} }], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs register review." } }
+    { "id": "de.lexeme.hallo", "language": "de", "lemma": "Hallo", "article": null, "meaning": {"en": "hello", "hi": "नमस्ते", "hi-latn": "namaste"}, "conceptIds": ["de.function.greeting-basic"], "examples": [{ "text": "Hallo!", "meaning": {"en": "Hello!", "hi": "नमस्ते!", "hi-latn": "Namaste!"}, "note": {"en": "Greeting.", "hi": "अभिवादन।", "hi-latn": "Greeting."} }], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
+    { "id": "de.lexeme.name", "language": "de", "lemma": "Name", "article": "der", "meaning": {"en": "name", "hi": "नाम", "hi-latn": "naam"}, "conceptIds": ["de.function.state-name", "de.orthography.noun-capitalization", "de.noun.gender-basic"], "examples": [{ "text": "der Name", "meaning": {"en": "the name", "hi": "वह नाम", "hi-latn": "naam"}, "note": {"en": "Noun entry.", "hi": "संज्ञा प्रविष्टि।", "hi-latn": "Noun entry."} }], "sourceIds": ["source.de.dib-2017", "source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
+    { "id": "de.lexeme.heissen", "language": "de", "lemma": "heißen", "article": null, "meaning": {"en": "to be called", "hi": "कहलाना", "hi-latn": "kehlana"}, "conceptIds": ["de.function.state-name", "de.question.ask-name-formal"], "examples": [{ "text": "Ich heiße Mina.", "meaning": {"en": "My name is Mina.", "hi": "मेरा नाम मीना है।", "hi-latn": "Mera naam Mina hai."}, "note": {"en": "First-person form.", "hi": "प्रथम पुरुष रूप।", "hi-latn": "First-person form."} }], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
+    { "id": "de.lexeme.kommen", "language": "de", "lemma": "kommen", "article": null, "meaning": {"en": "to come", "hi": "आना", "hi-latn": "aana"}, "conceptIds": ["de.function.state-origin", "de.question.ask-origin-formal"], "examples": [{ "text": "Ich komme aus Indien.", "meaning": {"en": "I come from India.", "hi": "मैं भारत से आता हूँ।", "hi-latn": "Main Bharat se aata hoon."}, "note": {"en": "First-person form with aus.", "hi": "aus के साथ प्रथम पुरुष रूप।", "hi-latn": "aus ke saath first-person form."} }], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
+    { "id": "de.lexeme.kaffee", "language": "de", "lemma": "Kaffee", "article": "der", "meaning": {"en": "coffee", "hi": "कॉफ़ी", "hi-latn": "coffee"}, "conceptIds": ["de.lexicon.cafe-items", "de.noun.gender-basic"], "examples": [{ "text": "einen Kaffee", "meaning": {"en": "a coffee", "hi": "एक कॉफ़ी", "hi-latn": "ek coffee"}, "note": {"en": "Ordered item.", "hi": "मँगाई गई वस्तु।", "hi-latn": "Ordered item."} }], "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
+    { "id": "de.lexeme.tee", "language": "de", "lemma": "Tee", "article": "der", "meaning": {"en": "tea", "hi": "चाय", "hi-latn": "chai"}, "conceptIds": ["de.lexicon.cafe-items", "de.noun.gender-basic"], "examples": [{ "text": "einen Tee", "meaning": {"en": "a tea", "hi": "एक चाय", "hi-latn": "ek chai"}, "note": {"en": "Ordered item.", "hi": "मँगाई गई वस्तु।", "hi-latn": "Ordered item."} }], "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
+    { "id": "de.lexeme.wasser", "language": "de", "lemma": "Wasser", "article": "das", "meaning": {"en": "water", "hi": "पानी", "hi-latn": "paani"}, "conceptIds": ["de.lexicon.cafe-items", "de.noun.gender-basic"], "examples": [{ "text": "ein Wasser", "meaning": {"en": "a water", "hi": "एक पानी", "hi-latn": "ek paani"}, "note": {"en": "Ordered item in this draft context.", "hi": "इस प्रारूप संदर्भ में मँगाई गई वस्तु।", "hi-latn": "Is draft context mein ordered item."} }], "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Naturalness and context need German review." } },
+    { "id": "de.lexeme.moechten", "language": "de", "lemma": "möchten", "article": null, "meaning": {"en": "would like", "hi": "चाहेंगे", "hi-latn": "chahenge"}, "conceptIds": ["de.verb.moechten-ich", "de.function.order-polite"], "examples": [{ "text": "Ich möchte ...", "meaning": {"en": "I would like ...", "hi": "मुझे ... चाहिए।", "hi-latn": "Mujhe ... chahiye."}, "note": {"en": "Request frame.", "hi": "अनुरोध ढाँचा।", "hi-latn": "Request frame."} }], "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs German review." } },
+    { "id": "de.lexeme.bitte", "language": "de", "lemma": "bitte", "article": null, "meaning": {"en": "please", "hi": "कृपया", "hi-latn": "please"}, "conceptIds": ["de.function.order-polite"], "examples": [{ "text": "Einen Kaffee, bitte.", "meaning": {"en": "A coffee, please.", "hi": "एक कॉफ़ी, कृपया।", "hi-latn": "Ek coffee, please."}, "note": {"en": "Polite request element.", "hi": "विनम्र अनुरोध का अंश।", "hi-latn": "Polite request ka hissa."} }], "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Needs register review." } }
   ],
   "tasks": [
     {
@@ -338,10 +338,10 @@
       "language": "de",
       "domain": "introductions",
       "cefrApproximation": "A1",
-      "goal": {"en": "Open a brief exchange with an appropriate greeting.", "hi": "उचित अभिवादन से छोटी बातचीत शुरू करें।"},
-      "context": {"en": "You meet an adult for the first time in a neutral everyday setting.", "hi": "आप रोज़मर्रा की तटस्थ परिस्थिति में किसी वयस्क से पहली बार मिलते हैं।"},
-      "learnerRole": {"en": "New acquaintance", "hi": "नया परिचित"},
-      "npcRole": {"en": "New acquaintance", "hi": "नया परिचित"},
+      "goal": {"en": "Open a brief exchange with an appropriate greeting.", "hi": "उचित अभिवादन से छोटी बातचीत शुरू करें।", "hi-latn": "Sahi greeting se chhoti baatcheet shuru karein."},
+      "context": {"en": "You meet an adult for the first time in a neutral everyday setting.", "hi": "आप रोज़मर्रा की तटस्थ परिस्थिति में किसी वयस्क से पहली बार मिलते हैं।", "hi-latn": "Aap rozmarra ki neutral jagah par kisi adult se pehli baar milte hain."},
+      "learnerRole": {"en": "New acquaintance", "hi": "नया परिचित", "hi-latn": "Naya parichit"},
+      "npcRole": {"en": "New acquaintance", "hi": "नया परिचित", "hi-latn": "Naya parichit"},
       "requiredFunctionIds": ["de.function.greeting-basic"],
       "eligibleConceptIds": ["de.function.greeting-basic", "de.pronoun.sie-formal"],
       "initialStateId": "de.state.greet.waiting",
@@ -355,7 +355,7 @@
         { "id": "de.eval.greeting-token", "kind": "anyAllowedToken", "expectedValues": ["hallo", "guten tag"] },
         { "id": "de.eval.greeting-complete", "kind": "stateReached", "expectedValues": ["de.state.greet.complete"] }
       ],
-      "successConditions": [{ "evaluatorId": "de.eval.greeting-complete", "description": {"en": "The greeting state is reached after an allowed greeting.", "hi": "अनुमत अभिवादन मिलने पर अभिवादन स्थिति आती है।"} }],
+      "successConditions": [{ "evaluatorId": "de.eval.greeting-complete", "description": {"en": "The greeting state is reached after an allowed greeting.", "hi": "अनुमत अभिवादन मिलने पर अभिवादन स्थिति आती है।", "hi-latn": "Allowed greeting milne par greeting state complete hoti hai."} }],
       "sourceIds": ["source.de.dib-2017", "source.de.cefr-2020"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Scenario wording and register need competent review." }
     },
@@ -364,10 +364,10 @@
       "language": "de",
       "domain": "introductions",
       "cefrApproximation": "A1",
-      "goal": {"en": "Tell a new acquaintance your name.", "hi": "नए परिचित को अपना नाम बताएँ।"},
-      "context": {"en": "After a greeting, the other person asks Wie heißen Sie?", "hi": "अभिवादन के बाद दूसरा व्यक्ति पूछता है: Wie heißen Sie?"},
-      "learnerRole": {"en": "New acquaintance", "hi": "नया परिचित"},
-      "npcRole": {"en": "New acquaintance", "hi": "नया परिचित"},
+      "goal": {"en": "Tell a new acquaintance your name.", "hi": "नए परिचित को अपना नाम बताएँ।", "hi-latn": "Naye parichit ko apna naam batayein."},
+      "context": {"en": "After a greeting, the other person asks Wie heißen Sie?", "hi": "अभिवादन के बाद दूसरा व्यक्ति पूछता है: Wie heißen Sie?", "hi-latn": "Greeting ke baad doosra vyakti poochhta hai: Wie heißen Sie?"},
+      "learnerRole": {"en": "New acquaintance", "hi": "नया परिचित", "hi-latn": "Naya parichit"},
+      "npcRole": {"en": "New acquaintance", "hi": "नया परिचित", "hi-latn": "Naya parichit"},
       "requiredFunctionIds": ["de.function.state-name", "de.question.ask-name-formal"],
       "eligibleConceptIds": ["de.pronoun.ich", "de.pronoun.sie-formal", "de.function.state-name", "de.question.ask-name-formal"],
       "initialStateId": "de.state.name.waiting",
@@ -381,7 +381,7 @@
         { "id": "de.eval.name-pattern", "kind": "requiredTokenSequence", "expectedValues": ["ich", "heiße"] },
         { "id": "de.eval.name-complete", "kind": "stateReached", "expectedValues": ["de.state.name.complete"] }
       ],
-      "successConditions": [{ "evaluatorId": "de.eval.name-complete", "description": {"en": "The name state is reached after the reviewed naming frame is detected.", "hi": "जाँचा हुआ नाम बताने का ढाँचा मिलने पर नाम स्थिति आती है।"} }],
+      "successConditions": [{ "evaluatorId": "de.eval.name-complete", "description": {"en": "The name state is reached after the reviewed naming frame is detected.", "hi": "जाँचा हुआ नाम बताने का ढाँचा मिलने पर नाम स्थिति आती है।", "hi-latn": "Reviewed naming frame milne par name state complete hoti hai."} }],
       "sourceIds": ["source.de.dib-2017", "source.de.cefr-2020"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Scenario wording and evaluator scope need competent review." }
     },
@@ -390,10 +390,10 @@
       "language": "de",
       "domain": "introductions",
       "cefrApproximation": "A1",
-      "goal": {"en": "Tell a new acquaintance where you come from.", "hi": "नए परिचित को बताएँ कि आप कहाँ से आते हैं।"},
-      "context": {"en": "The other person asks Woher kommen Sie?", "hi": "दूसरा व्यक्ति पूछता है: Woher kommen Sie?"},
-      "learnerRole": {"en": "New acquaintance", "hi": "नया परिचित"},
-      "npcRole": {"en": "New acquaintance", "hi": "नया परिचित"},
+      "goal": {"en": "Tell a new acquaintance where you come from.", "hi": "नए परिचित को बताएँ कि आप कहाँ से आते हैं।", "hi-latn": "Naye parichit ko batayein ki aap kahan se hain."},
+      "context": {"en": "The other person asks Woher kommen Sie?", "hi": "दूसरा व्यक्ति पूछता है: Woher kommen Sie?", "hi-latn": "Doosra vyakti poochhta hai: Woher kommen Sie?"},
+      "learnerRole": {"en": "New acquaintance", "hi": "नया परिचित", "hi-latn": "Naya parichit"},
+      "npcRole": {"en": "New acquaintance", "hi": "नया परिचित", "hi-latn": "Naya parichit"},
       "requiredFunctionIds": ["de.function.state-origin", "de.question.ask-origin-formal"],
       "eligibleConceptIds": ["de.pronoun.ich", "de.pronoun.sie-formal", "de.function.state-origin", "de.question.ask-origin-formal"],
       "initialStateId": "de.state.origin.waiting",
@@ -407,7 +407,7 @@
         { "id": "de.eval.origin-pattern", "kind": "requiredTokenSequence", "expectedValues": ["ich", "komme", "aus"] },
         { "id": "de.eval.origin-complete", "kind": "stateReached", "expectedValues": ["de.state.origin.complete"] }
       ],
-      "successConditions": [{ "evaluatorId": "de.eval.origin-complete", "description": {"en": "The origin state is reached after the reviewed origin frame is detected.", "hi": "जाँचा हुआ मूल स्थान ढाँचा मिलने पर मूल स्थान स्थिति आती है।"} }],
+      "successConditions": [{ "evaluatorId": "de.eval.origin-complete", "description": {"en": "The origin state is reached after the reviewed origin frame is detected.", "hi": "जाँचा हुआ मूल स्थान ढाँचा मिलने पर मूल स्थान स्थिति आती है।", "hi-latn": "Reviewed origin frame milne par origin state complete hoti hai."} }],
       "sourceIds": ["source.de.dib-2017", "source.de.cefr-2020"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Country scope and evaluator need competent review." }
     },
@@ -416,10 +416,10 @@
       "language": "de",
       "domain": "cafe",
       "cefrApproximation": "A1",
-      "goal": {"en": "Request one available drink politely.", "hi": "उपलब्ध पेयों में से एक विनम्रता से मँगाएँ।"},
-      "context": {"en": "At a café counter, choose Kaffee, Tee, or Wasser.", "hi": "कैफ़े काउंटर पर Kaffee, Tee या Wasser चुनें।"},
-      "learnerRole": {"en": "Customer", "hi": "ग्राहक"},
-      "npcRole": {"en": "Café worker", "hi": "कैफ़े कर्मचारी"},
+      "goal": {"en": "Request one available drink politely.", "hi": "उपलब्ध पेयों में से एक विनम्रता से मँगाएँ।", "hi-latn": "Available drinks mein se ek ko politely order karein."},
+      "context": {"en": "At a café counter, choose Kaffee, Tee, or Wasser.", "hi": "कैफ़े काउंटर पर Kaffee, Tee या Wasser चुनें।", "hi-latn": "Cafe counter par Kaffee, Tee ya Wasser chunein."},
+      "learnerRole": {"en": "Customer", "hi": "ग्राहक", "hi-latn": "Customer"},
+      "npcRole": {"en": "Café worker", "hi": "कैफ़े कर्मचारी", "hi-latn": "Cafe worker"},
       "requiredFunctionIds": ["de.function.order-polite"],
       "eligibleConceptIds": ["de.function.greeting-basic", "de.lexicon.cafe-items", "de.verb.moechten-ich", "de.case.accusative-indefinite-basic", "de.function.order-polite"],
       "initialStateId": "de.state.order.waiting",
@@ -440,7 +440,7 @@
         { "id": "de.eval.order-item", "kind": "anyAllowedToken", "expectedValues": ["kaffee", "tee", "wasser"] },
         { "id": "de.eval.order-complete", "kind": "stateReached", "expectedValues": ["de.state.order.complete"] }
       ],
-      "successConditions": [{ "evaluatorId": "de.eval.order-complete", "description": {"en": "The complete state is reached after the request frame and one allowed item are detected.", "hi": "अनुरोध ढाँचा और एक अनुमत वस्तु मिलने पर पूर्ण स्थिति आती है।"} }],
+      "successConditions": [{ "evaluatorId": "de.eval.order-complete", "description": {"en": "The complete state is reached after the request frame and one allowed item are detected.", "hi": "अनुरोध ढाँचा और एक अनुमत वस्तु मिलने पर पूर्ण स्थिति आती है।", "hi-latn": "Request frame aur ek allowed item milne par state complete hoti hai."} }],
       "sourceIds": ["source.de.dib-2017", "source.de.grimm-grammar", "source.de.cefr-2020"],
       "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Café naturalness, fallback wording, and evaluator contract need competent review." }
     }
@@ -508,11 +508,11 @@
     }
   ],
   "feedbackTemplates": [
-    { "id": "de.feedback.name-frame", "language": "de", "message": {"en": "Use the short frame: Ich heiße ...", "hi": "छोटा ढाँचा प्रयोग करें: Ich heiße ..."}, "retryPrompt": {"en": "Try the introduction once more.", "hi": "परिचय फिर आज़माएँ।"}, "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner-facing wording needs German and pedagogical review." } },
-    { "id": "de.feedback.origin-aus", "language": "de", "message": {"en": "Keep aus in the frame: Ich komme aus ...", "hi": "ढाँचे में aus रखें: Ich komme aus ..."}, "retryPrompt": {"en": "Say where you come from again.", "hi": "फिर बताएँ कि आप कहाँ से आते हैं।"}, "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner-facing wording needs German and pedagogical review." } },
-    { "id": "de.feedback.noun-capitalization", "language": "de", "message": {"en": "German nouns start with a capital here: Kaffee.", "hi": "यहाँ जर्मन संज्ञाएँ बड़े अक्षर से शुरू होती हैं: Kaffee।"}, "retryPrompt": {"en": "Write the noun once more.", "hi": "संज्ञा फिर लिखें।"}, "sourceIds": ["source.de.ids-capitalization"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner-facing wording needs German and pedagogical review." } },
-    { "id": "de.feedback.accusative-masculine", "language": "de", "message": {"en": "For this masculine item, use einen: einen Kaffee.", "hi": "इस पुल्लिंग वस्तु के लिए einen प्रयोग करें: einen Kaffee।"}, "retryPrompt": {"en": "Make the request again with einen.", "hi": "अनुरोध einen के साथ फिर बनाएँ।"}, "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner-facing wording needs German and pedagogical review." } },
-    { "id": "de.feedback.order-bitte", "language": "de", "message": {"en": "Add bitte to the target polite request.", "hi": "लक्ष्य विनम्र अनुरोध में bitte जोड़ें।"}, "retryPrompt": {"en": "Try the complete request once more.", "hi": "पूरा अनुरोध फिर आज़माएँ।"}, "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Pragmatic wording needs competent review." } }
+    { "id": "de.feedback.name-frame", "language": "de", "message": {"en": "Use the short frame: Ich heiße ...", "hi": "छोटा ढाँचा प्रयोग करें: Ich heiße ...", "hi-latn": "Chhota frame use karein: Ich heiße ..."}, "retryPrompt": {"en": "Try the introduction once more.", "hi": "परिचय फिर आज़माएँ।", "hi-latn": "Introduction phir try karein."}, "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner-facing wording needs German and pedagogical review." } },
+    { "id": "de.feedback.origin-aus", "language": "de", "message": {"en": "Keep aus in the frame: Ich komme aus ...", "hi": "ढाँचे में aus रखें: Ich komme aus ...", "hi-latn": "Frame mein aus rakhein: Ich komme aus ..."}, "retryPrompt": {"en": "Say where you come from again.", "hi": "फिर बताएँ कि आप कहाँ से आते हैं।", "hi-latn": "Phir batayein ki aap kahan se hain."}, "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner-facing wording needs German and pedagogical review." } },
+    { "id": "de.feedback.noun-capitalization", "language": "de", "message": {"en": "German nouns start with a capital here: Kaffee.", "hi": "यहाँ जर्मन संज्ञाएँ बड़े अक्षर से शुरू होती हैं: Kaffee।", "hi-latn": "Yahan German nouns capital letter se shuru hote hain: Kaffee."}, "retryPrompt": {"en": "Write the noun once more.", "hi": "संज्ञा फिर लिखें।", "hi-latn": "Noun phir likhein."}, "sourceIds": ["source.de.ids-capitalization"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner-facing wording needs German and pedagogical review." } },
+    { "id": "de.feedback.accusative-masculine", "language": "de", "message": {"en": "For this masculine item, use einen: einen Kaffee.", "hi": "इस पुल्लिंग वस्तु के लिए einen प्रयोग करें: einen Kaffee।", "hi-latn": "Is masculine item ke liye einen use karein: einen Kaffee."}, "retryPrompt": {"en": "Make the request again with einen.", "hi": "अनुरोध einen के साथ फिर बनाएँ।", "hi-latn": "Request ko einen ke saath phir banayein."}, "sourceIds": ["source.de.grimm-grammar"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Learner-facing wording needs German and pedagogical review." } },
+    { "id": "de.feedback.order-bitte", "language": "de", "message": {"en": "Add bitte to the target polite request.", "hi": "लक्ष्य विनम्र अनुरोध में bitte जोड़ें।", "hi-latn": "Target polite request mein bitte jodein."}, "retryPrompt": {"en": "Try the complete request once more.", "hi": "पूरा अनुरोध फिर आज़माएँ।", "hi-latn": "Complete request phir try karein."}, "sourceIds": ["source.de.dib-2017"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Pragmatic wording needs competent review." } }
   ],
   "rubrics": [
     { "id": "de.rubric.greet", "taskId": "de.task.introduction.greet", "dimensions": [{ "dimension": "communicativeSuccess", "evaluatorId": "de.eval.greeting-complete" }, { "dimension": "targetConceptPerformance", "evaluatorId": "de.eval.greeting-token" }], "sourceIds": ["source.de.cefr-2020"], "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Threshold interpretation needs pedagogical review." } },
@@ -539,13 +539,14 @@
             "article": { "kind": "text", "value": "der" },
             "meaning": {
               "kind": "textByLanguage",
-              "textByLanguage": { "en": "coffee", "hi": "कॉफ़ी" }
+              "textByLanguage": { "en": "coffee", "hi": "कॉफ़ी", "hi-latn": "coffee" }
             },
             "instruction": {
               "kind": "textByLanguage",
               "textByLanguage": {
                 "en": "Notice the word, article, and meaning together.",
-                "hi": "शब्द, लेख और अर्थ को एक साथ देखें।"
+                "hi": "शब्द, लेख और अर्थ को एक साथ देखें।",
+                "hi-latn": "Shabd, article aur meaning ko saath mein dekhein."
               }
             },
             "concept": { "kind": "conceptReference", "value": "de.lexicon.cafe-items" },
@@ -561,7 +562,7 @@
           "parameters": {
             "prompt": {
               "kind": "textByLanguage",
-              "textByLanguage": { "en": "Choose Kaffee.", "hi": "Kaffee चुनें।" }
+              "textByLanguage": { "en": "Choose Kaffee.", "hi": "Kaffee चुनें।", "hi-latn": "Kaffee chunein." }
             },
             "concept": { "kind": "conceptReference", "value": "de.lexicon.cafe-items" },
             "options": {
@@ -587,7 +588,8 @@
               "kind": "textByLanguage",
               "textByLanguage": {
                 "en": "Build the complete café request.",
-                "hi": "कैफ़े का पूरा अनुरोध सही क्रम में बनाएँ।"
+                "hi": "कैफ़े का पूरा अनुरोध सही क्रम में बनाएँ।",
+                "hi-latn": "Cafe ki complete request sahi order mein banayein."
               }
             },
             "concept": { "kind": "conceptReference", "value": "de.function.order-polite" },

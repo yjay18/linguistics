@@ -69,6 +69,9 @@
                     <CheckBox x:Name="HindiSelected"
                               Content="{loc:Localize Language_Hindi}"
                               AutomationProperties.AutomationId="KnownHindi" />
+                    <CheckBox x:Name="HinglishSelected"
+                              Content="{loc:Localize Language_Hinglish}"
+                              AutomationProperties.AutomationId="KnownHinglish" />
                     <TextBlock Text="{loc:Localize Onboarding_Known_Note}"
                                TextWrapping="Wrap"
                                Opacity="0.72" />
@@ -139,6 +142,35 @@
                                       IsChecked="True" />
                         </StackPanel>
                     </Border>
+
+                    <Border x:Name="HinglishDetails"
+                            Classes="soft-card">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="{loc:Localize Language_Hinglish}"
+                                       FontSize="20"
+                                       FontWeight="SemiBold"
+                                       AutomationProperties.HeadingLevel="2" />
+                            <TextBlock Text="{loc:Localize Languages_Proficiency}" />
+                            <ComboBox x:Name="HinglishProficiency"
+                                      SelectedIndex="2"
+                                      AutomationProperties.Name="{loc:Localize Languages_HinglishProficiency}"
+                                      AutomationProperties.AutomationId="HinglishProficiency">
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Beginner}" Tag="Beginner" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Intermediate}" Tag="Intermediate" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Advanced}" Tag="Advanced" />
+                                <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Native}" Tag="NativeOrNearNative" />
+                            </ComboBox>
+                            <CheckBox x:Name="HinglishReading"
+                                      Content="{loc:Localize Languages_HinglishReading}"
+                                      IsChecked="True" />
+                            <CheckBox x:Name="HinglishListening"
+                                      Content="{loc:Localize Languages_HinglishListening}"
+                                      IsChecked="True" />
+                            <CheckBox x:Name="HinglishExplanations"
+                                      Content="{loc:Localize Languages_HinglishExplanations}"
+                                      IsChecked="True" />
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
 
                 <StackPanel x:Name="ShortcutStep"
@@ -172,6 +204,7 @@
                                   AutomationProperties.AutomationId="PreferredLanguage">
                             <ComboBoxItem x:Name="PreferredEnglish" Content="{loc:Localize Language_English}" Tag="en" />
                             <ComboBoxItem x:Name="PreferredHindi" Content="{loc:Localize Language_Hindi}" Tag="hi" />
+                            <ComboBoxItem x:Name="PreferredHinglish" Content="{loc:Localize Language_Hinglish}" Tag="hi-latn" />
                         </ComboBox>
                     </StackPanel>
                     <TextBlock x:Name="InstructionSelectionStatus"

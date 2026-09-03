@@ -141,6 +141,7 @@ public sealed class TemplateCatalogValidationTests
                 {
                     ["en"] = "Read the authored prompt.",
                     ["hi"] = "लिखे हुए निर्देश को पढ़ें।",
+                    ["hi-latn"] = "Likha hua prompt padhein.",
                 }),
             TemplateParameterKind.ConceptReference => new(kind, Value: conceptId),
             TemplateParameterKind.ExampleReference => new(kind, Value: ExampleId),

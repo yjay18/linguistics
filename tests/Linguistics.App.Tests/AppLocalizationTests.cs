@@ -67,6 +67,12 @@ public sealed class AppLocalizationTests
         Assert.AreEqual(
             new LanguageCode("en"),
             AppLanguageSelector.Select(profile, new LanguageCode("fr")));
+        Assert.AreEqual(
+            new LanguageCode("en"),
+            AppLanguageSelector.Select(profile, new LanguageCode("hi-latn")));
+        Assert.AreEqual(
+            "Hinglish (Hindi in Latin script)",
+            AppStrings.Get("Language_Hinglish"));
     }
 
     [TestMethod]

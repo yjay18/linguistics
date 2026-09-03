@@ -24,6 +24,22 @@ public sealed class InstructionLanguageSelectorTests
     }
 
     [TestMethod]
+    public void PreferredHinglishIsSelectedAsAnIndependentInstructionLanguage()
+    {
+        var result = InstructionLanguageSelector.Select(
+            Profile(
+                [Known("en"), Known("hi-latn")],
+                MultilingualShortcutMode.PreferredLanguage,
+                preferred: "hi-latn"),
+            Languages("en", "hi", "hi-latn"));
+
+        Assert.AreEqual(new LanguageCode("hi-latn"), result.SelectedLanguage);
+        Assert.AreEqual(
+            InstructionLanguageSelectionReason.PreferredLanguage,
+            result.Explanation.SelectionReason);
+    }
+
+    [TestMethod]
     public void UnsupportedPreferredLanguageUsesStableEligibleFallback()
     {
         var result = InstructionLanguageSelector.Select(

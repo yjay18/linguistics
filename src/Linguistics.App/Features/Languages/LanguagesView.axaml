@@ -90,6 +90,37 @@
                               IsCheckedChanged="OnLanguageDetailsChanged" />
                 </StackPanel>
             </Border>
+
+            <CheckBox x:Name="HinglishSelected"
+                      Content="{loc:Localize Language_Hinglish}"
+                      IsCheckedChanged="OnLanguageSelectionChanged"
+                      AutomationProperties.AutomationId="LanguagesHinglish" />
+            <Border x:Name="HinglishDetails"
+                    Margin="24,0,0,0"
+                    Classes="soft-card">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{loc:Localize Languages_HinglishPreferences}"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="3" />
+                    <TextBlock Text="{loc:Localize Languages_Proficiency}" />
+                    <ComboBox x:Name="HinglishProficiency"
+                              AutomationProperties.Name="{loc:Localize Languages_HinglishProficiency}">
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Beginner}" Tag="Beginner" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Intermediate}" Tag="Intermediate" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Advanced}" Tag="Advanced" />
+                        <ComboBoxItem Content="{loc:Localize Languages_Proficiency_Native}" Tag="NativeOrNearNative" />
+                    </ComboBox>
+                    <CheckBox x:Name="HinglishReading"
+                              Content="{loc:Localize Languages_HinglishReading}"
+                              IsCheckedChanged="OnLanguageDetailsChanged" />
+                    <CheckBox x:Name="HinglishListening"
+                              Content="{loc:Localize Languages_HinglishListening}" />
+                    <CheckBox x:Name="HinglishExplanations"
+                              Content="{loc:Localize Languages_HinglishExplanations}"
+                              IsCheckedChanged="OnLanguageDetailsChanged" />
+                </StackPanel>
+            </Border>
         </StackPanel>
 
         <Border Classes="hero-card">
@@ -115,6 +146,9 @@
                     <ComboBoxItem x:Name="InstructionHindi"
                                   Content="{loc:Localize Language_Hindi}"
                                   Tag="hi" />
+                    <ComboBoxItem x:Name="InstructionHinglish"
+                                  Content="{loc:Localize Language_Hinglish}"
+                                  Tag="hi-latn" />
                 </ComboBox>
                 <TextBlock x:Name="InstructionStatus"
                            TextWrapping="Wrap"

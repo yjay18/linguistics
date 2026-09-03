@@ -182,6 +182,7 @@ public sealed class LessonTemplateValidationTests
                                     {
                                         ["en"] = "Choose one.",
                                         ["hi"] = "एक चुनें।",
+                                        ["hi-latn"] = "Ek chunein.",
                                     }),
                                 ["concept"] = new(TemplateParameterKind.ConceptReference, Value: concept.Id),
                                 ["example"] = new(TemplateParameterKind.ExampleReference, Value: ExampleId),

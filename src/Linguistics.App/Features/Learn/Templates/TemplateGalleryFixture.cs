@@ -43,8 +43,8 @@ internal static class TemplateGalleryFixtures
         new(
             new TemplateId("object-spotlight"),
             "Object spotlight",
-            "Scene · validated pack image · Hindi instruction route",
-            new LanguageCode("hi"),
+            "Scene · validated pack image · Hinglish instruction route",
+            new LanguageCode("hi-latn"),
             new ResolvedTemplateParameters(new Dictionary<string, ResolvedTemplateParameter>
             {
                 ["word"] = new(TemplateParameterKind.Text, Text: "Kaffee"),
@@ -55,6 +55,7 @@ internal static class TemplateGalleryFixtures
                     {
                         ["en"] = "coffee",
                         ["hi"] = "कॉफ़ी",
+                        ["hi-latn"] = "coffee",
                     }),
                 ["instruction"] = new(
                     TemplateParameterKind.TextByLanguage,
@@ -62,6 +63,7 @@ internal static class TemplateGalleryFixtures
                     {
                         ["en"] = "Notice the word, article, and meaning together.",
                         ["hi"] = "शब्द, लेख और अर्थ को एक साथ देखें।",
+                        ["hi-latn"] = "Shabd, article aur meaning ko saath mein dekhein.",
                     }),
                 ["asset"] = new(
                     TemplateParameterKind.AssetReference,

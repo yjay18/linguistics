@@ -127,8 +127,11 @@ public partial class OnboardingView : UserControl
         {
             EnglishDetails.IsVisible = EnglishSelected.IsChecked == true;
             HindiDetails.IsVisible = HindiSelected.IsChecked == true;
+            HinglishDetails.IsVisible = HinglishSelected.IsChecked == true;
             NoKnownLanguagesMessage.IsVisible =
-                EnglishSelected.IsChecked != true && HindiSelected.IsChecked != true;
+                EnglishSelected.IsChecked != true &&
+                HindiSelected.IsChecked != true &&
+                HinglishSelected.IsChecked != true;
         }
 
         if (step == 3)
@@ -176,6 +179,8 @@ public partial class OnboardingView : UserControl
             EnglishSelected.IsChecked == true && EnglishExplanations.IsChecked == true;
         PreferredHindi.IsVisible =
             HindiSelected.IsChecked == true && HindiExplanations.IsChecked == true;
+        PreferredHinglish.IsVisible =
+            HinglishSelected.IsChecked == true && HinglishExplanations.IsChecked == true;
 
         if (PreferredLanguage.SelectedItem is ComboBoxItem selected && !selected.IsVisible)
         {
@@ -184,7 +189,8 @@ public partial class OnboardingView : UserControl
 
         PreferredLanguage.SelectedItem ??=
             PreferredEnglish.IsVisible ? PreferredEnglish :
-            PreferredHindi.IsVisible ? PreferredHindi : null;
+            PreferredHindi.IsVisible ? PreferredHindi :
+            PreferredHinglish.IsVisible ? PreferredHinglish : null;
         RefreshInstructionStatus();
     }
 
@@ -290,6 +296,16 @@ public partial class OnboardingView : UserControl
                 HindiReading.IsChecked == true,
                 HindiListening.IsChecked == true,
                 HindiExplanations.IsChecked == true));
+        }
+
+        if (HinglishSelected.IsChecked == true)
+        {
+            languages.Add(new KnownLanguage(
+                new LanguageCode("hi-latn"),
+                SelectedProficiency(HinglishProficiency),
+                HinglishReading.IsChecked == true,
+                HinglishListening.IsChecked == true,
+                HinglishExplanations.IsChecked == true));
         }
 
         return languages;
@@ -404,6 +420,7 @@ public partial class OnboardingView : UserControl
     {
         "en" => AppStrings.Get("Language_English"),
         "hi" => AppStrings.Get("Language_Hindi"),
+        "hi-latn" => AppStrings.Get("Language_Hinglish"),
         "de" => AppStrings.Get("Language_German"),
         _ => language.Value,
     };

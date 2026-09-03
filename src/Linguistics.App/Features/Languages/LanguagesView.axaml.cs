@@ -50,6 +50,15 @@ public partial class LanguagesView : UserControl
             HindiReading,
             HindiListening,
             HindiExplanations);
+        LoadLanguage(
+            profile,
+            "hi-latn",
+            HinglishSelected,
+            HinglishDetails,
+            HinglishProficiency,
+            HinglishReading,
+            HinglishListening,
+            HinglishExplanations);
         InstructionLanguage.SelectedItem =
             profile.Settings.ShortcutMode == MultilingualShortcutMode.PreferredLanguage
                 ? InstructionItem(profile.Settings.PreferredExplanationLanguage)
@@ -79,13 +88,14 @@ public partial class LanguagesView : UserControl
 
     private void OnLanguageSelectionChanged(object? sender, RoutedEventArgs args)
     {
-        if (EnglishDetails is null || HindiDetails is null)
+        if (EnglishDetails is null || HindiDetails is null || HinglishDetails is null)
         {
             return;
         }
 
         EnglishDetails.IsVisible = EnglishSelected.IsChecked == true;
         HindiDetails.IsVisible = HindiSelected.IsChecked == true;
+        HinglishDetails.IsVisible = HinglishSelected.IsChecked == true;
         ClearMessages();
         RefreshInstructionStatus();
     }
@@ -153,7 +163,7 @@ public partial class LanguagesView : UserControl
     private IReadOnlyList<KnownLanguage> BuildKnownLanguages()
     {
         var languages = _profile?.KnownLanguages
-            .Where(language => language.Language.Value is not ("en" or "hi"))
+            .Where(language => language.Language.Value is not ("en" or "hi" or "hi-latn"))
             .ToList() ?? [];
         AddLanguage(
             languages,
@@ -171,6 +181,14 @@ public partial class LanguagesView : UserControl
             HindiReading,
             HindiListening,
             HindiExplanations);
+        AddLanguage(
+            languages,
+            "hi-latn",
+            HinglishSelected,
+            HinglishProficiency,
+            HinglishReading,
+            HinglishListening,
+            HinglishExplanations);
         return languages;
     }
 
@@ -236,6 +254,7 @@ public partial class LanguagesView : UserControl
     {
         "en" => InstructionEnglish,
         "hi" => InstructionHindi,
+        "hi-latn" => InstructionHinglish,
         _ => InstructionAutomatic,
     };
 
@@ -270,6 +289,7 @@ public partial class LanguagesView : UserControl
     {
         "en" => AppStrings.Get("Language_English"),
         "hi" => AppStrings.Get("Language_Hindi"),
+        "hi-latn" => AppStrings.Get("Language_Hinglish"),
         "de" => AppStrings.Get("Language_German"),
         _ => language.Value,
     };

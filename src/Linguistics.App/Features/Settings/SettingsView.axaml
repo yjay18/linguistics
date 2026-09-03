@@ -67,6 +67,7 @@
                           AutomationProperties.AutomationId="SettingsPreferredLanguage">
                     <ComboBoxItem x:Name="PreferredEnglish" Content="{loc:Localize Language_English}" Tag="en" />
                     <ComboBoxItem x:Name="PreferredHindi" Content="{loc:Localize Language_Hindi}" Tag="hi" />
+                    <ComboBoxItem x:Name="PreferredHinglish" Content="{loc:Localize Language_Hinglish}" Tag="hi-latn" />
                 </ComboBox>
             </StackPanel>
             </StackPanel>

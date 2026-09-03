@@ -31,6 +31,25 @@ public sealed class TransferRouterTests
     }
 
     [TestMethod]
+    public void HinglishProfileUsesHindiMappingAndPreferenceDeterministically()
+    {
+        var profile = Profile(
+            [Known("en"), Known("hi-latn")],
+            new LearnerSettings(
+                MultilingualShortcutMode.PreferredLanguage,
+                new LanguageCode("hi-latn"),
+                MicrophonePreference.Later,
+                false));
+
+        var result = Route(profile, Mapping("en", 0.9), Mapping("hi", 0.9));
+        var repeated = Route(profile, Mapping("en", 0.9), Mapping("hi", 0.9));
+
+        Assert.AreEqual("fixture.hi", result.Selection?.Mapping.Id.Value);
+        Assert.AreEqual(result.Selection, repeated.Selection);
+        Assert.IsTrue(result.Explanation.Candidates.All(candidate => candidate.Eligible));
+    }
+
+    [TestMethod]
     public void HigherEnglishScoreBeatsLowerHindiScore()
     {
         var result = Route(

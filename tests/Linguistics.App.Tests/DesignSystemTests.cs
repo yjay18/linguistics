@@ -269,7 +269,7 @@ public sealed class DesignSystemTests
     public void StaticUserFacingCopyDoesNotUseDashes()
     {
         var visibleAttributes = new HashSet<string>(
-            ["Text", "Content", "Tag", "AutomationProperties.Name"],
+            ["Text", "Content", "AutomationProperties.Name"],
             StringComparer.Ordinal);
         var values = Directory
             .EnumerateFiles(

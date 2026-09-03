@@ -21,6 +21,9 @@
   <data name="Language_Hindi" xml:space="preserve">
     <value>हिन्दी</value>
   </data>
+  <data name="Language_Hinglish" xml:space="preserve">
+    <value>हिंग्लिश (लैटिन लिपि में हिंदी)</value>
+  </data>
   <data name="Settings_AppLanguage_Description" xml:space="preserve">
     <value>पाठ के स्पष्टीकरण की भाषा अपनाएँ, या ऐप के नियंत्रण एक भाषा में रखें।</value>
   </data>
@@ -952,9 +955,11 @@
   <data name="Languages_Known_Body" xml:space="preserve"><value>सीखने में सहायक भाषाएँ चुनें। हर भाषा के लिए पढ़ने, सुनने और स्पष्टीकरण के अलग विकल्प हैं।</value></data>
   <data name="Languages_EnglishPreferences" xml:space="preserve"><value>अंग्रेज़ी प्राथमिकताएँ</value></data>
   <data name="Languages_HindiPreferences" xml:space="preserve"><value>हिंदी प्राथमिकताएँ</value></data>
+  <data name="Languages_HinglishPreferences" xml:space="preserve"><value>हिंग्लिश प्राथमिकताएँ</value></data>
   <data name="Languages_Proficiency" xml:space="preserve"><value>अनुमानित दक्षता</value></data>
   <data name="Languages_EnglishProficiency" xml:space="preserve"><value>अंग्रेज़ी दक्षता</value></data>
   <data name="Languages_HindiProficiency" xml:space="preserve"><value>हिंदी दक्षता</value></data>
+  <data name="Languages_HinglishProficiency" xml:space="preserve"><value>हिंग्लिश के लिए हिंदी दक्षता</value></data>
   <data name="Languages_Proficiency_Beginner" xml:space="preserve"><value>शुरुआती</value></data>
   <data name="Languages_Proficiency_Intermediate" xml:space="preserve"><value>मध्यम</value></data>
   <data name="Languages_Proficiency_Advanced" xml:space="preserve"><value>उन्नत</value></data>
@@ -965,6 +970,9 @@
   <data name="Languages_HindiReading" xml:space="preserve"><value>मैं हिंदी पढ़ने में सहज हूँ</value></data>
   <data name="Languages_HindiListening" xml:space="preserve"><value>मैं हिंदी सुनने में सहज हूँ</value></data>
   <data name="Languages_HindiExplanations" xml:space="preserve"><value>स्पष्टीकरण के लिए हिंदी प्रयोग हो सकती है</value></data>
+  <data name="Languages_HinglishReading" xml:space="preserve"><value>मैं लैटिन लिपि में हिंदी पढ़ने में सहज हूँ</value></data>
+  <data name="Languages_HinglishListening" xml:space="preserve"><value>मैं हिंदी सुनने में सहज हूँ</value></data>
+  <data name="Languages_HinglishExplanations" xml:space="preserve"><value>स्पष्टीकरण के लिए हिंग्लिश प्रयोग हो सकती है</value></data>
   <data name="Languages_Instruction_Title" xml:space="preserve"><value>पाठ निर्देश की भाषा</value></data>
   <data name="Languages_Instruction_Body" xml:space="preserve"><value>पाठ के निर्देशों, अर्थों और स्पष्टीकरणों में प्रयोग होने वाली भाषा चुनें।</value></data>
   <data name="Languages_Instruction_Label" xml:space="preserve"><value>पसंदीदा पाठ निर्देश भाषा</value></data>
