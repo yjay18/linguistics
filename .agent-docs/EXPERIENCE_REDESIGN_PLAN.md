@@ -3,8 +3,8 @@
 Production redesign of the learner-facing experience: a paper-theatre visual identity, a
 deterministic lesson-template engine with 58 templates, an image asset pipeline built on
 openly licensed sources, and many-to-many language support so any repertoire (for example
-English + Hindi) can learn any packed target language (first German) with instruction in
-the language that suits the learner best.
+English + Hindi + Hinglish) can learn any packed target language (first German) with
+instruction in the language that suits the learner best.
 
 This document is the canonical work list for long agentic workflows. Work items carry
 stable IDs (`P2.3`, `P4.T21`) so any agent can pick one up, execute it as a vertical
@@ -695,6 +695,34 @@ not learner-facing. Competent Hindi, German, bilingual transfer, pedagogical, cu
 content, license, modification, and redistribution review remains pending. With these
 named evidence gaps, Phase 5 is complete but not fully verified.
 
+**Hinglish extension status (2026-09-03): complete with named unverified evidence.**
+The Phase 5 path now also treats `hi-latn` as an explicit known and instruction
+language. Onboarding, Languages, and Settings expose Hinglish as Hindi in Latin script,
+persist its reading, listening, explanation, proficiency, and preferred-language
+choices, and reroute the already-loaded catalog without changing German target IDs or
+ordering. This is static authored copy, not runtime transliteration. Because app chrome
+remains localized in English and Devanagari Hindi, a Hinglish-taught lesson uses English
+controls while its course, explanation, feedback, and transfer copy use `hi-latn`.
+
+The German target pack and Hindi-to-German transfer pack declare English, Hindi, and
+Hinglish with complete learner-facing maps. Hindi transfer mappings remain source
+language `hi`; `TransferRouter` deterministically accepts a known `hi-latn` variant from
+the same primary language family and prefers the learner's exact script choice before
+stable fallback. It still selects only supplied mappings and never authors a bridge.
+
+Locked Release build, all 380 tests (140 app and 240 core), formatter verification,
+publish, JSON parsing, complete map coverage, 25-word Hinglish copy checks, no-Devanagari
+Hinglish checks, and dash checks pass. Fresh native macOS interaction used an isolated
+schema 7 profile. Mouse and keyboard onboarding selected Hinglish, exercised preferred
+routing, microphone Never, reduced motion, summary, save, course projection, an
+ineligible Languages state, restore, save, persistence, and Settings. Light and dark
+relaunches retained static Hinglish lesson titles and English chrome.
+
+Direct VoiceOver and Windows native interaction remain unverified. Competent Hinglish,
+Hindi, German, bilingual-transfer, pedagogical, cultural, content, license,
+modification, and redistribution review remains pending. All new learner-visible copy
+is machine-validated Preview material and is not described as approved.
+
 ### Phase 6 — Learn experience redesign
 
 - **P6.1** Course map redesign: the unit list becomes a paper journey — units as
@@ -767,14 +795,14 @@ lessons, in review-gated batches. Per batch (one unit, 10 lessons):
 - **P7.B<unit>** Author template instances for each lesson using the catalog (typical
   lesson: 1 scene opener, 2–3 presentation templates, 3–4 activity templates, 1 recap);
   source and process required assets through the pipeline; write instruction strings in
-  English and Hindi; validate; attach claim-level provenance; mark machine-validated
-  and leave the runtime review gate in force.
+  English, Hindi, and Hinglish; validate; attach claim-level provenance; mark
+  machine-validated and leave the runtime review gate in force.
 - Batch order: Units 1–9 (A1) first; hold A2+ until A1 review feedback exists.
 - Templates found missing or awkward during authoring feed a change item back into
   Phase 4 rather than being worked around with misused templates.
 
-Gate per batch: validator green, lesson plays end to end in both instruction languages,
-asset credits complete, honest Preview labeling intact.
+Gate per batch: validator green, lesson plays end to end in every declared instruction
+language, asset credits complete, honest Preview labeling intact.
 
 ### Phase 8 — Production hardening
 

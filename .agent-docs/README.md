@@ -3,13 +3,15 @@
 ## Status
 
 Milestones 2–7 and the original final-design slice are committed. Paper design system
-v2 Phases 1–6 are implemented on `main` through the Phase 6 source checkpoint
-`9eb8910`. Phase 3 supplies the validated local 12-image asset pipeline and attribution
+v2 Phases 1–6 are implemented on `main` through the Hinglish extension checkpoint
+`bebc7e6`. Phase 3 supplies the validated local 12-image asset pipeline and attribution
 surfaces. Phase 4 contains the exact 58-template catalog, P4.T1–P4.T58, with strict
 validation, deterministic outcome mapping, synthetic all-outcome fixtures, replay and
 skip choreography, reduced-motion completion, keyboard names and live regions, and
-complete text-only behavior. Phase 5 adds explicit English and Hindi instruction
-language routing without duplicating German target content.
+complete text-only behavior. Phase 5 adds explicit English, Hindi, and Hinglish
+instruction-language routing without duplicating German target content. Hinglish uses
+the canonical `hi-latn` code and static authored Preview copy, never runtime
+transliteration. English app chrome is the current fallback for Hinglish lessons.
 
 Phase 6 turns Learn into a paper journey and focused template player, composes Scenario
 Theatre and Consequence Verdict around the existing café controller, adopts Review Flash
@@ -21,13 +23,16 @@ curriculum, mastery, scheduling, transfer selection, or persistence.
 The bundled German lessons, gallery copy, and assets remain machine-validated Preview
 material. Preview visits do not change mastery, and production Scenario and Review
 correctly fail closed until competent content and license approval exists. Locked
-restore, formatter, zero-warning Release build, all 378 automated tests, publish
+restore, formatter, zero-warning Release build, all 380 automated tests, publish
 inspection, and fresh native macOS interaction are clean. Native evidence covers both
 themes, two window sizes, reduced motion, mouse and keyboard operation, replay, skip,
 lesson outcomes, scenario failure/retry/success, review reveal/rating, and capability
-selection. Direct VoiceOver remains unverified. Windows native work is intentionally
+selection. Hinglish-specific QA covers onboarding, preferred routing, eligibility
+feedback, persistence, course projection, Languages, and Settings in both themes.
+Direct VoiceOver remains unverified. Windows native work is intentionally
 deferred under the current macOS-only scope. Real microphone capture, configured local
-recognition, and drag-specific macOS automation also remain unverified. Culture Plate,
+recognition, drag-specific macOS automation, and competent Hinglish review also remain
+unverified. Culture Plate,
 Sign Reading, café-worker, and café-interior media follow-ups retain authored text-only
 equivalents. The last historical committed CI baseline remains GitHub Actions run
 `32342596021`; current local and remote checks do not imply content approval,

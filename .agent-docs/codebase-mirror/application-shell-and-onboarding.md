@@ -61,11 +61,13 @@ The desktop application window and all current Milestone 1 user journeys.
 - Startup storage errors do not silently discard or overwrite learner data.
 - Recovery requires two explicit actions and preserves the original bytes under a randomized app-owned name.
 - A language edit cannot silently invalidate a preferred explanation language.
+- Hinglish is persisted as `hi-latn`, independently from Devanagari Hindi. Its lesson
+  copy is static pack data; English remains the app-chrome fallback.
 - Deletion requires an explicit second action and names recordings, diagnostics, recovery copies, and learner history while preserving content, models, and unrelated files.
 
 ## Side effects
 
-Explicit onboarding completion creates the current schema six learner data file. Languages, Settings, lesson visits, tasks, pronunciation, and review save through the profile owner and replace the envelope atomically. A runtime approved lesson records only visit counts, card position, times, IDs, and content version. Preview lessons remain session only. Startup and successful review operations may add redacted fixed field diagnostic events. Confirmed deletion coordinates recordings, diagnostics, current and temporary learner files, and app owned recovery copies, then returns to onboarding. Navigation, partial onboarding, unsaved edits, preview template outcomes, developer-gallery interaction, and cancelled deletion have no learner persistence side effects.
+Explicit onboarding completion creates the current schema seven learner data file. Languages, Settings, lesson visits, tasks, pronunciation, and review save through the profile owner and replace the envelope atomically. A runtime approved lesson records only visit counts, card position, times, IDs, and content version. Preview lessons remain session only. Startup and successful review operations may add redacted fixed field diagnostic events. Confirmed deletion coordinates recordings, diagnostics, current and temporary learner files, and app owned recovery copies, then returns to onboarding. Navigation, partial onboarding, unsaved edits, preview template outcomes, developer-gallery interaction, and cancelled deletion have no learner persistence side effects.
 
 ## Likely blast radius
 
@@ -81,14 +83,17 @@ Changes can affect application startup, relaunch routing, onboarding accessibili
 
 ## Last reconciled
 
-Phase 6 on 2026-09-03. The shell routes the production paper journey, template player,
-café theatre, review flash, Today paper surface, and capability shelf without moving
-evaluation or persistence authority into a view or renderer. Locked restore, a
-zero-warning Release build, all 378 tests, formatter verification, publish, and publish
+Hinglish extension on 2026-09-03. The shell routes the production paper journey,
+template player, café theatre, review flash, Today paper surface, and capability shelf
+without moving evaluation or persistence authority into a view or renderer. Locked restore, a
+zero-warning Release build, all 380 tests, formatter verification, publish, and publish
 inspection pass. Fresh macOS evidence covers onboarding with microphone set to Never,
 reduced motion, keyboard and mouse navigation, both themes, two window sizes, lesson and
 template outcomes, scenario retry/success, review reveal/rating, and progress selection.
 The accessibility tree exposes named goals, controls, text alternatives, live outcomes,
-ratings, and capability status. Production Scenario and Review correctly remain behind
+ratings, capability status, and the `hi-latn` selection across onboarding, Languages,
+and Settings. An isolated schema 7 profile retained Hinglish course projection across
+light and dark relaunches while using English chrome as designed. Production Scenario
+and Review correctly remain behind
 the machine-validated Preview gate. Direct VoiceOver is unverified, and Windows native
 work is intentionally deferred under the current macOS-only scope.
