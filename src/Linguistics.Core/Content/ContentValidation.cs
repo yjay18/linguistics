@@ -267,8 +267,10 @@ public static class ContentPackLoader
 
 public static class ContentPackValidator
 {
-    public const int SupportedSchemaVersion = 3;
-    public const int SupportedPackVersion = 1;
+    public const int MinimumSupportedSchemaVersion = 3;
+    public const int SupportedSchemaVersion = 4;
+    public const int MinimumSupportedPackVersion = 1;
+    public const int SupportedPackVersion = 2;
 
     private static readonly HashSet<string> AllowedCefr = new(StringComparer.Ordinal)
     {
@@ -319,6 +321,7 @@ public static class ContentPackValidator
         var validPacks = packs.Where(pack => pack?.Manifest is not null).ToArray();
         ValidateGlobalIds(validPacks, errors);
         ValidateCourseCapacity(validPacks, errors);
+        ValidateCourseOrder(validPacks, errors);
 
         var packGroups = validPacks
             .Where(pack => IsCanonicalIdentifier(pack.Manifest.Id))
@@ -404,24 +407,26 @@ public static class ContentPackValidator
 
         var packId = TextOrFallback(pack.Manifest.Id, $"pack-{index}");
         ValidateId(pack.Manifest.Id, packId, "manifest.id", errors);
-        if (pack.Manifest.Version != SupportedPackVersion)
+        if (pack.Manifest.Version is < MinimumSupportedPackVersion or > SupportedPackVersion)
         {
             Add(
                 errors,
                 "version.unsupported",
                 packId,
                 "manifest.version",
-                $"Pack version {pack.Manifest.Version} is unsupported; expected {SupportedPackVersion}.");
+                $"Pack version {pack.Manifest.Version} is unsupported; expected " +
+                $"{MinimumSupportedPackVersion}-{SupportedPackVersion}.");
         }
 
-        if (pack.Manifest.SchemaVersion != SupportedSchemaVersion)
+        if (pack.Manifest.SchemaVersion is < MinimumSupportedSchemaVersion or > SupportedSchemaVersion)
         {
             Add(
                 errors,
                 "schema.unsupported",
                 packId,
                 "manifest.schemaVersion",
-                $"Schema version {pack.Manifest.SchemaVersion} is unsupported; expected {SupportedSchemaVersion}.");
+                $"Schema version {pack.Manifest.SchemaVersion} is unsupported; expected " +
+                $"{MinimumSupportedSchemaVersion}-{SupportedSchemaVersion}.");
         }
 
         if (!Enum.IsDefined(pack.Manifest.Kind))
@@ -599,6 +604,37 @@ public static class ContentPackValidator
                     $"Lesson '{lesson.Id}' does not bind a concept projected by this pack.");
             }
 
+            if (pack.Manifest.SchemaVersion >= 4)
+            {
+                if (lesson.CourseOrder is null)
+                {
+                    Add(
+                        errors,
+                        "course.order.missing",
+                        packId,
+                        $"{lessonPath}.courseOrder",
+                        "A schema-4 target lesson needs an explicit course order.");
+                }
+                else if (lesson.CourseOrder is < 1 or > CourseCatalogConfiguration.MaximumLessonCount)
+                {
+                    Add(
+                        errors,
+                        "course.order.range",
+                        packId,
+                        $"{lessonPath}.courseOrder",
+                        $"Course order must be between 1 and {CourseCatalogConfiguration.MaximumLessonCount}.");
+                }
+            }
+            else if (lesson.CourseOrder is not null)
+            {
+                Add(
+                    errors,
+                    "course.order.schema",
+                    packId,
+                    $"{lessonPath}.courseOrder",
+                    "Explicit course order requires schema version 4.");
+            }
+
             if (lesson.TemplateInstances is null || lesson.TemplateInstances.Count == 0)
             {
                 Add(
@@ -645,6 +681,85 @@ public static class ContentPackValidator
                         $"{instancePath}.parameters",
                         "The template parameter object is missing.");
                 }
+            }
+        }
+    }
+
+    private static void ValidateCourseOrder(
+        IReadOnlyList<ContentPackDocument> packs,
+        ICollection<ContentValidationError> errors)
+    {
+        var targetPacks = packs
+            .Where(pack => pack.Manifest.Kind == ContentPackKind.TargetLanguage)
+            .ToArray();
+        foreach (var language in targetPacks
+                     .SelectMany(pack => pack.Manifest.Languages)
+                     .Distinct(StringComparer.Ordinal))
+        {
+            var languagePacks = targetPacks
+                .Where(pack => pack.Manifest.Languages.Contains(language, StringComparer.Ordinal))
+                .ToArray();
+            if (languagePacks.All(pack => pack.Manifest.SchemaVersion < 4))
+            {
+                continue;
+            }
+
+            if (languagePacks.Any(pack => pack.Manifest.SchemaVersion < 4))
+            {
+                Add(
+                    errors,
+                    "course.order.schema",
+                    "catalog",
+                    $"languages.{language}.lessons",
+                    $"Target-language packs for '{language}' must use one course-order schema.");
+                continue;
+            }
+
+            var lessons = languagePacks
+                .SelectMany(pack => Items(pack.Lessons)
+                    .Select((lesson, index) => (Pack: pack, Lesson: lesson, Index: index)))
+                .Where(entry => entry.Lesson is not null && entry.Lesson.CourseOrder is not null)
+                .ToArray();
+            if (languagePacks.Sum(pack => Items(pack.Lessons).Count) == 0)
+            {
+                Add(
+                    errors,
+                    "course.lesson.missing",
+                    "catalog",
+                    $"languages.{language}.lessons",
+                    $"Schema-4 target content for '{language}' needs at least one ordered lesson.");
+                continue;
+            }
+
+            foreach (var duplicate in lessons
+                         .GroupBy(entry => entry.Lesson!.CourseOrder)
+                         .Where(group => group.Count() > 1))
+            {
+                foreach (var entry in duplicate)
+                {
+                    Add(
+                        errors,
+                        "course.order.duplicate",
+                        entry.Pack.Manifest.Id,
+                        $"lessons[{entry.Index}].courseOrder",
+                        $"Course order {duplicate.Key} appears more than once for '{language}'.");
+                }
+            }
+
+            var actual = lessons
+                .Select(entry => entry.Lesson!.CourseOrder!.Value)
+                .Distinct()
+                .Order()
+                .ToArray();
+            var expected = Enumerable.Range(1, lessons.Length).ToArray();
+            if (!actual.SequenceEqual(expected))
+            {
+                Add(
+                    errors,
+                    "course.order.sequence",
+                    "catalog",
+                    $"languages.{language}.lessons",
+                    $"Course order for '{language}' must be contiguous from 1 through {lessons.Length}.");
             }
         }
     }

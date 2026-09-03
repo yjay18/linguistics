@@ -285,6 +285,132 @@ public sealed class ContentPackTests
     }
 
     [TestMethod]
+    public void SchemaFourUsesExplicitCourseOrderAndTenLessonUnits()
+    {
+        var target = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        var greeting = target.Concepts[0] with
+        {
+            Examples = Replace(
+                target.Concepts[0].Examples,
+                0,
+                target.Concepts[0].Examples[0] with { Id = "de.example.course.greeting" }),
+        };
+        var pronoun = target.Concepts[1] with
+        {
+            Examples = Replace(
+                target.Concepts[1].Examples,
+                0,
+                target.Concepts[1].Examples[0] with { Id = "de.example.course.pronoun" }),
+        };
+        target = target with
+        {
+            Manifest = target.Manifest with { SchemaVersion = 4 },
+            Concepts = Replace(Replace(target.Concepts, 0, greeting), 1, pronoun),
+            Lessons =
+            [
+                new LessonTemplateContent(
+                    $"lesson.{pronoun.Id}",
+                    [ObjectSpotlightInstance(
+                        $"lesson.{pronoun.Id}",
+                        1,
+                        pronoun,
+                        "Ich",
+                        "de.example.course.pronoun")],
+                    CourseOrder: 2),
+                new LessonTemplateContent(
+                    $"lesson.{greeting.Id}",
+                    [ObjectSpotlightInstance(
+                        $"lesson.{greeting.Id}",
+                        1,
+                        greeting,
+                        "Hallo",
+                        "de.example.course.greeting")],
+                    CourseOrder: 1),
+            ],
+        };
+        var directory = WritePacks([target]);
+        try
+        {
+            var course = ContentPackLoader
+                .LoadDirectory(directory, ContentLoadPolicy.AuthoringPreview)
+                .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
+
+            Assert.HasCount(2, course.Units[0].Lessons);
+            Assert.AreEqual("lesson.de.function.greeting-basic", course.Units[0].Lessons[0].Id);
+            Assert.AreEqual("lesson.de.pronoun.ich", course.Units[0].Lessons[1].Id);
+            Assert.AreEqual(new VersionId("course-catalog-v2"), course.Version);
+            Assert.AreEqual(10, CourseCatalogConfiguration.Default.LessonsPerUnit);
+            Assert.AreEqual(448, course.RemainingLessonCount);
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [TestMethod]
+    public void SchemaFourRejectsMissingAndDuplicateCourseOrder()
+    {
+        var target = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        var second = target.Lessons[0] with
+        {
+            Id = "lesson.de.function.greeting-basic",
+            TemplateInstances = target.Lessons[0].TemplateInstances
+                .Select(instance => instance with
+                {
+                    Id = instance.Id.Replace(
+                        "lesson.de.lexicon.cafe-items",
+                        "lesson.de.function.greeting-basic",
+                        StringComparison.Ordinal),
+                })
+                .ToArray(),
+            CourseOrder = 1,
+        };
+        target = target with
+        {
+            Manifest = target.Manifest with { SchemaVersion = 4 },
+            Lessons =
+            [
+                target.Lessons[0] with { CourseOrder = 1 },
+                second,
+            ],
+        };
+
+        var duplicate = ContentPackValidator.Validate(
+            [target],
+            ContentLoadPolicy.AuthoringPreview,
+            LessonTemplateSchemas.All,
+            [
+                "asset.de.cafe.coffee",
+                "asset.de.cafe.tea",
+                "asset.de.cafe.water",
+                "asset.de.stage.market-backdrop",
+            ]);
+        var missing = ContentPackValidator.Validate(
+            [target with
+            {
+                Lessons = [target.Lessons[0] with { CourseOrder = null }],
+            }],
+            ContentLoadPolicy.AuthoringPreview,
+            LessonTemplateSchemas.All,
+            [
+                "asset.de.cafe.coffee",
+                "asset.de.cafe.tea",
+                "asset.de.cafe.water",
+                "asset.de.stage.market-backdrop",
+            ]);
+        var empty = ContentPackValidator.Validate(
+            [target with { Lessons = [] }],
+            ContentLoadPolicy.AuthoringPreview);
+
+        Assert.HasCount(2, duplicate.Where(error => error.Code == "course.order.duplicate"));
+        Assert.IsTrue(missing.Any(error => error.Code == "course.order.missing"));
+        Assert.IsTrue(empty.Any(error => error.Code == "course.lesson.missing"));
+    }
+
+    [TestMethod]
     public void BundledGermanCourseKeepsTargetContentStableAcrossAllInstructionLanguages()
     {
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
@@ -557,8 +683,8 @@ public sealed class ContentPackTests
                 .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
 
             Assert.AreEqual(500, course.AuthoredLessonCount);
-            Assert.HasCount(25, course.Units);
-            Assert.IsTrue(course.Units.All(unit => unit.Lessons.Count == 20));
+            Assert.HasCount(50, course.Units);
+            Assert.IsTrue(course.Units.All(unit => unit.Lessons.Count == 10));
             Assert.IsTrue(tooManyErrors.Any(error => error.Code == "catalog.limit"));
         }
         finally
@@ -846,7 +972,8 @@ public sealed class ContentPackTests
         string lessonId,
         int number,
         TargetConceptContent concept,
-        string word) =>
+        string word,
+        string exampleId = "de.example.catalog-fixture") =>
         new(
             $"{lessonId}.template.{number:00}",
             new TemplateId("object-spotlight"),
@@ -873,7 +1000,7 @@ public sealed class ContentPackTests
                 ["concept"] = new(TemplateParameterKind.ConceptReference, Value: concept.Id),
                 ["example"] = new(
                     TemplateParameterKind.ExampleReference,
-                    Value: "de.example.catalog-fixture"),
+                    Value: exampleId),
             });
 
     private static string[] PresentationIds(CourseCatalog course) =>

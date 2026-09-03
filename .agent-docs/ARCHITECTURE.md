@@ -170,8 +170,10 @@ Given identical validated packs and course configuration, unit order, lesson ord
 `Linguistics.Core.Content` owns typed template IDs, schemas, parameter values,
 instances, reference resolution, and deterministic interaction evaluation. Pack loading
 and validation fail closed before catalog projection. `CourseCatalogBuilder` preserves
-authored template-instance IDs and order; a lesson without authored instances keeps the
-existing deterministic generated-card fallback.
+authored template-instance IDs and order. Schema 4 target packs explicitly order their
+course lesson bindings, project ten lessons per unit, and keep supporting concepts out of
+the learner path under `course-catalog-v2`. Schema 3 packs retain the deterministic
+concept-depth fallback.
 
 `Linguistics.App.Features.Learn.Templates` owns only presentation. Its registry maps an
 application-known template ID to an Avalonia renderer. A renderer receives the shared

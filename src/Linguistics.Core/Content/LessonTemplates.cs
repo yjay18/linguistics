@@ -55,7 +55,8 @@ public sealed record TemplateInstance(
 
 public sealed record LessonTemplateContent(
     string Id,
-    IReadOnlyList<TemplateInstance> TemplateInstances);
+    IReadOnlyList<TemplateInstance> TemplateInstances,
+    int? CourseOrder = null);
 
 public sealed record ResolvedTemplateParameters(
     IReadOnlyDictionary<string, ResolvedTemplateParameter> Values,

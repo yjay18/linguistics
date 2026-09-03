@@ -75,9 +75,9 @@ public sealed record CourseCatalogConfiguration(
     public const int MaximumLessonCount = 500;
 
     public static CourseCatalogConfiguration Default { get; } = new(
-        new VersionId("course-catalog-v1"),
+        new VersionId("course-catalog-v2"),
         TargetLessonCount: 450,
-        LessonsPerUnit: 20);
+        LessonsPerUnit: 10);
 
     public void Validate()
     {
@@ -134,13 +134,26 @@ internal static class CourseCatalogBuilder
                     targetLanguage.Value,
                     StringComparer.Ordinal))
             .ToArray();
-        var entries = targetPacks
-            .SelectMany(pack => pack.Concepts.Select(concept => new CourseConcept(
-                pack.Manifest,
-                concept,
-                pack.Lessons.FirstOrDefault(lesson => lesson.Id == $"lesson.{concept.Id}"))))
-            .Where(entry => entry.Concept.Language == targetLanguage.Value)
-            .ToArray();
+        var explicitlyOrdered = targetPacks.All(pack =>
+            pack.Manifest.SchemaVersion >= 4);
+        var entries = explicitlyOrdered
+            ? targetPacks
+                .SelectMany(pack => pack.Lessons.Select(lesson => new CourseConcept(
+                    pack.Manifest,
+                    pack.Concepts.Single(concept => lesson.Id == $"lesson.{concept.Id}"),
+                    lesson,
+                    lesson.CourseOrder)))
+                .Where(entry => entry.Concept.Language == targetLanguage.Value)
+                .OrderBy(entry => entry.CourseOrder)
+                .ToArray()
+            : targetPacks
+                .SelectMany(pack => pack.Concepts.Select(concept => new CourseConcept(
+                    pack.Manifest,
+                    concept,
+                    pack.Lessons.FirstOrDefault(lesson => lesson.Id == $"lesson.{concept.Id}"),
+                    CourseOrder: null)))
+                .Where(entry => entry.Concept.Language == targetLanguage.Value)
+                .ToArray();
         if (entries.Length == 0)
         {
             throw new InvalidOperationException($"No course content exists for language '{targetLanguage}'.");
@@ -177,9 +190,9 @@ internal static class CourseCatalogBuilder
             return depth;
         }
 
-        var ordered = entries
-            .OrderBy(Depth)
-            .ToArray();
+        var ordered = explicitlyOrdered
+            ? entries
+            : entries.OrderBy(Depth).ToArray();
         var tasks = targetPacks
             .SelectMany(pack => pack.Tasks)
             .Where(task => task.Language == targetLanguage.Value)
@@ -444,5 +457,6 @@ internal static class CourseCatalogBuilder
     private sealed record CourseConcept(
         ContentPackManifest Manifest,
         TargetConceptContent Concept,
-        LessonTemplateContent? Lesson);
+        LessonTemplateContent? Lesson,
+        int? CourseOrder);
 }
