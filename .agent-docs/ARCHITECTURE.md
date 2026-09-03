@@ -172,8 +172,10 @@ instances, reference resolution, and deterministic interaction evaluation. Pack 
 and validation fail closed before catalog projection. `CourseCatalogBuilder` preserves
 authored template-instance IDs and order. Schema 4 target packs explicitly order their
 course lesson bindings, project ten lessons per unit, and keep supporting concepts out of
-the learner path under `course-catalog-v2`. Schema 3 packs retain the deterministic
-concept-depth fallback.
+the learner path under `course-catalog-v2`. Authored `courseUnits` own stable unit IDs and
+localized titles and descriptions. A modular lesson pack may bind a lesson to a concept
+owned by a declared dependency; validation rejects the same cross-pack binding when the
+dependency is absent. Schema 3 packs retain the deterministic concept-depth fallback.
 
 `Linguistics.App.Features.Learn.Templates` owns only presentation. Its registry maps an
 application-known template ID to an Avalonia renderer. A renderer receives the shared

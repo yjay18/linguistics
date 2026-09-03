@@ -307,6 +307,7 @@ public sealed class ContentPackTests
         {
             Manifest = target.Manifest with { SchemaVersion = 4 },
             Concepts = Replace(Replace(target.Concepts, 0, greeting), 1, pronoun),
+            CourseUnits = [CourseUnitFixture(target)],
             Lessons =
             [
                 new LessonTemplateContent(
@@ -337,6 +338,7 @@ public sealed class ContentPackTests
                 .CreateCourseCatalog(new LanguageCode("de"), new LanguageCode("en"));
 
             Assert.HasCount(2, course.Units[0].Lessons);
+            Assert.AreEqual("Meet and greet", course.Units[0].Title);
             Assert.AreEqual("lesson.de.function.greeting-basic", course.Units[0].Lessons[0].Id);
             Assert.AreEqual("lesson.de.pronoun.ich", course.Units[0].Lessons[1].Id);
             Assert.AreEqual(new VersionId("course-catalog-v2"), course.Version);
@@ -347,6 +349,93 @@ public sealed class ContentPackTests
         {
             Directory.Delete(directory, recursive: true);
         }
+    }
+
+    [TestMethod]
+    public void SchemaFourLessonCanBindAConceptFromADeclaredDependency()
+    {
+        var bundled = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.core");
+        var greeting = bundled.Concepts[0] with
+        {
+            Examples = Replace(
+                bundled.Concepts[0].Examples,
+                0,
+                bundled.Concepts[0].Examples[0] with { Id = "de.example.course.greeting" }),
+        };
+        var core = bundled with
+        {
+            Manifest = bundled.Manifest with { SchemaVersion = 4 },
+            Concepts = Replace(bundled.Concepts, 0, greeting),
+            Lessons = [],
+            CourseUnits = [],
+        };
+        var unitSource = bundled.Sources[0] with { Id = "source.de.a1.unit01.fixture" };
+        var unitConcept = bundled.Concepts[0] with
+        {
+            Id = "de.a1.unit01.fixture",
+            Examples = bundled.Concepts[0].Examples
+                .Select(example => example with { Id = null })
+                .ToArray(),
+            SourceIds = [unitSource.Id],
+        };
+        var unitPack = bundled with
+        {
+            Manifest = bundled.Manifest with
+            {
+                Id = "language.de.a1.unit01",
+                SchemaVersion = 4,
+                Dependencies =
+                [
+                    new PackDependency(
+                        core.Manifest.Id,
+                        core.Manifest.Version,
+                        core.Manifest.Version),
+                ],
+            },
+            Sources = [unitSource],
+            Concepts = [unitConcept],
+            Lexicon = [],
+            Tasks = [],
+            ErrorRules = [],
+            FeedbackTemplates = [],
+            Rubrics = [],
+            PronunciationUtterances = [],
+            Lessons =
+            [
+                new LessonTemplateContent(
+                    $"lesson.{greeting.Id}",
+                    [ObjectSpotlightInstance(
+                        $"lesson.{greeting.Id}",
+                        1,
+                        greeting,
+                        "Hallo",
+                        "de.example.course.greeting")],
+                    CourseOrder: 1),
+            ],
+            TransferMappings = [],
+            CourseUnits =
+            [
+                CourseUnitFixture(bundled) with { SourceIds = [unitSource.Id] },
+            ],
+        };
+
+        var errors = ContentPackValidator.Validate(
+            [core, unitPack],
+            ContentLoadPolicy.AuthoringPreview,
+            LessonTemplateSchemas.All,
+            []);
+        var missingDependency = ContentPackValidator.Validate(
+            [core, unitPack with
+            {
+                Manifest = unitPack.Manifest with { Dependencies = [] },
+            }],
+            ContentLoadPolicy.AuthoringPreview,
+            LessonTemplateSchemas.All,
+            []);
+
+        Assert.IsEmpty(errors, string.Join(Environment.NewLine, errors));
+        Assert.IsTrue(missingDependency.Any(error => error.Code == "dependency.missing"));
     }
 
     [TestMethod]
@@ -371,6 +460,7 @@ public sealed class ContentPackTests
         target = target with
         {
             Manifest = target.Manifest with { SchemaVersion = 4 },
+            CourseUnits = [CourseUnitFixture(target)],
             Lessons =
             [
                 target.Lessons[0] with { CourseOrder = 1 },
@@ -1003,6 +1093,26 @@ public sealed class ContentPackTests
                     Value: exampleId),
             });
 
+    private static CourseUnitContent CourseUnitFixture(ContentPackDocument target) =>
+        new(
+            "unit.de.a1.01",
+            1,
+            "A1",
+            new Dictionary<string, string>
+            {
+                ["en"] = "Meet and greet",
+                ["hi"] = "मिलें और अभिवादन करें",
+                ["hi-latn"] = "Milein aur greet karein",
+            },
+            new Dictionary<string, string>
+            {
+                ["en"] = "Exchange greetings and basic personal information.",
+                ["hi"] = "अभिवादन और बुनियादी व्यक्तिगत जानकारी साझा करें।",
+                ["hi-latn"] = "Greetings aur basic personal information share karein.",
+            },
+            [target.Sources[0].Id],
+            target.Manifest.Review);
+
     private static string[] PresentationIds(CourseCatalog course) =>
         course.Units
             .SelectMany(unit => unit.Lessons)
@@ -1048,6 +1158,9 @@ public sealed class ContentPackTests
             FeedbackTemplates = pack.FeedbackTemplates.Select(item => item with { Review = review }).ToArray(),
             Rubrics = pack.Rubrics.Select(item => item with { Review = review }).ToArray(),
             PronunciationUtterances = pack.PronunciationUtterances
+                .Select(item => item with { Review = review })
+                .ToArray(),
+            CourseUnits = pack.CourseUnits?
                 .Select(item => item with { Review = review })
                 .ToArray(),
             TransferMappings = pack.TransferMappings.Select(item => item with { Review = review }).ToArray(),

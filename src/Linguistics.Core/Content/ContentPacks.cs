@@ -239,6 +239,15 @@ public sealed record PronunciationUtteranceContent(
     IReadOnlyList<string> SourceIds,
     ContentReview Review);
 
+public sealed record CourseUnitContent(
+    string Id,
+    int Number,
+    string CefrApproximation,
+    IReadOnlyDictionary<string, string> Title,
+    IReadOnlyDictionary<string, string> Description,
+    IReadOnlyList<string> SourceIds,
+    ContentReview Review);
+
 public sealed record RuntimePronunciationUtterance(
     string Id,
     LanguageCode Language,
@@ -274,7 +283,8 @@ public sealed record ContentPackDocument(
     IReadOnlyList<RubricContent> Rubrics,
     IReadOnlyList<PronunciationUtteranceContent> PronunciationUtterances,
     IReadOnlyList<LessonTemplateContent> Lessons,
-    IReadOnlyList<TransferMappingContent> TransferMappings);
+    IReadOnlyList<TransferMappingContent> TransferMappings,
+    IReadOnlyList<CourseUnitContent>? CourseUnits = null);
 
 public static class InstructionText
 {

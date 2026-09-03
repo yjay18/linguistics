@@ -134,13 +134,16 @@ internal static class CourseCatalogBuilder
                     targetLanguage.Value,
                     StringComparer.Ordinal))
             .ToArray();
+        var conceptsById = packs
+            .SelectMany(pack => pack.Concepts)
+            .ToDictionary(concept => concept.Id, StringComparer.Ordinal);
         var explicitlyOrdered = targetPacks.All(pack =>
             pack.Manifest.SchemaVersion >= 4);
         var entries = explicitlyOrdered
             ? targetPacks
                 .SelectMany(pack => pack.Lessons.Select(lesson => new CourseConcept(
                     pack.Manifest,
-                    pack.Concepts.Single(concept => lesson.Id == $"lesson.{concept.Id}"),
+                    conceptsById[lesson.Id["lesson.".Length..]],
                     lesson,
                     lesson.CourseOrder)))
                 .Where(entry => entry.Concept.Language == targetLanguage.Value)
@@ -198,21 +201,24 @@ internal static class CourseCatalogBuilder
             .Where(task => task.Language == targetLanguage.Value)
             .OrderBy(task => task.Id, StringComparer.Ordinal)
             .ToArray();
-        var conceptsById = packs
-            .SelectMany(pack => pack.Concepts)
-            .ToDictionary(concept => concept.Id, StringComparer.Ordinal);
         var examplesById = packs
             .SelectMany(NamedExamples)
             .ToDictionary(example => example.Id!, StringComparer.Ordinal);
         var tasksById = packs
             .SelectMany(pack => pack.Tasks)
             .ToDictionary(task => task.Id, StringComparer.Ordinal);
+        IReadOnlyDictionary<int, CourseUnitContent> courseUnitsByNumber = explicitlyOrdered
+            ? targetPacks
+                .SelectMany(pack => pack.CourseUnits ?? [])
+                .ToDictionary(unit => unit.Number)
+            : new Dictionary<int, CourseUnitContent>();
         var units = ordered
             .Chunk(configuration.LessonsPerUnit)
             .Select((chunk, index) => CreateUnit(
                 targetLanguage,
                 instructionLanguage,
                 index + 1,
+                courseUnitsByNumber.GetValueOrDefault(index + 1),
                 chunk,
                 tasks,
                 conceptsById,
@@ -235,6 +241,7 @@ internal static class CourseCatalogBuilder
         LanguageCode targetLanguage,
         LanguageCode instructionLanguage,
         int number,
+        CourseUnitContent? authoredUnit,
         IReadOnlyList<CourseConcept> entries,
         IReadOnlyList<TaskTemplateContent> tasks,
         IReadOnlyDictionary<string, TargetConceptContent> conceptsById,
@@ -250,11 +257,15 @@ internal static class CourseCatalogBuilder
         var copy = UnitCopy[dominantType];
 
         return new CourseUnit(
-            $"unit.{targetLanguage.Value}.{number:000}",
+            authoredUnit?.Id ?? $"unit.{targetLanguage.Value}.{number:000}",
             number,
             dominantType,
-            copy.Title,
-            copy.Description,
+            authoredUnit is null
+                ? copy.Title
+                : InstructionText.Resolve(authoredUnit.Title, instructionLanguage),
+            authoredUnit is null
+                ? copy.Description
+                : InstructionText.Resolve(authoredUnit.Description, instructionLanguage),
             entries.Select(entry => CreateLesson(
                 entry,
                 instructionLanguage,

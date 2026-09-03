@@ -465,6 +465,11 @@ public static class ContentPackValidator
             ValidateConcept(concept, itemIndex, packId, policy, instructionLanguages, errors);
         }
 
+        foreach (var (unit, itemIndex) in Items(pack.CourseUnits).Select((item, itemIndex) => (item, itemIndex)))
+        {
+            ValidateCourseUnit(unit, itemIndex, packId, policy, instructionLanguages, errors);
+        }
+
         foreach (var (entry, itemIndex) in Items(pack.Lexicon).Select((item, itemIndex) => (item, itemIndex)))
         {
             ValidateLexicalEntry(entry, itemIndex, packId, policy, instructionLanguages, errors);
@@ -524,6 +529,11 @@ public static class ContentPackValidator
         {
             Add(errors, "collection.missing", packId, name, $"The '{name}' collection is missing.");
         }
+
+        if (pack.Manifest.SchemaVersion >= 4 && pack.CourseUnits is null)
+        {
+            Add(errors, "collection.missing", packId, "courseUnits", "The 'courseUnits' collection is missing.");
+        }
     }
 
     private static void ValidateKindOwnership(
@@ -557,6 +567,7 @@ public static class ContentPackValidator
                 Items(pack.FeedbackTemplates).Count > 0 ||
                 Items(pack.Rubrics).Count > 0 ||
                 Items(pack.PronunciationUtterances).Count > 0 ||
+                Items(pack.CourseUnits).Count > 0 ||
                 Items(pack.Lessons).Count > 0)
             {
                 Add(
@@ -594,7 +605,7 @@ public static class ContentPackValidator
             }
 
             ValidateId(lesson.Id, packId, $"{lessonPath}.id", errors);
-            if (!knownLessonIds.Contains(lesson.Id))
+            if (pack.Manifest.SchemaVersion < 4 && !knownLessonIds.Contains(lesson.Id))
             {
                 Add(
                     errors,
@@ -760,6 +771,43 @@ public static class ContentPackValidator
                     "catalog",
                     $"languages.{language}.lessons",
                     $"Course order for '{language}' must be contiguous from 1 through {lessons.Length}.");
+            }
+
+            var units = languagePacks
+                .SelectMany(pack => Items(pack.CourseUnits)
+                    .Select((unit, index) => (Pack: pack, Unit: unit, Index: index)))
+                .Where(entry => entry.Unit is not null)
+                .ToArray();
+            foreach (var duplicate in units
+                         .GroupBy(entry => entry.Unit!.Number)
+                         .Where(group => group.Count() > 1))
+            {
+                foreach (var entry in duplicate)
+                {
+                    Add(
+                        errors,
+                        "course.unit.duplicate",
+                        entry.Pack.Manifest.Id,
+                        $"courseUnits[{entry.Index}].number",
+                        $"Course unit {duplicate.Key} appears more than once for '{language}'.");
+                }
+            }
+
+            var expectedUnitCount = (lessons.Length + CourseCatalogConfiguration.Default.LessonsPerUnit - 1) /
+                                    CourseCatalogConfiguration.Default.LessonsPerUnit;
+            var actualUnitNumbers = units
+                .Select(entry => entry.Unit!.Number)
+                .Distinct()
+                .Order()
+                .ToArray();
+            if (!actualUnitNumbers.SequenceEqual(Enumerable.Range(1, expectedUnitCount)))
+            {
+                Add(
+                    errors,
+                    "course.unit.sequence",
+                    "catalog",
+                    $"languages.{language}.courseUnits",
+                    $"Course units for '{language}' must cover 1 through {expectedUnitCount}.");
             }
         }
     }
@@ -1320,6 +1368,34 @@ public static class ContentPackValidator
         }
     }
 
+    private static void ValidateCourseUnit(
+        CourseUnitContent unit,
+        int index,
+        string packId,
+        ContentLoadPolicy policy,
+        IReadOnlySet<string> instructionLanguages,
+        ICollection<ContentValidationError> errors)
+    {
+        var path = $"courseUnits[{index}]";
+        if (unit is null)
+        {
+            Add(errors, "course.unit.missing", packId, path, "A course unit is missing.");
+            return;
+        }
+
+        ValidateId(unit.Id, packId, $"{path}.id", errors);
+        if (unit.Number is < 1 or > 50)
+        {
+            Add(errors, "course.unit.range", packId, $"{path}.number", "A course unit number must be between 1 and 50.");
+        }
+
+        ValidateCefr(unit.CefrApproximation, packId, $"{path}.cefrApproximation", errors);
+        ValidateInstructionText(unit.Title, packId, $"{path}.title", instructionLanguages, errors);
+        ValidateInstructionText(unit.Description, packId, $"{path}.description", instructionLanguages, errors);
+        ValidateSourceIds(unit.SourceIds, packId, $"{path}.sourceIds", errors);
+        ValidateReview(unit.Review, packId, $"{path}.review", policy, errors);
+    }
+
     private static void ValidateLexicalEntry(
         LexicalEntryContent entry,
         int index,
@@ -1808,6 +1884,10 @@ public static class ContentPackValidator
     {
         var packId = pack.Manifest.Id;
         var sources = UniqueStrings(Items(pack.Sources).Where(source => source is not null).Select(source => source.Id));
+        var dependencyIds = Items(pack.Manifest.Dependencies)
+            .Where(dependency => dependency is not null)
+            .Select(dependency => dependency.PackId)
+            .ToHashSet(StringComparer.Ordinal);
         var taskEvaluators = Items(pack.Tasks)
             .Where(task => task is not null)
             .SelectMany(task => Items(task.Evaluators))
@@ -1829,6 +1909,38 @@ public static class ContentPackValidator
             foreach (var evaluatorId in Items(concept.SuccessCriteria?.RequiredEvaluatorIds).Where(id => !taskEvaluators.Contains(id)))
             {
                 Add(errors, "evaluator.coverage", packId, $"{path}.successCriteria.requiredEvaluatorIds", $"Evaluator '{evaluatorId}' does not resolve in this pack.");
+            }
+        }
+
+        foreach (var (unit, index) in Items(pack.CourseUnits).Select((item, index) => (item, index)))
+        {
+            if (unit is not null)
+            {
+                RequireSources(unit.SourceIds, sources, packId, $"courseUnits[{index}].sourceIds", errors);
+            }
+        }
+
+        foreach (var (lesson, index) in Items(pack.Lessons).Select((item, index) => (item, index)))
+        {
+            if (lesson is null ||
+                string.IsNullOrWhiteSpace(lesson.Id) ||
+                !lesson.Id.StartsWith("lesson.", StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            var conceptId = lesson.Id["lesson.".Length..];
+            RequireReference(conceptId, concepts, packId, $"lessons[{index}].id", "concept", errors);
+            if (concepts.TryGetValue(conceptId, out var owner) &&
+                owner.PackId != packId &&
+                !dependencyIds.Contains(owner.PackId))
+            {
+                Add(
+                    errors,
+                    "dependency.missing",
+                    packId,
+                    $"lessons[{index}].id",
+                    $"Pack '{owner.PackId}' owns the lesson concept but is not a declared dependency.");
             }
         }
 
@@ -1913,10 +2025,6 @@ public static class ContentPackValidator
             RequireSources(utterance.SourceIds, sources, packId, $"pronunciationUtterances[{index}].sourceIds", errors);
         }
 
-        var dependencyIds = Items(pack.Manifest.Dependencies)
-            .Where(dependency => dependency is not null)
-            .Select(dependency => dependency.PackId)
-            .ToHashSet(StringComparer.Ordinal);
         foreach (var (mapping, index) in Items(pack.TransferMappings).Select((item, index) => (item, index)))
         {
             if (mapping is null)
@@ -2042,6 +2150,14 @@ public static class ContentPackValidator
             if (concept is not null)
             {
                 yield return (concept.Id, packId, $"concepts[{index}].id");
+            }
+        }
+
+        foreach (var (unit, index) in Items(pack.CourseUnits).Select((item, index) => (item, index)))
+        {
+            if (unit is not null)
+            {
+                yield return (unit.Id, packId, $"courseUnits[{index}].id");
             }
         }
 
