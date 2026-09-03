@@ -1137,6 +1137,11 @@ public sealed class TemplateRegistryTests
         Assert.AreEqual(
             "NPC puppet. Café worker",
             AutomationProperties.GetName(byId["ScenarioTheatreNpc"]));
+        Assert.AreEqual(
+            "Paper scenario set",
+            AutomationProperties.GetName(byId["ScenarioTheatreSet"]));
+        Assert.IsTrue(byId["ScenarioTheatreSet"].GetLogicalDescendants().OfType<TextBlock>().Any(text =>
+            text.Text == "SCENARIO SET"));
         Assert.IsTrue(byId.ContainsKey("ScenarioTheatreReplay"));
         Assert.IsTrue(byId.ContainsKey("ScenarioTheatreSkip"));
         Assert.IsTrue(byId.ContainsKey("ScenarioTheatreTextEquivalent"));

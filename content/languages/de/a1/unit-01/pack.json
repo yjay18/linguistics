@@ -1238,7 +1238,7 @@
       "assessmentMode": "none",
       "conceptIds": ["de.a1.u01.greetings-by-time"],
       "sourceIds": ["source.de.a1.u01.dib-vocabulary"],
-      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. No recording or pronunciation score is approved." }
+      "review": { "status": "machineValidated", "reviewer": null, "reviewedOn": null, "notes": "Authored text script only. No recording or pronunciation score has been reviewed." }
     },
     {
       "id": "de.a1.u01.utterance.name",

@@ -476,7 +476,7 @@ internal static class ScenarioTheatreRenderer
                 {
                     new TextBlock
                     {
-                        Text = "CAFÉ COUNTER",
+                        Text = "SCENARIO SET",
                         FontSize = 13,
                         FontWeight = FontWeight.Bold,
                         HorizontalAlignment = HorizontalAlignment.Center,
@@ -493,7 +493,7 @@ internal static class ScenarioTheatreRenderer
         };
         counter.Classes.Add("soft");
         AutomationProperties.SetAutomationId(counter, "ScenarioTheatreSet");
-        AutomationProperties.SetName(counter, "Paper café counter set");
+        AutomationProperties.SetName(counter, "Paper scenario set");
         PaperStage.SetLayer(counter, PaperStageLayer.ForegroundSilhouettes);
         PaperStage.SetAnchor(counter, PaperAnchorLine.Foot);
         PaperStage.SetAnchorX(counter, 0.5);
