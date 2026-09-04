@@ -1,0 +1,4848 @@
+{
+  "manifest": {
+    "id": "language.de.a1.unit03",
+    "version": 1,
+    "schemaVersion": 4,
+    "kind": "targetLanguage",
+    "languages": [
+      "de"
+    ],
+    "instructionLanguages": [
+      "en",
+      "hi",
+      "hi-latn"
+    ],
+    "dependencies": [
+      {
+        "packId": "language.de.core",
+        "minimumVersion": 2,
+        "maximumVersion": 2
+      },
+      {
+        "packId": "language.de.a1.unit01",
+        "minimumVersion": 1,
+        "maximumVersion": 1
+      },
+      {
+        "packId": "language.de.a1.unit02",
+        "minimumVersion": 1,
+        "maximumVersion": 1
+      }
+    ],
+    "license": {
+      "identifier": "LicenseRef-Linguistics-Internal-Draft",
+      "copyrightHolder": "Linguistics project contributors",
+      "licenseTextLocation": "Content/content-license.md",
+      "intendedUse": "Local development and competent linguistic review only.",
+      "modificationReviewed": false,
+      "redistributionReviewed": false,
+      "requiredAttribution": "See the claim-level source records in this pack.",
+      "reviewStatus": "pending"
+    },
+    "review": {
+      "status": "machineValidated",
+      "reviewer": null,
+      "reviewedOn": null,
+      "notes": "Directly authored Preview draft. German, Hindi, Hinglish, pedagogical, cultural, and licensing review is required."
+    }
+  },
+  "courseUnits": [
+    {
+      "id": "unit.de.a1.03",
+      "number": 3,
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Numbers, dates, and time",
+        "hi": "संख्याएँ, तारीखें और समय",
+        "hi-latn": "Numbers, dates aur time"
+      },
+      "description": {
+        "en": "Exchange basic quantities, dates, prices, telephone numbers, and appointment times.",
+        "hi": "बुनियादी मात्रा, तारीख, कीमत, टेलीफ़ोन नंबर और मिलने का समय साझा करें।",
+        "hi-latn": "Basic quantities, dates, prices, telephone numbers aur meeting times share karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-numbers",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Unit sequence and A1 approximation need competent pedagogical review."
+      }
+    }
+  ],
+  "concepts": [
+    {
+      "id": "de.a1.u03.count-through-twenty",
+      "language": "de",
+      "type": "lexical",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Count and group objects",
+        "hi": "वस्तुएँ गिनें और समूह बनाएँ",
+        "hi-latn": "Objects ginein aur groups banayein"
+      },
+      "description": {
+        "en": "Understand and produce numbers through twenty.",
+        "hi": "बीस तक की संख्याएँ समझें और बोलें।",
+        "hi-latn": "Twenty tak numbers samjhein aur bolein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u02.classroom-objects"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.count-through-twenty"
+      ],
+      "taskTags": [
+        "numbers",
+        "quantity",
+        "counting"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.count-through-twenty.twelve-cards",
+          "text": "zwölf Karten",
+          "meaning": {
+            "en": "twelve cards",
+            "hi": "बारह कार्ड",
+            "hi-latn": "baarah cards"
+          },
+          "note": {
+            "en": "The number comes before the counted noun.",
+            "hi": "संख्या गिनी गई संज्ञा से पहले आती है।",
+            "hi-latn": "Number counted noun se pehle aata hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.count-through-twenty.twenty-books",
+          "text": "zwanzig Bücher",
+          "meaning": {
+            "en": "twenty books",
+            "hi": "बीस किताबें",
+            "hi-latn": "bees kitaabein"
+          },
+          "note": {
+            "en": "Use the complete number word for twenty.",
+            "hi": "बीस के लिए पूरा संख्या शब्द प्रयोग करें।",
+            "hi-latn": "Twenty ke liye complete number word use karein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "zwei Karten",
+          "meaning": {
+            "en": "two cards instead of twelve",
+            "hi": "बारह की जगह दो कार्ड",
+            "hi-latn": "baarah ki jagah do cards"
+          },
+          "note": {
+            "en": "The bounded quantity in this activity is twelve.",
+            "hi": "इस गतिविधि में तय मात्रा बारह है।",
+            "hi-latn": "Is activity mein fixed quantity baarah hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.build-larger-numbers",
+      "language": "de",
+      "type": "lexical",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Build larger numbers",
+        "hi": "बड़ी संख्याएँ बनाएँ",
+        "hi-latn": "Larger numbers banayein"
+      },
+      "description": {
+        "en": "Recognize and say numbers through one hundred.",
+        "hi": "सौ तक की संख्याएँ पहचानें और बोलें।",
+        "hi-latn": "Hundred tak numbers pehchanein aur bolein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.build-larger-numbers"
+      ],
+      "taskTags": [
+        "numbers",
+        "word-building",
+        "hundred"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.build-larger-numbers.thirty-two",
+          "text": "zweiunddreißig",
+          "meaning": {
+            "en": "thirty-two",
+            "hi": "बत्तीस",
+            "hi-latn": "battees"
+          },
+          "note": {
+            "en": "The ones part comes before und and the tens part.",
+            "hi": "इकाई का भाग und और दहाई से पहले आता है।",
+            "hi-latn": "Ones part und aur tens part se pehle aata hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.build-larger-numbers.forty-four",
+          "text": "vierundvierzig",
+          "meaning": {
+            "en": "forty-four",
+            "hi": "चवालीस",
+            "hi-latn": "chavaalees"
+          },
+          "note": {
+            "en": "Keep the three written parts together as one word.",
+            "hi": "तीनों लिखे भागों को एक शब्द में साथ रखें।",
+            "hi-latn": "Teen written parts ko ek word mein saath rakhein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "dreißig und zwei",
+          "meaning": {
+            "en": "tens before ones",
+            "hi": "दहाई पहले और इकाई बाद में",
+            "hi-latn": "tens pehle aur ones baad mein"
+          },
+          "note": {
+            "en": "German compound numbers place the ones part first here.",
+            "hi": "जर्मन संयुक्त संख्या में यहाँ इकाई पहले आती है।",
+            "hi-latn": "German compound number mein yahan ones pehle aata hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.share-phone-number",
+      "language": "de",
+      "type": "discourse",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Share a telephone number",
+        "hi": "टेलीफ़ोन नंबर साझा करें",
+        "hi-latn": "Telephone number share karein"
+      },
+      "description": {
+        "en": "Dictate and confirm short groups of digits.",
+        "hi": "अंकों के छोटे समूह बोलें और पक्का करें।",
+        "hi-latn": "Short digit groups dictate aur confirm karein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.count-through-twenty",
+        "de.a1.u01.spell-name"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.share-phone-number"
+      ],
+      "taskTags": [
+        "telephone",
+        "digits",
+        "confirmation"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.share-phone-number.number-group",
+          "text": "null eins sieben sechs, vier zwei neun acht",
+          "meaning": {
+            "en": "zero one seven six, four two nine eight",
+            "hi": "शून्य एक सात छह, चार दो नौ आठ",
+            "hi-latn": "zero ek saat chhah, chaar do nau aath"
+          },
+          "note": {
+            "en": "Say each digit separately in a telephone number.",
+            "hi": "टेलीफ़ोन नंबर में हर अंक अलग बोलें।",
+            "hi-latn": "Telephone number mein har digit alag bolein."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.share-phone-number.confirmation",
+          "text": "Noch einmal: null eins sieben sechs.",
+          "meaning": {
+            "en": "Again: zero one seven six.",
+            "hi": "फिर से: शून्य एक सात छह।",
+            "hi-latn": "Phir se: zero ek saat chhah."
+          },
+          "note": {
+            "en": "Repeat one group to confirm it.",
+            "hi": "पक्का करने के लिए एक समूह दोहराएँ।",
+            "hi-latn": "Confirm karne ke liye ek group repeat karein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "siebzehnhundertsechsundvierzig",
+          "meaning": {
+            "en": "one combined number",
+            "hi": "एक संयुक्त संख्या",
+            "hi-latn": "ek combined number"
+          },
+          "note": {
+            "en": "This activity requires separate telephone digits.",
+            "hi": "इस गतिविधि में टेलीफ़ोन के अंक अलग चाहिए।",
+            "hi-latn": "Is activity mein telephone digits alag chahiye."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.tell-time",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Ask and tell the time",
+        "hi": "समय पूछें और बताएँ",
+        "hi-latn": "Time poochhein aur batayein"
+      },
+      "description": {
+        "en": "Use wie spät and um with simple clock times.",
+        "hi": "सरल घड़ी समय के साथ wie spät और um प्रयोग करें।",
+        "hi-latn": "Simple clock times ke saath wie spaet aur um use karein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.build-larger-numbers",
+        "de.a1.u02.ask-object-name"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.tell-time"
+      ],
+      "taskTags": [
+        "time",
+        "questions",
+        "appointments"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.tell-time.nine-oclock",
+          "text": "Es ist neun Uhr.",
+          "meaning": {
+            "en": "It is nine o'clock.",
+            "hi": "नौ बजे हैं।",
+            "hi-latn": "Nau baje hain."
+          },
+          "note": {
+            "en": "Use Uhr after the hour in this full clock form.",
+            "hi": "इस पूरे घड़ी रूप में घंटे के बाद Uhr रखें।",
+            "hi-latn": "Is full clock form mein hour ke baad Uhr rakhein."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.tell-time.course-at-ten",
+          "text": "Der Kurs beginnt um zehn Uhr.",
+          "meaning": {
+            "en": "The course begins at ten o'clock.",
+            "hi": "पाठ्यक्रम दस बजे शुरू होता है।",
+            "hi-latn": "Course das baje shuru hota hai."
+          },
+          "note": {
+            "en": "Use um before an appointment time.",
+            "hi": "मिलने के समय से पहले um प्रयोग करें।",
+            "hi-latn": "Appointment time se pehle um use karein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Der Kurs beginnt am zehn Uhr.",
+          "meaning": {
+            "en": "am before a clock time",
+            "hi": "घड़ी समय से पहले am",
+            "hi-latn": "clock time se pehle am"
+          },
+          "note": {
+            "en": "This activity uses um before the clock time.",
+            "hi": "इस गतिविधि में घड़ी समय से पहले um आता है।",
+            "hi-latn": "Is activity mein clock time se pehle um aata hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.name-days-dates",
+      "language": "de",
+      "type": "grammatical",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Name days and dates",
+        "hi": "दिन और तारीख बताएँ",
+        "hi-latn": "Days aur dates batayein"
+      },
+      "description": {
+        "en": "Combine a weekday, day number, and month.",
+        "hi": "सप्ताह का दिन, तारीख और महीना जोड़ें।",
+        "hi-latn": "Weekday, date number aur month combine karein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.tell-time"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.name-days-dates"
+      ],
+      "taskTags": [
+        "weekdays",
+        "dates",
+        "months"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.name-days-dates.tuesday-third-may",
+          "text": "am Dienstag, den dritten Mai",
+          "meaning": {
+            "en": "on Tuesday, the third of May",
+            "hi": "मंगलवार, तीन मई को",
+            "hi-latn": "Tuesday, teen May ko"
+          },
+          "note": {
+            "en": "The complete label keeps weekday, day number, and month together.",
+            "hi": "पूरा लेबल सप्ताह का दिन, तारीख और महीना साथ रखता है।",
+            "hi-latn": "Complete label weekday, date number aur month saath rakhta hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.name-days-dates.friday-tenth-march",
+          "text": "am Freitag, den zehnten März",
+          "meaning": {
+            "en": "on Friday, the tenth of March",
+            "hi": "शुक्रवार, दस मार्च को",
+            "hi-latn": "Friday, das March ko"
+          },
+          "note": {
+            "en": "Read the written date as one appointment label.",
+            "hi": "लिखी तारीख को एक मिलने के लेबल की तरह पढ़ें।",
+            "hi-latn": "Written date ko ek appointment label ki tarah padhein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Dienstag drei Mai",
+          "meaning": {
+            "en": "date parts without the authored frame",
+            "hi": "लिखे ढाँचे के बिना तारीख के भाग",
+            "hi-latn": "authored frame ke bina date parts"
+          },
+          "note": {
+            "en": "This activity asks for the complete written date frame.",
+            "hi": "इस गतिविधि में पूरा लिखा तारीख ढाँचा चाहिए।",
+            "hi-latn": "Is activity mein complete written date frame chahiye."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.say-birthday",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Say a birthday",
+        "hi": "जन्मदिन बताएँ",
+        "hi-latn": "Birthday batayein"
+      },
+      "description": {
+        "en": "Give and understand one simple birthday date.",
+        "hi": "एक सरल जन्मदिन की तारीख बताएँ और समझें।",
+        "hi-latn": "Ek simple birthday date batayein aur samjhein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.say-birthday"
+      ],
+      "taskTags": [
+        "birthday",
+        "date",
+        "personal-information"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.say-birthday.birthday-third-may",
+          "text": "Ich habe am dritten Mai Geburtstag.",
+          "meaning": {
+            "en": "My birthday is on the third of May.",
+            "hi": "मेरा जन्मदिन तीन मई को है।",
+            "hi-latn": "Mera birthday teen May ko hai."
+          },
+          "note": {
+            "en": "The date follows am in this authored birthday sentence.",
+            "hi": "इस लिखे जन्मदिन वाक्य में तारीख am के बाद आती है।",
+            "hi-latn": "Is authored birthday sentence mein date am ke baad aati hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.say-birthday.ask-birthday",
+          "text": "Wann hast du Geburtstag?",
+          "meaning": {
+            "en": "When is your birthday?",
+            "hi": "तुम्हारा जन्मदिन कब है?",
+            "hi-latn": "Tumhara birthday kab hai?"
+          },
+          "note": {
+            "en": "Use wann to ask for a date.",
+            "hi": "तारीख पूछने के लिए wann प्रयोग करें।",
+            "hi-latn": "Date poochhne ke liye wann use karein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Ich bin am dritten Mai Geburtstag.",
+          "meaning": {
+            "en": "sein used in the authored haben frame",
+            "hi": "लिखे haben ढाँचे में sein",
+            "hi-latn": "authored haben frame mein sein"
+          },
+          "note": {
+            "en": "This bounded sentence uses habe with Geburtstag.",
+            "hi": "इस सीमित वाक्य में Geburtstag के साथ habe आता है।",
+            "hi-latn": "Is bounded sentence mein Geburtstag ke saath habe aata hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.hear-prices-times",
+      "language": "de",
+      "type": "phonological",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Hear prices and times",
+        "hi": "कीमतें और समय सुनें",
+        "hi-latn": "Prices aur times sunein"
+      },
+      "description": {
+        "en": "Distinguish similar number sequences in prices and times.",
+        "hi": "कीमत और समय में मिलती संख्या श्रेणियाँ अलग पहचानें।",
+        "hi-latn": "Prices aur times mein similar number sequences alag pehchanein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.build-larger-numbers",
+        "de.a1.u03.tell-time"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.hear-prices-times"
+      ],
+      "taskTags": [
+        "listening",
+        "prices",
+        "vowel-length"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.hear-prices-times.fourteen-euros",
+          "text": "vierzehn Euro",
+          "meaning": {
+            "en": "fourteen euros",
+            "hi": "चौदह यूरो",
+            "hi-latn": "chaudah euro"
+          },
+          "note": {
+            "en": "Listen for the complete teen ending.",
+            "hi": "पूरा teen अंत ध्यान से सुनें।",
+            "hi-latn": "Complete teen ending dhyaan se sunein."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.hear-prices-times.forty-euros",
+          "text": "vierzig Euro",
+          "meaning": {
+            "en": "forty euros",
+            "hi": "चालीस यूरो",
+            "hi-latn": "chaalees euro"
+          },
+          "note": {
+            "en": "Compare the tens ending with the teen form.",
+            "hi": "दहाई के अंत की तुलना teen रूप से करें।",
+            "hi-latn": "Tens ending ko teen form se compare karein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "vierzehn = vierzig",
+          "meaning": {
+            "en": "two different prices treated as equal",
+            "hi": "दो अलग कीमतों को समान मानना",
+            "hi-latn": "do different prices ko equal maanna"
+          },
+          "note": {
+            "en": "The two authored number words name different amounts.",
+            "hi": "दोनों लिखे संख्या शब्द अलग मात्रा बताते हैं।",
+            "hi-latn": "Dono authored number words different amounts batate hain."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.dib-numbers",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.read-opening-hours",
+      "language": "de",
+      "type": "discourse",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Read opening hours",
+        "hi": "खुलने का समय पढ़ें",
+        "hi-latn": "Opening hours padhein"
+      },
+      "description": {
+        "en": "Extract when a place opens and closes.",
+        "hi": "जानें कि कोई स्थान कब खुलता और बंद होता है।",
+        "hi-latn": "Extract karein ki place kab opens aur closes."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.tell-time",
+        "de.a1.u03.name-days-dates"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.read-opening-hours"
+      ],
+      "taskTags": [
+        "reading",
+        "schedule",
+        "opening-hours"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.read-opening-hours.weekday-hours",
+          "text": "Montag bis Freitag: 09:00 bis 18:00 Uhr",
+          "meaning": {
+            "en": "Monday to Friday: 09:00 to 18:00",
+            "hi": "सोमवार से शुक्रवार: 09:00 से 18:00",
+            "hi-latn": "Monday se Friday: 09:00 se 18:00"
+          },
+          "note": {
+            "en": "The two bis phrases mark the day and time ranges.",
+            "hi": "दो bis वाक्यांश दिन और समय की सीमाएँ बताते हैं।",
+            "hi-latn": "Do bis phrases day aur time ranges batate hain."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.read-opening-hours.saturday-hours",
+          "text": "Samstag: 10:00 bis 14:00 Uhr",
+          "meaning": {
+            "en": "Saturday: 10:00 to 14:00",
+            "hi": "शनिवार: 10:00 से 14:00",
+            "hi-latn": "Saturday: 10:00 se 14:00"
+          },
+          "note": {
+            "en": "Read the day before its opening interval.",
+            "hi": "समय अंतराल से पहले दिन पढ़ें।",
+            "hi-latn": "Opening interval se pehle day padhein."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Montag: 18:00 bis 09:00 Uhr",
+          "meaning": {
+            "en": "closing time placed before opening time",
+            "hi": "बंद होने का समय खुलने से पहले",
+            "hi-latn": "closing time opening se pehle"
+          },
+          "note": {
+            "en": "The authored schedule lists opening time first.",
+            "hi": "लिखी समय-सारणी में खुलने का समय पहले है।",
+            "hi-latn": "Authored schedule mein opening time pehle hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.confirm-appointment",
+      "language": "de",
+      "type": "discourse",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Confirm an appointment",
+        "hi": "मिलने का समय पक्का करें",
+        "hi-latn": "Appointment confirm karein"
+      },
+      "description": {
+        "en": "Relay one date and time accurately.",
+        "hi": "एक तारीख और समय सही ढंग से बताएँ।",
+        "hi-latn": "Ek date aur time accurately relay karein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.tell-time",
+        "de.a1.u03.name-days-dates"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.confirm-appointment"
+      ],
+      "taskTags": [
+        "appointment",
+        "mediation",
+        "confirmation"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.confirm-appointment.tuesday-ten",
+          "text": "Der Termin ist am Dienstag um zehn Uhr.",
+          "meaning": {
+            "en": "The appointment is on Tuesday at ten.",
+            "hi": "मिलना मंगलवार को दस बजे है।",
+            "hi-latn": "Appointment Tuesday ko das baje hai."
+          },
+          "note": {
+            "en": "Keep both the day and clock time in the confirmation.",
+            "hi": "पुष्टि में दिन और घड़ी समय दोनों रखें।",
+            "hi-latn": "Confirmation mein day aur clock time dono rakhein."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.confirm-appointment.confirm-question",
+          "text": "Dienstag um zehn Uhr, richtig?",
+          "meaning": {
+            "en": "Tuesday at ten, correct?",
+            "hi": "मंगलवार दस बजे, सही?",
+            "hi-latn": "Tuesday das baje, correct?"
+          },
+          "note": {
+            "en": "A short check can confirm the relayed slot.",
+            "hi": "छोटी जाँच बताए समय को पक्का कर सकती है।",
+            "hi-latn": "Short check relayed slot ko confirm kar sakti hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Dienstag oder Mittwoch, irgendwann.",
+          "meaning": {
+            "en": "an unconfirmed day without a time",
+            "hi": "समय के बिना अपुष्ट दिन",
+            "hi-latn": "time ke bina unconfirmed day"
+          },
+          "note": {
+            "en": "This activity requires one exact day and time.",
+            "hi": "इस गतिविधि में एक सही दिन और समय चाहिए।",
+            "hi-latn": "Is activity mein ek exact day aur time chahiye."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    },
+    {
+      "id": "de.a1.u03.schedule-mission",
+      "language": "de",
+      "type": "pragmatic",
+      "cefrApproximation": "A1",
+      "title": {
+        "en": "Complete the schedule mission",
+        "hi": "समय तय करने का मिशन पूरा करें",
+        "hi-latn": "Schedule mission complete karein"
+      },
+      "description": {
+        "en": "Agree on one suitable meeting time.",
+        "hi": "मिलने के लिए एक सही समय पर सहमत हों।",
+        "hi-latn": "Ek suitable meeting time par agree karein."
+      },
+      "prerequisiteIds": [
+        "de.a1.u03.confirm-appointment",
+        "de.a1.u03.read-opening-hours"
+      ],
+      "successCriteria": {
+        "minimumAttempts": 3,
+        "minimumAccuracy": 0.8,
+        "requiredEvaluatorIds": []
+      },
+      "errorRuleIds": [
+        "de.a1.u03.error.schedule-mission"
+      ],
+      "taskTags": [
+        "mission",
+        "schedule",
+        "agreement"
+      ],
+      "examples": [
+        {
+          "id": "example.de.a1.u03.schedule-mission.wednesday-fifteen",
+          "text": "Treffen wir uns am Mittwoch um fünfzehn Uhr?",
+          "meaning": {
+            "en": "Shall we meet on Wednesday at fifteen hundred?",
+            "hi": "क्या हम बुधवार को पंद्रह बजे मिलें?",
+            "hi-latn": "Kya hum Wednesday ko pandrah baje milein?"
+          },
+          "note": {
+            "en": "The proposal includes one day and one clock time.",
+            "hi": "प्रस्ताव में एक दिन और एक घड़ी समय है।",
+            "hi-latn": "Proposal mein ek day aur ek clock time hai."
+          }
+        },
+        {
+          "id": "example.de.a1.u03.schedule-mission.agreement",
+          "text": "Ja, Mittwoch um fünfzehn Uhr passt.",
+          "meaning": {
+            "en": "Yes, Wednesday at fifteen hundred works.",
+            "hi": "हाँ, बुधवार पंद्रह बजे ठीक है।",
+            "hi-latn": "Haan, Wednesday pandrah baje theek hai."
+          },
+          "note": {
+            "en": "The reply repeats the agreed slot.",
+            "hi": "उत्तर तय समय को दोहराता है।",
+            "hi-latn": "Reply agreed slot ko repeat karta hai."
+          }
+        }
+      ],
+      "counterexamples": [
+        {
+          "text": "Vielleicht irgendwann.",
+          "meaning": {
+            "en": "no agreed meeting slot",
+            "hi": "मिलने का कोई तय समय नहीं",
+            "hi-latn": "koi agreed meeting slot nahin"
+          },
+          "note": {
+            "en": "The mission needs one exact day and time.",
+            "hi": "मिशन में एक सही दिन और समय चाहिए।",
+            "hi-latn": "Mission mein ek exact day aur time chahiye."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Directly authored Preview concept. Linguistic, translation, pedagogical, and cultural review is required."
+      }
+    }
+  ],
+  "lexicon": [
+    {
+      "id": "de.a1.u03.lexeme.null",
+      "language": "de",
+      "lemma": "null",
+      "article": null,
+      "meaning": {
+        "en": "zero",
+        "hi": "शून्य",
+        "hi-latn": "zero"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "null Karten",
+          "meaning": {
+            "en": "zero",
+            "hi": "शून्य",
+            "hi-latn": "zero"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.eins",
+      "language": "de",
+      "lemma": "eins",
+      "article": null,
+      "meaning": {
+        "en": "one",
+        "hi": "एक",
+        "hi-latn": "ek"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "eins",
+          "meaning": {
+            "en": "one",
+            "hi": "एक",
+            "hi-latn": "ek"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.zwei",
+      "language": "de",
+      "lemma": "zwei",
+      "article": null,
+      "meaning": {
+        "en": "two",
+        "hi": "दो",
+        "hi-latn": "do"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "zwei Karten",
+          "meaning": {
+            "en": "two",
+            "hi": "दो",
+            "hi-latn": "do"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.drei",
+      "language": "de",
+      "lemma": "drei",
+      "article": null,
+      "meaning": {
+        "en": "three",
+        "hi": "तीन",
+        "hi-latn": "teen"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "drei Karten",
+          "meaning": {
+            "en": "three",
+            "hi": "तीन",
+            "hi-latn": "teen"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.vier",
+      "language": "de",
+      "lemma": "vier",
+      "article": null,
+      "meaning": {
+        "en": "four",
+        "hi": "चार",
+        "hi-latn": "chaar"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "vier Karten",
+          "meaning": {
+            "en": "four",
+            "hi": "चार",
+            "hi-latn": "chaar"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.fuenf",
+      "language": "de",
+      "lemma": "fünf",
+      "article": null,
+      "meaning": {
+        "en": "five",
+        "hi": "पाँच",
+        "hi-latn": "paanch"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "fünf Karten",
+          "meaning": {
+            "en": "five",
+            "hi": "पाँच",
+            "hi-latn": "paanch"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.sechs",
+      "language": "de",
+      "lemma": "sechs",
+      "article": null,
+      "meaning": {
+        "en": "six",
+        "hi": "छह",
+        "hi-latn": "chhah"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "sechs Karten",
+          "meaning": {
+            "en": "six",
+            "hi": "छह",
+            "hi-latn": "chhah"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.sieben",
+      "language": "de",
+      "lemma": "sieben",
+      "article": null,
+      "meaning": {
+        "en": "seven",
+        "hi": "सात",
+        "hi-latn": "saat"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "sieben Karten",
+          "meaning": {
+            "en": "seven",
+            "hi": "सात",
+            "hi-latn": "saat"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.acht",
+      "language": "de",
+      "lemma": "acht",
+      "article": null,
+      "meaning": {
+        "en": "eight",
+        "hi": "आठ",
+        "hi-latn": "aath"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "acht Karten",
+          "meaning": {
+            "en": "eight",
+            "hi": "आठ",
+            "hi-latn": "aath"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.neun",
+      "language": "de",
+      "lemma": "neun",
+      "article": null,
+      "meaning": {
+        "en": "nine",
+        "hi": "नौ",
+        "hi-latn": "nau"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "neun Karten",
+          "meaning": {
+            "en": "nine",
+            "hi": "नौ",
+            "hi-latn": "nau"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.zehn",
+      "language": "de",
+      "lemma": "zehn",
+      "article": null,
+      "meaning": {
+        "en": "ten",
+        "hi": "दस",
+        "hi-latn": "das"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "zehn Karten",
+          "meaning": {
+            "en": "ten",
+            "hi": "दस",
+            "hi-latn": "das"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.elf",
+      "language": "de",
+      "lemma": "elf",
+      "article": null,
+      "meaning": {
+        "en": "eleven",
+        "hi": "ग्यारह",
+        "hi-latn": "gyaarah"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "elf Karten",
+          "meaning": {
+            "en": "eleven",
+            "hi": "ग्यारह",
+            "hi-latn": "gyaarah"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.zwoelf",
+      "language": "de",
+      "lemma": "zwölf",
+      "article": null,
+      "meaning": {
+        "en": "twelve",
+        "hi": "बारह",
+        "hi-latn": "baarah"
+      },
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "examples": [
+        {
+          "text": "zwölf Karten",
+          "meaning": {
+            "en": "twelve",
+            "hi": "बारह",
+            "hi-latn": "baarah"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.zwanzig",
+      "language": "de",
+      "lemma": "zwanzig",
+      "article": null,
+      "meaning": {
+        "en": "twenty",
+        "hi": "बीस",
+        "hi-latn": "bees"
+      },
+      "conceptIds": [
+        "de.a1.u03.build-larger-numbers"
+      ],
+      "examples": [
+        {
+          "text": "zwanzig Bücher",
+          "meaning": {
+            "en": "twenty",
+            "hi": "बीस",
+            "hi-latn": "bees"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.dreissig",
+      "language": "de",
+      "lemma": "dreißig",
+      "article": null,
+      "meaning": {
+        "en": "thirty",
+        "hi": "तीस",
+        "hi-latn": "tees"
+      },
+      "conceptIds": [
+        "de.a1.u03.build-larger-numbers"
+      ],
+      "examples": [
+        {
+          "text": "dreißig Karten",
+          "meaning": {
+            "en": "thirty",
+            "hi": "तीस",
+            "hi-latn": "tees"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.hundert",
+      "language": "de",
+      "lemma": "hundert",
+      "article": null,
+      "meaning": {
+        "en": "one hundred",
+        "hi": "सौ",
+        "hi-latn": "sau"
+      },
+      "conceptIds": [
+        "de.a1.u03.build-larger-numbers"
+      ],
+      "examples": [
+        {
+          "text": "hundert",
+          "meaning": {
+            "en": "one hundred",
+            "hi": "सौ",
+            "hi-latn": "sau"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.uhr",
+      "language": "de",
+      "lemma": "Uhr",
+      "article": null,
+      "meaning": {
+        "en": "o'clock",
+        "hi": "बजे",
+        "hi-latn": "baje"
+      },
+      "conceptIds": [
+        "de.a1.u03.tell-time"
+      ],
+      "examples": [
+        {
+          "text": "neun Uhr",
+          "meaning": {
+            "en": "o'clock",
+            "hi": "बजे",
+            "hi-latn": "baje"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.montag",
+      "language": "de",
+      "lemma": "Montag",
+      "article": null,
+      "meaning": {
+        "en": "Monday",
+        "hi": "सोमवार",
+        "hi-latn": "Monday"
+      },
+      "conceptIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "examples": [
+        {
+          "text": "am Montag",
+          "meaning": {
+            "en": "Monday",
+            "hi": "सोमवार",
+            "hi-latn": "Monday"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.dienstag",
+      "language": "de",
+      "lemma": "Dienstag",
+      "article": null,
+      "meaning": {
+        "en": "Tuesday",
+        "hi": "मंगलवार",
+        "hi-latn": "Tuesday"
+      },
+      "conceptIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "examples": [
+        {
+          "text": "am Dienstag",
+          "meaning": {
+            "en": "Tuesday",
+            "hi": "मंगलवार",
+            "hi-latn": "Tuesday"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.mittwoch",
+      "language": "de",
+      "lemma": "Mittwoch",
+      "article": null,
+      "meaning": {
+        "en": "Wednesday",
+        "hi": "बुधवार",
+        "hi-latn": "Wednesday"
+      },
+      "conceptIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "examples": [
+        {
+          "text": "am Mittwoch",
+          "meaning": {
+            "en": "Wednesday",
+            "hi": "बुधवार",
+            "hi-latn": "Wednesday"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.donnerstag",
+      "language": "de",
+      "lemma": "Donnerstag",
+      "article": null,
+      "meaning": {
+        "en": "Thursday",
+        "hi": "गुरुवार",
+        "hi-latn": "Thursday"
+      },
+      "conceptIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "examples": [
+        {
+          "text": "am Donnerstag",
+          "meaning": {
+            "en": "Thursday",
+            "hi": "गुरुवार",
+            "hi-latn": "Thursday"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.freitag",
+      "language": "de",
+      "lemma": "Freitag",
+      "article": null,
+      "meaning": {
+        "en": "Friday",
+        "hi": "शुक्रवार",
+        "hi-latn": "Friday"
+      },
+      "conceptIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "examples": [
+        {
+          "text": "am Freitag",
+          "meaning": {
+            "en": "Friday",
+            "hi": "शुक्रवार",
+            "hi-latn": "Friday"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.januar",
+      "language": "de",
+      "lemma": "Januar",
+      "article": null,
+      "meaning": {
+        "en": "January",
+        "hi": "जनवरी",
+        "hi-latn": "January"
+      },
+      "conceptIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "examples": [
+        {
+          "text": "im Januar",
+          "meaning": {
+            "en": "January",
+            "hi": "जनवरी",
+            "hi-latn": "January"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.maerz",
+      "language": "de",
+      "lemma": "März",
+      "article": null,
+      "meaning": {
+        "en": "March",
+        "hi": "मार्च",
+        "hi-latn": "March"
+      },
+      "conceptIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "examples": [
+        {
+          "text": "im März",
+          "meaning": {
+            "en": "March",
+            "hi": "मार्च",
+            "hi-latn": "March"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.mai",
+      "language": "de",
+      "lemma": "Mai",
+      "article": null,
+      "meaning": {
+        "en": "May",
+        "hi": "मई",
+        "hi-latn": "May"
+      },
+      "conceptIds": [
+        "de.a1.u03.say-birthday"
+      ],
+      "examples": [
+        {
+          "text": "im Mai",
+          "meaning": {
+            "en": "May",
+            "hi": "मई",
+            "hi-latn": "May"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.lexeme.geburtstag",
+      "language": "de",
+      "lemma": "Geburtstag",
+      "article": "der",
+      "meaning": {
+        "en": "birthday",
+        "hi": "जन्मदिन",
+        "hi-latn": "birthday"
+      },
+      "conceptIds": [
+        "de.a1.u03.say-birthday"
+      ],
+      "examples": [
+        {
+          "text": "Ich habe Geburtstag.",
+          "meaning": {
+            "en": "birthday",
+            "hi": "जन्मदिन",
+            "hi-latn": "birthday"
+          },
+          "note": {
+            "en": "Authored number and time example.",
+            "hi": "लिखा हुआ संख्या और समय उदाहरण।",
+            "hi-latn": "Authored number aur time example."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Form, meaning, usage, and translation need competent review."
+      }
+    }
+  ],
+  "errorRules": [
+    {
+      "id": "de.a1.u03.error.count-through-twenty",
+      "targetConceptId": "de.a1.u03.count-through-twenty",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "zwölf"
+        ]
+      },
+      "expectedProperty": "The bounded counting response names twelve with zwölf.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.count-through-twenty",
+      "examples": [
+        "zwölf Karten"
+      ],
+      "counterexamples": [
+        "zwei Karten"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.build-larger-numbers",
+      "targetConceptId": "de.a1.u03.build-larger-numbers",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "und"
+        ]
+      },
+      "expectedProperty": "The bounded compound number includes und between ones and tens.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.build-larger-numbers",
+      "examples": [
+        "zweiunddreißig"
+      ],
+      "counterexamples": [
+        "dreißig und zwei"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.share-phone-number",
+      "targetConceptId": "de.a1.u03.share-phone-number",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "null"
+        ]
+      },
+      "expectedProperty": "The bounded telephone number begins with the spoken digit null.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.share-phone-number",
+      "examples": [
+        "null eins sieben sechs, vier zwei neun acht"
+      ],
+      "counterexamples": [
+        "siebzehnhundertsechsundvierzig"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.tell-time",
+      "targetConceptId": "de.a1.u03.tell-time",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "um"
+        ]
+      },
+      "expectedProperty": "The bounded appointment sentence uses um before the clock time.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.tell-time",
+      "examples": [
+        "Es ist neun Uhr."
+      ],
+      "counterexamples": [
+        "Der Kurs beginnt am zehn Uhr."
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.name-days-dates",
+      "targetConceptId": "de.a1.u03.name-days-dates",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "am"
+        ]
+      },
+      "expectedProperty": "The bounded date label begins with am before the weekday.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.name-days-dates",
+      "examples": [
+        "am Dienstag, den dritten Mai"
+      ],
+      "counterexamples": [
+        "Dienstag drei Mai"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.say-birthday",
+      "targetConceptId": "de.a1.u03.say-birthday",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "Geburtstag"
+        ]
+      },
+      "expectedProperty": "The bounded personal date sentence includes Geburtstag.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.say-birthday",
+      "examples": [
+        "Ich habe am dritten Mai Geburtstag."
+      ],
+      "counterexamples": [
+        "Ich bin am dritten Mai Geburtstag."
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.hear-prices-times",
+      "targetConceptId": "de.a1.u03.hear-prices-times",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "vierzehn"
+        ]
+      },
+      "expectedProperty": "The bounded price choice distinguishes vierzehn from vierzig.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.hear-prices-times",
+      "examples": [
+        "vierzehn Euro"
+      ],
+      "counterexamples": [
+        "vierzehn = vierzig"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.dib-numbers",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.read-opening-hours",
+      "targetConceptId": "de.a1.u03.read-opening-hours",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "bis"
+        ]
+      },
+      "expectedProperty": "The bounded opening-hours line includes bis between start and end.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.read-opening-hours",
+      "examples": [
+        "Montag bis Freitag: 09:00 bis 18:00 Uhr"
+      ],
+      "counterexamples": [
+        "Montag: 18:00 bis 09:00 Uhr"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.confirm-appointment",
+      "targetConceptId": "de.a1.u03.confirm-appointment",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "Dienstag"
+        ]
+      },
+      "expectedProperty": "The bounded appointment confirmation includes the authored weekday.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.confirm-appointment",
+      "examples": [
+        "Der Termin ist am Dienstag um zehn Uhr."
+      ],
+      "counterexamples": [
+        "Dienstag oder Mittwoch, irgendwann."
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    },
+    {
+      "id": "de.a1.u03.error.schedule-mission",
+      "targetConceptId": "de.a1.u03.schedule-mission",
+      "pattern": {
+        "kind": "requiredToken",
+        "values": [
+          "um"
+        ]
+      },
+      "expectedProperty": "The bounded meeting proposal includes um before the clock time.",
+      "severity": "targetConcept",
+      "feedbackTemplateId": "de.a1.u03.feedback.schedule-mission",
+      "examples": [
+        "Treffen wir uns am Mittwoch um fünfzehn Uhr?"
+      ],
+      "counterexamples": [
+        "Vielleicht irgendwann."
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "The rule is scoped to one authored activity and needs competent German review."
+      }
+    }
+  ],
+  "feedbackTemplates": [
+    {
+      "id": "de.a1.u03.feedback.count-through-twenty",
+      "language": "de",
+      "message": {
+        "en": "Count every paper piece before choosing the number.",
+        "hi": "संख्या चुनने से पहले हर कागज़ी टुकड़ा गिनें।",
+        "hi-latn": "Number choose karne se pehle har paper piece ginein."
+      },
+      "retryPrompt": {
+        "en": "Count once more and compare twelve with the choices.",
+        "hi": "फिर गिनें और बारह की तुलना विकल्पों से करें।",
+        "hi-latn": "Phir ginein aur baarah ko choices se compare karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.build-larger-numbers",
+      "language": "de",
+      "message": {
+        "en": "Place the ones part before und and the tens part.",
+        "hi": "इकाई को und और दहाई से पहले रखें।",
+        "hi-latn": "Ones part ko und aur tens part se pehle rakhein."
+      },
+      "retryPrompt": {
+        "en": "Unfold the three parts and rebuild the number word.",
+        "hi": "तीनों भाग खोलकर संख्या शब्द फिर बनाएँ।",
+        "hi-latn": "Teen parts unfold karke number word phir banayein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.share-phone-number",
+      "language": "de",
+      "message": {
+        "en": "Keep the telephone digits separate and preserve their order.",
+        "hi": "टेलीफ़ोन के अंक अलग रखें और क्रम बनाए रखें।",
+        "hi-latn": "Telephone digits alag rakhein aur order preserve karein."
+      },
+      "retryPrompt": {
+        "en": "Read one digit group slowly, then confirm it.",
+        "hi": "एक अंक समूह धीरे पढ़ें, फिर पक्का करें।",
+        "hi-latn": "Ek digit group slowly padhein, phir confirm karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.tell-time",
+      "language": "de",
+      "message": {
+        "en": "Use um directly before the stated clock time.",
+        "hi": "बताए घड़ी समय से ठीक पहले um रखें।",
+        "hi-latn": "Stated clock time se just pehle um rakhein."
+      },
+      "retryPrompt": {
+        "en": "Check the paper clock and complete the time phrase again.",
+        "hi": "कागज़ी घड़ी देखें और समय वाक्यांश फिर पूरा करें।",
+        "hi-latn": "Paper clock dekhein aur time phrase phir complete karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.name-days-dates",
+      "language": "de",
+      "message": {
+        "en": "Keep am, the weekday, day number, and month together.",
+        "hi": "am, सप्ताह का दिन, तारीख और महीना साथ रखें।",
+        "hi-latn": "am, weekday, date number aur month saath rakhein."
+      },
+      "retryPrompt": {
+        "en": "Read the calendar line from left to right once more.",
+        "hi": "कैलेंडर पंक्ति फिर बाएँ से दाएँ पढ़ें।",
+        "hi-latn": "Calendar line phir left se right padhein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.say-birthday",
+      "language": "de",
+      "message": {
+        "en": "Keep the birthday noun and the complete date in one sentence.",
+        "hi": "जन्मदिन की संज्ञा और पूरी तारीख एक वाक्य में रखें।",
+        "hi-latn": "Birthday noun aur complete date ek sentence mein rakhein."
+      },
+      "retryPrompt": {
+        "en": "Read the birthday card and rebuild the sentence.",
+        "hi": "जन्मदिन कार्ड पढ़ें और वाक्य फिर बनाएँ।",
+        "hi-latn": "Birthday card padhein aur sentence phir banayein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.hear-prices-times",
+      "language": "de",
+      "message": {
+        "en": "Replay the full number word before choosing the price tag.",
+        "hi": "कीमत टैग चुनने से पहले पूरा संख्या शब्द फिर सुनें।",
+        "hi-latn": "Price tag choose karne se pehle complete number word replay karein."
+      },
+      "retryPrompt": {
+        "en": "Compare the endings and choose the exact amount.",
+        "hi": "अंतों की तुलना करें और सही मात्रा चुनें।",
+        "hi-latn": "Endings compare karein aur exact amount choose karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.dib-numbers",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.read-opening-hours",
+      "language": "de",
+      "message": {
+        "en": "Read the opening time first and the closing time second.",
+        "hi": "खुलने का समय पहले और बंद होने का समय बाद में पढ़ें।",
+        "hi-latn": "Opening time pehle aur closing time second padhein."
+      },
+      "retryPrompt": {
+        "en": "Trace one schedule row from day to closing time.",
+        "hi": "समय-सारणी की एक पंक्ति दिन से बंद समय तक पढ़ें।",
+        "hi-latn": "Ek schedule row ko day se closing time tak trace karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.confirm-appointment",
+      "language": "de",
+      "message": {
+        "en": "Relay the exact weekday and clock time together.",
+        "hi": "सही सप्ताह का दिन और घड़ी समय साथ बताएँ।",
+        "hi-latn": "Exact weekday aur clock time saath relay karein."
+      },
+      "retryPrompt": {
+        "en": "Read the appointment card and repeat both details.",
+        "hi": "मिलने का कार्ड पढ़ें और दोनों विवरण दोहराएँ।",
+        "hi-latn": "Appointment card padhein aur dono details repeat karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    },
+    {
+      "id": "de.a1.u03.feedback.schedule-mission",
+      "language": "de",
+      "message": {
+        "en": "Propose one available day and time, then confirm it.",
+        "hi": "एक उपलब्ध दिन और समय सुझाएँ, फिर पक्का करें।",
+        "hi-latn": "Ek available day aur time propose karein, phir confirm karein."
+      },
+      "retryPrompt": {
+        "en": "Compare the schedules and choose one shared slot.",
+        "hi": "समय-सारणियों की तुलना करें और एक साझा समय चुनें।",
+        "hi-latn": "Schedules compare karein aur ek shared slot choose karein."
+      },
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Learner wording needs German, Hindi, and Hinglish review."
+      }
+    }
+  ],
+  "transferMappings": [],
+  "tasks": [
+    {
+      "id": "de.a1.u03.task.schedule-meeting",
+      "language": "de",
+      "domain": "schedule-meeting",
+      "cefrApproximation": "A1",
+      "goal": {
+        "en": "Agree on one meeting day and time.",
+        "hi": "मिलने के एक दिन और समय पर सहमत हों।",
+        "hi-latn": "Ek meeting day aur time par agree karein."
+      },
+      "context": {
+        "en": "A bounded scheduling exchange between two classmates.",
+        "hi": "दो सहपाठियों के बीच सीमित समय तय करने की बातचीत।",
+        "hi-latn": "Do classmates ke beech bounded scheduling exchange."
+      },
+      "learnerRole": {
+        "en": "You compare two schedules and propose one shared slot.",
+        "hi": "आप दो समय-सारणियाँ देखकर एक साझा समय सुझाते हैं।",
+        "hi-latn": "Aap do schedules compare karke ek shared slot propose karte hain."
+      },
+      "npcRole": {
+        "en": "The classmate accepts the authored shared slot or asks for another.",
+        "hi": "सहपाठी लिखे साझा समय को मानता है या दूसरा पूछता है।",
+        "hi-latn": "Classmate authored shared slot accept karta hai ya another poochhta hai."
+      },
+      "requiredFunctionIds": [
+        "de.a1.u03.tell-time",
+        "de.a1.u03.confirm-appointment"
+      ],
+      "eligibleConceptIds": [
+        "de.a1.u03.count-through-twenty",
+        "de.a1.u03.build-larger-numbers",
+        "de.a1.u03.share-phone-number",
+        "de.a1.u03.tell-time",
+        "de.a1.u03.name-days-dates",
+        "de.a1.u03.say-birthday",
+        "de.a1.u03.hear-prices-times",
+        "de.a1.u03.read-opening-hours",
+        "de.a1.u03.confirm-appointment",
+        "de.a1.u03.schedule-mission"
+      ],
+      "initialStateId": "de.a1.u03.state.schedule.compare",
+      "successStateIds": [
+        "de.a1.u03.state.schedule.complete"
+      ],
+      "states": [
+        {
+          "id": "de.a1.u03.state.schedule.compare",
+          "allowedIntents": [
+            "proposeTime"
+          ],
+          "scriptedFallback": [
+            "Wann haben Sie Zeit?",
+            "Sagen Sie einen Tag und eine Uhrzeit."
+          ]
+        },
+        {
+          "id": "de.a1.u03.state.schedule.confirm",
+          "allowedIntents": [
+            "confirmTime",
+            "requestConfirmation"
+          ],
+          "scriptedFallback": [
+            "Mittwoch um fünfzehn Uhr?",
+            "Bestätigen Sie den Termin."
+          ]
+        },
+        {
+          "id": "de.a1.u03.state.schedule.complete",
+          "allowedIntents": [
+            "acknowledge",
+            "exit"
+          ],
+          "scriptedFallback": [
+            "Ja, das passt.",
+            "Bis Mittwoch."
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "fromStateId": "de.a1.u03.state.schedule.compare",
+          "toStateId": "de.a1.u03.state.schedule.confirm",
+          "evaluatorId": "de.a1.u03.eval.schedule-slot"
+        },
+        {
+          "fromStateId": "de.a1.u03.state.schedule.confirm",
+          "toStateId": "de.a1.u03.state.schedule.complete",
+          "evaluatorId": "de.a1.u03.eval.schedule-confirmation"
+        }
+      ],
+      "evaluators": [
+        {
+          "id": "de.a1.u03.eval.schedule-slot",
+          "kind": "anyAllowedToken",
+          "expectedValues": [
+            "mittwoch",
+            "fünfzehn",
+            "15"
+          ]
+        },
+        {
+          "id": "de.a1.u03.eval.schedule-confirmation",
+          "kind": "anyAllowedToken",
+          "expectedValues": [
+            "ja",
+            "passt",
+            "mittwoch"
+          ]
+        },
+        {
+          "id": "de.a1.u03.eval.schedule-complete",
+          "kind": "stateReached",
+          "expectedValues": [
+            "de.a1.u03.state.schedule.complete"
+          ]
+        }
+      ],
+      "successConditions": [
+        {
+          "evaluatorId": "de.a1.u03.eval.schedule-complete",
+          "description": {
+            "en": "The complete state follows an accepted shared slot and confirmation.",
+            "hi": "स्वीकार्य साझा समय और पुष्टि के बाद पूर्ण स्थिति आती है।",
+            "hi-latn": "Accepted shared slot aur confirmation ke baad complete state aati hai."
+          }
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "State sequence, evaluator coverage, register, and fallback naturalness need competent review."
+      }
+    }
+  ],
+  "rubrics": [
+    {
+      "id": "de.a1.u03.rubric.schedule-meeting",
+      "taskId": "de.a1.u03.task.schedule-meeting",
+      "dimensions": [
+        {
+          "dimension": "communicativeSuccess",
+          "evaluatorId": "de.a1.u03.eval.schedule-complete"
+        },
+        {
+          "dimension": "linguisticAccuracy",
+          "evaluatorId": "de.a1.u03.eval.schedule-slot"
+        },
+        {
+          "dimension": "targetConceptPerformance",
+          "evaluatorId": "de.a1.u03.eval.schedule-confirmation"
+        }
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Dimension mapping and threshold interpretation need competent assessment review."
+      }
+    }
+  ],
+  "pronunciationUtterances": [
+    {
+      "id": "de.a1.u03.utterance.count-through-twenty",
+      "language": "de",
+      "locale": "de-de",
+      "text": "eins, zwei, drei, vier, fünf",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.count-through-twenty"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.build-larger-numbers",
+      "language": "de",
+      "locale": "de-de",
+      "text": "einundzwanzig, zweiunddreißig, vierundvierzig",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.build-larger-numbers"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.share-phone-number",
+      "language": "de",
+      "locale": "de-de",
+      "text": "null eins sieben sechs, vier zwei neun acht",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.share-phone-number"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-1",
+        "source.de.a1.u03.dib-numbers"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.tell-time",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Es ist neun Uhr. Der Kurs beginnt um zehn Uhr.",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.tell-time"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.name-days-dates",
+      "language": "de",
+      "locale": "de-de",
+      "text": "am Dienstag, den dritten Mai",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.name-days-dates"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.say-birthday",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Ich habe am dritten Mai Geburtstag.",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.say-birthday"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.hear-prices-times",
+      "language": "de",
+      "locale": "de-de",
+      "text": "vierzehn Euro, vierzig Euro, zehn Uhr, zwölf Uhr",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.hear-prices-times"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.dib-numbers",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.read-opening-hours",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Montag bis Freitag, neun bis achtzehn Uhr",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.read-opening-hours"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.confirm-appointment",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Der Termin ist am Dienstag um zehn Uhr.",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.confirm-appointment"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    },
+    {
+      "id": "de.a1.u03.utterance.schedule-mission",
+      "language": "de",
+      "locale": "de-de",
+      "text": "Treffen wir uns am Mittwoch um fünfzehn Uhr?",
+      "purpose": "perception",
+      "assessmentMode": "none",
+      "conceptIds": [
+        "de.a1.u03.schedule-mission"
+      ],
+      "sourceIds": [
+        "source.de.a1.u03.cefr-2020",
+        "source.de.a1.u03.goethe-glossary-3",
+        "source.de.a1.u03.dib-time"
+      ],
+      "review": {
+        "status": "machineValidated",
+        "reviewer": null,
+        "reviewedOn": null,
+        "notes": "Authored text script only. Recording quality and pronunciation guidance need competent review."
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson.de.a1.u03.count-through-twenty",
+      "courseOrder": 21,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.count-through-twenty.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Am Zähltisch"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the counting table and notice each grouped quantity.",
+                "hi": "गिनती मेज़ पर आएँ और हर समूह की मात्रा देखें।",
+                "hi-latn": "Counting table par aayein aur har grouped quantity dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.count-through-twenty"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.count-through-twenty.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a short question and answer about twelve cards.",
+                "hi": "बारह कार्ड के बारे में छोटा प्रश्न और उत्तर पढ़ें।",
+                "hi-latn": "Baarah cards ke baare mein short question aur answer padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.count-through-twenty"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Wie viele Karten sind das?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Das sind zwölf Karten."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.count-through-twenty.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "Zahlen bis zwanzig"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through four compact number groups from one to twenty.",
+                "hi": "एक से बीस तक चार छोटे संख्या समूह देखें।",
+                "hi-latn": "One se twenty tak four compact number groups dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.count-through-twenty"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "one-five",
+                  "label": "eins, zwei, drei, vier, fünf"
+                },
+                {
+                  "id": "six-ten",
+                  "label": "sechs, sieben, acht, neun, zehn"
+                },
+                {
+                  "id": "eleven-fifteen",
+                  "label": "elf, zwölf, dreizehn, vierzehn, fünfzehn"
+                },
+                {
+                  "id": "sixteen-twenty",
+                  "label": "sechzehn, siebzehn, achtzehn, neunzehn, zwanzig"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.count-through-twenty.template.04",
+          "templateId": "number-tiles",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Count twelve paper dots and choose the matching digit.",
+                "hi": "बारह कागज़ी बिंदु गिनें और सही अंक चुनें।",
+                "hi-latn": "Baarah paper dots ginein aur matching digit choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.count-through-twenty"
+            },
+            "quantity-description": {
+              "kind": "text",
+              "value": "Twelve separate paper counting dots"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "dot-1",
+                  "label": "counting dot 1"
+                },
+                {
+                  "id": "dot-2",
+                  "label": "counting dot 2"
+                },
+                {
+                  "id": "dot-3",
+                  "label": "counting dot 3"
+                },
+                {
+                  "id": "dot-4",
+                  "label": "counting dot 4"
+                },
+                {
+                  "id": "dot-5",
+                  "label": "counting dot 5"
+                },
+                {
+                  "id": "dot-6",
+                  "label": "counting dot 6"
+                },
+                {
+                  "id": "dot-7",
+                  "label": "counting dot 7"
+                },
+                {
+                  "id": "dot-8",
+                  "label": "counting dot 8"
+                },
+                {
+                  "id": "dot-9",
+                  "label": "counting dot 9"
+                },
+                {
+                  "id": "dot-10",
+                  "label": "counting dot 10"
+                },
+                {
+                  "id": "dot-11",
+                  "label": "counting dot 11"
+                },
+                {
+                  "id": "dot-12",
+                  "label": "counting dot 12"
+                }
+              ]
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "10",
+                  "label": "10"
+                },
+                {
+                  "id": "12",
+                  "label": "12"
+                },
+                {
+                  "id": "20",
+                  "label": "20"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "12"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.count-through-twenty.template.05",
+          "templateId": "word-match",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the German number word for the written digit 12.",
+                "hi": "लिखे अंक 12 के लिए जर्मन संख्या शब्द चुनें।",
+                "hi-latn": "Written digit 12 ke liye German number word choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.count-through-twenty"
+            },
+            "subject-description": {
+              "kind": "text",
+              "value": "12"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "zehn",
+                  "label": "zehn"
+                },
+                {
+                  "id": "zwoelf",
+                  "label": "zwölf"
+                },
+                {
+                  "id": "zwanzig",
+                  "label": "zwanzig"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "zwoelf"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.count-through-twenty.template.06",
+          "templateId": "listen-pick-image",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then choose the matching written number.",
+                "hi": "सुनें या पढ़ें, फिर मिलती लिखी संख्या चुनें।",
+                "hi-latn": "Sunein ya padhein, phir matching written number choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.count-through-twenty"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "fünfzehn"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "14",
+                  "label": "14"
+                },
+                {
+                  "id": "15",
+                  "label": "15"
+                },
+                {
+                  "id": "50",
+                  "label": "50"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "15"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.count-through-twenty.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type the counted quantity.",
+                "hi": "गिनी मात्रा बोलें या टाइप करें।",
+                "hi-latn": "Counted quantity bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.count-through-twenty"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Wie viele Karten? Zwölf."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "twelve",
+                  "label": "zwölf"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.count-through-twenty.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review three anchor quantities through twenty.",
+                "hi": "बीस तक की तीन मुख्य मात्राएँ दोहराएँ।",
+                "hi-latn": "Twenty tak three anchor quantities review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.count-through-twenty"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Zahlen bis zwanzig"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "five",
+                  "label": "fünf"
+                },
+                {
+                  "id": "twelve",
+                  "label": "zwölf"
+                },
+                {
+                  "id": "twenty",
+                  "label": "zwanzig"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Erst zählen, dann die Zahl nennen."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u03.build-larger-numbers",
+      "courseOrder": 22,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.build-larger-numbers.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "In der Zahlenwerkstatt"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the number workshop and watch larger words join.",
+                "hi": "संख्या कार्यशाला में आएँ और बड़े शब्दों को जुड़ते देखें।",
+                "hi-latn": "Number workshop mein aayein aur larger words ko join hote dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.build-larger-numbers"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.build-larger-numbers.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read how a two-part number is checked.",
+                "hi": "दो भाग वाली संख्या की जाँच पढ़ें।",
+                "hi-latn": "Two-part number ki checking padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.build-larger-numbers"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Welche Zahl ist das?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Zweiunddreißig."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.build-larger-numbers.template.03",
+          "templateId": "object-anatomy",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "zweiunddreißig"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Notice the ones, connector, and tens inside the number word.",
+                "hi": "संख्या शब्द में इकाई, जोड़ और दहाई देखें।",
+                "hi-latn": "Number word mein ones, connector aur tens notice karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.build-larger-numbers"
+            },
+            "parts": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "ones",
+                  "label": "zwei: ones"
+                },
+                {
+                  "id": "connector",
+                  "label": "und: connector"
+                },
+                {
+                  "id": "tens",
+                  "label": "dreißig: tens"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.build-larger-numbers.template.04",
+          "templateId": "sentence-fold",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Unfold the larger number in its written order.",
+                "hi": "बड़ी संख्या को लिखे क्रम में खोलें।",
+                "hi-latn": "Larger number ko written order mein unfold karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.build-larger-numbers"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u03.build-larger-numbers.thirty-two"
+            },
+            "segments": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "two",
+                  "label": "zwei"
+                },
+                {
+                  "id": "and",
+                  "label": "und"
+                },
+                {
+                  "id": "thirty",
+                  "label": "dreißig"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.build-larger-numbers.template.05",
+          "templateId": "number-tiles",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Combine thirty and two, then choose the complete number.",
+                "hi": "तीस और दो जोड़ें, फिर पूरी संख्या चुनें।",
+                "hi-latn": "Thirty aur two combine karein, phir complete number choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.build-larger-numbers"
+            },
+            "quantity-description": {
+              "kind": "text",
+              "value": "Thirty paper marks grouped with two more"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "thirty",
+                  "label": "group of thirty"
+                },
+                {
+                  "id": "two-more",
+                  "label": "two more"
+                }
+              ]
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "23",
+                  "label": "23"
+                },
+                {
+                  "id": "32",
+                  "label": "32"
+                },
+                {
+                  "id": "42",
+                  "label": "42"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "32"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.build-larger-numbers.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the complete larger number word.",
+                "hi": "सुनें या पढ़ें, फिर पूरी बड़ी संख्या टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir complete larger number word type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.build-larger-numbers"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "zweiunddreißig"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "thirty-two",
+                  "label": "zweiunddreißig"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.build-larger-numbers.template.07",
+          "templateId": "read-aloud-card",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read aloud or type one complete compound number.",
+                "hi": "एक पूरी संयुक्त संख्या बोलें या टाइप करें।",
+                "hi-latn": "Ek complete compound number bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.build-larger-numbers"
+            },
+            "card-text": {
+              "kind": "text",
+              "value": "vierundvierzig"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-transcripts": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "forty-four",
+                  "label": "vierundvierzig"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.build-larger-numbers.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review how ones and tens form larger number words.",
+                "hi": "दोहराएँ कि इकाई और दहाई बड़े संख्या शब्द कैसे बनाते हैं।",
+                "hi-latn": "Review karein ki ones aur tens larger number words kaise banate hain."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.build-larger-numbers"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Größere Zahlen"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "twenty-one",
+                  "label": "einundzwanzig"
+                },
+                {
+                  "id": "thirty-two",
+                  "label": "zweiunddreißig"
+                },
+                {
+                  "id": "forty-four",
+                  "label": "vierundvierzig"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Einer, und, Zehner bleiben ein Wort."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u03.share-phone-number",
+      "courseOrder": 23,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.share-phone-number.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Am Kontaktstand"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the contact desk and keep each digit group visible.",
+                "hi": "संपर्क मेज़ पर आएँ और हर अंक समूह साफ़ रखें।",
+                "hi-latn": "Contact desk par aayein aur har digit group visible rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.share-phone-number"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.share-phone-number.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a telephone number and its confirmation.",
+                "hi": "टेलीफ़ोन नंबर और उसकी पुष्टि पढ़ें।",
+                "hi-latn": "Telephone number aur uski confirmation padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.share-phone-number"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Wie ist deine Telefonnummer?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Null eins sieben sechs, vier zwei neun acht."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.share-phone-number.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "Telefonnummer"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through the number in short written groups.",
+                "hi": "नंबर को छोटे लिखे समूहों में देखें।",
+                "hi-latn": "Number ko short written groups mein dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.share-phone-number"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "group-one",
+                  "label": "0176"
+                },
+                {
+                  "id": "group-two",
+                  "label": "4298"
+                },
+                {
+                  "id": "full-number",
+                  "label": "0176 4298"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.share-phone-number.template.04",
+          "templateId": "listen-order",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then place the first four digits in order.",
+                "hi": "सुनें या पढ़ें, फिर पहले चार अंक क्रम में रखें।",
+                "hi-latn": "Sunein ya padhein, phir first four digits order mein rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.share-phone-number"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "null eins sieben sechs"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "events": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "zero",
+                  "label": "0"
+                },
+                {
+                  "id": "one",
+                  "label": "1"
+                },
+                {
+                  "id": "seven",
+                  "label": "7"
+                },
+                {
+                  "id": "six",
+                  "label": "6"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.share-phone-number.template.05",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the complete digit groups.",
+                "hi": "सुनें या पढ़ें, फिर पूरे अंक समूह टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir complete digit groups type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.share-phone-number"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "null eins sieben sechs, vier zwei neun acht"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "digits-spoken",
+                  "label": "null eins sieben sechs vier zwei neun acht"
+                },
+                {
+                  "id": "digits-written",
+                  "label": "0176 4298"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.share-phone-number.template.06",
+          "templateId": "form-fill",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Copy the two synthetic telephone groups into the local form.",
+                "hi": "दो कृत्रिम टेलीफ़ोन समूह स्थानीय फ़ॉर्म में लिखें।",
+                "hi-latn": "Do synthetic telephone groups local form mein copy karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.share-phone-number"
+            },
+            "form-title": {
+              "kind": "text",
+              "value": "Kontaktnotiz"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Vorwahl: 0176. Nummer: 4298."
+            },
+            "fields": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "prefix",
+                  "label": "Vorwahl"
+                },
+                {
+                  "id": "number",
+                  "label": "Nummer"
+                }
+              ]
+            },
+            "answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "prefix",
+                  "label": "0176"
+                },
+                {
+                  "id": "number",
+                  "label": "4298"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.share-phone-number.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type the complete telephone number.",
+                "hi": "पूरा टेलीफ़ोन नंबर बोलें या टाइप करें।",
+                "hi-latn": "Complete telephone number bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.share-phone-number"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Wie ist deine Telefonnummer?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "spoken",
+                  "label": "null eins sieben sechs vier zwei neun acht"
+                },
+                {
+                  "id": "written",
+                  "label": "0176 4298"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.share-phone-number.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the two digit groups and their confirmation.",
+                "hi": "दो अंक समूह और उनकी पुष्टि दोहराएँ।",
+                "hi-latn": "Do digit groups aur unki confirmation review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.share-phone-number"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Telefonnummer"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "first",
+                  "label": "0176"
+                },
+                {
+                  "id": "second",
+                  "label": "4298"
+                },
+                {
+                  "id": "confirm",
+                  "label": "Noch einmal: 0176 4298"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Ziffern bleiben einzeln und in derselben Reihenfolge."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u03.tell-time",
+      "courseOrder": 24,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.tell-time.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "An der Papieruhr"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the clock corner and notice one exact lesson time.",
+                "hi": "घड़ी कोने में आएँ और एक सही पाठ समय देखें।",
+                "hi-latn": "Clock corner mein aayein aur ek exact lesson time notice karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.tell-time"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.tell-time.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a simple time question and answer.",
+                "hi": "सरल समय प्रश्न और उत्तर पढ़ें।",
+                "hi-latn": "Simple time question aur answer padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.tell-time"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Wie spät ist es?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Es ist neun Uhr."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.tell-time.template.03",
+          "templateId": "clock-theatre",
+          "templateVersion": 1,
+          "parameters": {
+            "time": {
+              "kind": "text",
+              "value": "neun Uhr"
+            },
+            "hour": {
+              "kind": "text",
+              "value": "9"
+            },
+            "minute": {
+              "kind": "text",
+              "value": "00"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Watch the paper hands settle on nine o'clock.",
+                "hi": "कागज़ी सुइयों को नौ बजे पर टिकते देखें।",
+                "hi-latn": "Paper hands ko nau baje par settle hote dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.tell-time"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.tell-time.template.04",
+          "templateId": "question-flip",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Flip the time statement into a question.",
+                "hi": "समय कथन को प्रश्न में बदलें।",
+                "hi-latn": "Time statement ko question mein flip karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.tell-time"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u03.tell-time.nine-oclock"
+            },
+            "statement": {
+              "kind": "text",
+              "value": "Es ist neun Uhr."
+            },
+            "question": {
+              "kind": "text",
+              "value": "Wie spät ist es?"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.tell-time.template.05",
+          "templateId": "picture-match",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the written time that matches nine o'clock.",
+                "hi": "नौ बजे से मिलता लिखा समय चुनें।",
+                "hi-latn": "Nau baje se matching written time choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.tell-time"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "nine",
+                  "label": "09:00 Uhr"
+                },
+                {
+                  "id": "ten",
+                  "label": "10:00 Uhr"
+                },
+                {
+                  "id": "nineteen",
+                  "label": "19:00 Uhr"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "nine"
+            },
+            "spoken-text": {
+              "kind": "text",
+              "value": "Es ist neun Uhr."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.tell-time.template.06",
+          "templateId": "gap-card",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Place the correct time phrase in the appointment sentence.",
+                "hi": "मिलने के वाक्य में सही समय वाक्यांश रखें।",
+                "hi-latn": "Appointment sentence mein correct time phrase rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.tell-time"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u03.tell-time.course-at-ten"
+            },
+            "sentence-before": {
+              "kind": "text",
+              "value": "Der Kurs beginnt"
+            },
+            "sentence-after": {
+              "kind": "text",
+              "value": "."
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "um-ten",
+                  "label": "um zehn Uhr"
+                },
+                {
+                  "id": "am-ten",
+                  "label": "am zehn Uhr"
+                },
+                {
+                  "id": "ten-only",
+                  "label": "zehn"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "um-ten"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.tell-time.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type the time shown on the paper clock.",
+                "hi": "कागज़ी घड़ी का समय बोलें या टाइप करें।",
+                "hi-latn": "Paper clock ka time bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.tell-time"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Wie spät ist es? Neun Uhr."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "nine",
+                  "label": "Es ist neun Uhr."
+                },
+                {
+                  "id": "short-nine",
+                  "label": "neun Uhr"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.tell-time.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review one time question, answer, and appointment phrase.",
+                "hi": "एक समय प्रश्न, उत्तर और मिलने का वाक्यांश दोहराएँ।",
+                "hi-latn": "Ek time question, answer aur appointment phrase review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.tell-time"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Wie spät?"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "question",
+                  "label": "Wie spät ist es?"
+                },
+                {
+                  "id": "answer",
+                  "label": "Es ist neun Uhr."
+                },
+                {
+                  "id": "appointment",
+                  "label": "um zehn Uhr"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Uhr nennt die Zeit, um setzt den Termin."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u03.name-days-dates",
+      "courseOrder": 25,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.name-days-dates.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Am Kalender"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the calendar desk and follow the date from left to right.",
+                "hi": "कैलेंडर मेज़ पर आएँ और तारीख बाएँ से दाएँ पढ़ें।",
+                "hi-latn": "Calendar desk par aayein aur date left se right follow karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.name-days-dates"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.name-days-dates.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a weekday and date inside one short exchange.",
+                "hi": "छोटी बातचीत में सप्ताह का दिन और तारीख पढ़ें।",
+                "hi-latn": "Short exchange mein weekday aur date padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.name-days-dates"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Wann ist der Termin?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Am Dienstag, den dritten Mai."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.name-days-dates.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "Kalenderteile"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through weekdays, day numbers, and months.",
+                "hi": "सप्ताह के दिन, तारीख और महीने देखें।",
+                "hi-latn": "Weekdays, date numbers aur months dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.name-days-dates"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "weekdays",
+                  "label": "Montag, Dienstag, Mittwoch, Donnerstag, Freitag"
+                },
+                {
+                  "id": "day-numbers",
+                  "label": "erster, zweiter, dritter, zehnter"
+                },
+                {
+                  "id": "months",
+                  "label": "Januar, März, Mai"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.name-days-dates.template.04",
+          "templateId": "schedule-read",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the synthetic calendar and choose Tuesday's date.",
+                "hi": "कृत्रिम कैलेंडर पढ़ें और मंगलवार की तारीख चुनें।",
+                "hi-latn": "Synthetic calendar padhein aur Tuesday ki date choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.name-days-dates"
+            },
+            "schedule-title": {
+              "kind": "text",
+              "value": "Terminkalender"
+            },
+            "entries": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "monday",
+                  "label": "Montag, 2. Mai, 09:00"
+                },
+                {
+                  "id": "tuesday",
+                  "label": "Dienstag, 3. Mai, 10:00"
+                },
+                {
+                  "id": "friday",
+                  "label": "Freitag, 6. Mai, 11:00"
+                }
+              ]
+            },
+            "question": {
+              "kind": "text",
+              "value": "Welches Datum steht bei Dienstag?"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "may-two",
+                  "label": "2. Mai"
+                },
+                {
+                  "id": "may-three",
+                  "label": "3. Mai"
+                },
+                {
+                  "id": "may-six",
+                  "label": "6. Mai"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "may-three"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.name-days-dates.template.05",
+          "templateId": "word-order-train",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Build the complete written appointment date.",
+                "hi": "मिलने की पूरी लिखी तारीख बनाएँ।",
+                "hi-latn": "Complete written appointment date banayein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.name-days-dates"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u03.name-days-dates.tuesday-third-may"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "am",
+                  "label": "am"
+                },
+                {
+                  "id": "tuesday",
+                  "label": "Dienstag,"
+                },
+                {
+                  "id": "third",
+                  "label": "den dritten"
+                },
+                {
+                  "id": "may",
+                  "label": "Mai"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.name-days-dates.template.06",
+          "templateId": "note-write",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Write a short calendar note with weekday and date.",
+                "hi": "सप्ताह के दिन और तारीख के साथ छोटा कैलेंडर नोट लिखें।",
+                "hi-latn": "Weekday aur date ke saath short calendar note likhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.name-days-dates"
+            },
+            "stationery-title": {
+              "kind": "text",
+              "value": "Terminzettel"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Notieren Sie den Termin: Dienstag, 3. Mai."
+            },
+            "required-content": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "tuesday",
+                  "label": "Dienstag"
+                },
+                {
+                  "id": "date",
+                  "label": "3. Mai"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.name-days-dates.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type the full appointment date.",
+                "hi": "मिलने की पूरी तारीख बोलें या टाइप करें।",
+                "hi-latn": "Complete appointment date bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.name-days-dates"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Wann ist der Termin? Dienstag, dritter Mai."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "full-date",
+                  "label": "am Dienstag, den dritten Mai"
+                },
+                {
+                  "id": "short-date",
+                  "label": "Dienstag, 3. Mai"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.name-days-dates.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the weekday, day number, and month together.",
+                "hi": "सप्ताह का दिन, तारीख और महीना साथ दोहराएँ।",
+                "hi-latn": "Weekday, date number aur month saath review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.name-days-dates"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Dienstag, 3. Mai"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "weekday",
+                  "label": "Dienstag"
+                },
+                {
+                  "id": "day",
+                  "label": "dritter"
+                },
+                {
+                  "id": "month",
+                  "label": "Mai"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Ein Datum hält Wochentag, Tag und Monat zusammen."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "source.de.a1.u03.cefr-2020",
+      "title": "Common European Framework of Reference for Languages: Companion volume",
+      "citation": "Council of Europe (2020), CEFR Companion Volume, Council of Europe Publishing.",
+      "url": "https://rm.coe.int/cefr-companion-volume-with-new-descriptors-2020/16809ea0d4",
+      "claim": "Supports the approximate A1 scope of basic numbers, times, dates, prices, short information exchange, and simple scheduling. No descriptor wording is copied.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Council of Europe",
+        "licenseTextLocation": "https://rm.coe.int/cefr-companion-volume-with-new-descriptors-2020/16809ea0d4",
+        "intendedUse": "Citation and reference only. Source wording is not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Council of Europe (2020), CEFR Companion Volume.",
+        "reviewStatus": "pending"
+      },
+      "notes": "A1 alignment remains an internal approximation pending pedagogical review."
+    },
+    {
+      "id": "source.de.a1.u03.goethe-glossary-1",
+      "title": "Deutsch Online A1 glossary, Chapter 1",
+      "citation": "Goethe-Institut, Deutsch Online A1, Glossary, Chapter 1.",
+      "url": "https://lernen.goethe.de/deutschonline/A1/PDF/EN/A1_deutschonline_course_vocabulary_1.pdf",
+      "claim": "Supports beginner number and personal-information forms used in independently authored examples.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Goethe-Institut e.V.",
+        "licenseTextLocation": "https://www.goethe.de/en/imp.html",
+        "intendedUse": "Citation and reference only. Exercises and source wording are not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Goethe-Institut, Deutsch Online A1 glossary, Chapter 1.",
+        "reviewStatus": "pending"
+      },
+      "notes": "The pack contains short original examples, not copied exercises, recordings, or images."
+    },
+    {
+      "id": "source.de.a1.u03.goethe-glossary-3",
+      "title": "Deutsch Online A1 glossary, Chapter 3",
+      "citation": "Goethe-Institut, Deutsch Online A1, Glossary, Chapter 3.",
+      "url": "https://lernen.goethe.de/deutschonline/A1/PDF/EN/A1_deutschonline_course_vocabulary_3.pdf",
+      "claim": "Supports beginner time, birthday, weekday, and appointment forms used in independently authored examples.",
+      "license": {
+        "identifier": "All-Rights-Reserved",
+        "copyrightHolder": "Goethe-Institut e.V.",
+        "licenseTextLocation": "https://www.goethe.de/en/imp.html",
+        "intendedUse": "Citation and reference only. Exercises and source wording are not redistributed.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Goethe-Institut, Deutsch Online A1 glossary, Chapter 3.",
+        "reviewStatus": "pending"
+      },
+      "notes": "The pack contains short original examples, not copied exercises, recordings, or images."
+    },
+    {
+      "id": "source.de.a1.u03.dib-numbers",
+      "title": "Deutsch im Blick: Kapitel Eins vocabulary, Zahlen",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin, Deutsch im Blick, Kapitel 1.",
+      "url": "https://coerll.utexas.edu/dib/voc.php?k=1&s=8",
+      "claim": "Supports German number forms through one hundred used in original lesson wording.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://www.coerll.utexas.edu/dib/pdfs/DeutschImBlick-textbook.pdf",
+        "intendedUse": "Reference for original compact teaching text with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Deutsch im Blick, COERLL, University of Texas at Austin, CC BY 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source exercise, recording, image, or extended passage is bundled."
+    },
+    {
+      "id": "source.de.a1.u03.dib-time",
+      "title": "Deutsch im Blick: Kapitel Zwei vocabulary, Es ist Zeit",
+      "citation": "Center for Open Educational Resources and Language Learning, University of Texas at Austin, Deutsch im Blick, Kapitel 2.",
+      "url": "https://coerll.utexas.edu/dib/voc.php?k=2",
+      "claim": "Supports time, weekday, and schedule expressions used in original lesson wording.",
+      "license": {
+        "identifier": "CC-BY-4.0",
+        "copyrightHolder": "University of Texas at Austin",
+        "licenseTextLocation": "https://www.coerll.utexas.edu/dib/pdfs/DeutschImBlick-textbook.pdf",
+        "intendedUse": "Reference for original compact teaching text with attribution.",
+        "modificationReviewed": false,
+        "redistributionReviewed": false,
+        "requiredAttribution": "Deutsch im Blick, COERLL, University of Texas at Austin, CC BY 4.0.",
+        "reviewStatus": "pending"
+      },
+      "notes": "No source exercise, recording, image, or extended passage is bundled."
+    }
+  ]
+}
