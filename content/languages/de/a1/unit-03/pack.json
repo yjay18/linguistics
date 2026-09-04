@@ -4751,6 +4751,1968 @@
           }
         }
       ]
+    },
+    {
+      "id": "lesson.de.a1.u03.say-birthday",
+      "courseOrder": 26,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.say-birthday.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Am Geburtstagstisch"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the birthday desk and notice one personal date.",
+                "hi": "जन्मदिन मेज़ पर आएँ और एक व्यक्तिगत तारीख देखें।",
+                "hi-latn": "Birthday desk par aayein aur ek personal date notice karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.say-birthday"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.say-birthday.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read a birthday question and complete answer.",
+                "hi": "जन्मदिन का प्रश्न और पूरा उत्तर पढ़ें।",
+                "hi-latn": "Birthday question aur complete answer padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.say-birthday"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Wann hast du Geburtstag?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Ich habe am dritten Mai Geburtstag."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.say-birthday.template.03",
+          "templateId": "postcard-story",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn a birthday card and read its complete date note.",
+                "hi": "जन्मदिन कार्ड पलटें और पूरी तारीख का नोट पढ़ें।",
+                "hi-latn": "Birthday card turn karein aur complete date note padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.say-birthday"
+            },
+            "front-title": {
+              "kind": "text",
+              "value": "Alles Gute!"
+            },
+            "front-caption": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "A text-only birthday card with a written date.",
+                "hi": "लिखी तारीख वाला केवल-पाठ जन्मदिन कार्ड।",
+                "hi-latn": "Written date wala text-only birthday card."
+              }
+            },
+            "back-title": {
+              "kind": "text",
+              "value": "Geburtstag"
+            },
+            "back-body": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Samir has his birthday on the third of May.",
+                "hi": "समीर का जन्मदिन तीन मई को है।",
+                "hi-latn": "Samir ka birthday teen May ko hai."
+              }
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.say-birthday.template.04",
+          "templateId": "form-fill",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Copy the synthetic birthday details into the local form.",
+                "hi": "कृत्रिम जन्मदिन विवरण स्थानीय फ़ॉर्म में लिखें।",
+                "hi-latn": "Synthetic birthday details local form mein copy karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.say-birthday"
+            },
+            "form-title": {
+              "kind": "text",
+              "value": "Geburtstagskarte"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Name: Samir. Tag: 3. Monat: Mai."
+            },
+            "fields": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "name",
+                  "label": "Name"
+                },
+                {
+                  "id": "day",
+                  "label": "Tag"
+                },
+                {
+                  "id": "month",
+                  "label": "Monat"
+                }
+              ]
+            },
+            "answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "name",
+                  "label": "Samir"
+                },
+                {
+                  "id": "day",
+                  "label": "3"
+                },
+                {
+                  "id": "month",
+                  "label": "Mai"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.say-birthday.template.05",
+          "templateId": "word-order-train",
+          "templateVersion": 1,
+          "parameters": {
+            "prompt": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Build the complete birthday sentence in order.",
+                "hi": "पूरा जन्मदिन वाक्य सही क्रम में बनाएँ।",
+                "hi-latn": "Complete birthday sentence sahi order mein banayein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.say-birthday"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u03.say-birthday.birthday-third-may"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "ich",
+                  "label": "Ich"
+                },
+                {
+                  "id": "have",
+                  "label": "habe"
+                },
+                {
+                  "id": "date",
+                  "label": "am dritten Mai"
+                },
+                {
+                  "id": "birthday",
+                  "label": "Geburtstag."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.say-birthday.template.06",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type the complete birthday date.",
+                "hi": "जन्मदिन की पूरी तारीख बोलें या टाइप करें।",
+                "hi-latn": "Complete birthday date bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.say-birthday"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Wann hast du Geburtstag?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "full",
+                  "label": "Ich habe am dritten Mai Geburtstag."
+                },
+                {
+                  "id": "date",
+                  "label": "am dritten Mai"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.say-birthday.template.07",
+          "templateId": "read-aloud-card",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read aloud or type the authored birthday sentence.",
+                "hi": "लिखा जन्मदिन वाक्य बोलें या टाइप करें।",
+                "hi-latn": "Authored birthday sentence bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.say-birthday"
+            },
+            "card-text": {
+              "kind": "text",
+              "value": "Ich habe am dritten Mai Geburtstag."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-transcripts": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "birthday",
+                  "label": "Ich habe am dritten Mai Geburtstag."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.say-birthday.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the birthday question, date, and complete answer.",
+                "hi": "जन्मदिन प्रश्न, तारीख और पूरा उत्तर दोहराएँ।",
+                "hi-latn": "Birthday question, date aur complete answer review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.say-birthday"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Geburtstag"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "question",
+                  "label": "Wann hast du Geburtstag?"
+                },
+                {
+                  "id": "date",
+                  "label": "am dritten Mai"
+                },
+                {
+                  "id": "answer",
+                  "label": "Ich habe Geburtstag."
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Die persönliche Angabe bleibt freiwillig und lokal."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u03.hear-prices-times",
+      "courseOrder": 27,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.hear-prices-times.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Am Hörstand"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the listening counter and compare close number sequences.",
+                "hi": "सुनने की मेज़ पर आएँ और मिलती संख्या श्रेणियाँ तुलना करें।",
+                "hi-latn": "Listening counter par aayein aur close number sequences compare karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.hear-prices-times"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.hear-prices-times.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read two similar prices before listening practice.",
+                "hi": "सुनने के अभ्यास से पहले दो मिलती कीमतें पढ़ें।",
+                "hi-latn": "Listening practice se pehle do similar prices padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.hear-prices-times"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Vierzehn Euro?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Nein, vierzig Euro."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.hear-prices-times.template.03",
+          "templateId": "listen-price-tag",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then choose the matching price tag.",
+                "hi": "सुनें या पढ़ें, फिर मिलती कीमत टैग चुनें।",
+                "hi-latn": "Sunein ya padhein, phir matching price tag choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.hear-prices-times"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Das kostet vierzehn Euro."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "fourteen",
+                  "label": "14 €"
+                },
+                {
+                  "id": "forty",
+                  "label": "40 €"
+                },
+                {
+                  "id": "four",
+                  "label": "4 €"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "fourteen"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.hear-prices-times.template.04",
+          "templateId": "minimal-pair-doors",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the written amount that matches the full number word.",
+                "hi": "पूरे संख्या शब्द से मिलती लिखी मात्रा चुनें।",
+                "hi-latn": "Complete number word se matching written amount choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.hear-prices-times"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "vierzig Euro"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "fourteen",
+                  "label": "14 €"
+                },
+                {
+                  "id": "forty",
+                  "label": "40 €"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "forty"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.hear-prices-times.template.05",
+          "templateId": "long-short-vowel",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then mark the long vowel in zehn.",
+                "hi": "सुनें या पढ़ें, फिर zehn में लंबा स्वर चुनें।",
+                "hi-latn": "Sunein ya padhein, phir zehn mein long vowel mark karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.hear-prices-times"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "zehn"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "contrast-label": {
+              "kind": "text",
+              "value": "e vowel length"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "long-e",
+                  "label": "long e"
+                },
+                {
+                  "id": "short-e",
+                  "label": "short e"
+                }
+              ]
+            },
+            "long-option": {
+              "kind": "text",
+              "value": "long-e"
+            },
+            "answer": {
+              "kind": "text",
+              "value": "long-e"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.hear-prices-times.template.06",
+          "templateId": "listen-type",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then type the exact price phrase.",
+                "hi": "सुनें या पढ़ें, फिर सही कीमत वाक्यांश टाइप करें।",
+                "hi-latn": "Sunein ya padhein, phir exact price phrase type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.hear-prices-times"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "vierzehn Euro"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "fourteen",
+                  "label": "vierzehn Euro"
+                },
+                {
+                  "id": "digits",
+                  "label": "14 Euro"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.hear-prices-times.template.07",
+          "templateId": "listen-price-tag",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read a time, then choose the matching paper tag.",
+                "hi": "समय सुनें या पढ़ें, फिर मिलती कागज़ी टैग चुनें।",
+                "hi-latn": "Time sunein ya padhein, phir matching paper tag choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.hear-prices-times"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Der Termin ist um vierzehn Uhr."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "time-14",
+                  "label": "14:00"
+                },
+                {
+                  "id": "time-40",
+                  "label": "40:00"
+                },
+                {
+                  "id": "time-4",
+                  "label": "04:00"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "time-14"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.hear-prices-times.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the number contrasts used in prices and times.",
+                "hi": "कीमत और समय में आए संख्या अंतर दोहराएँ।",
+                "hi-latn": "Prices aur times ke number contrasts review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.hear-prices-times"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Hören und prüfen"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "fourteen",
+                  "label": "vierzehn"
+                },
+                {
+                  "id": "forty",
+                  "label": "vierzig"
+                },
+                {
+                  "id": "ten",
+                  "label": "zehn Uhr"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Das ganze Zahlenwort entscheidet."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u03.read-opening-hours",
+      "courseOrder": 28,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.read-opening-hours.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Vor der Bibliothek"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the library door and inspect its complete written hours.",
+                "hi": "पुस्तकालय द्वार पर आएँ और पूरा लिखा समय देखें।",
+                "hi-latn": "Library door par aayein aur complete written hours inspect karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.read-opening-hours"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.read-opening-hours.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read when the library opens and closes.",
+                "hi": "पढ़ें कि पुस्तकालय कब खुलता और बंद होता है।",
+                "hi-latn": "Padhein ki library kab opens aur closes."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.read-opening-hours"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Wann öffnet die Bibliothek?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Um neun Uhr. Sie schließt um achtzehn Uhr."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.read-opening-hours.template.03",
+          "templateId": "sign-reading",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the complete text-only opening-hours sign.",
+                "hi": "केवल-पाठ में पूरा खुलने का संकेत पढ़ें।",
+                "hi-latn": "Complete text-only opening-hours sign padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.read-opening-hours"
+            },
+            "sign-text": {
+              "kind": "text",
+              "value": "MONTAG BIS FREITAG: 09:00 BIS 18:00 UHR"
+            },
+            "context": {
+              "kind": "text",
+              "value": "A paper opening-hours sign hangs beside the library door."
+            },
+            "question": {
+              "kind": "text",
+              "value": "Wann öffnet die Bibliothek?"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "nine",
+                  "label": "09:00 Uhr"
+                },
+                {
+                  "id": "eighteen",
+                  "label": "18:00 Uhr"
+                },
+                {
+                  "id": "ten",
+                  "label": "10:00 Uhr"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "nine"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.read-opening-hours.template.04",
+          "templateId": "schedule-read",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the synthetic schedule and choose Saturday's opening time.",
+                "hi": "कृत्रिम समय-सारणी पढ़ें और शनिवार का खुलने का समय चुनें।",
+                "hi-latn": "Synthetic schedule padhein aur Saturday ka opening time choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.read-opening-hours"
+            },
+            "schedule-title": {
+              "kind": "text",
+              "value": "Stadtbibliothek"
+            },
+            "entries": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "weekdays",
+                  "label": "Montag bis Freitag: 09:00 bis 18:00"
+                },
+                {
+                  "id": "saturday",
+                  "label": "Samstag: 10:00 bis 14:00"
+                },
+                {
+                  "id": "sunday",
+                  "label": "Sonntag: geschlossen"
+                }
+              ]
+            },
+            "question": {
+              "kind": "text",
+              "value": "Wann öffnet die Bibliothek am Samstag?"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "nine",
+                  "label": "09:00 Uhr"
+                },
+                {
+                  "id": "ten",
+                  "label": "10:00 Uhr"
+                },
+                {
+                  "id": "fourteen",
+                  "label": "14:00 Uhr"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "ten"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.read-opening-hours.template.05",
+          "templateId": "listen-order",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Place opening and closing details in the order heard or read.",
+                "hi": "खुलने और बंद होने का विवरण सुने या पढ़े क्रम में रखें।",
+                "hi-latn": "Opening aur closing details heard ya read order mein rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.read-opening-hours"
+            },
+            "utterance": {
+              "kind": "text",
+              "value": "Montag bis Freitag, neun bis achtzehn Uhr"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "events": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "monday",
+                  "label": "Montag"
+                },
+                {
+                  "id": "friday",
+                  "label": "Freitag"
+                },
+                {
+                  "id": "nine",
+                  "label": "09:00"
+                },
+                {
+                  "id": "eighteen",
+                  "label": "18:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.read-opening-hours.template.06",
+          "templateId": "gap-card",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the range word between the two clock times.",
+                "hi": "दो घड़ी समय के बीच सीमा शब्द चुनें।",
+                "hi-latn": "Do clock times ke beech range word choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.read-opening-hours"
+            },
+            "example": {
+              "kind": "exampleReference",
+              "value": "example.de.a1.u03.read-opening-hours.weekday-hours"
+            },
+            "sentence-before": {
+              "kind": "text",
+              "value": "09:00"
+            },
+            "sentence-after": {
+              "kind": "text",
+              "value": "18:00 Uhr"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "bis",
+                  "label": "bis"
+                },
+                {
+                  "id": "um",
+                  "label": "um"
+                },
+                {
+                  "id": "am",
+                  "label": "am"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "bis"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.read-opening-hours.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Answer aloud or type Saturday's opening time.",
+                "hi": "शनिवार का खुलने का समय बोलें या टाइप करें।",
+                "hi-latn": "Saturday ka opening time bolein ya type karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.read-opening-hours"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Wann öffnet die Bibliothek am Samstag?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "ten",
+                  "label": "um zehn Uhr"
+                },
+                {
+                  "id": "full",
+                  "label": "Die Bibliothek öffnet um zehn Uhr."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.read-opening-hours.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the weekday and Saturday opening ranges.",
+                "hi": "सप्ताह और शनिवार के खुलने की सीमा दोहराएँ।",
+                "hi-latn": "Weekday aur Saturday opening ranges review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.read-opening-hours"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Öffnungszeiten"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "weekdays",
+                  "label": "Montag bis Freitag"
+                },
+                {
+                  "id": "weekday-hours",
+                  "label": "09:00 bis 18:00"
+                },
+                {
+                  "id": "saturday",
+                  "label": "Samstag: 10:00 bis 14:00"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Öffnen steht vor Schließen."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u03.confirm-appointment",
+      "courseOrder": 29,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.confirm-appointment.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Am Termintisch"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Enter the appointment desk and keep both date and time visible.",
+                "hi": "मिलने की मेज़ पर आएँ और तारीख तथा समय दोनों साफ़ रखें।",
+                "hi-latn": "Appointment desk par aayein aur date aur time dono visible rakhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.confirm-appointment"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.confirm-appointment.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read an exact appointment and its confirmation.",
+                "hi": "सही मिलने का समय और उसकी पुष्टि पढ़ें।",
+                "hi-latn": "Exact appointment aur uski confirmation padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.confirm-appointment"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Der Termin ist am Dienstag um zehn Uhr."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Dienstag um zehn Uhr, richtig?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.confirm-appointment.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "Terminkarte"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Turn through the appointment card one detail at a time.",
+                "hi": "मिलने के कार्ड में हर विवरण अलग देखें।",
+                "hi-latn": "Appointment card mein har detail one by one dekhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.confirm-appointment"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "day",
+                  "label": "Dienstag"
+                },
+                {
+                  "id": "date",
+                  "label": "3. Mai"
+                },
+                {
+                  "id": "time",
+                  "label": "10:00 Uhr"
+                },
+                {
+                  "id": "complete",
+                  "label": "Dienstag, 3. Mai, 10:00 Uhr"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.confirm-appointment.template.04",
+          "templateId": "dialogue-eavesdrop",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Listen or read, then choose the relayed appointment time.",
+                "hi": "सुनें या पढ़ें, फिर बताया मिलने का समय चुनें।",
+                "hi-latn": "Sunein ya padhein, phir relayed appointment time choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.confirm-appointment"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Der Termin ist am Dienstag um zehn Uhr."
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Dienstag um zehn Uhr, richtig?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "question": {
+              "kind": "text",
+              "value": "Wann ist der Termin?"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "tuesday-ten",
+                  "label": "Dienstag, 10:00 Uhr"
+                },
+                {
+                  "id": "wednesday-ten",
+                  "label": "Mittwoch, 10:00 Uhr"
+                },
+                {
+                  "id": "tuesday-eleven",
+                  "label": "Dienstag, 11:00 Uhr"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "tuesday-ten"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.confirm-appointment.template.05",
+          "templateId": "form-fill",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Copy the synthetic appointment details into the local form.",
+                "hi": "कृत्रिम मिलने के विवरण स्थानीय फ़ॉर्म में लिखें।",
+                "hi-latn": "Synthetic appointment details local form mein copy karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.confirm-appointment"
+            },
+            "form-title": {
+              "kind": "text",
+              "value": "Terminbestätigung"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Tag: Dienstag. Datum: 3. Mai. Uhrzeit: 10:00."
+            },
+            "fields": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "day",
+                  "label": "Tag"
+                },
+                {
+                  "id": "date",
+                  "label": "Datum"
+                },
+                {
+                  "id": "time",
+                  "label": "Uhrzeit"
+                }
+              ]
+            },
+            "answers": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "day",
+                  "label": "Dienstag"
+                },
+                {
+                  "id": "date",
+                  "label": "3. Mai"
+                },
+                {
+                  "id": "time",
+                  "label": "10:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.confirm-appointment.template.06",
+          "templateId": "note-write",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Write a short note with the exact appointment slot.",
+                "hi": "सही मिलने के समय के साथ छोटा नोट लिखें।",
+                "hi-latn": "Exact appointment slot ke saath short note likhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.confirm-appointment"
+            },
+            "stationery-title": {
+              "kind": "text",
+              "value": "Terminzettel"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Notieren Sie Dienstag um zehn Uhr."
+            },
+            "required-content": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "day",
+                  "label": "Dienstag"
+                },
+                {
+                  "id": "time",
+                  "label": "zehn Uhr"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.confirm-appointment.template.07",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Confirm the appointment aloud or through the typed path.",
+                "hi": "मिलने का समय बोलकर या टाइप करके पक्का करें।",
+                "hi-latn": "Appointment aloud ya typed path se confirm karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.confirm-appointment"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Der Termin ist am Dienstag um zehn Uhr. Richtig?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "yes",
+                  "label": "Ja, Dienstag um zehn Uhr."
+                },
+                {
+                  "id": "short",
+                  "label": "Dienstag um zehn Uhr."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.confirm-appointment.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the day, date, time, and confirmation together.",
+                "hi": "दिन, तारीख, समय और पुष्टि साथ दोहराएँ।",
+                "hi-latn": "Day, date, time aur confirmation saath review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.confirm-appointment"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Termin bestätigt"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "day",
+                  "label": "Dienstag"
+                },
+                {
+                  "id": "date",
+                  "label": "3. Mai"
+                },
+                {
+                  "id": "time",
+                  "label": "10:00 Uhr"
+                },
+                {
+                  "id": "confirm",
+                  "label": "richtig?"
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Eine genaue Bestätigung wiederholt Tag und Uhrzeit."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lesson.de.a1.u03.schedule-mission",
+      "courseOrder": 30,
+      "templateInstances": [
+        {
+          "id": "lesson.de.a1.u03.schedule-mission.template.01",
+          "templateId": "scene-establish",
+          "templateVersion": 1,
+          "parameters": {
+            "location": {
+              "kind": "text",
+              "value": "Vor dem Treffen"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Compare two schedules and find one shared meeting slot.",
+                "hi": "दो समय-सारणियाँ तुलना करें और एक साझा मिलने का समय खोजें।",
+                "hi-latn": "Do schedules compare karein aur ek shared meeting slot find karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.schedule-mission"
+            },
+            "cast": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "frau-keller",
+                  "label": "Frau Keller"
+                },
+                {
+                  "id": "samir",
+                  "label": "Samir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.schedule-mission.template.02",
+          "templateId": "paper-dialogue",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Read the proposed meeting time and agreement.",
+                "hi": "सुझाया मिलने का समय और सहमति पढ़ें।",
+                "hi-latn": "Proposed meeting time aur agreement padhein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.schedule-mission"
+            },
+            "speaker-one": {
+              "kind": "text",
+              "value": "Frau Keller"
+            },
+            "line-one": {
+              "kind": "text",
+              "value": "Treffen wir uns am Mittwoch um fünfzehn Uhr?"
+            },
+            "speaker-two": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "line-two": {
+              "kind": "text",
+              "value": "Ja, Mittwoch um fünfzehn Uhr passt."
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.schedule-mission.template.03",
+          "templateId": "photo-album",
+          "templateVersion": 1,
+          "parameters": {
+            "title": {
+              "kind": "text",
+              "value": "Zwei Kalender"
+            },
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the two synthetic schedules and shared slot.",
+                "hi": "दो कृत्रिम समय-सारणियाँ और साझा समय देखें।",
+                "hi-latn": "Do synthetic schedules aur shared slot review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.schedule-mission"
+            },
+            "pages": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "calendar-a",
+                  "label": "Kalender A: Mittwoch 15:00 frei"
+                },
+                {
+                  "id": "calendar-b",
+                  "label": "Kalender B: Mittwoch 15:00 frei"
+                },
+                {
+                  "id": "shared",
+                  "label": "Gemeinsam: Mittwoch 15:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.schedule-mission.template.04",
+          "templateId": "schedule-read",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the only meeting slot shared by both schedules.",
+                "hi": "दोनों समय-सारणियों में साझा एकमात्र मिलने का समय चुनें।",
+                "hi-latn": "Dono schedules mein shared only meeting slot choose karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.schedule-mission"
+            },
+            "schedule-title": {
+              "kind": "text",
+              "value": "Gemeinsame Zeit"
+            },
+            "entries": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "calendar-a",
+                  "label": "Samir: Dienstag 10:00, Mittwoch 15:00"
+                },
+                {
+                  "id": "calendar-b",
+                  "label": "Frau Keller: Mittwoch 15:00, Freitag 11:00"
+                }
+              ]
+            },
+            "question": {
+              "kind": "text",
+              "value": "Wann haben beide Zeit?"
+            },
+            "options": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "tuesday-ten",
+                  "label": "Dienstag 10:00"
+                },
+                {
+                  "id": "wednesday-fifteen",
+                  "label": "Mittwoch 15:00"
+                },
+                {
+                  "id": "friday-eleven",
+                  "label": "Freitag 11:00"
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "wednesday-fifteen"
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.schedule-mission.template.05",
+          "templateId": "scenario-theatre",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Choose the response that proposes the shared meeting slot.",
+                "hi": "वह उत्तर चुनें जो साझा मिलने का समय सुझाता है।",
+                "hi-latn": "Woh response choose karein jo shared meeting slot propose karta hai."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.schedule-mission"
+            },
+            "task": {
+              "kind": "taskReference",
+              "value": "de.a1.u03.task.schedule-meeting"
+            },
+            "state-label": {
+              "kind": "text",
+              "value": "1 VON 3: TERMIN VORSCHLAGEN"
+            },
+            "npc-line": {
+              "kind": "text",
+              "value": "Wann können wir uns treffen?"
+            },
+            "responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "shared",
+                  "label": "Am Mittwoch um fünfzehn Uhr."
+                },
+                {
+                  "id": "tuesday",
+                  "label": "Am Dienstag um zehn Uhr."
+                },
+                {
+                  "id": "unsure",
+                  "label": "Vielleicht irgendwann."
+                }
+              ]
+            },
+            "answer": {
+              "kind": "text",
+              "value": "shared"
+            },
+            "retry-hint": {
+              "kind": "text",
+              "value": "Vergleichen Sie beide Kalender und nennen Sie den gemeinsamen Termin."
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.schedule-mission.template.06",
+          "templateId": "prompt-respond",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Confirm the shared slot aloud or through the typed path.",
+                "hi": "साझा समय बोलकर या टाइप करके पक्का करें।",
+                "hi-latn": "Shared slot aloud ya typed path se confirm karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.schedule-mission"
+            },
+            "speaker": {
+              "kind": "text",
+              "value": "Samir"
+            },
+            "prompt": {
+              "kind": "text",
+              "value": "Mittwoch um fünfzehn Uhr?"
+            },
+            "speech-language": {
+              "kind": "text",
+              "value": "de"
+            },
+            "accepted-responses": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "yes",
+                  "label": "Ja, Mittwoch um fünfzehn Uhr passt."
+                },
+                {
+                  "id": "short",
+                  "label": "Mittwoch um fünfzehn Uhr passt."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.schedule-mission.template.07",
+          "templateId": "unit-capstone",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Complete each authored scheduling step in order.",
+                "hi": "समय तय करने का हर लिखा चरण सही क्रम में पूरा करें।",
+                "hi-latn": "Har authored scheduling step sahi order mein complete karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.schedule-mission"
+            },
+            "unit-label": {
+              "kind": "text",
+              "value": "Einheit 3"
+            },
+            "goal": {
+              "kind": "text",
+              "value": "Einen gemeinsamen Termin finden und bestätigen."
+            },
+            "steps": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "Kalender lesen"
+                },
+                {
+                  "id": "choose",
+                  "label": "Termin wählen"
+                },
+                {
+                  "id": "propose",
+                  "label": "Termin vorschlagen"
+                },
+                {
+                  "id": "confirm",
+                  "label": "Termin bestätigen"
+                }
+              ]
+            },
+            "template-chain": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "read",
+                  "label": "schedule-read"
+                },
+                {
+                  "id": "choose",
+                  "label": "picture-match"
+                },
+                {
+                  "id": "propose",
+                  "label": "scenario-theatre"
+                },
+                {
+                  "id": "confirm",
+                  "label": "prompt-respond"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "lesson.de.a1.u03.schedule-mission.template.08",
+          "templateId": "recap-scrapbook",
+          "templateVersion": 1,
+          "parameters": {
+            "instruction": {
+              "kind": "textByLanguage",
+              "textByLanguage": {
+                "en": "Review the shared day, time, proposal, and confirmation.",
+                "hi": "साझा दिन, समय, प्रस्ताव और पुष्टि दोहराएँ।",
+                "hi-latn": "Shared day, time, proposal aur confirmation review karein."
+              }
+            },
+            "concept": {
+              "kind": "conceptReference",
+              "value": "de.a1.u03.schedule-mission"
+            },
+            "title": {
+              "kind": "text",
+              "value": "Terminmission"
+            },
+            "pieces": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "day",
+                  "label": "Mittwoch"
+                },
+                {
+                  "id": "time",
+                  "label": "15:00 Uhr"
+                },
+                {
+                  "id": "proposal",
+                  "label": "Treffen wir uns?"
+                },
+                {
+                  "id": "confirm",
+                  "label": "Ja, das passt."
+                }
+              ]
+            },
+            "closing": {
+              "kind": "text",
+              "value": "Ein gemeinsamer Termin wird vorgeschlagen und bestätigt."
+            },
+            "actions": {
+              "kind": "optionList",
+              "options": [
+                {
+                  "id": "review",
+                  "label": "Noch einmal"
+                },
+                {
+                  "id": "finish",
+                  "label": "Fertig"
+                }
+              ]
+            },
+            "acknowledgement": {
+              "kind": "text",
+              "value": "Die geschriebenen Lernstücke bleiben zusammen."
+            }
+          }
+        }
+      ]
     }
   ],
   "sources": [

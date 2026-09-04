@@ -67,8 +67,8 @@ public sealed class ContentPackTests
         Assert.AreEqual(79, unitOne.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
         Assert.HasCount(10, unitTwo.Lessons);
         Assert.AreEqual(80, unitTwo.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
-        Assert.HasCount(5, unitThree.Lessons);
-        Assert.AreEqual(40, unitThree.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
+        Assert.HasCount(10, unitThree.Lessons);
+        Assert.AreEqual(80, unitThree.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
         Assert.HasCount(1, unitOne.CourseUnits!);
         Assert.HasCount(1, unitTwo.CourseUnits!);
         Assert.HasCount(1, unitThree.CourseUnits!);
@@ -310,8 +310,8 @@ public sealed class ContentPackTests
 
         Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
         Assert.AreEqual(450, catalog.TargetLessonCount);
-        Assert.AreEqual(25, catalog.AuthoredLessonCount);
-        Assert.AreEqual(425, catalog.RemainingLessonCount);
+        Assert.AreEqual(30, catalog.AuthoredLessonCount);
+        Assert.AreEqual(420, catalog.RemainingLessonCount);
         Assert.AreEqual("Meet and greet", catalog.Units[0].Title);
         Assert.AreEqual("Greet for the time of day", catalog.Units[0].Lessons[0].Title);
         Assert.AreEqual("Learn in German", catalog.Units[1].Title);
@@ -347,6 +347,11 @@ public sealed class ContentPackTests
                 "lesson.de.a1.u03.share-phone-number",
                 "lesson.de.a1.u03.tell-time",
                 "lesson.de.a1.u03.name-days-dates",
+                "lesson.de.a1.u03.say-birthday",
+                "lesson.de.a1.u03.hear-prices-times",
+                "lesson.de.a1.u03.read-opening-hours",
+                "lesson.de.a1.u03.confirm-appointment",
+                "lesson.de.a1.u03.schedule-mission",
             },
             lessons.Select(lesson => lesson.Id).ToArray());
         Assert.IsTrue(lessons.All(lesson => lesson.Slides.Count >= 7));
@@ -782,6 +787,19 @@ public sealed class ContentPackTests
             .Single(instance => instance.TemplateId == new TemplateId("schedule-read"));
         var dateNote = dateLesson.TemplateInstances
             .Single(instance => instance.TemplateId == new TemplateId("note-write"));
+        var birthdayOrder = unit.Lessons[5].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("word-order-train"));
+        var priceChoice = unit.Lessons[6].TemplateInstances
+            .First(instance => instance.TemplateId == new TemplateId("listen-price-tag"));
+        var openingChoice = unit.Lessons[7].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("schedule-read"));
+        var appointmentChoice = unit.Lessons[8].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("dialogue-eavesdrop"));
+        var mission = unit.Lessons[9];
+        var missionScenario = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("scenario-theatre"));
+        var missionCapstone = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("unit-capstone"));
 
         var countingOptions = counting.Parameters["options"].Options!;
         var countingAnswer = counting.Parameters["answer"].Value!;
@@ -881,6 +899,103 @@ public sealed class ContentPackTests
             TemplateInteractionEvaluator.EvaluateRequiredContent(
                 requiredDate,
                 "Termin: Dienstag.").State);
+
+        var birthdayOptions = birthdayOrder.Parameters["options"].Options!;
+        var birthdayIds = birthdayOptions.Select(option => option.Id).ToArray();
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateWordOrder(
+                birthdayOptions,
+                birthdayIds).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateWordOrder(
+                birthdayOptions,
+                birthdayIds.Reverse().ToArray()).State);
+
+        var priceOptions = priceChoice.Parameters["options"].Options!;
+        var priceAnswer = priceChoice.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                priceOptions,
+                priceAnswer,
+                "fourteen").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                priceOptions,
+                priceAnswer,
+                "forty").State);
+
+        var openingOptions = openingChoice.Parameters["options"].Options!;
+        var openingAnswer = openingChoice.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                openingOptions,
+                openingAnswer,
+                "ten").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                openingOptions,
+                openingAnswer,
+                "nine").State);
+
+        var appointmentOptions = appointmentChoice.Parameters["options"].Options!;
+        var appointmentAnswer = appointmentChoice.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                appointmentOptions,
+                appointmentAnswer,
+                "tuesday-ten").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                appointmentOptions,
+                appointmentAnswer,
+                "wednesday-ten").State);
+
+        var missionResponses = missionScenario.Parameters["responses"].Options!;
+        var missionAnswer = missionScenario.Parameters["answer"].Value!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                missionResponses,
+                missionAnswer,
+                "shared").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                missionResponses,
+                missionAnswer,
+                "tuesday").State);
+
+        var missionSteps = missionCapstone.Parameters["steps"].Options!;
+        var missionChain = missionCapstone.Parameters["template-chain"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                [],
+                "read").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                ["read"],
+                "propose").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                ["read", "choose", "propose"],
+                "confirm").State);
     }
 
     [TestMethod]
