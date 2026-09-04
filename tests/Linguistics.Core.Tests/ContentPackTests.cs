@@ -24,7 +24,7 @@ public sealed class ContentPackTests
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
 
         Assert.AreEqual(ContentLoadPolicy.AuthoringPreview, catalog.Policy);
-        Assert.HasCount(10, catalog.Packs);
+        Assert.HasCount(11, catalog.Packs);
         var german = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.core");
         var unitOne = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit01");
         var unitTwo = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit02");
@@ -33,6 +33,7 @@ public sealed class ContentPackTests
         var unitFive = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit05");
         var unitSix = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit06");
         var unitSeven = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit07");
+        var unitEight = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit08");
         Assert.HasCount(13, german.Concepts);
         Assert.HasCount(10, unitOne.Concepts);
         Assert.HasCount(10, unitTwo.Concepts);
@@ -41,6 +42,7 @@ public sealed class ContentPackTests
         Assert.HasCount(10, unitFive.Concepts);
         Assert.HasCount(10, unitSix.Concepts);
         Assert.HasCount(10, unitSeven.Concepts);
+        Assert.HasCount(10, unitEight.Concepts);
         Assert.HasCount(26, unitOne.Lexicon);
         Assert.HasCount(26, unitTwo.Lexicon);
         Assert.HasCount(26, unitThree.Lexicon);
@@ -48,6 +50,7 @@ public sealed class ContentPackTests
         Assert.HasCount(32, unitFive.Lexicon);
         Assert.HasCount(32, unitSix.Lexicon);
         Assert.HasCount(32, unitSeven.Lexicon);
+        Assert.HasCount(32, unitEight.Lexicon);
         Assert.HasCount(4, german.Tasks);
         Assert.HasCount(1, unitOne.Tasks);
         Assert.HasCount(1, unitTwo.Tasks);
@@ -56,6 +59,7 @@ public sealed class ContentPackTests
         Assert.HasCount(1, unitFive.Tasks);
         Assert.HasCount(1, unitSix.Tasks);
         Assert.HasCount(1, unitSeven.Tasks);
+        Assert.HasCount(1, unitEight.Tasks);
         Assert.HasCount(5, german.ErrorRules);
         Assert.HasCount(10, unitOne.ErrorRules);
         Assert.HasCount(10, unitTwo.ErrorRules);
@@ -64,6 +68,7 @@ public sealed class ContentPackTests
         Assert.HasCount(10, unitFive.ErrorRules);
         Assert.HasCount(10, unitSix.ErrorRules);
         Assert.HasCount(10, unitSeven.ErrorRules);
+        Assert.HasCount(10, unitEight.ErrorRules);
         Assert.HasCount(10, unitOne.FeedbackTemplates);
         Assert.HasCount(10, unitTwo.FeedbackTemplates);
         Assert.HasCount(10, unitThree.FeedbackTemplates);
@@ -71,6 +76,7 @@ public sealed class ContentPackTests
         Assert.HasCount(10, unitFive.FeedbackTemplates);
         Assert.HasCount(10, unitSix.FeedbackTemplates);
         Assert.HasCount(10, unitSeven.FeedbackTemplates);
+        Assert.HasCount(10, unitEight.FeedbackTemplates);
         Assert.HasCount(4, german.Rubrics);
         Assert.HasCount(1, unitOne.Rubrics);
         Assert.HasCount(1, unitTwo.Rubrics);
@@ -79,6 +85,7 @@ public sealed class ContentPackTests
         Assert.HasCount(1, unitFive.Rubrics);
         Assert.HasCount(1, unitSix.Rubrics);
         Assert.HasCount(1, unitSeven.Rubrics);
+        Assert.HasCount(1, unitEight.Rubrics);
         Assert.HasCount(4, german.PronunciationUtterances);
         Assert.HasCount(10, unitOne.PronunciationUtterances);
         Assert.HasCount(10, unitTwo.PronunciationUtterances);
@@ -87,6 +94,7 @@ public sealed class ContentPackTests
         Assert.HasCount(10, unitFive.PronunciationUtterances);
         Assert.HasCount(10, unitSix.PronunciationUtterances);
         Assert.HasCount(10, unitSeven.PronunciationUtterances);
+        Assert.HasCount(10, unitEight.PronunciationUtterances);
         Assert.AreEqual(4, german.Manifest.SchemaVersion);
         Assert.AreEqual(4, unitOne.Manifest.SchemaVersion);
         Assert.AreEqual(4, unitTwo.Manifest.SchemaVersion);
@@ -95,6 +103,7 @@ public sealed class ContentPackTests
         Assert.AreEqual(4, unitFive.Manifest.SchemaVersion);
         Assert.AreEqual(4, unitSix.Manifest.SchemaVersion);
         Assert.AreEqual(4, unitSeven.Manifest.SchemaVersion);
+        Assert.AreEqual(4, unitEight.Manifest.SchemaVersion);
         Assert.IsTrue(catalog.Packs
             .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
             .All(pack => pack.Manifest.SchemaVersion == 3));
@@ -113,6 +122,8 @@ public sealed class ContentPackTests
         Assert.AreEqual(80, unitSix.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
         Assert.HasCount(10, unitSeven.Lessons);
         Assert.AreEqual(80, unitSeven.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
+        Assert.HasCount(10, unitEight.Lessons);
+        Assert.AreEqual(80, unitEight.Lessons.Sum(lesson => lesson.TemplateInstances.Count));
         Assert.HasCount(1, unitOne.CourseUnits!);
         Assert.HasCount(1, unitTwo.CourseUnits!);
         Assert.HasCount(1, unitThree.CourseUnits!);
@@ -120,6 +131,7 @@ public sealed class ContentPackTests
         Assert.HasCount(1, unitFive.CourseUnits!);
         Assert.HasCount(1, unitSix.CourseUnits!);
         Assert.HasCount(1, unitSeven.CourseUnits!);
+        Assert.HasCount(1, unitEight.CourseUnits!);
         Assert.IsTrue(catalog.Packs
             .Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer)
             .All(pack => pack.Lessons.Count == 0));
@@ -138,6 +150,8 @@ public sealed class ContentPackTests
         Assert.IsTrue(unitSix.PronunciationUtterances.All(utterance =>
             utterance.AssessmentMode == PronunciationAssessmentMode.None));
         Assert.IsTrue(unitSeven.PronunciationUtterances.All(utterance =>
+            utterance.AssessmentMode == PronunciationAssessmentMode.None));
+        Assert.IsTrue(unitEight.PronunciationUtterances.All(utterance =>
             utterance.AssessmentMode == PronunciationAssessmentMode.None));
     }
 
@@ -209,7 +223,7 @@ public sealed class ContentPackTests
         var german = targets.Single(pack => pack.Manifest.Id == "language.de.core");
         var transfers = catalog.Packs.Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer).ToArray();
 
-        Assert.HasCount(8, targets);
+        Assert.HasCount(9, targets);
         Assert.HasCount(13, german.Concepts);
         Assert.HasCount(2, transfers);
         Assert.IsTrue(transfers.All(pack => pack.Concepts.Count == 0));
@@ -236,13 +250,13 @@ public sealed class ContentPackTests
     }
 
     [TestMethod]
-    public void ElevenTasksHaveReachableDeterministicSuccessContractsAndFallbacks()
+    public void TwelveTasksHaveReachableDeterministicSuccessContractsAndFallbacks()
     {
         var tasks = LoadBundled(ContentLoadPolicy.AuthoringPreview)
             .Packs.SelectMany(pack => pack.Tasks)
             .ToArray();
 
-        Assert.HasCount(11, tasks);
+        Assert.HasCount(12, tasks);
         Assert.IsTrue(tasks.All(task => task.Transitions.Count > 0));
         Assert.IsTrue(tasks.All(task => task.SuccessConditions.Count > 0));
         Assert.IsTrue(tasks.All(task => task.States.All(state => state.ScriptedFallback.Count > 0)));
@@ -295,7 +309,7 @@ public sealed class ContentPackTests
             var pronunciation = runtime.CreateRuntimePronunciationUtterances(
                 new LanguageCode("de"));
 
-            Assert.HasCount(83, graph.Nodes);
+            Assert.HasCount(93, graph.Nodes);
             Assert.HasCount(3, english);
             Assert.IsTrue(english.All(mapping => mapping.ReviewStatus == TransferReviewStatus.Approved));
             Assert.IsTrue(hindiNotes.Any(note =>
@@ -313,7 +327,7 @@ public sealed class ContentPackTests
             Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
             Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
             Assert.AreEqual("Ich möchte einen Kaffee, bitte.", cafe.PronunciationTargetText);
-            Assert.HasCount(74, pronunciation);
+            Assert.HasCount(84, pronunciation);
             Assert.HasCount(4, pronunciation.Where(utterance =>
                 utterance.ContentVersion == new VersionId("language.de.core.v2")));
             Assert.HasCount(10, pronunciation.Where(utterance =>
@@ -330,6 +344,8 @@ public sealed class ContentPackTests
                 utterance.ContentVersion == new VersionId("language.de.a1.unit06.v1")));
             Assert.HasCount(10, pronunciation.Where(utterance =>
                 utterance.ContentVersion == new VersionId("language.de.a1.unit07.v1")));
+            Assert.HasCount(10, pronunciation.Where(utterance =>
+                utterance.ContentVersion == new VersionId("language.de.a1.unit08.v1")));
         }
         finally
         {
@@ -374,8 +390,8 @@ public sealed class ContentPackTests
 
         Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
         Assert.AreEqual(450, catalog.TargetLessonCount);
-        Assert.AreEqual(70, catalog.AuthoredLessonCount);
-        Assert.AreEqual(380, catalog.RemainingLessonCount);
+        Assert.AreEqual(80, catalog.AuthoredLessonCount);
+        Assert.AreEqual(370, catalog.RemainingLessonCount);
         Assert.AreEqual("Meet and greet", catalog.Units[0].Title);
         Assert.AreEqual("Greet for the time of day", catalog.Units[0].Lessons[0].Title);
         Assert.AreEqual("Learn in German", catalog.Units[1].Title);
@@ -390,6 +406,8 @@ public sealed class ContentPackTests
         Assert.AreEqual("Recognize café items", catalog.Units[5].Lessons[0].Title);
         Assert.AreEqual("Home and belongings", catalog.Units[6].Title);
         Assert.AreEqual("Name rooms", catalog.Units[6].Lessons[0].Title);
+        Assert.AreEqual("Around town", catalog.Units[7].Title);
+        Assert.AreEqual("Name places in town", catalog.Units[7].Lessons[0].Title);
         var lessons = catalog.Units.SelectMany(unit => unit.Lessons).ToArray();
         CollectionAssert.AreEqual(
             new[]
@@ -464,6 +482,16 @@ public sealed class ContentPackTests
                 "lesson.de.a1.u07.read-rental-notice",
                 "lesson.de.a1.u07.mediate-home-layout",
                 "lesson.de.a1.u07.home-mission",
+                "lesson.de.a1.u08.town-places",
+                "lesson.de.a1.u08.ask-place",
+                "lesson.de.a1.u08.direction-words",
+                "lesson.de.a1.u08.give-directions",
+                "lesson.de.a1.u08.travel-with-mit",
+                "lesson.de.a1.u08.ask-destination",
+                "lesson.de.a1.u08.hear-station-announcement",
+                "lesson.de.a1.u08.read-route-display",
+                "lesson.de.a1.u08.mediate-visitor-route",
+                "lesson.de.a1.u08.town-mission",
             },
             lessons.Select(lesson => lesson.Id).ToArray());
         Assert.IsTrue(lessons.All(lesson => lesson.Slides.Count >= 7));
@@ -2075,6 +2103,255 @@ public sealed class ContentPackTests
                 missionChain,
                 ["read", "describe", "locate"],
                 "request").State);
+    }
+
+    [TestMethod]
+    public void UnitEightActivityAnswersMapDeterministically()
+    {
+        var unit = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit08");
+        var placePairs = unit.Lessons[0].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("pair-cards"));
+        var askOrder = unit.Lessons[1].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("word-order-train"));
+        var directionRoute = unit.Lessons[2].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("listen-route"));
+        var transportCase = unit.Lessons[4].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("case-switchboard"));
+        var station = unit.Lessons[6];
+        var stationSign = station.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("sign-reading"));
+        var stationForm = station.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("form-fill"));
+        var displaySign = unit.Lessons[7].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("sign-reading"));
+        var visitorScenario = unit.Lessons[8].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("scenario-theatre"));
+        var mission = unit.Lessons[9];
+        var missionSign = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("sign-reading"));
+        var missionRoute = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("listen-route"));
+        var missionScenario = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("scenario-theatre"));
+        var missionForm = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("form-fill"));
+        var missionCapstone = mission.TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId("unit-capstone"));
+
+        var referencedAssets = unit.Lessons
+            .SelectMany(lesson => lesson.TemplateInstances)
+            .SelectMany(instance => instance.Parameters.Values)
+            .SelectMany(parameter =>
+                (parameter.Kind == TemplateParameterKind.AssetReference
+                    ? new[] { parameter.Value }
+                    : Array.Empty<string?>())
+                .Concat(parameter.Options?.Select(option => option.AssetReferenceId) ?? []))
+            .Where(assetId => assetId is not null)
+            .ToArray();
+        Assert.IsEmpty(referencedAssets);
+        StringAssert.Contains(unit.Manifest.Review.Notes, "named asset follow-ups");
+
+        var pairs = placePairs.Parameters["pairs"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluatePairCards(
+                pairs,
+                ["word:station", "image:station"]).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluatePairCards(
+                pairs,
+                ["word:station", "image:library"]).State);
+
+        var questionOptions = askOrder.Parameters["options"].Options!;
+        var questionIds = questionOptions.Select(candidate => candidate.Id).ToArray();
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateWordOrder(questionOptions, questionIds).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateWordOrder(
+                questionOptions,
+                questionIds.Reverse().ToArray()).State);
+
+        var directionSteps = directionRoute.Parameters["route"].Options!;
+        var directionIds = directionSteps.Select(candidate => candidate.Id).ToArray();
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateWordOrder(directionSteps, directionIds).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateWordOrder(
+                directionSteps,
+                directionIds.Reverse().ToArray()).State);
+
+        var caseAnswers = transportCase.Parameters["answers"].Options!
+            .ToDictionary(answer => answer.Id, answer => answer.Label, StringComparer.Ordinal);
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateMappedPair(
+                transportCase.Parameters["roles"].Options!,
+                transportCase.Parameters["articles"].Options!,
+                caseAnswers,
+                "after-mit",
+                "dem").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateMappedPair(
+                transportCase.Parameters["roles"].Options!,
+                transportCase.Parameters["articles"].Options!,
+                caseAnswers,
+                "after-mit",
+                "der").State);
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                stationSign.Parameters["options"].Options!,
+                stationSign.Parameters["answer"].Value!,
+                "platform-3").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                stationSign.Parameters["options"].Options!,
+                stationSign.Parameters["answer"].Value!,
+                "platform-8").State);
+
+        var stationAnswers = stationForm.Parameters["answers"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateTextFields(
+                stationAnswers,
+                new Dictionary<string, string>(StringComparer.Ordinal)
+                {
+                    ["destination"] = "Bonn",
+                    ["platform"] = "3",
+                    ["time"] = "10:15",
+                }).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateTextFields(
+                stationAnswers,
+                new Dictionary<string, string>(StringComparer.Ordinal)
+                {
+                    ["destination"] = "Bonn",
+                    ["platform"] = "8",
+                    ["time"] = "10:15",
+                }).State);
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                displaySign.Parameters["options"].Options!,
+                displaySign.Parameters["answer"].Value!,
+                "centre").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                displaySign.Parameters["options"].Options!,
+                displaySign.Parameters["answer"].Value!,
+                "north").State);
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                visitorScenario.Parameters["responses"].Options!,
+                visitorScenario.Parameters["answer"].Value!,
+                "correct").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                visitorScenario.Parameters["responses"].Options!,
+                visitorScenario.Parameters["answer"].Value!,
+                "swapped").State);
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                missionSign.Parameters["options"].Options!,
+                missionSign.Parameters["answer"].Value!,
+                "left").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateSingleSelection(
+                missionSign.Parameters["options"].Options!,
+                missionSign.Parameters["answer"].Value!,
+                "right").State);
+
+        var missionRouteSteps = missionRoute.Parameters["route"].Options!;
+        var missionRouteIds = missionRouteSteps.Select(candidate => candidate.Id).ToArray();
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateWordOrder(
+                missionRouteSteps,
+                missionRouteIds).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateWordOrder(
+                missionRouteSteps,
+                missionRouteIds.Reverse().ToArray()).State);
+
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                missionScenario.Parameters["responses"].Options!,
+                missionScenario.Parameters["answer"].Value!,
+                "correct").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateScenarioChoice(
+                missionScenario.Parameters["responses"].Options!,
+                missionScenario.Parameters["answer"].Value!,
+                "fragment").State);
+
+        var missionAnswers = missionForm.Parameters["answers"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateTextFields(
+                missionAnswers,
+                new Dictionary<string, string>(StringComparer.Ordinal)
+                {
+                    ["transport"] = "U-Bahn",
+                    ["exit"] = "Rathaus",
+                    ["turn"] = "links",
+                    ["destination"] = "Museum",
+                }).State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateTextFields(
+                missionAnswers,
+                new Dictionary<string, string>(StringComparer.Ordinal)
+                {
+                    ["transport"] = "Bus",
+                    ["exit"] = "Rathaus",
+                    ["turn"] = "links",
+                    ["destination"] = "Museum",
+                }).State);
+
+        var missionSteps = missionCapstone.Parameters["steps"].Options!;
+        var missionChain = missionCapstone.Parameters["template-chain"].Options!;
+        Assert.AreEqual(
+            TemplateOutcomeState.Uncertain,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                [],
+                "ask").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Failure,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                ["ask"],
+                "travel").State);
+        Assert.AreEqual(
+            TemplateOutcomeState.Success,
+            TemplateInteractionEvaluator.EvaluateCapstoneStep(
+                missionSteps,
+                missionChain,
+                ["ask", "clarify", "travel"],
+                "arrive").State);
     }
 
     [TestMethod]
