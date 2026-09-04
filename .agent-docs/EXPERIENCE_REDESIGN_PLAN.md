@@ -1094,6 +1094,62 @@ modification, and redistribution review remains pending. No bundled lesson is
 described as approved. The exact next Phase 7 step is P7.B7, Unit 7's 10 review-gated
 lessons, after preserving this Unit 6 checkpoint.
 
+**Unit 7 batch status (2026-09-04): complete with named unverified evidence.**
+P7.B7 is authored directly without local-model lesson generation. The batch contains
+10 ordered A1 lessons and 80 template instances across 32 catalog kinds, with 10
+concepts, 32 lexicon entries, one deterministic home-layout task, 10 error rules, 10
+feedback templates, one rubric, and 10 pronunciation text scripts. Every lesson opens
+with Scene Establish, ends with Recap Scrapbook, and remains machine-validated Preview
+content. English, Hindi, and authored Latin-script Hinglish maps cover all learner-
+facing instructions while German examples, answer IDs, ordering, and outcomes remain
+deterministic single-copy data.
+
+The batch uses only existing catalog templates and validated local German-pack assets.
+No new media was added: image- and audio-led surfaces expose complete authored text
+equivalents, and speech-led practice retains a typed route without microphone or
+pronunciation scoring. Suitable reviewed home photography and a room backdrop remain
+named asset follow-ups; affected templates render their complete authored text instead
+of placeholders or network fetches. Seven claim-level source records cite the consulted
+CEFR, Goethe-Institut, and COERLL materials for rooms, belongings, location, case, and
+pronunciation. The deterministic core still owns task checks, outcomes, IDs, order, and
+progression; renderers only report callback outcomes, and Preview visits do not change
+mastery.
+
+JSON parsing, stable 61-to-70 lesson ordering, 80-instance counts, first and last
+template roles, machine-validation status, complete instruction maps, no-Devanagari
+Hinglish, dash, placeholder, whitespace, 25-word copy, byte-stable regeneration, and
+published-content inspection pass. Formatter verification, a zero-warning Release
+build, publish, all 390 tests (140 app and 250 core), and focused deterministic outcome
+and three-language projection tests pass.
+
+Fresh native macOS interaction used isolated schema 7 profiles with English, Hindi,
+and Hinglish enabled, microphone Never, and reduced motion. English lessons 61 and 70
+played end to end and returned to the course map. The checks covered mouse and keyboard
+navigation, replay, skip, deterministic failure and success outcomes, retry, matching,
+ordered listening, exact form entry, complete written alternatives, typed microphone-
+free speech practice, the ordered four-step capstone, and recap completion. Hindi
+rendered the complete Unit 7 course map and lesson 68 through its explicit unavailable-
+asset state, authored rental-sign text, price correction, form, written listening
+alternative, and German note. Hinglish rendered the complete Latin-script Unit 7 card
+set and lesson 69 through its text album, captioned dialogue, preposition stage, note,
+form, Scenario Theatre failure and recovery, and recap. Light and dark interaction
+covered the course and scenic openers; replay plus skip exposed the reduced-motion final
+state. The macOS accessibility tree exposed authored names, controls, text equivalents,
+statuses, and live outcome regions.
+
+Named evidence gaps: direct VoiceOver remains unverified. Windows native interaction
+is intentionally deferred under the current macOS-only scope. A full end-to-end native
+playthrough of all 10 lessons in each declared instruction language remains unverified;
+current evidence combines complete representative English playthroughs, focused Hindi
+and Hinglish interaction, deterministic unit tests, and complete validator coverage.
+Catalog-owned fixed labels and status copy remain English in some Hindi- and Hinglish-
+taught renderers; authored instructions and live outcomes switch correctly, and full
+renderer-chrome localization remains the named P5.4 follow-up before content approval.
+Competent German, Hindi, Hinglish, pedagogical, cultural, content, license,
+modification, and redistribution review remains pending. No bundled lesson is
+described as approved. The exact next Phase 7 step is P7.B8, Unit 8's 10 review-gated
+lessons, after preserving this Unit 7 checkpoint.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
