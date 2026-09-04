@@ -1215,6 +1215,12 @@ public sealed class ContentPackTests
         Assert.AreEqual("Greet for the time of day", english.Units[0].Lessons[0].Title);
         Assert.AreEqual("दिन के समय के अनुसार अभिवादन करें", hindi.Units[0].Lessons[0].Title);
         Assert.AreEqual("Din ke samay ke hisaab se greet karein", hinglish.Units[0].Lessons[0].Title);
+        Assert.AreEqual("Numbers, dates, and time", english.Units[2].Title);
+        Assert.AreEqual("संख्याएँ, तारीखें और समय", hindi.Units[2].Title);
+        Assert.AreEqual("Numbers, dates aur time", hinglish.Units[2].Title);
+        Assert.AreEqual("Count and group objects", english.Units[2].Lessons[0].Title);
+        Assert.AreEqual("वस्तुएँ गिनें और समूह बनाएँ", hindi.Units[2].Lessons[0].Title);
+        Assert.AreEqual("Objects ginein aur groups banayein", hinglish.Units[2].Lessons[0].Title);
 
         var englishLesson = english.Units.SelectMany(unit => unit.Lessons)
             .Single(lesson => lesson.Id == "lesson.de.a1.u01.greetings-by-time");

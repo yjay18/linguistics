@@ -887,6 +887,38 @@ Competent German, Hindi, Hinglish, pedagogical, cultural, content, license,
 modification, and redistribution review remains pending. No bundled lesson is described
 as approved. The exact next Phase 7 step is P7.B3, Unit 3's 10 review-gated lessons.
 
+**Unit 3 batch status (2026-09-04): paused at the native interaction gate.**
+P7.B3 implementation is complete and directly authored without local-model lesson
+generation. The pack contains 10 ordered A1 lessons and 80 template instances across
+29 catalog kinds, with 10 concepts, 26 lexicon entries, one deterministic scheduling
+task, 10 error rules, 10 feedback templates, one rubric, and 10 pronunciation text
+scripts. Every lesson opens with Scene Establish, ends with Recap Scrapbook, and stays
+machine-validated Preview content. English, Hindi, and authored Latin-script Hinglish
+maps cover learner-facing instructions while German examples, answer IDs, ordering,
+and outcomes remain deterministic single-copy data.
+
+The batch uses only the existing catalog. No new media was needed: image- and
+audio-led surfaces expose complete authored text equivalents, and speech-led practice
+retains a typed route without microphone or pronunciation scoring. Five claim-level
+source records cite the consulted CEFR, Goethe-Institut, and COERLL materials. JSON
+parsing, stable 21-to-30 lesson ordering, 80-instance counts, first and last template
+roles, machine-validation status, instruction-map coverage, no-Devanagari Hinglish,
+dash, whitespace, 25-word copy, deterministic regeneration, and published-content
+inspection pass. Formatter verification, a zero-warning Release build, publish, all
+386 tests (140 app and 246 core), and focused deterministic outcome and three-language
+projection tests pass.
+
+Native Unit 3 interaction is not claimed. A fresh isolated schema 7 profile and the
+light-theme `/tmp/Linguistics Unit 3 QA.app` bundle are prepared, but macOS locked
+during the handoff and the automation layer cannot unlock it. Direct VoiceOver and
+Windows interaction also remain unverified. Competent German, Hindi, Hinglish,
+pedagogical, cultural, content, license, modification, and redistribution review
+remains pending, and no lesson is described as approved. The exact resume step is to
+unlock macOS, launch the prepared app, complete representative English, Hindi, and
+Hinglish lessons with mouse, keyboard, replay, skip, outcome retry, reduced motion,
+and both themes, then replace this paused block with the evidence-backed completion
+status before starting P7.B4.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
