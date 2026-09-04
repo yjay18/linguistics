@@ -164,12 +164,12 @@ public partial class LearnView : UserControl
             .Select(unit => new CourseJourneyUnit(
                 unit.Number.ToString("00"),
                 AppStrings.Format("Learn_Journey_Unit", unit.Number),
-                AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Title"),
-                AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Description"),
+                Clean(unit.Title),
+                Clean(unit.Description),
                 AppStrings.Format(
                     "Learn_Journey_UnitAutomation",
                     unit.Number,
-                    AppStrings.Get($"Learn_Unit_{unit.DominantConceptType}_Title")),
+                    Clean(unit.Title)),
                 unit.Lessons.Select(lesson =>
                 {
                     var number = lessonNumber++;

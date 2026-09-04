@@ -844,6 +844,49 @@ content, license, modification, and redistribution review remains pending. No bu
 lesson is described as approved. The exact next Phase 7 step is P7.B2, Unit 2's 10
 review-gated lessons, after preserving this Unit 1 checkpoint.
 
+**Unit 2 batch status (2026-09-04): complete with named unverified evidence.**
+P7.B2 is authored directly without local-model lesson generation. The batch contains
+10 ordered A1 lessons and 80 template instances across 28 catalog kinds, with 10
+concepts, 26 lexicon entries, one deterministic classroom-help task, 10 error rules,
+10 feedback templates, one rubric, and 10 pronunciation text scripts. Every lesson
+opens with Scene Establish, ends with Recap Scrapbook, and remains machine-validated
+Preview content. English, Hindi, and authored Latin-script Hinglish maps cover all
+learner-facing instructions while German examples, answer IDs, ordering, and outcomes
+remain deterministic single-copy data.
+
+The batch uses only the existing catalog and validated local asset policy. No new media
+was needed: image- and audio-led surfaces show complete authored text equivalents, and
+speech-led practice keeps a typed route with no microphone or pronunciation score
+required. Four claim-level source records cite the consulted CEFR, Goethe-Institut,
+and COERLL materials. Native QA found that the course journey replaced authored unit
+titles and descriptions with a dominant-concept category label. The journey now
+preserves the validated pack title and description, including its selected instruction
+language, with a regression test for the projected title, description, and automation
+name.
+
+Formatter verification, a zero-warning Release build, all 385 tests (140 app and 245
+core), publish, JSON parsing, stable 11-to-20 lesson ordering, 80-instance counts,
+machine-validation status, instruction-map coverage, no-Devanagari Hinglish, dash,
+whitespace, and 25-word copy checks pass. Fresh native macOS interaction used an
+isolated schema 7 profile with English, Hindi, and Hinglish enabled, microphone Never,
+and reduced motion. English lessons 11 and 15 and Hinglish lesson 20 played end to end.
+The checks covered mouse and keyboard navigation, replay, skip, deterministic failure
+and success outcomes, scenario retry, local listening transcripts, typed speech paths,
+the ordered four-step capstone, and completion. Hindi rendered the complete course map
+and lesson 18 through its text-only sign activity. Light and dark interaction covered
+the course, Unit 2 scenic openers, replay, skip, and reduced-motion final states. The
+macOS accessibility tree exposed authored unit names, named controls, text equivalents,
+statuses, and live outcome regions.
+
+Named evidence gaps: direct VoiceOver remains unverified. Windows native interaction
+is intentionally deferred under the current macOS-only scope. A full end-to-end native
+playthrough of all 10 lessons in each declared instruction language remains unverified;
+current evidence combines complete representative English and Hinglish playthroughs,
+focused Hindi interaction, deterministic unit tests, and complete validator coverage.
+Competent German, Hindi, Hinglish, pedagogical, cultural, content, license,
+modification, and redistribution review remains pending. No bundled lesson is described
+as approved. The exact next Phase 7 step is P7.B3, Unit 3's 10 review-gated lessons.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,

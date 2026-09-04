@@ -85,6 +85,9 @@ public sealed class LearnExperienceTests
         var journey = LearnView.CreateJourney(course, second);
 
         Assert.HasCount(1, journey);
+        Assert.AreEqual("Words", journey[0].Title);
+        Assert.AreEqual("Useful words", journey[0].Description);
+        StringAssert.Contains(journey[0].UnitAutomationName, "Words");
         CollectionAssert.AreEqual(
             new[] { first.Id, second.Id },
             journey[0].Lessons.Select(item => item.Lesson.Id).ToArray());
