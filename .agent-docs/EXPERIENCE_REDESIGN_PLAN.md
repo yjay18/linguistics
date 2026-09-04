@@ -1210,6 +1210,74 @@ modification, and redistribution review remains pending. No bundled lesson is
 described as approved. The exact next Phase 7 step is P7.B9, Unit 9's 10 review-gated
 lessons, after preserving this Unit 8 checkpoint.
 
+**Unit 9 batch status (2026-09-04): complete with named unverified evidence.**
+P7.B9 is authored directly without local-model lesson generation. The batch contains
+10 ordered A1 lessons and 80 template instances across 30 catalog kinds, with 10
+concepts, 32 lexicon entries, one deterministic integrated-day task, 10 error rules,
+10 feedback templates, one rubric, and 10 pronunciation text scripts. Every lesson
+opens with Scene Establish, ends with Recap Scrapbook, and remains machine-validated
+Preview content. English, Hindi, and authored Latin-script Hinglish maps cover all
+learner-facing instructions while German examples, answer IDs, ordering, and outcomes
+remain deterministic single-copy data.
+
+The batch uses only existing catalog templates and adds no asset references. Image-
+and audio-led surfaces expose complete authored text equivalents, and speech-led
+practice retains a typed route without microphone or pronunciation scoring. A reviewed
+public-message board, integrated day plan, and cafe-day backdrop remain named asset
+follow-ups; affected templates render complete authored text instead of placeholders
+or network fetches. Seven claim-level source records cite the consulted CEFR,
+Goethe-Institut, Deutsch im Blick, and Grimm materials for integrated A1 language,
+public messages, conversational repair, and pronunciation. The deterministic core
+still owns task checks, outcomes, IDs, order, and progression; renderers only report
+callback outcomes, and Preview visits do not change mastery.
+
+JSON parsing, stable 81-to-90 lesson ordering, 80-instance counts, first and last
+template roles, machine-validation status, complete instruction maps, no-Devanagari
+Hinglish, dash, placeholder, whitespace, 25-word copy, byte-stable regeneration, and
+published-content inspection pass. Locked restore, formatter verification, a zero-
+warning Release build, publish, all 394 tests (142 app and 252 core), and focused
+deterministic outcome, responsive capstone, paper-stage alignment, and three-language
+projection tests pass. The generated and published pack are byte-identical with
+SHA-256 `dc6eac3eeca7f6003a6ca0c713c7656325a2f5efae1c9a35b879ede500397e39`.
+
+Fresh native macOS interaction used isolated schema 7 profiles with English, Hindi,
+and Hinglish enabled, microphone Never, and reduced motion. English lessons 81 and 90
+played end to end and returned to the course map. The checks covered mouse and keyboard
+navigation, replay, skip, deterministic failure and recovery, matching, ordered
+listening, exact form entry, complete written alternatives, typed microphone-free
+speech practice, the ordered four-step capstone, and recap completion. Hindi rendered
+the complete Unit 9 course map and lesson 85 through its explicit unavailable-asset
+state, authored sign, timetable choice, text album, matching, form, note, recap, and
+course-map return. Hinglish rendered the complete Latin-script Unit 9 card set and
+lesson 89 through its scene, text album, schedule choice, full transcript,
+no-microphone state, ordered written route, and form entry. Native QA exposed a crowded
+object spotlight, an overlong scenario role, a four-step capstone overlap, and
+over-specific Note Write success copy. The layouts and copy were corrected and covered
+by regression tests. The macOS accessibility tree exposed authored names, controls,
+text equivalents, statuses, and live outcome regions. Isolated light-profile
+diagnostics contained only successful app-open and profile-load events, and Preview
+visits left every learning-history collection empty.
+
+Named evidence gaps: the Mac locked before lesson 89's final form outcome, Scenario
+Theatre correction, recap, and course-map return could be repeated on the final build.
+The same lock prevented Unit 9 dark-theme native interaction; the dark build and
+isolated profile exist, but no dark interaction is claimed. Direct VoiceOver remains
+unverified. Windows native interaction is intentionally deferred under the current
+macOS-only scope. A full end-to-end native playthrough of all 10 lessons in each
+declared instruction language remains unverified; current evidence combines complete
+representative English and Hindi playthroughs, focused Hinglish interaction,
+deterministic unit tests, and complete validator coverage. Catalog-owned fixed labels
+and status copy remain English in some Hindi- and Hinglish-taught renderers; authored
+instructions and live outcomes switch correctly, and full renderer-chrome localization
+remains the named P5.4 follow-up before content approval. Competent German, Hindi,
+Hinglish, pedagogical, cultural, content, license, modification, and redistribution
+review remains pending. No bundled lesson is described as approved.
+
+Units 1 through 9 now provide the complete 90-lesson A1 authoring checkpoint with 719
+deterministic template instances. Phase 7 must hold A2 content until competent review
+feedback exists for this A1 corpus. The next Phase 7 action is that review and either
+documented approval or authored corrections; it is not further lesson generation.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
