@@ -933,6 +933,59 @@ license, modification, and redistribution review remains pending. No bundled les
 described as approved. The exact next Phase 7 step is P7.B4, Unit 4's 10 review-gated
 lessons, after preserving this Unit 3 checkpoint.
 
+**Unit 4 batch status (2026-09-04): complete with named unverified evidence.**
+P7.B4 is authored directly without local-model lesson generation. The batch contains
+10 ordered A1 lessons and 80 template instances across 25 catalog kinds, with 10
+concepts, 32 lexicon entries, one deterministic relationship-map task, 10 error rules,
+10 feedback templates, one rubric, and 10 pronunciation text scripts. Every lesson
+opens with Scene Establish, ends with Recap Scrapbook, and remains machine-validated
+Preview content. English, Hindi, and authored Latin-script Hinglish maps cover all
+learner-facing instructions while German examples, answer IDs, ordering, and outcomes
+remain deterministic single-copy data.
+
+The batch uses only the existing catalog and validated local asset policy. No new media
+was needed: image- and audio-led surfaces expose complete authored text equivalents,
+and speech-led practice retains a typed route without microphone or pronunciation
+scoring. Five claim-level source records cite the consulted CEFR, Goethe-Institut, and
+COERLL materials for people, family, work, and pronunciation. The deterministic core
+still owns task checks, outcomes, IDs, order, and progression; renderers only report
+callback outcomes, and Preview visits do not change mastery.
+
+JSON parsing, stable 31-to-40 lesson ordering, 80-instance counts, first and last
+template roles, machine-validation status, complete instruction maps, no-Devanagari
+Hinglish, dash, whitespace, 25-word copy, deterministic regeneration, and published-
+content inspection pass. Formatter verification, a zero-warning Release build,
+publish, all 387 tests (140 app and 247 core), and focused deterministic outcome and
+three-language projection tests pass.
+
+Fresh native macOS interaction used an isolated schema 7 profile with English, Hindi,
+and Hinglish enabled, microphone Never, and reduced motion. English lessons 31 and 40
+were exercised through their recaps, with lesson 40 returning to the course map. The
+checks covered mouse and keyboard navigation, replay, skip, deterministic failure and
+success outcomes, retry, album navigation, form entry, complete listening captions,
+typed microphone-free speech practice, Scenario Theatre correction, the ordered four-
+step capstone, and the relationship-map mission. Hindi rendered the complete Unit 4
+course map and lesson 38 through its text-only profile card and deterministic success
+state. Hinglish rendered the complete Latin-script course map and lesson 39 through a
+scenic opener, captioned dialogue, skip, and deterministic success state. Light and
+dark interaction covered the course and Unit 4 scenic openers; the dark relationship
+map remained legible, and replay plus skip exposed the reduced-motion final state. The
+macOS accessibility tree exposed authored names, controls, text equivalents, statuses,
+and live outcome regions.
+
+Named evidence gaps: direct VoiceOver remains unverified. Windows native interaction
+is intentionally deferred under the current macOS-only scope. A full end-to-end native
+playthrough of all 10 lessons in each declared instruction language remains unverified;
+current evidence combines representative English playthroughs, focused Hindi and
+Hinglish interaction, deterministic unit tests, and complete validator coverage.
+Catalog-owned fixed labels and status copy remain English in some Hindi- and Hinglish-
+taught renderers; authored instructions and live outcomes switch correctly, and full
+renderer-chrome localization remains the named P5.4 follow-up before content approval.
+Competent German, Hindi, Hinglish, pedagogical, cultural, content, license,
+modification, and redistribution review remains pending. No bundled lesson is
+described as approved. The exact next Phase 7 step is P7.B5, Unit 5's 10 review-gated
+lessons, after preserving this Unit 4 checkpoint.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
