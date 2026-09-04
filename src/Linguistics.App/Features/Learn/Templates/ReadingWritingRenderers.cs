@@ -733,7 +733,7 @@ internal static class NoteWriteRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "The note includes both required details.",
+        TemplateOutcomeState.Success => "The note includes all required details.",
         TemplateOutcomeState.Uncertain => "Write a short note before checking it.",
         TemplateOutcomeState.Failure => "Add every required detail, then check the note again.",
         _ => "Ready: write a short note using every listed detail.",

@@ -124,9 +124,10 @@ internal static class ObjectSpotlightRenderer
                 TextAlignment = TextAlignment.Center,
             },
         };
+        AutomationProperties.SetAutomationId(wordCard, "ObjectSpotlightWordCard");
         PaperStage.SetLayer(wordCard, PaperStageLayer.VerdictCard);
         PaperStage.SetAnchor(wordCard, PaperAnchorLine.Shoulder);
-        PaperStage.SetAnchorX(wordCard, 0.72);
+        PaperStage.SetAnchorX(wordCard, 0.77);
         PaperStage.SetAnchorOffsetY(wordCard, 8);
         PaperStage.SetLayerTransform(wordCard, TemplateRendering.Transform(0, 0, 1.1, 1));
         stage.Children.Add(wordCard);
@@ -139,9 +140,10 @@ internal static class ObjectSpotlightRenderer
                 Content = article.ToUpperInvariant(),
                 Angle = -2.4,
             };
+            AutomationProperties.SetAutomationId(articleStamp, "ObjectSpotlightArticleStamp");
             PaperStage.SetLayer(articleStamp, PaperStageLayer.VerdictCard);
             PaperStage.SetAnchor(articleStamp, PaperAnchorLine.Waist);
-            PaperStage.SetAnchorX(articleStamp, 0.64);
+            PaperStage.SetAnchorX(articleStamp, 0.60);
             PaperStage.SetAnchorOffsetY(articleStamp, -16);
             stage.Children.Add(articleStamp);
         }
@@ -161,7 +163,7 @@ internal static class ObjectSpotlightRenderer
         };
         PaperStage.SetLayer(meaningCard, PaperStageLayer.VerdictCard);
         PaperStage.SetAnchor(meaningCard, PaperAnchorLine.Foot);
-        PaperStage.SetAnchorX(meaningCard, 0.72);
+        PaperStage.SetAnchorX(meaningCard, 0.77);
         PaperStage.SetAnchorOffsetY(meaningCard, -58);
         PaperStage.SetLayerTransform(meaningCard, TemplateRendering.Transform(0, 0, -0.8, 1));
         stage.Children.Add(meaningCard);

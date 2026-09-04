@@ -2400,9 +2400,9 @@
         "hi-latn": "Aap har printed detail preserve karte aur unclear information par repair request karte hain."
       },
       "npcRole": {
-        "en": "A local helper follows authored states and confirms each completed day step.",
-        "hi": "स्थानीय सहायक लिखे चरण अपनाकर हर पूरा दिन चरण पक्का करता है।",
-        "hi-latn": "Local helper authored states follow karke har completed day step confirm karta hai."
+        "en": "A local helper follows the plan.",
+        "hi": "स्थानीय सहायक प्लान अपनाता है।",
+        "hi-latn": "Local helper plan follow karta hai."
       },
       "requiredFunctionIds": [
         "de.a1.u09.check-personal-information",
@@ -3470,7 +3470,7 @@
                 },
                 {
                   "id": "phone",
-                  "label": "Telefonnummer"
+                  "label": "Telefon"
                 }
               ]
             },
@@ -3539,7 +3539,7 @@
           "parameters": {
             "word": {
               "kind": "text",
-              "value": "Telefonnummer"
+              "value": "Nummer"
             },
             "article": {
               "kind": "text",
@@ -3548,17 +3548,17 @@
             "meaning": {
               "kind": "textByLanguage",
               "textByLanguage": {
-                "en": "telephone number",
-                "hi": "टेलीफ़ोन नंबर",
-                "hi-latn": "telephone number"
+                "en": "number",
+                "hi": "नंबर",
+                "hi-latn": "number"
               }
             },
             "instruction": {
               "kind": "textByLanguage",
               "textByLanguage": {
-                "en": "Read Telefonnummer with its article and complete meaning.",
-                "hi": "Telefonnummer को उसके लेख और पूरे अर्थ के साथ पढ़ें।",
-                "hi-latn": "Telefonnummer ko uske article aur complete meaning ke saath padhein."
+                "en": "Read Nummer with its article and complete meaning.",
+                "hi": "Nummer को उसके लेख और पूरे अर्थ के साथ पढ़ें।",
+                "hi-latn": "Nummer ko uske article aur complete meaning ke saath padhein."
               }
             },
             "concept": {

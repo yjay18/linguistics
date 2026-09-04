@@ -691,8 +691,13 @@ internal static class UnitCapstoneRenderer
         Grid.SetColumn(headerActions, 1);
         header.Children.Add(headerActions);
 
+        const int cardsPerRow = 3;
+        const double boardHeaderHeight = 252;
+        const double routeRowHeight = 222;
+        var routeRows = Math.Max(1, (steps.Count + cardsPerRow - 1) / cardsPerRow);
+        var stageHeight = boardHeaderHeight + (routeRows * routeRowHeight);
         var stage = TemplateRendering.CreateStage(
-            422,
+            stageHeight,
             $"{unitLabel}. Mission goal: {goal}. Complete {steps.Count} authored activities in order.");
         var hasBackdrop = !parameters.UseTextOnlyFallback &&
                           TemplateRendering.AddBackdrop(stage, imageCache, backdropAssetId);
@@ -830,7 +835,9 @@ internal static class UnitCapstoneRenderer
         PaperStage.SetLayer(route, PaperStageLayer.Subject);
         PaperStage.SetAnchor(route, PaperAnchorLine.Foot);
         PaperStage.SetAnchorX(route, 0.5);
-        PaperStage.SetAnchorOffsetY(route, 34);
+        PaperStage.SetAnchorOffsetY(
+            route,
+            (stageHeight * (1 - PaperStage.GetAnchorRatio(PaperAnchorLine.Foot))) - 8);
         stage.Children.Add(route);
 
         var modeText = new TextBlock

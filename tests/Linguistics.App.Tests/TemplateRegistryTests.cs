@@ -1342,6 +1342,80 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void UnitCapstoneAllocatesAFullSecondRowForFourSteps()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("unit-capstone"));
+        var values = fixture.Parameters.Values.ToDictionary(entry => entry.Key, entry => entry.Value);
+        values["steps"] = new ResolvedTemplateParameter(
+            TemplateParameterKind.OptionList,
+            Options:
+            [
+                new("introduce", "Introduce yourself."),
+                new("confirm-time", "Confirm the meeting time."),
+                new("find-route", "Find the meeting place."),
+                new("order-drink", "Order a café drink."),
+            ]);
+        values["template-chain"] = new ResolvedTemplateParameter(
+            TemplateParameterKind.OptionList,
+            Options:
+            [
+                new("introduce", "form-fill"),
+                new("confirm-time", "clock-set"),
+                new("find-route", "listen-route"),
+                new("order-drink", "scenario-theatre"),
+            ]);
+
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            new ResolvedTemplateParameters(values),
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var stage = controls.OfType<Linguistics.App.Controls.PaperStage>().Single();
+        var route = controls.Single(control =>
+            AutomationProperties.GetAutomationId(control) == "UnitCapstoneRoute");
+
+        Assert.AreEqual(696d, stage.Height);
+        Assert.AreEqual(
+            Linguistics.App.Controls.PaperAnchorLine.Foot,
+            Linguistics.App.Controls.PaperStage.GetAnchor(route));
+        Assert.AreEqual(
+            75.52,
+            Linguistics.App.Controls.PaperStage.GetAnchorOffsetY(route),
+            0.001);
+    }
+
+    [TestMethod]
+    public void ObjectSpotlightKeepsTheArticleStampLeftOfTheWord()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("object-spotlight"));
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters,
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var controls = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var wordCard = controls.Single(control =>
+            AutomationProperties.GetAutomationId(control) == "ObjectSpotlightWordCard");
+        var articleStamp = controls.Single(control =>
+            AutomationProperties.GetAutomationId(control) == "ObjectSpotlightArticleStamp");
+
+        Assert.AreEqual(
+            0.77,
+            Linguistics.App.Controls.PaperStage.GetAnchorX(wordCard));
+        Assert.AreEqual(
+            0.60,
+            Linguistics.App.Controls.PaperStage.GetAnchorX(articleStamp));
+        Assert.IsLessThan(
+            Linguistics.App.Controls.PaperStage.GetAnchorX(wordCard),
+            Linguistics.App.Controls.PaperStage.GetAnchorX(articleStamp));
+    }
+
+    [TestMethod]
     public void ProgressShelfPreservesProjectedStatusesAndReportsStableCapabilityIds()
     {
         var fixture = TemplateGalleryFixtures.All.Single(candidate =>
