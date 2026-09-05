@@ -73,12 +73,13 @@ internal static class SceneEstablishRenderer
             VerticalAlignment = VerticalAlignment.Bottom,
         };
         AutomationProperties.SetName(castPanel, $"Scene cast: {string.Join(", ", cast.Select(member => member.Label))}");
+        var isCrowdedCast = cast.Count >= 4;
         foreach (var (member, index) in cast.Select((member, index) => (member, index)))
         {
             var name = new TextBlock
             {
                 Text = member.Label,
-                FontSize = 18,
+                FontSize = isCrowdedCast ? 16 : 18,
                 FontWeight = FontWeight.Bold,
                 TextAlignment = TextAlignment.Center,
                 TextWrapping = TextWrapping.Wrap,
@@ -87,9 +88,9 @@ internal static class SceneEstablishRenderer
             };
             var cutout = new CutoutFrame
             {
-                Width = 138,
+                Width = isCrowdedCast ? 122 : 138,
                 Height = 122,
-                Margin = new Thickness(12, 4),
+                Margin = new Thickness(isCrowdedCast ? 8 : 12, 4),
                 Content = name,
                 RenderTransformOrigin = new RelativePoint(0.5, 1, RelativeUnit.Relative),
             };
@@ -100,7 +101,7 @@ internal static class SceneEstablishRenderer
 
         PaperStage.SetLayer(castPanel, PaperStageLayer.SupportingCast);
         PaperStage.SetAnchor(castPanel, PaperAnchorLine.Foot);
-        PaperStage.SetAnchorX(castPanel, 0.58);
+        PaperStage.SetAnchorX(castPanel, isCrowdedCast ? 0.5 : 0.58);
         PaperStage.SetAnchorOffsetY(castPanel, -4);
         stage.Children.Add(castPanel);
 

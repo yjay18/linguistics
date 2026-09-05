@@ -3,6 +3,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
+using Linguistics.App.Controls;
 using Linguistics.App.Features.Learn.Templates;
 using Linguistics.Core.Content;
 using Linguistics.Core.Profiles;
@@ -119,6 +120,38 @@ public sealed class TemplateRegistryTests
                 .Select(fixture => fixture.TemplateId.Value)
                 .OrderBy(id => id, StringComparer.Ordinal)
                 .ToArray());
+    }
+
+    [TestMethod]
+    public void SceneEstablishCentersFourCastMembersWithinTheStage()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("scene-establish"));
+        var values = fixture.Parameters.Values.ToDictionary(pair => pair.Key, pair => pair.Value);
+        values["cast"] = new ResolvedTemplateParameter(
+            TemplateParameterKind.OptionList,
+            Options:
+            [
+                new("one", "Mina"),
+                new("two", "Omar"),
+                new("three", "Freunde"),
+                new("four", "Vergleich"),
+            ]);
+
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters with { Values = values },
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var castPanel = rendered
+            .GetLogicalDescendants()
+            .OfType<WrapPanel>()
+            .Single(panel => AutomationProperties.GetName(panel)?.StartsWith("Scene cast:", StringComparison.Ordinal) == true);
+
+        Assert.AreEqual(0.5, Linguistics.App.Controls.PaperStage.GetAnchorX(castPanel));
+        Assert.IsTrue(castPanel.Children.OfType<CutoutFrame>().All(cutout => cutout.Width == 122));
+        Assert.IsTrue(castPanel.Children.OfType<CutoutFrame>().All(cutout => cutout.Margin.Left == 8));
     }
 
     [TestMethod]
