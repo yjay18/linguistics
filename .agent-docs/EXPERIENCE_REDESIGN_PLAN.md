@@ -1346,6 +1346,64 @@ The authored course now contains 100 lessons and 799 deterministic template
 instances. The exact next Phase 7 step is P7.B11, Unit 11's 10 review-gated Health and
 appointments lessons.
 
+**Unit 11 batch status (2026-09-05): paused after the authored slice; exact next step
+recorded.**
+P7.B11 is authored directly without local-model lesson generation. The batch contains
+10 ordered A2 lessons and 80 unique deterministic template instances across 25 catalog
+kinds, with 10 concepts, 32 lexicon entries, one deterministic reception-relay task,
+10 error rules, 10 feedback templates, one rubric, and 10 unscored pronunciation text
+scripts. Every lesson opens with Scene Establish, ends with Recap Scrapbook, and
+remains machine-validated Preview content. English, Hindi, and authored Latin-script
+Hinglish maps cover learner-facing instructions while German examples, answer IDs,
+ordering, outcomes, and the dependency chain from Unit 10 remain deterministic
+single-copy data.
+
+The batch uses no asset references. A reviewed body-map cutout set, fictional
+practice-label card, and reception-counter backdrop remain named asset follow-ups;
+every affected surface renders a complete authored text equivalent instead of a
+placeholder or network resource. Health content is limited to fictional routine
+reception communication. It does not diagnose, triage, recommend treatment, or save
+learner health data. Practice labels visibly state `KEIN ECHTES MEDIKAMENT` and
+`NICHT EINNEHMEN`. Speech practice is typed, microphone-free, and unscored. Ten
+claim-level source records cite the CEFR Companion Volume, Goethe-Institut A2 exam and
+vocabulary materials, IDS Grammis, and German federal health information. Competent
+review and all license gates remain in force.
+
+JSON parsing, stable 101-to-110 lesson ordering, instance and template-kind counts,
+complete three-language instruction maps, machine-validation status, no-Devanagari
+Hinglish, safety-warning presence, no-asset policy, deterministic outcome mapping,
+and byte-stable regeneration checks pass. Locked restore, formatter verification, a
+zero-warning Release build, publish, and all 397 tests (143 app and 254 core) pass.
+The authored, published, and four native-QA pack copies are byte-identical with
+SHA-256 `9f9057365f65c3b0ad7a300e67bf3e083cc35e3fff01dedb8c1eecd85deeec98`.
+
+Fresh native macOS interaction used an isolated English schema 7 profile with the
+microphone set to Never and reduced motion enabled. Lesson 101 played end to end and
+returned to the 110-lesson course map. The check covered mouse and keyboard
+navigation, scene replay and skip, deterministic failure and recovery, pair matching,
+sorting, an audio-led choice with its full written transcript, typed microphone-free
+speech, recap replay and completion, named controls, text equivalents, and live
+outcome regions. A separate Hindi profile opened successfully and exposed Devanagari
+course navigation, Unit 11 metadata, and all ten lesson titles. The requested stop
+arrived before Hindi lesson 108 interaction began.
+
+This batch is not yet marked complete. The exact resume point is to play Hindi lesson
+108 through its fictional pharmacy-label warning and wrong-answer recovery, play
+Hinglish lesson 109 through its no-diagnosis relay path, and play motion-enabled dark
+lesson 110 end to end while checking replay, mid-motion skip, and the final state.
+Then verify all four Preview profiles left curriculum, task, pronunciation, review,
+and lesson-history collections empty; inspect diagnostics and recent macOS crash
+reports; and promote this block to complete with named unverified evidence. Direct
+VoiceOver remains unverified. Windows native interaction is intentionally deferred
+under the current macOS-only scope. Full end-to-end native playthroughs of all ten
+lessons in every declared instruction language remain unverified. Catalog-owned fixed
+labels and status copy remain English in some Hindi- and Hinglish-taught renderers;
+full renderer-chrome localization remains the named P5.4 follow-up. Competent German,
+Hindi, Hinglish, pedagogical, cultural, content, license, modification, and
+redistribution review remains pending. No Unit 11 lesson is described as approved.
+The authored course currently contains 110 lessons and 879 deterministic template
+instances.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
