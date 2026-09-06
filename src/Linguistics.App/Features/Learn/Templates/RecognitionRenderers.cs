@@ -314,7 +314,9 @@ internal static class PairCardsRenderer
         Grid.SetColumn(actions, 1);
         header.Children.Add(actions);
 
-        var stage = TemplateRendering.CreateStage(344, "Pair cards word and picture matching table");
+        var stage = TemplateRendering.CreateStage(
+            pairs.Count > 3 ? 448 : 344,
+            "Pair cards word and picture matching table");
         var backdropRendered = TemplateRendering.AddBackdrop(
             stage,
             imageCache,

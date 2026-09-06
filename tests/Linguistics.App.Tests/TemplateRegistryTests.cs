@@ -262,6 +262,44 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void PairCardsExpandsTheStageForAFourthPair()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("pair-cards"));
+        var values = fixture.Parameters.Values.ToDictionary(pair => pair.Key, pair => pair.Value);
+        values["pairs"] = new ResolvedTemplateParameter(
+            TemplateParameterKind.OptionList,
+            Options:
+            [
+                new("one", "Heizung kalt"),
+                new("two", "Wasserhahn tropft"),
+                new("three", "Lampe geht nicht"),
+                new("four", "Waschmaschine startet nicht"),
+            ]);
+
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters with { Values = values },
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var stage = rendered
+            .GetLogicalDescendants()
+            .OfType<PaperStage>()
+            .Single(candidate =>
+                AutomationProperties.GetName(candidate) == "Pair cards word and picture matching table");
+        var cardsPanel = rendered
+            .GetLogicalDescendants()
+            .OfType<WrapPanel>()
+            .Single();
+        var rows = Math.Ceiling(8d / 3d);
+
+        Assert.IsGreaterThanOrEqualTo(
+            cardsPanel.Margin.Top + (rows * cardsPanel.ItemHeight) + cardsPanel.Margin.Bottom,
+            stage.Height);
+    }
+
+    [TestMethod]
     public void RendererContractCannotReceivePersistenceOrMasteryServices()
     {
         var invoke = typeof(TemplateRendererFactory).GetMethod("Invoke")!;
