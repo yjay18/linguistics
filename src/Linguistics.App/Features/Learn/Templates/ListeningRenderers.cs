@@ -1259,7 +1259,15 @@ internal static class ListenRouteRenderer
             [new ListeningPrompt("Prompt", "Play directions", utterance, "listen-route:directions", 0.92)],
             parameters.UseTextOnlyFallback);
 
-        var stage = TemplateRendering.CreateStage(372, "Paper map with an authored listening route");
+        const int routeColumns = 3;
+        const double routeTop = 112;
+        const double routeItemWidth = 178;
+        const double routeItemHeight = 96;
+        const double bankItemHeight = 92;
+        var routeRows = Math.Ceiling(route.Count / (double)routeColumns);
+        var bankTop = routeTop + (routeRows * routeItemHeight) + 12;
+        var stageHeight = Math.Max(372, bankTop + (routeRows * bankItemHeight) + 18);
+        var stage = TemplateRendering.CreateStage(stageHeight, "Paper map with an authored listening route");
         var backdropRendered = TemplateRendering.AddBackdrop(
             stage,
             imageCache,
@@ -1273,22 +1281,24 @@ internal static class ListenRouteRenderer
 
         var routePanel = new WrapPanel
         {
-            Margin = new Thickness(26, 78, 26, 182),
+            Margin = new Thickness(26, routeTop, 26, 0),
+            MaxWidth = routeColumns * routeItemWidth,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top,
-            ItemWidth = 178,
-            ItemHeight = 96,
+            ItemWidth = routeItemWidth,
+            ItemHeight = routeItemHeight,
         };
         AutomationProperties.SetName(routePanel, "Selected route stops in travel order");
         PaperStage.SetLayer(routePanel, PaperStageLayer.Subject);
         stage.Children.Add(routePanel);
         var bankPanel = new WrapPanel
         {
-            Margin = new Thickness(26, 232, 26, 18),
+            Margin = new Thickness(26, bankTop, 26, 18),
+            MaxWidth = routeColumns * routeItemWidth,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top,
-            ItemWidth = 178,
-            ItemHeight = 92,
+            ItemWidth = routeItemWidth,
+            ItemHeight = bankItemHeight,
         };
         AutomationProperties.SetName(bankPanel, "Available route stops");
         PaperStage.SetLayer(bankPanel, PaperStageLayer.ReactionBurst);
@@ -1310,6 +1320,7 @@ internal static class ListenRouteRenderer
                 MinHeight = 76,
                 Margin = new Thickness(5),
                 Padding = new Thickness(8),
+                HorizontalContentAlignment = HorizontalAlignment.Stretch,
                 Content = StopCard(stop.Label, null),
                 Classes = { "lesson-tile", "lift" },
             };
@@ -1434,11 +1445,13 @@ internal static class ListenRouteRenderer
 
         Control StopCard(string label, int? sequence)
         {
-            var copy = new StackPanel
+            var copy = new Grid
             {
-                Orientation = Orientation.Horizontal,
-                Spacing = 8,
-                HorizontalAlignment = HorizontalAlignment.Center,
+                ColumnDefinitions = sequence is null
+                    ? new ColumnDefinitions("*")
+                    : new ColumnDefinitions("Auto,*"),
+                ColumnSpacing = 8,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Center,
             };
             if (sequence is { } number)
@@ -1458,11 +1471,15 @@ internal static class ListenRouteRenderer
                 Text = label,
                 FontWeight = FontWeight.SemiBold,
                 TextWrapping = TextWrapping.Wrap,
+                TextAlignment = sequence is null ? TextAlignment.Center : TextAlignment.Left,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                MaxWidth = sequence is null ? 140 : 122,
                 VerticalAlignment = VerticalAlignment.Center,
             };
             if (sequence is not null)
             {
                 labelText.Classes.Add("on-accent");
+                Grid.SetColumn(labelText, 1);
             }
 
             copy.Children.Add(labelText);
@@ -1486,6 +1503,7 @@ internal static class ListenRouteRenderer
                     Height = 86,
                     Margin = new Thickness(5),
                     Padding = new Thickness(8),
+                    HorizontalContentAlignment = HorizontalAlignment.Stretch,
                     Content = StopCard(stop.Label, index + 1),
                     Classes = { "primary", "lift" },
                 };

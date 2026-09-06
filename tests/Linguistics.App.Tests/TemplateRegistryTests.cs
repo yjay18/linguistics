@@ -2,7 +2,9 @@ using System.Reflection;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.LogicalTree;
+using Avalonia.Media;
 using Linguistics.App.Controls;
 using Linguistics.App.Features.Learn.Templates;
 using Linguistics.Core.Content;
@@ -152,6 +154,111 @@ public sealed class TemplateRegistryTests
         Assert.AreEqual(0.5, Linguistics.App.Controls.PaperStage.GetAnchorX(castPanel));
         Assert.IsTrue(castPanel.Children.OfType<CutoutFrame>().All(cutout => cutout.Width == 122));
         Assert.IsTrue(castPanel.Children.OfType<CutoutFrame>().All(cutout => cutout.Margin.Left == 8));
+    }
+
+    [TestMethod]
+    public void SceneEstablishCentersAndBoundsLongLocationTape()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("scene-establish"));
+        var values = fixture.Parameters.Values.ToDictionary(pair => pair.Key, pair => pair.Value);
+        values["location"] = new ResolvedTemplateParameter(
+            TemplateParameterKind.Text,
+            Text: "Eine synthetische Apothekenkarte");
+
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters with { Values = values },
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var locationTape = rendered
+            .GetLogicalDescendants()
+            .OfType<PaperTape>()
+            .Single();
+
+        Assert.AreEqual(280, locationTape.MaxWidth);
+        Assert.AreEqual(0.5, Linguistics.App.Controls.PaperStage.GetAnchorX(locationTape));
+        Assert.AreEqual(
+            Linguistics.App.Controls.PaperAnchorLine.Head,
+            Linguistics.App.Controls.PaperStage.GetAnchor(locationTape));
+    }
+
+    [TestMethod]
+    public void ListenRouteWrapsLongLabelsInsideEveryTile()
+    {
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("listen-route"));
+        var values = fixture.Parameters.Values.ToDictionary(pair => pair.Key, pair => pair.Value);
+        values["route"] = new ResolvedTemplateParameter(
+            TemplateParameterKind.OptionList,
+            Options:
+            [
+                new("symptom", "Hals tut seit gestern weh"),
+                new("request", "nach einem Termin fragen"),
+                new("time", "elf Uhr hören"),
+                new("arrival", "zehn Minuten früher kommen"),
+                new("item", "Karte mitbringen"),
+            ]);
+
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters with
+            {
+                Values = values,
+                PreviewOutcome = TemplateOutcomeState.Success,
+            },
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var routeButtons = rendered
+            .GetLogicalDescendants()
+            .OfType<Button>()
+            .Where(button =>
+                AutomationProperties.GetAutomationId(button)?.StartsWith(
+                    "ListenRouteBank_",
+                    StringComparison.Ordinal) == true ||
+                AutomationProperties.GetAutomationId(button)?.StartsWith(
+                    "ListenRouteSelected_",
+                    StringComparison.Ordinal) == true)
+            .ToArray();
+
+        Assert.HasCount(10, routeButtons);
+        foreach (var button in routeButtons)
+        {
+            Assert.AreEqual(HorizontalAlignment.Stretch, button.HorizontalContentAlignment);
+            var label = ((Grid)button.Content!)
+                .Children
+                .OfType<TextBlock>()
+                .Single(text => !int.TryParse(text.Text, out _));
+            Assert.AreEqual(TextWrapping.Wrap, label.TextWrapping);
+            Assert.IsLessThanOrEqualTo(140d, label.MaxWidth);
+        }
+
+        var stage = rendered
+            .GetLogicalDescendants()
+            .OfType<PaperStage>()
+            .Single(candidate =>
+                AutomationProperties.GetName(candidate) == "Paper map with an authored listening route");
+        var routePanel = rendered
+            .GetLogicalDescendants()
+            .OfType<WrapPanel>()
+            .Single(panel => AutomationProperties.GetName(panel) == "Selected route stops in travel order");
+        var bankPanel = rendered
+            .GetLogicalDescendants()
+            .OfType<WrapPanel>()
+            .Single(panel => AutomationProperties.GetName(panel) == "Available route stops");
+        var rows = Math.Ceiling(5d / 3d);
+
+        Assert.AreEqual(534, routePanel.MaxWidth);
+        Assert.AreEqual(534, bankPanel.MaxWidth);
+        Assert.IsGreaterThanOrEqualTo(112d, routePanel.Margin.Top);
+        Assert.IsGreaterThanOrEqualTo(
+            routePanel.Margin.Top + (rows * routePanel.ItemHeight) + 12,
+            bankPanel.Margin.Top);
+        Assert.IsGreaterThanOrEqualTo(
+            bankPanel.Margin.Top + (rows * bankPanel.ItemHeight) + bankPanel.Margin.Bottom,
+            stage.Height);
     }
 
     [TestMethod]

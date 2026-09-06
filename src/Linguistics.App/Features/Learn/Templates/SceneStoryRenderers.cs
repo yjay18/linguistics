@@ -60,10 +60,15 @@ internal static class SceneEstablishRenderer
             imageCache,
             parameters.UseTextOnlyFallback ? null : backdropReference);
 
-        var locationTape = new PaperTape { Content = location.ToUpperInvariant(), Angle = -1.2 };
+        var locationTape = new PaperTape
+        {
+            Content = location.ToUpperInvariant(),
+            Angle = -1.2,
+            MaxWidth = 280,
+        };
         PaperStage.SetLayer(locationTape, PaperStageLayer.TapedLabel);
         PaperStage.SetAnchor(locationTape, PaperAnchorLine.Head);
-        PaperStage.SetAnchorX(locationTape, 0.22);
+        PaperStage.SetAnchorX(locationTape, 0.5);
         PaperStage.SetAnchorOffsetY(locationTape, -10);
         stage.Children.Add(locationTape);
 
