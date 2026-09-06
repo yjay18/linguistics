@@ -1621,6 +1621,84 @@ described as approved. The authored course currently contains 140 lessons and 1,
 deterministic template instances. The exact next Phase 7 step is P7.B15, Unit 15's 10
 review-gated Home services and repairs lessons.
 
+**Unit 15 batch status (2026-09-06): complete with named unverified evidence.**
+P7.B15 is authored directly by Codex without local- or remote-model lesson generation.
+The batch contains 10 ordered A2 lessons and 80 unique deterministic template instances
+across 28 catalog kinds, with 10 concepts, 32 lexicon entries, one deterministic home-
+service task, 10 error rules, 10 feedback templates, one rubric, and 10 unscored
+pronunciation text scripts. Every lesson opens with Scene Establish, ends with Recap
+Scrapbook, and remains machine-validated Preview content. English, Hindi, and authored
+Latin-script Hinglish maps cover learner-facing instructions while German examples,
+answer IDs, ordering, outcomes, and the dependency chain from Unit 14 remain
+deterministic single-copy data.
+
+The batch uses no asset references. Reviewed home-interior, fault-icons, service-van,
+repair-note, and technician-puppet art remain named asset follow-ups; every affected
+surface renders its complete authored text equivalent instead of a placeholder or
+network resource. Every service situation is explicitly fictional and bounded, with no
+real repair, safety, legal, or pricing advice. Speech practice is typed, microphone-free,
+and unscored. Twelve claim-level source records cite the CEFR Companion Volume,
+Goethe-Institut A2 exam, vocabulary, and Deutsch Online materials, plus IDS Grammis
+coverage of objects, dative objects, subordinate clauses, verb placement, commas, word
+stress, and noun compounds. Competent review and all license gates remain in force.
+
+JSON parsing, stable 141-to-150 lesson ordering, instance and template-kind counts,
+complete three-language instruction maps, machine-validation status, no-Devanagari
+Hinglish, no-asset policy, deterministic outcome mapping, and byte-stable regeneration
+checks pass. Locked restore, formatter verification, a zero-warning Release build,
+macOS publish, and all 405 tests (147 app and 258 core) pass. The authored, built,
+published, and four native-QA pack copies are byte-identical with SHA-256
+`b191d600e4fb7c11f4ea308cca54a0f54403d6c289acb27f725b62729c2f3381`. The Release
+publish executable has SHA-256
+`1b3a151e64a3d11adc13a046d6119b23fcefb097b3550bbb424407a36ed1be24`; the four
+ad-hoc-signed native-QA `Linguistics-bin` executables are mutually byte-identical with
+SHA-256 `8657524875443f9ca09b014e58f6855fc606ebc07e658365f1b94f6e047f0b50`, and all four
+bundles pass deep strict code-signature verification.
+
+Fresh native macOS interaction used four isolated schema 7 profiles with the microphone
+set to Never and no local model selected. Reduced-motion light-theme English lesson 141
+played end to end through scene replay and skip, all text-only album pages, word and gap
+failure and recovery, category reassignment, all four card pairs, exact typed
+microphone-free speech, recap replay, completion, and map return. This run exposed a
+three-row Pair Cards clipping defect; the renderer now expands four-pair stages, a
+regression test covers the required height, and the formerly hidden final pair was then
+matched successfully in the refreshed app. Reduced-motion Hindi lesson 148 played end
+to end through the service message, sign failure and recovery, schedule reading,
+five-field form fill, word matching, note writing, exact typed microphone-free speech,
+recap, completion, and map return. Reduced-motion Hinglish lesson 149 played end to end
+in Latin script through both source-card sides, the complete written listening
+alternative, ordered event and route construction, scenario failure and recovery,
+sorting, note writing, recap outcome cycling, completion, and map return.
+
+Motion-enabled dark-theme lesson 150 played end to end through scene replay and a skip
+during entrance motion, the complete corrected dialogue and five-stage route transcript,
+scenario failure and recovery, five-field form fill, all ordered capstone steps, exact
+typed microphone-free speech, recap, completion, and map return. Tab and Return operated
+the English opening-scene controls; Hindi form entry and submission also used the
+keyboard. Named controls, complete text equivalents, status messages, and live
+`LessonTemplateOutcome` regions were exposed in the macOS accessibility tree. Fresh
+visual captures cover the repaired four-pair stage, Hindi recap, dark scenario, typed
+speech route, and dark recap; screenshots remain visual evidence only, while the
+interaction claims above come from native control activation.
+
+All four profiles retain empty curriculum progress and attempts, task attempts and
+review handoffs, pronunciation attempts, review schedules and attempts, and lesson
+history. Diagnostics contain only normal `appOpened` and successful `profileLoaded`
+events. The newest existing macOS Linguistics crash report is timestamped 2026-09-06
+10:24:34 +0100 and predates every Unit 15 QA run; no crash report was created during
+this batch's native interaction.
+
+Direct VoiceOver remains unverified. Windows native interaction is intentionally
+deferred under the current macOS-only scope. Full end-to-end native playthroughs of all
+ten lessons in every declared instruction language remain unverified. Catalog-owned
+fixed labels and status copy remain English in some Hindi- and Hinglish-taught
+renderers; full renderer-chrome localization remains the named P5.4 follow-up.
+Competent German, Hindi, Hinglish, pedagogical, cultural, content, license,
+modification, and redistribution review remains pending. No Unit 15 lesson is
+described as approved. The authored course currently contains 150 lessons and 1,199
+deterministic template instances. The exact next Phase 7 step is P7.B16, Unit 16's 10
+review-gated Invitations and reasons lessons.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
