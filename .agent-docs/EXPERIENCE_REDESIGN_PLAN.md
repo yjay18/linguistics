@@ -1417,6 +1417,69 @@ described as approved. The authored course currently contains 110 lessons and 87
 deterministic template instances. The exact next Phase 7 step is P7.B12, Unit 12's 10
 review-gated Shopping and choices lessons.
 
+**Unit 12 batch status (2026-09-06): complete with named unverified evidence.**
+P7.B12 is authored directly by Codex without local- or remote-model lesson generation.
+The batch contains 10 ordered A2 lessons and 80 unique deterministic template instances
+across 30 catalog kinds, with 10 concepts, 32 lexicon entries, one deterministic
+shopping task, 10 error rules, 10 feedback templates, one rubric, and 10 unscored
+pronunciation text scripts. Every lesson opens with Scene Establish, ends with Recap
+Scrapbook, and remains machine-validated Preview content. English, Hindi, and authored
+Latin-script Hinglish maps cover learner-facing instructions while German examples,
+answer IDs, ordering, outcomes, and the dependency chain from Unit 11 remain
+deterministic single-copy data.
+
+The batch uses no asset references. Reviewed storefront and clothing cutouts, product
+information cards, and a fictional receipt remain named asset follow-ups; every affected
+surface renders its complete authored text equivalent instead of a placeholder or
+network resource. Speech practice is typed, microphone-free, and unscored. Ten
+claim-level source records cite the CEFR Companion Volume, Goethe-Institut A2 exam and
+vocabulary materials, IDS Grammis, Verbraucherzentrale, and German federal consumer
+information. Competent review and all license gates remain in force.
+
+JSON parsing, stable 111-to-120 lesson ordering, instance and template-kind counts,
+complete three-language instruction maps, machine-validation status, no-Devanagari
+Hinglish, no-asset policy, deterministic outcome mapping, and byte-stable regeneration
+checks pass. Locked restore, formatter verification, a zero-warning Release build,
+publish, and all 400 tests (145 app and 255 core) pass. The authored, published, and
+four native-QA pack copies are byte-identical with SHA-256
+`7eae4be271bf48ee8fdec6aeeadc50052da5ce4602a9c441e7c62fbb2e975c7e`.
+
+Fresh native macOS interaction used four isolated schema 7 profiles with the microphone
+set to Never. Reduced-motion English lesson 111 played end to end through album paging,
+failure and recovery, article choice, plural reveal, basket reassignment, exact typed
+microphone-free speech, recap replay, completion, and return to the 120-lesson course
+map. Reduced-motion Hindi lesson 118 played end to end through the complete authored
+product label, material-choice recovery, form fill, written listening alternative,
+note writing, recap, and map return. Reduced-motion Hinglish lesson 119 played end to
+end in Latin script through both postcard sides, ordered relay construction, scenario
+failure and recovery, form fill, exact typed microphone-free speech, note writing,
+recap, and map return. Motion-enabled dark-theme lesson 120 played end to end with
+replay, a skip during entrance motion, deterministic failure and recovery, a written
+listening route, ordered capstone steps, exact typed microphone-free speech, recap
+replay, completion, and map return. Together the runs cover both themes, mouse and
+keyboard operation, reduced-motion instant states, and motion-enabled final states.
+No Unit 12 renderer defect was observed, and the Unit 11 scene-label containment fix
+held with the longer shopping location tape.
+
+All four profiles retain empty curriculum progress and attempts, task attempts and
+review handoffs, pronunciation attempts, review schedules and attempts, and lesson
+history. Diagnostics contain only normal `appOpened` and successful `profileLoaded`
+events. No crash report names a Unit 12 QA bundle. One report appeared during the wider
+verification window for the stale Unit 11 Hinglish QA process launched before Unit 12;
+it records an unsymbolicated managed-exception `SIGABRT`, and its cause remains a named
+unverified follow-up rather than evidence about a Unit 12 playthrough.
+
+Direct VoiceOver remains unverified. Windows native interaction is intentionally
+deferred under the current macOS-only scope. Full end-to-end native playthroughs of all
+ten lessons in every declared instruction language remain unverified. Catalog-owned
+fixed labels and status copy remain English in some Hindi- and Hinglish-taught
+renderers; full renderer-chrome localization remains the named P5.4 follow-up.
+Competent German, Hindi, Hinglish, pedagogical, cultural, content, license,
+modification, and redistribution review remains pending. No Unit 12 lesson is
+described as approved. The authored course currently contains 120 lessons and 959
+deterministic template instances. The exact next Phase 7 step is P7.B13, Unit 13's 10
+review-gated Travel and accommodation lessons.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
