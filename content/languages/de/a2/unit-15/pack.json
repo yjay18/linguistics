@@ -7576,7 +7576,7 @@
           "parameters": {
             "utterance": {
               "kind": "text",
-              "value": "Mira meldet die kalte Heizung, bestätigt Mittwoch von vierzehn bis sechzehn Uhr, klärt 35 Euro und hält den Zugang frei."
+              "value": "Mira meldet die kalte Heizung, bestätigt Mittwoch von vierzehn bis sechzehn Uhr, klärt 35 Euro, hält den Zugang frei und bestätigt, dass die Heizung wieder funktioniert."
             },
             "speech-language": {
               "kind": "text",
