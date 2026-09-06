@@ -1030,6 +1030,16 @@ public sealed class TemplateRegistryTests
             AutomationProperties.GetAutomationId(button) == "ScheduleReadReplay"));
         Assert.IsTrue(buttons.Any(button =>
             AutomationProperties.GetAutomationId(button) == "ScheduleReadSkip"));
+        Assert.IsTrue(buttons.Any(button => Equals(button.Content, "Replay schedule")));
+        Assert.IsTrue(buttons.Any(button => Equals(button.Content, "Skip schedule")));
+        Assert.IsTrue(descendants.Any(control =>
+            AutomationProperties.GetName(control)?.StartsWith(
+                "Synthetic schedule.",
+                StringComparison.Ordinal) == true));
+        Assert.IsFalse(descendants.Any(control =>
+            AutomationProperties.GetName(control)?.Contains(
+                "opening-hours",
+                StringComparison.OrdinalIgnoreCase) == true));
         Assert.IsTrue(descendants.OfType<TextBlock>().Any(text =>
             text.Text == "Dienstag · 10:00 bis 19:00"));
     }

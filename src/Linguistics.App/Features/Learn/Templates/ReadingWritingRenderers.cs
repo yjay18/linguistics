@@ -977,12 +977,12 @@ internal static class ScheduleReadRenderer
             throw new InvalidOperationException("Schedule reading answer must name an available option.");
         }
 
-        var replayButton = new Button { Content = "Replay hours", Classes = { "quiet" } };
+        var replayButton = new Button { Content = "Replay schedule", Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(replayButton, "ScheduleReadReplay");
-        AutomationProperties.SetName(replayButton, "Replay the opening-hours entrance");
-        var skipButton = new Button { Content = "Skip hours", Classes = { "quiet" } };
+        AutomationProperties.SetName(replayButton, "Replay the schedule entrance");
+        var skipButton = new Button { Content = "Skip schedule", Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(skipButton, "ScheduleReadSkip");
-        AutomationProperties.SetName(skipButton, "Skip to the completed opening hours");
+        AutomationProperties.SetName(skipButton, "Skip to the completed schedule");
         var instructionText = new TextBlock
         {
             Text = instruction,
@@ -1012,7 +1012,7 @@ internal static class ScheduleReadRenderer
                 FontWeight = FontWeight.SemiBold,
                 TextWrapping = TextWrapping.Wrap,
             };
-            AutomationProperties.SetName(entryText, $"Opening-hours entry. {entry.Label}");
+            AutomationProperties.SetName(entryText, $"Schedule entry. {entry.Label}");
             entryPanel.Children.Add(entryText);
         }
 
@@ -1020,7 +1020,7 @@ internal static class ScheduleReadRenderer
         scheduleContent.Children.Add(scheduleTape);
         scheduleContent.Children.Add(new TextBlock
         {
-            Text = "SYNTHETIC OPENING HOURS",
+            Text = "SYNTHETIC SCHEDULE",
             FontSize = 12,
             FontWeight = FontWeight.Bold,
             Classes = { "muted" },
@@ -1035,7 +1035,7 @@ internal static class ScheduleReadRenderer
         scheduleCard.Classes.Add("settings-sheet");
         AutomationProperties.SetName(
             scheduleCard,
-            $"Synthetic opening hours. {scheduleTitle}. {string.Join(". ", entries.Select(entry => entry.Label))}");
+            $"Synthetic schedule. {scheduleTitle}. {string.Join(". ", entries.Select(entry => entry.Label))}");
 
         var questionText = new TextBlock
         {
@@ -1044,9 +1044,9 @@ internal static class ScheduleReadRenderer
             FontWeight = FontWeight.SemiBold,
             TextWrapping = TextWrapping.Wrap,
         };
-        AutomationProperties.SetName(questionText, $"Opening-hours question. {question}");
+        AutomationProperties.SetName(questionText, $"Schedule question. {question}");
         var optionPanel = new WrapPanel { Orientation = Orientation.Horizontal };
-        AutomationProperties.SetName(optionPanel, "Opening-hours answer choices");
+        AutomationProperties.SetName(optionPanel, "Schedule answer choices");
         var buttons = new Dictionary<string, Button>(StringComparer.Ordinal);
         string? selectedId = null;
         var outcomePanel = TemplateRendering.CreateOutcomePanel(
@@ -1087,7 +1087,7 @@ internal static class ScheduleReadRenderer
             Content = questionContent,
         };
         questionCard.Classes.Add("soft");
-        AutomationProperties.SetName(questionCard, "Synthetic opening-hours extraction question");
+        AutomationProperties.SetName(questionCard, "Synthetic schedule extraction question");
 
         var root = new StackPanel { Spacing = 12 };
         root.Children.Add(header);
@@ -1095,7 +1095,7 @@ internal static class ScheduleReadRenderer
         {
             root.Children.Add(new TextBlock
             {
-                Text = "Text-only schedule mode is active. Every day, time, question, and choice remains available.",
+                Text = "Text-only schedule mode is active. Every entry, question, and choice remains available.",
                 Classes = { "muted" },
                 TextWrapping = TextWrapping.Wrap,
             });
@@ -1155,10 +1155,10 @@ internal static class ScheduleReadRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "That time matches the requested opening-hours entry.",
-        TemplateOutcomeState.Uncertain => "Choose one time from the synthetic opening hours.",
-        TemplateOutcomeState.Failure => "Check the requested day and its printed opening time again.",
-        _ => "Ready: find the requested day, then choose its opening time.",
+        TemplateOutcomeState.Success => "That answer matches the requested schedule entry.",
+        TemplateOutcomeState.Uncertain => "Choose one answer from the synthetic schedule.",
+        TemplateOutcomeState.Failure => "Check the requested schedule entry and its printed details again.",
+        _ => "Ready: find the requested entry, then choose the matching answer.",
     };
 }
 
