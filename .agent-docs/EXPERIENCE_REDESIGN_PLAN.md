@@ -1480,6 +1480,79 @@ described as approved. The authored course currently contains 120 lessons and 95
 deterministic template instances. The exact next Phase 7 step is P7.B13, Unit 13's 10
 review-gated Travel and accommodation lessons.
 
+**Unit 13 batch status (2026-09-06): complete with named unverified evidence.**
+P7.B13 is authored directly by Codex without local- or remote-model lesson generation.
+The batch contains 10 ordered A2 lessons and 80 unique deterministic template instances
+across 29 catalog kinds, with 10 concepts, 32 lexicon entries, one deterministic travel
+and accommodation task, 10 error rules, 10 feedback templates, one rubric, and 10
+unscored pronunciation text scripts. Every lesson opens with Scene Establish, ends with
+Recap Scrapbook, and remains machine-validated Preview content. English, Hindi, and
+authored Latin-script Hinglish maps cover learner-facing instructions while German
+examples, answer IDs, ordering, outcomes, and the dependency chain from Unit 12 remain
+deterministic single-copy data.
+
+The batch uses no asset references. Reviewed station, vehicle, hotel-room,
+booking-confirmation, and service-desk art remain named asset follow-ups; every affected
+surface renders its complete authored text equivalent instead of a placeholder or
+network resource. Speech practice is typed, microphone-free, and unscored. Eleven
+claim-level source records cite the CEFR Companion Volume, Goethe-Institut A2 exam,
+vocabulary, phrase, and glossary materials, IDS Grammis, Deutsche Bahn passenger-rights
+information, and Verbraucherzentrale travel-booking guidance. Competent review and all
+license gates remain in force.
+
+JSON parsing, stable 121-to-130 lesson ordering, instance and template-kind counts,
+complete three-language instruction maps, machine-validation status, no-Devanagari
+Hinglish, no-asset policy, deterministic outcome mapping, and byte-stable regeneration
+checks pass. Locked restore, formatter verification, a zero-warning Release build,
+publish, and all 402 tests (146 app and 256 core) pass. The authored, published, and four
+native-QA pack copies are byte-identical with SHA-256
+`a70afc466fd9bdcb36805d26f8568b72a64c3c7fc98950137d795e95684c08cc`. The four final
+native-QA `Linguistics-bin` executables are also byte-identical with SHA-256
+`1b3a151e64a3d11adc13a046d6119b23fcefb097b3550bbb424407a36ed1be24`.
+
+Fresh native macOS interaction used four isolated schema 7 profiles with the microphone
+set to Never. Reduced-motion light-theme English lesson 121 played end to end through
+text-only album paging, schedule and gap failure and recovery, sentence unfolding,
+basket reassignment, exact typed microphone-free speech, recap replay, completion, and
+map return. Reduced-motion Hindi lesson 128 played end to end on the final binary through
+the complete seven-line fictional booking sign, a designed text-only unavailable state,
+price and date failure and recovery, form fill, schedule reading, word and pair matching,
+note writing, recap, and map return. Reduced-motion Hinglish lesson 129 played end to end
+in Latin script on the final binary through both postcard sides, an ordered written
+listening route, scenario failure and recovery, form fill, exact typed microphone-free
+speech, note writing, recap, and map return. Motion-enabled dark-theme lesson 130 played
+end to end on the final binary with replay, a skip during entrance motion, dialogue
+comprehension, route construction, deterministic failure and recovery, form fill,
+ordered capstone steps, exact typed microphone-free speech, recap replay, completion,
+and map return. Together the runs cover both themes, mouse and keyboard operation,
+reduced-motion instant states, and motion-enabled final states.
+
+Native inspection exposed two shared-renderer defects: schedule headings were tied to an
+appointment context, and long authored sign text could clip. Both were fixed, covered by
+tests, and reverified in Hindi lesson 128 on the final binary. The full English lesson 121
+run preceded those final renderer patches; all final binaries are byte-identical and the
+changed renderer paths were exercised afterward, but a second complete English run on
+the final binary remains unverified. During the first Hinglish route attempt, a batched
+Tab and Return sequence moved focus into global navigation after a selected route button
+became disabled. A controlled rerun completed through discrete accessible actions; exact
+focus continuation after route selection remains a named keyboard follow-up.
+
+All four profiles retain empty curriculum progress and attempts, task attempts and
+review handoffs, pronunciation attempts, review schedules and attempts, and lesson
+history. Diagnostics contain only normal `appOpened` and successful `profileLoaded`
+events. No crash report names a Unit 13 QA bundle.
+
+Direct VoiceOver remains unverified. Windows native interaction is intentionally
+deferred under the current macOS-only scope. Full end-to-end native playthroughs of all
+ten lessons in every declared instruction language remain unverified. Catalog-owned
+fixed labels and status copy remain English in some Hindi- and Hinglish-taught
+renderers; full renderer-chrome localization remains the named P5.4 follow-up.
+Competent German, Hindi, Hinglish, pedagogical, cultural, content, license,
+modification, and redistribution review remains pending. No Unit 13 lesson is
+described as approved. The authored course currently contains 130 lessons and 1,039
+deterministic template instances. The exact next Phase 7 step is P7.B14, Unit 14's 10
+review-gated Work and responsibilities lessons.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
