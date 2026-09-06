@@ -868,6 +868,43 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void SignReadingExpandsLongTextOnlySignsWithoutClippingTheAuthoredLines()
+    {
+        const string signText = "FIKTIVE BUCHUNGSBESTÄTIGUNG\n14.-16. OKTOBER\n2 NÄCHTE\n" +
+                                "EINZELZIMMER\nFRÜHSTÜCK INKLUSIVE\n" +
+                                "GESAMTPREIS: 168 EURO\nANREISE: AB 15 UHR";
+        var fixture = TemplateGalleryFixtures.All.Single(candidate =>
+            candidate.TemplateId == new TemplateId("sign-reading"));
+        var values = fixture.Parameters.Values.ToDictionary(
+            parameter => parameter.Key,
+            parameter => parameter.Value,
+            StringComparer.Ordinal);
+        values["sign-text"] = values["sign-text"] with { Text = signText };
+        var rendered = TemplateRegistry.CreateDefault().Render(
+            fixture.TemplateId,
+            fixture.Parameters with
+            {
+                Values = values,
+                UseTextOnlyFallback = true,
+            },
+            fixture.InstructionLanguage,
+            shouldReduceMotion: true,
+            _ => { });
+        var descendants = rendered.GetLogicalDescendants().OfType<Control>().ToArray();
+        var stage = descendants.OfType<PaperStage>().Single();
+        var frame = descendants.OfType<CutoutFrame>().Single(control =>
+            AutomationProperties.GetName(control)?.StartsWith(
+                "Authored text-only sign.",
+                StringComparison.Ordinal) == true);
+        var authoredText = descendants.OfType<TextBlock>().Single(text => text.Text == signText);
+
+        Assert.IsGreaterThan(304d, stage.Height);
+        Assert.IsGreaterThan(208d, frame.Height);
+        Assert.IsLessThanOrEqualTo(22d, authoredText.FontSize);
+        Assert.AreEqual(signText, AutomationProperties.GetName(frame)!["Authored text-only sign. ".Length..]);
+    }
+
+    [TestMethod]
     public void FormFillKeepsSyntheticResponsesLocalAndReportsFieldIds()
     {
         var fixture = TemplateGalleryFixtures.All.Single(candidate =>

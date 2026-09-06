@@ -67,7 +67,20 @@ internal static class SignReadingRenderer
                 assetReference,
                 154,
                 Stretch.UniformToFill);
-        var stage = TemplateRendering.CreateStage(304, $"Reading sign. {signText}");
+        var signLineCount = signText.Count(character => character == '\n') + 1;
+        var textOnlySignFontSize = signLineCount switch
+        {
+            >= 8 => 20d,
+            >= 6 => 22d,
+            >= 4 => 26d,
+            _ => 30d,
+        };
+        var signFrameHeight = signImage is null
+            ? Math.Max(208, 72 + (signLineCount * textOnlySignFontSize * 1.3))
+            : 208;
+        var stage = TemplateRendering.CreateStage(
+            Math.Max(304, signFrameHeight + 96),
+            $"Reading sign. {signText}");
         TemplateRendering.AddBackdrop(stage, imageCache, assetReferenceId: null);
         var stageTape = new PaperTape { Content = "READ THE SIGN", Angle = -1.2 };
         PaperStage.SetLayer(stageTape, PaperStageLayer.TapedLabel);
@@ -77,12 +90,12 @@ internal static class SignReadingRenderer
         stage.Children.Add(stageTape);
 
         var signContent = signImage is null
-            ? CreateTextOnlySign(signText)
+            ? CreateTextOnlySign(signText, textOnlySignFontSize)
             : CreatePhotographedSign(signImage, signText);
         var signFrame = new CutoutFrame
         {
             Width = 520,
-            Height = 208,
+            Height = signFrameHeight,
             Content = signContent,
             RenderTransformOrigin = new RelativePoint(0.5, 1, RelativeUnit.Relative),
         };
@@ -242,7 +255,7 @@ internal static class SignReadingRenderer
         }
     }
 
-    private static Control CreateTextOnlySign(string signText)
+    private static Control CreateTextOnlySign(string signText, double fontSize)
     {
         var content = new StackPanel
         {
@@ -261,7 +274,7 @@ internal static class SignReadingRenderer
         content.Children.Add(new TextBlock
         {
             Text = signText,
-            FontSize = 30,
+            FontSize = fontSize,
             FontWeight = FontWeight.Bold,
             TextAlignment = TextAlignment.Center,
             TextWrapping = TextWrapping.Wrap,
