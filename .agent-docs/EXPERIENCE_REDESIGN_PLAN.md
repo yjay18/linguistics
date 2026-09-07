@@ -1699,6 +1699,84 @@ described as approved. The authored course currently contains 150 lessons and 1,
 deterministic template instances. The exact next Phase 7 step is P7.B16, Unit 16's 10
 review-gated Invitations and reasons lessons.
 
+**Unit 16 batch status (2026-09-07): complete with named unverified evidence.**
+P7.B16 is authored directly by Codex without local- or remote-model lesson generation.
+The batch contains 10 ordered A2 lessons and 80 unique deterministic template instances
+across 27 catalog kinds, with 10 concepts, 32 lexicon entries, one deterministic social-
+planning task, 10 error rules, 10 feedback templates, one rubric, and 10 unscored
+pronunciation text scripts. Every lesson opens with Scene Establish, ends with Recap
+Scrapbook, and remains machine-validated Preview content. English, Hindi, and authored
+Latin-script Hinglish maps cover learner-facing instructions while German examples,
+answer IDs, ordering, outcomes, and the dependency chain from Unit 15 remain
+deterministic single-copy data.
+
+The batch uses no asset references. Reviewed leisure-icon, invitation-card, group-chat-
+strip, event-calendar, and friend-puppet art remain named asset follow-ups; every
+affected surface renders its complete authored text equivalent instead of a placeholder
+or network resource. Every planning situation is explicitly fictional and bounded.
+Speech practice is typed, microphone-free, and unscored. Twelve claim-level source
+records cite the CEFR Companion Volume, Goethe-Institut A2 exam, vocabulary, and
+Deutsch Online materials, plus IDS Grammis coverage of causal clauses, verb placement,
+subordinate-clause commas, modal verbs, indirect questions, and word stress. Friendly
+invitation intonation remains a named expert-review need. Competent review and all
+license gates remain in force.
+
+JSON parsing, stable 151-to-160 lesson ordering, instance and template-kind counts,
+complete three-language instruction maps, machine-validation status, no-Devanagari
+Hinglish, no-asset policy, deterministic outcome mapping, and byte-stable regeneration
+checks pass. Locked restore, formatter verification, a zero-warning Release build,
+macOS publish, and all 406 tests (147 app and 259 core) pass. The authored, published,
+and four native-QA pack copies are byte-identical with SHA-256
+`6c390d5aee0df4f48b2149f6e629b5a0972d19a3a9b621f4e7010ff988ea512a`. The Release
+publish executable has SHA-256
+`1b3a151e64a3d11adc13a046d6119b23fcefb097b3550bbb424407a36ed1be24`. The four signed
+QA-bundle main executables have distinct post-signing hashes, so no executable byte-
+identity claim is made; all four bundles pass deep strict code-signature verification.
+
+Fresh native macOS interaction used four isolated schema 7 profiles with the microphone
+set to Never and no local model selected. Reduced-motion light-theme English lesson 151
+played end to end through scene replay and skip, every text-only album page, schedule,
+dialogue, form, and word-order failure and recovery, exact typed microphone-free speech,
+recap outcome cycling, completion, and map return. Reduced-motion Hindi lesson 158
+played end to end through scene replay and skip, sign failure and recovery, schedule,
+form, word matching, note writing, exact typed microphone-free speech, recap outcome
+cycling, completion, and a localized non-mastery map status. Reduced-motion Hinglish
+lesson 159 played end to end in Latin script through scene replay and skip, both
+postcard sides, the complete written listening alternative, scenario failure and
+recovery, sorting, note writing, recap outcome cycling, completion, and map return.
+
+Motion-enabled dark-theme lesson 160 played end to end through keyboard map navigation,
+scene replay, a captured intermediate entrance state, the settled final state within
+3.5 seconds, and skip. Dialogue, route, scenario, five-field form, and ordered capstone
+outcomes matched their deterministic mappings. Exact typed microphone-free speech
+included the indirect time question, the microphone control remained disabled, and the
+surface stated that pronunciation was not assessed. Recap Again and Done returned to a
+non-mastery map status. Mouse and keyboard operation, both themes, reduced-motion
+instant states, motion-enabled staging, replay, skip, and outcome cycling therefore have
+native evidence. Accessibility names, complete text equivalents, status messages, and
+live `LessonTemplateOutcome` regions were exposed in the macOS accessibility tree.
+Fresh captures remain visual evidence only; interaction claims come from native control
+activation.
+
+All four profiles retain empty curriculum progress and attempts, task attempts and
+review handoffs, pronunciation attempts, review schedules and attempts, and lesson
+history. Diagnostics contain only normal `appOpened` and successful `profileLoaded`
+events. No macOS Linguistics crash report was created during Unit 16 interaction. The
+computer-control service itself produced one crash report during the automated dark-
+theme run, recovered with the app state intact, and is not counted as application
+stability evidence.
+
+Direct VoiceOver remains unverified. Windows native interaction is intentionally
+deferred under the current macOS-only scope. Full end-to-end native playthroughs of all
+ten lessons in every declared instruction language and theme remain unverified.
+Catalog-owned fixed labels and status copy remain English in some Hindi- and Hinglish-
+taught renderers; full renderer-chrome localization remains the named P5.4 follow-up.
+Competent German, Hindi, Hinglish, pedagogical, cultural, content, license,
+modification, and redistribution review remains pending. No Unit 16 lesson is
+described as approved. The authored course currently contains 160 lessons and 1,279
+deterministic template instances. The exact next Phase 7 step is P7.B17, Unit 17's 10
+review-gated Digital life and media lessons.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
