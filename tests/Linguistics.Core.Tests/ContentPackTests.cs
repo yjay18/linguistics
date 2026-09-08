@@ -24,7 +24,7 @@ public sealed class ContentPackTests
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
 
         Assert.AreEqual(ContentLoadPolicy.AuthoringPreview, catalog.Policy);
-        Assert.HasCount(22, catalog.Packs);
+        Assert.HasCount(23, catalog.Packs);
         var german = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.core");
         var unitOne = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit01");
         var unitTwo = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit02");
@@ -335,7 +335,7 @@ public sealed class ContentPackTests
         var german = targets.Single(pack => pack.Manifest.Id == "language.de.core");
         var transfers = catalog.Packs.Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer).ToArray();
 
-        Assert.HasCount(20, targets);
+        Assert.HasCount(21, targets);
         Assert.HasCount(13, german.Concepts);
         Assert.HasCount(2, transfers);
         Assert.IsTrue(transfers.All(pack => pack.Concepts.Count == 0));
@@ -368,7 +368,7 @@ public sealed class ContentPackTests
             .Packs.SelectMany(pack => pack.Tasks)
             .ToArray();
 
-        Assert.HasCount(23, tasks);
+        Assert.HasCount(24, tasks);
         Assert.IsTrue(tasks.All(task => task.Transitions.Count > 0));
         Assert.IsTrue(tasks.All(task => task.SuccessConditions.Count > 0));
         Assert.IsTrue(tasks.All(task => task.States.All(state => state.ScriptedFallback.Count > 0)));
@@ -421,7 +421,7 @@ public sealed class ContentPackTests
             var pronunciation = runtime.CreateRuntimePronunciationUtterances(
                 new LanguageCode("de"));
 
-            Assert.HasCount(203, graph.Nodes);
+            Assert.HasCount(213, graph.Nodes);
             Assert.HasCount(3, english);
             Assert.IsTrue(english.All(mapping => mapping.ReviewStatus == TransferReviewStatus.Approved));
             Assert.IsTrue(hindiNotes.Any(note =>
@@ -439,7 +439,7 @@ public sealed class ContentPackTests
             Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
             Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
             Assert.AreEqual("Ich möchte einen Kaffee, bitte.", cafe.PronunciationTargetText);
-            Assert.HasCount(194, pronunciation);
+            Assert.HasCount(204, pronunciation);
             Assert.HasCount(4, pronunciation.Where(utterance =>
                 utterance.ContentVersion == new VersionId("language.de.core.v2")));
             Assert.HasCount(10, pronunciation.Where(utterance =>
@@ -518,8 +518,8 @@ public sealed class ContentPackTests
 
         Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
         Assert.AreEqual(450, catalog.TargetLessonCount);
-        Assert.AreEqual(190, catalog.AuthoredLessonCount);
-        Assert.AreEqual(260, catalog.RemainingLessonCount);
+        Assert.AreEqual(200, catalog.AuthoredLessonCount);
+        Assert.AreEqual(250, catalog.RemainingLessonCount);
         Assert.AreEqual("Meet and greet", catalog.Units[0].Title);
         Assert.AreEqual("Greet for the time of day", catalog.Units[0].Lessons[0].Title);
         Assert.AreEqual("Learn in German", catalog.Units[1].Title);
@@ -746,6 +746,16 @@ public sealed class ContentPackTests
                 "lesson.de.a2.u19.sustain-conversation",
                 "lesson.de.a2.u19.mediate-service-problem",
                 "lesson.de.a2.u19.complete-a2-mission",
+                "lesson.de.b1.u20.establish-story-context",
+                "lesson.de.b1.u20.choose-past-forms",
+                "lesson.de.b1.u20.order-events-als",
+                "lesson.de.b1.u20.link-earlier-later-actions",
+                "lesson.de.b1.u20.add-story-background",
+                "lesson.de.b1.u20.express-reaction-result",
+                "lesson.de.b1.u20.hear-personal-narrative",
+                "lesson.de.b1.u20.read-short-account",
+                "lesson.de.b1.u20.retell-another-story",
+                "lesson.de.b1.u20.complete-story-mission",
             },
             lessons.Select(lesson => lesson.Id).ToArray());
         Assert.IsTrue(lessons.All(lesson => lesson.Slides.Count >= 7));
@@ -5137,17 +5147,20 @@ public sealed class ContentPackTests
     [DataRow(17)]
     [DataRow(18)]
     [DataRow(19)]
-    public void RecentA2ActivityAnswersMapDeterministically(int unitNumber)
+    [DataRow(20)]
+    public void RecentAuthoredActivityAnswersMapDeterministically(int unitNumber)
     {
+        var level = unitNumber >= 20 ? "b1" : "a2";
         var unit = LoadBundled(ContentLoadPolicy.AuthoringPreview)
-            .Packs.Single(pack => pack.Manifest.Id == $"language.de.a2.unit{unitNumber}");
+            .Packs.Single(pack => pack.Manifest.Id == $"language.de.{level}.unit{unitNumber}");
         Assert.HasCount(10, unit.Lessons);
         Assert.HasCount(80, unit.Lessons.SelectMany(lesson => lesson.TemplateInstances));
         var finiteVerbs = unitNumber switch
         {
             17 => new[] { "möchte", "sehe", "melde", "möchte", "kann", "habe", "müssen", "möchte", "möchte", "kann" },
             18 => new[] { "möchte", "möchten", "möchte", "soll", "möchte", "möchte", "möchte", "kann", "möchte", "möchte" },
-            _ => new[] { "bin", "möchte", "möchten", "muss", "möchten", "möchte", "möchte", "möchte", "möchte", "möchten" },
+            19 => new[] { "bin", "möchte", "möchten", "muss", "möchten", "möchte", "möchte", "möchte", "möchte", "möchten" },
+            _ => new[] { "haben", "sind", "hatte", "hatten", "hat", "haben", "konnten", "hatte", "hat", "haben" },
         };
         for (var index = 0; index < unit.Lessons.Count; index++)
         {
@@ -5159,7 +5172,9 @@ public sealed class ContentPackTests
                 "This unit uses short labels that fit the existing train cars.");
             var album = unit.Lessons[index].TemplateInstances.Single(instance =>
                 instance.TemplateId == new TemplateId("photo-album"));
-            Assert.HasCount(unitNumber == 18 && index is 0 or 4 ? 6 : 5, album.Parameters["pages"].Options!);
+            var hasReadingAid = (unitNumber == 18 && index is 0 or 4) ||
+                                (unitNumber == 20 && index is 3 or 6);
+            Assert.HasCount(hasReadingAid ? 6 : 5, album.Parameters["pages"].Options!);
         }
         foreach (var instance in unit.Lessons.SelectMany(lesson => lesson.TemplateInstances))
         {
@@ -5180,7 +5195,7 @@ public sealed class ContentPackTests
             else if (id is "word-order-train" or "listen-order")
             {
                 var options = parameters[id == "listen-order" ? "events" : "options"].Options!;
-                if (unitNumber == 19 && id == "listen-order")
+                if (unitNumber >= 19 && id == "listen-order")
                 {
                     Assert.IsTrue(options.All(option => option.Label.Length <= 20),
                         "Listening event cards need short complete labels, with details in the transcript.");
@@ -5207,7 +5222,7 @@ public sealed class ContentPackTests
             else if (id == "prompt-respond")
             {
                 var answers = parameters["accepted-responses"].Options!;
-                if (unitNumber == 19)
+                if (unitNumber >= 19)
                 {
                     Assert.AreEqual("Lea", parameters["speaker"].Value,
                         "Use the complete short character name on the text cutout.");
@@ -5244,11 +5259,11 @@ public sealed class ContentPackTests
 
         var grammar = unit.Lessons[2].TemplateInstances.Single(instance =>
             instance.TemplateId == new TemplateId("gap-card"));
-        Assert.AreEqual(unitNumber switch { 17 => "sich", 18 => "zu", _ => "ins" }, grammar.Parameters["answer"].Value);
-        var settings = unit.Lessons[unitNumber == 19 ? 9 : 7].TemplateInstances.Single(instance =>
+        Assert.AreEqual(unitNumber switch { 17 => "sich", 18 => "zu", 19 => "ins", _ => "als" }, grammar.Parameters["answer"].Value);
+        var settings = unit.Lessons[unitNumber >= 19 ? 9 : 7].TemplateInstances.Single(instance =>
             instance.TemplateId == new TemplateId("form-fill"));
-        Assert.AreEqual(unitNumber switch { 17 => "nein", 18 => "A1 abgeschlossen", _ => "offen" }, settings.Parameters["answers"].Options!
-            .Single(option => option.Id == (unitNumber switch { 17 => "newsletter", 18 => "entry", _ => "hotel" })).Label);
+        Assert.AreEqual(unitNumber switch { 17 => "nein", 18 => "A1 abgeschlossen", 19 => "offen", _ => "Bibliothek" }, settings.Parameters["answers"].Options!
+            .Single(option => option.Id == (unitNumber switch { 17 => "newsletter", 18 => "entry", 19 => "hotel", _ => "ending" })).Label);
     }
 
     [TestMethod]

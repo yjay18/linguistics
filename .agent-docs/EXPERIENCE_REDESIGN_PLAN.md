@@ -1922,6 +1922,52 @@ are authored, not linguistically approved or certified. The next batch is P7.B20
 Tell a coherent story (B1 lessons 191–200). Units 20–45 contain 260 remaining lessons.
 The user's all-authoring request remains active. Phase 7 is not complete.
 
+**Unit 20 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B20 is directly authored without a separate lesson-generation model. Tell a
+coherent story contains B1 lessons 191–200, 80 deterministic template instances across
+12 catalog kinds, 10 concepts, 16 lexical entries, one task and rubric, 10
+error/feedback pairs, and 10 unscored pronunciation scripts. English, Hindi, and
+Latin-script Hinglish maps are complete. CEFR and Goethe B1 references support the
+approximate narrative scope; IDS Grammis supports past forms, temporal clauses,
+earlier-past formation, verb placement, and context-specific emphasis. Written aids
+explain the earlier-past construction and suggest emphasis without claiming a
+pronunciation score or general storytelling assessment.
+
+Locked restore, zero-warning Release build, all 410 tests (147 app and 263 core),
+formatter, macOS publish, strict local QA bundle signature inspection, and whitespace
+checks pass. Mapping tests cover every activity, incomplete answers, finite-verb
+placement, short train and listening labels, complete visible rehearsal models, the
+als gap, and the story mission's Bibliothek ending. No production renderer, scoring,
+mastery, persistence, transfer, or speech-assessment code changed. Authored and
+published packs share SHA-256
+`b51cd42b9b6761e0cbe170973193ac1f242c0c18c2fc694a4c932b0d2a439f00`.
+
+Native light-theme, reduced-motion macOS interaction completed English lesson 194,
+Hindi lesson 197, and Hinglish lesson 200. Evidence includes mouse and keyboard,
+scene replay/skip, complete five- and six-page albums, wrong-answer recovery,
+dialogue, nachdem gap, complete written narrative and four ordered events, a German
+note, incomplete and complete mission forms, four ordered capstone acknowledgements,
+trains, typed rehearsal, recap actions, and return to the course map. The mission
+board acknowledges ordered steps; it does not assess free narration. Screenshots
+show readable grammar/emphasis pages, event labels, and mission cards, but are visual
+evidence only. The isolated synthetic profile retained microphone Never, no selected
+model, and empty learning histories after these developer playback visits.
+
+Intermittent macOS capture failures required fresh accessibility-state checks and
+keyboard recovery; interrupted actions were not assumed successful. The repeated
+long album navigation caption clips although the primary teaching text is readable:
+name P4.T7 album-caption sizing as a follow-up. Direct VoiceOver, dark-theme and
+motion-enabled interaction for this batch, and every lesson/language permutation
+remain unverified. Windows remains deferred. rainy-park, library-reading-room, and
+reader-cutouts are named asset needs with complete text alternatives, not fetched
+media. P5.4 renderer-chrome localization remains a follow-up. Competent German,
+Hindi, Hinglish, pedagogical, cultural, content, rights, and narrative-audio review
+remains pending. These B1 lessons are machine-validated Preview, not approved.
+
+The authored course now contains 200 lessons and 1,599 template instances. The next
+batch is P7.B21, Opinions and reasons (201–210). Units 21–45 contain 250 remaining
+lessons. The all-authoring request remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
