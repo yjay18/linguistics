@@ -1968,6 +1968,53 @@ The authored course now contains 200 lessons and 1,599 template instances. The n
 batch is P7.B21, Opinions and reasons (201–210). Units 21–45 contain 250 remaining
 lessons. The all-authoring request remains active; Phase 7 is not complete.
 
+**Unit 21 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B21 is directly authored without a separate lesson-generation model. Opinions and
+reasons contains lessons 201–210, 80 deterministic template instances across 12 catalog
+kinds, 10 concepts, 16 lexical entries, one task and rubric, 10 error/feedback pairs,
+and 10 unscored pronunciation scripts. English, Hindi, and Latin-script Hinglish maps
+are complete. CEFR/Goethe B1 and discussion references support bounded opinion,
+agreement, disagreement, and mediation practice. IDS Grammis supports denn/weil,
+deshalb/darum, trotzdem/obwohl, verb placement, and a written contrastive-focus cue.
+The fictional group's trial remains conditional on its unresolved price. Authored
+examples distinguish opinions, reasons, examples, and evidence; no room is booked.
+
+Locked restore, zero-warning Release build, all 412 tests (147 app and 265 core),
+formatter, macOS publish, strict local QA signature inspection, and whitespace checks
+pass. Initial validation caught a duplicate album-page ID; it was corrected before
+the final green run. Tests cover every deterministic activity mapping, short labels,
+six-page emphasis aid, complete visible typed models, written weil/obwohl clause
+order, deshalb, unscored rehearsal, and the unresolved price. Static checks found no
+em dashes or Devanagari in Hinglish maps and no translated copy block over 25 words.
+Authored and published packs share SHA-256
+`7786a5dad16b88a7a3b68358fcc0d27d6a2fb1d35b2dee2366a124ed91ca6bab`.
+
+Native dark-theme, reduced-motion macOS interaction completed English lesson 206,
+Hindi lesson 207, and Hinglish lesson 210. Evidence includes mouse/keyboard controls,
+scene replay/skip, complete five- and six-page albums, reading failure/recovery,
+dialogue, full written discussion and four ordered contributions, German notes,
+incomplete/complete forms, ordered mission acknowledgements, trains, typed rehearsal,
+recap actions, and map return. Screenshots visually document the emphasis aid,
+discussion sequence, and Hinglish rehearsal; interaction is evidenced separately by
+the control actions and resulting states. The synthetic profile retained microphone
+Never, no selected model, and empty histories. Preview playback did not grant mastery.
+
+The native launcher took about 30 minutes to return despite its requested timeout.
+Repeated ScreenCaptureKit failures required state inspection and keyboard recovery;
+no interrupted action was assumed to have succeeded. The P4.T7 repeated album caption
+still clips; selected listening-card contrast in dark mode needs P8.2 measurement
+and review. P5.4 renderer-chrome localization remains a follow-up. Direct VoiceOver,
+light-theme/motion-enabled interaction for this batch, native gap-card practice, and
+all ten lessons in all three languages remain unverified. Windows stays deferred.
+study-room, park-discussion, and discussion-participant-cutouts remain named asset
+needs with complete authored text alternatives. Competent German, Hindi, Hinglish,
+pedagogical, cultural, content, rights, and contrastive-audio review remains pending.
+These lessons are machine-validated Preview, not approved.
+
+The authored course now contains 210 lessons and 1,679 template instances. The next
+batch is P7.B22, Find and start work (211–220). Units 22–45 contain 240 remaining
+lessons. The all-authoring request remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
