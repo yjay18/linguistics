@@ -2015,6 +2015,58 @@ The authored course now contains 210 lessons and 1,679 template instances. The n
 batch is P7.B22, Find and start work (211–220). Units 22–45 contain 240 remaining
 lessons. The all-authoring request remains active; Phase 7 is not complete.
 
+**Unit 22 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B22 is directly authored without a separate lesson-generation model. Find and start
+work contains lessons 211–220, 80 deterministic template instances across 12 catalog
+kinds, 10 concepts, 16 lexical entries, one task and rubric, 10 error/feedback pairs,
+and 10 unscored pronunciation scripts. English, Hindi, and Latin-script Hinglish maps
+are complete. CEFR/Goethe sources support approximate B1 work communication and
+application structure. IDS Grammis supports relative clauses and clause-internal
+case, bounded adjective endings, perfect auxiliaries, verb placement, and a written
+workplace emphasis cue. The fictional vacancy, application, and interview are not
+real submissions or offers. The separate fictional contract excerpt explicitly is
+not legal advice, statutory minimums, net-pay calculation, or real-contract analysis.
+Its terms are not silently imported into the vacancy's missing salary information.
+
+Locked restore, zero-warning Release build, all 414 tests (147 app and 267 core),
+formatter, macOS publish, strict isolated QA signature inspection, and whitespace
+checks pass. Initial validation rejected a one-letter answer ID; it was corrected.
+Native review then found the longer relative-clause activity clipped. A shorter
+complete sentence, its own three-language example record, and a width regression
+assertion now replace it. A test-analyzer complaint was corrected and the final
+fail-fast build/test/format/publish sequence passed. Tests cover every activity's
+deterministic mapping, den with Mira as subject, neue, fictional-contract disclaimer
+and notice wording, deferred hiring, short labels, and the final Lebenslauf field.
+Authored and published packs share SHA-256
+`b137cbcba82422ad6bf3236ecb3d49863913c728af6f923814e7625a581af613`.
+
+Native light-theme, reduced-motion macOS interaction completed English lesson 213,
+Hindi lesson 218, and Hinglish lesson 220 on the final corrected candidate. Evidence
+includes mouse navigation and extensive keyboard operation, scene replay/skip,
+five-page albums, reading and dialogue comprehension, relative-gap failure/recovery,
+four-field contract transcription, German note writing, incomplete/complete mission
+forms, ordered capstone acknowledgements, sentence trains, typed rehearsal, recap
+cycling, and map return. Fresh full-window screenshots show the shorter gap fitting,
+the complete Hindi form, and the Hinglish model; malformed thumbnail captures were
+not treated as layout evidence. Screenshots remain visual evidence only. The reused
+isolated QA host loaded 220 lessons. Its synthetic profile kept microphone Never,
+no selected model, and empty learning histories; no mastery was granted.
+
+Intermittent capture failures and startup focus loss required fresh state checks;
+interrupted actions were not presumed successful. P4.T22 long-sentence layout remains
+a renderer follow-up, alongside P4.T7 repeated album captions and P5.4 chrome
+localization. Direct VoiceOver, dark-theme/motion-enabled review for this batch,
+native recruitment-listening and six-page emphasis-aid playback, and all lesson/
+language permutations remain unverified. Windows stays deferred. office-notice,
+interview-room, and recruiter-cutouts remain named asset needs with complete authored
+text alternatives. Competent German, Hindi, Hinglish, pedagogical, cultural, content,
+rights, and workplace-audio review remains pending. The new lessons are
+machine-validated Preview, not approved.
+
+The authored course now contains 220 lessons and 1,759 template instances. The next
+batch is P7.B23, Housing and neighbours (221–230). Units 23–45 contain 230 remaining
+lessons. The all-authoring request remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
