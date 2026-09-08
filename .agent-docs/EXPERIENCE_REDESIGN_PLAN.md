@@ -2303,6 +2303,64 @@ The authored course contains 270 lessons and 2,159 template instances. Next is P
 News and information (271–280). Units 28–45 contain 180 remaining lessons.
 The all-authoring request remains active; Phase 7 is not complete.
 
+**Unit 28 batch status (2026-09-08): authoring complete with named unverified evidence; native checkpoint blocked by locked Mac.**
+
+P7.B28 supplies lessons 271–280 with 80 deterministic instances across 12 template
+kinds, 10 concepts, 16 lexemes, 10 feedback/error pairs, 10 microphone-free wording
+models, and one bounded task/rubric. English, Hindi, and Hinglish explanations were
+directly authored. Eight cited sources support approximate B1 scope, reporting care,
+passive constructions, vocabulary, and optional delivery practice. All reports,
+speakers, dates, and publications are fictional. Lessons cover event/publication dates,
+explicit opinion markers, source phrases, affected passive subjects, shared-source
+dependence, neutral summaries, a complete bulletin, ambiguous headlines, mediation,
+and a bounded briefing. Repetition is not independent confirmation; a question is
+not evidence; a planned discussion is not a construction decision. No real story is
+published, source contacted, event verified, or journalistic competence certified.
+
+Final locked restore, zero-warning Release build, all 426 tests (147 app and 279 core),
+formatter, whitespace checks, macOS publish, and strict isolated QA signature inspection
+pass. Initial checks caught an empty gap prefix, single-letter page identifiers, and
+long activity labels; these were corrected before the successful full run. An initial
+runtime-specific QA publish changed lock files; those packaging-only changes were
+restored, and the final publish used the existing target without lock-file changes.
+Tests cover each activity's deterministic outcomes, distinct dates, shared attribution,
+passive agreement, missing access information, and unresolved construction decisions.
+Copy checks found no overlength explanation maps, Devanagari in Hinglish, or em dashes.
+Authored and published packs share SHA-256
+`6385ada1b9dff00b37a19ffd3ddf0b4b242eb3f08b2ff4970c1f311de8fde5e9`.
+
+Native light-theme, reduced-motion macOS interaction completed English lesson 274
+and Hindi lesson 277 end to end. Evidence includes mouse scene replay/skip, keyboard
+navigation, every sampled album page, reading/dialogue answers, incorrect passive
+agreement and replay recovery, the complete written bulletin and event ordering,
+the source-aware note, trains, typed matching, recaps, and return to the map. Typed
+comparison explicitly reported that pronunciation was not assessed. Hinglish lesson
+280 reached the opening, all five album pages, source reading, and incomplete/complete
+form checks. A capture error interrupted the capstone attempt. Fresh inspection after
+returning from card 6 showed card 5 at its initial state, with step 1 available and
+steps 2–4 waiting. The subsequent attempt was stopped because the Mac was locked and
+automatic unlock was paused after physical input. Do not count the capstone, train,
+typed response, recap, or map return as completed for this Hinglish lesson.
+
+Fresh screenshots show the English passive gap, Hindi written bulletin, and initial
+Hinglish mission board. The synthetic profile retains microphone Never, no selected
+model, and empty learning, task, speech, and review histories. Direct VoiceOver,
+dark-theme/motion-enabled review, all 30 lesson/language combinations, native six-page
+neutral-delivery review, and reference audio remain unverified. Windows stays deferred.
+P8.2 selected-card contrast measurement, P4.T7 repeated album captions, P5.4 renderer
+chrome localization, and note-check inflection tolerance remain named follow-ups.
+newsroom-desk, newspaper-props, and community-book-exchange remain asset needs with
+authored text alternatives using existing paper-stage materials. Competent German,
+Hindi, Hinglish, pedagogy, cultural, content, and rights review remains pending.
+New lessons remain machine-validated Preview, not approved.
+
+The course now contains 280 authored lessons and 2,239 template instances. Units 29–45
+contain 170 remaining lessons. Exact resume step: manually unlock the Mac, complete
+Hinglish lesson 280 from its four capstone acknowledgements through train, typed model,
+recap, and map return, then author P7.B29 Society and culture (281–290). The all-authoring
+request is not complete. GitHub CI for the preceding Unit 25–27 commits was inspected
+and passed; this checkpoint's remote CI must be checked after pushing.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
