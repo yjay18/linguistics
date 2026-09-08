@@ -2113,6 +2113,55 @@ The authored course now contains 230 lessons and 1,839 template instances. Next 
 P7.B24, Health and wellbeing (231–240). Units 24–45 contain 220 remaining lessons.
 The all-authoring request remains active; Phase 7 is not complete.
 
+**Unit 24 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B24 is directly authored without a separate lesson-generation model. Health and
+wellbeing contains lessons 231–240, 80 deterministic instances across 12 template
+kinds, 10 concepts, 16 lexical entries, one task and rubric, 10 error/feedback pairs,
+and 10 unscored pronunciation scripts. English, Hindi, and Latin-script Hinglish
+maps are complete. CEFR/Goethe, IDS Grammis, and IQWiG references support approximate
+B1 communication, reflexive/reciprocal reference, reported instructions, relative
+clauses, cautious modal suggestions, speech grouping, and health-information literacy.
+Fictional observations are not diagnoses; chronology is not proof of causation.
+The abbreviated consultation explicitly is not a complete examination or advice to
+wait. No personal health record, clinical triage, treatment, or recovery guarantee
+is requested or supplied.
+
+Locked restore, zero-warning Release build, all 418 tests (147 app and 271 core),
+formatter, macOS publish, strict isolated QA signature inspection, and whitespace
+checks pass. Initial validation caught an invalid concept enum label, which was
+corrected before final gates. A short practice sentence was refined before final
+publish. Copy checks cover explanation length, Hinglish script, and em-dash absence.
+Tests cover every activity's deterministic mapping, mich/könntest/die, short labels,
+the missing study, uncertain cause, no-waiting-advice boundary, and absent recovery
+guarantee. Authored and published packs share SHA-256
+`f571b4f81e5c9af06c323581a53b95222af0fcfa4078b43dca077f6a3b792ab6`.
+
+Native light-theme, reduced-motion macOS interaction completed English lesson 233,
+Hindi lesson 237, and Hinglish lesson 240. Evidence includes mouse scene controls,
+keyboard navigation, replay/skip, every page of the sampled albums, reading and
+dialogue choices, wrong reflexive selection and replay recovery, full written
+consultation and ordered events, German notes, incomplete/complete forms, ordered
+capstone acknowledgements, sentence trains, typed model matching, recaps, and map
+return. Capstone acknowledgements do not independently assess clinical decisions.
+Fresh screenshots show the fitting reflexive sentence, complete Hindi transcript,
+and completed mission; screenshots are visual evidence only. Native capture failures
+and one disconnected control pipe required fresh state inspection. An interrupted
+action was never assumed complete; the final map return was independently observed.
+The synthetic profile retained microphone Never, no model, and empty histories.
+
+Direct VoiceOver, dark-theme/motion-enabled review, all 30 lesson/language combinations,
+native six-page speech-grouping playback, and reference audio remain unverified.
+Windows stays deferred. P8.2 selected-card contrast measurement remains a visible
+follow-up, alongside P4.T7 repeated album captions and P5.4 renderer chrome
+localization. consultation-room, observation-notebook, and clinician-cutouts remain
+named asset needs with authored text alternatives. Competent German, Hindi, Hinglish,
+pedagogy, medical-safety, cultural, content, and rights review remains pending. New
+lessons remain machine-validated Preview, not approved.
+
+The authored course contains 240 lessons and 1,919 template instances. Next is P7.B25,
+Travel under pressure (241–250). Units 25–45 contain 210 remaining lessons. The
+all-authoring request remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
