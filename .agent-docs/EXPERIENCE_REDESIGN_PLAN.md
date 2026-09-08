@@ -2361,6 +2361,20 @@ recap, and map return, then author P7.B29 Society and culture (281–290). The a
 request is not complete. GitHub CI for the preceding Unit 25–27 commits was inspected
 and passed; this checkpoint's remote CI must be checked after pushing.
 
+**Unit 28 native resume status (2026-09-08): locked-Mac evidence gap closed.**
+
+After manual unlock, Hinglish lesson 280 completed all four ordered capstone
+acknowledgements, its six-part word-order train, exact typed model comparison, recap,
+and map return. The map explicitly reported that Preview did not change mastery;
+typed comparison explicitly reported that pronunciation was not assessed. Intermittent
+capture failures were recovered by fresh accessibility-state inspection and restored
+keyboard focus; no failed capture was treated as evidence of a completed action.
+The synthetic profile still has microphone Never, no model, and empty learning, task,
+speech, and review histories. No production files or content changed during this resume.
+GitHub CI passed for exact checkpoint `2251d2f857adeefbc8aa8f43698ab426e19c0fad`
+(run `34285569618`). The other Unit 28 review gaps above remain unchanged. Next is
+P7.B29 Society and culture (281–290); 170 planned lessons remain unauthored.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
