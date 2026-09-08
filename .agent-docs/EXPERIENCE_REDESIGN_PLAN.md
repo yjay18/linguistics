@@ -1873,6 +1873,55 @@ The authored course now contains 180 lessons and 1,439 template instances. The n
 batch is P7.B19, A2 independence (181–190). Units 19–45 contain 270 remaining lessons.
 The request to finish all authoring remains active; Phase 7 is not complete.
 
+**Unit 19 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B19 is directly authored without a separate lesson-generation model. A2 independence
+contains lessons 181–190, 80 deterministic template instances across 12 catalog kinds,
+10 concepts, 16 lexical entries, one task and rubric, 10 error/feedback pairs, and 10
+unscored pronunciation scripts. English, Hindi, and Latin-script Hinglish maps are
+complete. CEFR and Goethe A2 references support the approximate communicative scope;
+IDS Grammis sources support bounded perfect forms, subordinate clauses, modals, and
+location versus destination. The movement example explicitly retains dative for a
+walk within a garden. Optional breakfast is distinguished from prohibition. The
+fictional travel mission preserves an unanswered hotel request, makes no real booking,
+and explicitly does not certify A2 proficiency.
+
+Locked restore, zero-warning Release build, all 409 tests (147 app and 262 core),
+formatter, macOS publish, signature inspection of the local QA bundle, and whitespace
+checks pass. Deterministic tests cover every activity's mapping and incomplete
+responses, finite-verb placement, readable train labels, complete visible rehearsal
+wording, ins in the destination gap, and the pending hotel answer. Native review found
+clipped listening-event and speaker labels. The authored labels were shortened, with
+regression assertions and fresh visual checks. No production renderer or scoring,
+mastery, persistence, transfer, or speech-assessment code changed. Final authored and
+published packs share SHA-256
+`204bb307f357d45a0ae75d44a6cfc16b54afb9723d7212a61c9d3bf07ed825ec`.
+
+Native dark-theme, reduced-motion macOS interaction completed English lesson 184,
+Hindi lesson 187, and Hinglish lesson 190. Evidence includes mouse/keyboard controls,
+scene replay/skip, five-page albums, reading failure/recovery, dialogue, modal gap,
+the complete written listening exchange and ordered events, note writing, incomplete
+and complete forms, ordered capstone acknowledgements, trains, typed rehearsal, recap
+cycling, and map return. Hindi playback was repeated after shortening listening labels.
+The final speaker-name-only correction was visually inspected and its typed comparison
+retested on lesson 190; the full three-route run preceded that last label-only change.
+Screenshots are visual evidence, not interaction proof. The isolated synthetic profile
+kept microphone Never, no selected model, and empty learning histories throughout.
+
+Capture failures, launcher timeouts, offscreen controls, and one conflicting paste
+warning required fresh state checks and focused keyboard recovery. Unverified evidence
+includes direct VoiceOver, light-theme and motion-enabled playback for this batch, all
+ten lessons across all three languages, and a full three-route repetition after the
+final label-only fix. Windows remains deferred. Travel-notice, station-cutout, and
+hotel-message media remain named needs with complete authored text alternatives.
+P5.4 renderer-chrome localization and the catalog's long-label sizing are existing
+follow-ups. Competent German, Hindi, Hinglish, pedagogical, cultural, content, and rights
+review remains pending; no A2 lesson is described as approved.
+
+A1 and A2 authoring now spans 190 lessons and 1,519 template instances. A2's 100 lessons
+are authored, not linguistically approved or certified. The next batch is P7.B20,
+Tell a coherent story (B1 lessons 191–200). Units 20–45 contain 260 remaining lessons.
+The user's all-authoring request remains active. Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
