@@ -2259,6 +2259,50 @@ The authored course contains 260 lessons and 2,079 template instances. Next is P
 Education and lifelong learning (261–270). Units 27–45 contain 190 remaining lessons.
 The all-authoring request remains active; Phase 7 is not complete.
 
+**Unit 27 batch status (2026-09-08): complete with named unverified evidence.**
+
+P7.B27 supplies lessons 261–270 with 80 deterministic instances across 12 template
+kinds, 10 concepts, 16 lexemes, 10 feedback/error pairs, 10 microphone-free wording
+models, and one bounded task/rubric. English, Hindi, and Hinglish explanations were
+directly authored. Ten cited sources support the approximate B1 scope, purpose
+constructions, noun capitalization, educational vocabulary, and presentation emphasis.
+The lessons distinguish vocational and academic routes, same-person um … zu,
+damit (also possible with the same person), nominalized activities, advisory questions,
+course requirements, modules, and responsible mediation. Fictional admission and
+qualification recognition remain open; no application is submitted or certificate awarded.
+
+Locked restore, zero-warning Release build, all 424 tests (147 app and 277 core),
+formatter, macOS publish, strict isolated QA signature inspection, and whitespace
+checks pass. Parameter/outcome tests cover the new instances and educational
+boundaries, including the 24 clock-hour calculation and unconfirmed places. Copy
+checks found no overlength explanation maps, Devanagari in Hinglish, or em dashes.
+Authored and published packs share SHA-256
+`eaa933f796b89084bd22ca3be8107d49cf66353e4615bc094c8fbf04c766ea83`.
+
+Native dark-theme, reduced-motion macOS interaction completed English lesson 263,
+Hindi lesson 267, and Hinglish lesson 270. Evidence includes mouse scene replay/skip,
+keyboard navigation, every sampled album page, reading/dialogue answers, wrong
+connector selection and replay recovery, full written course briefing and ordered
+events, timetable note, incomplete/complete form, four ordered capstone acknowledgements,
+word-order trains, typed model matching, recaps, and return to the map. Capstone
+acknowledgements do not independently assess educational choices. Typed comparison
+explicitly reports that pronunciation was not assessed. Fresh screenshots show the
+purpose gap, Hindi written briefing, and Hinglish mission board. The synthetic profile
+retained microphone Never, no model, and empty learning, task, speech, and review histories.
+
+Direct VoiceOver, light-theme/motion-enabled review, all 30 lesson/language combinations,
+native six-page presentation-emphasis review, and reference audio remain unverified.
+Windows stays deferred. P8.2 selected-card contrast measurement, P4.T7 repeated album
+captions, P5.4 renderer chrome localization, and note-check inflection tolerance remain
+named follow-ups. evening-classroom, course-brochure, and adviser-cutouts remain asset
+needs; authored text alternatives reuse the existing paper-stage materials. Competent
+German, Hindi, Hinglish, pedagogy, cultural, content, and rights review remains pending.
+New lessons remain machine-validated Preview, not approved.
+
+The authored course contains 270 lessons and 2,159 template instances. Next is P7.B28,
+News and information (271–280). Units 28–45 contain 180 remaining lessons.
+The all-authoring request remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
