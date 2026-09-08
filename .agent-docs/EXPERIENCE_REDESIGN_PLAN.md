@@ -1777,6 +1777,60 @@ described as approved. The authored course currently contains 160 lessons and 1,
 deterministic template instances. The exact next Phase 7 step is P7.B17, Unit 17's 10
 review-gated Digital life and media lessons.
 
+**Unit 17 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B17 is directly authored without a separate lesson-generation model. Digital life
+and media contains lessons 161–170, 80 deterministic template instances across 12
+catalog templates, 10 concepts, 16 lexical entries, one task, 10 error rules and
+feedback templates, one rubric, and 10 unscored pronunciation scripts. English,
+Hindi, and Latin-script Hinglish instruction maps are complete. Five-page albums
+include the complete main and supporting examples. Typed rehearsal visibly supplies
+the exact model wording; it does not claim free-response or pronunciation assessment.
+
+Claim-level provenance includes CEFR, Goethe-Institut media/A2 references, and IDS
+Grammis references for reflexives, comparison, pronoun order, verb position, modals,
+causal clauses, and auxiliaries. All new content remains machine-validated Preview.
+Competent German, Hindi, Hinglish, pedagogical, cultural, and license review remains
+pending; no Unit 17 lesson is described as approved. No new image or audio asset was
+fetched. Device cutouts, help screen, settings card, learner desk, and expert review
+of borrowed-word pronunciation remain named follow-ups. Text equivalents are complete.
+
+Locked restore, Release build with zero warnings/errors, full tests (147 app and
+260 core), formatter verification, macOS publish, and whitespace checks pass.
+Tests cover every authored activity's success/failure mapping, uncertain incomplete
+form and speech responses, ordered capstone prefixes, reflexive choice, and optional
+newsletter choice. Native authoring review found phrase chunks incorrectly occupying
+the train's VERB 2 car, clipped long car labels, and an undisplayed rehearsal answer.
+The final content corrects all three, with regression assertions for finite-verb
+position, short car labels, five album pages, and visible model wording. The pack and
+published QA copy share SHA-256
+`b75bf424ff7a94da84bf753c324e506ce2763dd06f4b5c1e1f9a6245c88dc6ef`.
+
+Fresh native macOS interaction on the final candidate completed English lesson 161,
+Hindi lesson 168, and Hinglish lesson 169 end to end in dark theme with reduced motion.
+This includes scene replay/skip, all five album pages, reading choices, dialogues,
+forms, sentence trains, typed microphone-free comparison, recap outcome cycling,
+completion, and map return. English reading failure/recovery was checked; Hinglish
+also exercised the complete written listening transcript, event order, and mediation
+note. Screenshots supply visual evidence only; mouse and keyboard control activation
+and resulting accessibility-tree states supply interaction evidence. The isolated
+schema 7 profile kept the microphone at Never, selected no model, and retains empty
+curriculum, task, pronunciation, review, and lesson history after all three visits.
+
+The computer-control service intermittently reported no-window, offscreen, capture,
+and clipboard-timeout errors. Explicit window focus and keyboard navigation recovered
+the tested routes; a timeout alone was never counted as a successful interaction.
+Direct VoiceOver, motion-enabled and light-theme playback of this batch, full native
+coverage of all ten lessons in all three languages, and native capstone playback
+remain unverified. Windows interaction is deferred under the macOS-only scope.
+P5.4's remaining English renderer chrome is still a named localization follow-up.
+P4.T21 long-phrase car sizing remains a catalog follow-up; this batch uses complete
+short labels that fit the existing renderer without changing scoring or persistence.
+
+The authored course now contains 170 lessons and 1,359 template instances. The user
+has requested all remaining lesson authoring, not a stop at this unit. The exact next
+batch is P7.B18, Learning and development (171–180); Units 18–45 contain the remaining
+280 unauthored lessons. This status does not mark Phase 7 complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
