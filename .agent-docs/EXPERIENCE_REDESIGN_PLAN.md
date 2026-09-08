@@ -1831,6 +1831,48 @@ has requested all remaining lesson authoring, not a stop at this unit. The exact
 batch is P7.B18, Learning and development (171–180); Units 18–45 contain the remaining
 280 unauthored lessons. This status does not mark Phase 7 complete.
 
+**Unit 18 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B18 is directly authored without a separate lesson-generation model. Learning and
+development contains lessons 171–180, 80 deterministic template instances, 10 concepts,
+16 lexical entries, one task and rubric, 10 error/feedback pairs, and 10 unscored
+pronunciation scripts. English, Hindi, and Latin-script Hinglish maps are complete.
+Claim-level references include CEFR, Goethe learning strategies and A2 materials, and
+IDS Grammis for infinitives, clause position, comparison, modals, and written stress
+cues. Learning-desk, course-notice, and consultation-cutout assets remain named needs;
+complete authored text is supplied without fetching media. All new content remains
+machine-validated Preview, pending competent language, pedagogy, cultural, and rights
+review. This does not extend the user's A1 approval to A2.
+
+Locked restore, zero-warning Release build, full tests (147 app and 261 core),
+formatter verification, and macOS publish pass. Tests cover deterministic activity
+outcomes, incomplete answers, infinitive choice, A1 entry conditions, finite-verb
+placement, readable short train labels, visible rehearsal wording, and the additional
+written stress pages. The authored and published QA packs share SHA-256
+`7199642833c83305538b6f19ad59b4485197010a6c42c889aaa7a28f798b1a98`.
+
+Fresh native macOS interaction completed English lesson 171, Hindi lesson 173, and
+Hinglish lesson 180 in light theme with reduced motion. Mouse and keyboard actions
+exercised scene replay/skip, all album pages, reading failure and recovery, dialogue,
+the zu gap, note writing, incomplete/complete forms, trains, typed microphone-free
+rehearsal, recap cycling, and map return. The Hinglish capstone progressed through all
+four ordered acknowledgements, with intermediate incomplete and final matched outcomes;
+it does not execute a booking or assess an unconstrained conversation. Screenshots are
+visual evidence only. The isolated schema 7 profile retains empty learning histories,
+microphone Never, and no selected model after the three visits.
+
+The computer-control service intermittently failed captures and offscreen actions;
+fresh accessibility state and focused keyboard navigation recovered tested routes.
+Capstone replay retained the completed acknowledgement chain, consistent with the
+renderer’s entrance-only replay contract; a fresh-chain reset was not verified.
+Direct VoiceOver, dark-theme and motion-enabled playback of this batch, full native
+coverage of all ten lessons across all languages, and expert stress/audio review remain
+unverified. Windows is deferred under macOS-only scope. P5.4 renderer-chrome localization
+and P4.T21 long-label layout remain existing named follow-ups.
+
+The authored course now contains 180 lessons and 1,439 template instances. The next
+batch is P7.B19, A2 independence (181–190). Units 19–45 contain 270 remaining lessons.
+The request to finish all authoring remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
