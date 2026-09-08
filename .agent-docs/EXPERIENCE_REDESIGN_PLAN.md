@@ -2375,6 +2375,40 @@ GitHub CI passed for exact checkpoint `2251d2f857adeefbc8aa8f43698ab426e19c0fad`
 (run `34285569618`). The other Unit 28 review gaps above remain unchanged. Next is
 P7.B29 Society and culture (281–290); 170 planned lessons remain unauthored.
 
+**Unit 29 batch status (2026-09-09): authoring complete with named unverified native evidence.**
+
+P7.B29 supplies lessons 281–290, 80 deterministic instances across 12 template kinds,
+English, Hindi, and Hinglish teaching text, 10 concepts, 16 lexemes, 10 bounded error
+rules, 10 microphone-free utterances, and one scripted task/rubric. Examples keep
+personal customs scoped, distinguish contextual man and lassen, preserve voluntary
+participation, and separate fictional event registration from an unreviewed service
+application. No real documents, registration, or official decision are requested.
+
+Locked restore, Release build (zero warnings/errors), all 428 tests (281 Core, 147 App),
+formatter verification, and diff checks passed. The first test run caught a 21-character
+interview card; its shortened label passed the rerun. Instruction maps passed the
+25-word, no-em-dash, and Latin-script Hinglish copy checks. The isolated QA app was
+published and its ad-hoc signature verified, without changing runtime lockfiles.
+
+Real dark/reduced-motion English lesson 283 interaction reached card 6: mouse replay
+and skip, all five album pages, reading and dialogue choices, wrong plural gap answer,
+replay and correct singular answer, and the six-part train's explicit success were
+observed. Repeated ScreenCaptureKit -3811 failures interrupted the transition to the
+typed response. Typed comparison, recap/map return, Hindi 287, Hinglish 290, fresh full
+screenshots, both-theme/motion-enabled coverage, and complete batch native acceptance
+remain unverified. No failed capture or attempted action counts as completed evidence.
+Direct VoiceOver is unverified; Windows remains deferred by the macOS-only scope.
+
+neighbourhood-hall, storytelling-circle, and service-notice-prop remain named asset
+needs with authored text alternatives and existing paper-stage materials. German,
+Hindi, Hinglish, pedagogy, cultural, content, and rights review remain pending. All
+new content is machine-validated Preview, not approved. Existing P8.2 contrast,
+P4.T7 album captions, P5.4 renderer chrome, and note inflection follow-ups remain.
+The course now has 290 authored lessons and 2,319 instances; 160 of 450 remain.
+Continue P7.B30 (291–300) toward the user's lesson-350 checkpoint, retaining the
+unfinished Unit 29 native checks as an explicit evidence queue. Remote CI for this
+commit must be checked after pushing.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
