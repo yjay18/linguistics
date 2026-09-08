@@ -2162,6 +2162,50 @@ The authored course contains 240 lessons and 1,919 template instances. Next is P
 Travel under pressure (241–250). Units 25–45 contain 210 remaining lessons. The
 all-authoring request remains active; Phase 7 is not complete.
 
+**Unit 25 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B25 is directly authored without a separate lesson-generation model. Travel under
+pressure contains lessons 241–250, 80 deterministic instances across 12 template
+kinds, 10 concepts, 16 lexical entries, one task and rubric, 10 error/feedback pairs,
+and 10 unscored pronunciation scripts. English, Hindi, and Latin-script Hinglish
+maps are complete. Nine claim-level CEFR/Goethe, IDS Grammis, and Deutsche Bahn
+references support approximate B1 communication, embedded questions, passive notices,
+polite requests, correction prominence, and process vocabulary. No source exercises
+are copied. Fictional ticket validity, claim receipt, claim decision, and estimated
+arrival are kept distinct. No real booking, submission, payment, current entitlement
+threshold, or legal advice is supplied.
+
+Locked restore, zero-warning Release build, all 420 tests (147 app and 273 core),
+formatter, macOS publish, strict isolated QA signature inspection, and whitespace
+checks pass. Tests cover every activity's deterministic mapping, ob/wird, short train
+labels, final announcement correction, platform 4, the pending claim, and estimated
+arrival. Authored and published packs share SHA-256
+`96983f936e9b6f2a2dac3de43922428d2952a4afb3188400311a544529bbf91b`.
+
+Native dark-theme, reduced-motion macOS interaction completed English lesson 243,
+Hindi lesson 247, and Hinglish lesson 250. Evidence includes mouse scene replay/skip,
+keyboard navigation, every page of the sampled albums, reading/dialogue answers,
+wrong passive selection and replay recovery, the complete four-announcement written
+prompt and ordered events, corrected German notes, incomplete/complete forms,
+ordered capstone acknowledgements, trains, typed model matching, recaps, and map
+return. An offscreen reading-page action was detected; the album was revisited and
+every page completed before continuing. Clipboard timeouts were followed by direct
+field inspection, never assumed to prove input. Capstone acknowledgements are not
+independent assessment of real travel decisions. Fresh screenshots show the fitting
+passive gap, full Hindi transcript, and mission board; these are visual evidence only.
+
+Direct VoiceOver, light-theme/motion-enabled review, all 30 lesson/language
+combinations, native six-page correction-prominence review, and reference audio
+remain unverified. Windows stays deferred. P8.2 selected-card contrast measurement,
+P4.T7 repeated album captions, and P5.4 renderer chrome localization remain named
+follow-ups. station-concourse, departure-board, and service-desk-cutouts remain asset
+needs with authored text alternatives using the existing paper-stage vocabulary.
+Competent German, Hindi, Hinglish, pedagogy, cultural, content, and rights review
+remains pending. New lessons remain machine-validated Preview, not approved.
+
+The authored course contains 250 lessons and 1,999 template instances. Next is P7.B26,
+Money and consumer choices (251–260). Units 26–45 contain 200 remaining lessons.
+The all-authoring request remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
