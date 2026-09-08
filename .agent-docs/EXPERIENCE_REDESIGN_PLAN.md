@@ -2206,6 +2206,59 @@ The authored course contains 250 lessons and 1,999 template instances. Next is P
 Money and consumer choices (251–260). Units 26–45 contain 200 remaining lessons.
 The all-authoring request remains active; Phase 7 is not complete.
 
+**Unit 26 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B26 is directly authored without a separate lesson-generation model. Money and
+consumer choices contains lessons 251–260, 80 deterministic instances across 12
+template kinds, 10 concepts, 16 lexical entries, one task and rubric, 10 error/feedback
+pairs, and 10 unscored pronunciation scripts. English, Hindi, and Latin-script
+Hinglish maps are complete. Twelve claim-level CEFR/Goethe, IDS Grammis, Bundesbank,
+Verbraucherzentrale, and BaFin/BAGSO references support approximate B1 communication,
+payment-method vocabulary, compounds, comparison, passive processes, and protecting
+credentials. The BaFin PDF's full fetch failed; indexed source evidence supports the
+credential-boundary claim, but full document inspection remains unverified.
+All amounts, dates, subscriptions, and case outcomes are fictional. Percentage
+examples state their base and period, with simple-interest assumptions explicit.
+An initiated refund is not visible credit; comparing offers is not buying one.
+The lessons request no banking login, PIN, TAN, account number, or real transaction,
+and give no personal financial recommendation or general legal entitlement.
+
+Locked restore, zero-warning Release build, all 422 tests (147 app and 275 core),
+formatter, macOS publish, strict isolated QA signature inspection, and whitespace
+checks pass. An initial analyzer rejection of constant-only assertions was corrected
+to check actual authored values against calculated results before the final gates.
+Tests cover every activity's deterministic mapping, first-year totals including the
+setup fee, the percentage base, interest assumptions, comparative/passive forms,
+credential non-disclosure, pending credit, and no new contract. Copy checks find no
+overlength explanation maps, Devanagari in Hinglish, or em dashes. Authored and
+published packs share SHA-256
+`ccb13d3a164f0b94b53d0839544c2a7e9c89782168aacc09ad6ebc786af84ac6`.
+
+Native light-theme, reduced-motion macOS interaction completed English lesson 255,
+Hindi lesson 257, and Hinglish lesson 260. Evidence includes mouse replay/skip,
+keyboard navigation, every sampled album page, reading/dialogue answers, wrong
+passive selection and replay recovery, full written banking exchange and ordered
+events, German note retry, incomplete/complete forms, ordered capstone acknowledgements,
+trains, typed model matching, recaps, and map return. The note checker rejected the
+inflected wording schriftliche until the required word schriftlich was supplied;
+this is a bounded token check, not free-form linguistic-quality assessment. Capstone
+acknowledgements do not independently assess financial decisions. Fresh screenshots
+show the passive gap, full Hindi transcript, and mission board. A launch capture
+failure was recovered through fresh native state inspection. The synthetic profile
+retained microphone Never, no model, and empty learning, task, speech, and review histories.
+
+Direct VoiceOver, dark-theme/motion-enabled review, all 30 lesson/language combinations,
+native six-page number-prominence review, and reference audio remain unverified.
+Windows stays deferred. P8.2 selected-card contrast measurement, P4.T7 repeated
+album captions, P5.4 renderer chrome localization, and note-check inflection tolerance
+remain named follow-ups. account-statement-prop, service-counter, and subscription-cards
+remain asset needs with authored text alternatives and existing paper-stage materials.
+Competent German, Hindi, Hinglish, pedagogy, financial-safety, cultural, content, and
+rights review remains pending. New lessons remain machine-validated Preview, not approved.
+
+The authored course contains 260 lessons and 2,079 template instances. Next is P7.B27,
+Education and lifelong learning (261–270). Units 27–45 contain 190 remaining lessons.
+The all-authoring request remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
