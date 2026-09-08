@@ -2067,6 +2067,52 @@ The authored course now contains 220 lessons and 1,759 template instances. The n
 batch is P7.B23, Housing and neighbours (221–230). Units 23–45 contain 230 remaining
 lessons. The all-authoring request remains active; Phase 7 is not complete.
 
+**Unit 23 batch status (2026-09-08): complete with named unverified evidence.**
+P7.B23 is directly authored without a separate lesson-generation model. Housing and
+neighbours contains lessons 221–230, 80 deterministic instances across 12 template
+kinds, 10 concepts, 16 lexical entries, one task and rubric, 10 error/feedback pairs,
+and 10 unscored pronunciation scripts. English, Hindi, and Latin-script Hinglish
+maps are complete. CEFR/Goethe and IDS references support approximate B1 housing
+communication, genitive relationships, relative attributes, conditional clauses,
+verb placement, and a written schwa cue. Prices, house rules, and neighbour agreements
+are fictional reading material, not legal advice. Listed costs leave electricity
+unknown; a preference and neighbour agreement do not confirm a tenancy. The Saturday
+house-party exception is not generalized to every evening.
+
+Locked restore, zero-warning Release build, all 416 tests (147 app and 269 core),
+formatter, macOS publish, strict QA signature inspection, and whitespace checks pass.
+Final copy checks found no explanation block above 25 words after shortening one
+Hindi translation. Tests exercise parameter validation and every activity's
+deterministic outcomes, des/wenn/die, bounded labels, unresolved costs and lease,
+and the scoped house-rule exception. Authored and published packs share SHA-256
+`d3d6df44308c4b34153efc5a854883fa88b056219c482b4953d1a7a86281fea4`.
+
+Native dark-theme, reduced-motion macOS interaction completed English lesson 224,
+Hindi lesson 227, and Hinglish lesson 230. Mouse scene controls and extensive
+keyboard operation exercised replay/skip, every page of the sampled albums,
+reading/dialogue choices, wrong genitive and replay recovery, complete written
+listening transcript and ordered events, note writing, incomplete/complete forms,
+four ordered capstone acknowledgements, sentence trains, typed matching, recaps,
+and course-map return. Capstone acknowledgements are not independent free-response
+assessment. Fresh full-window screenshots show the fitting genitive sentence,
+complete Hindi transcript, and completed mission. Screenshots are visual evidence
+only. The isolated profile retained microphone Never, no model, and empty learning
+histories. Typed matching explicitly did not assess pronunciation.
+
+Capture failures required fresh state checks. Automation initially dropped an
+umlaut in a note; exact pasted spelling passed. Direct VoiceOver, light-theme and
+motion-enabled review, all 30 lesson/language combinations, and native playback of
+the six-page schwa aid remain unverified. Windows stays deferred. P4.T7 repeated
+album captions, P5.4 remaining renderer chrome localization, and P8.2 selected-card
+contrast measurement remain follow-ups. apartment-listing, courtyard, and
+neighbour-cutouts remain named asset needs with authored text alternatives.
+Competent German, Hindi, Hinglish, pedagogy, cultural, content, rights, and reference
+audio review remains pending. New content is machine-validated Preview, not approved.
+
+The authored course now contains 230 lessons and 1,839 template instances. Next is
+P7.B24, Health and wellbeing (231–240). Units 24–45 contain 220 remaining lessons.
+The all-authoring request remains active; Phase 7 is not complete.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
