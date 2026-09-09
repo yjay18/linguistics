@@ -2453,6 +2453,59 @@ publish Unit 30 to the isolated QA app and exercise English 293, Hindi 297, and 
 GitHub CI passed for Unit 29 commit `10e77deecc7fb4e35703ec2728af3979a53b802e`
 (run `34291035451`). Check this Unit 30 commit's remote CI after pushing.
 
+**Units 29–31 resume status (2026-09-09): Unit 31 complete with named unverified evidence.**
+
+The unlocked Mac allowed the interrupted native gates to resume without bypassing the
+lock screen. English 283, Hindi 287, and Hinglish 290 each reached deterministic typed
+success, recap, and the explicit no-mastery map state. Hinglish 300, Hindi 297, and
+English 293 then completed the same end-to-end route on the exact 300-lesson build.
+Those checks covered mouse and keyboard input, replay, skip, complete albums, reading,
+dialogue or ordered-transcript work, forms or capstones where present, word-order trains,
+typed comparisons, and deliberate wrong-answer recovery in English 293. The isolated
+app was republished without a runtime identifier and its ad-hoc signature verified.
+GitHub CI also passed for Unit 30 commit
+`e2f97b50dbb130ef1fbfe2c36eb36233e9b62993` (run `34294373156`).
+
+P7.B31 now supplies lessons 301–310 with 80 deterministic instances across 12 template
+kinds, English/Hindi/Hinglish instruction maps, 10 concepts, 16 lexemes, 10 bounded
+error/feedback pairs, 10 assessmentMode=None utterances, and one fixed task/rubric.
+Directly authored examples review connected narration, reasoned opinions, formal
+requests, complex clauses, document comparison, structured responses, connected speech,
+problem solving, mediation, and a fictional B1 project rehearsal. Confirmed access,
+plans, requests, inferred attitudes, unresolved deliveries, and completed events remain
+distinct. The authored connected-speech passage is identified as authored rather than
+presented as an authentic outside recording. No booking, purchase, message, delivery,
+event completion, or B1 certification occurs. No separate lesson-generation model was
+used. All new content remains machine-validated Preview, not approved.
+
+The validator first rejected an empty sentence-before value and then rejected one-letter
+and uppercase option identifiers in the travel comparison. Those authored data defects
+were corrected to a non-empty lead-in and lowercase kebab identifiers before integration.
+The focused suite then passed all 89 content-pack checks. Locked restore and Release
+build passed with zero warnings/errors; all 432 tests passed (285 Core, 147 App), followed
+by formatter verification and clean diff checks. Instruction maps passed the 25-word,
+no-em-dash, and Latin-script Hinglish checks. Unit 31 pack SHA-256:
+`54c7091cd056fc162c0cccf3b528870bd72cccd9495e04c807da733f47f4629d`.
+
+The exact 310-lesson QA build was published and ad-hoc signature verification passed.
+Real dark/reduced-motion macOS interaction completed English 303, Hindi 307, and
+Hinglish 310 from entrance through recap and no-mastery map return. English 303 covered
+scene replay and skip, keyboard navigation, deliberate formal-request failure and
+recovery, train ordering, and exact typed matching. Hindi 307 covered the full written
+equivalent to authored audio, ordered events, a German note, train, exact typed match,
+and a fresh screenshot. Hinglish 310 covered replay/skip, the fictional form, four-step
+capstone, train, exact typed match, and explicit Preview boundary. Microphone Never and
+no selected local model remained in force.
+
+Direct VoiceOver, Windows, the other 27 lesson/language combinations, and the opposite
+light/motion-enabled visual state remain unverified. Screenshots remain visual evidence,
+not interaction proof. German, Hindi, Hinglish, pedagogy, cultural, content, and rights
+review remain pending. Text-only asset follow-ups are repair-day-hall,
+fictional-bus-board, and tool-delivery-props. Existing P8.2 contrast, P4.T7 album
+captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain open.
+The catalog has 310 authored lessons and 2,479 instances; 140 of 450 remain. Continue
+P7.B32 with lessons 311–320 and the B2 argument-building unit.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
