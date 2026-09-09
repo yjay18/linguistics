@@ -2506,6 +2506,51 @@ captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain 
 The catalog has 310 authored lessons and 2,479 instances; 140 of 450 remain. Continue
 P7.B32 with lessons 311–320 and the B2 argument-building unit.
 
+**Unit 32 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B32 supplies lessons 311–320 with 80 deterministic instances across 12 template
+kinds, English/Hindi/Hinglish instruction maps, 10 B2 concepts, 16 lexemes, 10 bounded
+error/feedback pairs, 10 assessmentMode=None utterances, and one fixed task/rubric.
+Directly authored argument work separates claim from evidence, limits a small internal
+survey to its respondents, connects premise/example/conclusion, balances einerseits and
+andererseits, concedes with zwar and aber, distinguishes consequence-connector register
+from evidence strength, qualifies certainty, maps an authored extended debate, reads an
+original opinion structure, mediates opposing cases, and defends a bounded pilot.
+No real survey, vote, staffing allocation, institutional recommendation, or policy
+decision occurs. No separate lesson-generation model was used. All new content remains
+machine-validated Preview, not approved.
+
+The first validator iterations found a scalar manifest version where the schema requires
+an integer, the unsupported concept type grammar rather than grammatical, a duplicate
+album option identifier, and empty lexical articles rather than null. Each generator and
+pack defect was corrected before acceptance. The focused suite then passed all 91
+content tests. Locked restore and Release build passed with zero warnings/errors; all
+434 tests passed (287 Core, 147 App), followed by formatter verification and clean diff
+checks. Instruction maps passed the 25-word, no-em-dash, and Latin-script Hinglish
+checks. Unit 32 pack SHA-256:
+`7dcf07355e0d510e7304f90ee5d342770ee9b52d1683295c232e83a032765a45`.
+
+The exact 320-lesson macOS QA build was published and ad-hoc signature verification
+passed. Real dark/reduced-motion interaction completed Hinglish 320, Hindi 317, and
+English 313 from entrance through recap and explicit no-mastery map return. The routes
+covered replay, skip, keyboard navigation, every album page, deterministic reading and
+form or dialogue choices, a full written alternative to the authored debate, ordered
+events, note writing with observed failure and recovery, capstone steps, trains, and
+exact typed matches. English 313 also exercised a wrong consequence connector before
+the correct andererseits recovery. A fresh full screenshot captured the English typed
+success state. The native session required two recoveries after truthful ScreenCaptureKit
+capture failures; attempted actions during those failures were not counted as evidence.
+
+Direct VoiceOver, Windows, the other 27 lesson/language combinations, and the opposite
+light/motion-enabled visual state remain unverified. German, Hindi, Hinglish, pedagogy,
+cultural, content, and rights review remain pending. Text-only asset follow-ups are
+library-consultation-board, survey-card-props, and pilot-evening-stage. Existing P8.2
+contrast, P4.T7 album captions, P5.4 renderer chrome, and note inflection-tolerance
+follow-ups remain open. GitHub CI passed for Unit 31 commit
+`323618253b75eff70177db9eef3c9f2cf2ac7bba` (run `34330866061`). The catalog has 320
+authored lessons and 2,559 instances; 130 of 450 remain. Continue P7.B33 with lessons
+321–330 and information-structure word order.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
