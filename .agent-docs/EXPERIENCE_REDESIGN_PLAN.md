@@ -2739,6 +2739,21 @@ pedagogy, cultural, content, and rights review remain pending. Text-only asset n
 team-table-stage, status-ticket-cards, and handoff-folder-foldout. The catalog has 380
 authored lessons and 3,039 instances; 70 remain. Continue P7.B39 with lessons 381–390.
 
+**Unit 39 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B39 adds lessons 381–390 and 80 deterministic instances for presentation structure,
+chart framing, value comparison, trends, estimates, questions, sources, and conclusions.
+The fictional figures are not official and no action is decided. No lesson-generation
+model was used; content remains machine-validated Preview, not approved. Validation
+shortened three train labels. All 105 focused checks and all 448 repository tests passed
+(301 Core, 147 App); Release build, formatter, diff, and localization gates passed. Pack
+SHA-256: `eb557e1e84e86718b81404f67e7a6191541f4bab976941ce684aa26aa8cf64b6`.
+
+Direct VoiceOver, Windows, exact Unit 39 macOS interaction, both themes, reduced motion,
+and human language, pedagogy, cultural, content, and rights review remain unverified.
+Text-only asset needs are presentation-stage, chart-strip-cards, and source-slide-foldout.
+The catalog has 390 authored lessons and 3,119 instances; 60 remain. Continue P7.B40.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
