@@ -2718,6 +2718,27 @@ captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain 
 The catalog has 370 authored lessons and 2,959 instances; 80 of 450 remain. Continue
 P7.B38 with lessons 371–380 and workplace collaboration.
 
+**Unit 38 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B38 supplies lessons 371–380 with 80 deterministic instances, 10 directly authored
+B2 concepts, 16 lexemes, fixed feedback and assessmentMode=None utterances, and one
+task/rubric. It covers ownership, deadlines, blockers, priorities, disagreement,
+decisions, status relay, feedback, and handoffs. The fictional workflow assigns no real
+work and sends no file. No lesson-generation model was used; content remains
+machine-validated Preview, not approved.
+
+Validation corrected the scaffolding order formula and five train labels without changing
+meaning. All 103 focused content checks and all 446 repository tests passed (299 Core,
+147 App); locked Release build had zero warnings/errors, formatter and diff checks passed,
+and localization constraints passed. Pack SHA-256:
+`bffc8d5d635e022d78baa0194260efb6da60d4b0c6a09e20a078be43497aa765`.
+
+Direct VoiceOver, Windows, exact Unit 38 macOS interaction, both themes, reduced motion,
+and all lesson/language combinations remain unverified. German, Hindi, Hinglish,
+pedagogy, cultural, content, and rights review remain pending. Text-only asset needs are
+team-table-stage, status-ticket-cards, and handoff-folder-foldout. The catalog has 380
+authored lessons and 3,039 instances; 70 remain. Continue P7.B39 with lessons 381–390.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
