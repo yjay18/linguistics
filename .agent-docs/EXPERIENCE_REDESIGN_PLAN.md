@@ -2659,6 +2659,36 @@ captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain 
 The catalog has 350 authored lessons and 2,799 instances; 100 of 450 remain. Continue
 P7.B36 with lessons 351–360 and vocabulary families and word formation.
 
+**Unit 36 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B36 supplies lessons 351–360 with 80 deterministic instances across 12 template
+kinds, English/Hindi/Hinglish instruction maps, 10 B2 concepts, 16 lexemes, 10 bounded
+error/feedback pairs, 10 assessmentMode=None utterances, and one fixed task/rubric.
+Directly authored work covers compound heads, linking elements, established action
+nouns, -bar adjectives, bounded un- readings, infinitive nominalization, word families
+versus fields, contextual abbreviations, opaque compounds, and a glossary-card mission.
+The fictional museum glossary remains a draft and is neither published nor professionally
+approved. No separate lesson-generation model was used. All new content remains
+machine-validated Preview, not approved.
+
+The focused validator exposed one single-character option identifier and seven
+paper-train labels above the existing ten-character car width. The identifier was made
+stable and the labels were shortened or split without changing the authored meanings.
+The focused suite then passed all 99 content-pack checks. Locked restore and Release
+build passed with zero warnings/errors; all 442 tests passed (295 Core, 147 App),
+followed by formatter verification and clean diff checks. Instruction maps passed the
+25-word, no-em-dash, and Latin-script Hinglish checks. Unit 36 pack SHA-256:
+`43826e3eb629fbcbcf9b32e8d0d8821dd67eebc3683ffea17a322fb60ee12091`.
+
+Direct VoiceOver, Windows, exact Unit 36 macOS lesson interaction, skip/replay,
+reduced-motion final states, both-theme comparison, and all 30 lesson/language
+combinations remain unverified. German, Hindi, Hinglish, pedagogy, cultural, content,
+and rights review remain pending. Text-only asset follow-ups are word-family-foldout,
+compound-strip-stage, and glossary-proof-cards. Existing P8.2 contrast, P4.T7 album
+captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain open.
+The catalog has 360 authored lessons and 2,879 instances; 90 of 450 remain. Continue
+P7.B37 with lessons 361–370 and study and research communication.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
