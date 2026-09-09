@@ -2409,6 +2409,50 @@ Continue P7.B30 (291–300) toward the user's lesson-350 checkpoint, retaining t
 unfinished Unit 29 native checks as an explicit evidence queue. Remote CI for this
 commit must be checked after pushing.
 
+**Unit 30 batch status (2026-09-09): authoring complete; native batch gate blocked by locked Mac.**
+
+P7.B30 supplies lessons 291–300 with 80 deterministic instances across 12 template
+kinds, English/Hindi/Hinglish instruction maps, 10 concepts, 16 lexemes, 10 bounded
+error/feedback pairs, 10 assessmentMode=None utterances, and one fixed task/rubric.
+Directly authored examples distinguish feelings from diagnoses, events from inferred
+intent, reciprocal einander from one-sided action, written contrastive während clauses,
+and contextual particles from fixed emotional labels. Apology, proposal, acceptance,
+and complete reconciliation remain distinct. The final agreement is limited to shared
+plans, includes a delay notice and one-week review, and requires no constant availability.
+No separate local or remote lesson-generation model, real message, or relationship
+assessment was used. All new content remains machine-validated Preview, not approved.
+
+Locked restore and Release build passed with zero warnings/errors. All 430 tests passed
+(283 Core, 147 App), including ordered IDs, multilingual coverage, deterministic answer
+states, reciprocal/während answers, and scope/intent guardrails. Copy checks found no
+over-25-word instruction-map blocks, em dashes, or Devanagari in Hinglish maps. Diff
+checks and formatter verification passed. The complete gate command exited zero;
+the slower test/format run was allowed to finish without disabling any checks.
+Unit 30 pack SHA-256: `e726dc32f19ddda71a01204b3af571fb355d4d7f76ae1d5f04f9d4d8e86a0fcd`.
+
+Native recovery explicitly reported that the Mac was locked and automatic unlock could
+not unlock it. Manual unlock was requested; no lock-screen workaround was attempted.
+The isolated synthetic profile still has microphone Never, no model, reduced motion,
+and empty curriculum, task, speech, review, and lesson histories.
+Unit 30 has no claimed native playback, fresh screenshots, publish/signature, theme,
+motion, or direct VoiceOver evidence. Unit 29's interrupted English 283 typed route,
+Hindi 287, and Hinglish 290 also remain pending. Windows stays deferred. The canonical
+per-batch end-to-end language gate is not waived: pause catalog integration here until
+manual unlock permits these checks. Text-only asset follow-ups: quiet-conversation-room,
+message-props, reciprocal-listening-cutouts. Existing P8.2 contrast, P4.T7 album captions,
+P5.4 renderer chrome, note inflection tolerance, and competent language/pedagogy/cultural/
+content/rights reviews remain open.
+
+The catalog has 300 authored lessons and 2,399 instances. Fifty lessons remain to the
+user's requested 350 checkpoint, and 150 remain in the full 450-lesson plan. Unit 31's
+301–310 draft data and serializer are prepared only in `/private/tmp/linguistics-u31-data.cjs`
+and `/private/tmp/linguistics-author-u31.cjs`; they are not integrated, tested, or counted
+as authored catalog lessons. After manual unlock: complete Unit 29's pending routes,
+publish Unit 30 to the isolated QA app and exercise English 293, Hindi 297, and Hinglish
+300 end to end, then integrate P7.B31 and continue Units 32–35 through lesson 350.
+GitHub CI passed for Unit 29 commit `10e77deecc7fb4e35703ec2728af3979a53b802e`
+(run `34291035451`). Check this Unit 30 commit's remote CI after pushing.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
