@@ -2689,6 +2689,35 @@ captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain 
 The catalog has 360 authored lessons and 2,879 instances; 90 of 450 remain. Continue
 P7.B37 with lessons 361–370 and study and research communication.
 
+**Unit 37 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B37 supplies lessons 361–370 with 80 deterministic instances across 12 template
+kinds, English/Hindi/Hinglish instruction maps, 10 B2 concepts, 16 lexemes, 10 bounded
+error/feedback pairs, 10 assessmentMode=None utterances, and one fixed task/rubric.
+Directly authored work covers research questions, cautious hypotheses, method scope,
+sample limits, observed results, association versus cause, source attribution, competing
+interpretations, synthesis, and a bounded research brief. The fictional exercise collects
+no data, grants no ethics approval, verifies no source, and publishes nothing. No separate
+lesson-generation model was used. All new content remains machine-validated Preview,
+not approved.
+
+The focused validator exposed uppercase characters in two reused option identifiers.
+Those identifiers were normalized without changing learner-visible content. The focused
+suite then passed all 101 content-pack checks. Locked restore and Release build passed
+with zero warnings/errors; all 444 tests passed (297 Core, 147 App), followed by
+formatter verification and clean diff checks. Instruction maps passed the 25-word,
+no-em-dash, and Latin-script Hinglish checks. Unit 37 pack SHA-256:
+`612c1891fee024dd17ab017d0758d4a3382c6848fcaf2c8a62f855ead80bad38`.
+
+Direct VoiceOver, Windows, exact Unit 37 macOS lesson interaction, skip/replay,
+reduced-motion final states, both-theme comparison, and all 30 lesson/language
+combinations remain unverified. German, Hindi, Hinglish, pedagogy, cultural, content,
+and rights review remain pending. Text-only asset follow-ups are research-desk-stage,
+evidence-strip-cards, and method-result-foldout. Existing P8.2 contrast, P4.T7 album
+captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain open.
+The catalog has 370 authored lessons and 2,959 instances; 80 of 450 remain. Continue
+P7.B38 with lessons 371–380 and workplace collaboration.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
