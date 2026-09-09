@@ -2754,6 +2754,71 @@ and human language, pedagogy, cultural, content, and rights review remain unveri
 Text-only asset needs are presentation-stage, chart-strip-cards, and source-slide-foldout.
 The catalog has 390 authored lessons and 3,119 instances; 60 remain. Continue P7.B40.
 
+**Unit 40 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B40 adds lessons 391–400 and 80 deterministic instances for institutional roles,
+public notices, proposals versus decisions, debate positions, responsibility levels,
+participation routes, source citation, and civic mediation. The exercise gives no legal
+advice and causes no public action. Pack SHA-256:
+`af821dbeef9936dcd9524ff9cc9a1ecc712f766889e3d002a3572055cd80cdfe`.
+
+**Unit 41 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B41 adds lessons 401–410 and 80 deterministic instances for source and date checks,
+fact versus opinion, headline caution, unsupported claims, platform uncertainty, data
+consent, corrections, and coverage comparison. It posts nothing and grants no consent.
+Pack SHA-256:
+`6fcf1176574465ea04a455d8e0522c06f1d0e2738d9de11f675bce773ee5d39a`.
+
+**Unit 42 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B42 adds lessons 411–420 and 80 deterministic instances for weather versus climate,
+units and baselines, emission measures, scenarios, uncertainty ranges, system limits,
+sources, and measure comparisons. It makes no scientific, policy, or personal-impact
+determination. Pack SHA-256:
+`05550948f2e01d3b3a0c374654c4ee27c99eff0697b05b8e63ce568cad71999e`.
+
+**Unit 43 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B43 adds lessons 421–430 and 80 deterministic instances for paratext, narrator versus
+author, quotation versus paraphrase, plot versus interpretation, motifs, competing
+readings, context, reviews, and cultural-event mediation. It publishes no interpretation
+and books no event. Pack SHA-256:
+`34fe21a300bf6d202295d60eecc1ff24adc53fd7928dbe7bfe9f349567b8063a`.
+
+**Unit 44 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B44 adds lessons 431–440 and 80 deterministic instances for formal register,
+constructive disagreement, contextual implication, repair, validation, boundaries,
+apology, compromise, and mediation. It changes no real relationship or agreement. Pack
+SHA-256: `e5526ac077c3e295151904cab34ef23c8f04d06c904a4ee7a661796e2cb62f1b`.
+
+**Unit 45 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B45 adds lessons 441–450 and 80 deterministic instances for integrated source/status
+reasoning, complex briefs, supported wording, competing claims, structured responses,
+unknowns, cross-format mediation, register revision, self-checks, and the B2 independence
+capstone. Completion is a machine-validated Preview path, not B2 certification. Pack
+SHA-256: `bacd2a98a570439ce7d0fd7c25e5b1cf1e8d8f48f463dc3c56dbf5bf4300539a`.
+
+Across P7.B40–P7.B45, no lesson-generation model was used. All 60 lessons include
+English, Hindi, and Latin-script Hinglish instruction maps, text equivalents, deterministic
+outcomes, microphone-free exact-wording paths, 10 assessmentMode=None utterances per
+unit, and explicit external-action boundaries. The focused suite passed all 112 content
+checks. Locked restore and Release build passed with zero warnings/errors; all 455 tests
+passed (308 Core, 147 App), followed by formatter and clean diff checks. The completed
+catalog has 450 authored lessons and 3,599 deterministic instances; zero remain.
+
+Direct VoiceOver, Windows, exact macOS interaction for Units 35–45, both-theme and
+reduced-motion comparison for those units, and exhaustive lesson/language traversal
+remain unverified. German, Hindi, Hinglish, pedagogy, cultural, content, and rights review
+remain pending, so these lessons remain Preview rather than approved. Text-only asset
+follow-ups are the named stage, status-card, and foldout assets in each pack; no placeholder
+or network asset was introduced. Existing P8.2 contrast, P4.T7 album captions, P5.4
+renderer chrome, and note inflection-tolerance follow-ups remain open. Phase 7 lesson
+authoring is complete with named unverified evidence. Continue Phase 8 production
+hardening without treating Preview content as approved curriculum.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
