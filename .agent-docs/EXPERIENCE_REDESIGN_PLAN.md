@@ -2551,6 +2551,46 @@ follow-ups remain open. GitHub CI passed for Unit 31 commit
 authored lessons and 2,559 instances; 130 of 450 remain. Continue P7.B33 with lessons
 321–330 and information-structure word order.
 
+**Unit 33 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B33 supplies lessons 321–330 with 80 deterministic instances across 12 template
+kinds, English/Hindi/Hinglish instruction maps, 10 B2 concepts, 16 lexemes, 10 bounded
+error/feedback pairs, 10 assessmentMode=None utterances, and one fixed task/rubric.
+Directly authored word-order work covers first-position choices, finite-verb position,
+pronoun and noun-group order, coherent adverbial placement, negation scope, final-field
+weight, information focus, dense-writing revision, explaining ordering choices, and a
+bounded museum-guide mission. The fictional pilot does not publish content, collect
+visitor data, or decide product adoption. No separate lesson-generation model was used.
+All new content remains machine-validated Preview, not approved.
+
+The validator caught a missing localized capstone success condition and two listening
+event labels above the renderer limit; both data defects were corrected before
+integration. The focused suite then passed all 93 content-pack checks. Locked restore
+and Release build passed with zero warnings/errors; all 436 tests passed (289 Core,
+147 App), followed by formatter verification and clean diff checks. Instruction maps
+passed the 25-word, no-em-dash, and Latin-script Hinglish checks. Unit 33 pack SHA-256:
+`11b2d93633b7e9ffbc0cc3be09b763e0c3825a492940e0da53f40a614d03b189`.
+
+The exact 330-lesson macOS QA build was published and ad-hoc signature verification
+passed. Real dark/reduced-motion English interaction completed lesson 323 from entrance
+through recap and explicit no-mastery map return. It covered scene replay and skip,
+every album page, keyboard navigation, the authored text-only sign, deliberate failure
+and recovery, captions, a complete written dialogue, gap selection, train ordering, and
+the microphone-free exact typed path whose result explicitly said pronunciation was not
+assessed. Hindi interaction visibly verified localized navigation and instructions,
+scene replay and skip, keyboard album navigation, the complete text-only sign, and the
+written alternative plus event controls for lesson 327. That Hindi route did not reach
+recap, so it is recorded as partial evidence rather than completion.
+
+Direct VoiceOver, Windows, Hinglish native interaction, Hindi lesson-327 completion,
+the other 28 lesson/language combinations, and the opposite light/motion-enabled visual
+state remain unverified. German, Hindi, Hinglish, pedagogy, cultural, content, and rights
+review remain pending. Text-only asset follow-ups are museum-guide-cutout,
+clause-field-board, and focus-correction-cards. Existing P8.2 contrast, P4.T7 album
+captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain open.
+The catalog has 330 authored lessons and 2,639 instances; 120 of 450 remain. Continue
+P7.B34 with lessons 331–340 and process-focused passive constructions.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,

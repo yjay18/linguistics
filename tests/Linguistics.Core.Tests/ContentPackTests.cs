@@ -24,7 +24,7 @@ public sealed class ContentPackTests
         var catalog = LoadBundled(ContentLoadPolicy.AuthoringPreview);
 
         Assert.AreEqual(ContentLoadPolicy.AuthoringPreview, catalog.Policy);
-        Assert.HasCount(35, catalog.Packs);
+        Assert.HasCount(36, catalog.Packs);
         var german = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.core");
         var unitOne = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit01");
         var unitTwo = catalog.Packs.Single(pack => pack.Manifest.Id == "language.de.a1.unit02");
@@ -335,7 +335,7 @@ public sealed class ContentPackTests
         var german = targets.Single(pack => pack.Manifest.Id == "language.de.core");
         var transfers = catalog.Packs.Where(pack => pack.Manifest.Kind == ContentPackKind.Transfer).ToArray();
 
-        Assert.HasCount(33, targets);
+        Assert.HasCount(34, targets);
         Assert.HasCount(13, german.Concepts);
         Assert.HasCount(2, transfers);
         Assert.IsTrue(transfers.All(pack => pack.Concepts.Count == 0));
@@ -368,7 +368,7 @@ public sealed class ContentPackTests
             .Packs.SelectMany(pack => pack.Tasks)
             .ToArray();
 
-        Assert.HasCount(36, tasks);
+        Assert.HasCount(37, tasks);
         Assert.IsTrue(tasks.All(task => task.Transitions.Count > 0));
         Assert.IsTrue(tasks.All(task => task.SuccessConditions.Count > 0));
         Assert.IsTrue(tasks.All(task => task.States.All(state => state.ScriptedFallback.Count > 0)));
@@ -421,7 +421,7 @@ public sealed class ContentPackTests
             var pronunciation = runtime.CreateRuntimePronunciationUtterances(
                 new LanguageCode("de"));
 
-            Assert.HasCount(333, graph.Nodes);
+            Assert.HasCount(343, graph.Nodes);
             Assert.HasCount(3, english);
             Assert.IsTrue(english.All(mapping => mapping.ReviewStatus == TransferReviewStatus.Approved));
             Assert.IsTrue(hindiNotes.Any(note =>
@@ -439,7 +439,7 @@ public sealed class ContentPackTests
             Assert.AreEqual(new ConceptId("de.function.order-polite"), cafe.TargetConceptId);
             Assert.IsNotEmpty(cafe.ScriptedResponses[cafe.CompleteStateId]);
             Assert.AreEqual("Ich möchte einen Kaffee, bitte.", cafe.PronunciationTargetText);
-            Assert.HasCount(324, pronunciation);
+            Assert.HasCount(334, pronunciation);
             Assert.HasCount(4, pronunciation.Where(utterance =>
                 utterance.ContentVersion == new VersionId("language.de.core.v2")));
             Assert.HasCount(10, pronunciation.Where(utterance =>
@@ -518,8 +518,8 @@ public sealed class ContentPackTests
 
         Assert.AreEqual(CoursePublicationState.Preview, catalog.PublicationState);
         Assert.AreEqual(450, catalog.TargetLessonCount);
-        Assert.AreEqual(320, catalog.AuthoredLessonCount);
-        Assert.AreEqual(130, catalog.RemainingLessonCount);
+        Assert.AreEqual(330, catalog.AuthoredLessonCount);
+        Assert.AreEqual(120, catalog.RemainingLessonCount);
         Assert.AreEqual("Meet and greet", catalog.Units[0].Title);
         Assert.AreEqual("Greet for the time of day", catalog.Units[0].Lessons[0].Title);
         Assert.AreEqual("Learn in German", catalog.Units[1].Title);
@@ -876,6 +876,16 @@ public sealed class ContentPackTests
                 "lesson.de.b2.u32.read-opinion-structure",
                 "lesson.de.b2.u32.mediate-opposing-cases",
                 "lesson.de.b2.u32.argument-mission",
+                "lesson.de.b2.u33.foreground-first-position",
+                "lesson.de.b2.u33.maintain-verb-position",
+                "lesson.de.b2.u33.order-pronouns-noun-groups",
+                "lesson.de.b2.u33.place-adverbials-coherently",
+                "lesson.de.b2.u33.control-negation-scope",
+                "lesson.de.b2.u33.use-final-field",
+                "lesson.de.b2.u33.hear-information-focus",
+                "lesson.de.b2.u33.revise-dense-writing",
+                "lesson.de.b2.u33.explain-word-order-choice",
+                "lesson.de.b2.u33.word-order-mission",
             },
             lessons.Select(lesson => lesson.Id).ToArray());
         Assert.IsTrue(lessons.All(lesson => lesson.Slides.Count >= 7));
@@ -5280,6 +5290,7 @@ public sealed class ContentPackTests
     [DataRow(30)]
     [DataRow(31)]
     [DataRow(32)]
+    [DataRow(33)]
     public void RecentAuthoredActivityAnswersMapDeterministically(int unitNumber)
     {
         var level = unitNumber >= 32 ? "b2" : unitNumber >= 20 ? "b1" : "a2";
@@ -5304,6 +5315,7 @@ public sealed class ContentPackTests
             30 => new[] { "möchte", "möchte", "möchten", "möchte", "möchte", "möchte", "möchte", "möchte", "möchten", "möchten" },
             31 => new[] { "möchte", "möchten", "möchte", "möchten", "möchten", "möchte", "möchte", "möchten", "möchten", "möchten" },
             32 => new[] { "nennt", "sollte", "hilft", "kostet", "prüft", "könnte", "möchten", "sollte", "möchten", "sollten" },
+            33 => new[] { "prüft", "wird", "zeigt", "testet", "testet", "hat", "wird", "wertet", "prüft", "wird" },
             _ => new[] { "möchte", "möchten", "möchte", "möchte", "möchte", "möchte", "möchten", "möchte", "möchten", "möchte" },
         };
         for (var index = 0; index < unit.Lessons.Count; index++)
@@ -5404,11 +5416,11 @@ public sealed class ContentPackTests
 
         var grammar = unit.Lessons[2].TemplateInstances.Single(instance =>
             instance.TemplateId == new TemplateId("gap-card"));
-        Assert.AreEqual(unitNumber switch { 17 => "sich", 18 => "zu", 19 => "ins", 20 => "als", 21 => "deshalb", 22 => "den", 24 => "mich", 25 => "wird", 26 => "guenstiger", 27 => "zu", 28 => "laut", 29 => "nennt", 30 => "einander", 31 => "koennten", 32 => "other", _ => "die" }, grammar.Parameters["answer"].Value);
+        Assert.AreEqual(unitNumber switch { 17 => "sich", 18 => "zu", 19 => "ins", 20 => "als", 21 => "deshalb", 22 => "den", 24 => "mich", 25 => "wird", 26 => "guenstiger", 27 => "zu", 28 => "laut", 29 => "nennt", 30 => "einander", 31 => "koennten", 32 => "other", 33 => "it", _ => "die" }, grammar.Parameters["answer"].Value);
         var settings = unit.Lessons[unitNumber >= 19 ? 9 : 7].TemplateInstances.Single(instance =>
             instance.TemplateId == new TemplateId("form-fill"));
-        Assert.AreEqual(unitNumber switch { 17 => "nein", 18 => "A1 abgeschlossen", 19 => "offen", 20 => "Bibliothek", 21 => "offen", 22 => "Lebenslauf", 24 => "Freitag", 25 => "4", 26 => "nein", 27 => "offen", 29 => "ungeprüft", 31 => "unbestätigt", 32 => "auswerten", _ => "offen" }, settings.Parameters["answers"].Options!
-            .Single(option => option.Id == (unitNumber switch { 17 => "newsletter", 18 => "entry", 19 => "hotel", 20 => "ending", 21 => "price", 22 => "document", 24 => "review", 25 => "platform", 26 => "contract", 27 => "admission", 28 => "date", 29 => "application", 30 => "reconciliation", 31 => "delivery", 32 => "condition", _ => "cost" })).Label);
+        Assert.AreEqual(unitNumber switch { 17 => "nein", 18 => "A1 abgeschlossen", 19 => "offen", 20 => "Bibliothek", 21 => "offen", 22 => "Lebenslauf", 24 => "Freitag", 25 => "4", 26 => "nein", 27 => "offen", 29 => "ungeprüft", 31 => "unbestätigt", 32 => "auswerten", 33 => "offen", _ => "offen" }, settings.Parameters["answers"].Options!
+            .Single(option => option.Id == (unitNumber switch { 17 => "newsletter", 18 => "entry", 19 => "hotel", 20 => "ending", 21 => "price", 22 => "document", 24 => "review", 25 => "platform", 26 => "contract", 27 => "admission", 28 => "date", 29 => "application", 30 => "reconciliation", 31 => "delivery", 32 => "condition", 33 => "status", _ => "cost" })).Label);
     }
 
     [TestMethod]
@@ -5698,6 +5710,26 @@ public sealed class ContentPackTests
             .Single(option => option.Id == "joint").Label);
         StringAssert.Contains(Instance(9, "prompt-respond").Parameters["prompt"].Value!,
             "Nach drei Terminen sollten Nutzung und Aufwand ausgewertet werden");
+        Assert.IsTrue(unit.PronunciationUtterances.All(utterance =>
+            utterance.AssessmentMode == PronunciationAssessmentMode.None));
+    }
+
+    [TestMethod]
+    public void UnitThirtyThreePreservesWordOrderMeaningAndOpenAdoptionBoundary()
+    {
+        var unit = LoadBundled(ContentLoadPolicy.AuthoringPreview)
+            .Packs.Single(pack => pack.Manifest.Id == "language.de.b2.unit33");
+        TemplateInstance Instance(int index, string template) => unit.Lessons[index].TemplateInstances
+            .Single(instance => instance.TemplateId == new TemplateId(template));
+
+        Assert.AreEqual("it", Instance(2, "gap-card").Parameters["answer"].Value);
+        Assert.AreEqual("not", Instance(4, "gap-card").Parameters["answer"].Value);
+        StringAssert.Contains(Instance(6, "listen-order").Parameters["utterance"].Value!,
+            "nicht am MONTAG, sondern am DIENSTAG");
+        Assert.AreEqual("offen", Instance(9, "form-fill").Parameters["answers"].Options!
+            .Single(option => option.Id == "status").Label);
+        StringAssert.Contains(Instance(9, "prompt-respond").Parameters["prompt"].Value!,
+            "ob der Guide dauerhaft eingeführt wird");
         Assert.IsTrue(unit.PronunciationUtterances.All(utterance =>
             utterance.AssessmentMode == PronunciationAssessmentMode.None));
     }
