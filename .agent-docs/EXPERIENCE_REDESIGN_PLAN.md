@@ -2591,6 +2591,44 @@ captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups remain 
 The catalog has 330 authored lessons and 2,639 instances; 120 of 450 remain. Continue
 P7.B34 with lessons 331–340 and process-focused passive constructions.
 
+**Unit 34 batch status (2026-09-09): complete with named unverified evidence.**
+
+P7.B34 supplies lessons 331–340 with 80 deterministic instances across 12 template
+kinds, English/Hindi/Hinglish instruction maps, 10 B2 concepts, 16 lexemes, 10 bounded
+error/feedback pairs, 10 assessmentMode=None utterances, and one fixed task/rubric.
+Directly authored passive work covers process focus, omitted actors, von and durch,
+process versus resulting state, past process reports, modal passive requirements,
+ordered process updates, short service notices, active/passive transformations, and a
+bounded repair-status mission. The fictional repair cafe does not create a repair order,
+price, safety result, or pickup promise. No separate lesson-generation model was used.
+All new content remains machine-validated Preview, not approved.
+
+The first focused test rejected eleven paper-train labels above the existing ten-character
+car width. Those labels were shortened or split while preserving the complete authored
+German sentences and meanings. The focused suite then passed all 95 content-pack checks.
+Locked restore and Release build passed with zero warnings/errors; all 438 tests passed
+(291 Core, 147 App), followed by formatter verification and clean diff checks.
+Instruction maps passed the 25-word, no-em-dash, and Latin-script Hinglish checks.
+Unit 34 pack SHA-256:
+`a209c8037658845c51ffb83552b96bb563035f84cf990c01c31c2e9963accafa`.
+
+The exact 340-lesson macOS QA build was published and ad-hoc signature verification
+passed. A fresh local profile visibly confirmed 340 available lessons and 110 remaining,
+English/Hindi/Hinglish repertoire, microphone Never, reduced motion, and the explicit
+local Preview boundary. ScreenCaptureKit failed after setup, so no Unit 34 lesson route
+is claimed as native interaction evidence for this batch.
+
+Direct VoiceOver, Windows, Unit 34 lesson interaction, both-theme comparison, and all
+30 lesson/language combinations remain unverified. German, Hindi, Hinglish, pedagogy,
+cultural, content, and rights review remain pending. Text-only asset follow-ups are
+repair-cafe-stage, process-status-tags, and bicycle-check-cards. Existing P8.2 contrast,
+P4.T7 album captions, P5.4 renderer chrome, and note inflection-tolerance follow-ups
+remain open. GitHub CI passed for Unit 32 commit
+`a198713e07b3c12f7e66a984765b66b4a1ae123b` (run `34333803961`) and Unit 33 commit
+`73e74c940bbc2924f6151131a65dd07f2c1ff799` (run `34336759497`). The catalog has
+340 authored lessons and 2,719 instances; 110 of 450 remain. Continue P7.B35 with
+lessons 341–350 and hypothetical, polite, and reported language.
+
 ### Phase 8 — Production hardening
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
