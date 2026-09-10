@@ -2821,7 +2821,7 @@ hardening without treating Preview content as approved curriculum.
 
 ### Phase 8 — Production hardening
 
-**Status (2026-09-10, P8.4 CI gallery capture implementation):** In progress. An
+**Status (2026-09-10, P8.4 CI gallery capture):** Complete. An
 environment-gated developer path now captures the real published template-gallery window
 to a new absolute PNG target, refuses non-PNG, relative, existing, or non-gallery targets,
 and exits with an error artifact when capture fails. The CI matrix runs the published app
@@ -2834,8 +2834,13 @@ light and dark gallery captures with complete shell chrome, gallery controls, an
 seed assets visible. The first native attempt exposed and corrected a Retina scaling error
 that had left three quarters of the bitmap blank. Release build passes with zero warnings
 and errors, all 460 tests pass (308 Core, 152 App), and formatter verification is clean.
-Hosted macOS and Windows execution of the PowerShell wrapper and artifact upload remain
-unverified until the first CI run completes, so P8.4 remains open.
+
+GitHub Actions run `34464950631` passed both matrix jobs at commit `6707c16`. The
+published-app capture and artifact upload steps succeeded on macOS and Windows. The
+unexpired `template-gallery-macOS` and `template-gallery-Windows` artifacts contain four
+valid hosted PNGs plus evidence labels tied to the full commit SHA. All four light and
+dark captures were downloaded and visually inspected. Windows screenshots remain visual
+evidence only, not Windows interaction proof. P8.4 is complete.
 
 **Status (2026-09-10, P8.3 architecture ratchet):** Complete. The renderer factory
 contract remains limited to validated parameters, instruction language, reduced-motion
