@@ -224,6 +224,16 @@
             <Setter Property="Background" Value="{DynamicResource AppAccentPressedBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppAccentPressedBrush}" />
         </Style>
+        <Style Selector="Button.primary controls|PaperCard">
+            <Setter Property="Background" Value="{DynamicResource AppAccentSoftBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
+        </Style>
+        <Style Selector="Button.primary controls|PaperCard TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource AppAccentTextBrush}" />
+        </Style>
+        <Style Selector="Button.primary controls|PaperCard TextBlock.muted">
+            <Setter Property="Foreground" Value="{DynamicResource AppAccentTextBrush}" />
+        </Style>
         <Style Selector="Button.quiet">
             <Setter Property="Background" Value="Transparent" />
         </Style>

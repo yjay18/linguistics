@@ -36,12 +36,14 @@ internal static class WordOrderTrainRenderer
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(replayButton, "WordOrderTrainReplay");
+        AutomationProperties.SetName(replayButton, AppStrings.Get("Template_ReplayBuild"));
         var skipButton = new Button
         {
             Content = AppStrings.Get("Template_SkipBuild"),
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(skipButton, "WordOrderTrainSkip");
+        AutomationProperties.SetName(skipButton, AppStrings.Get("Template_SkipBuild"));
         var promptText = new TextBlock
         {
             Text = prompt,
@@ -212,12 +214,14 @@ internal static class WordOrderTrainRenderer
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(resetButton, "WordOrderTrainReset");
+        AutomationProperties.SetName(resetButton, AppStrings.Get("Template_Reset"));
         var checkButton = new Button
         {
             Content = AppStrings.Get("Template_CheckOrder"),
             Classes = { "primary", "lift" },
         };
         AutomationProperties.SetAutomationId(checkButton, "WordOrderTrainCheck");
+        AutomationProperties.SetName(checkButton, AppStrings.Get("Template_CheckOrder"));
         var actions = new StackPanel
         {
             Orientation = Orientation.Horizontal,

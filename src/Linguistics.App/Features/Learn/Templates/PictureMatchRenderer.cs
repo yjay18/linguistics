@@ -47,12 +47,14 @@ internal static class PictureMatchRenderer
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(replayButton, "PictureMatchReplay");
+        AutomationProperties.SetName(replayButton, AppStrings.Get("Template_ReplayReveal"));
         var skipButton = new Button
         {
             Content = AppStrings.Get("Template_SkipReveal"),
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(skipButton, "PictureMatchSkip");
+        AutomationProperties.SetName(skipButton, AppStrings.Get("Template_SkipReveal"));
         var promptText = new TextBlock
         {
             Text = prompt,

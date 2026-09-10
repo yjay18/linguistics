@@ -90,6 +90,59 @@ public sealed class DesignSystemTests
     }
 
     [TestMethod]
+    public void SelectedTemplateCardsUseTheAuditedAccentContrastPair()
+    {
+        var appXaml = XDocument.Load(Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Linguistics.App",
+            "App.axaml"));
+        var styles = appXaml
+            .Descendants()
+            .Where(element => element.Name.LocalName == "Style")
+            .ToDictionary(
+                element => element.Attribute("Selector")?.Value ?? string.Empty,
+                StringComparer.Ordinal);
+
+        AssertStyleSetter(
+            styles,
+            "Button.primary controls|PaperCard",
+            "Background",
+            "{DynamicResource AppAccentSoftBrush}");
+        AssertStyleSetter(
+            styles,
+            "Button.primary controls|PaperCard",
+            "BorderBrush",
+            "{DynamicResource AppAccentBrush}");
+        AssertStyleSetter(
+            styles,
+            "Button.primary controls|PaperCard TextBlock",
+            "Foreground",
+            "{DynamicResource AppAccentTextBrush}");
+        AssertStyleSetter(
+            styles,
+            "Button.primary controls|PaperCard TextBlock.muted",
+            "Foreground",
+            "{DynamicResource AppAccentTextBrush}");
+    }
+
+    private static void AssertStyleSetter(
+        IReadOnlyDictionary<string, XElement> styles,
+        string selector,
+        string property,
+        string expectedValue)
+    {
+        Assert.IsTrue(styles.TryGetValue(selector, out var style), $"Missing style {selector}.");
+        var setter = style
+            .Elements()
+            .SingleOrDefault(element =>
+                element.Name.LocalName == "Setter"
+                && element.Attribute("Property")?.Value == property);
+        Assert.IsNotNull(setter, $"Style {selector} is missing setter {property}.");
+        Assert.AreEqual(expectedValue, setter.Attribute("Value")?.Value);
+    }
+
+    [TestMethod]
     public void PaperMaterialsExistInBothThemesAndUseTintedShadows()
     {
         var expectedResources = new[]

@@ -738,6 +738,7 @@ internal static class ConjugationWheelRenderer
         AutomationProperties.SetName(nextForm, "Rotate to the next verb form");
         var checkButton = new Button { Content = "Check alignment", Classes = { "primary", "lift" } };
         AutomationProperties.SetAutomationId(checkButton, "ConjugationWheelCheck");
+        AutomationProperties.SetName(checkButton, "Check the selected person and verb form");
         var buttons = new StackPanel
         {
             Orientation = Orientation.Horizontal,
@@ -991,6 +992,7 @@ internal static class CaseSwitchboardRenderer
             HorizontalAlignment = HorizontalAlignment.Right,
         };
         AutomationProperties.SetAutomationId(checkButton, "CaseSwitchboardCheck");
+        AutomationProperties.SetName(checkButton, "Check the selected role and article");
         var status = new TextBlock
         {
             Classes = { "muted" },
@@ -1626,6 +1628,7 @@ internal static class NegationStrikeRenderer
             HorizontalAlignment = HorizontalAlignment.Right,
         };
         AutomationProperties.SetAutomationId(checkButton, "NegationStrikeCheck");
+        AutomationProperties.SetName(checkButton, "Check the selected negation placement");
         var status = new TextBlock
         {
             Classes = { "muted" },
@@ -2245,8 +2248,10 @@ internal static class SentenceExpandRenderer
 
         var resetButton = new Button { Content = "Reset", Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(resetButton, "SentenceExpandReset");
+        AutomationProperties.SetName(resetButton, "Reset the expanded sentence");
         var checkButton = new Button { Content = "Check sentence", Classes = { "primary", "lift" } };
         AutomationProperties.SetAutomationId(checkButton, "SentenceExpandCheck");
+        AutomationProperties.SetName(checkButton, "Check the expanded sentence");
         var actionButtons = new StackPanel
         {
             Orientation = Orientation.Horizontal,

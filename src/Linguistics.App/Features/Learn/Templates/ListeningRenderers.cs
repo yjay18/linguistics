@@ -596,8 +596,10 @@ internal static class ListenOrderRenderer
 
         var resetButton = new Button { Content = "Reset", Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(resetButton, "ListenOrderReset");
+        AutomationProperties.SetName(resetButton, "Reset the listening sequence");
         var checkButton = new Button { Content = "Check order", Classes = { "primary", "lift" } };
         AutomationProperties.SetAutomationId(checkButton, "ListenOrderCheck");
+        AutomationProperties.SetName(checkButton, "Check the listening sequence order");
         var actions = new StackPanel
         {
             Orientation = Orientation.Horizontal,
@@ -895,8 +897,10 @@ internal static class ListenTypeRenderer
         };
         var clearButton = new Button { Content = "Clear", Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(clearButton, "ListenTypeClear");
+        AutomationProperties.SetName(clearButton, "Clear the typed listening response");
         var checkButton = new Button { Content = "Check text", Classes = { "primary", "lift" } };
         AutomationProperties.SetAutomationId(checkButton, "ListenTypeCheck");
+        AutomationProperties.SetName(checkButton, "Check the typed listening response");
         var actions = new StackPanel
         {
             Orientation = Orientation.Horizontal,
@@ -1340,8 +1344,10 @@ internal static class ListenRouteRenderer
 
         var resetButton = new Button { Content = "Reset", Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(resetButton, "ListenRouteReset");
+        AutomationProperties.SetName(resetButton, "Reset the listening route");
         var checkButton = new Button { Content = "Check route", Classes = { "primary", "lift" } };
         AutomationProperties.SetAutomationId(checkButton, "ListenRouteCheck");
+        AutomationProperties.SetName(checkButton, "Check the selected listening route");
         var actions = new StackPanel
         {
             Orientation = Orientation.Horizontal,

@@ -1002,8 +1002,10 @@ internal static class PhotoAlbumRenderer
         AutomationProperties.SetLiveSetting(pageStatus, AutomationLiveSetting.Polite);
         var previousButton = new Button { Content = "Previous page", Classes = { "quiet" }, IsEnabled = false };
         AutomationProperties.SetAutomationId(previousButton, "PhotoAlbumPrevious");
+        AutomationProperties.SetName(previousButton, "Show the previous album page");
         var nextButton = new Button { Content = "Next page", Classes = { "quiet", "lift" } };
         AutomationProperties.SetAutomationId(nextButton, "PhotoAlbumNext");
+        AutomationProperties.SetName(nextButton, "Show the next album page");
         var navigation = new StackPanel
         {
             Orientation = Orientation.Horizontal,

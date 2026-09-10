@@ -487,6 +487,7 @@ internal static class ScenarioTheatreRenderer
                         FontSize = 12,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         Classes = { "muted" },
+                        TextWrapping = TextWrapping.Wrap,
                     },
                 },
             },

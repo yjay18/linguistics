@@ -38,12 +38,14 @@ internal static class ObjectSpotlightRenderer
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(replayButton, "ObjectSpotlightReplay");
+        AutomationProperties.SetName(replayButton, AppStrings.Get("Template_ReplayScene"));
         var skipButton = new Button
         {
             Content = AppStrings.Get("Template_SkipScene"),
             Classes = { "quiet" },
         };
         AutomationProperties.SetAutomationId(skipButton, "ObjectSpotlightSkip");
+        AutomationProperties.SetName(skipButton, AppStrings.Get("Template_SkipScene"));
 
         var instructionText = new TextBlock
         {
@@ -179,6 +181,9 @@ internal static class ObjectSpotlightRenderer
             HorizontalAlignment = HorizontalAlignment.Left,
         };
         AutomationProperties.SetAutomationId(acknowledge, "ObjectSpotlightAcknowledge");
+        AutomationProperties.SetName(
+            acknowledge,
+            AppStrings.Get("Template_ObjectSpotlight_Acknowledge"));
 
         var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 12 };
         footer.Children.Add(outcomePanel);

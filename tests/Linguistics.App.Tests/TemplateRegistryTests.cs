@@ -400,6 +400,92 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    public void EveryCatalogFixtureExposesNamedKeyboardControlsAndLiveFeedback()
+    {
+        var registry = TemplateRegistry.CreateDefault();
+        var failures = new List<string>();
+
+        foreach (var fixture in TemplateGalleryFixtures.All)
+        {
+            foreach (var textOnly in new[] { false, true })
+            {
+                var rendered = registry.Render(
+                    fixture.TemplateId,
+                    fixture.Parameters with
+                    {
+                        PreviewOutcome = TemplateOutcomeState.Ready,
+                        UseTextOnlyFallback = textOnly,
+                    },
+                    fixture.InstructionLanguage,
+                    shouldReduceMotion: true,
+                    _ => { });
+                var descendants = rendered
+                    .GetLogicalDescendants()
+                    .OfType<Control>()
+                    .ToArray();
+                var interactiveControls = descendants
+                    .Where(control => control is Button or TextBox or CheckBox or ComboBox or Slider or Expander)
+                    .ToArray();
+
+                Assert.IsNotEmpty(
+                    interactiveControls,
+                    $"{fixture.TemplateId.Value} has no keyboard-operable controls.");
+                foreach (var control in interactiveControls)
+                {
+                    if (string.IsNullOrWhiteSpace(AutomationProperties.GetName(control)))
+                    {
+                        failures.Add(
+                            $"{fixture.TemplateId.Value} has an unnamed {control.GetType().Name} " +
+                            $"({AutomationProperties.GetAutomationId(control) ?? "no automation id"}).");
+                    }
+
+                    if (control.IsVisible && control.IsEnabled && !control.Focusable)
+                    {
+                        failures.Add(
+                            $"{fixture.TemplateId.Value} exposes a non-focusable " +
+                            $"{control.GetType().Name} ({AutomationProperties.GetAutomationId(control) ?? "no automation id"}).");
+                    }
+                }
+
+                foreach (var text in descendants.OfType<TextBlock>())
+                {
+                    if (!double.IsNaN(text.Height) || !double.IsPositiveInfinity(text.MaxHeight))
+                    {
+                        failures.Add(
+                            $"{fixture.TemplateId.Value} clips text with a fixed vertical bound: {text.Text}");
+                    }
+
+                    if (text.Text is { } copy &&
+                        copy.Count(char.IsLetterOrDigit) >= 30 &&
+                        text.TextWrapping == TextWrapping.NoWrap)
+                    {
+                        failures.Add(
+                            $"{fixture.TemplateId.Value} does not wrap long text: {copy}");
+                    }
+                }
+
+                if (!descendants.OfType<TextBlock>().Any(text =>
+                        AutomationProperties.GetLiveSetting(text) == AutomationLiveSetting.Polite))
+                {
+                    failures.Add($"{fixture.TemplateId.Value} has no polite live feedback region.");
+                }
+
+                if (textOnly)
+                {
+                    var imageCount = descendants.OfType<Image>().Count();
+                    if (imageCount > 0)
+                    {
+                        failures.Add(
+                            $"{fixture.TemplateId.Value} text-only mode renders {imageCount} image(s).");
+                    }
+                }
+            }
+        }
+
+        Assert.IsEmpty(failures, string.Join(Environment.NewLine, failures.Distinct()));
+    }
+
+    [TestMethod]
     public void WordOrderTrainReservesVerbSecondAndRightBracketCars()
     {
         var fixture = TemplateGalleryFixtures.All.Single(candidate =>
