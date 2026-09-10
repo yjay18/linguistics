@@ -65,12 +65,14 @@ try {
         Set-Content -LiteralPath (Join-Path $dataPath "learner-profile.json") -Value $profile -Encoding utf8NoBOM
 
         $capturePath = Join-Path $outputPath ("template-gallery-" + $themeName + ".png")
+        $performancePath = Join-Path $outputPath ("template-gallery-" + $themeName + "-performance.json")
         $env:LINGUISTICS_DATA_DIRECTORY = $dataPath
         $env:LINGUISTICS_DEVELOPER_MODE = "1"
         $env:LINGUISTICS_DEVELOPER_PAGE = "TEMPLATEGALLERY"
         $env:LINGUISTICS_DEVELOPER_THEME = $theme.ToUpperInvariant()
         $env:LINGUISTICS_REDUCED_MOTION = "1"
         $env:LINGUISTICS_GALLERY_CAPTURE_PATH = $capturePath
+        $env:LINGUISTICS_PERFORMANCE_CAPTURE_PATH = $performancePath
 
         $process = Start-Process -FilePath $executablePath -PassThru
         if (-not $process.WaitForExit(60000)) {
@@ -97,11 +99,24 @@ try {
             $bytes[3] -ne 0x47) {
             throw "Template gallery capture for theme $theme is not a valid non-empty PNG."
         }
+
+        $performance = Get-Content -LiteralPath $performancePath -Raw | ConvertFrom-Json
+        if ($performance.schemaVersion -ne 1 -or
+            $performance.processEntryToReadyMilliseconds -lt 1 -or
+            $performance.contentCatalogLoadMilliseconds -lt 1 -or
+            $performance.workingSetBytes -lt 1 -or
+            $performance.managedHeapBytes -lt 1 -or
+            $performance.animationFrames.sampleCount -ne 30 -or
+            $performance.decodedImageCount -gt $performance.maximumDecodedImages -or
+            $performance.estimatedDecodedBytes -gt $performance.maximumDecodedBytes) {
+            throw "Template gallery performance evidence for theme $theme is invalid or outside its cache bounds."
+        }
     }
 
     $evidence = @(
         "Automated template gallery captures from the published app.",
         "Visual evidence only. These files do not prove interaction, accessibility, or approval.",
+        "Performance JSON contains aggregate runner-local timings and memory only. It is not a low-resource benchmark.",
         "Runner OS: $([Environment]::OSVersion.Platform)",
         "Commit: $($env:GITHUB_SHA ?? 'local')"
     )

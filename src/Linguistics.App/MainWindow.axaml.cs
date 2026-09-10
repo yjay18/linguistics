@@ -96,22 +96,26 @@ public partial class MainWindow : Window
         }
 
         await LoadProfileAsync();
+        var processEntryToReadyDuration = TimeSpan.Zero;
         if (_startupPerformance is { } completedPerformance)
         {
+            processEntryToReadyDuration = Stopwatch.GetElapsedTime(
+                completedPerformance.ProcessStartedAtTimestamp);
             await TryLogAsync(
                 DiagnosticCategory.Application,
                 DiagnosticEventCode.AppOpened,
                 DiagnosticOutcome.Succeeded,
-                Stopwatch.GetElapsedTime(completedPerformance.ProcessStartedAtTimestamp));
+                processEntryToReadyDuration);
         }
 
-        QueueDeveloperGalleryCapture();
+        QueueDeveloperCaptures(processEntryToReadyDuration);
     }
 
-    private void QueueDeveloperGalleryCapture()
+    private void QueueDeveloperCaptures(TimeSpan processEntryToReadyDuration)
     {
-        var outputPath = TemplateGalleryCapture.RequestedOutputPath();
-        if (outputPath is null)
+        var galleryOutputPath = TemplateGalleryCapture.RequestedOutputPath();
+        var performanceOutputPath = PerformanceEvidenceCapture.RequestedOutputPath();
+        if (galleryOutputPath is null && performanceOutputPath is null)
         {
             return;
         }
@@ -121,18 +125,46 @@ public partial class MainWindow : Window
             {
                 var lifetime = Application.Current?.ApplicationLifetime as
                     IClassicDesktopStyleApplicationLifetime;
-                try
-                {
-                    TemplateGalleryCapture.Save(this, outputPath);
-                    lifetime?.Shutdown(0);
-                }
-                catch (Exception exception)
-                {
-                    File.WriteAllText(outputPath + ".error.txt", exception.ToString());
-                    lifetime?.Shutdown(1);
-                }
+                _ = CaptureAndShutdownAsync(lifetime);
             },
             DispatcherPriority.Background);
+
+        async Task CaptureAndShutdownAsync(IClassicDesktopStyleApplicationLifetime? lifetime)
+        {
+            var errorPath = (galleryOutputPath ?? performanceOutputPath)! + ".error.txt";
+            try
+            {
+                if (galleryOutputPath is not null)
+                {
+                    TemplateGalleryCapture.Save(this, galleryOutputPath);
+                }
+
+                if (performanceOutputPath is not null)
+                {
+                    if (_startupPerformance is null || _imageCache is null)
+                    {
+                        throw new InvalidOperationException(
+                            "Performance capture requires startup and image-cache aggregates.");
+                    }
+
+                    using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    await PerformanceEvidenceCapture.SaveAsync(
+                        this,
+                        performanceOutputPath,
+                        processEntryToReadyDuration,
+                        _startupPerformance,
+                        _imageCache,
+                        timeout.Token);
+                }
+
+                lifetime?.Shutdown(0);
+            }
+            catch (Exception exception)
+            {
+                File.WriteAllText(errorPath, exception.ToString());
+                lifetime?.Shutdown(1);
+            }
+        }
     }
 
     private async void OnRetryClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
