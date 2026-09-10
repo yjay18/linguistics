@@ -67,13 +67,17 @@ public sealed class DistributionNoticeTests
             ExpectedRuntimePackages.OrderBy(item => item, StringComparer.Ordinal).ToArray(),
             runtimePackages);
 
-        var packageRoot = root.GetProperty("packageFolders").EnumerateObject().Single().Name;
+        var packageRoots = root
+            .GetProperty("packageFolders")
+            .EnumerateObject()
+            .Select(item => item.Name)
+            .ToArray();
         foreach (var package in runtimePackages)
         {
             var separator = package.LastIndexOf('/');
             var id = package[..separator];
             var version = package[(separator + 1)..];
-            var directory = Path.Combine(packageRoot, id.ToLowerInvariant(), version.ToLowerInvariant());
+            var directory = PackageDirectory(packageRoots, id, version);
             var nuspec = Directory.GetFiles(directory, "*.nuspec", SearchOption.TopDirectoryOnly).Single();
             var license = XDocument
                 .Load(nuspec)
@@ -104,16 +108,12 @@ public sealed class DistributionNoticeTests
         Assert.AreEqual(
             NativeNoticeSha256,
             Sha256(Path.Combine(
-                packageRoot,
-                "skiasharp.nativeassets.macos",
-                "3.119.4",
+                PackageDirectory(packageRoots, "SkiaSharp.NativeAssets.macOS", "3.119.4"),
                 "THIRD-PARTY-NOTICES.txt")));
         Assert.AreEqual(
             NativeNoticeSha256,
             Sha256(Path.Combine(
-                packageRoot,
-                "harfbuzzsharp.nativeassets.macos",
-                "8.3.1.3",
+                PackageDirectory(packageRoots, "HarfBuzzSharp.NativeAssets.macOS", "8.3.1.3"),
                 "THIRD-PARTY-NOTICES.txt")));
     }
 
@@ -203,6 +203,13 @@ public sealed class DistributionNoticeTests
 
     private static string Sha256(string path) =>
         Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path))).ToLowerInvariant();
+
+    private static string PackageDirectory(
+        IEnumerable<string> packageRoots,
+        string id,
+        string version) => packageRoots
+        .Select(root => Path.Combine(root, id.ToLowerInvariant(), version.ToLowerInvariant()))
+        .First(Directory.Exists);
 
     private static string RepositoryRoot => Path.GetFullPath(Path.Combine(
         AppContext.BaseDirectory,

@@ -36,13 +36,14 @@ jobs:
           ./tools/ci/Test-PublishNotices.ps1
           -PublishDirectory src/Linguistics.App/bin/Release/net10.0/publish
       - name: Capture template gallery visual evidence
+        id: gallery-capture
         shell: pwsh
         run: >-
           ./tools/ci/Capture-TemplateGallery.ps1
           -PublishDirectory src/Linguistics.App/bin/Release/net10.0/publish
           -OutputDirectory "${{ runner.temp }}/linguistics-gallery"
       - name: Upload template gallery visual evidence
-        if: always()
+        if: ${{ always() && steps.gallery-capture.outcome != 'skipped' }}
         uses: actions/upload-artifact@v7
         with:
           name: template-gallery-${{ runner.os }}
