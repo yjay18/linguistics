@@ -2913,28 +2913,45 @@ duration enforcement, skip cancellation, and instant final-state application. Re
 build passes with zero warnings and errors, all 459 tests pass (308 Core, 151 App), and
 formatter verification is clean. P8.3 is complete; P8.1, P8.2, P8.4, and P8.5 remain open.
 
-**Status (2026-09-10, P8.1 bounded cache and native timing evidence):** In progress.
-The validated local image cache has explicit 32-image and estimated 32 MiB decoded RGBA
-limits. An image that would exceed either limit fails closed into the renderer's authored
-text-only equivalent instead of expanding retained cache memory. The policy is covered at
-its exact byte and count boundaries, and the offline-only image path remains unchanged.
-Redacted local diagnostics now measure process-entry-to-ready cold start, validated catalog
-loading, and lesson rendering without recording lesson IDs, content, or paths. Failed
-catalog loading is reported as failed rather than as a successful timing sample.
+**Status (2026-09-10, P8.1 performance and bounded-cache evidence):** Complete with
+named benchmark gaps. The validated local image cache retains its explicit 32-image and
+estimated 32 MiB decoded RGBA limits. Images outside either limit fail closed into the
+renderer's authored text-only equivalent, with exact boundary tests and no network path.
+Redacted local diagnostics measure process-entry-to-ready startup, catalog loading, and
+lesson rendering without lesson IDs, content, or paths.
 
-On one corrected isolated macOS developer-profile run, process entry to ready measured
-1,203 ms, catalog loading measured 435 ms, and the first opened lesson rendered and focused
-in 46 ms. Native pointer navigation through the full 58-template gallery and Paper Stage
-then decoded all 12 validated images; the in-app aggregate reported 18.6 MiB retained
-against the 32.0 MiB budget. This is direct native interaction and accessibility-tree
-evidence, not a low-resource benchmark or distribution measurement. Release build passes
-with zero warnings and errors, all 459 tests pass (308 Core, 151 App), and formatter
-verification is clean.
+A developer-only published-app capture now requires an explicit absolute new JSON target.
+It warms every current validated asset through the production cache, samples 30 native
+animation ticks, and records only startup, catalog-load, process-memory, managed-heap,
+frame-cadence, and cache aggregates. CI rejects startup over 10 seconds, catalog loading
+over 3 seconds, working set over 512 MiB, managed heap over 384 MiB, median frame intervals
+over 34 ms, more than 10 slow intervals, incomplete decoding of the current 12-asset set,
+or either cache bound being exceeded. Tail frame measurements remain visible rather than
+being discarded.
 
-Animation frame consistency, repeated cold starts from a distribution bundle, process
-memory on a genuinely constrained low-resource profile, keyboard coverage for this exact
-performance route, direct VoiceOver, and Windows native interaction remain unverified.
-P8.1 therefore remains open and this status does not claim a distribution decision.
+Two fresh isolated macOS published-app runs completed the light and dark captures with all
+12 assets decoded at 18.6 MiB. Process entry to ready measured 3,927 and 4,941 ms; catalog
+loading measured 1,602 and 1,431 ms; working set measured 241 and 177 MiB; median frame
+intervals measured 19.254 and 19.011 ms. The earlier directly opened first lesson rendered
+and focused in 46 ms. These are current-machine samples, not universal latency claims.
+
+At commit `f922657`, GitHub Actions run `34477782653` passed build, all 469 tests,
+publish, notice audit, the enforced performance envelope, gallery capture, and artifact
+upload on macOS and Windows. Hosted process-entry-to-ready measurements were 1,800 and
+3,051 ms on macOS and 3,242 and 3,250 ms on Windows. All four samples decoded 12 assets at
+18.6 MiB; working sets ranged from 334 to 408 MiB and median frame intervals from 15.897
+to 16.761 ms. Recorded tail outliers reached 390.867 ms on macOS and 923.85 ms on Windows,
+so the evidence does not claim perfectly smooth frames or native Windows interaction.
+
+A signed or notarized distribution-bundle benchmark, constrained low-resource hardware,
+long-session memory growth, repeated native lesson opens, direct VoiceOver, and Windows
+native interaction remain unverified. P8.1 is complete as an enforced published-app
+regression envelope, not as distribution or low-resource certification.
+
+**Phase 8 overall status (2026-09-10):** Complete with named unverified evidence and
+distribution blockers. P8.1 through P8.5 now have enforced implementation and recorded
+evidence. No release, signing, notarization, legal approval, curriculum approval, direct
+VoiceOver verification, or Windows native interaction is claimed or authorized.
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
   and memory with full asset caches on a low-resource profile; decoded-image cache

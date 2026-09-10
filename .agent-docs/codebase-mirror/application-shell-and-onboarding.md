@@ -10,6 +10,7 @@
 - `src/Linguistics.App/Features/Languages/`
 - `src/Linguistics.App/Features/Settings/`
 - `src/Linguistics.App/Features/Learn/`
+- `src/Linguistics.App/Features/Developer/PerformanceEvidenceCapture.cs`
 
 ## Responsibility
 
@@ -26,7 +27,9 @@ Review, and Progress compose the catalog's Scenario Theatre, Consequence Verdict
 Flash, and Progress Shelf renderers around their existing deterministic controllers and
 projected state. In explicit developer mode, the shell can reveal deterministic
 diagnostics, a PaperStage sandbox, and a synthetic template gallery that reads no learner
-data and saves nothing.
+data and saves nothing. An explicit developer-only capture path can write fixed aggregate
+startup, frame-cadence, process-memory, managed-heap, and image-cache evidence for the
+published app without learner content or identifiers.
 
 ## Important entry points
 
@@ -39,6 +42,7 @@ data and saves nothing.
   Phase 6 renderer hosts.
 - `LearnView`: renders course capacity honestly, opens authored lessons, delegates template slides through the app registry, reports deterministic practice outcomes locally, and returns to the course map without writing preview mastery.
 - `TemplateGalleryView`: renders every registered template from fixed synthetic fixtures, cycles preview outcomes, and exercises text-only and effective motion settings without learner state.
+- `PerformanceEvidenceCapture`: warms only validated local assets, samples native animation ticks, and writes one new absolute JSON evidence target when developer mode explicitly requests it.
 - `CurriculumDiagnosticsView`: renders deterministic configuration and bounded persisted aggregates without learner utterances, transcripts, audio, prompt bodies, or paths.
 - `LanguagesView.OnSaveClicked`: preserves profile identity and validates preferred-language eligibility before saving.
 - `SettingsView.OnConfirmDeleteClicked`: performs the second step of exact-scope profile deletion.
@@ -58,6 +62,7 @@ The desktop application window and all current Milestone 1 user journeys.
 - No microphone permission is requested during onboarding.
 - New microphone audio is not retained, and no learner-facing retention preference is exposed. The stored compatibility field remains false; Settings can still delete legacy recordings.
 - Developer diagnostics, PaperStage, and template-gallery routes require `LINGUISTICS_DEVELOPER_MODE=1`; gallery fixtures are fixed and keep learner history, language content, and provider bodies out of inspection.
+- Developer performance capture requires the same mode and an explicit absolute new JSON target. It records aggregate timings and memory only, and never writes to the learner envelope.
 - Startup storage errors do not silently discard or overwrite learner data.
 - Recovery requires two explicit actions and preserves the original bytes under a randomized app-owned name.
 - A language edit cannot silently invalidate a preferred explanation language.
@@ -67,7 +72,7 @@ The desktop application window and all current Milestone 1 user journeys.
 
 ## Side effects
 
-Explicit onboarding completion creates the current schema seven learner data file. Languages, Settings, lesson visits, tasks, pronunciation, and review save through the profile owner and replace the envelope atomically. A runtime approved lesson records only visit counts, card position, times, IDs, and content version. Preview lessons remain session only. Startup and successful review operations may add redacted fixed field diagnostic events. Confirmed deletion coordinates recordings, diagnostics, current and temporary learner files, and app owned recovery copies, then returns to onboarding. Navigation, partial onboarding, unsaved edits, preview template outcomes, developer-gallery interaction, and cancelled deletion have no learner persistence side effects.
+Explicit onboarding completion creates the current schema seven learner data file. Languages, Settings, lesson visits, tasks, pronunciation, and review save through the profile owner and replace the envelope atomically. A runtime approved lesson records only visit counts, card position, times, IDs, and content version. Preview lessons remain session only. Startup and successful review operations may add redacted fixed field diagnostic events. Confirmed deletion coordinates recordings, diagnostics, current and temporary learner files, and app owned recovery copies, then returns to onboarding. Navigation, partial onboarding, unsaved edits, preview template outcomes, developer-gallery interaction, and cancelled deletion have no learner persistence side effects. An explicitly requested developer evidence run may additionally create one screenshot and one aggregate performance JSON at caller-supplied absolute paths, then exits.
 
 ## Likely blast radius
 
@@ -80,6 +85,7 @@ Changes can affect application startup, relaunch routing, onboarding accessibili
 - Real macOS onboarding, incomplete-close, save, storage inspection, relaunch, mouse, and keyboard interaction.
 - Real macOS Languages/Settings edits, preferred-language rejection, delete cancellation, corrupt/unfinished-store recovery, and confirmed deletion with before/after inspection.
 - Windows CI build, test, and publish; Windows real interaction remains a separate evidence requirement.
+- Published-app CI capture validates startup, catalog-load, full-cache memory, and median native-frame aggregates against conservative regression ceilings on macOS and Windows.
 
 ## Last reconciled
 
@@ -97,3 +103,7 @@ light and dark relaunches while using English chrome as designed. Production Sce
 and Review correctly remain behind
 the machine-validated Preview gate. Direct VoiceOver is unverified, and Windows native
 work is intentionally deferred under the current macOS-only scope.
+
+Phase 8 reconciliation on 2026-09-10 adds developer-only published-app performance
+evidence. The capture stays outside learner persistence, warms the complete current
+validated image set under the bounded cache, and preserves only fixed aggregate fields.
