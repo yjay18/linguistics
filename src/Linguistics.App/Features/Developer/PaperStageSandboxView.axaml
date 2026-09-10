@@ -234,6 +234,13 @@
         <ContentControl x:Name="CreditsHost"
                         AutomationProperties.AutomationId="PaperStageCreditsHost" />
 
+        <TextBlock x:Name="ImageCacheStatusText"
+                   Classes="muted"
+                   FontSize="12"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
+                   AutomationProperties.AutomationId="PaperStageImageCacheStatus" />
+
         <TextBlock Text="Backdrop · wash · cast · ambient · taped label · foreground · subject · reaction · verdict"
                    Classes="muted"
                    FontSize="12"

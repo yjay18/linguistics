@@ -147,6 +147,23 @@ public sealed class ContentImageCacheTests
         Assert.DoesNotContain("AssetPipeline", appProject, StringComparison.Ordinal);
     }
 
+    [TestMethod]
+    public void DeveloperStageReportsOnlyBoundedImageCacheAggregates()
+    {
+        var stageSource = File.ReadAllText(Path.Combine(
+            RepositoryRoot(),
+            "src",
+            "Linguistics.App",
+            "Features",
+            "Developer",
+            "PaperStageSandboxView.axaml.cs"));
+
+        Assert.Contains("DecodedImageCount", stageSource, StringComparison.Ordinal);
+        Assert.Contains("EstimatedDecodedBytes", stageSource, StringComparison.Ordinal);
+        Assert.Contains("MaximumDecodedBytes", stageSource, StringComparison.Ordinal);
+        Assert.DoesNotContain("AbsoluteFilePath", stageSource, StringComparison.Ordinal);
+    }
+
     private static ValidatedContentCatalog LoadBundled() =>
         ContentPackLoader.LoadDirectory(
             Path.Combine(AppContext.BaseDirectory, "Content"),

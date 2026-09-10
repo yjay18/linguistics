@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Avalonia.Controls;
 using Linguistics.App.Diagnostics;
 using Linguistics.App.Content;
@@ -29,6 +30,7 @@ public partial class MainWindow : Window
     private Func<CancellationToken, Task<LearnerStoreRecoveryResult>>? _recoverLearnerStore;
     private LocalDiagnosticLog? _diagnosticLog;
     private ContentImageCache? _imageCache;
+    private StartupPerformanceSnapshot? _startupPerformance;
     private CancellationTokenSource? _loadCancellation;
     private bool _recoveryConfirmationPending;
 
@@ -51,7 +53,8 @@ public partial class MainWindow : Window
         SpeechRecordingStore? speechRecordingStore = null,
         Func<CancellationToken, Task<LearnerStoreRecoveryResult>>? recoverLearnerStore = null,
         LocalDiagnosticLog? diagnosticLog = null,
-        ContentImageCache? imageCache = null)
+        ContentImageCache? imageCache = null,
+        StartupPerformanceSnapshot? startupPerformance = null)
         : this()
     {
         _profileOwner = profileOwner;
@@ -67,6 +70,7 @@ public partial class MainWindow : Window
         _recoverLearnerStore = recoverLearnerStore;
         _diagnosticLog = diagnosticLog;
         _imageCache = imageCache;
+        _startupPerformance = startupPerformance;
         Opened += OnOpened;
         Closed += OnClosed;
     }
@@ -78,7 +82,24 @@ public partial class MainWindow : Window
             DiagnosticCategory.Application,
             DiagnosticEventCode.AppOpened,
             DiagnosticOutcome.Started);
+        if (_startupPerformance is { } performance)
+        {
+            await TryLogAsync(
+                DiagnosticCategory.Curriculum,
+                DiagnosticEventCode.ContentCatalogLoaded,
+                performance.ContentCatalogLoadOutcome,
+                performance.ContentCatalogLoadDuration);
+        }
+
         await LoadProfileAsync();
+        if (_startupPerformance is { } completedPerformance)
+        {
+            await TryLogAsync(
+                DiagnosticCategory.Application,
+                DiagnosticEventCode.AppOpened,
+                DiagnosticOutcome.Succeeded,
+                Stopwatch.GetElapsedTime(completedPerformance.ProcessStartedAtTimestamp));
+        }
     }
 
     private async void OnRetryClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -271,7 +292,8 @@ public partial class MainWindow : Window
     private async Task TryLogAsync(
         DiagnosticCategory category,
         DiagnosticEventCode eventCode,
-        DiagnosticOutcome outcome)
+        DiagnosticOutcome outcome,
+        TimeSpan? duration = null)
     {
         if (_diagnosticLog is null)
         {
@@ -280,7 +302,11 @@ public partial class MainWindow : Window
 
         try
         {
-            await _diagnosticLog.WriteAsync(category, eventCode, outcome);
+            await _diagnosticLog.WriteAsync(
+                category,
+                eventCode,
+                outcome,
+                duration: duration);
         }
         catch (DiagnosticLogException)
         {

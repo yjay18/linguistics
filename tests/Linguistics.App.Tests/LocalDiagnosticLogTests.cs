@@ -43,6 +43,33 @@ public sealed class LocalDiagnosticLogTests
     }
 
     [TestMethod]
+    public async Task PerformanceEventsPersistOnlyDurationAndFixedFields()
+    {
+        await WithLogAsync(async (log, path) =>
+        {
+            await log.WriteAsync(
+                DiagnosticCategory.Curriculum,
+                DiagnosticEventCode.ContentCatalogLoaded,
+                DiagnosticOutcome.Succeeded,
+                duration: TimeSpan.FromMilliseconds(875));
+            await log.WriteAsync(
+                DiagnosticCategory.Curriculum,
+                DiagnosticEventCode.LessonOpened,
+                DiagnosticOutcome.Succeeded,
+                duration: TimeSpan.FromMilliseconds(24));
+
+            var lines = await File.ReadAllLinesAsync(path);
+            Assert.HasCount(2, lines);
+            Assert.Contains("\"eventCode\":\"contentCatalogLoaded\"", lines[0]);
+            Assert.Contains("\"durationMilliseconds\":875", lines[0]);
+            Assert.Contains("\"eventCode\":\"lessonOpened\"", lines[1]);
+            Assert.Contains("\"durationMilliseconds\":24", lines[1]);
+            Assert.IsFalse(lines.Any(line => line.Contains("lessonId", StringComparison.Ordinal)));
+            Assert.IsFalse(lines.Any(line => line.Contains("path", StringComparison.Ordinal)));
+        });
+    }
+
+    [TestMethod]
     public async Task LogIsBoundedAndInspectionCountsCurrentEntries()
     {
         await WithLogAsync(async (_, path) =>

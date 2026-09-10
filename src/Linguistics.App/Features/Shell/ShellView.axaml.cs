@@ -140,7 +140,8 @@ public partial class ShellView : UserControl
                     imageCache: _imageCache,
                     speechSynthesisProvider: _speechSynthesisProvider,
                     speechRecognitionProvider: _speechRecognitionProvider,
-                    pronunciationAssessmentProvider: _pronunciationAssessmentProvider));
+                    pronunciationAssessmentProvider: _pronunciationAssessmentProvider,
+                    diagnosticLog: _diagnosticLog));
                 break;
             case "Learn" when DeveloperModeEnabled():
                 ShowPage(new LearnView(
@@ -152,7 +153,8 @@ public partial class ShellView : UserControl
                     imageCache: _imageCache,
                     speechSynthesisProvider: _speechSynthesisProvider,
                     speechRecognitionProvider: _speechRecognitionProvider,
-                    pronunciationAssessmentProvider: _pronunciationAssessmentProvider));
+                    pronunciationAssessmentProvider: _pronunciationAssessmentProvider,
+                    diagnosticLog: _diagnosticLog));
                 break;
             case "Scenarios":
                 ShowPage(new CafeOrderView(

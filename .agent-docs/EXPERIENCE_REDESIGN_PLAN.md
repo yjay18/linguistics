@@ -2821,15 +2821,28 @@ hardening without treating Preview content as approved curriculum.
 
 ### Phase 8 — Production hardening
 
-**Status (2026-09-10, P8.1 decoded-image bound slice):** In progress. The validated
-local image cache now has explicit 32-image and estimated 32 MiB decoded RGBA limits;
-an image that would exceed either limit fails closed into the renderer's authored
-text-only equivalent instead of expanding retained cache memory. The policy is covered
-at its exact byte boundary and count boundary, and the existing offline-only image path
-remains unchanged. Release build passes with zero warnings and errors, all 457 tests pass
-(308 Core, 149 App), and formatter verification is clean. Cold-start, lesson-open, animation-frame,
-full-catalog native memory, and low-resource measurements remain unverified; this status
-does not close P8.1 or claim a distribution decision.
+**Status (2026-09-10, P8.1 bounded cache and native timing evidence):** In progress.
+The validated local image cache has explicit 32-image and estimated 32 MiB decoded RGBA
+limits. An image that would exceed either limit fails closed into the renderer's authored
+text-only equivalent instead of expanding retained cache memory. The policy is covered at
+its exact byte and count boundaries, and the offline-only image path remains unchanged.
+Redacted local diagnostics now measure process-entry-to-ready cold start, validated catalog
+loading, and lesson rendering without recording lesson IDs, content, or paths. Failed
+catalog loading is reported as failed rather than as a successful timing sample.
+
+On one corrected isolated macOS developer-profile run, process entry to ready measured
+1,203 ms, catalog loading measured 435 ms, and the first opened lesson rendered and focused
+in 46 ms. Native pointer navigation through the full 58-template gallery and Paper Stage
+then decoded all 12 validated images; the in-app aggregate reported 18.6 MiB retained
+against the 32.0 MiB budget. This is direct native interaction and accessibility-tree
+evidence, not a low-resource benchmark or distribution measurement. Release build passes
+with zero warnings and errors, all 459 tests pass (308 Core, 151 App), and formatter
+verification is clean.
+
+Animation frame consistency, repeated cold starts from a distribution bundle, process
+memory on a genuinely constrained low-resource profile, keyboard coverage for this exact
+performance route, direct VoiceOver, and Windows native interaction remain unverified.
+P8.1 therefore remains open and this status does not claim a distribution decision.
 
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
   and memory with full asset caches on a low-resource profile; decoded-image cache

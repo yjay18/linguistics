@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -34,6 +35,7 @@ public partial class App : Application
             var pronunciationAssessmentProvider = new TranscriptPronunciationAssessmentProvider();
             var speechRecordingStore = new SpeechRecordingStore(paths.SpeechRecordingsDirectory);
             var contentDirectory = Path.Combine(AppContext.BaseDirectory, "Content");
+            var contentLoadStartedAt = Stopwatch.GetTimestamp();
             ValidatedContentCatalog? runtimeContentCatalog = null;
             string? runtimeContentError = null;
             try
@@ -62,6 +64,12 @@ public partial class App : Application
 
             var imageCache = new ContentImageCache(
                 (authoringContentCatalog ?? runtimeContentCatalog)?.Assets ?? []);
+            var startupPerformance = new StartupPerformanceSnapshot(
+                Program.ProcessStartedAtTimestamp,
+                Stopwatch.GetElapsedTime(contentLoadStartedAt),
+                authoringContentCatalog is not null || runtimeContentCatalog is not null
+                    ? DiagnosticOutcome.Succeeded
+                    : DiagnosticOutcome.Failed);
 
             desktop.MainWindow = new MainWindow(
                 new LearnerProfileOwner(repository),
@@ -76,7 +84,8 @@ public partial class App : Application
                 speechRecordingStore,
                 repository.PreserveForRecoveryAsync,
                 diagnosticLog,
-                imageCache);
+                imageCache,
+                startupPerformance);
             desktop.Exit += (_, _) =>
             {
                 languageModelProvider.Dispose();

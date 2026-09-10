@@ -19,6 +19,8 @@ public enum DiagnosticCategory
 public enum DiagnosticEventCode
 {
     AppOpened,
+    ContentCatalogLoaded,
+    LessonOpened,
     ProfileLoaded,
     ProfileLoadFailed,
     RecoveryPreserved,
@@ -26,6 +28,11 @@ public enum DiagnosticEventCode
     ReviewRecorded,
     LearningDataDeleted,
 }
+
+public sealed record StartupPerformanceSnapshot(
+    long ProcessStartedAtTimestamp,
+    TimeSpan ContentCatalogLoadDuration,
+    DiagnosticOutcome ContentCatalogLoadOutcome);
 
 public enum DiagnosticOutcome
 {

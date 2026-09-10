@@ -1,6 +1,8 @@
+using System.Diagnostics;
 using Avalonia.Animation;
 using Avalonia.Controls;
 using Linguistics.App.Content;
+using Linguistics.App.Diagnostics;
 using Linguistics.App.Features.Learn.Templates;
 using Linguistics.App.Localization;
 using Linguistics.Core.Content;
@@ -32,6 +34,7 @@ public partial class LearnView : UserControl
 {
     private readonly TemplateRegistry _templateRegistry = TemplateRegistry.CreateDefault();
     private readonly LearnerProfileOwner? _profileOwner;
+    private readonly LocalDiagnosticLog? _diagnosticLog;
     private LanguageCode _instructionLanguage = new("en");
     private bool _shouldReduceMotion;
     private CourseCatalog? _course;
@@ -58,11 +61,13 @@ public partial class LearnView : UserControl
         ContentImageCache? imageCache = null,
         ISpeechSynthesisProvider? speechSynthesisProvider = null,
         ISpeechRecognitionProvider? speechRecognitionProvider = null,
-        IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null)
+        IPronunciationAssessmentProvider? pronunciationAssessmentProvider = null,
+        LocalDiagnosticLog? diagnosticLog = null)
         : this()
     {
         ArgumentNullException.ThrowIfNull(profile);
         _profileOwner = profileOwner;
+        _diagnosticLog = diagnosticLog;
         _templateRegistry = TemplateRegistry.CreateDefault(
             imageCache,
             speechSynthesisProvider,
@@ -209,6 +214,7 @@ public partial class LearnView : UserControl
 
     private async Task OpenLessonAsync(CourseLesson lesson)
     {
+        var openedAt = Stopwatch.GetTimestamp();
         _activeLesson = lesson;
         var stored = FindStoredProgress(lesson);
         _slideIndex = stored?.IsInProgress == true
@@ -219,6 +225,7 @@ public partial class LearnView : UserControl
         LessonPanel.IsVisible = true;
         RenderSlide();
         SlideHost.Focus();
+        await TryLogLessonOpenedAsync(Stopwatch.GetElapsedTime(openedAt));
 
         if (_canPersistLessonProgress && stored?.IsInProgress != true)
         {
@@ -229,6 +236,26 @@ public partial class LearnView : UserControl
                 lesson.Slides.Count,
                 lesson.ContentVersion,
                 DateTimeOffset.UtcNow));
+        }
+    }
+
+    private async Task TryLogLessonOpenedAsync(TimeSpan duration)
+    {
+        if (_diagnosticLog is null)
+        {
+            return;
+        }
+
+        try
+        {
+            await _diagnosticLog.WriteAsync(
+                DiagnosticCategory.Curriculum,
+                DiagnosticEventCode.LessonOpened,
+                DiagnosticOutcome.Succeeded,
+                duration: duration);
+        }
+        catch (DiagnosticLogException)
+        {
         }
     }
 

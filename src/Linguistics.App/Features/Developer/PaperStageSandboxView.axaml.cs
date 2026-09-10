@@ -41,6 +41,11 @@ public partial class PaperStageSandboxView : UserControl
             ],
             "PaperStageImageCredits");
         CreditsHost.IsVisible = CreditsHost.Content is not null;
+        ImageCacheStatusText.Text = imageCache is null
+            ? "Validated image cache unavailable."
+            : $"{imageCache.DecodedImageCount} of {imageCache.Assets.Count} validated images decoded. " +
+              $"{imageCache.EstimatedDecodedBytes / 1_048_576d:0.0} MiB of " +
+              $"{imageCache.MaximumDecodedBytes / 1_048_576d:0.0} MiB retained budget.";
     }
 
     private static void SetImage(ContentImageCache? imageCache, string assetId, Image image)
