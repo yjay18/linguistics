@@ -2821,6 +2821,16 @@ hardening without treating Preview content as approved curriculum.
 
 ### Phase 8 — Production hardening
 
+**Status (2026-09-10, P8.1 decoded-image bound slice):** In progress. The validated
+local image cache now has explicit 32-image and estimated 32 MiB decoded RGBA limits;
+an image that would exceed either limit fails closed into the renderer's authored
+text-only equivalent instead of expanding retained cache memory. The policy is covered
+at its exact byte boundary and count boundary, and the existing offline-only image path
+remains unchanged. Release build passes with zero warnings and errors, all 457 tests pass
+(308 Core, 149 App), and formatter verification is clean. Cold-start, lesson-open, animation-frame,
+full-catalog native memory, and low-resource measurements remain unverified; this status
+does not close P8.1 or claim a distribution decision.
+
 - **P8.1** Performance: cold start, lesson open latency, animation frame consistency,
   and memory with full asset caches on a low-resource profile; decoded-image cache
   bounds; no regression to the deterministic engines.

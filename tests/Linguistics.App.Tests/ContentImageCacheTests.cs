@@ -23,6 +23,34 @@ public sealed class ContentImageCacheTests
     }
 
     [TestMethod]
+    public void DecodedImageBudgetAcceptsItsExactLowResourceEnvelope()
+    {
+        var budget = new DecodedImageBudget(
+            ContentImageCache.DefaultMaximumDecodedImages,
+            ContentImageCache.DefaultMaximumDecodedBytes);
+
+        for (var index = 0; index < 8; index++)
+        {
+            Assert.IsTrue(budget.TryReserve(1024, 1024));
+        }
+
+        Assert.AreEqual(8, budget.Count);
+        Assert.AreEqual(ContentImageCache.DefaultMaximumDecodedBytes, budget.EstimatedBytes);
+        Assert.IsFalse(budget.TryReserve(1, 1));
+    }
+
+    [TestMethod]
+    public void DecodedImageBudgetRejectsFurtherImagesAtItsCountBound()
+    {
+        var budget = new DecodedImageBudget(maximumImages: 1, maximumBytes: 1024);
+
+        Assert.IsTrue(budget.TryReserve(8, 8));
+        Assert.IsFalse(budget.TryReserve(8, 8));
+        Assert.AreEqual(1, budget.Count);
+        Assert.AreEqual(256, budget.EstimatedBytes);
+    }
+
+    [TestMethod]
     public void SettingsDeclaresACompleteLocalCreditsSurface()
     {
         var catalog = LoadBundled();
