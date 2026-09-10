@@ -8,12 +8,12 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="AppCanvasBrush" Color="#F4F2EA" />
+                    <SolidColorBrush x:Key="AppCanvasBrush" Color="#F5F6F2" />
                     <SolidColorBrush x:Key="AppSurfaceBrush" Color="#FFFEFA" />
-                    <SolidColorBrush x:Key="AppSurfaceAltBrush" Color="#EEECE3" />
-                    <SolidColorBrush x:Key="AppSurfaceStrongBrush" Color="#E1E6DF" />
+                    <SolidColorBrush x:Key="AppSurfaceAltBrush" Color="#F0F2EC" />
+                    <SolidColorBrush x:Key="AppSurfaceStrongBrush" Color="#E3E9E2" />
                     <SolidColorBrush x:Key="AppPaperBrush" Color="#FFFDF6" />
-                    <SolidColorBrush x:Key="AppPaperAltBrush" Color="#F4F1E8" />
+                    <SolidColorBrush x:Key="AppPaperAltBrush" Color="#F2F4EE" />
                     <SolidColorBrush x:Key="AppPaperEdgeBrush" Color="#C8D3CB" />
                     <SolidColorBrush x:Key="AppCutoutMarginBrush" Color="#FFFEFA" />
                     <SolidColorBrush x:Key="AppCutoutEdgeBrush" Color="#D8D2C5" />
@@ -44,7 +44,7 @@
                     <SolidColorBrush x:Key="AppNavTextBrush" Color="#EEF7F3" />
                     <SolidColorBrush x:Key="AppNavMutedBrush" Color="#B7CBC3" />
                     <SolidColorBrush x:Key="AppNavAccentBrush" Color="#75D8B4" />
-                    <BoxShadows x:Key="AppPaperShadow">0 14 30 0 #2B355448, 0 2 6 0 #18355448</BoxShadows>
+                    <BoxShadows x:Key="AppPaperShadow">0 3 12 0 #0D355448, 0 1 2 0 #12355448</BoxShadows>
                     <BoxShadows x:Key="AppCutoutShadow">0 9 18 0 #30334D43, 0 2 4 0 #1F334D43</BoxShadows>
                     <BoxShadows x:Key="AppStampShadow">0 7 14 0 #263C5147, 0 2 3 0 #1C3C5147</BoxShadows>
                     <DrawingBrush x:Key="AppPaperGrainBrush"
@@ -61,8 +61,8 @@
                     <LinearGradientBrush x:Key="AppHeroBrush"
                                          StartPoint="0%,0%"
                                          EndPoint="100%,100%">
-                        <GradientStop Color="#DEF1E8" Offset="0" />
-                        <GradientStop Color="#F8E9CB" Offset="1" />
+                        <GradientStop Color="#EDF4EC" Offset="0" />
+                        <GradientStop Color="#F7F7EF" Offset="1" />
                     </LinearGradientBrush>
                     <LinearGradientBrush x:Key="AppGlowBrush"
                                          StartPoint="0%,0%"
@@ -73,13 +73,13 @@
                 </ResourceDictionary>
 
                 <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="AppCanvasBrush" Color="#0C1714" />
-                    <SolidColorBrush x:Key="AppSurfaceBrush" Color="#14241F" />
-                    <SolidColorBrush x:Key="AppSurfaceAltBrush" Color="#1B3029" />
-                    <SolidColorBrush x:Key="AppSurfaceStrongBrush" Color="#254038" />
-                    <SolidColorBrush x:Key="AppPaperBrush" Color="#152720" />
-                    <SolidColorBrush x:Key="AppPaperAltBrush" Color="#1D342C" />
-                    <SolidColorBrush x:Key="AppPaperEdgeBrush" Color="#3A5A50" />
+                    <SolidColorBrush x:Key="AppCanvasBrush" Color="#181E1B" />
+                    <SolidColorBrush x:Key="AppSurfaceBrush" Color="#232B26" />
+                    <SolidColorBrush x:Key="AppSurfaceAltBrush" Color="#29322C" />
+                    <SolidColorBrush x:Key="AppSurfaceStrongBrush" Color="#344039" />
+                    <SolidColorBrush x:Key="AppPaperBrush" Color="#232C26" />
+                    <SolidColorBrush x:Key="AppPaperAltBrush" Color="#28322B" />
+                    <SolidColorBrush x:Key="AppPaperEdgeBrush" Color="#43534A" />
                     <SolidColorBrush x:Key="AppCutoutMarginBrush" Color="#E8E3D8" />
                     <SolidColorBrush x:Key="AppCutoutEdgeBrush" Color="#C7C0B3" />
                     <SolidColorBrush x:Key="AppCutoutInkBrush" Color="#19312A" />
@@ -90,12 +90,12 @@
                     <SolidColorBrush x:Key="AppTornEdgeBrush" Color="#29453B" />
                     <SolidColorBrush x:Key="AppTextBrush" Color="#F0F6F2" />
                     <SolidColorBrush x:Key="AppTextMutedBrush" Color="#B4C4BD" />
-                    <SolidColorBrush x:Key="AppBorderBrush" Color="#315047" />
-                    <SolidColorBrush x:Key="AppAccentBrush" Color="#72D5B2" />
-                    <SolidColorBrush x:Key="AppAccentHoverBrush" Color="#8BE1C2" />
-                    <SolidColorBrush x:Key="AppAccentPressedBrush" Color="#59BC99" />
-                    <SolidColorBrush x:Key="AppAccentSoftBrush" Color="#173E32" />
-                    <SolidColorBrush x:Key="AppAccentTextBrush" Color="#8CE2C2" />
+                    <SolidColorBrush x:Key="AppBorderBrush" Color="#3D4C42" />
+                    <SolidColorBrush x:Key="AppAccentBrush" Color="#A0D4B8" />
+                    <SolidColorBrush x:Key="AppAccentHoverBrush" Color="#B3DFC7" />
+                    <SolidColorBrush x:Key="AppAccentPressedBrush" Color="#88BDA2" />
+                    <SolidColorBrush x:Key="AppAccentSoftBrush" Color="#2B4435" />
+                    <SolidColorBrush x:Key="AppAccentTextBrush" Color="#AEDCC3" />
                     <SolidColorBrush x:Key="AppOnAccentBrush" Color="#071B14" />
                     <SolidColorBrush x:Key="AppAmberBrush" Color="#F1B85D" />
                     <SolidColorBrush x:Key="AppAmberSoftBrush" Color="#49371B" />
@@ -103,13 +103,13 @@
                     <SolidColorBrush x:Key="AppDangerBrush" Color="#F28A78" />
                     <SolidColorBrush x:Key="AppDangerSoftBrush" Color="#4B2925" />
                     <SolidColorBrush x:Key="AppFocusBrush" Color="#F1B85D" />
-                    <SolidColorBrush x:Key="AppNavBrush" Color="#08110E" />
-                    <SolidColorBrush x:Key="AppNavSurfaceBrush" Color="#132C25" />
-                    <SolidColorBrush x:Key="AppNavHoverBrush" Color="#1B3C33" />
+                    <SolidColorBrush x:Key="AppNavBrush" Color="#121A15" />
+                    <SolidColorBrush x:Key="AppNavSurfaceBrush" Color="#26392E" />
+                    <SolidColorBrush x:Key="AppNavHoverBrush" Color="#203027" />
                     <SolidColorBrush x:Key="AppNavTextBrush" Color="#EFF8F4" />
                     <SolidColorBrush x:Key="AppNavMutedBrush" Color="#A8BEB5" />
-                    <SolidColorBrush x:Key="AppNavAccentBrush" Color="#72D5B2" />
-                    <BoxShadows x:Key="AppPaperShadow">0 18 40 0 #8A071B14, 0 3 8 0 #68071B14</BoxShadows>
+                    <SolidColorBrush x:Key="AppNavAccentBrush" Color="#B4DEC6" />
+                    <BoxShadows x:Key="AppPaperShadow">0 3 12 0 #300B1610, 0 1 2 0 #240B1610</BoxShadows>
                     <BoxShadows x:Key="AppCutoutShadow">0 10 20 0 #7305100D, 0 2 5 0 #5905100D</BoxShadows>
                     <BoxShadows x:Key="AppStampShadow">0 8 16 0 #780B1C16, 0 2 4 0 #600B1C16</BoxShadows>
                     <DrawingBrush x:Key="AppPaperGrainBrush"
@@ -126,8 +126,8 @@
                     <LinearGradientBrush x:Key="AppHeroBrush"
                                          StartPoint="0%,0%"
                                          EndPoint="100%,100%">
-                        <GradientStop Color="#173A30" Offset="0" />
-                        <GradientStop Color="#3B301E" Offset="1" />
+                        <GradientStop Color="#293B2F" Offset="0" />
+                        <GradientStop Color="#2D342A" Offset="1" />
                     </LinearGradientBrush>
                     <LinearGradientBrush x:Key="AppGlowBrush"
                                          StartPoint="0%,0%"
@@ -144,11 +144,13 @@
         <FluentTheme>
             <FluentTheme.Palettes>
                 <ColorPaletteResources x:Key="Light" Accent="#1D745C" />
-                <ColorPaletteResources x:Key="Dark" Accent="#72D5B2" />
+                <ColorPaletteResources x:Key="Dark" Accent="#A0D4B8" />
             </FluentTheme.Palettes>
         </FluentTheme>
 
         <Style Selector="Window">
+            <Setter Property="FontFamily" Value="Helvetica Neue, Segoe UI" />
+            <Setter Property="FontSize" Value="15" />
             <Setter Property="Background" Value="{DynamicResource AppCanvasBrush}" />
             <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
         </Style>
@@ -156,30 +158,34 @@
             <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
         </Style>
         <Style Selector="TextBlock">
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="LineSpacing" Value="3" />
             <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
         </Style>
         <Style Selector="TextBlock.display">
-            <Setter Property="FontSize" Value="40" />
+            <Setter Property="FontSize" Value="34" />
             <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="LineHeight" Value="47" />
-            <Setter Property="LetterSpacing" Value="-0.4" />
+            <Setter Property="LineHeight" Value="42" />
+            <Setter Property="LetterSpacing" Value="-0.5" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
         <Style Selector="TextBlock.eyebrow">
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="LetterSpacing" Value="1.4" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="LetterSpacing" Value="0.4" />
             <Setter Property="Foreground" Value="{DynamicResource AppAccentTextBrush}" />
         </Style>
         <Style Selector="TextBlock.lede">
-            <Setter Property="FontSize" Value="17" />
-            <Setter Property="LineHeight" Value="25" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="LineHeight" Value="24" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Foreground" Value="{DynamicResource AppTextMutedBrush}" />
         </Style>
         <Style Selector="TextBlock.muted">
             <Setter Property="Foreground" Value="{DynamicResource AppTextMutedBrush}" />
         </Style>
         <Style Selector="TextBlock.section-title">
-            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontSize" Value="21" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="LineHeight" Value="29" />
         </Style>
@@ -187,14 +193,29 @@
             <Setter Property="Foreground" Value="{DynamicResource AppOnAccentBrush}" />
         </Style>
         <Style Selector="TextBlock.lesson-label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="LetterSpacing" Value="0.3" />
             <Setter Property="Foreground" Value="{DynamicResource AppAccentTextBrush}" />
+        </Style>
+        <Style Selector="TextBlock.card-title">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="LineHeight" Value="36" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style Selector="TextBlock.caption">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextMutedBrush}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
 
         <Style Selector="Button">
-            <Setter Property="MinHeight" Value="42" />
-            <Setter Property="Padding" Value="17,9" />
-            <Setter Property="CornerRadius" Value="11" />
-            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="MinHeight" Value="44" />
+            <Setter Property="Padding" Value="18,10" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Background" Value="{DynamicResource AppSurfaceAltBrush}" />
             <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
@@ -240,9 +261,10 @@
         <Style Selector="Button.lesson-tile">
             <Setter Property="MinHeight" Value="102" />
             <Setter Property="Padding" Value="16" />
-            <Setter Property="CornerRadius" Value="15" />
-            <Setter Property="Background" Value="{DynamicResource AppSurfaceAltBrush}" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
         </Style>
@@ -275,7 +297,7 @@
         <Style Selector="TextBox">
             <Setter Property="MinHeight" Value="46" />
             <Setter Property="Padding" Value="14,10" />
-            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="CornerRadius" Value="8" />
             <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
             <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
@@ -283,7 +305,7 @@
         <Style Selector="ComboBox">
             <Setter Property="MinHeight" Value="44" />
             <Setter Property="Padding" Value="12,7" />
-            <Setter Property="CornerRadius" Value="11" />
+            <Setter Property="CornerRadius" Value="8" />
             <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
             <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
@@ -297,7 +319,7 @@
             <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
         </Style>
         <Style Selector="ProgressBar">
-            <Setter Property="Height" Value="8" />
+            <Setter Property="Height" Value="5" />
             <Setter Property="Foreground" Value="{DynamicResource AppAccentBrush}" />
             <Setter Property="Background" Value="{DynamicResource AppSurfaceStrongBrush}" />
         </Style>
@@ -320,7 +342,7 @@
         </Style>
         <Style Selector="Border.hero-card">
             <Setter Property="Padding" Value="30" />
-            <Setter Property="CornerRadius" Value="22" />
+            <Setter Property="CornerRadius" Value="16" />
             <Setter Property="Background" Value="{DynamicResource AppHeroBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
@@ -401,7 +423,7 @@
             <Setter Property="Background" Value="{DynamicResource AppPaperAltBrush}" />
         </Style>
         <Style Selector="controls|PaperCard.settings-sheet">
-            <Setter Property="Padding" Value="22" />
+            <Setter Property="Padding" Value="24" />
             <Setter Property="CornerRadius" Value="12" />
         </Style>
         <Style Selector="controls|PaperCard.danger">
@@ -506,7 +528,7 @@
             <Setter Property="MinWidth" Value="108" />
             <Setter Property="MinHeight" Value="48" />
             <Setter Property="Padding" Value="11,8,11,7" />
-            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontSize" Value="13" />
         </Style>
 
         <Style Selector="controls|PaperStamp">
@@ -628,15 +650,15 @@
             <Setter Property="BorderThickness" Value="0" />
         </Style>
         <Style Selector="ListBox.nav > ListBoxItem">
-            <Setter Property="MinHeight" Value="46" />
-            <Setter Property="Margin" Value="0,2" />
-            <Setter Property="Padding" Value="15,11" />
-            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="MinHeight" Value="44" />
+            <Setter Property="Margin" Value="0,3" />
+            <Setter Property="Padding" Value="14,10" />
+            <Setter Property="CornerRadius" Value="8" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Foreground" Value="{DynamicResource AppNavMutedBrush}" />
-            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontWeight" Value="Normal" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="RenderTransform" Value="translateX(0px)" />
@@ -670,6 +692,7 @@
             <Setter Property="Foreground" Value="{DynamicResource AppNavAccentBrush}" />
         </Style>
         <Style Selector="ListBox.nav > ListBoxItem:selected TextBlock.nav-label">
+            <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Foreground" Value="{DynamicResource AppNavAccentBrush}" />
         </Style>
         <Style Selector="ListBox.nav > ListBoxItem:focus-visible">
@@ -683,9 +706,6 @@
                     <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.14" Easing="CubicEaseOut" />
                 </Transitions>
             </Setter>
-        </Style>
-        <Style Selector="Window.motion-enabled ListBox.nav > ListBoxItem:selected">
-            <Setter Property="RenderTransform" Value="translateX(3px)" />
         </Style>
         <Style Selector="ListBox.content-list">
             <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />

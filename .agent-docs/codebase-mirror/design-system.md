@@ -33,6 +33,12 @@
 - Lesson-template choreography exposes replay and skip, remains below four seconds, and reaches the same complete state immediately under reduced motion.
 - PaperStage order is backdrop, paper wash, supporting cast, ambient pieces, taped label, foreground silhouettes, subject, reaction burst, then verdict.
 - The app uses native system typography and Avalonia/BCL primitives; there is no custom font or new UI/animation dependency.
+- Native font fallback is Helvetica Neue, then Segoe UI. Body text is regular weight;
+  display, card-title, section-title, lede, lesson-label, and caption classes establish
+  explicit roles. Multilingual glyph fallback remains platform-owned.
+- Navigation and page chrome use restrained decoration. Paper controls remain in
+  learning materials and the brand mark; decorative control counts are not an
+  accessibility or teaching invariant. Course titles wrap rather than truncate.
 - The developer PaperStage scene uses validated local pack raster assets, including alpha PNG cutouts, rather than SVG/XAML vector scene art or untracked app-resource paths. Native vector paths remain limited to small paper UI decorations.
 - Light and dark principal text, muted text, action, navigation, danger, focus, paper edge, tape, stamp, torn-edge, cutout, and nav-selection pairs meet their automated thresholds.
 - Feature screens use the same semantic card/button language; danger and review-gated surfaces remain distinct.
@@ -56,3 +62,21 @@ Phase 8 reconciliation on 2026-09-10 adds the 58-template accessibility ratchet,
 selected nested-card contrast protection, bounded full-cache performance evidence, and
 hosted light/dark capture on macOS and Windows. Hosted Windows screenshots and metrics
 remain non-interaction evidence.
+
+Typography refinement on 2026-09-10 aligns shell headings, narrows navigation, makes
+course cards fill two columns, replaces repeated tiny taped labels with plain metadata,
+reduces paper shadows, and quiets paired palettes. Today evidence counts use explicit
+theme-aware ink within their cutout frames. Existing contrast and material tests pass;
+the shell material assertion now covers the retained brand cutout. Locked restore,
+zero-warning Release build, all 470 tests (162 App, 308 Core), formatter, and local
+publish pass. All four published notices and twelve asset hashes/sizes were checked
+using the Python equivalent of Test-PublishNotices.ps1 because pwsh is unavailable.
+Fresh macOS checks cover Learn, Today, Settings, native 900x620 client layout, Hindi
+wrapping, Hinglish preference display, both themes, reduced-motion and motion-enabled
+final states, and real lesson confirmation plus Tab/Return progression. Direct
+VoiceOver, Windows interaction, system text scaling, and all-template native regression
+coverage remain unverified for this change. Local evidence is in
+`/tmp/linguistics-design-qa/visual-review.md`; it is not a release artifact.
+An independent Gemini review of the same nine screenshots passed with two accepted
+cosmetic observations: the developer-only navigation scroll boundary and the retained
+bright paper frames on Today counters. Neither established an interaction defect.

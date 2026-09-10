@@ -30,16 +30,13 @@
                                         Angle="-1.2"
                                         HorizontalAlignment="Left" />
                     <TextBlock x:Name="HeadlineText"
-                               FontSize="30"
-                               FontWeight="SemiBold"
-                               TextWrapping="Wrap"
-                               LineHeight="38"
+                               Classes="card-title"
                                AutomationProperties.HeadingLevel="2"
                                AutomationProperties.AutomationId="TodayHeadline" />
                     <TextBlock x:Name="ExplanationText"
                                FontSize="16"
                                TextWrapping="Wrap"
-                               Opacity="0.78" />
+                               Classes="muted" />
                 </StackPanel>
                 <controls:PaperStamp x:Name="ActionGlyph"
                                      Grid.Row="0"
@@ -64,50 +61,51 @@
 
         <WrapPanel x:Name="EvidenceGrid"
                    IsVisible="False"
-                   ItemWidth="224"
+                   ItemWidth="208"
                    ItemSpacing="12"
                    LineSpacing="12">
-            <controls:CutoutFrame Classes="tilt-left"
-                                  Padding="6">
+            <controls:CutoutFrame Padding="6">
                 <Border Padding="18"
-                        Background="{DynamicResource AppBlueSoftBrush}"
+                        Background="{DynamicResource AppSurfaceBrush}"
                         CornerRadius="2">
                     <StackPanel Spacing="4">
                         <TextBlock x:Name="DueCountText"
                                    FontSize="28"
-                                   FontWeight="SemiBold" />
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource AppTextBrush}" />
                         <TextBlock Text="{loc:Localize Today_DueReviews}"
                                    TextWrapping="Wrap"
-                                   Opacity="0.7" />
+                                   Foreground="{DynamicResource AppTextMutedBrush}" />
                     </StackPanel>
                 </Border>
             </controls:CutoutFrame>
             <controls:CutoutFrame Padding="6">
                 <Border Padding="18"
-                        Background="{DynamicResource AppAccentSoftBrush}"
+                        Background="{DynamicResource AppSurfaceBrush}"
                         CornerRadius="2">
                     <StackPanel Spacing="4">
                         <TextBlock x:Name="StrongCountText"
                                    FontSize="28"
-                                   FontWeight="SemiBold" />
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource AppTextBrush}" />
                         <TextBlock Text="{loc:Localize Today_StrongConcepts}"
                                    TextWrapping="Wrap"
-                                   Opacity="0.7" />
+                                   Foreground="{DynamicResource AppTextMutedBrush}" />
                     </StackPanel>
                 </Border>
             </controls:CutoutFrame>
-            <controls:CutoutFrame Classes="tilt-right"
-                                  Padding="6">
+            <controls:CutoutFrame Padding="6">
                 <Border Padding="18"
-                        Background="{DynamicResource AppAmberSoftBrush}"
+                        Background="{DynamicResource AppSurfaceBrush}"
                         CornerRadius="2">
                     <StackPanel Spacing="4">
                         <TextBlock x:Name="SpeechCountText"
                                    FontSize="28"
-                                   FontWeight="SemiBold" />
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource AppTextBrush}" />
                         <TextBlock Text="{loc:Localize Today_PronunciationTries}"
                                    TextWrapping="Wrap"
-                                   Opacity="0.7" />
+                                   Foreground="{DynamicResource AppTextMutedBrush}" />
                     </StackPanel>
                 </Border>
             </controls:CutoutFrame>
@@ -116,7 +114,7 @@
         <controls:PaperCard Classes="soft">
             <TextBlock Text="{loc:Localize Today_LocalOnly}"
                        TextWrapping="Wrap"
-                       Opacity="0.72" />
+                       Classes="muted" />
         </controls:PaperCard>
 
         <TextBlock x:Name="ErrorText"

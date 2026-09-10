@@ -47,18 +47,15 @@
                                    Classes="eyebrow" />
                         <TextBlock x:Name="CourseTitleText"
                                    Text="{loc:Localize Learn_GermanFoundations}"
-                                   FontSize="32"
-                                   FontWeight="SemiBold"
-                                   LineHeight="39"
+                                   Classes="card-title"
                                    AutomationProperties.HeadingLevel="2"
                                    AutomationProperties.AutomationId="CourseTitle" />
                         <TextBlock x:Name="CourseAvailabilityText"
                                    TextWrapping="Wrap"
                                    FontSize="16"
-                                   Opacity="0.78"
+                                   Classes="muted"
                                    AutomationProperties.AutomationId="CourseAvailability" />
                         <ProgressBar x:Name="CatalogProgress"
-                                     MaxWidth="520"
                                      HorizontalAlignment="Stretch"
                                      AutomationProperties.Name="{loc:Localize Learn_CourseCapacity}" />
                         <TextBlock x:Name="PlannedContentText"
@@ -79,24 +76,24 @@
                                    AutomationProperties.AutomationId="LessonSessionStatus" />
                     </StackPanel>
                     <Border Grid.Column="1"
-                            Width="132"
-                            Height="132"
-                            CornerRadius="66"
-                            Background="{DynamicResource AppAccentBrush}"
+                            Width="96"
+                            Height="96"
+                            CornerRadius="12"
+                            Background="{DynamicResource AppAccentSoftBrush}"
                             VerticalAlignment="Center">
                         <StackPanel VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Spacing="1">
                             <TextBlock x:Name="AuthoredCountText"
-                                       FontSize="38"
+                                       FontSize="30"
                                        FontWeight="Bold"
-                                       Foreground="{DynamicResource AppOnAccentBrush}"
+                                       Foreground="{DynamicResource AppAccentTextBrush}"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="{loc:Localize Learn_Lessons}"
-                                       FontSize="10"
-                                       FontWeight="Bold"
-                                       LetterSpacing="1.2"
-                                       Foreground="{DynamicResource AppOnAccentBrush}"
+                                       FontSize="12"
+                                       FontWeight="Medium"
+                                       LetterSpacing="0.3"
+                                       Foreground="{DynamicResource AppAccentTextBrush}"
                                        HorizontalAlignment="Center" />
                         </StackPanel>
                     </Border>
@@ -142,10 +139,8 @@
                                                         AutomationProperties.Name="{Binding UnitAutomationName}">
                                         <StackPanel Spacing="15">
                                             <StackPanel Spacing="7">
-                                                <controls:PaperTape Content="{Binding UnitLabel}"
-                                                                    Classes="compact"
-                                                                    Angle="1"
-                                                                    HorizontalAlignment="Left" />
+                                                <TextBlock Text="{Binding UnitLabel}"
+                                                           Classes="lesson-label" />
                                                 <TextBlock Text="{Binding Title}"
                                                            FontSize="21"
                                                            FontWeight="SemiBold"
@@ -158,59 +153,46 @@
                                             <ItemsControl ItemsSource="{Binding Lessons}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <WrapPanel Orientation="Horizontal" />
+                                                        <UniformGrid Columns="2" />
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate x:DataType="learn:CourseJourneyLesson">
-                                                        <Button Width="246"
-                                                                MinHeight="126"
+                                                        <Button MinHeight="132"
                                                                 Margin="0,0,10,10"
                                                                 Classes="lesson-tile lift"
                                                                 Tag="{Binding Lesson}"
                                                                 Click="OnLessonClicked"
                                                                 AutomationProperties.Name="{Binding AutomationName}">
-                                                            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
-                                                                  RowSpacing="5">
-                                                                <Grid ColumnDefinitions="*,Auto">
+                                                            <Grid RowDefinitions="Auto,*,Auto"
+                                                                  RowSpacing="10">
+                                                                <Grid ColumnDefinitions="*,Auto"
+                                                                      MinHeight="28">
                                                                     <TextBlock Text="{Binding NumberLabel}"
                                                                                Classes="lesson-label"
-                                                                               FontSize="10"
-                                                                               FontWeight="Bold"
-                                                                               LetterSpacing="1.1" />
-                                                                    <controls:PaperTape Grid.Column="1"
-                                                                                        IsVisible="{Binding IsNext}"
-                                                                                        Content="{loc:Localize Learn_Journey_Next}"
-                                                                                        Classes="compact"
-                                                                                        Angle="2"
-                                                                                        FontSize="9" />
+                                                                               VerticalAlignment="Center" />
+                                                                    <Border Grid.Column="1"
+                                                                            IsVisible="{Binding IsNext}"
+                                                                            Classes="status-pill"
+                                                                            Padding="8,3">
+                                                                        <TextBlock Text="{loc:Localize Learn_Journey_Next}"
+                                                                                   FontSize="12"
+                                                                                   Foreground="{DynamicResource AppAccentTextBrush}" />
+                                                                    </Border>
                                                                 </Grid>
                                                                 <TextBlock Grid.Row="1"
                                                                            Text="{Binding Title}"
-                                                                           FontSize="16"
-                                                                           FontWeight="SemiBold"
-                                                                           TextWrapping="Wrap"
-                                                                           MaxLines="2" />
-                                                                <TextBlock Grid.Row="2"
-                                                                           Text="{Binding CardCount}"
-                                                                           Classes="muted"
-                                                                           FontSize="12" />
-                                                                <StackPanel Grid.Row="3"
-                                                                            Orientation="Horizontal"
-                                                                            Spacing="6">
-                                                                    <Border Classes="status-pill"
-                                                                            Padding="8,3">
-                                                                        <TextBlock Text="{Binding PresentationKind}"
-                                                                                   FontSize="10"
-                                                                                   FontWeight="SemiBold" />
-                                                                    </Border>
-                                                                    <Border Classes="status-pill"
-                                                                            Padding="8,3">
-                                                                        <TextBlock Text="{Binding ReviewState}"
-                                                                                   FontSize="10"
-                                                                                   FontWeight="SemiBold" />
-                                                                    </Border>
-                                                                </StackPanel>
+                                                                           FontSize="17"
+                                                                           FontWeight="Medium"
+                                                                           LineHeight="24"
+                                                                           TextWrapping="Wrap" />
+                                                                <WrapPanel Grid.Row="2"
+                                                                           ItemSpacing="12">
+                                                                    <TextBlock Text="{Binding CardCount}"
+                                                                               Classes="caption" />
+                                                                    <TextBlock Text="{Binding ReviewState}"
+                                                                               Classes="caption" />
+                                                                </WrapPanel>
                                                             </Grid>
                                                         </Button>
                                                     </DataTemplate>
@@ -283,10 +265,9 @@
                                 AutomationProperties.AutomationId="LessonProgressStrip">
                 <Grid ColumnDefinitions="Auto,*,Auto"
                       ColumnSpacing="14">
-                    <controls:PaperTape Content="{loc:Localize Learn_Player_Progress}"
-                                        Classes="compact"
-                                        Angle="-1"
-                                        FontSize="10" />
+                    <TextBlock Text="{loc:Localize Learn_Player_Progress}"
+                               Classes="caption"
+                               VerticalAlignment="Center" />
                     <ProgressBar x:Name="LessonProgress"
                                  Grid.Column="1"
                                  VerticalAlignment="Center"

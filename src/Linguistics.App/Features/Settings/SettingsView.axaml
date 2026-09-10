@@ -12,12 +12,11 @@
         <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
                 <TextBlock Text="{loc:Localize Settings_AppLanguage_Title}"
-                           FontSize="22"
-                           FontWeight="SemiBold"
+                           Classes="section-title"
                            AutomationProperties.HeadingLevel="2" />
                 <TextBlock Text="{loc:Localize Settings_AppLanguage_Description}"
                            TextWrapping="Wrap"
-                           Opacity="0.78" />
+                           Classes="muted" />
                 <ComboBox x:Name="AppLanguageOverride"
                           MinWidth="300"
                           AutomationProperties.Name="{loc:Localize Settings_AppLanguage_Label}"
@@ -35,12 +34,11 @@
         <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
             <TextBlock Text="{loc:Localize Settings_Shortcuts_Title}"
-                       FontSize="22"
-                       FontWeight="SemiBold"
+                       Classes="section-title"
                        AutomationProperties.HeadingLevel="2" />
             <TextBlock Text="{loc:Localize Settings_Shortcuts_Body}"
                        TextWrapping="Wrap"
-                       Opacity="0.78" />
+                       Classes="muted" />
             <RadioButton x:Name="ShortcutAutomatic"
                          Content="{loc:Localize Settings_Shortcuts_Automatic}"
                          GroupName="SettingsShortcutMode"
@@ -76,12 +74,11 @@
         <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
             <TextBlock Text="{loc:Localize Settings_LocalModel_Title}"
-                       FontSize="22"
-                       FontWeight="SemiBold"
+                       Classes="section-title"
                        AutomationProperties.HeadingLevel="2" />
             <TextBlock Text="{loc:Localize Settings_LocalModel_Body}"
                        TextWrapping="Wrap"
-                       Opacity="0.78" />
+                       Classes="muted" />
             <Button x:Name="CheckOllamaButton"
                     Content="{loc:Localize Settings_LocalModel_Check}"
                     Classes="quiet"
@@ -100,23 +97,22 @@
                       AutomationProperties.AutomationId="LocalModelSelection" />
             <TextBlock x:Name="ModelDetailsText"
                        TextWrapping="Wrap"
-                       Opacity="0.76"
+                       Classes="muted"
                        AutomationProperties.AutomationId="LocalModelDetails" />
             <TextBlock Text="{loc:Localize Settings_LocalModel_Disclaimer}"
                        TextWrapping="Wrap"
-                       Opacity="0.72" />
+                       Classes="muted" />
             </StackPanel>
         </controls:PaperCard>
 
         <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
             <TextBlock Text="{loc:Localize Settings_Speech_Title}"
-                       FontSize="22"
-                       FontWeight="SemiBold"
+                       Classes="section-title"
                        AutomationProperties.HeadingLevel="2" />
             <TextBlock Text="{loc:Localize Settings_Speech_Body}"
                        TextWrapping="Wrap"
-                       Opacity="0.78" />
+                       Classes="muted" />
             <Button x:Name="CheckSpeechButton"
                     Content="{loc:Localize Settings_Speech_Check}"
                     Classes="quiet"
@@ -130,7 +126,7 @@
             <TextBlock x:Name="SpeechModelDetailsText"
                        TextWrapping="Wrap"
                        FontSize="13"
-                       Opacity="0.72"
+                       Classes="muted"
                        AutomationProperties.AutomationId="LocalSpeechModelDetails" />
             </StackPanel>
         </controls:PaperCard>
@@ -138,8 +134,7 @@
         <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
             <TextBlock Text="{loc:Localize Settings_Microphone_Title}"
-                       FontSize="22"
-                       FontWeight="SemiBold"
+                       Classes="section-title"
                        AutomationProperties.HeadingLevel="2" />
             <RadioButton x:Name="MicrophoneNow"
                          Content="{loc:Localize Settings_Microphone_Now}"
@@ -152,19 +147,18 @@
                          GroupName="SettingsMicrophonePreference" />
             <TextBlock Text="{loc:Localize Settings_Microphone_Body}"
                        TextWrapping="Wrap"
-                       Opacity="0.72" />
+                       Classes="muted" />
             </StackPanel>
         </controls:PaperCard>
 
         <controls:PaperCard Classes="settings-sheet">
             <StackPanel Spacing="12">
             <TextBlock Text="{loc:Localize Settings_LegacyAudio_Title}"
-                       FontSize="22"
-                       FontWeight="SemiBold"
+                       Classes="section-title"
                        AutomationProperties.HeadingLevel="2" />
             <TextBlock Text="{loc:Localize Settings_LegacyAudio_Body}"
                        TextWrapping="Wrap"
-                       Opacity="0.72" />
+                       Classes="muted" />
             <Button x:Name="DeleteSpeechRecordingsButton"
                     Content="{loc:Localize Settings_LegacyAudio_Delete}"
                     Classes="quiet"
@@ -182,15 +176,14 @@
         <controls:PaperCard Classes="settings-sheet soft">
             <StackPanel Spacing="12">
             <TextBlock Text="{loc:Localize Settings_Motion_Title}"
-                       FontSize="22"
-                       FontWeight="SemiBold"
+                       Classes="section-title"
                        AutomationProperties.HeadingLevel="2" />
             <CheckBox x:Name="ReduceMotion"
                       Content="{loc:Localize Settings_Motion_Reduce}"
                       AutomationProperties.AutomationId="SettingsReduceMotion" />
             <TextBlock Text="{loc:Localize Settings_Motion_Body}"
                        TextWrapping="Wrap"
-                       Opacity="0.72" />
+                       Classes="muted" />
             </StackPanel>
         </controls:PaperCard>
 
@@ -216,17 +209,16 @@
                             AutomationProperties.AutomationId="ImageCreditsCard">
             <StackPanel Spacing="12">
                 <TextBlock Text="{loc:Localize Settings_Images_Title}"
-                           FontSize="22"
-                           FontWeight="SemiBold"
+                           Classes="section-title"
                            AutomationProperties.HeadingLevel="2" />
                 <TextBlock x:Name="AssetCreditsSummary"
                            Text="{loc:Localize Settings_Images_None}"
                            TextWrapping="Wrap"
-                           Opacity="0.78"
+                           Classes="muted"
                            AutomationProperties.AutomationId="ImageCreditsSummary" />
                 <TextBlock Text="{loc:Localize Settings_Images_Disclaimer}"
                            TextWrapping="Wrap"
-                           Opacity="0.72" />
+                           Classes="muted" />
                 <StackPanel x:Name="AssetCreditsPanel"
                             Spacing="10"
                             AutomationProperties.AutomationId="ImageCreditsList" />

@@ -107,3 +107,13 @@ work is intentionally deferred under the current macOS-only scope.
 Phase 8 reconciliation on 2026-09-10 adds developer-only published-app performance
 evidence. The capture stays outside learner persistence, warms the complete current
 validated image set under the bounded cache, and preserves only fixed aggregate fields.
+
+Typography refinement on 2026-09-10 introduces a 232px navigation column, aligned page
+headings and descriptions, and quieter shell decoration. Learn uses two full-width
+card columns with untruncated titles and plain metadata; Settings and Today share the
+semantic typography roles. Navigation, profile ownership, Preview gates, and language
+fallback behavior are unchanged. The zero-warning Release build and all 470 tests pass.
+Fresh isolated macOS profiles cover both themes, minimum-window English/Hindi layout,
+Hinglish preference display with English chrome, Settings navigation, and deterministic
+lesson responses with keyboard progression. Native Windows and direct screen-reader
+interaction remain separate verification requirements.

@@ -225,8 +225,7 @@ public sealed class DesignSystemTests
         var appRoot = Path.Combine(RepositoryRoot, "src", "Linguistics.App");
         AssertMaterialCounts(
             Path.Combine(appRoot, "Features", "Shell", "ShellView.axaml"),
-            ("PaperTape", 2),
-            ("CutoutFrame", 3));
+            ("CutoutFrame", 1));
         AssertMaterialCounts(
             Path.Combine(appRoot, "Features", "Today", "TodayView.axaml"),
             ("PaperCard", 3),

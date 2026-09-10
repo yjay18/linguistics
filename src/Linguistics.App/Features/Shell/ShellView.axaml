@@ -8,10 +8,10 @@
              d:DesignWidth="1100"
              d:DesignHeight="720"
              x:Class="Linguistics.App.Features.Shell.ShellView">
-    <Grid ColumnDefinitions="268,*"
+    <Grid ColumnDefinitions="232,*"
           Background="{DynamicResource AppCanvasBrush}">
         <Border Grid.Column="0"
-                Padding="20,28,20,22"
+                Padding="16,28,16,22"
                 Background="{DynamicResource AppNavBrush}"
                 AutomationProperties.LandmarkType="Navigation">
             <Grid>
@@ -21,16 +21,16 @@
                 <Grid RowDefinitions="Auto,*,Auto">
                 <Grid Grid.Row="0"
                       Margin="4,0,4,30"
-                      ColumnDefinitions="48,*"
-                      ColumnSpacing="13">
-                    <controls:CutoutFrame Width="48"
-                                          Height="48"
+                      ColumnDefinitions="40,*"
+                      ColumnSpacing="12">
+                    <controls:CutoutFrame Width="40"
+                                          Height="40"
                                           Padding="4"
                                           Classes="tilt-left">
                         <Border CornerRadius="10"
                                 Background="{DynamicResource AppGlowBrush}">
                             <TextBlock Text="L"
-                                       FontSize="23"
+                                       FontSize="21"
                                        FontWeight="Bold"
                                        Foreground="{DynamicResource AppNavBrush}"
                                        HorizontalAlignment="Center"
@@ -41,9 +41,9 @@
                                 VerticalAlignment="Center"
                                 Spacing="2">
                         <TextBlock Text="LINGUISTICS"
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   LetterSpacing="1.25"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   LetterSpacing="0.6"
                                    Foreground="{DynamicResource AppNavTextBrush}"
                                    AutomationProperties.HeadingLevel="1" />
                         <TextBlock Text="{loc:Localize Shell_BrandSubtitle}"
@@ -106,57 +106,32 @@
                         <TextBlock Classes="nav-label" Text="Paper stage" />
                     </ListBoxItem>
                 </ListBox>
-                <controls:PaperTape Grid.Row="2"
-                                    Margin="4,24,4,0"
-                                    Content="{loc:Localize Shell_PrivateTape}"
-                                    Classes="compact"
-                                    Angle="-0.8"
-                                    FontSize="10"
-                                    AutomationProperties.Name="{loc:Localize Shell_PrivateAutomation}" />
+                <TextBlock Grid.Row="2"
+                           Margin="14,24,14,0"
+                           Text="{loc:Localize Shell_PrivateAutomation}"
+                           FontSize="13"
+                           TextWrapping="Wrap"
+                           Foreground="{DynamicResource AppNavMutedBrush}" />
                 </Grid>
             </Grid>
         </Border>
 
         <Grid Grid.Column="1">
-            <Canvas IsHitTestVisible="False"
-                    ClipToBounds="True">
-                <controls:CutoutFrame Width="390"
-                                      Height="210"
-                                      Padding="0"
-                                      Canvas.Right="-150"
-                                      Canvas.Top="-120"
-                                      Background="{DynamicResource AppAccentSoftBrush}"
-                                      Classes="tilt-right"
-                                      Opacity="0.55" />
-                <controls:CutoutFrame Width="310"
-                                      Height="180"
-                                      Padding="0"
-                                      Canvas.Left="-105"
-                                      Canvas.Bottom="-105"
-                                      Background="{DynamicResource AppAmberSoftBrush}"
-                                      Classes="tilt-left"
-                                      Opacity="0.46" />
-            </Canvas>
             <ScrollViewer x:Name="MainScrollViewer"
                           HorizontalScrollBarVisibility="Disabled"
                           AutomationProperties.LandmarkType="Main">
-                <StackPanel Margin="54,44,64,70"
+                <StackPanel Margin="36,34,36,48"
                             MaxWidth="900"
-                            HorizontalAlignment="Left"
+                            HorizontalAlignment="Stretch"
                             Spacing="28">
                     <StackPanel Spacing="8">
-                        <controls:PaperTape Content="{loc:Localize Shell_StudioTape}"
-                                            Classes="compact"
-                                            Angle="-0.6"
-                                            HorizontalAlignment="Left"
-                                            AutomationProperties.Name="{loc:Localize Shell_StudioAutomation}" />
                         <TextBlock x:Name="PageTitle"
                                    Classes="display"
                                    AutomationProperties.HeadingLevel="1"
                                    AutomationProperties.AutomationId="PageTitle" />
                         <TextBlock x:Name="PageDescription"
                                    Classes="lede"
-                                   MaxWidth="760"
+                                   MaxWidth="680"
                                    TextWrapping="Wrap"
                                    AutomationProperties.AutomationId="PageDescription" />
                     </StackPanel>

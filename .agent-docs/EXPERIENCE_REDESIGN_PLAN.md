@@ -41,6 +41,30 @@ Design read: local-first learning studio for multilingual adults, with a handcra
 paper-theatre language: layered cutouts, taped labels, stamped badges, stepped puppet
 motion. Calm and tactile, never a game economy. Dials: variance 7, motion 6, density 3.
 
+### App typography refinement (2026-09-10)
+
+The navigation, course catalog, Today, and Settings use quieter native app chrome
+around the existing paper lesson materials. This refinement uses variance 4, motion 3,
+and density 4 for chrome; lesson choreography and authored content remain unchanged.
+
+- Native font fallback is Helvetica Neue, then Segoe UI, with platform glyph fallback
+  for scripts such as Devanagari. There is no bundled or network font dependency.
+- Regular 15px body text and 13px captions sit beneath 21px section titles, 28px card
+  titles, and 34px page headings. Semantic styles own the hierarchy and muted ink.
+- Page headings and descriptions share a left edge. Navigation is 232px wide; main
+  content uses 36px side margins and a 900px maximum width.
+- Course cards fill two columns and wrap full titles. Lesson metadata uses plain
+  text; implementation details such as the template kind are omitted from the tiles.
+- Light surfaces use restrained cream and sage; dark surfaces use muted green-gray.
+  Paper shadows are subtle. Tape and cutouts remain in learning materials and the
+  brand mark, while repeated decorative shell labels are removed.
+
+Verification covers the native macOS shell, course, Settings, and representative lesson
+interaction, including 900x620 client area, English/Hindi controls, the Hinglish
+preference with its English chrome fallback, paired themes, and keyboard progression.
+It does not establish Windows interaction, direct screen-reader behavior, system text
+scaling, or a new exhaustive native review of every lesson template.
+
 ### Paper materiality
 
 Extend the existing token system (`App.axaml`) into physical materials, each a reusable
