@@ -2821,6 +2821,35 @@ hardening without treating Preview content as approved curriculum.
 
 ### Phase 8 — Production hardening
 
+**Status (2026-09-10, P8.2 accessibility sweep):** Complete with named native
+evidence gaps. A registry-driven audit now renders every one of the 58 gallery fixtures
+in standard and text-only modes with reduced motion, then rejects missing accessible
+names, visible enabled controls outside the focus order, fixed vertical text bounds,
+long unwrapped copy, missing polite live feedback, or any image left in text-only mode.
+The sweep found and corrected 22 unnamed replay, skip, paging, reset, clear, and check
+controls across the proving, scene, construction, and listening renderers. The scenario
+fallback copy now wraps. Selected buttons containing nested paper cards now use the
+audited accent-soft background and accent-text foreground pair, with a structural test
+pinning that style and the existing contrast test proving at least 4.5:1 in both themes.
+
+Fresh interaction with the published macOS app exposed all 58 fixtures through the
+accessibility tree, including complete listening transcripts, captions, typed
+microphone-free speech paths, and honest no-score production language. Real keyboard
+Tab and Space interaction toggled the gallery's text-only mode, removed every fixture
+image while preserving the complete authored equivalents, advanced the projected
+outcome to Success, and placed focus on the first template's named replay control. The
+Paper Stage theme control switched the same live gallery from dark to light; both states
+were visually inspected. Reduced motion was active throughout and every fixture's
+instant stable target state remains covered by the P8.3 ratchet. Release build passes
+with zero warnings and errors, all 465 tests pass (308 Core, 157 App), and formatter
+verification is clean.
+
+Direct VoiceOver navigation and announcements, system text enlargement at native
+macOS accessibility sizes, exhaustive native keyboard activation of every control, and
+Windows native interaction remain unverified. Hosted Windows light and dark gallery
+captures are visual evidence only. These are named evidence gaps, not claims of
+accessibility certification. P8.2 is complete as an enforced template-catalog sweep.
+
 **Status (2026-09-10, P8.5 license and notice audit):** Complete with distribution
 blockers. The audit now inventories the exact 24-package runtime graph and declared package-license
 metadata, the seven Commons photographs, five generated drafts, two source notice files,
