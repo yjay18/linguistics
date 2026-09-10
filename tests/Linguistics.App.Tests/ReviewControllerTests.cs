@@ -9,8 +9,89 @@ namespace Linguistics.App.Tests;
 public sealed class ReviewControllerTests
 {
     private static readonly DateTimeOffset Now = new(2026, 8, 20, 12, 0, 0, TimeSpan.Zero);
+    private static LearnerLearningState EmptyState => new(
+        CurriculumHistory.Empty, TaskHistory.Empty, PronunciationHistory.Empty, ReviewHistory.Empty);
     private static readonly ConceptId ConceptId = new("de.function.order-polite");
     private static readonly VersionId ContentVersion = new("language.de.core.v1");
+
+    [TestMethod]
+    public async Task TodaySendsANewLearnerToLessonsUntilCafePrerequisitesAreReady()
+    {
+        var prerequisite = new ConceptId("de.greeting");
+        var target = Graph().Get(ConceptId) with { Prerequisites = [prerequisite] };
+        var graph = new ConceptGraph([target, target with { Id = prerequisite, Prerequisites = [] }]);
+        foreach (var readiness in new ConceptProgressState?[]
+                 {
+                     null,
+                     ConceptProgressState.Locked,
+                     ConceptProgressState.Practicing,
+                     ConceptProgressState.ProvisionallyMastered,
+                     ConceptProgressState.Mastered,
+                 })
+        {
+            var state = EmptyState with
+            {
+                Curriculum = CurriculumHistory.Empty with
+                {
+                    Progress = readiness is null ? [] : [ConceptProgress.Locked(prerequisite) with
+                    {
+                        State = readiness.Value,
+                        ReviewDueAt = readiness is ConceptProgressState.ProvisionallyMastered or ConceptProgressState.Mastered
+                            ? Now.AddDays(2)
+                            : null,
+                    }],
+                },
+            };
+            var repository = await CreateRepositoryAsync(state);
+            var controller = new ReviewController(
+                repository.Owner, graph, () => Now, scenarioTargetConceptId: ConceptId);
+
+            var snapshot = await controller.InitializeAsync();
+
+            var expected = readiness is ConceptProgressState.ProvisionallyMastered or ConceptProgressState.Mastered
+                ? TodayAction.Scenario
+                : TodayAction.Learn;
+            Assert.AreEqual(expected, snapshot.Today.PrimaryAction, readiness.ToString());
+            Assert.AreEqual(state.Curriculum, snapshot.State.Curriculum);
+            Assert.IsEmpty(snapshot.State.Tasks.Attempts);
+        }
+    }
+
+    [TestMethod]
+    public async Task TodayDoesNotRecommendCafeWithoutRuntimeContentOrItsTarget()
+    {
+        foreach (var graph in new ConceptGraph?[] { null, Graph() })
+        {
+            var repository = await CreateRepositoryAsync(EmptyState);
+            var controller = new ReviewController(
+                repository.Owner, graph, () => Now,
+                scenarioTargetConceptId: new ConceptId("de.missing"));
+
+            var snapshot = await controller.InitializeAsync();
+
+            Assert.AreEqual(TodayAction.Learn, snapshot.Today.PrimaryAction);
+            Assert.AreEqual(0, repository.SaveLearningStateCount);
+        }
+    }
+
+    [TestMethod]
+    public async Task TodayAllowsAnAlreadyUnlockedCafeWithoutInventingNewProgress()
+    {
+        var repository = await CreateRepositoryAsync(EmptyState with
+        {
+            Curriculum = CurriculumHistory.Empty with
+            {
+                Progress = [ConceptProgress.Locked(ConceptId) with { State = ConceptProgressState.Introduced }],
+            },
+        });
+        var controller = new ReviewController(
+            repository.Owner, Graph(), () => Now, scenarioTargetConceptId: ConceptId);
+
+        var snapshot = await controller.InitializeAsync();
+
+        Assert.AreEqual(TodayAction.Scenario, snapshot.Today.PrimaryAction);
+        Assert.AreEqual(0, repository.SaveLearningStateCount);
+    }
 
     [TestMethod]
     public async Task InitializationSynchronizesLearningEvidenceOnce()

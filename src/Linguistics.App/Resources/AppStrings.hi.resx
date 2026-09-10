@@ -801,7 +801,7 @@
   <data name="Scenario_Playing" xml:space="preserve"><value>सर्वर कैप्शन चल रहा है...</value></data>
   <data name="Scenario_PlayingSlowly" xml:space="preserve"><value>सर्वर कैप्शन धीरे चल रहा है...</value></data>
   <data name="Scenario_PracticeAgain" xml:space="preserve"><value>फिर अभ्यास करें</value></data>
-  <data name="Scenario_PrerequisitesLocked" xml:space="preserve"><value>पहले आवश्यक क्षमताएँ बनाएँ। परिस्थिति नियतात्मक रूप से खुलेगी।</value></data>
+  <data name="Scenario_PrerequisitesLocked" xml:space="preserve"><value>कैफ़े की बातचीत शुरू करने से पहले सीखें में बुनियादी बातों का अभ्यास करें।</value></data>
   <data name="Scenario_PreviousCompletions" xml:space="preserve"><value>स्थानीय रूप से {0} बार पूरा किया।</value></data>
   <data name="Scenario_Ready" xml:space="preserve"><value>पाठ से छोटे कैफ़े संवाद के लिए तैयार। स्क्रिप्ट संवाद हमेशा उपलब्ध है।</value></data>
   <data name="Scenario_RecordReply" xml:space="preserve"><value>उत्तर स्थानीय रूप से रिकॉर्ड करें</value></data>
@@ -1174,4 +1174,7 @@
   <data name="ProgressShelf_OutcomeUncertain" xml:space="preserve"><value>अभ्यास परिस्थिति चुनी गई, या काग़ज़ परिस्थिति चुनें।</value></data>
   <data name="ProgressShelf_OutcomeFailure" xml:space="preserve"><value>क्षमता स्थिति उपलब्ध नहीं। दिखाई शेल्फ पर लौटें।</value></data>
   <data name="ProgressShelf_OutcomeReady" xml:space="preserve"><value>शुरू न हुई परिस्थिति चुनी, या क्षमता शेल्फ तैयार है।</value></data>
+  <data name="Today_OpenLearn" xml:space="preserve"><value>पाठों पर जाएँ</value></data>
+  <data name="Today_Learn_Headline" xml:space="preserve"><value>कैफ़े के लिए बुनियादी अभ्यास करें</value></data>
+  <data name="Today_Learn_Explanation" xml:space="preserve"><value>अभिवादन, पेय और विनम्र अनुरोधों का अभ्यास करने के लिए पाठों से शुरुआत करें।</value></data>
 </root>

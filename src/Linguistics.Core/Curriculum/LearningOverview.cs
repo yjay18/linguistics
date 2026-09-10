@@ -194,6 +194,7 @@ public enum TodayAction
     Review,
     Scenario,
     Pronunciation,
+    Learn,
 }
 
 public sealed record TodayPlan(
@@ -203,7 +204,7 @@ public sealed record TodayPlan(
 
 public static class TodayPlanner
 {
-    public static TodayPlan Build(LearningProgressOverview progress)
+    public static TodayPlan Build(LearningProgressOverview progress, bool scenarioReady = false)
     {
         ArgumentNullException.ThrowIfNull(progress);
 
@@ -213,6 +214,14 @@ public static class TodayPlanner
                 TodayAction.Review,
                 $"{progress.DueReviewCount} review item{(progress.DueReviewCount == 1 ? string.Empty : "s")} ready",
                 "Retrieve what you learned before starting something new.");
+        }
+
+        if (!scenarioReady)
+        {
+            return new TodayPlan(
+                TodayAction.Learn,
+                "Build your café basics",
+                "Start with the lessons to practice greetings, drinks, and polite requests.");
         }
 
         if (progress.Capabilities.All(item => item.Status == CapabilityStatus.NotStarted))

@@ -18,6 +18,7 @@ namespace Linguistics.App.Features.Scenarios;
 public partial class CafeOrderView : UserControl
 {
     private CafeScenarioController? _controller;
+    private readonly Action<string>? _navigate;
     private readonly ISpeechSynthesisProvider? _speechSynthesisProvider;
     private readonly ISpeechRecognitionProvider? _speechRecognitionProvider;
     private readonly bool _microphoneAllowed;
@@ -52,10 +53,13 @@ public partial class CafeOrderView : UserControl
         ILanguageModelProvider? languageModelProvider = null,
         ISpeechSynthesisProvider? speechSynthesisProvider = null,
         ISpeechRecognitionProvider? speechRecognitionProvider = null,
-        ContentImageCache? imageCache = null)
+        ContentImageCache? imageCache = null,
+        Action<string>? navigate = null)
         : this()
     {
         _runtimeContentError = runtimeContentError;
+        _navigate = navigate;
+        ContentGateLearnButton.IsVisible = navigate is not null;
         _speechSynthesisProvider = speechSynthesisProvider;
         _speechRecognitionProvider = speechRecognitionProvider;
         _imageCache = imageCache;
@@ -147,8 +151,10 @@ public partial class CafeOrderView : UserControl
                 "Scenario_MissingPrerequisites",
                 string.Join(", ", state.MissingPrerequisiteTitles));
         StartButton.IsEnabled = state.CanStart;
+        StartButton.IsVisible = state.CanStart;
+        LearnButton.IsVisible = !state.CanStart && _navigate is not null;
 
-        if (state.Bridge is { } bridge)
+        if (state.CanStart && state.Bridge is { } bridge)
         {
             _bridgeNote = new TransferNoteCardView(
                 new TransferNoteCardContent(
@@ -182,6 +188,8 @@ public partial class CafeOrderView : UserControl
     }
 
     private void OnStartClicked(object? sender, RoutedEventArgs args) => StartScenario();
+
+    private void OnLearnClicked(object? sender, RoutedEventArgs args) => _navigate?.Invoke("Learn");
 
     private void StartScenario()
     {

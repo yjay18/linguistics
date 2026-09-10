@@ -40,6 +40,7 @@ published app without learner content or identifiers.
 - `ShellView.ShowSelectedPage`: assembles and presents each implemented learner
   destination, passing the read-only image cache and selected instruction language to
   Phase 6 renderer hosts.
+- `TodayView`: passes the runtime café target to the learning snapshot; the core plan recommends Learn while the scenario is locked and retains due-review priority. The shell routes locked and unavailable café states back to Learn without changing progress or content approval.
 - `LearnView`: renders course capacity honestly, opens authored lessons, delegates template slides through the app registry, reports deterministic practice outcomes locally, and returns to the course map without writing preview mastery.
 - `TemplateGalleryView`: renders every registered template from fixed synthetic fixtures, cycles preview outcomes, and exercises text-only and effective motion settings without learner state.
 - `PerformanceEvidenceCapture`: warms only validated local assets, samples native animation ticks, and writes one new absolute JSON evidence target when developer mode explicitly requests it.

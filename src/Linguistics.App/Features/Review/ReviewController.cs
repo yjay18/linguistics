@@ -24,6 +24,7 @@ public sealed class ReviewController
 
     private readonly LearnerProfileOwner _profileOwner;
     private readonly ConceptGraph? _graph;
+    private readonly ConceptId? _scenarioTargetConceptId;
     private readonly Func<DateTimeOffset> _clock;
     private readonly ReviewConfiguration _configuration;
     private readonly LocalDiagnosticLog? _diagnosticLog;
@@ -35,10 +36,12 @@ public sealed class ReviewController
         ConceptGraph? graph,
         Func<DateTimeOffset>? clock = null,
         ReviewConfiguration? configuration = null,
-        LocalDiagnosticLog? diagnosticLog = null)
+        LocalDiagnosticLog? diagnosticLog = null,
+        ConceptId? scenarioTargetConceptId = null)
     {
         _profileOwner = profileOwner ?? throw new ArgumentNullException(nameof(profileOwner));
         _graph = graph;
+        _scenarioTargetConceptId = scenarioTargetConceptId;
         _clock = clock ?? (() => DateTimeOffset.UtcNow);
         _configuration = configuration ?? ReviewConfiguration.Default;
         _diagnosticLog = diagnosticLog;
@@ -139,7 +142,7 @@ public sealed class ReviewController
         }
     }
 
-    private static LearningSnapshot BuildSnapshot(
+    private LearningSnapshot BuildSnapshot(
         LearnerLearningState state,
         DateTimeOffset now)
     {
@@ -151,7 +154,13 @@ public sealed class ReviewController
             state.Pronunciation,
             queue,
             now);
-        return new LearningSnapshot(state, queue, progress, TodayPlanner.Build(progress));
+        var states = state.Curriculum.Progress.ToDictionary(item => item.ConceptId, item => item.State);
+        var scenarioReady = _graph is not null &&
+            _scenarioTargetConceptId is { } target &&
+            _graph.Nodes.Any(node => node.Id == target) &&
+            ((states.TryGetValue(target, out var targetState) && targetState != ConceptProgressState.Locked) ||
+             _graph.IsReady(target, states));
+        return new LearningSnapshot(state, queue, progress, TodayPlanner.Build(progress, scenarioReady));
     }
 
     private async Task TryLogAsync(

@@ -34,6 +34,13 @@
                            TextWrapping="Wrap"
                            Opacity="0.68"
                            AutomationProperties.AutomationId="CafeContentGateTechnical" />
+                <Button x:Name="ContentGateLearnButton"
+                        IsVisible="False"
+                        Content="{loc:Localize Today_OpenLearn}"
+                        Classes="primary lift"
+                        HorizontalAlignment="Left"
+                        Click="OnLearnClicked"
+                        AutomationProperties.AutomationId="CafeContentGateLearn" />
             </StackPanel>
         </Border>
 
@@ -87,6 +94,13 @@
                             HorizontalAlignment="Left"
                             Click="OnStartClicked"
                             AutomationProperties.AutomationId="StartCafeScenario" />
+                    <Button x:Name="LearnButton"
+                            IsVisible="False"
+                            Content="{loc:Localize Today_OpenLearn}"
+                            Classes="primary lift"
+                            HorizontalAlignment="Left"
+                            Click="OnLearnClicked"
+                            AutomationProperties.AutomationId="CafeOpenLearn" />
                 </StackPanel>
             </Border>
 

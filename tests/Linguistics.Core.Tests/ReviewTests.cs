@@ -232,6 +232,17 @@ public sealed class ReviewTests
     }
 
     [TestMethod]
+    public void TodayRequiresReadinessBeforeRecommendingAFirstScenario()
+    {
+        var overview = LearningProgressBuilder.Build(
+            [], CurriculumHistory.Empty, TaskHistory.Empty, PronunciationHistory.Empty,
+            new ReviewQueue([], []), Now);
+
+        Assert.AreEqual(TodayAction.Learn, TodayPlanner.Build(overview).PrimaryAction);
+        Assert.AreEqual(TodayAction.Scenario, TodayPlanner.Build(overview, scenarioReady: true).PrimaryAction);
+    }
+
+    [TestMethod]
     public void ProgressLeadsWithCapabilityInsteadOfActivityCurrency()
     {
         var queue = new ReviewQueue(

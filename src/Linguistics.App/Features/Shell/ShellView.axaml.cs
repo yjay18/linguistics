@@ -165,7 +165,8 @@ public partial class ShellView : UserControl
                     _languageModelProvider,
                     _speechSynthesisProvider,
                     _speechRecognitionProvider,
-                    _imageCache));
+                    _imageCache,
+                    NavigateTo));
                 break;
             case "Pronunciation" when
                 _speechSynthesisProvider is not null &&

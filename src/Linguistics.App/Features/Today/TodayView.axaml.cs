@@ -38,7 +38,13 @@ public partial class TodayView : UserControl
             : contentCatalog!.CreateRuntimeConceptGraph(
                 profile.TargetLanguage,
                 instructionLanguage.Value);
-        _controller = new ReviewController(profileOwner, graph, diagnosticLog: diagnosticLog);
+        _controller = new ReviewController(
+            profileOwner,
+            graph,
+            diagnosticLog: diagnosticLog,
+            scenarioTargetConceptId: instructionLanguage is null
+                ? null
+                : contentCatalog!.CreateRuntimeCafeOrderDefinition(instructionLanguage.Value).TargetConceptId);
         _navigate = navigate;
     }
 
@@ -73,6 +79,7 @@ public partial class TodayView : UserControl
         {
             TodayAction.Review => "Review",
             TodayAction.Pronunciation => "Pronunciation",
+            TodayAction.Learn => "Learn",
             _ => "Scenarios",
         };
         _navigate?.Invoke(destination);
@@ -86,6 +93,9 @@ public partial class TodayView : UserControl
         _action = snapshot.Today.PrimaryAction;
         (HeadlineText.Text, ExplanationText.Text) = _action switch
         {
+            TodayAction.Learn => (
+                AppStrings.Get("Today_Learn_Headline"),
+                AppStrings.Get("Today_Learn_Explanation")),
             TodayAction.Review => (
                 AppStrings.Format("Today_Review_Headline", snapshot.Progress.DueReviewCount),
                 AppStrings.Get("Today_Review_Explanation")),
@@ -105,6 +115,7 @@ public partial class TodayView : UserControl
         SpeechCountText.Text = snapshot.Progress.PronunciationPracticeCount.ToString();
         (PrimaryActionButton.Content, ActionGlyph.Content) = _action switch
         {
+            TodayAction.Learn => (AppStrings.Get("Today_OpenLearn"), "→"),
             TodayAction.Review => (AppStrings.Get("Today_OpenReview"), "↻"),
             TodayAction.Pronunciation => (AppStrings.Get("Today_OpenPronunciation"), "◌"),
             _ => (AppStrings.Get("Today_EnterCafe"), "→"),
