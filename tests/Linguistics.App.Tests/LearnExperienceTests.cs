@@ -41,8 +41,24 @@ public sealed class LearnExperienceTests
 
             Assert.HasCount(2, choreographyButtons, fixture.TemplateId.Value);
             Assert.IsTrue(choreographyButtons.All(button => !button.IsVisible));
-            rendered.Skip();
             rendered.Replay();
+            rendered.Replay();
+            var motionTargets = rendered.Content
+                .GetLogicalDescendants()
+                .OfType<Control>()
+                .Where(control => control.Classes.Contains(TemplateRendering.MotionTargetClass))
+                .ToArray();
+
+            Assert.IsNotEmpty(
+                motionTargets,
+                $"{fixture.TemplateId.Value} did not register any reduced-motion targets.");
+            Assert.IsTrue(
+                motionTargets.All(control => control.Transitions is null),
+                $"{fixture.TemplateId.Value} left a transition active in reduced motion.");
+            Assert.IsTrue(
+                motionTargets.All(control => Math.Abs(control.Opacity - 1d) < double.Epsilon),
+                $"{fixture.TemplateId.Value} did not expose its stable final composition.");
+            rendered.Skip();
         }
     }
 

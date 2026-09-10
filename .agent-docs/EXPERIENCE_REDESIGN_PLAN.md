@@ -2821,6 +2821,21 @@ hardening without treating Preview content as approved curriculum.
 
 ### Phase 8 — Production hardening
 
+**Status (2026-09-10, P8.3 architecture ratchet):** Complete. The renderer factory
+contract remains limited to validated parameters, instruction language, reduced-motion
+preference, the bounded image cache, and the outcome callback. Architecture tests scan
+every renderer source file and reject persistence, learner-state, mastery, review-scheduler,
+or repository references. Gallery-to-registry equality keeps that guard aligned with all
+58 schemas and fixtures.
+
+Every shared choreography preparation now declares its motion targets. The all-template
+player test replays every registered fixture twice with reduced motion, requires at least
+one declared target, and verifies that no transition remains and every target exposes its
+stable final composition. The shared choreography tests continue to prove sub-four-second
+duration enforcement, skip cancellation, and instant final-state application. Release
+build passes with zero warnings and errors, all 459 tests pass (308 Core, 151 App), and
+formatter verification is clean. P8.3 is complete; P8.1, P8.2, P8.4, and P8.5 remain open.
+
 **Status (2026-09-10, P8.1 bounded cache and native timing evidence):** In progress.
 The validated local image cache has explicit 32-image and estimated 32 MiB decoded RGBA
 limits. An image that would exceed either limit fails closed into the renderer's authored

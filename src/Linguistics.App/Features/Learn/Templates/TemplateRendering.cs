@@ -16,6 +16,8 @@ namespace Linguistics.App.Features.Learn.Templates;
 
 internal static class TemplateRendering
 {
+    internal const string MotionTargetClass = "paper-motion-target";
+
     private static readonly string[] OutcomeClasses =
     [
         "soft-card",
@@ -277,6 +279,14 @@ internal static class TemplateRendering
 
     public static void Prepare(bool shouldReduceMotion, params Control[] controls)
     {
+        foreach (var control in controls)
+        {
+            if (!control.Classes.Contains(MotionTargetClass))
+            {
+                control.Classes.Add(MotionTargetClass);
+            }
+        }
+
         if (shouldReduceMotion)
         {
             foreach (var control in controls)
