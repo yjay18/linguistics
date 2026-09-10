@@ -30,3 +30,17 @@ jobs:
       - run: dotnet build Linguistics.slnx --configuration Release --no-restore
       - run: dotnet test Linguistics.slnx --configuration Release --no-build
       - run: dotnet publish src/Linguistics.App/Linguistics.App.csproj --configuration Release --no-restore
+      - name: Capture template gallery visual evidence
+        shell: pwsh
+        run: >-
+          ./tools/ci/Capture-TemplateGallery.ps1
+          -PublishDirectory src/Linguistics.App/bin/Release/net10.0/publish
+          -OutputDirectory "${{ runner.temp }}/linguistics-gallery"
+      - name: Upload template gallery visual evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: template-gallery-${{ runner.os }}
+          path: ${{ runner.temp }}/linguistics-gallery
+          if-no-files-found: error
+          retention-days: 14

@@ -1,7 +1,11 @@
 using System.Diagnostics;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using Linguistics.App.Diagnostics;
 using Linguistics.App.Content;
+using Linguistics.App.Features.Developer;
 using Linguistics.App.Features.Onboarding;
 using Linguistics.App.Features.Shell;
 using Linguistics.App.Localization;
@@ -100,6 +104,35 @@ public partial class MainWindow : Window
                 DiagnosticOutcome.Succeeded,
                 Stopwatch.GetElapsedTime(completedPerformance.ProcessStartedAtTimestamp));
         }
+
+        QueueDeveloperGalleryCapture();
+    }
+
+    private void QueueDeveloperGalleryCapture()
+    {
+        var outputPath = TemplateGalleryCapture.RequestedOutputPath();
+        if (outputPath is null)
+        {
+            return;
+        }
+
+        Dispatcher.UIThread.Post(
+            () =>
+            {
+                var lifetime = Application.Current?.ApplicationLifetime as
+                    IClassicDesktopStyleApplicationLifetime;
+                try
+                {
+                    TemplateGalleryCapture.Save(this, outputPath);
+                    lifetime?.Shutdown(0);
+                }
+                catch (Exception exception)
+                {
+                    File.WriteAllText(outputPath + ".error.txt", exception.ToString());
+                    lifetime?.Shutdown(1);
+                }
+            },
+            DispatcherPriority.Background);
     }
 
     private async void OnRetryClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
