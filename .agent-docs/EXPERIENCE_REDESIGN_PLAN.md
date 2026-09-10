@@ -2821,8 +2821,8 @@ hardening without treating Preview content as approved curriculum.
 
 ### Phase 8 — Production hardening
 
-**Status (2026-09-10, P8.5 license and notice audit implementation):** In progress.
-The audit now inventories the exact 24-package runtime graph and declared package-license
+**Status (2026-09-10, P8.5 license and notice audit):** Complete with distribution
+blockers. The audit now inventories the exact 24-package runtime graph and declared package-license
 metadata, the seven Commons photographs, five generated drafts, two source notice files,
 and two native notice files. Tests ratchet the resolved versions and licenses, asset
 attributions, current pending review state, notice hashes, and app-project copy rules. A
@@ -2838,8 +2838,15 @@ modification, redistribution, content-pack, and product-license blockers remain 
 The exact local publish passes source-notice byte comparison, native-notice hash checks,
 and every manifest size and asset hash. Release build passes with zero warnings and errors,
 all 463 tests pass (308 Core, 155 App), and formatter verification is clean. Hosted
-execution of the new publish audit remains unverified until the first CI run, so P8.5
-remains open and no distribution decision is claimed.
+macOS audit passed on the first run. That run exposed a Windows-only assumption that a
+NuGet assets file has one package-cache root; resolution now selects the first declared
+root containing each package. GitHub Actions run `34467855902` then passed tests, publish,
+the exact license and notice audit, gallery capture, and artifact upload on both macOS and
+Windows at commit `8eed0d6`.
+
+P8.5 is complete as a machine and enforcement audit. It is not legal approval. Competent
+license, modification, redistribution, content-pack, and product-license decisions remain
+required before distribution, and no release is authorized or claimed.
 
 **Status (2026-09-10, P8.4 CI gallery capture):** Complete. An
 environment-gated developer path now captures the real published template-gallery window
