@@ -7,6 +7,12 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$maximumProcessToReadyMilliseconds = 10000
+$maximumCatalogLoadMilliseconds = 3000
+$maximumWorkingSetBytes = 512MB
+$maximumManagedHeapBytes = 384MB
+$maximumMedianFrameIntervalMilliseconds = 34
+$maximumSlowFrameIntervals = 10
 $publishPath = [IO.Path]::GetFullPath($PublishDirectory)
 $outputPath = [IO.Path]::GetFullPath($OutputDirectory)
 $executableName = if ($IsWindows) { "Linguistics.exe" } else { "Linguistics" }
@@ -103,13 +109,21 @@ try {
         $performance = Get-Content -LiteralPath $performancePath -Raw | ConvertFrom-Json
         if ($performance.schemaVersion -ne 1 -or
             $performance.processEntryToReadyMilliseconds -lt 1 -or
+            $performance.processEntryToReadyMilliseconds -gt $maximumProcessToReadyMilliseconds -or
             $performance.contentCatalogLoadMilliseconds -lt 1 -or
+            $performance.contentCatalogLoadMilliseconds -gt $maximumCatalogLoadMilliseconds -or
+            $performance.contentCatalogLoadOutcome -ne "succeeded" -or
             $performance.workingSetBytes -lt 1 -or
+            $performance.workingSetBytes -gt $maximumWorkingSetBytes -or
             $performance.managedHeapBytes -lt 1 -or
+            $performance.managedHeapBytes -gt $maximumManagedHeapBytes -or
+            $performance.decodedImageCount -ne 12 -or
             $performance.animationFrames.sampleCount -ne 30 -or
+            $performance.animationFrames.medianIntervalMilliseconds -gt $maximumMedianFrameIntervalMilliseconds -or
+            $performance.animationFrames.intervalsOver34Milliseconds -gt $maximumSlowFrameIntervals -or
             $performance.decodedImageCount -gt $performance.maximumDecodedImages -or
             $performance.estimatedDecodedBytes -gt $performance.maximumDecodedBytes) {
-            throw "Template gallery performance evidence for theme $theme is invalid or outside its cache bounds."
+            throw "Template gallery performance evidence for theme $theme is invalid or outside its regression envelope."
         }
     }
 

@@ -53,4 +53,26 @@ public sealed class PerformanceEvidenceCaptureTests
                 TimeSpan.FromMilliseconds(16),
             ]));
     }
+
+    [TestMethod]
+    public void CiWrapperPinsConservativePublishedAppRegressionLimits()
+    {
+        var script = File.ReadAllText(Path.Combine(
+            RepositoryRoot,
+            "tools",
+            "ci",
+            "Capture-TemplateGallery.ps1"));
+
+        StringAssert.Contains(script, "$maximumProcessToReadyMilliseconds = 10000");
+        StringAssert.Contains(script, "$maximumCatalogLoadMilliseconds = 3000");
+        StringAssert.Contains(script, "$maximumWorkingSetBytes = 512MB");
+        StringAssert.Contains(script, "$maximumManagedHeapBytes = 384MB");
+        StringAssert.Contains(script, "$maximumMedianFrameIntervalMilliseconds = 34");
+        StringAssert.Contains(script, "$maximumSlowFrameIntervals = 10");
+        StringAssert.Contains(script, "$performance.decodedImageCount -ne 12");
+        StringAssert.Contains(script, "It is not a low-resource benchmark.");
+    }
+
+    private static string RepositoryRoot =>
+        Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
 }
