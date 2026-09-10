@@ -68,6 +68,7 @@ internal sealed class PaperChoreography : IDisposable
     public async Task PlayAsync(bool reduceMotion, CancellationToken cancellationToken = default)
     {
         CancellationTokenSource activeRun;
+        CancellationToken activeToken;
         lock (_gate)
         {
             if (_isRunning)
@@ -80,6 +81,7 @@ internal sealed class PaperChoreography : IDisposable
             Array.Fill(_finalApplied, false);
             _activeRun = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             activeRun = _activeRun;
+            activeToken = activeRun.Token;
         }
 
         try
@@ -92,7 +94,8 @@ internal sealed class PaperChoreography : IDisposable
 
             for (var index = 0; index < _steps.Count; index++)
             {
-                await _steps[index].RunAsync(activeRun.Token);
+                activeToken.ThrowIfCancellationRequested();
+                await _steps[index].RunAsync(activeToken);
                 ApplyFinalState(index);
             }
         }
@@ -103,10 +106,14 @@ internal sealed class PaperChoreography : IDisposable
         {
             lock (_gate)
             {
-                _activeRun?.Dispose();
-                _activeRun = null;
-                _isRunning = false;
+                if (ReferenceEquals(_activeRun, activeRun))
+                {
+                    _activeRun = null;
+                    _isRunning = false;
+                }
             }
+
+            activeRun.Dispose();
         }
     }
 
@@ -117,22 +124,13 @@ internal sealed class PaperChoreography : IDisposable
         {
             _skipRequested = true;
             activeRun = _activeRun;
+            activeRun?.Cancel();
         }
 
-        activeRun?.Cancel();
         ApplyAllFinalStates();
     }
 
-    public void Dispose()
-    {
-        lock (_gate)
-        {
-            _activeRun?.Cancel();
-            _activeRun?.Dispose();
-            _activeRun = null;
-            _isRunning = false;
-        }
-    }
+    public void Dispose() => Skip();
 
     private bool SkipWasRequested()
     {

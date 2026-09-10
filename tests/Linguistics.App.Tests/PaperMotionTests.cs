@@ -89,6 +89,34 @@ public sealed class PaperMotionTests
     }
 
     [TestMethod]
+    public async Task DisposeDuringAPlayingStepCancelsWithoutUsingADisposedTokenSource()
+    {
+        PaperChoreography? choreography = null;
+        var firstValue = 0;
+        var secondValue = 0;
+        choreography = new PaperChoreography(
+        [
+            new PaperChoreographyStep(
+                TimeSpan.FromMilliseconds(20),
+                _ =>
+                {
+                    choreography!.Dispose();
+                    return Task.CompletedTask;
+                },
+                () => firstValue = 1),
+            new PaperChoreographyStep(
+                TimeSpan.FromMilliseconds(20),
+                _ => Task.CompletedTask,
+                () => secondValue = 2),
+        ]);
+
+        await choreography.PlayAsync(reduceMotion: false);
+
+        Assert.AreEqual(1, firstValue);
+        Assert.AreEqual(2, secondValue);
+    }
+
+    [TestMethod]
     public void ChoreographyRejectsScenesThatReachFourSeconds()
     {
         Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => new PaperChoreography(
