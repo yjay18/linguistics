@@ -2821,6 +2821,26 @@ hardening without treating Preview content as approved curriculum.
 
 ### Phase 8 — Production hardening
 
+**Status (2026-09-10, P8.5 license and notice audit implementation):** In progress.
+The audit now inventories the exact 24-package runtime graph and declared package-license
+metadata, the seven Commons photographs, five generated drafts, two source notice files,
+and two native notice files. Tests ratchet the resolved versions and licenses, asset
+attributions, current pending review state, notice hashes, and app-project copy rules. A
+post-publish CI audit verifies source-notice byte identity, native-notice hashes, all 12
+published asset byte sizes and SHA-256 values, and the CC BY-SA derivative flag rule.
+
+The audit found and corrected a one-character transcription error in the documented
+SkiaSharp and HarfBuzzSharp upstream-notice hash; the bundled notice itself was unchanged.
+Package metadata holders and source repositories are now named. No current asset is marked
+as cropped, background-removed, or an authored derivative. Legal classification of the
+existing downscale and re-encode operations remains explicitly pending. All image-license,
+modification, redistribution, content-pack, and product-license blockers remain in force.
+The exact local publish passes source-notice byte comparison, native-notice hash checks,
+and every manifest size and asset hash. Release build passes with zero warnings and errors,
+all 463 tests pass (308 Core, 155 App), and formatter verification is clean. Hosted
+execution of the new publish audit remains unverified until the first CI run, so P8.5
+remains open and no distribution decision is claimed.
+
 **Status (2026-09-10, P8.4 CI gallery capture):** Complete. An
 environment-gated developer path now captures the real published template-gallery window
 to a new absolute PNG target, refuses non-PNG, relative, existing, or non-gallery targets,

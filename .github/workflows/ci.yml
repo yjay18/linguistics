@@ -30,6 +30,11 @@ jobs:
       - run: dotnet build Linguistics.slnx --configuration Release --no-restore
       - run: dotnet test Linguistics.slnx --configuration Release --no-build
       - run: dotnet publish src/Linguistics.App/Linguistics.App.csproj --configuration Release --no-restore
+      - name: Audit published licenses and notices
+        shell: pwsh
+        run: >-
+          ./tools/ci/Test-PublishNotices.ps1
+          -PublishDirectory src/Linguistics.App/bin/Release/net10.0/publish
       - name: Capture template gallery visual evidence
         shell: pwsh
         run: >-

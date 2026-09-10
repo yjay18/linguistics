@@ -29,3 +29,18 @@ Full-resolution generated sources live only under `tools/AssetPipeline/Sources/g
 The app bundles only processed files below `content/languages/de/assets/`, each below
 300 KiB and covered by one manifest record. Each template instance may reference at most
 300 KiB of distinct images in total, and the full pack image budget is 40 MiB.
+
+## Phase 8 machine audit
+
+The current audit reconciles 12 manifest records with 12 bundled files: seven Wikimedia
+Commons photographs and five generated internal drafts. Every processed byte count and
+SHA-256 is rechecked after publish. The published `assets.json`, this status file, the
+dependency notice, the SkiaSharp and HarfBuzzSharp upstream notice, and the ANGLE license
+must all remain present.
+
+No current asset record is marked as cropped, background-removed, or an authored
+derivative. The validator requires any future CC BY-SA record marked as a derivative to
+retain its share-alike obligation. Whether the existing downscale and re-encode operations
+have any jurisdiction-specific adaptation consequence remains a question for the
+authorized legal reviewer. All 12 license records remain pending, and public distribution
+remains blocked.
