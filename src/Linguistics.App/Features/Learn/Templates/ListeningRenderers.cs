@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Linguistics.App.Localization;
 using Avalonia.Media;
 using Linguistics.App.Content;
 using Linguistics.App.Controls;
@@ -100,7 +101,7 @@ internal static class ListeningTemplatePresentation
         var playbackStatus = new TextBlock
         {
             Text = canPlay
-                ? "Optional local playback uses no microphone. A written prompt is available."
+                ? AppStrings.Get("Listening_Ready")
                 : "Local playback is unavailable. The written prompt is shown.",
             Classes = { "muted" },
             TextWrapping = TextWrapping.Wrap,
@@ -189,7 +190,7 @@ internal static class ListeningTemplatePresentation
                 }
 
                 playbackStatus.Text = canPlay
-                    ? "Optional local playback uses no microphone. A written prompt is available."
+                    ? AppStrings.Get("Listening_Ready")
                     : "No matching local system voice is installed. The written prompt is shown.";
                 if (!canPlay)
                 {

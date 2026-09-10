@@ -2,6 +2,7 @@ using System.Reflection;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
@@ -669,6 +670,64 @@ public sealed class TemplateRegistryTests
     }
 
     [TestMethod]
+    [DataRow("echo-stage", "EchoStage", "Ich möchte einen Tee, bitte.")]
+    [DataRow("prompt-respond", "PromptRespond", "Einen Tee, bitte!")]
+    public void SpeakingAnswersCanBeRetriedWithEnterWithoutOpeningMicrophone(
+        string templateId, string prefix, string answer)
+    {
+        using var recognition = new RecordingRecognitionProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate => candidate.TemplateId.Value == templateId);
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault(speechRecognitionProvider: recognition,
+                pronunciationAssessmentProvider: new TranscriptPronunciationAssessmentProvider(), microphoneAllowed: true)
+            .Render(fixture.TemplateId, fixture.Parameters, fixture.InstructionLanguage, true, reported.Add);
+        var response = rendered.GetLogicalDescendants().OfType<TextBox>().Single(control =>
+            AutomationProperties.GetAutomationId(control) == prefix + "TextResponse");
+
+        response.Text = "";
+        response.RaiseEvent(new KeyEventArgs { RoutedEvent = InputElement.KeyDownEvent, Key = Key.Enter });
+        Assert.AreNotEqual(TemplateOutcomeState.Success, reported[^1].State);
+        response.Text = "different answer";
+        response.RaiseEvent(new KeyEventArgs { RoutedEvent = InputElement.KeyDownEvent, Key = Key.Enter });
+        Assert.AreEqual(TemplateOutcomeState.Failure, reported[^1].State);
+        response.Text = answer;
+        response.RaiseEvent(new KeyEventArgs { RoutedEvent = InputElement.KeyDownEvent, Key = Key.Enter });
+        Assert.AreEqual(TemplateOutcomeState.Success, reported[^1].State);
+        Assert.HasCount(3, reported);
+        Assert.AreEqual(0, recognition.RequestCount);
+    }
+
+    [TestMethod]
+    [DataRow("echo-stage", "EchoStage")]
+    [DataRow("prompt-respond", "PromptRespond")]
+    public void SpeakingRecordingCanBeCancelledWithoutEvaluatingAnAnswer(string templateId, string prefix)
+    {
+        using var recognition = new CancellableRecognitionProvider();
+        var fixture = TemplateGalleryFixtures.All.Single(candidate => candidate.TemplateId.Value == templateId);
+        var reported = new List<TemplateOutcome>();
+        var rendered = TemplateRegistry.CreateDefault(speechRecognitionProvider: recognition,
+                pronunciationAssessmentProvider: new TranscriptPronunciationAssessmentProvider(), microphoneAllowed: true)
+            .Render(fixture.TemplateId, fixture.Parameters, fixture.InstructionLanguage, true, reported.Add);
+        var buttons = rendered.GetLogicalDescendants().OfType<Button>()
+            .Where(button => AutomationProperties.GetAutomationId(button) is not null)
+            .ToDictionary(button => AutomationProperties.GetAutomationId(button)!);
+        var start = buttons[prefix + "ConfirmMicrophone"];
+        var cancel = buttons[prefix + "RequestMicrophoneCancel"];
+        var check = buttons[prefix + "CompareText"];
+
+        Assert.IsFalse(cancel.IsVisible);
+        buttons[prefix + "RequestMicrophone"].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        start.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Assert.IsTrue(cancel.IsVisible);
+        Assert.IsFalse(check.IsEnabled);
+        cancel.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Assert.IsTrue(recognition.Token.IsCancellationRequested);
+        Assert.HasCount(0, reported);
+        Assert.IsTrue(check.IsEnabled);
+        Assert.IsFalse(cancel.IsVisible);
+    }
+
+    [TestMethod]
     public void EchoStageOffersNormalAndSlowerLocalPlayback()
     {
         using var provider = new RecordingSpeechProvider();
@@ -816,7 +875,7 @@ public sealed class TemplateRegistryTests
             .GetLogicalDescendants()
             .OfType<TextBlock>()
             .Any(text => text.Text?.Contains(
-                "cannot score phonemes, accent, or native-likeness",
+                "not your accent or individual sounds",
                 StringComparison.Ordinal) == true));
     }
 
@@ -1864,6 +1923,27 @@ public sealed class TemplateRegistryTests
         public void Dispose()
         {
         }
+    }
+
+    private sealed class CancellableRecognitionProvider : ISpeechRecognitionProvider
+    {
+        public CancellationToken Token { get; private set; }
+
+        public Task<SpeechRecognitionSnapshot> InspectAsync(CancellationToken cancellationToken = default) =>
+            throw new NotSupportedException();
+
+        private CancellationTokenRegistration _registration;
+
+        public Task<SpeechRecognitionResult> RecognizeAsync(
+            SpeechRecognitionRequest request, CancellationToken cancellationToken = default)
+        {
+            Token = cancellationToken;
+            var completion = new TaskCompletionSource<SpeechRecognitionResult>();
+            _registration = cancellationToken.Register(() => completion.TrySetCanceled(cancellationToken));
+            return completion.Task;
+        }
+
+        public void Dispose() => _registration.Dispose();
     }
 
     private sealed class RecordingRecognitionProvider : ISpeechRecognitionProvider

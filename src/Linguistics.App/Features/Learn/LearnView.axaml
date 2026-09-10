@@ -55,9 +55,6 @@
                                    FontSize="16"
                                    Classes="muted"
                                    AutomationProperties.AutomationId="CourseAvailability" />
-                        <ProgressBar x:Name="CatalogProgress"
-                                     HorizontalAlignment="Stretch"
-                                     AutomationProperties.Name="{loc:Localize Learn_CourseCapacity}" />
                         <TextBlock x:Name="PlannedContentText"
                                    Classes="muted"
                                    TextWrapping="Wrap"
@@ -107,6 +104,26 @@
                 <TextBlock Text="{loc:Localize Learn_CoursePath_Body}"
                            Classes="muted"
                            TextWrapping="Wrap" />
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                    <TextBox x:Name="LessonSearch"
+                             PlaceholderText="{loc:Localize Learn_SearchPlaceholder}"
+                             TextChanged="OnLessonSearchChanged"
+                             AutomationProperties.Name="{loc:Localize Learn_SearchPlaceholder}"
+                             AutomationProperties.AutomationId="LessonSearch" />
+                    <Button x:Name="ClearSearchButton"
+                            Grid.Column="1"
+                            Classes="quiet"
+                            Content="{loc:Localize Learn_SearchClear}"
+                            IsVisible="False"
+                            Click="OnClearSearchClicked"
+                            AutomationProperties.AutomationId="ClearLessonSearch" />
+                </Grid>
+                <TextBlock x:Name="SearchStatusText"
+                           IsVisible="False"
+                           TextWrapping="Wrap"
+                           Classes="muted"
+                           AutomationProperties.LiveSetting="Polite"
+                           AutomationProperties.AutomationId="LessonSearchStatus" />
                 <Grid AutomationProperties.AutomationId="CourseUnits">
                     <Border Width="3"
                             Margin="30,26,0,56"
@@ -206,7 +223,8 @@
                     </ItemsControl>
                 </Grid>
 
-                <controls:PaperCard Classes="soft"
+                <controls:PaperCard x:Name="PlannedPathCard"
+                                    Classes="soft"
                                     Margin="64,0,0,0"
                                     Padding="20"
                                     AutomationProperties.AutomationId="CoursePlannedPath">

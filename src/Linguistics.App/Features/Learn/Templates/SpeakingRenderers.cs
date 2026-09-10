@@ -2,6 +2,8 @@ using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Input;
+using Linguistics.App.Localization;
 using Avalonia.Media;
 using System.Diagnostics;
 using System.Globalization;
@@ -87,7 +89,7 @@ internal static class SpeakingComparisonCard
                 TemplateOutcomeState.Failure => "Anderer Text.",
                 _ => string.Empty,
             },
-            PlaceholderText = "Type the wording you practiced",
+            PlaceholderText = AppStrings.Get("Speaking_Placeholder"),
             MaxLength = 500,
         };
         AutomationProperties.SetAutomationId(responseBox, $"{prefix}TextResponse");
@@ -96,7 +98,7 @@ internal static class SpeakingComparisonCard
             "Typed wording for the complete microphone-free comparison");
         var compareButton = new Button
         {
-            Content = "Compare typed wording",
+            Content = AppStrings.Get("Speaking_Check"),
             Classes = { "primary" },
         };
         AutomationProperties.SetAutomationId(compareButton, $"{prefix}CompareText");
@@ -104,21 +106,21 @@ internal static class SpeakingComparisonCard
             compareButton,
             "Compare typed wording. This does not assess pronunciation");
 
-        var voiceButton = new Button { Content = "Use local microphone", Classes = { "quiet" } };
+        var voiceButton = new Button { Content = AppStrings.Get("Speaking_Microphone"), Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(voiceButton, $"{prefix}RequestMicrophone");
         AutomationProperties.SetName(
             voiceButton,
             "Review the local microphone disclosure before optional recognition");
         var confirmButton = new Button
         {
-            Content = "Start local recognition",
+            Content = AppStrings.Get("Speaking_Start"),
             Classes = { "primary" },
         };
         AutomationProperties.SetAutomationId(confirmButton, $"{prefix}ConfirmMicrophone");
         AutomationProperties.SetName(
             confirmButton,
             "Start local microphone recognition for up to fifteen seconds");
-        var dismissButton = new Button { Content = "Keep typing", Classes = { "quiet" } };
+        var dismissButton = new Button { Content = AppStrings.Get("Speaking_KeepTyping"), Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(dismissButton, $"{prefix}DismissMicrophone");
         AutomationProperties.SetName(dismissButton, "Dismiss microphone disclosure and keep typing");
         var consentActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
@@ -127,12 +129,12 @@ internal static class SpeakingComparisonCard
         var consentCopy = new StackPanel { Spacing = 8 };
         consentCopy.Children.Add(new TextBlock
         {
-            Text = "A local speech process will use the microphone for up to 15 seconds.",
+            Text = AppStrings.Get("Speaking_Consent"),
             TextWrapping = TextWrapping.Wrap,
         });
         consentCopy.Children.Add(new TextBlock
         {
-            Text = "Audio is not retained. You can cancel or keep typing.",
+            Text = AppStrings.Get("Speaking_Privacy"),
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
         });
@@ -160,12 +162,12 @@ internal static class SpeakingComparisonCard
         var recognitionStatus = new TextBlock
         {
             Text = useTextOnlyFallback
-                ? "Text-only practice is active. Pronunciation is not assessed."
+                ? AppStrings.Get("Speaking_TextOnly")
                 : recognitionConfigured
-                    ? "Optional local recognition is available after confirmation."
+                    ? AppStrings.Get("Speaking_Ready")
                     : microphoneAllowed
-                        ? "Local recognition is unavailable. Typed practice remains complete."
-                        : "Your microphone preference is off. Typed practice remains complete.",
+                        ? AppStrings.Get("Speaking_Unavailable")
+                        : AppStrings.Get("Speaking_Off"),
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
         };
@@ -173,7 +175,7 @@ internal static class SpeakingComparisonCard
         AutomationProperties.SetLiveSetting(recognitionStatus, AutomationLiveSetting.Polite);
         var evidenceLimit = new TextBlock
         {
-            Text = "Recognition can show intelligibility and word differences. It cannot score phonemes, accent, or native-likeness.",
+            Text = AppStrings.Get("Speaking_Limits"),
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
         };
@@ -189,17 +191,27 @@ internal static class SpeakingComparisonCard
         var responseActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
         responseActions.Children.Add(compareButton);
         responseActions.Children.Add(voiceButton);
+        var cancelButton = new Button
+        {
+            Content = AppStrings.Get("Speaking_Cancel"),
+            Classes = { "quiet" },
+            IsVisible = false,
+        };
+        AutomationProperties.SetAutomationId(cancelButton,
+            AutomationProperties.GetAutomationId(voiceButton) + "Cancel");
+        AutomationProperties.SetName(cancelButton, AppStrings.Get("Speaking_Cancel"));
+        responseActions.Children.Add(cancelButton);
         var practiceCopy = new StackPanel { Spacing = 9 };
         practiceCopy.Children.Add(new TextBlock
         {
-            Text = "Microphone-free route",
+            Text = AppStrings.Get("Speaking_Answer"),
             FontWeight = FontWeight.SemiBold,
         });
         practiceCopy.Children.Add(responseBox);
         practiceCopy.Children.Add(responseActions);
         practiceCopy.Children.Add(consentPanel);
         practiceCopy.Children.Add(recognitionStatus);
-        practiceCopy.Children.Add(evidenceLimit);
+        consentCopy.Children.Insert(2, evidenceLimit);
         practiceCopy.Children.Add(comparisonText);
         var practiceCard = new PaperCard
         {
@@ -218,11 +230,21 @@ internal static class SpeakingComparisonCard
                 responseBox.Text);
             TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, outcomeCopy);
             comparisonText.Text = string.IsNullOrWhiteSpace(responseBox.Text)
-                ? "No typed wording was provided. Pronunciation was not assessed."
-                : $"Typed wording: {responseBox.Text.Trim()}";
+                ? AppStrings.Get("Speaking_Empty")
+                : outcome.State == TemplateOutcomeState.Failure
+                    ? AppStrings.Format("Speaking_TryPhrase", acceptedTranscripts[0].Label)
+                    : AppStrings.Format("Speaking_Typed", responseBox.Text.Trim());
             comparisonText.IsVisible = true;
-            recognitionStatus.Text = "Typed wording was compared. Pronunciation was not assessed.";
+            recognitionStatus.Text = AppStrings.Get("Speaking_CheckedText");
             reportOutcome(outcome);
+        };
+        responseBox.KeyDown += (_, args) =>
+        {
+            if (args.Key == Key.Enter && compareButton.IsEnabled)
+            {
+                compareButton.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+                args.Handled = true;
+            }
         };
         voiceButton.Click += (_, _) => consentPanel.IsVisible = true;
         dismissButton.Click += (_, _) => consentPanel.IsVisible = false;
@@ -230,6 +252,7 @@ internal static class SpeakingComparisonCard
         var availabilityCancellation = new CancellationTokenSource();
         CancellationTokenSource? recognitionCancellation = null;
         Guid? activeRequestId = null;
+        cancelButton.Click += (_, _) => recognitionCancellation?.Cancel();
         confirmButton.Click += async (_, _) =>
         {
             if (!recognitionConfigured ||
@@ -238,13 +261,14 @@ internal static class SpeakingComparisonCard
                 speechLanguage is not { } language)
             {
                 consentPanel.IsVisible = false;
-                recognitionStatus.Text = "Local recognition is unavailable. Typed practice remains complete.";
+                recognitionStatus.Text = AppStrings.Get("Speaking_Unavailable");
                 return;
             }
 
             recognitionCancellation?.Cancel();
             recognitionCancellation?.Dispose();
             recognitionCancellation = new CancellationTokenSource();
+            var recognitionToken = recognitionCancellation.Token;
             var request = new SpeechRecognitionRequest(
                 Guid.NewGuid(),
                 language,
@@ -253,12 +277,17 @@ internal static class SpeakingComparisonCard
             activeRequestId = request.RequestId;
             consentPanel.IsVisible = false;
             voiceButton.IsEnabled = false;
-            recognitionStatus.Text = "Microphone active. Recognition remains local and audio is not retained.";
+            compareButton.IsEnabled = false;
+            responseBox.IsEnabled = false;
+            cancelButton.IsVisible = true;
+            comparisonText.IsVisible = false;
+            recognitionStatus.Text = AppStrings.Get("Speaking_Listening");
             try
             {
                 var result = await speechRecognitionProvider.RecognizeAsync(
                     request,
-                    recognitionCancellation.Token);
+                    recognitionToken);
+                recognitionToken.ThrowIfCancellationRequested();
                 if (activeRequestId != result.RequestId)
                 {
                     return;
@@ -293,7 +322,7 @@ internal static class SpeakingComparisonCard
                         outcome.State,
                         outcomeCopy);
                     comparisonText.Text =
-                        $"Expected: {best.Option.Label}{Environment.NewLine}Recognized: {result.Transcript}";
+                        AppStrings.Format("Speaking_Heard", best.Option.Label, result.Transcript);
                     comparisonText.IsVisible = true;
                     recognitionStatus.Text = best.Assessment.Message;
                     reportOutcome(outcome);
@@ -317,11 +346,11 @@ internal static class SpeakingComparisonCard
             }
             catch (OperationCanceledException)
             {
-                recognitionStatus.Text = "Recognition cancelled. Typed practice remains complete.";
+                recognitionStatus.Text = AppStrings.Get("Speaking_Cancelled");
             }
             catch (Exception)
             {
-                recognitionStatus.Text = "Local recognition failed. Typed practice remains complete.";
+                recognitionStatus.Text = AppStrings.Get("Speaking_Failed");
             }
             finally
             {
@@ -329,6 +358,9 @@ internal static class SpeakingComparisonCard
                 {
                     activeRequestId = null;
                     voiceButton.IsEnabled = recognitionConfigured;
+                    compareButton.IsEnabled = true;
+                    responseBox.IsEnabled = true;
+                    cancelButton.IsVisible = false;
                 }
             }
         };
@@ -347,8 +379,8 @@ internal static class SpeakingComparisonCard
                 recognitionConfigured = snapshot.Status == SpeechCapabilityStatus.Available;
                 voiceButton.IsEnabled = recognitionConfigured;
                 recognitionStatus.Text = recognitionConfigured
-                    ? "Optional local recognition is available after confirmation."
-                    : $"{snapshot.Message} Typed practice remains complete.";
+                    ? AppStrings.Get("Speaking_Ready")
+                    : AppStrings.Get("Speaking_Unavailable");
             }
             catch (OperationCanceledException)
             {
@@ -357,7 +389,7 @@ internal static class SpeakingComparisonCard
             {
                 recognitionConfigured = false;
                 voiceButton.IsEnabled = false;
-                recognitionStatus.Text = "Local recognition check failed. Typed practice remains complete.";
+                recognitionStatus.Text = AppStrings.Get("Speaking_Unavailable");
             }
         };
         practiceCard.DetachedFromVisualTree += (_, _) =>
@@ -485,30 +517,30 @@ internal static class EchoStageRenderer
                 TemplateOutcomeState.Failure => "Ich nehme einen Kaffee.",
                 _ => string.Empty,
             },
-            PlaceholderText = "Type what you said",
+            PlaceholderText = AppStrings.Get("Speaking_Placeholder"),
             MaxLength = 500,
         };
         AutomationProperties.SetAutomationId(responseBox, "EchoStageTextResponse");
         AutomationProperties.SetName(
             responseBox,
             "Typed wording for the microphone-free echo comparison");
-        var compareButton = new Button { Content = "Compare typed wording", Classes = { "primary" } };
+        var compareButton = new Button { Content = AppStrings.Get("Speaking_Check"), Classes = { "primary" } };
         AutomationProperties.SetAutomationId(compareButton, "EchoStageCompareText");
         AutomationProperties.SetName(
             compareButton,
             "Compare typed wording. This does not assess pronunciation");
 
-        var voiceButton = new Button { Content = "Use local microphone", Classes = { "quiet" } };
+        var voiceButton = new Button { Content = AppStrings.Get("Speaking_Microphone"), Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(voiceButton, "EchoStageRequestMicrophone");
         AutomationProperties.SetName(
             voiceButton,
             "Review the local microphone disclosure before optional echo recognition");
-        var confirmButton = new Button { Content = "Start local recognition", Classes = { "primary" } };
+        var confirmButton = new Button { Content = AppStrings.Get("Speaking_Start"), Classes = { "primary" } };
         AutomationProperties.SetAutomationId(confirmButton, "EchoStageConfirmMicrophone");
         AutomationProperties.SetName(
             confirmButton,
             "Start local microphone recognition for up to fifteen seconds");
-        var dismissButton = new Button { Content = "Keep typing", Classes = { "quiet" } };
+        var dismissButton = new Button { Content = AppStrings.Get("Speaking_KeepTyping"), Classes = { "quiet" } };
         AutomationProperties.SetAutomationId(dismissButton, "EchoStageDismissMicrophone");
         AutomationProperties.SetName(dismissButton, "Dismiss microphone disclosure and keep typing");
         var consentActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
@@ -517,12 +549,12 @@ internal static class EchoStageRenderer
         var consentCopy = new StackPanel { Spacing = 8 };
         consentCopy.Children.Add(new TextBlock
         {
-            Text = "A local speech process will use the microphone for up to 15 seconds.",
+            Text = AppStrings.Get("Speaking_Consent"),
             TextWrapping = TextWrapping.Wrap,
         });
         consentCopy.Children.Add(new TextBlock
         {
-            Text = "Audio is not retained. You can cancel or keep typing.",
+            Text = AppStrings.Get("Speaking_Privacy"),
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
         });
@@ -550,12 +582,12 @@ internal static class EchoStageRenderer
         var recognitionStatus = new TextBlock
         {
             Text = parameters.UseTextOnlyFallback
-                ? "Text-only practice is active. Pronunciation is not assessed."
+                ? AppStrings.Get("Speaking_TextOnly")
                 : recognitionConfigured
-                    ? "Optional local recognition is available after confirmation."
+                    ? AppStrings.Get("Speaking_Ready")
                     : microphoneAllowed
-                        ? "Local recognition is unavailable. Typed practice remains complete."
-                        : "Your microphone preference is off. Typed practice remains complete.",
+                        ? AppStrings.Get("Speaking_Unavailable")
+                        : AppStrings.Get("Speaking_Off"),
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
         };
@@ -563,7 +595,7 @@ internal static class EchoStageRenderer
         AutomationProperties.SetLiveSetting(recognitionStatus, AutomationLiveSetting.Polite);
         var evidenceLimit = new TextBlock
         {
-            Text = "Recognition can show intelligibility and word differences. It cannot score phonemes, accent, or native-likeness.",
+            Text = AppStrings.Get("Speaking_Limits"),
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
         };
@@ -583,17 +615,27 @@ internal static class EchoStageRenderer
         var responseActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
         responseActions.Children.Add(compareButton);
         responseActions.Children.Add(voiceButton);
+        var cancelButton = new Button
+        {
+            Content = AppStrings.Get("Speaking_Cancel"),
+            Classes = { "quiet" },
+            IsVisible = false,
+        };
+        AutomationProperties.SetAutomationId(cancelButton,
+            AutomationProperties.GetAutomationId(voiceButton) + "Cancel");
+        AutomationProperties.SetName(cancelButton, AppStrings.Get("Speaking_Cancel"));
+        responseActions.Children.Add(cancelButton);
         var practiceCopy = new StackPanel { Spacing = 9 };
         practiceCopy.Children.Add(new TextBlock
         {
-            Text = "Microphone-free route",
+            Text = AppStrings.Get("Speaking_Answer"),
             FontWeight = FontWeight.SemiBold,
         });
         practiceCopy.Children.Add(responseBox);
         practiceCopy.Children.Add(responseActions);
         practiceCopy.Children.Add(consentPanel);
         practiceCopy.Children.Add(recognitionStatus);
-        practiceCopy.Children.Add(evidenceLimit);
+        consentCopy.Children.Insert(2, evidenceLimit);
         practiceCopy.Children.Add(comparisonText);
         var practiceCard = new PaperCard
         {
@@ -612,11 +654,21 @@ internal static class EchoStageRenderer
                 responseBox.Text);
             TemplateRendering.ApplyOutcome(outcomePanel, outcomeText, outcome.State, OutcomeCopy);
             comparisonText.Text = string.IsNullOrWhiteSpace(responseBox.Text)
-                ? "No typed wording was provided. Pronunciation was not assessed."
-                : $"Typed wording: {responseBox.Text.Trim()}";
+                ? AppStrings.Get("Speaking_Empty")
+                : outcome.State == TemplateOutcomeState.Failure
+                    ? AppStrings.Format("Speaking_TryPhrase", acceptedTranscripts[0].Label)
+                    : AppStrings.Format("Speaking_Typed", responseBox.Text.Trim());
             comparisonText.IsVisible = true;
-            recognitionStatus.Text = "Typed wording was compared. Pronunciation was not assessed.";
+            recognitionStatus.Text = AppStrings.Get("Speaking_CheckedText");
             reportOutcome(outcome);
+        };
+        responseBox.KeyDown += (_, args) =>
+        {
+            if (args.Key == Key.Enter && compareButton.IsEnabled)
+            {
+                compareButton.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+                args.Handled = true;
+            }
         };
         voiceButton.Click += (_, _) => consentPanel.IsVisible = true;
         dismissButton.Click += (_, _) => consentPanel.IsVisible = false;
@@ -624,6 +676,7 @@ internal static class EchoStageRenderer
         var availabilityCancellation = new CancellationTokenSource();
         CancellationTokenSource? recognitionCancellation = null;
         Guid? activeRequestId = null;
+        cancelButton.Click += (_, _) => recognitionCancellation?.Cancel();
         confirmButton.Click += async (_, _) =>
         {
             if (!recognitionConfigured ||
@@ -632,13 +685,14 @@ internal static class EchoStageRenderer
                 speechLanguage is not { } language)
             {
                 consentPanel.IsVisible = false;
-                recognitionStatus.Text = "Local recognition is unavailable. Typed practice remains complete.";
+                recognitionStatus.Text = AppStrings.Get("Speaking_Unavailable");
                 return;
             }
 
             recognitionCancellation?.Cancel();
             recognitionCancellation?.Dispose();
             recognitionCancellation = new CancellationTokenSource();
+            var recognitionToken = recognitionCancellation.Token;
             var request = new SpeechRecognitionRequest(
                 Guid.NewGuid(),
                 language,
@@ -647,12 +701,17 @@ internal static class EchoStageRenderer
             activeRequestId = request.RequestId;
             consentPanel.IsVisible = false;
             voiceButton.IsEnabled = false;
-            recognitionStatus.Text = "Microphone active. Recognition remains local and audio is not retained.";
+            compareButton.IsEnabled = false;
+            responseBox.IsEnabled = false;
+            cancelButton.IsVisible = true;
+            comparisonText.IsVisible = false;
+            recognitionStatus.Text = AppStrings.Get("Speaking_Listening");
             try
             {
                 var result = await speechRecognitionProvider.RecognizeAsync(
                     request,
-                    recognitionCancellation.Token);
+                    recognitionToken);
+                recognitionToken.ThrowIfCancellationRequested();
                 if (activeRequestId != result.RequestId)
                 {
                     return;
@@ -698,11 +757,11 @@ internal static class EchoStageRenderer
             }
             catch (OperationCanceledException)
             {
-                recognitionStatus.Text = "Recognition cancelled. Typed practice remains complete.";
+                recognitionStatus.Text = AppStrings.Get("Speaking_Cancelled");
             }
             catch (Exception)
             {
-                recognitionStatus.Text = "Local recognition failed. Typed practice remains complete.";
+                recognitionStatus.Text = AppStrings.Get("Speaking_Failed");
             }
             finally
             {
@@ -710,6 +769,9 @@ internal static class EchoStageRenderer
                 {
                     activeRequestId = null;
                     voiceButton.IsEnabled = recognitionConfigured;
+                    compareButton.IsEnabled = true;
+                    responseBox.IsEnabled = true;
+                    cancelButton.IsVisible = false;
                 }
             }
         };
@@ -777,8 +839,8 @@ internal static class EchoStageRenderer
                 recognitionConfigured = snapshot.Status == SpeechCapabilityStatus.Available;
                 voiceButton.IsEnabled = recognitionConfigured;
                 recognitionStatus.Text = recognitionConfigured
-                    ? "Optional local recognition is available after confirmation."
-                    : $"{snapshot.Message} Typed practice remains complete.";
+                    ? AppStrings.Get("Speaking_Ready")
+                    : AppStrings.Get("Speaking_Unavailable");
             }
             catch (OperationCanceledException)
             {
@@ -787,7 +849,7 @@ internal static class EchoStageRenderer
             {
                 recognitionConfigured = false;
                 voiceButton.IsEnabled = false;
-                recognitionStatus.Text = "Local recognition check failed. Typed practice remains complete.";
+                recognitionStatus.Text = AppStrings.Get("Speaking_Unavailable");
             }
         };
         root.DetachedFromVisualTree += (_, _) =>
@@ -813,10 +875,10 @@ internal static class EchoStageRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "The authored wording matched, or local recognition found it intelligible.",
-        TemplateOutcomeState.Uncertain => "No complete comparison yet, or local recognition found only partial evidence.",
-        TemplateOutcomeState.Failure => "The wording differed, or local recognition found substantial intelligibility loss.",
-        _ => "Ready: listen or read, echo aloud if you wish, then choose a local comparison path.",
+        TemplateOutcomeState.Success => AppStrings.Get("Speaking_Success"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("Speaking_Uncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("Speaking_Retry"),
+        _ => AppStrings.Get("Speaking_Ready"),
     };
 }
 
@@ -997,10 +1059,10 @@ internal static class ReadAloudCardRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "The wording matched, or local recognition found the card intelligible.",
-        TemplateOutcomeState.Uncertain => "No complete comparison yet, or local recognition found partial intelligibility.",
-        TemplateOutcomeState.Failure => "The wording differed, or local recognition found substantial intelligibility loss.",
-        _ => "Ready: read the card aloud or silently, then choose a local comparison path.",
+        TemplateOutcomeState.Success => AppStrings.Get("Speaking_Success"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("Speaking_Uncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("Speaking_Retry"),
+        _ => AppStrings.Get("Speaking_Ready"),
     };
 }
 
@@ -1233,10 +1295,10 @@ internal static class PromptRespondRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "The response matches an authored answer, or local recognition found one intelligible.",
-        TemplateOutcomeState.Uncertain => "No complete response yet, or local recognition found partial evidence.",
-        TemplateOutcomeState.Failure => "The response differs from the authored answers, or intelligibility was substantially reduced.",
-        _ => "Ready: hear or read the puppet prompt, then answer by voice or text.",
+        TemplateOutcomeState.Success => AppStrings.Get("Speaking_Success"),
+        TemplateOutcomeState.Uncertain => AppStrings.Get("Speaking_Uncertain"),
+        TemplateOutcomeState.Failure => AppStrings.Get("Speaking_Retry"),
+        _ => AppStrings.Get("Speaking_Ready"),
     };
 }
 

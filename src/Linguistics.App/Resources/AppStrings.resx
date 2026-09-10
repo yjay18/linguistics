@@ -217,31 +217,31 @@
     <value>Languages</value>
   </data>
   <data name="Nav_Learn_Description" xml:space="preserve">
-    <value>Explore short goals, examples, activities, and recaps in your course path.</value>
+    <value>Find a lesson, try an activity, and pick up where you left off.</value>
   </data>
   <data name="Nav_Learn_Title" xml:space="preserve">
     <value>Learn</value>
   </data>
   <data name="Nav_Progress_Description" xml:space="preserve">
-    <value>See practical capabilities first, with concept evidence as supporting detail.</value>
+    <value>See what you can do and what to practice next.</value>
   </data>
   <data name="Nav_Progress_Title" xml:space="preserve">
     <value>Progress</value>
   </data>
   <data name="Nav_Pronunciation_Description" xml:space="preserve">
-    <value>Practice reviewed phrases with system playback and honest local recognition evidence.</value>
+    <value>Listen to a phrase, then practice saying it.</value>
   </data>
   <data name="Nav_Pronunciation_Title" xml:space="preserve">
     <value>Pronunciation</value>
   </data>
   <data name="Nav_Review_Description" xml:space="preserve">
-    <value>Retrieve due phrases, concepts, pronunciation targets, and recurring forms.</value>
+    <value>A quick refresher on what you have learned.</value>
   </data>
   <data name="Nav_Review_Title" xml:space="preserve">
     <value>Review</value>
   </data>
   <data name="Nav_Scenarios_Description" xml:space="preserve">
-    <value>Practice a complete café exchange with deterministic feedback and local progress.</value>
+    <value>Put your German to work in a café conversation.</value>
   </data>
   <data name="Nav_Scenarios_Title" xml:space="preserve">
     <value>Scenarios</value>
@@ -253,7 +253,7 @@
     <value>Settings</value>
   </data>
   <data name="Nav_Today_Description" xml:space="preserve">
-    <value>Choose one calm next step from your local learning evidence.</value>
+    <value>A little practice, one step at a time.</value>
   </data>
   <data name="Nav_Today_Title" xml:space="preserve">
     <value>Today</value>
@@ -295,16 +295,16 @@
     <value>Try again</value>
   </data>
   <data name="Learn_Availability_Preview" xml:space="preserve">
-    <value>{0} lessons are available in this local preview.</value>
+    <value>{0} lessons to explore. Content review is still in progress.</value>
   </data>
   <data name="Learn_Availability_Ready" xml:space="preserve">
-    <value>{0} approved lessons are ready on this device.</value>
+    <value>{0} lessons ready to explore.</value>
   </data>
   <data name="Learn_CapacityComplete" xml:space="preserve">
-    <value>The planned course capacity is fully authored.</value>
+    <value>Start at the beginning or choose a topic below.</value>
   </data>
   <data name="Learn_CapacityRemaining" xml:space="preserve">
-    <value>{0} more lessons need source work, review, and approval to reach the {1} lesson plan.</value>
+    <value>{0} more lessons are being prepared for this {1}-lesson course.</value>
   </data>
   <data name="Learn_CardPosition" xml:space="preserve">
     <value>Card {0} of {1}</value>
@@ -316,7 +316,7 @@
     <value>Course map</value>
   </data>
   <data name="Learn_CoursePath_Body" xml:space="preserve">
-    <value>Choose any available lesson. Reviewed prerequisites keep each session short.</value>
+    <value>Choose a lesson or search for a topic. Your place is saved as you go.</value>
   </data>
   <data name="Learn_CoursePath_Title" xml:space="preserve">
     <value>Course path</value>
@@ -352,16 +352,16 @@
     <value>Open lesson {0}. {1}</value>
   </data>
   <data name="Learn_Outcome_Failure" xml:space="preserve">
-    <value>Practice result: the deterministic check did not match yet. Try again.</value>
+    <value>Not quite yet. Check the hint and try again.</value>
   </data>
   <data name="Learn_Outcome_Ready" xml:space="preserve">
     <value>Practice is ready.</value>
   </data>
   <data name="Learn_Outcome_Success" xml:space="preserve">
-    <value>Practice result: the deterministic check matched this response.</value>
+    <value>You got it. Continue when you are ready.</value>
   </data>
   <data name="Learn_Outcome_Uncertain" xml:space="preserve">
-    <value>Practice result: the deterministic check needs a complete response.</value>
+    <value>Give it another try with a complete answer.</value>
   </data>
   <data name="Learn_PreviewVisit" xml:space="preserve">
     <value>You explored {0}. This preview did not change mastery.</value>
@@ -391,7 +391,7 @@
     <value>Your turn</value>
   </data>
   <data name="Learn_Slide_Activity_Supporting" xml:space="preserve">
-    <value>The app checks the task with deterministic rules.</value>
+    <value>Try an answer and check how you did.</value>
   </data>
   <data name="Learn_Slide_Example_Eyebrow" xml:space="preserve">
     <value>Example</value>
@@ -418,7 +418,7 @@
     <value>Recap</value>
   </data>
   <data name="Learn_Slide_Recap_Supporting" xml:space="preserve">
-    <value>Completing this lesson records a visit. Mastery still requires assessed evidence.</value>
+    <value>Finish to save this lesson visit. Keep practicing to build your skills.</value>
   </data>
   <data name="Learn_Slide_Welcome_Eyebrow" xml:space="preserve">
     <value>Lesson goal</value>
@@ -481,7 +481,7 @@
     <value>You explored {0}, but this visit could not be saved. Mastery was not changed.</value>
   </data>
   <data name="Learn_VisitSaved" xml:space="preserve">
-    <value>Your visit to {0} was saved locally. Mastery changes only through assessed practice.</value>
+    <value>Your visit to {0} is saved. Ready for another lesson?</value>
   </data>
   <data name="Startup_ConfirmRecovery_Action" xml:space="preserve">
     <value>Confirm preserve and start fresh</value>
@@ -529,7 +529,7 @@
     <value>Enter the café</value>
   </data>
   <data name="Today_FirstScenario_Explanation" xml:space="preserve">
-    <value>Practice a complete local task with text. Speech remains optional.</value>
+    <value>Order a drink and practice a short conversation. Type or speak. It is up to you.</value>
   </data>
   <data name="Today_FirstScenario_Headline" xml:space="preserve">
     <value>Handle your first café exchange</value>
@@ -538,7 +538,7 @@
     <value>Reading your local learning state...</value>
   </data>
   <data name="Today_LocalOnly" xml:space="preserve">
-    <value>Everything comes from this device. Today makes no network request and stores no analytics.</value>
+    <value>Your learning stays on this device.</value>
   </data>
   <data name="Today_NextMove" xml:space="preserve">
     <value>YOUR NEXT MOVE</value>
@@ -556,7 +556,7 @@
     <value>pronunciation tries</value>
   </data>
   <data name="Today_Pronunciation_Explanation" xml:space="preserve">
-    <value>Use system playback, then speak locally or follow the complete text-only path.</value>
+    <value>Listen, then try the phrase yourself. You can also type your answer.</value>
   </data>
   <data name="Today_Pronunciation_Headline" xml:space="preserve">
     <value>Hear and rehearse the café phrase</value>
@@ -616,7 +616,7 @@
     <value>A capability is demonstrated only after a stored task attempt says the practical goal succeeded.</value>
   </data>
   <data name="Progress_Method_BodyTwo" xml:space="preserve">
-    <value>Other evidence stays separate. Versioned deterministic rules can strengthen a concept or return it to practice.</value>
+    <value>Practice results help identify what you know and what needs another try.</value>
   </data>
   <data name="Progress_Method_Title" xml:space="preserve">
     <value>How this is calculated</value>
@@ -661,7 +661,7 @@
     <value>now</value>
   </data>
   <data name="Review_Empty_Body" xml:space="preserve">
-    <value>Complete a learning task or pronunciation attempt. The deterministic queue will prepare the next review.</value>
+    <value>Try a lesson or a speaking activity. Your next reviews will appear here.</value>
   </data>
   <data name="Review_Empty_Title" xml:space="preserve">
     <value>Nothing is due</value>
@@ -730,7 +730,7 @@
     <value>Again. Not yet</value>
   </data>
   <data name="Review_Rating_Body" xml:space="preserve">
-    <value>Your choice is evidence. Deterministic code, not a model, sets the next due time.</value>
+    <value>Choose how easily you remembered it. This helps plan your next review.</value>
   </data>
   <data name="Review_Rating_Easy" xml:space="preserve">
     <value>Easy. Immediate</value>
@@ -764,7 +764,7 @@
   <data name="Scenario_CancelRecording" xml:space="preserve"><value>Cancel recording</value></data>
   <data name="Scenario_CancelResponse" xml:space="preserve"><value>Cancel local response</value></data>
   <data name="Scenario_CancellingResponse" xml:space="preserve"><value>Cancelling the optional local response. Scripted recovery remains available.</value></data>
-  <data name="Scenario_CheckingTask" xml:space="preserve"><value>Checking the deterministic task, then asking the optional local renderer...</value></data>
+  <data name="Scenario_CheckingTask" xml:space="preserve"><value>Checking your answer…</value></data>
   <data name="Scenario_Completed_Body" xml:space="preserve"><value>You accomplished the café goal. Accuracy and fluency remain separate. Typed text creates no pronunciation score.</value></data>
   <data name="Scenario_Completed_Title" xml:space="preserve"><value>Order understood</value></data>
   <data name="Scenario_DialogueReady" xml:space="preserve"><value>Scripted dialogue is ready. Type or use configured local speech. A selected local model can vary only an allowed server line.</value></data>
@@ -784,7 +784,7 @@
   <data name="Scenario_InputPlaceholder" xml:space="preserve"><value>Type in German...</value></data>
   <data name="Scenario_Loading" xml:space="preserve"><value>Checking local learning readiness...</value></data>
   <data name="Scenario_LoadingName" xml:space="preserve"><value>Loading café scenario</value></data>
-  <data name="Scenario_LocalModelResponse" xml:space="preserve"><value>An allowed local model line was used after deterministic evaluation.</value></data>
+  <data name="Scenario_LocalModelResponse" xml:space="preserve"><value>Your conversation partner has replied.</value></data>
   <data name="Scenario_MicrophoneActive" xml:space="preserve"><value>Microphone active. Speak one short café reply. Processing stays local.</value></data>
   <data name="Scenario_MicrophoneDisclosure_Body" xml:space="preserve"><value>A local whisper.cpp process uses the microphone for up to 15 seconds. Audio stays on this device and is not retained. You can cancel.</value></data>
   <data name="Scenario_MicrophoneDisclosure_Title" xml:space="preserve"><value>Before the microphone opens</value></data>
@@ -795,7 +795,7 @@
   <data name="Scenario_NotMeasured" xml:space="preserve"><value>not measured</value></data>
   <data name="Scenario_NotNow" xml:space="preserve"><value>Not now</value></data>
   <data name="Scenario_OtherObservations" xml:space="preserve"><value>Smaller observations</value></data>
-  <data name="Scenario_PersistenceSaved" xml:space="preserve"><value>Saved locally. A deterministic review handoff was created.</value></data>
+  <data name="Scenario_PersistenceSaved" xml:space="preserve"><value>Progress saved. You can find follow-up practice in Review.</value></data>
   <data name="Scenario_PlayCaption" xml:space="preserve"><value>Play caption</value></data>
   <data name="Scenario_PlaybackStopped" xml:space="preserve"><value>Speech playback stopped. The caption remains in the conversation.</value></data>
   <data name="Scenario_Playing" xml:space="preserve"><value>Playing the server caption...</value></data>
@@ -813,9 +813,9 @@
   <data name="Scenario_Relation_Note" xml:space="preserve"><value>language note</value></data>
   <data name="Scenario_Relation_Partial" xml:space="preserve"><value>partial bridge</value></data>
   <data name="Scenario_ReplyRequired" xml:space="preserve"><value>Type a short reply before sending.</value></data>
-  <data name="Scenario_ResponseCancelled" xml:space="preserve"><value>The response was cancelled. The deterministic scenario remains consistent.</value></data>
+  <data name="Scenario_ResponseCancelled" xml:space="preserve"><value>Cancelled. You can try your answer again.</value></data>
   <data name="Scenario_RetrySave" xml:space="preserve"><value>Retry local save</value></data>
-  <data name="Scenario_ScriptedResponse" xml:space="preserve"><value>The validated scripted response was used after deterministic evaluation.</value></data>
+  <data name="Scenario_ScriptedResponse" xml:space="preserve"><value>Your conversation partner has replied.</value></data>
   <data name="Scenario_SendReply" xml:space="preserve"><value>Send reply</value></data>
   <data name="Scenario_Server" xml:space="preserve"><value>Server</value></data>
   <data name="Scenario_Slower" xml:space="preserve"><value>Slower</value></data>
@@ -903,7 +903,7 @@
   <data name="Template_ObjectSpotlight_Stage" xml:space="preserve"><value>Object spotlight for {0}</value></data>
   <data name="Template_ObjectSpotlight_Success" xml:space="preserve"><value>Seen: the word, article, and meaning are together.</value></data>
   <data name="Template_ObjectSpotlight_Tape" xml:space="preserve"><value>OBJECT SPOTLIGHT</value></data>
-  <data name="Template_ObjectSpotlight_TextOnly" xml:space="preserve"><value>Text-only presentation: the authored word, article, and meaning remain complete.</value></data>
+  <data name="Template_ObjectSpotlight_TextOnly" xml:space="preserve"><value>Read the word, article, and meaning below.</value></data>
   <data name="Template_ObjectSpotlight_Uncertain" xml:space="preserve"><value>Pause on the article and meaning before moving on.</value></data>
   <data name="Template_PictureMatch_Failure" xml:space="preserve"><value>Not this one yet. Compare the labels and try again.</value></data>
   <data name="Template_PictureMatch_Prompt" xml:space="preserve"><value>Picture match prompt. {0}</value></data>
@@ -911,7 +911,7 @@
   <data name="Template_PictureMatch_Stage" xml:space="preserve"><value>Picture match. {0}</value></data>
   <data name="Template_PictureMatch_Success" xml:space="preserve"><value>Matched. The chosen cutout carries the target word.</value></data>
   <data name="Template_PictureMatch_Tape" xml:space="preserve"><value>CHOOSE ONE</value></data>
-  <data name="Template_PictureMatch_TextOnly" xml:space="preserve"><value>Text-only match: every choice keeps its complete authored label.</value></data>
+  <data name="Template_PictureMatch_TextOnly" xml:space="preserve"><value>Read each option and choose the matching meaning.</value></data>
   <data name="Template_PictureMatch_Uncertain" xml:space="preserve"><value>Choose one complete option before the match can be checked.</value></data>
   <data name="Template_PlayTarget" xml:space="preserve"><value>Play {0}</value></data>
   <data name="Template_PlayTarget_Automation" xml:space="preserve"><value>Play the target word {0} with local system speech</value></data>
@@ -939,7 +939,7 @@
   <data name="Template_WordOrder_SlotStart" xml:space="preserve"><value>START</value></data>
   <data name="Template_WordOrder_SlotVerbTwo" xml:space="preserve"><value>VERB 2</value></data>
   <data name="Template_WordOrder_Stage" xml:space="preserve"><value>Word order train construction stage</value></data>
-  <data name="Template_WordOrder_Success" xml:space="preserve"><value>The train reads in the authored order.</value></data>
+  <data name="Template_WordOrder_Success" xml:space="preserve"><value>The words are in the right order.</value></data>
   <data name="Template_WordOrder_Tape" xml:space="preserve"><value>BUILD THE REQUEST</value></data>
   <data name="Template_WordOrder_TextOnly" xml:space="preserve"><value>Text-only construction: every word and action remains keyboard operable.</value></data>
   <data name="Template_WordOrder_Uncertain" xml:space="preserve"><value>The train needs every word before it can be checked.</value></data>
@@ -1018,7 +1018,7 @@
   <data name="Onboarding_Shortcut_Ask_Label" xml:space="preserve"><value>Ask first</value></data>
   <data name="Onboarding_Shortcut_Preferred_Label" xml:space="preserve"><value>One preferred language</value></data>
   <data name="Onboarding_Shortcut_Never_Label" xml:space="preserve"><value>Never</value></data>
-  <data name="Onboarding_Instruction_Fallback" xml:space="preserve"><value>Automatic and Ask first use eligible languages in stable code order. An unavailable preference falls back deterministically.</value></data>
+  <data name="Onboarding_Instruction_Fallback" xml:space="preserve"><value>If your preferred language is unavailable, another supported language will be used.</value></data>
   <data name="Onboarding_Instruction_Ineligible" xml:space="preserve"><value>Choose a known, readable language that is allowed for explanations.</value></data>
   <data name="Onboarding_Instruction_NoCatalog" xml:space="preserve"><value>Instruction routing will apply when validated content is available.</value></data>
   <data name="Onboarding_Instruction_None" xml:space="preserve"><value>None available</value></data>
@@ -1046,14 +1046,14 @@
   <data name="Onboarding_Summary_Microphone" xml:space="preserve"><value>Microphone: {0}</value></data>
   <data name="Onboarding_Summary_SpeechRetention" xml:space="preserve"><value>Speech audio: Never retained</value></data>
   <data name="Onboarding_Summary_Motion" xml:space="preserve"><value>Reduce interface motion: {0}</value></data>
-  <data name="Learn_Journey_AuthoredTemplate" xml:space="preserve"><value>Authored template</value></data>
+  <data name="Learn_Journey_AuthoredTemplate" xml:space="preserve"><value>Interactive practice</value></data>
   <data name="Learn_Journey_Complete" xml:space="preserve"><value>The complete planned path is authored.</value></data>
-  <data name="Learn_Journey_GuidedCards" xml:space="preserve"><value>Guided cards</value></data>
+  <data name="Learn_Journey_GuidedCards" xml:space="preserve"><value>Guided lesson</value></data>
   <data name="Learn_Journey_Next" xml:space="preserve"><value>Next</value></data>
   <data name="Learn_Journey_Planned" xml:space="preserve"><value>Planned path</value></data>
-  <data name="Learn_Journey_PlannedBody" xml:space="preserve"><value>Future lessons stay visibly planned until reviewed content is authored.</value></data>
+  <data name="Learn_Journey_PlannedBody" xml:space="preserve"><value>More topics will appear here as they become available.</value></data>
   <data name="Learn_Journey_Preview" xml:space="preserve"><value>Preview</value></data>
-  <data name="Learn_Journey_Remaining" xml:space="preserve"><value>{0} planned lessons are not authored yet.</value></data>
+  <data name="Learn_Journey_Remaining" xml:space="preserve"><value>{0} more lessons are on the way.</value></data>
   <data name="Learn_Journey_Unit" xml:space="preserve"><value>Unit {0}</value></data>
   <data name="Learn_Journey_UnitAutomation" xml:space="preserve"><value>Unit {0}. {1}.</value></data>
   <data name="Learn_Player_Progress" xml:space="preserve"><value>Lesson path</value></data>
@@ -1070,13 +1070,13 @@
   <data name="ScenarioTheatre_GoalName" xml:space="preserve"><value>Scenario goal. {0} Context. {1}</value></data>
   <data name="ScenarioTheatre_StageName" xml:space="preserve"><value>Paper café scene. {0} says {1}</value></data>
   <data name="ScenarioTheatre_CafeCounter" xml:space="preserve"><value>CAFÉ COUNTER</value></data>
-  <data name="ScenarioTheatre_PaperSetActive" xml:space="preserve"><value>The complete authored paper set is active.</value></data>
+  <data name="ScenarioTheatre_PaperSetActive" xml:space="preserve"><value>Read the conversation and take your turn below.</value></data>
   <data name="ScenarioTheatre_SetName" xml:space="preserve"><value>Paper café counter set</value></data>
   <data name="ScenarioTheatre_NpcPuppet" xml:space="preserve"><value>CAFÉ PUPPET</value></data>
-  <data name="ScenarioTheatre_TextCharacter" xml:space="preserve"><value>Authored text-only character</value></data>
+  <data name="ScenarioTheatre_TextCharacter" xml:space="preserve"><value>Conversation partner</value></data>
   <data name="ScenarioTheatre_NpcName" xml:space="preserve"><value>Café puppet. {0}</value></data>
   <data name="ScenarioTheatre_NpcLineName" xml:space="preserve"><value>{0} says {1}</value></data>
-  <data name="ScenarioTheatre_TextMode" xml:space="preserve"><value>Authored text-only scene. Goal, dialogue, and controls remain complete.</value></data>
+  <data name="ScenarioTheatre_TextMode" xml:space="preserve"><value>Follow the conversation below.</value></data>
   <data name="ScenarioTheatre_LiveInstruction" xml:space="preserve"><value>Listen at the counter, then reply by text or optional local speech.</value></data>
   <data name="ScenarioTheatre_StateChooseItem" xml:space="preserve"><value>Choosing an item</value></data>
   <data name="ConsequenceVerdict_Instruction" xml:space="preserve"><value>Review the task consequence and its detailed evidence.</value></data>
@@ -1104,18 +1104,18 @@
   <data name="ConsequenceVerdict_StateName" xml:space="preserve"><value>Clearing state label. {0}</value></data>
   <data name="ConsequenceVerdict_CutoutName" xml:space="preserve"><value>{0} cutout</value></data>
   <data name="ConsequenceVerdict_Puppet" xml:space="preserve"><value>PUPPET</value></data>
-  <data name="ConsequenceVerdict_TextSubject" xml:space="preserve"><value>Authored text-only subject</value></data>
+  <data name="ConsequenceVerdict_TextSubject" xml:space="preserve"><value>Your result</value></data>
   <data name="ConsequenceVerdict_PuppetName" xml:space="preserve"><value>Outcome puppet. {0}. {1}</value></data>
   <data name="ConsequenceVerdict_VerdictName" xml:space="preserve"><value>Verdict. {0}. {1}</value></data>
   <data name="ConsequenceVerdict_ReportHeading" xml:space="preserve"><value>DETAILED STATIC REPORT</value></data>
   <data name="ConsequenceVerdict_ReportName" xml:space="preserve"><value>Detailed static outcome report. {0}</value></data>
   <data name="ConsequenceVerdict_TextMode" xml:space="preserve"><value>Text-only outcome. The consequence, verdict, and report remain complete.</value></data>
   <data name="ConsequenceVerdict_ArtMode" xml:space="preserve"><value>Validated local scene art is active. The full static report remains available.</value></data>
-  <data name="ConsequenceVerdict_AbsentArtMode" xml:space="preserve"><value>Absent scene art is replaced by the complete authored paper outcome.</value></data>
+  <data name="ConsequenceVerdict_AbsentArtMode" xml:space="preserve"><value>Read your result below.</value></data>
   <data name="ConsequenceVerdict_OutcomeSuccess" xml:space="preserve"><value>Success is preserved. Continue when the static report is clear.</value></data>
   <data name="ConsequenceVerdict_OutcomeUncertain" xml:space="preserve"><value>Uncertainty is preserved. Review the static report before continuing.</value></data>
   <data name="ConsequenceVerdict_OutcomeFailure" xml:space="preserve"><value>Failure is preserved. Retry remains available with the report visible.</value></data>
-  <data name="ConsequenceVerdict_OutcomeReady" xml:space="preserve"><value>Ready. The projected outcome and report are available.</value></data>
+  <data name="ConsequenceVerdict_OutcomeReady" xml:space="preserve"><value>Your result is ready.</value></data>
   <data name="ConsequenceVerdict_StageName" xml:space="preserve"><value>Outcome consequence for {0}. {1}. {2}</value></data>
   <data name="ReviewFlash_Replay" xml:space="preserve"><value>Replay card</value></data>
   <data name="ReviewFlash_ReplayName" xml:space="preserve"><value>Reset and replay the review card entrance</value></data>
@@ -1133,48 +1133,79 @@
   <data name="ReviewFlash_RatingsName" xml:space="preserve"><value>Rate recall as Again, Hard, Good, or Easy</value></data>
   <data name="ReviewFlash_RatingName" xml:space="preserve"><value>Rate recall {0}</value></data>
   <data name="ReviewFlash_Rated" xml:space="preserve"><value>Recall rated {0}.</value></data>
-  <data name="ReviewFlash_Configuration" xml:space="preserve"><value>Review rule set: {0}. This card reports one rating; deterministic review code schedules it.</value></data>
+  <data name="ReviewFlash_Configuration" xml:space="preserve"><value>Review schedule: {0}. Your rating helps decide when to practice this again.</value></data>
   <data name="ReviewFlash_ConfigurationName" xml:space="preserve"><value>Review configuration {0}. This card rates only and never schedules.</value></data>
   <data name="ReviewFlash_Revealed" xml:space="preserve"><value>Reviewed answer revealed. {0}</value></data>
-  <data name="ReviewFlash_OutcomeSuccess" xml:space="preserve"><value>Good or Easy selected. Existing deterministic review rules schedule the item.</value></data>
-  <data name="ReviewFlash_OutcomeUncertain" xml:space="preserve"><value>Recall is pending or Hard selected. Existing deterministic review rules schedule the item.</value></data>
-  <data name="ReviewFlash_OutcomeFailure" xml:space="preserve"><value>Again selected. Existing deterministic review rules schedule the item.</value></data>
+  <data name="ReviewFlash_OutcomeSuccess" xml:space="preserve"><value>Nice recall. This will come back later.</value></data>
+  <data name="ReviewFlash_OutcomeUncertain" xml:space="preserve"><value>Take your time. Try recalling it before you rate it.</value></data>
+  <data name="ReviewFlash_OutcomeFailure" xml:space="preserve"><value>Let’s practice this again soon.</value></data>
   <data name="ReviewFlash_OutcomeReady" xml:space="preserve"><value>Ready. Recall the answer before revealing it.</value></data>
-  <data name="ProgressShelf_Instruction" xml:space="preserve"><value>Select a paper situation to inspect its locally projected status.</value></data>
+  <data name="ProgressShelf_Instruction" xml:space="preserve"><value>Choose a situation to see how you are doing.</value></data>
   <data name="ProgressShelf_Title" xml:space="preserve"><value>Situations you can handle</value></data>
   <data name="ProgressShelf_Empty" xml:space="preserve"><value>Complete a practical task to place its first situation on this shelf.</value></data>
-  <data name="ProgressShelf_Method" xml:space="preserve"><value>Stored successful tasks demonstrate capabilities. Versioned deterministic rules keep concept and review evidence separate.</value></data>
+  <data name="ProgressShelf_Method" xml:space="preserve"><value>Successful tasks show what you can do. Lessons and reviews help you build toward those goals.</value></data>
   <data name="ProgressShelf_Replay" xml:space="preserve"><value>Replay shelf</value></data>
   <data name="ProgressShelf_ReplayName" xml:space="preserve"><value>Replay the capability shelf entrance</value></data>
   <data name="ProgressShelf_Skip" xml:space="preserve"><value>Skip entrance</value></data>
   <data name="ProgressShelf_SkipName" xml:space="preserve"><value>Skip to the complete capability shelf</value></data>
   <data name="ProgressShelf_InstructionName" xml:space="preserve"><value>Progress instruction. {0}</value></data>
-  <data name="ProgressShelf_SelectPrompt" xml:space="preserve"><value>Select a paper situation to inspect its projected status.</value></data>
+  <data name="ProgressShelf_SelectPrompt" xml:space="preserve"><value>Choose a situation to see your progress.</value></data>
   <data name="ProgressShelf_StatusName" xml:space="preserve"><value>Selected capability status</value></data>
   <data name="ProgressShelf_SelectedSituation" xml:space="preserve"><value>SELECTED SITUATION</value></data>
   <data name="ProgressShelf_StageName" xml:space="preserve"><value>{0}. {1} demonstrated, {2} practising, and {3} not started.</value></data>
   <data name="ProgressShelf_BoardName" xml:space="preserve"><value>Paper capability shelf</value></data>
-  <data name="ProgressShelf_ObjectsName" xml:space="preserve"><value>Projected capability objects in status order</value></data>
+  <data name="ProgressShelf_ObjectsName" xml:space="preserve"><value>Situations grouped by progress</value></data>
   <data name="ProgressShelf_ReadyLabel" xml:space="preserve"><value>SHELF READY</value></data>
   <data name="ProgressShelf_EmptyName" xml:space="preserve"><value>Empty capability shelf. {0}</value></data>
   <data name="ProgressShelf_Inspect" xml:space="preserve"><value>Inspect situation</value></data>
   <data name="ProgressShelf_CapabilityName" xml:space="preserve"><value>{0}. {1} Select for details.</value></data>
   <data name="ProgressShelf_SelectedStatus" xml:space="preserve"><value>{0}. {1}</value></data>
   <data name="ProgressShelf_ObjectName" xml:space="preserve"><value>Paper situation object. {0}. {1}.</value></data>
-  <data name="ProgressShelf_TextMode" xml:space="preserve"><value>Text-only progress. Every situation and projected status remains complete.</value></data>
-  <data name="ProgressShelf_PaperMode" xml:space="preserve"><value>Paper objects lead with situations and projected evidence status.</value></data>
-  <data name="ProgressShelf_MethodName" xml:space="preserve"><value>How status is projected. {0}</value></data>
+  <data name="ProgressShelf_TextMode" xml:space="preserve"><value>Your situations and progress are listed below.</value></data>
+  <data name="ProgressShelf_PaperMode" xml:space="preserve"><value>Choose a situation for more detail.</value></data>
+  <data name="ProgressShelf_MethodName" xml:space="preserve"><value>How progress works. {0}</value></data>
   <data name="ProgressShelf_StatusDemonstrated" xml:space="preserve"><value>CAN HANDLE</value></data>
   <data name="ProgressShelf_StatusPracticing" xml:space="preserve"><value>PRACTISING</value></data>
   <data name="ProgressShelf_StatusNotStarted" xml:space="preserve"><value>NOT STARTED</value></data>
-  <data name="ProgressShelf_DescriptionDemonstrated" xml:space="preserve"><value>Demonstrated from projected task evidence.</value></data>
-  <data name="ProgressShelf_DescriptionPracticing" xml:space="preserve"><value>Practising from projected task evidence.</value></data>
+  <data name="ProgressShelf_DescriptionDemonstrated" xml:space="preserve"><value>You have completed this task successfully.</value></data>
+  <data name="ProgressShelf_DescriptionPracticing" xml:space="preserve"><value>You are working toward this goal.</value></data>
   <data name="ProgressShelf_DescriptionNotStarted" xml:space="preserve"><value>Not started. Setup alone never implies ability.</value></data>
-  <data name="ProgressShelf_OutcomeSuccess" xml:space="preserve"><value>Demonstrated situation selected from projected task evidence.</value></data>
+  <data name="ProgressShelf_OutcomeSuccess" xml:space="preserve"><value>You have handled this situation successfully.</value></data>
   <data name="ProgressShelf_OutcomeUncertain" xml:space="preserve"><value>Practising situation selected, or choose a paper situation.</value></data>
-  <data name="ProgressShelf_OutcomeFailure" xml:space="preserve"><value>Capability status is unavailable. Return to the projected shelf.</value></data>
+  <data name="ProgressShelf_OutcomeFailure" xml:space="preserve"><value>Progress is unavailable. Choose another situation.</value></data>
   <data name="ProgressShelf_OutcomeReady" xml:space="preserve"><value>Not-started situation selected, or the capability shelf is ready.</value></data>
   <data name="Today_OpenLearn" xml:space="preserve"><value>Go to lessons</value></data>
   <data name="Today_Learn_Headline" xml:space="preserve"><value>Build your café basics</value></data>
   <data name="Today_Learn_Explanation" xml:space="preserve"><value>Start with the lessons to practice greetings, drinks, and polite requests.</value></data>
+  <data name="Learn_SearchPlaceholder" xml:space="preserve"><value>Search lessons or topics</value></data>
+  <data name="Learn_SearchClear" xml:space="preserve"><value>Clear search</value></data>
+  <data name="Learn_SearchCount" xml:space="preserve"><value>{0} lessons found</value></data>
+  <data name="Learn_SearchEmpty" xml:space="preserve"><value>No lessons found. Try another word or clear your search.</value></data>
+  <data name="Speaking_Answer" xml:space="preserve"><value>Your answer</value></data>
+  <data name="Speaking_Placeholder" xml:space="preserve"><value>Type your answer, then press Enter</value></data>
+  <data name="Speaking_Check" xml:space="preserve"><value>Check answer</value></data>
+  <data name="Speaking_Microphone" xml:space="preserve"><value>Use microphone</value></data>
+  <data name="Speaking_Start" xml:space="preserve"><value>Start speaking</value></data>
+  <data name="Speaking_Cancel" xml:space="preserve"><value>Cancel recording</value></data>
+  <data name="Speaking_KeepTyping" xml:space="preserve"><value>Keep typing</value></data>
+  <data name="Speaking_Consent" xml:space="preserve"><value>Speak for up to 15 seconds. Your voice is processed on this device.</value></data>
+  <data name="Speaking_Privacy" xml:space="preserve"><value>Audio is not saved. You can cancel at any time.</value></data>
+  <data name="Speaking_Limits" xml:space="preserve"><value>This checks the words heard, not your accent or individual sounds.</value></data>
+  <data name="Speaking_Ready" xml:space="preserve"><value>Type an answer or use your microphone.</value></data>
+  <data name="Speaking_TextOnly" xml:space="preserve"><value>Type your answer to check the wording.</value></data>
+  <data name="Speaking_Unavailable" xml:space="preserve"><value>Microphone unavailable. You can still type your answer.</value></data>
+  <data name="Speaking_Off" xml:space="preserve"><value>Microphone is off in Settings. You can still type your answer.</value></data>
+  <data name="Speaking_Listening" xml:space="preserve"><value>Listening… Speak now.</value></data>
+  <data name="Speaking_Cancelled" xml:space="preserve"><value>Recording cancelled. Try again or type your answer.</value></data>
+  <data name="Speaking_Failed" xml:space="preserve"><value>Could not hear your answer. Try again or type it instead.</value></data>
+  <data name="Speaking_CheckedText" xml:space="preserve"><value>Wording checked. Try speaking it aloud, too.</value></data>
+  <data name="Speaking_Empty" xml:space="preserve"><value>Type an answer first.</value></data>
+  <data name="Speaking_Typed" xml:space="preserve"><value>Your answer: {0}</value></data>
+  <data name="Speaking_TryPhrase" xml:space="preserve"><value>Try: {0}</value></data>
+  <data name="Speaking_Heard" xml:space="preserve"><value>Phrase: {0}
+Heard: {1}</value></data>
+  <data name="Speaking_Success" xml:space="preserve"><value>That matches. Keep going!</value></data>
+  <data name="Speaking_Uncertain" xml:space="preserve"><value>Try a complete answer.</value></data>
+  <data name="Speaking_Retry" xml:space="preserve"><value>Not quite yet. Listen again, then give it another try.</value></data>
+  <data name="Listening_Ready" xml:space="preserve"><value>Listen first, or show the written prompt.</value></data>
 </root>

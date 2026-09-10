@@ -115,6 +115,28 @@ public sealed class LearnExperienceTests
     }
 
     [TestMethod]
+    public void SearchPreservesLessonNumbersAndResumeTargetAndCanBeCleared()
+    {
+        var first = Lesson("first", "Greetings", templateAuthored: false);
+        var second = Lesson("second", "Coffee", templateAuthored: true) with { Title = "Order a coffee" };
+        var course = new CourseCatalog(
+            new LanguageCode("de"), new LanguageCode("en"), new VersionId("course-v1"),
+            CoursePublicationState.Preview, 450,
+            [new CourseUnit("unit.de.001", 1, ConceptType.Lexical, "Café", "Useful words", [first, second])]);
+        var journey = LearnView.CreateJourney(course, second);
+
+        var filtered = LearnView.FilterJourney(journey, "  COFFEE  ");
+
+        Assert.HasCount(1, filtered);
+        Assert.HasCount(1, filtered[0].Lessons);
+        Assert.AreEqual(journey[0].Lessons[1], filtered[0].Lessons[0]);
+        Assert.IsTrue(filtered[0].Lessons[0].IsNext);
+        Assert.HasCount(2, LearnView.FilterJourney(journey, "café")[0].Lessons);
+        Assert.HasCount(0, LearnView.FilterJourney(journey, "no matching topic"));
+        Assert.AreSame(journey, LearnView.FilterJourney(journey, " "));
+    }
+
+    [TestMethod]
     public void LiveScenarioTheatreKeepsTheFullTextSceneAndMotionControls()
     {
         var rendered = ScenarioTheatreRenderer.RenderLive(

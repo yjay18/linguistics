@@ -217,31 +217,31 @@
     <value>भाषाएँ</value>
   </data>
   <data name="Nav_Learn_Description" xml:space="preserve">
-    <value>अपने पाठ्यक्रम में छोटे लक्ष्य, उदाहरण, गतिविधियाँ और पुनरावृत्ति देखें।</value>
+    <value>पाठ खोजें, अभ्यास करें और वहीं से आगे बढ़ें जहाँ रुके थे।</value>
   </data>
   <data name="Nav_Learn_Title" xml:space="preserve">
     <value>सीखें</value>
   </data>
   <data name="Nav_Progress_Description" xml:space="preserve">
-    <value>व्यावहारिक क्षमताएँ पहले और अवधारणा के प्रमाण सहायक विवरण के रूप में देखें।</value>
+    <value>देखें आप क्या कर सकते हैं और आगे किसका अभ्यास करें।</value>
   </data>
   <data name="Nav_Progress_Title" xml:space="preserve">
     <value>प्रगति</value>
   </data>
   <data name="Nav_Pronunciation_Description" xml:space="preserve">
-    <value>सिस्टम प्लेबैक और ईमानदार स्थानीय पहचान प्रमाण के साथ जाँचे गए वाक्यांशों का अभ्यास करें।</value>
+    <value>वाक्यांश सुनें, फिर बोलने का अभ्यास करें।</value>
   </data>
   <data name="Nav_Pronunciation_Title" xml:space="preserve">
     <value>उच्चारण</value>
   </data>
   <data name="Nav_Review_Description" xml:space="preserve">
-    <value>निर्धारित वाक्यांशों, अवधारणाओं, उच्चारण लक्ष्यों और दोहराए जाने वाले रूपों को याद करें।</value>
+    <value>आपने जो सीखा है, उसे फिर से याद करें।</value>
   </data>
   <data name="Nav_Review_Title" xml:space="preserve">
     <value>दोहराएँ</value>
   </data>
   <data name="Nav_Scenarios_Description" xml:space="preserve">
-    <value>नियतात्मक प्रतिक्रिया और स्थानीय प्रगति के साथ पूरा कैफ़े संवाद अभ्यास करें।</value>
+    <value>कैफ़े की बातचीत में अपनी जर्मन का अभ्यास करें।</value>
   </data>
   <data name="Nav_Scenarios_Title" xml:space="preserve">
     <value>परिस्थितियाँ</value>
@@ -253,7 +253,7 @@
     <value>सेटिंग्स</value>
   </data>
   <data name="Nav_Today_Description" xml:space="preserve">
-    <value>अपने स्थानीय सीखने के प्रमाण से अगला सरल कदम चुनें।</value>
+    <value>थोड़ा अभ्यास, एक बार में एक कदम।</value>
   </data>
   <data name="Nav_Today_Title" xml:space="preserve">
     <value>आज</value>
@@ -295,16 +295,16 @@
     <value>फिर कोशिश करें</value>
   </data>
   <data name="Learn_Availability_Preview" xml:space="preserve">
-    <value>इस स्थानीय पूर्वावलोकन में {0} पाठ उपलब्ध हैं।</value>
+    <value>खोजने के लिए {0} पाठ। सामग्री की समीक्षा अभी जारी है।</value>
   </data>
   <data name="Learn_Availability_Ready" xml:space="preserve">
-    <value>इस डिवाइस पर {0} स्वीकृत पाठ तैयार हैं।</value>
+    <value>खोजने के लिए {0} पाठ तैयार हैं।</value>
   </data>
   <data name="Learn_CapacityComplete" xml:space="preserve">
-    <value>नियोजित पाठ्यक्रम पूरी तरह लिखा जा चुका है।</value>
+    <value>शुरुआत से पढ़ें या नीचे कोई विषय चुनें।</value>
   </data>
   <data name="Learn_CapacityRemaining" xml:space="preserve">
-    <value>{1} पाठों की योजना पूरी करने के लिए {0} और पाठों को स्रोत कार्य, समीक्षा और स्वीकृति चाहिए।</value>
+    <value>इस {1}-पाठ वाले कोर्स के लिए {0} और पाठ तैयार हो रहे हैं।</value>
   </data>
   <data name="Learn_CardPosition" xml:space="preserve">
     <value>कार्ड {0}, कुल {1}</value>
@@ -316,7 +316,7 @@
     <value>पाठ्यक्रम मानचित्र</value>
   </data>
   <data name="Learn_CoursePath_Body" xml:space="preserve">
-    <value>कोई भी उपलब्ध पाठ चुनें। जाँची गई पूर्वापेक्षाएँ हर सत्र को छोटा रखती हैं।</value>
+    <value>पाठ चुनें या विषय खोजें। पढ़ते समय आपकी जगह सहेजी जाती है।</value>
   </data>
   <data name="Learn_CoursePath_Title" xml:space="preserve">
     <value>पाठ्यक्रम का मार्ग</value>
@@ -352,16 +352,16 @@
     <value>पाठ {0} खोलें। {1}</value>
   </data>
   <data name="Learn_Outcome_Failure" xml:space="preserve">
-    <value>अभ्यास परिणाम: नियतात्मक जाँच अभी मेल नहीं खाई। फिर कोशिश करें।</value>
+    <value>अभी पूरी तरह सही नहीं। संकेत देखें और फिर कोशिश करें।</value>
   </data>
   <data name="Learn_Outcome_Ready" xml:space="preserve">
     <value>अभ्यास तैयार है।</value>
   </data>
   <data name="Learn_Outcome_Success" xml:space="preserve">
-    <value>अभ्यास परिणाम: नियतात्मक जाँच इस उत्तर से मेल खाई।</value>
+    <value>सही है। तैयार होने पर आगे बढ़ें।</value>
   </data>
   <data name="Learn_Outcome_Uncertain" xml:space="preserve">
-    <value>अभ्यास परिणाम: नियतात्मक जाँच को पूरा उत्तर चाहिए।</value>
+    <value>पूरा जवाब देकर फिर कोशिश करें।</value>
   </data>
   <data name="Learn_PreviewVisit" xml:space="preserve">
     <value>आपने {0} देखा। इस पूर्वावलोकन ने निपुणता नहीं बदली।</value>
@@ -391,7 +391,7 @@
     <value>अब आपकी बारी</value>
   </data>
   <data name="Learn_Slide_Activity_Supporting" xml:space="preserve">
-    <value>ऐप नियतात्मक नियमों से कार्य की जाँच करता है।</value>
+    <value>जवाब दें और देखें कैसा रहा।</value>
   </data>
   <data name="Learn_Slide_Example_Eyebrow" xml:space="preserve">
     <value>उदाहरण</value>
@@ -418,7 +418,7 @@
     <value>पुनरावृत्ति</value>
   </data>
   <data name="Learn_Slide_Recap_Supporting" xml:space="preserve">
-    <value>पाठ पूरा करने पर यात्रा दर्ज होती है। निपुणता के लिए अभी भी आकलित प्रमाण चाहिए।</value>
+    <value>इस पाठ की यात्रा सहेजने के लिए समाप्त करें। कौशल बढ़ाने के लिए अभ्यास जारी रखें।</value>
   </data>
   <data name="Learn_Slide_Welcome_Eyebrow" xml:space="preserve">
     <value>पाठ का लक्ष्य</value>
@@ -481,7 +481,7 @@
     <value>आपने {0} देखा, पर यह यात्रा सहेजी नहीं जा सकी। निपुणता नहीं बदली।</value>
   </data>
   <data name="Learn_VisitSaved" xml:space="preserve">
-    <value>{0} की आपकी यात्रा स्थानीय रूप से सहेजी गई। निपुणता केवल आकलित अभ्यास से बदलती है।</value>
+    <value>{0} की आपकी यात्रा सहेज दी गई है। अगले पाठ के लिए तैयार हैं?</value>
   </data>
   <data name="Startup_ConfirmRecovery_Action" xml:space="preserve">
     <value>सुरक्षित रखने की पुष्टि करें और नई शुरुआत करें</value>
@@ -529,7 +529,7 @@
     <value>कैफ़े में जाएँ</value>
   </data>
   <data name="Today_FirstScenario_Explanation" xml:space="preserve">
-    <value>पाठ के साथ पूरा स्थानीय कार्य अभ्यास करें। बोलना वैकल्पिक है।</value>
+    <value>पेय मँगाएँ और छोटी बातचीत का अभ्यास करें। टाइप करें या बोलें। आपकी मर्ज़ी।</value>
   </data>
   <data name="Today_FirstScenario_Headline" xml:space="preserve">
     <value>अपना पहला कैफ़े संवाद पूरा करें</value>
@@ -538,7 +538,7 @@
     <value>आपकी स्थानीय सीखने की स्थिति पढ़ी जा रही है...</value>
   </data>
   <data name="Today_LocalOnly" xml:space="preserve">
-    <value>सब कुछ इसी डिवाइस से आता है। आज का पृष्ठ नेटवर्क अनुरोध या विश्लेषण संग्रह नहीं करता।</value>
+    <value>आपकी पढ़ाई का डेटा इसी डिवाइस पर रहता है।</value>
   </data>
   <data name="Today_NextMove" xml:space="preserve">
     <value>आपका अगला कदम</value>
@@ -556,7 +556,7 @@
     <value>उच्चारण की कोशिशें</value>
   </data>
   <data name="Today_Pronunciation_Explanation" xml:space="preserve">
-    <value>सिस्टम प्लेबैक सुनें, फिर स्थानीय रूप से बोलें या पूरा केवल-पाठ मार्ग अपनाएँ।</value>
+    <value>सुनें, फिर खुद वाक्यांश बोलें। आप जवाब टाइप भी कर सकते हैं।</value>
   </data>
   <data name="Today_Pronunciation_Headline" xml:space="preserve">
     <value>कैफ़े वाक्यांश सुनें और दोहराएँ</value>
@@ -616,7 +616,7 @@
     <value>क्षमता तभी प्रदर्शित होती है जब सहेजे कार्य प्रयास में व्यावहारिक लक्ष्य सफल हो।</value>
   </data>
   <data name="Progress_Method_BodyTwo" xml:space="preserve">
-    <value>अन्य प्रमाण अलग रहते हैं। संस्करण वाले नियतात्मक नियम अवधारणा को मज़बूत या फिर अभ्यास में ला सकते हैं।</value>
+    <value>अभ्यास के नतीजे बताते हैं कि क्या आता है और किसे फिर आज़माना है।</value>
   </data>
   <data name="Progress_Method_Title" xml:space="preserve">
     <value>इसकी गणना कैसे होती है</value>
@@ -661,7 +661,7 @@
     <value>अभी</value>
   </data>
   <data name="Review_Empty_Body" xml:space="preserve">
-    <value>कोई शिक्षण कार्य या उच्चारण प्रयास पूरा करें। नियतात्मक कतार अगली पुनरावृत्ति तैयार करेगी।</value>
+    <value>पाठ या बोलने का अभ्यास करें। अगली दोहराई यहाँ दिखाई देगी।</value>
   </data>
   <data name="Review_Empty_Title" xml:space="preserve">
     <value>कुछ बाकी नहीं है</value>
@@ -730,7 +730,7 @@
     <value>फिर से। अभी नहीं</value>
   </data>
   <data name="Review_Rating_Body" xml:space="preserve">
-    <value>आपका चुनाव प्रमाण है। मॉडल नहीं, नियतात्मक कोड अगला समय तय करता है।</value>
+    <value>बताएँ कि यह कितनी आसानी से याद आया। इससे अगली दोहराई तय होती है।</value>
   </data>
   <data name="Review_Rating_Easy" xml:space="preserve">
     <value>आसान। तुरंत</value>
@@ -764,7 +764,7 @@
   <data name="Scenario_CancelRecording" xml:space="preserve"><value>रिकॉर्डिंग रद्द करें</value></data>
   <data name="Scenario_CancelResponse" xml:space="preserve"><value>स्थानीय उत्तर रद्द करें</value></data>
   <data name="Scenario_CancellingResponse" xml:space="preserve"><value>वैकल्पिक स्थानीय उत्तर रद्द हो रहा है। स्क्रिप्ट वाला विकल्प उपलब्ध रहेगा।</value></data>
-  <data name="Scenario_CheckingTask" xml:space="preserve"><value>नियतात्मक कार्य जाँचा जा रहा है, फिर वैकल्पिक स्थानीय रेंडरर से पूछा जाएगा...</value></data>
+  <data name="Scenario_CheckingTask" xml:space="preserve"><value>आपका जवाब जाँच रहे हैं…</value></data>
   <data name="Scenario_Completed_Body" xml:space="preserve"><value>आपने कैफ़े लक्ष्य पूरा किया। शुद्धता और प्रवाह अलग रहते हैं। लिखे पाठ से उच्चारण स्कोर नहीं बनता।</value></data>
   <data name="Scenario_Completed_Title" xml:space="preserve"><value>ऑर्डर समझा गया</value></data>
   <data name="Scenario_DialogueReady" xml:space="preserve"><value>स्क्रिप्ट संवाद तैयार है। लिखें या स्थानीय भाषण उपयोग करें। चुना स्थानीय मॉडल केवल अनुमत सर्वर पंक्ति बदल सकता है।</value></data>
@@ -784,7 +784,7 @@
   <data name="Scenario_InputPlaceholder" xml:space="preserve"><value>जर्मन में लिखें...</value></data>
   <data name="Scenario_Loading" xml:space="preserve"><value>स्थानीय सीखने की तैयारी जाँची जा रही है...</value></data>
   <data name="Scenario_LoadingName" xml:space="preserve"><value>कैफ़े परिस्थिति लोड हो रही है</value></data>
-  <data name="Scenario_LocalModelResponse" xml:space="preserve"><value>नियतात्मक जाँच के बाद अनुमत स्थानीय मॉडल पंक्ति उपयोग हुई।</value></data>
+  <data name="Scenario_LocalModelResponse" xml:space="preserve"><value>आपके साथी ने जवाब दिया है।</value></data>
   <data name="Scenario_MicrophoneActive" xml:space="preserve"><value>माइक्रोफ़ोन सक्रिय है। कैफ़े का छोटा उत्तर बोलें। प्रसंस्करण स्थानीय रहेगा।</value></data>
   <data name="Scenario_MicrophoneDisclosure_Body" xml:space="preserve"><value>स्थानीय whisper.cpp प्रक्रिया माइक्रोफ़ोन को 15 सेकंड तक उपयोग करती है। ऑडियो इसी डिवाइस पर रहता और सहेजा नहीं जाता। आप रद्द कर सकते हैं।</value></data>
   <data name="Scenario_MicrophoneDisclosure_Title" xml:space="preserve"><value>माइक्रोफ़ोन खुलने से पहले</value></data>
@@ -795,7 +795,7 @@
   <data name="Scenario_NotMeasured" xml:space="preserve"><value>नहीं मापा गया</value></data>
   <data name="Scenario_NotNow" xml:space="preserve"><value>अभी नहीं</value></data>
   <data name="Scenario_OtherObservations" xml:space="preserve"><value>छोटे अवलोकन</value></data>
-  <data name="Scenario_PersistenceSaved" xml:space="preserve"><value>स्थानीय रूप से सहेजा गया। नियतात्मक पुनरावृत्ति हस्तांतरण बनाया गया।</value></data>
+  <data name="Scenario_PersistenceSaved" xml:space="preserve"><value>प्रगति सहेज दी गई है। आगे का अभ्यास दोहराई में मिलेगा।</value></data>
   <data name="Scenario_PlayCaption" xml:space="preserve"><value>कैप्शन चलाएँ</value></data>
   <data name="Scenario_PlaybackStopped" xml:space="preserve"><value>भाषण प्लेबैक रुका। कैप्शन संवाद में रहेगा।</value></data>
   <data name="Scenario_Playing" xml:space="preserve"><value>सर्वर कैप्शन चल रहा है...</value></data>
@@ -813,9 +813,9 @@
   <data name="Scenario_Relation_Note" xml:space="preserve"><value>भाषा टिप्पणी</value></data>
   <data name="Scenario_Relation_Partial" xml:space="preserve"><value>आंशिक सेतु</value></data>
   <data name="Scenario_ReplyRequired" xml:space="preserve"><value>भेजने से पहले छोटा उत्तर लिखें।</value></data>
-  <data name="Scenario_ResponseCancelled" xml:space="preserve"><value>उत्तर रद्द हुआ। नियतात्मक परिस्थिति वैसी ही है।</value></data>
+  <data name="Scenario_ResponseCancelled" xml:space="preserve"><value>रद्द किया गया। आप फिर जवाब दे सकते हैं।</value></data>
   <data name="Scenario_RetrySave" xml:space="preserve"><value>स्थानीय सहेजना फिर आज़माएँ</value></data>
-  <data name="Scenario_ScriptedResponse" xml:space="preserve"><value>नियतात्मक जाँच के बाद सत्यापित स्क्रिप्ट उत्तर उपयोग हुआ।</value></data>
+  <data name="Scenario_ScriptedResponse" xml:space="preserve"><value>आपके साथी ने जवाब दिया है।</value></data>
   <data name="Scenario_SendReply" xml:space="preserve"><value>उत्तर भेजें</value></data>
   <data name="Scenario_Server" xml:space="preserve"><value>सर्वर</value></data>
   <data name="Scenario_Slower" xml:space="preserve"><value>धीरे</value></data>
@@ -903,7 +903,7 @@
   <data name="Template_ObjectSpotlight_Stage" xml:space="preserve"><value>{0} के लिए वस्तु मंच</value></data>
   <data name="Template_ObjectSpotlight_Success" xml:space="preserve"><value>देख लिया: शब्द, आर्टिकल और अर्थ साथ हैं।</value></data>
   <data name="Template_ObjectSpotlight_Tape" xml:space="preserve"><value>वस्तु पर प्रकाश</value></data>
-  <data name="Template_ObjectSpotlight_TextOnly" xml:space="preserve"><value>केवल पाठ प्रस्तुति: लिखा शब्द, आर्टिकल और अर्थ पूरे रहते हैं।</value></data>
+  <data name="Template_ObjectSpotlight_TextOnly" xml:space="preserve"><value>नीचे शब्द, आर्टिकल और अर्थ पढ़ें।</value></data>
   <data name="Template_ObjectSpotlight_Uncertain" xml:space="preserve"><value>आगे बढ़ने से पहले आर्टिकल और अर्थ पर रुकें।</value></data>
   <data name="Template_PictureMatch_Failure" xml:space="preserve"><value>अभी यह नहीं। लेबलों की तुलना करके फिर कोशिश करें।</value></data>
   <data name="Template_PictureMatch_Prompt" xml:space="preserve"><value>चित्र मिलान संकेत। {0}</value></data>
@@ -911,7 +911,7 @@
   <data name="Template_PictureMatch_Stage" xml:space="preserve"><value>चित्र मिलान। {0}</value></data>
   <data name="Template_PictureMatch_Success" xml:space="preserve"><value>मेल हुआ। चुने कटआउट पर लक्ष्य शब्द है।</value></data>
   <data name="Template_PictureMatch_Tape" xml:space="preserve"><value>एक चुनें</value></data>
-  <data name="Template_PictureMatch_TextOnly" xml:space="preserve"><value>केवल पाठ मिलान: हर विकल्प का पूरा लिखा लेबल रहता है।</value></data>
+  <data name="Template_PictureMatch_TextOnly" xml:space="preserve"><value>हर विकल्प पढ़ें और मिलता हुआ अर्थ चुनें।</value></data>
   <data name="Template_PictureMatch_Uncertain" xml:space="preserve"><value>मिलान जाँचने से पहले एक पूरा विकल्प चुनें।</value></data>
   <data name="Template_PlayTarget" xml:space="preserve"><value>{0} चलाएँ</value></data>
   <data name="Template_PlayTarget_Automation" xml:space="preserve"><value>लक्ष्य शब्द {0} को स्थानीय सिस्टम आवाज़ में चलाएँ</value></data>
@@ -939,7 +939,7 @@
   <data name="Template_WordOrder_SlotStart" xml:space="preserve"><value>शुरुआत</value></data>
   <data name="Template_WordOrder_SlotVerbTwo" xml:space="preserve"><value>क्रिया 2</value></data>
   <data name="Template_WordOrder_Stage" xml:space="preserve"><value>शब्द क्रम रेल निर्माण मंच</value></data>
-  <data name="Template_WordOrder_Success" xml:space="preserve"><value>रेल लिखे क्रम में पढ़ी जाती है।</value></data>
+  <data name="Template_WordOrder_Success" xml:space="preserve"><value>शब्द सही क्रम में हैं।</value></data>
   <data name="Template_WordOrder_Tape" xml:space="preserve"><value>अनुरोध बनाएँ</value></data>
   <data name="Template_WordOrder_TextOnly" xml:space="preserve"><value>केवल पाठ निर्माण: हर शब्द और क्रिया कीबोर्ड से चलती है।</value></data>
   <data name="Template_WordOrder_Uncertain" xml:space="preserve"><value>जाँच से पहले रेल को हर शब्द चाहिए।</value></data>
@@ -1018,7 +1018,7 @@
   <data name="Onboarding_Shortcut_Ask_Label" xml:space="preserve"><value>पहले पूछें</value></data>
   <data name="Onboarding_Shortcut_Preferred_Label" xml:space="preserve"><value>एक पसंदीदा भाषा</value></data>
   <data name="Onboarding_Shortcut_Never_Label" xml:space="preserve"><value>कभी नहीं</value></data>
-  <data name="Onboarding_Instruction_Fallback" xml:space="preserve"><value>स्वचालित और पहले पूछें योग्य भाषाएँ स्थिर कोड क्रम में लेते हैं। अनुपलब्ध पसंद का विकल्प नियत ढंग से मिलता है।</value></data>
+  <data name="Onboarding_Instruction_Fallback" xml:space="preserve"><value>पसंदीदा भाषा उपलब्ध न होने पर दूसरी समर्थित भाषा इस्तेमाल होगी।</value></data>
   <data name="Onboarding_Instruction_Ineligible" xml:space="preserve"><value>ज्ञात और सहज-पठन भाषा चुनें जिसे स्पष्टीकरण की अनुमति है।</value></data>
   <data name="Onboarding_Instruction_NoCatalog" xml:space="preserve"><value>जाँची सामग्री उपलब्ध होने पर निर्देश मार्ग लागू होगा।</value></data>
   <data name="Onboarding_Instruction_None" xml:space="preserve"><value>कोई उपलब्ध नहीं</value></data>
@@ -1046,14 +1046,14 @@
   <data name="Onboarding_Summary_Microphone" xml:space="preserve"><value>माइक्रोफ़ोन: {0}</value></data>
   <data name="Onboarding_Summary_SpeechRetention" xml:space="preserve"><value>भाषण ऑडियो: कभी सहेजा नहीं जाता</value></data>
   <data name="Onboarding_Summary_Motion" xml:space="preserve"><value>इंटरफ़ेस गति घटाएँ: {0}</value></data>
-  <data name="Learn_Journey_AuthoredTemplate" xml:space="preserve"><value>लिखा टेम्पलेट</value></data>
+  <data name="Learn_Journey_AuthoredTemplate" xml:space="preserve"><value>इंटरैक्टिव अभ्यास</value></data>
   <data name="Learn_Journey_Complete" xml:space="preserve"><value>पूरी नियोजित राह लिखी जा चुकी है।</value></data>
-  <data name="Learn_Journey_GuidedCards" xml:space="preserve"><value>मार्गदर्शित कार्ड</value></data>
+  <data name="Learn_Journey_GuidedCards" xml:space="preserve"><value>निर्देशित पाठ</value></data>
   <data name="Learn_Journey_Next" xml:space="preserve"><value>अगला</value></data>
   <data name="Learn_Journey_Planned" xml:space="preserve"><value>नियोजित राह</value></data>
-  <data name="Learn_Journey_PlannedBody" xml:space="preserve"><value>समीक्षित सामग्री लिखे जाने तक आगे के पाठ स्पष्ट रूप से नियोजित रहते हैं।</value></data>
+  <data name="Learn_Journey_PlannedBody" xml:space="preserve"><value>नए विषय उपलब्ध होने पर यहाँ दिखाई देंगे।</value></data>
   <data name="Learn_Journey_Preview" xml:space="preserve"><value>पूर्वावलोकन</value></data>
-  <data name="Learn_Journey_Remaining" xml:space="preserve"><value>{0} नियोजित पाठ अभी लिखे नहीं गए हैं।</value></data>
+  <data name="Learn_Journey_Remaining" xml:space="preserve"><value>{0} और पाठ आ रहे हैं।</value></data>
   <data name="Learn_Journey_Unit" xml:space="preserve"><value>इकाई {0}</value></data>
   <data name="Learn_Journey_UnitAutomation" xml:space="preserve"><value>इकाई {0}। {1}।</value></data>
   <data name="Learn_Player_Progress" xml:space="preserve"><value>पाठ की राह</value></data>
@@ -1070,13 +1070,13 @@
   <data name="ScenarioTheatre_GoalName" xml:space="preserve"><value>परिदृश्य लक्ष्य। {0} संदर्भ। {1}</value></data>
   <data name="ScenarioTheatre_StageName" xml:space="preserve"><value>काग़ज़ का कैफ़े दृश्य। {0} कहते हैं {1}</value></data>
   <data name="ScenarioTheatre_CafeCounter" xml:space="preserve"><value>कैफ़े काउंटर</value></data>
-  <data name="ScenarioTheatre_PaperSetActive" xml:space="preserve"><value>पूरा लिखा काग़ज़ सेट सक्रिय है।</value></data>
+  <data name="ScenarioTheatre_PaperSetActive" xml:space="preserve"><value>बातचीत पढ़ें और नीचे अपनी बारी लें।</value></data>
   <data name="ScenarioTheatre_SetName" xml:space="preserve"><value>काग़ज़ का कैफ़े काउंटर सेट</value></data>
   <data name="ScenarioTheatre_NpcPuppet" xml:space="preserve"><value>कैफ़े कठपुतली</value></data>
-  <data name="ScenarioTheatre_TextCharacter" xml:space="preserve"><value>लिखा हुआ केवल-पाठ पात्र</value></data>
+  <data name="ScenarioTheatre_TextCharacter" xml:space="preserve"><value>बातचीत का साथी</value></data>
   <data name="ScenarioTheatre_NpcName" xml:space="preserve"><value>कैफ़े कठपुतली। {0}</value></data>
   <data name="ScenarioTheatre_NpcLineName" xml:space="preserve"><value>{0} कहते हैं {1}</value></data>
-  <data name="ScenarioTheatre_TextMode" xml:space="preserve"><value>लिखा हुआ केवल-पाठ दृश्य। लक्ष्य, संवाद और नियंत्रण पूरे हैं।</value></data>
+  <data name="ScenarioTheatre_TextMode" xml:space="preserve"><value>नीचे बातचीत को आगे बढ़ाएँ।</value></data>
   <data name="ScenarioTheatre_LiveInstruction" xml:space="preserve"><value>काउंटर पर सुनें, फिर पाठ या वैकल्पिक स्थानीय आवाज़ से उत्तर दें।</value></data>
   <data name="ScenarioTheatre_StateChooseItem" xml:space="preserve"><value>वस्तु चुन रहे हैं</value></data>
   <data name="ConsequenceVerdict_Instruction" xml:space="preserve"><value>कार्य का परिणाम और विस्तृत प्रमाण देखें।</value></data>
@@ -1104,18 +1104,18 @@
   <data name="ConsequenceVerdict_StateName" xml:space="preserve"><value>हटता स्थिति लेबल। {0}</value></data>
   <data name="ConsequenceVerdict_CutoutName" xml:space="preserve"><value>{0} कटआउट</value></data>
   <data name="ConsequenceVerdict_Puppet" xml:space="preserve"><value>कठपुतली</value></data>
-  <data name="ConsequenceVerdict_TextSubject" xml:space="preserve"><value>लिखा हुआ केवल-पाठ विषय</value></data>
+  <data name="ConsequenceVerdict_TextSubject" xml:space="preserve"><value>आपका नतीजा</value></data>
   <data name="ConsequenceVerdict_PuppetName" xml:space="preserve"><value>परिणाम कठपुतली। {0}। {1}</value></data>
   <data name="ConsequenceVerdict_VerdictName" xml:space="preserve"><value>निर्णय। {0}। {1}</value></data>
   <data name="ConsequenceVerdict_ReportHeading" xml:space="preserve"><value>विस्तृत स्थिर विवरण</value></data>
   <data name="ConsequenceVerdict_ReportName" xml:space="preserve"><value>विस्तृत स्थिर परिणाम विवरण। {0}</value></data>
   <data name="ConsequenceVerdict_TextMode" xml:space="preserve"><value>केवल-पाठ परिणाम। प्रभाव, निर्णय और विवरण पूरे हैं।</value></data>
   <data name="ConsequenceVerdict_ArtMode" xml:space="preserve"><value>जाँची स्थानीय दृश्य कला सक्रिय है। पूरा स्थिर विवरण उपलब्ध है।</value></data>
-  <data name="ConsequenceVerdict_AbsentArtMode" xml:space="preserve"><value>अनुपलब्ध दृश्य कला की जगह पूरा लिखा काग़ज़ परिणाम है।</value></data>
+  <data name="ConsequenceVerdict_AbsentArtMode" xml:space="preserve"><value>नीचे अपना नतीजा पढ़ें।</value></data>
   <data name="ConsequenceVerdict_OutcomeSuccess" xml:space="preserve"><value>सफलता सुरक्षित है। स्थिर विवरण स्पष्ट होने पर आगे बढ़ें।</value></data>
   <data name="ConsequenceVerdict_OutcomeUncertain" xml:space="preserve"><value>अनिश्चितता सुरक्षित है। आगे बढ़ने से पहले स्थिर विवरण देखें।</value></data>
   <data name="ConsequenceVerdict_OutcomeFailure" xml:space="preserve"><value>असफलता सुरक्षित है। विवरण दिखाते हुए फिर प्रयास उपलब्ध है।</value></data>
-  <data name="ConsequenceVerdict_OutcomeReady" xml:space="preserve"><value>तैयार। दिखाया परिणाम और विवरण उपलब्ध हैं।</value></data>
+  <data name="ConsequenceVerdict_OutcomeReady" xml:space="preserve"><value>आपका नतीजा तैयार है।</value></data>
   <data name="ConsequenceVerdict_StageName" xml:space="preserve"><value>{0} के लिए परिणाम। {1}। {2}</value></data>
   <data name="ReviewFlash_Replay" xml:space="preserve"><value>कार्ड फिर चलाएँ</value></data>
   <data name="ReviewFlash_ReplayName" xml:space="preserve"><value>पुनरावृत्ति कार्ड रीसेट करके प्रवेश फिर चलाएँ</value></data>
@@ -1133,48 +1133,79 @@
   <data name="ReviewFlash_RatingsName" xml:space="preserve"><value>याद को फिर, कठिन, अच्छा या आसान अंक दें</value></data>
   <data name="ReviewFlash_RatingName" xml:space="preserve"><value>याद को {0} अंक दें</value></data>
   <data name="ReviewFlash_Rated" xml:space="preserve"><value>याद को {0} अंक दिया।</value></data>
-  <data name="ReviewFlash_Configuration" xml:space="preserve"><value>पुनरावृत्ति नियम: {0}। यह कार्ड एक अंक देता है; नियतात्मक कोड समय तय करता है।</value></data>
+  <data name="ReviewFlash_Configuration" xml:space="preserve"><value>दोहराई का नियम: {0}। आपकी रेटिंग से अगला अभ्यास तय होता है।</value></data>
   <data name="ReviewFlash_ConfigurationName" xml:space="preserve"><value>पुनरावृत्ति विन्यास {0}। कार्ड केवल अंक देता है, समय नहीं तय करता।</value></data>
   <data name="ReviewFlash_Revealed" xml:space="preserve"><value>जाँचा उत्तर खुला। {0}</value></data>
-  <data name="ReviewFlash_OutcomeSuccess" xml:space="preserve"><value>अच्छा या आसान चुना। मौजूदा नियतात्मक नियम अगला समय तय करते हैं।</value></data>
-  <data name="ReviewFlash_OutcomeUncertain" xml:space="preserve"><value>याद बाकी है या कठिन चुना। मौजूदा नियतात्मक नियम समय तय करते हैं।</value></data>
-  <data name="ReviewFlash_OutcomeFailure" xml:space="preserve"><value>फिर से चुना। मौजूदा नियतात्मक नियम अगला समय तय करते हैं।</value></data>
+  <data name="ReviewFlash_OutcomeSuccess" xml:space="preserve"><value>अच्छी तरह याद रहा। यह बाद में फिर आएगा।</value></data>
+  <data name="ReviewFlash_OutcomeUncertain" xml:space="preserve"><value>समय लें। रेटिंग देने से पहले याद करने की कोशिश करें।</value></data>
+  <data name="ReviewFlash_OutcomeFailure" xml:space="preserve"><value>इसे जल्द फिर से अभ्यास करेंगे।</value></data>
   <data name="ReviewFlash_OutcomeReady" xml:space="preserve"><value>तैयार। उत्तर खोलने से पहले उसे याद करें।</value></data>
-  <data name="ProgressShelf_Instruction" xml:space="preserve"><value>स्थानीय रूप से दिखाई स्थिति जाँचने के लिए काग़ज़ परिस्थिति चुनें।</value></data>
+  <data name="ProgressShelf_Instruction" xml:space="preserve"><value>अपनी प्रगति देखने के लिए कोई स्थिति चुनें।</value></data>
   <data name="ProgressShelf_Title" xml:space="preserve"><value>परिस्थितियाँ जिन्हें आप संभाल सकते हैं</value></data>
   <data name="ProgressShelf_Empty" xml:space="preserve"><value>इस शेल्फ पर पहली परिस्थिति रखने के लिए व्यावहारिक कार्य पूरा करें।</value></data>
-  <data name="ProgressShelf_Method" xml:space="preserve"><value>सहेजे सफल कार्य क्षमताएँ दिखाते हैं। संस्करण वाले नियतात्मक नियम अवधारणा और पुनरावृत्ति प्रमाण अलग रखते हैं।</value></data>
+  <data name="ProgressShelf_Method" xml:space="preserve"><value>सफल कार्य बताते हैं कि आप क्या कर सकते हैं। पाठ और दोहराई इन लक्ष्यों की ओर बढ़ने में मदद करते हैं।</value></data>
   <data name="ProgressShelf_Replay" xml:space="preserve"><value>शेल्फ फिर चलाएँ</value></data>
   <data name="ProgressShelf_ReplayName" xml:space="preserve"><value>क्षमता शेल्फ का प्रवेश फिर चलाएँ</value></data>
   <data name="ProgressShelf_Skip" xml:space="preserve"><value>प्रवेश छोड़ें</value></data>
   <data name="ProgressShelf_SkipName" xml:space="preserve"><value>सीधे पूरे क्षमता शेल्फ पर जाएँ</value></data>
   <data name="ProgressShelf_InstructionName" xml:space="preserve"><value>प्रगति निर्देश। {0}</value></data>
-  <data name="ProgressShelf_SelectPrompt" xml:space="preserve"><value>दिखाई स्थिति जाँचने के लिए काग़ज़ परिस्थिति चुनें।</value></data>
+  <data name="ProgressShelf_SelectPrompt" xml:space="preserve"><value>अपनी प्रगति देखने के लिए कोई स्थिति चुनें।</value></data>
   <data name="ProgressShelf_StatusName" xml:space="preserve"><value>चुनी क्षमता की स्थिति</value></data>
   <data name="ProgressShelf_SelectedSituation" xml:space="preserve"><value>चुनी परिस्थिति</value></data>
   <data name="ProgressShelf_StageName" xml:space="preserve"><value>{0}। {1} प्रदर्शित, {2} अभ्यास में और {3} शुरू नहीं।</value></data>
   <data name="ProgressShelf_BoardName" xml:space="preserve"><value>काग़ज़ क्षमता शेल्फ</value></data>
-  <data name="ProgressShelf_ObjectsName" xml:space="preserve"><value>स्थिति क्रम में दिखाई क्षमता वस्तुएँ</value></data>
+  <data name="ProgressShelf_ObjectsName" xml:space="preserve"><value>प्रगति के अनुसार स्थितियाँ</value></data>
   <data name="ProgressShelf_ReadyLabel" xml:space="preserve"><value>शेल्फ तैयार</value></data>
   <data name="ProgressShelf_EmptyName" xml:space="preserve"><value>खाली क्षमता शेल्फ। {0}</value></data>
   <data name="ProgressShelf_Inspect" xml:space="preserve"><value>परिस्थिति देखें</value></data>
   <data name="ProgressShelf_CapabilityName" xml:space="preserve"><value>{0}। {1} विवरण के लिए चुनें।</value></data>
   <data name="ProgressShelf_SelectedStatus" xml:space="preserve"><value>{0}। {1}</value></data>
   <data name="ProgressShelf_ObjectName" xml:space="preserve"><value>काग़ज़ परिस्थिति वस्तु। {0}। {1}।</value></data>
-  <data name="ProgressShelf_TextMode" xml:space="preserve"><value>केवल-पाठ प्रगति। हर परिस्थिति और दिखाई स्थिति पूरी है।</value></data>
-  <data name="ProgressShelf_PaperMode" xml:space="preserve"><value>काग़ज़ वस्तुएँ परिस्थिति और दिखाई प्रमाण स्थिति पहले रखती हैं।</value></data>
-  <data name="ProgressShelf_MethodName" xml:space="preserve"><value>स्थिति कैसे दिखाई जाती है। {0}</value></data>
+  <data name="ProgressShelf_TextMode" xml:space="preserve"><value>आपकी स्थितियाँ और प्रगति नीचे हैं।</value></data>
+  <data name="ProgressShelf_PaperMode" xml:space="preserve"><value>ज़्यादा जानकारी के लिए स्थिति चुनें।</value></data>
+  <data name="ProgressShelf_MethodName" xml:space="preserve"><value>प्रगति कैसे काम करती है। {0}</value></data>
   <data name="ProgressShelf_StatusDemonstrated" xml:space="preserve"><value>संभाल सकते हैं</value></data>
   <data name="ProgressShelf_StatusPracticing" xml:space="preserve"><value>अभ्यास में</value></data>
   <data name="ProgressShelf_StatusNotStarted" xml:space="preserve"><value>शुरू नहीं</value></data>
-  <data name="ProgressShelf_DescriptionDemonstrated" xml:space="preserve"><value>दिखाए कार्य प्रमाण से प्रदर्शित।</value></data>
-  <data name="ProgressShelf_DescriptionPracticing" xml:space="preserve"><value>दिखाए कार्य प्रमाण से अभ्यास में।</value></data>
+  <data name="ProgressShelf_DescriptionDemonstrated" xml:space="preserve"><value>आपने यह कार्य सफलतापूर्वक पूरा किया है।</value></data>
+  <data name="ProgressShelf_DescriptionPracticing" xml:space="preserve"><value>आप इस लक्ष्य की ओर बढ़ रहे हैं।</value></data>
   <data name="ProgressShelf_DescriptionNotStarted" xml:space="preserve"><value>शुरू नहीं। केवल सेटअप से क्षमता नहीं मानी जाती।</value></data>
-  <data name="ProgressShelf_OutcomeSuccess" xml:space="preserve"><value>दिखाए कार्य प्रमाण से प्रदर्शित परिस्थिति चुनी गई।</value></data>
+  <data name="ProgressShelf_OutcomeSuccess" xml:space="preserve"><value>आपने इस स्थिति को सफलतापूर्वक संभाला है।</value></data>
   <data name="ProgressShelf_OutcomeUncertain" xml:space="preserve"><value>अभ्यास परिस्थिति चुनी गई, या काग़ज़ परिस्थिति चुनें।</value></data>
-  <data name="ProgressShelf_OutcomeFailure" xml:space="preserve"><value>क्षमता स्थिति उपलब्ध नहीं। दिखाई शेल्फ पर लौटें।</value></data>
+  <data name="ProgressShelf_OutcomeFailure" xml:space="preserve"><value>प्रगति उपलब्ध नहीं है। दूसरी स्थिति चुनें।</value></data>
   <data name="ProgressShelf_OutcomeReady" xml:space="preserve"><value>शुरू न हुई परिस्थिति चुनी, या क्षमता शेल्फ तैयार है।</value></data>
   <data name="Today_OpenLearn" xml:space="preserve"><value>पाठों पर जाएँ</value></data>
   <data name="Today_Learn_Headline" xml:space="preserve"><value>कैफ़े के लिए बुनियादी अभ्यास करें</value></data>
   <data name="Today_Learn_Explanation" xml:space="preserve"><value>अभिवादन, पेय और विनम्र अनुरोधों का अभ्यास करने के लिए पाठों से शुरुआत करें।</value></data>
+  <data name="Learn_SearchPlaceholder" xml:space="preserve"><value>पाठ या विषय खोजें</value></data>
+  <data name="Learn_SearchClear" xml:space="preserve"><value>खोज हटाएँ</value></data>
+  <data name="Learn_SearchCount" xml:space="preserve"><value>{0} पाठ मिले</value></data>
+  <data name="Learn_SearchEmpty" xml:space="preserve"><value>कोई पाठ नहीं मिला। दूसरा शब्द खोजें या खोज हटाएँ।</value></data>
+  <data name="Speaking_Answer" xml:space="preserve"><value>आपका जवाब</value></data>
+  <data name="Speaking_Placeholder" xml:space="preserve"><value>जवाब टाइप करें, फिर Enter दबाएँ</value></data>
+  <data name="Speaking_Check" xml:space="preserve"><value>जवाब जाँचें</value></data>
+  <data name="Speaking_Microphone" xml:space="preserve"><value>माइक्रोफ़ोन इस्तेमाल करें</value></data>
+  <data name="Speaking_Start" xml:space="preserve"><value>बोलना शुरू करें</value></data>
+  <data name="Speaking_Cancel" xml:space="preserve"><value>रिकॉर्डिंग रद्द करें</value></data>
+  <data name="Speaking_KeepTyping" xml:space="preserve"><value>टाइप करते रहें</value></data>
+  <data name="Speaking_Consent" xml:space="preserve"><value>15 सेकंड तक बोलें। आपकी आवाज़ इसी डिवाइस पर संसाधित होती है।</value></data>
+  <data name="Speaking_Privacy" xml:space="preserve"><value>ऑडियो सहेजा नहीं जाता। आप कभी भी रद्द कर सकते हैं।</value></data>
+  <data name="Speaking_Limits" xml:space="preserve"><value>यह सुने गए शब्दों को जाँचता है, आपके लहजे या अलग-अलग ध्वनियों को नहीं।</value></data>
+  <data name="Speaking_Ready" xml:space="preserve"><value>जवाब टाइप करें या माइक्रोफ़ोन इस्तेमाल करें।</value></data>
+  <data name="Speaking_TextOnly" xml:space="preserve"><value>शब्दों की जाँच के लिए अपना जवाब टाइप करें।</value></data>
+  <data name="Speaking_Unavailable" xml:space="preserve"><value>माइक्रोफ़ोन उपलब्ध नहीं है। आप जवाब टाइप कर सकते हैं।</value></data>
+  <data name="Speaking_Off" xml:space="preserve"><value>सेटिंग्स में माइक्रोफ़ोन बंद है। आप जवाब टाइप कर सकते हैं।</value></data>
+  <data name="Speaking_Listening" xml:space="preserve"><value>सुन रहे हैं… अब बोलें।</value></data>
+  <data name="Speaking_Cancelled" xml:space="preserve"><value>रिकॉर्डिंग रद्द की गई। फिर कोशिश करें या जवाब टाइप करें।</value></data>
+  <data name="Speaking_Failed" xml:space="preserve"><value>आपका जवाब सुन नहीं पाए। फिर कोशिश करें या टाइप करें।</value></data>
+  <data name="Speaking_CheckedText" xml:space="preserve"><value>शब्द जाँचे गए। इसे बोलकर भी अभ्यास करें।</value></data>
+  <data name="Speaking_Empty" xml:space="preserve"><value>पहले जवाब टाइप करें।</value></data>
+  <data name="Speaking_Typed" xml:space="preserve"><value>आपका जवाब: {0}</value></data>
+  <data name="Speaking_TryPhrase" xml:space="preserve"><value>कोशिश करें: {0}</value></data>
+  <data name="Speaking_Heard" xml:space="preserve"><value>वाक्यांश: {0}
+सुना: {1}</value></data>
+  <data name="Speaking_Success" xml:space="preserve"><value>सही है। आगे बढ़ें!</value></data>
+  <data name="Speaking_Uncertain" xml:space="preserve"><value>पूरा जवाब देकर कोशिश करें।</value></data>
+  <data name="Speaking_Retry" xml:space="preserve"><value>अभी पूरी तरह सही नहीं। फिर सुनें और कोशिश करें।</value></data>
+  <data name="Listening_Ready" xml:space="preserve"><value>पहले सुनें या लिखा हुआ संकेत देखें।</value></data>
 </root>

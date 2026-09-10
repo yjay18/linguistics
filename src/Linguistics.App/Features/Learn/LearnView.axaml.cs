@@ -140,9 +140,6 @@ public partial class LearnView : UserControl
         CourseAvailabilityText.Text = course.PublicationState == CoursePublicationState.Preview
             ? AppStrings.Format("Learn_Availability_Preview", course.AuthoredLessonCount)
             : AppStrings.Format("Learn_Availability_Ready", course.AuthoredLessonCount);
-        CatalogProgress.Minimum = 0;
-        CatalogProgress.Maximum = course.TargetLessonCount;
-        CatalogProgress.Value = course.AuthoredLessonCount;
         AuthoredCountText.Text = course.AuthoredLessonCount.ToString();
         PlannedContentText.Text = course.RemainingLessonCount == 0
             ? AppStrings.Get("Learn_CapacityComplete")
@@ -150,7 +147,8 @@ public partial class LearnView : UserControl
                 "Learn_CapacityRemaining",
                 course.RemainingLessonCount,
                 course.TargetLessonCount);
-        UnitsList.ItemsSource = CreateJourney(course, _resumeLesson);
+        RefreshJourney();
+        PlannedPathCard.IsVisible = course.RemainingLessonCount > 0;
         PlannedPathText.Text = course.RemainingLessonCount == 0
             ? AppStrings.Get("Learn_Journey_Complete")
             : AppStrings.Format("Learn_Journey_Remaining", course.RemainingLessonCount);
@@ -192,6 +190,53 @@ public partial class LearnView : UserControl
                         AppStrings.Format("Learn_OpenLesson", number, Clean(lesson.Title)));
                 }).ToArray()))
             .ToArray();
+    }
+
+    internal static IReadOnlyList<CourseJourneyUnit> FilterJourney(
+        IReadOnlyList<CourseJourneyUnit> journey,
+        string? query)
+    {
+        var search = query?.Trim();
+        if (string.IsNullOrEmpty(search))
+        {
+            return journey;
+        }
+
+        return journey.Select(unit => unit with
+        {
+            Lessons = unit.Title.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                unit.Description.Contains(search, StringComparison.CurrentCultureIgnoreCase)
+                ? unit.Lessons
+                : unit.Lessons.Where(lesson =>
+                    lesson.Title.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                    lesson.NumberLabel.Contains(search, StringComparison.CurrentCultureIgnoreCase))
+                    .ToArray(),
+        }).Where(unit => unit.Lessons.Count > 0).ToArray();
+    }
+
+    private void RefreshJourney()
+    {
+        if (_course is null)
+        {
+            return;
+        }
+
+        var filtered = FilterJourney(CreateJourney(_course, _resumeLesson), LessonSearch.Text);
+        UnitsList.ItemsSource = filtered;
+        ClearSearchButton.IsVisible = !string.IsNullOrEmpty(LessonSearch.Text);
+        var count = filtered.Sum(unit => unit.Lessons.Count);
+        SearchStatusText.IsVisible = !string.IsNullOrWhiteSpace(LessonSearch.Text);
+        SearchStatusText.Text = count == 0
+            ? AppStrings.Get("Learn_SearchEmpty")
+            : AppStrings.Format("Learn_SearchCount", count);
+    }
+
+    private void OnLessonSearchChanged(object? sender, TextChangedEventArgs args) => RefreshJourney();
+
+    private void OnClearSearchClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
+    {
+        LessonSearch.Text = string.Empty;
+        LessonSearch.Focus();
     }
 
     private async void OnStartCourseClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -435,7 +480,7 @@ public partial class LearnView : UserControl
                 SessionStatusText.IsVisible = true;
                 if (_course is not null)
                 {
-                    UnitsList.ItemsSource = CreateJourney(_course, lesson);
+                    RefreshJourney();
                 }
             }
         }

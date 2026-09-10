@@ -118,3 +118,19 @@ Fresh isolated macOS profiles cover both themes, minimum-window English/Hindi la
 Hinglish preference display with English chrome, Settings navigation, and deterministic
 lesson responses with keyboard progression. Native Windows and direct screen-reader
 interaction remain separate verification requirements.
+
+Learner usability refinement on 2026-09-10 adds localized lesson search with clear
+and no-result states. Filtering preserves original lesson numbers, course ordering,
+and the resume target. The course no longer displays authoring capacity as a progress
+bar. Learner-facing navigation and feedback use plain language; publication review
+notices and deterministic progression boundaries remain intact. Speaking cards accept
+Enter for typed checks, provide a retry phrase, and expose cancellation during local
+capture. Typing is disabled during capture and restored on completion or cancellation;
+no cancelled answer is evaluated. Consent and audio non-retention remain mandatory.
+Developer gallery items are removed from the navigation collection outside explicit
+developer mode, so list virtualization cannot reveal hidden development routes.
+Validation: all 479 tests, locked restore, zero-warning Release build, formatter,
+publish, four notice checks, and twelve asset checks pass. Native macOS interaction
+covers topic search, no results, clear-to-450, typed Enter retry, microphone consent and
+cancellation, and installed learner navigation. The installed profile is byte-for-byte
+unchanged and resumes at card 7; Whisper model and executable paths are preserved.

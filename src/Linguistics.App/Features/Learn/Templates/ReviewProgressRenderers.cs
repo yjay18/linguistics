@@ -459,7 +459,7 @@ internal static class RecapScrapbookRenderer
         {
             Text = parameters.UseTextOnlyFallback
                 ? "Text-only recap is active. Every ordered lesson piece remains complete."
-                : "This text-led scrapbook keeps every lesson piece available without decorative imagery.",
+                : "Review the phrases from this lesson.",
             FontSize = 13,
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
@@ -469,7 +469,7 @@ internal static class RecapScrapbookRenderer
 
         var status = new TextBlock
         {
-            Text = "Scrapbook spread assembled in authored order.",
+            Text = "Your lesson at a glance.",
             FontSize = 13,
             TextWrapping = TextWrapping.Wrap,
             Classes = { "muted" },
@@ -528,7 +528,7 @@ internal static class RecapScrapbookRenderer
         {
             scene?.Skip();
             scene?.Dispose();
-            status.Text = "Scrapbook spread assembled in authored order.";
+            status.Text = "Your lesson at a glance.";
             TemplateRendering.ApplyOutcome(
                 outcomePanel,
                 outcomeText,
@@ -644,7 +644,7 @@ internal static class RecapScrapbookRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "Recap complete. The authored lesson pieces remain together.",
+        TemplateOutcomeState.Success => "Recap complete. You can revisit these phrases whenever you like.",
         TemplateOutcomeState.Uncertain => "Pause on any lesson piece that still needs attention.",
         TemplateOutcomeState.Failure => "Reopen the spread and review each lesson piece in order.",
         _ => "Ready: review the assembled lesson pieces.",
@@ -980,8 +980,8 @@ internal static class UnitCapstoneRenderer
 
     private static string OutcomeCopy(TemplateOutcomeState state) => state switch
     {
-        TemplateOutcomeState.Success => "Mission complete. Every authored activity is finished in order.",
-        TemplateOutcomeState.Uncertain => "Mission in progress. Continue with the next authored activity.",
+        TemplateOutcomeState.Success => "Mission complete. You finished every activity.",
+        TemplateOutcomeState.Uncertain => "Keep going with the next activity.",
         TemplateOutcomeState.Failure => "That activity is out of order. Return to the current mission card.",
         _ => "Ready: begin with the first mission activity.",
     };
