@@ -19,9 +19,9 @@ The command must exit successfully before a learner build can be proposed for re
 ### Automated assertions
 
 - [ ] Developer mode and requested developer page are unset for the gate process.
-- [ ] The live learner navigation collection contains exactly Today, Learn, Scenarios, Pronunciation, Review, Progress, Languages, and Settings.
-- [ ] Template gallery and Paper stage are absent from the live learner navigation collection, not merely styled invisible.
-- [ ] A requested developer page is ignored while developer mode is off.
+- [ ] The shell declares exactly the eight learner destinations plus the two reviewed developer destinations.
+- [ ] With developer mode off, the shell removes Template gallery and Paper stage from the navigation collection rather than merely styling them invisible.
+- [ ] Requested developer pages are conditional on developer mode.
 - [ ] Learner-facing resource values and UI labels contain none of the gate's builder vocabulary: `authored`, `authoring`, `deterministic check`, `fixture`, `template gallery`, `paper stage`, `sandbox`, or `developer mode`.
 - [ ] Every `ProgressBar` outside developer-only views appears in the reviewed inventory below; any new progress indicator fails the gate until its source is classified.
 - [ ] Every determinate learner progress indicator is fed by learner activity rather than content-authoring totals.
