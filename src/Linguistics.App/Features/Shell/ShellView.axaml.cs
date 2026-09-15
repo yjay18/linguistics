@@ -46,14 +46,8 @@ public partial class ShellView : UserControl
         InitializeComponent();
         NavigationList.SelectionChanged += OnNavigationChanged;
         AttachedToVisualTree += (_, _) => ApplyMotionPreference();
-        var developerMode = DeveloperModeEnabled();
-        TemplateGalleryNavItem.IsVisible = developerMode;
-        PaperStageNavItem.IsVisible = developerMode;
-        if (!developerMode)
-        {
-            NavigationList.Items.Remove(TemplateGalleryNavItem);
-            NavigationList.Items.Remove(PaperStageNavItem);
-        }
+        TemplateGalleryNavItem.IsVisible = DeveloperModeEnabled();
+        PaperStageNavItem.IsVisible = DeveloperModeEnabled();
         NavigationList.SelectedItem = RequestedDeveloperPage() switch
         {
             "TEMPLATES" or "TEMPLATEGALLERY" => TemplateGalleryNavItem,
